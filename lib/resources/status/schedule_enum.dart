@@ -1,0 +1,1 @@
+enum Schedule{upcoming,completed,canceled}
