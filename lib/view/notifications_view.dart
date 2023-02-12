@@ -39,7 +39,7 @@ class NotificationsView extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 10.h,
+              height: 25.h,
             ),
             Expanded(
               child: ListView.separated(
