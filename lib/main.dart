@@ -2,6 +2,7 @@ import 'package:digi_patient/view_model/anatomy/anatomy_model.dart';
 import 'package:digi_patient/view_model/app_locale_state/app_locale_view_model.dart';
 import 'package:digi_patient/view_model/communication%20view%20model/communication_view_model.dart';
 import 'package:digi_patient/view_model/home_view_model.dart';
+import 'package:digi_patient/view_model/my_doctor_view_model.dart';
 import 'package:digi_patient/view_model/signup_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -44,6 +45,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => HomeViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MyDoctorViewModel(),
         ),
       ],
       child: MyApp(),

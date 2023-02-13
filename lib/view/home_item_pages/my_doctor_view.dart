@@ -1,17 +1,20 @@
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/utils/utils.dart';
+import 'package:digi_patient/view_model/my_doctor_view_model.dart';
 import 'package:digi_patient/widgets/back_button.dart';
 import 'package:digi_patient/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
+import 'package:provider/provider.dart';
 
 class MyDoctorView extends StatelessWidget {
   const MyDoctorView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<MyDoctorViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         leadingWidth: leadingWidth.w,
@@ -123,7 +126,7 @@ class MyDoctorView extends StatelessWidget {
           Row(
             children: [
               Text("Category", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-              Spacer(),
+              const Spacer(),
               TextButton(onPressed: (){
                 debugPrint("view all");
               }, child: Text("View All", style: TextStyle(
@@ -135,30 +138,35 @@ class MyDoctorView extends StatelessWidget {
           // SizedBox(height: 300.h,)
           GridView.builder(
               shrinkWrap: true,
-              physics: null,
-              itemCount: 8,
+              // physics: null,
+              itemCount: provider.categoryItemsList.length,
               gridDelegate: FlutterzillaFixedGridView(
               crossAxisCount: 2,mainAxisSpacing: 10.w, crossAxisSpacing: 10.h,
                 height: 75.h,
 
           ), itemBuilder: (context, index){
-            return Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.r)
-              ),
-              child: Padding(
-                padding:  EdgeInsets.all(8.0.r),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      height: 35.h,
-                      width: 35.w,
-                      child: Image.asset(Assets.heart, fit: BoxFit.fill,),
-                    ),
-                    SizedBox(height: 5.h,),
-                    Text("CARDIOLOGY", textAlign: TextAlign.center, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),)
-                  ],
+            return InkWell(
+              onTap: (){
+                provider.categoryRouteTo(context, index);
+              },
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.r)
+                ),
+                child: Padding(
+                  padding:  EdgeInsets.all(8.0.r),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        height: 35.h,
+                        width: 35.w,
+                        child: Image.asset(provider.categoryItemsList[index].image, fit: BoxFit.fill,),
+                      ),
+                      SizedBox(height: 5.h,),
+                      Text(provider.categoryItemsList[index].title, textAlign: TextAlign.center, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),)
+                    ],
+                  ),
                 ),
               ),
             );
