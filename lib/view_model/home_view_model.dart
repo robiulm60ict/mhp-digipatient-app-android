@@ -1,5 +1,9 @@
+
+import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../routes/routes.gr.dart';
 
 class HomeViewModel with ChangeNotifier{
 
@@ -16,9 +20,9 @@ class HomeViewModel with ChangeNotifier{
   ];
 
 
-  homeItemsRouteTo(int index){
+  homeItemsRouteTo(BuildContext context, int index){
     if(index == 0){
-
+      context.router.push(const MyDoctorRoute());
     }else if(index == 1){
 
     }

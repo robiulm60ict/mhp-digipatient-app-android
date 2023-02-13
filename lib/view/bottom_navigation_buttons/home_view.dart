@@ -901,7 +901,9 @@ class _HomeViewState extends State<HomeView> {
             //       ),
             //     );
                 return InkWell(
-                  onTap: provider.homeItemsRouteTo(index),
+                  onTap: (){
+                    provider.homeItemsRouteTo(context, index);
+                  },
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [

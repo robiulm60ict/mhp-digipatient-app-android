@@ -12,6 +12,9 @@ class Assets{
   static const welcomeBackground = 'assets/images/welcome-background.png';
   static const macroHealthPlus = 'assets/images/macro-health-plus.png';
   static const myDoctor = 'assets/images/my-doctor.png';
+  static const myDoctorAppBar = 'assets/images/my-doctor-app_bar.png';
+  static const hospitalLogo = 'assets/images/hospital-logo.png';
+  static const heart = 'assets/images/heart.png';
 
 
   /// Icons
