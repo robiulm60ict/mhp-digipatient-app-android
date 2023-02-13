@@ -874,11 +874,11 @@ class _HomeViewState extends State<HomeView> {
           //   // crossAxisSpacing: 5.h,
           //   // mainAxisSpacing: 5.w,
           // ),
-              gridDelegate: const FlutterzillaFixedGridView(
+              gridDelegate:  FlutterzillaFixedGridView(
                   crossAxisCount: 3,
                   mainAxisSpacing: 5,
                   crossAxisSpacing: 10,
-                  height: 120
+                  height: 90.h
               ),
               itemCount: provider.homeItemsList.length,
               itemBuilder: (BuildContext context, index){

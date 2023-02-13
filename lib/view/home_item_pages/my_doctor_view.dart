@@ -145,7 +145,7 @@ class MyDoctorView extends StatelessWidget {
               itemCount: provider.categoryItemsList.length,
               gridDelegate: FlutterzillaFixedGridView(
               crossAxisCount: 2,mainAxisSpacing: 10.w, crossAxisSpacing: 10.h,
-                height: 75.h,
+                height: 80.h,
 
           ), itemBuilder: (context, index){
             return InkWell(
