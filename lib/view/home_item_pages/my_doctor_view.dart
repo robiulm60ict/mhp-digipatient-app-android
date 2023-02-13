@@ -1,5 +1,6 @@
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
+import 'package:digi_patient/utils/popup_dialogue.dart';
 import 'package:digi_patient/utils/utils.dart';
 import 'package:digi_patient/view_model/my_doctor_view_model.dart';
 import 'package:digi_patient/widgets/back_button.dart';
@@ -40,7 +41,9 @@ class MyDoctorView extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(2.0.r),
-                  child: IconButton(onPressed: (){}, icon: Icon(Icons.add_chart_sharp, color: AppColors.primaryColor,)),
+                  child: IconButton(onPressed: (){
+                    selectCategoryPopUp(context);
+                  }, icon: Icon(Icons.add_chart_sharp, color: AppColors.primaryColor,)),
                 ),
 
               ),

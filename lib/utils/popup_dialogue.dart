@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -178,6 +179,23 @@ notificationPopup(BuildContext context, {Color color = Colors.grey, required Str
   ),);
 }
 
+selectCategoryPopUp(BuildContext context,){
+  return popUpDialogue(context, Column(
+    children: [
+      ElevatedButton(onPressed: (){
+        context.router.pop();
+      }, child: Text("All", style: TextStyle(fontSize: 14.sp, color: Colors.white),)),
+      ElevatedButton(onPressed: (){
+        context.router.pop();
+
+      }, child: Text("Doctor", style: TextStyle(fontSize: 14.sp, color: Colors.white),)),
+      ElevatedButton(onPressed: (){
+        context.router.pop();
+
+      }, child: Text("Hospital", style: TextStyle(fontSize: 14.sp, color: Colors.white),)),
+    ],
+  ));
+}
 popUpDialogue(BuildContext context, Widget content, ){
   return Alert(
     context: context,
