@@ -10,4 +10,4 @@ class Utils {
 }
 
 const double defaultPadding = 25;
-const double leadingWidth = 60;
+const double leadingWidth = 70;

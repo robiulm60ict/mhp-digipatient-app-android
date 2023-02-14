@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:provider/provider.dart';
+import 'dart:io';
+
 
 class MyDoctorView extends StatelessWidget {
   const MyDoctorView({Key? key}) : super(key: key);
@@ -16,13 +18,18 @@ class MyDoctorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MyDoctorViewModel>(context);
+
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: leadingWidth.w,
+        leadingWidth: leadingWidth,
+        toolbarHeight: 100.h,
         backgroundColor: Colors.transparent,
         centerTitle: true,
         title: Text("My Doctor", style: TextStyle(fontSize: 18.sp, color: Colors.white),),
-        leading: const CustomBackButton(),
+        leading: Padding(
+          padding: Platform.isIOS ? EdgeInsets.only( bottom: 60) : EdgeInsets.symmetric(vertical: 30.0),
+          child: CustomBackButton(),
+        ),
         flexibleSpace: const Image(
           image: AssetImage(Assets.myDoctorAppBar),
           fit: BoxFit.fill,
