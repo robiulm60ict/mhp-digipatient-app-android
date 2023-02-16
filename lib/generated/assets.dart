@@ -15,6 +15,7 @@ class Assets{
   static const myDoctorAppBar = 'assets/images/my-doctor-app_bar.png';
   static const hospitalLogo = 'assets/images/hospital-logo.png';
   static const heart = 'assets/images/heart.png';
+  static const cardiology = 'assets/images/cardiology.png';
 
 
   /// Icons

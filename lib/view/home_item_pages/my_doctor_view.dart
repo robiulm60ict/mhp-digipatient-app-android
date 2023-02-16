@@ -28,7 +28,7 @@ class MyDoctorView extends StatelessWidget {
         title: Text("My Doctor", style: TextStyle(fontSize: 18.sp, color: Colors.white),),
         leading: Padding(
           padding: Platform.isIOS ? EdgeInsets.only( bottom: 60) : EdgeInsets.symmetric(vertical: 30.0),
-          child: CustomBackButton(),
+          child: const CustomBackButton(),
         ),
         flexibleSpace: const Image(
           image: AssetImage(Assets.myDoctorAppBar),
@@ -60,7 +60,7 @@ class MyDoctorView extends StatelessWidget {
           Row(
             children: [
               Text("Favourite List", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-            Spacer(),
+            const Spacer(),
               TextButton(onPressed: (){
                 debugPrint("view all");
               }, child: Text("View All", style: TextStyle(

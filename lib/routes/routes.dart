@@ -6,6 +6,7 @@ import 'package:digi_patient/view/bottom_navigation_buttons/basket_view.dart';
 import 'package:digi_patient/view/bottom_navigation_buttons/set_appointment_view.dart';
 import 'package:digi_patient/view/home_item_pages/my_doctor_view.dart';
 import 'package:digi_patient/view/home_item_pages/my_record_view.dart';
+import 'package:digi_patient/view/my_doctor_category_views/my_doctor_category_wise_view.dart';
 import 'package:digi_patient/view/notifications_view.dart';
 import 'package:digi_patient/view/onbording_view.dart';
 import 'package:digi_patient/view/pincode_verification_view.dart';
@@ -75,7 +76,10 @@ import '../view/splash_view.dart';
       path: '/my-record',
       page: MyRecordView,
     ),
-
+    AutoRoute(
+      path: '/my-doctor-category-wise',
+      page: MyDoctorCategoryWiseView,
+    ),
   ],
 )
 class $AppRouter {}

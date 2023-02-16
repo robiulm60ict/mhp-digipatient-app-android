@@ -76,7 +76,7 @@ dependencies:
   human_body_selector: ^0.0.1
   zoom_widget: ^2.0.0
   badges: ^3.0.2
-
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:

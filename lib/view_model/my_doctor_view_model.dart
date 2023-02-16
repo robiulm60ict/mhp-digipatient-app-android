@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
+import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:flutter/cupertino.dart';
 
 class MyDoctorViewModel with ChangeNotifier{
@@ -15,7 +17,7 @@ class MyDoctorViewModel with ChangeNotifier{
   ];
   categoryRouteTo(BuildContext context, int index){
     if(index == 0){
-      // context.router.push(const MyDoctorRoute());
+      context.router.push(MyDoctorCategoryWiseRoute(categoryName: "Cardiology"));
     }else if(index == 1){
 
     }
