@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/resources/colors.dart';
+import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/widgets/doctor_list_tile_our_doc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,7 +35,9 @@ class AllDoctorSearchView extends StatelessWidget {
 
                 itemCount: 7,
                 itemBuilder: (context, index){
-                  return const DoctorListTileOurDoc();
+                  return DoctorListTileOurDoc(onTap: (){
+                    context.router.push(DocDetailsRoute());
+                  },);
                 },
             separatorBuilder: (context, index)=> SizedBox(height: 6.h,),
             ),

@@ -16,6 +16,7 @@ import 'package:digi_patient/view/splash_view_2.dart';
 import '../view/bottom_navigation_buttons/favourites_view.dart';
 import '../view/bottom_navigation_buttons/home_view.dart';
 import '../view/dashboard.dart';
+import '../view/my_doctor_category_views/doc_details_view.dart';
 import '../view/splash_view.dart';
 
 @MaterialAutoRouter(
@@ -84,6 +85,10 @@ import '../view/splash_view.dart';
     AutoRoute(
       path: '/all-doctor-search',
       page: AllDoctorSearchView,
+    ),
+    AutoRoute(
+      path: '/doc-detail',
+      page: DocDetailsView,
     ),
   ],
 )

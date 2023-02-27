@@ -16,6 +16,7 @@ class Assets{
   static const hospitalLogo = 'assets/images/hospital-logo.png';
   static const heart = 'assets/images/heart.png';
   static const cardiology = 'assets/images/cardiology.png';
+  static const user = 'assets/images/user.png';
 
 
   /// Icons
