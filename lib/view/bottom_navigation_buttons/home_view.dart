@@ -736,7 +736,7 @@ class _HomeViewState extends State<HomeView> {
         //   print("Drawer");
         // }, child: Image.asset(Assets.drawer, height: 100, width: 100,),),
         drawer: Drawer(
-          // width: width ,
+          width: width ,
           shape: OutlineInputBorder(
             borderRadius: BorderRadius.only(bottomRight: Radius.circular(70.w)),
             borderSide: BorderSide.none,
@@ -943,7 +943,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   );
             }),
-            SizedBox(height: 30.h,),
+            SizedBox(height: 100.h,),
           ],
         ),
       ),

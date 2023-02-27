@@ -21,7 +21,7 @@ class MyDoctorCategoryWiseView extends StatelessWidget {
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(15.0.r),
         child: Column(
           children: [
             Container(
@@ -37,38 +37,46 @@ class MyDoctorCategoryWiseView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Image.asset(Assets.cardiology, height: 117.h, width: 134.w,),
-                    Text(categoryName, style: TextStyle(fontSize: 26.sp, color: Colors.white),)
+                    SizedBox(width: 12.w,),
+                    Expanded(child: Text(categoryName, textAlign: TextAlign.start, style: TextStyle(fontSize: 26.sp, color: Colors.white),))
                   ],
                 ),
               ),
             ),
             SizedBox(height: 25.h,),
             Expanded(child: GridView.builder(
+              itemCount: 10,
                 gridDelegate: FlutterzillaFixedGridView(
                     crossAxisCount: 2,
                   mainAxisSpacing: 12,
                   crossAxisSpacing: 16,
-                  height: 130.h
+                  height: 135.h
 
                 ), itemBuilder: (context, index)=> Stack(
               alignment: Alignment.center,
               children: [
-                Card(
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.r),
-                  ),
-                  margin: const EdgeInsets.only(top: 35),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.0.w),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 35.h, width: double.infinity,),
-                        Text("Dr. Asif Manwar", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464),),),
-                        Text("Consultant, Cardiology", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A),),),
-                        Text("Square Hospital", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp,  color: const Color(0xFF8A8A8A),),),
-                        CustomRating.ratingBar(onRatingUpdate: (val){}),
-                      ],
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 4.0),
+                  child: Card(
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    margin: const EdgeInsets.only(top: 35),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4.0.w),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 35.h, width: double.infinity,),
+                          Text("Dr. Asif Manwar", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464),),),
+                          const SizedBox(height: 4,),
+                          Text("Consultant, Cardiology", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A),),),
+                          const SizedBox(height: 4,),
+                          Text("Square Hospital", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp,  color: const Color(0xFF8A8A8A),),),
+                          const SizedBox(height: 4,),
+                          CustomRating.ratingBar(onRatingUpdate: (val){}),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -77,6 +85,7 @@ class MyDoctorCategoryWiseView extends StatelessWidget {
                     child: CircleAvatar(radius: 25.h,),),
               ],
             ),),),
+            // SizedBox(height: 50.h,),
           ],
         ),
       ),

@@ -16,11 +16,8 @@ class MyDoctorViewModel with ChangeNotifier{
     CategoryItemsModel(title: "UROLOGY", image: Assets.heart),
   ];
   categoryRouteTo(BuildContext context, int index){
-    if(index == 0){
-      context.router.push(MyDoctorCategoryWiseRoute(categoryName: "Cardiology"));
-    }else if(index == 1){
+    context.router.push(MyDoctorCategoryWiseRoute(categoryName: categoryItemsList[index].title));
 
-    }
   }
 }
 

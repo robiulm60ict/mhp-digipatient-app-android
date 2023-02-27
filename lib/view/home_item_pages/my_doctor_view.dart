@@ -1,15 +1,19 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/utils/popup_dialogue.dart';
 import 'package:digi_patient/utils/utils.dart';
 import 'package:digi_patient/view_model/my_doctor_view_model.dart';
 import 'package:digi_patient/widgets/back_button.dart';
+import 'package:digi_patient/widgets/doctor_list_tile.dart';
 import 'package:digi_patient/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
+
+import '../../routes/routes.gr.dart';
 
 
 class MyDoctorView extends StatelessWidget {
@@ -77,58 +81,7 @@ class MyDoctorView extends StatelessWidget {
                 itemBuilder: (context, index) {
               return SizedBox(
                 width: MediaQuery.of(context).size.width - 25,
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.r),
-
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0.r),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 22.h,
-                          backgroundColor: AppColors.primaryColor,
-                          child: CircleAvatar(
-                            radius: 20.h,
-                            child: Image.asset(Assets.avatar),
-                          ),
-                        ),
-                        SizedBox(width: 10.w,),
-                        Expanded(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Dr. Md. Sultan Sarwar Parvez",  maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
-                              SizedBox(height: 5.h,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Speciality:", textAlign: TextAlign.left, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: const Color(0xFF8A8A8A)),),
-                                  Text(" Cardiac Surgeon", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),)
-                                ],
-                              ),
-                              SizedBox(height: 5.h,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image.asset(
-                                      width: 62.w,
-                                      fit: BoxFit.fill,
-                                      Assets.hospitalLogo),
-                                  Text(" Cardiac Surgeon", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),)
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                child: const DoctorListTileFavourite(),
               );
             }),
           ),
@@ -139,6 +92,7 @@ class MyDoctorView extends StatelessWidget {
               const Spacer(),
               TextButton(onPressed: (){
                 debugPrint("view all");
+                context.router.push(const AllDoctorSearchRoute());
               }, child: Text("View All", style: TextStyle(
                   decoration: TextDecoration.underline,
                   fontSize: 12.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),))
