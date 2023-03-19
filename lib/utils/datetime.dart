@@ -8,12 +8,12 @@ class PickDateTime{
 
   DateTime currentDateTime = DateTime.now();
 
-  Future<DateTime?> pickDate(BuildContext context,) async {
+  Future<DateTime?> pickDate(BuildContext context,{required DateTime initialDate}) async {
     DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: initialDate,
       firstDate: DateTime(1996, 1, 1),
-      lastDate: DateTime(3033, 10, 1),
+      lastDate: DateTime(DateTime.now().year + 500, 10, 1),
     );
     return picked;
   }
@@ -23,9 +23,9 @@ class PickDateTime{
     return picked;
   }
 
- Future<List<DateAndTime>> pickDateAndTime(BuildContext context)async{
+ Future<List<DateAndTime>> pickDateAndTime(BuildContext context,{required DateTime initialDate})async{
     List<DateAndTime> dateAndTimeList = [];
-    DateTime? date = await pickDate(context);
+    DateTime? date = await pickDate(context, initialDate: initialDate);
     if(date != null){
       TimeOfDay? time = await pickTime(context);
       if(time != null){

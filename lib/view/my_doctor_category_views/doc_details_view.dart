@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
+import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/custom_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,13 +18,13 @@ class DocDetailsView extends StatefulWidget {
 }
 
 class _DocDetailsViewState extends State<DocDetailsView> {
-  ScrollController listViewController = ScrollController();
-
-  @override
-  void dispose() {
-    super.dispose();
-    listViewController.dispose();
-  }
+  // ScrollController listViewController = ScrollController();
+  //
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   // listViewController.dispose();
+  // }
 
   double rating = 3;
   @override
@@ -311,7 +313,11 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r))
                   ),
-                  onPressed: (){}, child: Text("Request For Appointment", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),),),),
+                  onPressed: (){
+
+                    context.router.push(const BookAppointmentRoute());
+
+                  }, child: Text("Request For Appointment", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),),),),
               ],
             ),
           ),

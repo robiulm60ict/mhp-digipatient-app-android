@@ -1,5 +1,6 @@
 import 'package:digi_patient/view_model/anatomy/anatomy_model.dart';
 import 'package:digi_patient/view_model/app_locale_state/app_locale_view_model.dart';
+import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
 import 'package:digi_patient/view_model/communication%20view%20model/communication_view_model.dart';
 import 'package:digi_patient/view_model/home_view_model.dart';
 import 'package:digi_patient/view_model/my_doctor_view_model.dart';
@@ -14,10 +15,6 @@ import '/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'app_locale/app_locale.dart';
-import 'l10n/l10.dart';
-
-/// habib
 
 final FlutterLocalization localization = FlutterLocalization.instance;
 
@@ -50,6 +47,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => MyDoctorViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AppointmentViewModel(),
         ),
       ],
       child: MyApp(),

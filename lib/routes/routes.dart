@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:digi_patient/view/appointment/book_appointment_view.dart';
 import 'package:digi_patient/view/authentications/create_account_view.dart';
 import 'package:digi_patient/view/authentications/sign_in_view.dart';
 import 'package:digi_patient/view/authentications/sign_up_view.dart';
@@ -10,6 +11,8 @@ import 'package:digi_patient/view/my_doctor_category_views/all_doctor_search_vie
 import 'package:digi_patient/view/my_doctor_category_views/my_doctor_category_wise_view.dart';
 import 'package:digi_patient/view/notifications_view.dart';
 import 'package:digi_patient/view/onbording_view.dart';
+import 'package:digi_patient/view/payment/invoice_view.dart';
+import 'package:digi_patient/view/payment/payment_method_view.dart';
 import 'package:digi_patient/view/pincode_verification_view.dart';
 import 'package:digi_patient/view/splash_view_2.dart';
 
@@ -89,6 +92,18 @@ import '../view/splash_view.dart';
     AutoRoute(
       path: '/doc-detail',
       page: DocDetailsView,
+    ),
+    AutoRoute(
+      path: '/book-appointment',
+      page: BookAppointmentView,
+    ),
+    AutoRoute(
+      path: '/payment-method',
+      page: PaymentMethodView,
+    ),
+    AutoRoute(
+      path: '/invoice',
+      page: InvoiceView,
     ),
   ],
 )
