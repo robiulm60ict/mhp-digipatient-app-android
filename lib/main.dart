@@ -17,6 +17,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app_locale/app_locale.dart';
 import 'l10n/l10.dart';
 
+/// habib
+
 final FlutterLocalization localization = FlutterLocalization.instance;
 
 void main() async {
