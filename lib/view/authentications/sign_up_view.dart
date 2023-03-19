@@ -66,7 +66,7 @@ class _SignUpViewState extends State<SignUpView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(Assets.googleIcon, height: 20.h,),
+                  Image.asset(Assets.iconsGoogle, height: 20.h,),
                   SizedBox(width: 5.w,),
                   Text("Continue with Google", style: TextStyle(fontSize: 12.sp, color: Colors.black, fontWeight: FontWeight.w500),),
                 ],
@@ -86,7 +86,7 @@ class _SignUpViewState extends State<SignUpView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(Assets.facebookIcon, height: 13.h,),
+                  Image.asset(Assets.iconsFacebook, height: 13.h,),
                   SizedBox(width: 5.w,),
                   Text("Continue with Facebook", style: TextStyle(fontSize: 12.sp, color: Colors.black, fontWeight: FontWeight.w500),),
                 ],

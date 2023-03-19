@@ -32,9 +32,6 @@ class _HomeViewState extends State<HomeView> {
       maintainBottomViewPadding: true,
       child: Scaffold(
         extendBody: true,
-        // drawer: InkWell(onTap: (){
-        //   print("Drawer");
-        // }, child: Image.asset(Assets.drawer, height: 100, width: 100,),),
         drawer: Drawer(
           width: width ,
           shape: OutlineInputBorder(
@@ -87,7 +84,7 @@ class _HomeViewState extends State<HomeView> {
             builder: (context) {
               return InkWell(onTap: (){
                 Scaffold.of(context).openDrawer();
-              }, child: Image.asset(Assets.drawer, height: 100, width: 100,),);
+              }, child: Image.asset(Assets.iconsDrawer, height: 100, width: 100,),);
             }
           ),
           actions: [
@@ -115,7 +112,7 @@ class _HomeViewState extends State<HomeView> {
               height: 153.h,
               width: double.infinity,
               decoration: const BoxDecoration(
-                image: DecorationImage(image: AssetImage(Assets.welcomeBackground))
+                image: DecorationImage(image: AssetImage(Assets.imagesWelcomeBackground))
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -136,7 +133,7 @@ class _HomeViewState extends State<HomeView> {
               height: 31.h,
               // width: double.infinity,
               decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage(Assets.macroHealthPlus))
+                  image: DecorationImage(image: AssetImage(Assets.imagesMacroHealthPlus))
               ),
             ),
             SizedBox(height: 15.h,),

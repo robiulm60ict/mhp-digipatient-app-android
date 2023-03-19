@@ -28,7 +28,7 @@ class GradientAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(height: 74.h, width: 136.w, Assets.logo),
+          Image.asset(height: 74.h, width: 136.w, Assets.imagesLogo),
           SizedBox(height: defaultPadding.h,),
           Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 26.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor ),),
 

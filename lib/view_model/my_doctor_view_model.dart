@@ -6,14 +6,14 @@ import 'package:flutter/cupertino.dart';
 class MyDoctorViewModel with ChangeNotifier{
 
   List<CategoryItemsModel> categoryItemsList = [
-    CategoryItemsModel(title: "CARDIOLOGY", image: Assets.heart),
-    CategoryItemsModel(title: "NEUROLOGY", image: Assets.heart),
-    CategoryItemsModel(title: "DENTISTRY", image: Assets.heart),
-    CategoryItemsModel(title: "ORTHOPEDICS", image: Assets.heart),
-    CategoryItemsModel(title: "OPHTHALMOLOGY", image: Assets.heart),
-    CategoryItemsModel(title: "PULMONOLOGIST", image: Assets.heart),
-    CategoryItemsModel(title: "GASTROENTEROLOGY", image: Assets.heart),
-    CategoryItemsModel(title: "UROLOGY", image: Assets.heart),
+    CategoryItemsModel(title: "CARDIOLOGY", image: Assets.imagesHeart),
+    CategoryItemsModel(title: "NEUROLOGY", image: Assets.imagesHeart),
+    CategoryItemsModel(title: "DENTISTRY", image: Assets.imagesHeart),
+    CategoryItemsModel(title: "ORTHOPEDICS", image: Assets.imagesHeart),
+    CategoryItemsModel(title: "OPHTHALMOLOGY", image: Assets.imagesHeart),
+    CategoryItemsModel(title: "PULMONOLOGIST", image: Assets.imagesHeart),
+    CategoryItemsModel(title: "GASTROENTEROLOGY", image: Assets.imagesHeart),
+    CategoryItemsModel(title: "UROLOGY", image: Assets.imagesHeart),
   ];
   categoryRouteTo(BuildContext context, int index){
     context.router.push(MyDoctorCategoryWiseRoute(categoryName: categoryItemsList[index].title));

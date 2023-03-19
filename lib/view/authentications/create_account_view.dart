@@ -94,7 +94,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
             const SizedBox(
               width: double.infinity,
             ),
-            Image.asset(Assets.logoGreen, height: 74.h, width: 126.w,),
+            Image.asset(Assets.imagesLogoGreen, height: 74.h, width: 126.w,),
             Text(
               "Create Account",
               textAlign: TextAlign.center,
@@ -165,7 +165,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                     CircleAvatar(
                       radius: 35.h,
                       backgroundImage: xFileList.isEmpty
-                          ?  const AssetImage(Assets.avatar)
+                          ?  const AssetImage(Assets.imagesAvatar)
                           : null,
                       child: xFileList.isNotEmpty
                           ? Container(

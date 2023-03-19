@@ -86,7 +86,7 @@ class _SplashViewState extends State<SplashView> {
                 curve: Curves.bounceInOut,
                 tween: Tween<double>(begin: 70, end: 300), duration: const Duration(seconds: 4),
                 builder: (BuildContext context, double value, Widget? child){
-              return Image.asset(Assets.logoWhite, height: value, width: value,);
+              return Image.asset(Assets.imagesLogoWhite, height: value, width: value,);
 
                 }),
             // SlideTransition(

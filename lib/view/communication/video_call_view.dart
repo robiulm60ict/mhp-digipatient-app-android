@@ -164,7 +164,7 @@ class _VideoCallViewState extends State<VideoCallView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
 
-                Image.asset(Assets.avatar, fit: BoxFit.fill, height: 100.h, width: 100.w,),
+                Image.asset(Assets.imagesAvatar, fit: BoxFit.fill, height: 100.h, width: 100.w,),
                 Text("Thank you for using us.\nMacro Health Plus,\nTurn on video", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700, ),),
                 // ElevatedButton(onPressed: (){}, child: Text("Go Back")),
                 // CircleAvatar(

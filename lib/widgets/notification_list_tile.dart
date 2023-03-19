@@ -20,7 +20,7 @@ class NotificationListTile extends StatelessWidget {
         onTap: onTap,
         leading: const CircleAvatar(
           backgroundImage: AssetImage(
-            Assets.avatar,
+            Assets.imagesAvatar,
           ),
         ),
         title: RichText(

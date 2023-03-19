@@ -59,7 +59,7 @@ notificationPopup(BuildContext context, {Color color = Colors.grey, required Str
             ),
             child: CircleAvatar(
               radius: 25.h,
-              backgroundImage:  const AssetImage(Assets.avatar,),
+              backgroundImage:  const AssetImage(Assets.imagesAvatar,),
             ),
           ),
         ],

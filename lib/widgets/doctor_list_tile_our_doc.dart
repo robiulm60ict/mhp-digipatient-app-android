@@ -24,7 +24,7 @@ class DoctorListTileOurDoc extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 30.h,
-                child: Image.asset(Assets.avatar),
+                child: Image.asset(Assets.imagesAvatar),
               ),
               SizedBox(width: 10.w,),
               Expanded(
@@ -52,7 +52,7 @@ class DoctorListTileOurDoc extends StatelessWidget {
                         Image.asset(
                             width: 62.w,
                             fit: BoxFit.fill,
-                            Assets.hospitalLogo),
+                            Assets.imagesHospitalLogo),
                         CustomRating.ratingBar(onRatingUpdate: (r){}),
                       ],
                     ),

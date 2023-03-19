@@ -41,7 +41,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 horizontal: 45.0,
                 vertical: 90.0,
               ),
-              child: Image.asset(Assets.ob1,
+              child: Image.asset(Assets.imagesOb1,
                   ),
             ),
              Padding(
@@ -83,7 +83,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 horizontal: 45.0,
                 vertical: 90.0,
               ),
-              child: Image.asset(Assets.ob2,
+              child: Image.asset(Assets.imagesOb2,
                   ),
             ),
              Padding(
@@ -124,7 +124,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 horizontal: 45.0.w,
                 vertical: 90.0.h,
               ),
-              child: Image.asset(Assets.ob3,
+              child: Image.asset(Assets.imagesOb3,
                   ),
             ),
             Padding(

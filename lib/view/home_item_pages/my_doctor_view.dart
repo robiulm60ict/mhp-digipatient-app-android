@@ -35,7 +35,7 @@ class MyDoctorView extends StatelessWidget {
           child: const CustomBackButton(),
         ),
         flexibleSpace: const Image(
-          image: AssetImage(Assets.myDoctorAppBar),
+          image: AssetImage(Assets.imagesMyDoctorAppBar),
           fit: BoxFit.fill,
         ),
       ),

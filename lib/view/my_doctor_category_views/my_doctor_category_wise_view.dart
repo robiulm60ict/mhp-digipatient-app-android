@@ -36,7 +36,7 @@ class MyDoctorCategoryWiseView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset(Assets.cardiology, height: 117.h, width: 134.w,),
+                    Image.asset(Assets.imagesCardiology, height: 117.h, width: 134.w,),
                     SizedBox(width: 12.w,),
                     Expanded(child: Text(categoryName, textAlign: TextAlign.start, style: TextStyle(fontSize: 26.sp, color: Colors.white),))
                   ],

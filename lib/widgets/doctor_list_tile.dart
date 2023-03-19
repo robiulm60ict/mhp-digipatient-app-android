@@ -24,7 +24,7 @@ class DoctorListTileFavourite extends StatelessWidget {
               backgroundColor: AppColors.primaryColor,
               child: CircleAvatar(
                 radius: 20.h,
-                child: Image.asset(Assets.avatar),
+                child: Image.asset(Assets.imagesAvatar),
               ),
             ),
             SizedBox(width: 10.w,),
@@ -51,7 +51,7 @@ class DoctorListTileFavourite extends StatelessWidget {
                       Image.asset(
                           width: 62.w,
                           fit: BoxFit.fill,
-                          Assets.hospitalLogo),
+                          Assets.imagesHospitalLogo),
                       Text(" Cardiac Surgeon", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),)
                     ],
                   ),

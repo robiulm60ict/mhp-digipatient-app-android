@@ -8,15 +8,15 @@ import '../routes/routes.gr.dart';
 class HomeViewModel with ChangeNotifier{
 
   List<HomeItemsModel> homeItemsList = [
-    HomeItemsModel(title: "My Doctor", image: Assets.myDoctor),
-    HomeItemsModel(title: "My Record", image: Assets.myDoctor),
-    HomeItemsModel(title: "My Lab", image: Assets.myDoctor),
-    HomeItemsModel(title: "My Medicine", image: Assets.myDoctor),
-    HomeItemsModel(title: "My Family", image: Assets.myDoctor),
-    HomeItemsModel(title: "Appointments", image: Assets.myDoctor),
-    HomeItemsModel(title: "Resources", image: Assets.myDoctor),
-    HomeItemsModel(title: "Payments", image: Assets.myDoctor),
-    HomeItemsModel(title: "Services", image: Assets.myDoctor),
+    HomeItemsModel(title: "My Doctor", image: Assets.imagesMyDoctor),
+    HomeItemsModel(title: "My Record", image:Assets.imagesMyDoctor),
+    HomeItemsModel(title: "My Lab", image: Assets.imagesMyDoctor),
+    HomeItemsModel(title: "My Medicine", image: Assets.imagesMyDoctor),
+    HomeItemsModel(title: "My Family", image: Assets.imagesMyDoctor),
+    HomeItemsModel(title: "Appointments", image: Assets.imagesMyDoctor),
+    HomeItemsModel(title: "Resources", image: Assets.imagesMyDoctor),
+    HomeItemsModel(title: "Payments", image: Assets.imagesMyDoctor),
+    HomeItemsModel(title: "Services", image: Assets.imagesMyDoctor),
   ];
 
 

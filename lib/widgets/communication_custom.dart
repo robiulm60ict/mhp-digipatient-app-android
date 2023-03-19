@@ -18,7 +18,7 @@ class CommunicationCustom extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.r)),
           child: ListTile(
             leading: const CircleAvatar(
-              backgroundImage: AssetImage(Assets.avatar),
+              backgroundImage: AssetImage(Assets.imagesAvatar),
             ),
             title: Text(
               userName,

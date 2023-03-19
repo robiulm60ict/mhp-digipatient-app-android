@@ -91,7 +91,7 @@ class _ChatViewState extends State<ChatView> {
           SizedBox(width: kPadding.w,),
           const CircleAvatar(
             backgroundImage: AssetImage(
-              Assets.avatar,
+              Assets.imagesAvatar,
             ),
           ),
           SizedBox(
@@ -139,7 +139,7 @@ class _ChatViewState extends State<ChatView> {
                     return ListTile(
                       key: index == messageList.length - 1 ? lastKey : null,
                       contentPadding: EdgeInsets.symmetric(vertical: 5.h),
-                      leading: !isCurrentUser ? const CircleAvatar(backgroundImage: AssetImage(Assets.avatar),) : null,
+                      leading: !isCurrentUser ? const CircleAvatar(backgroundImage: AssetImage(Assets.imagesAvatar),) : null,
                       title: Text(messageList[index].msg, textAlign: messageList[index].isCurrentUser ? TextAlign.right : TextAlign.left,
                           style: TextStyle(
                               fontSize: 16.sp,
