@@ -41,6 +41,17 @@ class AppointmentViewModel with ChangeNotifier{
   }
 
 
+  selectButton(int index){
+    for(var i = 0;  i< weekDayList.length; i++){
+      if(i == index){
+        weekDayList[index].isSelected = true;
+      }else{
+        weekDayList[i].isSelected = false;
+      }
+    }
+    notifyListeners();
+  }
+
 }
 
 DateTime getDate(DateTime d) => DateTime(d.year, d.month, d.day);

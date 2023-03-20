@@ -7,8 +7,19 @@ import 'package:provider/provider.dart';
 import '../../utils/utils.dart';
 import '../../widgets/back_button.dart';
 
-class BookAppointmentView extends StatelessWidget {
+class BookAppointmentView extends StatefulWidget {
   const BookAppointmentView({Key? key}) : super(key: key);
+
+  @override
+  State<BookAppointmentView> createState() => _BookAppointmentViewState();
+}
+
+class _BookAppointmentViewState extends State<BookAppointmentView> {
+  @override
+  void initState() {
+    super.initState();
+    // context.read<AppointmentViewModel>().setAppointmentDate(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +34,48 @@ class BookAppointmentView extends StatelessWidget {
         leading: const CustomBackButton(),
       ),
       body: ListView(
+padding: EdgeInsets.all(20.r),
         children: [
           TextButton(onPressed: ()async{
 
             await appointmentViewModel.setAppointmentDate(context);
 
-          }, child: Text(appointmentViewModel.monthName, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xFF646464)),))
+          }, child: Text(appointmentViewModel.monthName, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xFF646464)),)),
+          const SizedBox(height: 10,),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: List.generate(
+                appointmentViewModel.weekDayList.length,
+                    (index) {
+              WeekDayModel avm = appointmentViewModel.weekDayList[index];
+              return Expanded(
+                child: InkWell(
+                onTap: (){
+                  appointmentViewModel.selectButton(index);
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6.r)
+                  ),
+                  color: avm.isSelected ? AppColors.primaryColor : Colors.white,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 6.0.h),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(avm.weekName, style: TextStyle(fontSize: 12.sp, color: avm.isSelected ? Colors.white : const Color(0xFF646464)),),
+                        Text(avm.day.toString(), style: TextStyle(fontSize: 12.sp, color: avm.isSelected ? Colors.white : const Color(0xFF646464)),),
+                      ],
+                    ),
+                  ),
+                ),
+            ),
+              );
+            }
+            )
+          ),
         ],
       ),
     );
