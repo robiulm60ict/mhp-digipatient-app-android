@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:digi_patient/view/anatomy/anatomy_view.dart';
 import 'package:digi_patient/view/appointment/book_appointment_view.dart';
 import 'package:digi_patient/view/authentications/create_account_view.dart';
 import 'package:digi_patient/view/authentications/sign_in_view.dart';
@@ -104,6 +105,10 @@ import '../view/splash_view.dart';
     AutoRoute(
       path: '/invoice',
       page: InvoiceView,
+    ),
+    AutoRoute(
+      path: '/anatomy',
+      page: AnatomyView,
     ),
   ],
 )

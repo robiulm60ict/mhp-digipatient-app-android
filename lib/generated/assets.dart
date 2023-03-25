@@ -12,6 +12,7 @@ class Assets {
   static const String imagesAvatar = 'assets/images/avatar.png';
   static const String imagesBackground = 'assets/images/background.png';
   static const String imagesCardiology = 'assets/images/cardiology.png';
+  static const String imagesChamber = 'assets/images/chamber.png';
   static const String imagesDayActive = 'assets/images/day_active.png';
   static const String imagesDayInActive = 'assets/images/day_in_active.png';
   static const String imagesHeart = 'assets/images/heart.png';
@@ -20,6 +21,7 @@ class Assets {
   static const String imagesLogoGreen = 'assets/images/logo-green.png';
   static const String imagesLogoWhite = 'assets/images/logo-white.png';
   static const String imagesMacroHealthPlus = 'assets/images/macro-health-plus.png';
+  static const String imagesMobile = 'assets/images/mobile.png';
   static const String imagesMyDoctor = 'assets/images/my-doctor.png';
   static const String imagesMyDoctorAppBar = 'assets/images/my-doctor-app_bar.png';
   static const String imagesNightActive = 'assets/images/night_active.png';

@@ -1,5 +1,6 @@
 
 import 'package:auto_route/auto_route.dart';
+import 'package:digi_patient/resources/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
@@ -10,17 +11,19 @@ import 'package:zoom_widget/zoom_widget.dart';
 
 import '../../resources/constants.dart';
 import '../../utils/message.dart';
+import '../../utils/utils.dart';
 import '../../view_model/anatomy/anatomy_model.dart';
+import '../../widgets/back_button.dart';
 
 
-class AnatomyView2 extends StatefulWidget {
-  const AnatomyView2({Key? key}) : super(key: key);
+class AnatomyView extends StatefulWidget {
+  const AnatomyView({Key? key}) : super(key: key);
 
   @override
-  State<AnatomyView2> createState() => _AnatomyView2State();
+  State<AnatomyView> createState() => _AnatomyViewState();
 }
 
-class _AnatomyView2State extends State<AnatomyView2> {
+class _AnatomyViewState extends State<AnatomyView> {
   String _selectedValue = maleFront;
   bool isFlushBarShowing = false;
   final GlobalKey flushBarKey = GlobalKey();
@@ -137,10 +140,14 @@ class _AnatomyView2State extends State<AnatomyView2> {
     debugPrint("Width: $width}");
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: leadingWidth,
+        leading: const CustomBackButton(),
+        title: Text("Select Diseases", style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
+
         actions: [
           DropdownButton(
             value: _selectedValue,
-            items:  [
+            items:  const [
               DropdownMenuItem(
                 value: maleFront,
                 child: Text(

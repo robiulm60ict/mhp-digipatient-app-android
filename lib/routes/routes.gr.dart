@@ -11,17 +11,18 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i22;
-import 'package:flutter/material.dart' as _i23;
+import 'package:auto_route/auto_route.dart' as _i23;
+import 'package:flutter/material.dart' as _i24;
 
+import '../view/anatomy/anatomy_view.dart' as _i18;
 import '../view/appointment/book_appointment_view.dart' as _i15;
 import '../view/authentications/create_account_view.dart' as _i7;
 import '../view/authentications/sign_in_view.dart' as _i3;
 import '../view/authentications/sign_up_view.dart' as _i4;
-import '../view/bottom_navigation_buttons/basket_view.dart' as _i21;
-import '../view/bottom_navigation_buttons/favourites_view.dart' as _i20;
-import '../view/bottom_navigation_buttons/home_view.dart' as _i18;
-import '../view/bottom_navigation_buttons/set_appointment_view.dart' as _i19;
+import '../view/bottom_navigation_buttons/basket_view.dart' as _i22;
+import '../view/bottom_navigation_buttons/favourites_view.dart' as _i21;
+import '../view/bottom_navigation_buttons/home_view.dart' as _i19;
+import '../view/bottom_navigation_buttons/set_appointment_view.dart' as _i20;
 import '../view/dashboard.dart' as _i8;
 import '../view/home_item_pages/my_doctor_view.dart' as _i10;
 import '../view/home_item_pages/my_record_view.dart' as _i11;
@@ -37,38 +38,38 @@ import '../view/pincode_verification_view.dart' as _i6;
 import '../view/splash_view.dart' as _i1;
 import '../view/splash_view_2.dart' as _i2;
 
-class AppRouter extends _i22.RootStackRouter {
-  AppRouter([_i23.GlobalKey<_i23.NavigatorState>? navigatorKey])
+class AppRouter extends _i23.RootStackRouter {
+  AppRouter([_i24.GlobalKey<_i24.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i22.PageFactory> pagesMap = {
+  final Map<String, _i23.PageFactory> pagesMap = {
     SplashRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.SplashView(),
       );
     },
     Splash2Route.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.Splash2View(),
       );
     },
     SignInRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i3.SignInView(),
       );
     },
     SignUpRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i4.SignUpView(),
       );
     },
     OnBoardingRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i5.OnBoardingView(),
       );
@@ -76,7 +77,7 @@ class AppRouter extends _i22.RootStackRouter {
     PinCodeVerificationRoute.name: (routeData) {
       final args = routeData.argsAs<PinCodeVerificationRouteArgs>(
           orElse: () => const PinCodeVerificationRouteArgs());
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i6.PinCodeVerificationView(
           key: args.key,
@@ -85,38 +86,38 @@ class AppRouter extends _i22.RootStackRouter {
       );
     },
     CreateAccountRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i7.CreateAccountView(),
       );
     },
     DashboardRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i8.DashboardView(),
       );
     },
     NotificationsRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i9.NotificationsView(),
       );
     },
     MyDoctorRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i10.MyDoctorView(),
       );
     },
     MyRecordRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i11.MyRecordView(),
       );
     },
     MyDoctorCategoryWiseRoute.name: (routeData) {
       final args = routeData.argsAs<MyDoctorCategoryWiseRouteArgs>();
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i12.MyDoctorCategoryWiseView(
           key: args.key,
@@ -125,172 +126,182 @@ class AppRouter extends _i22.RootStackRouter {
       );
     },
     AllDoctorSearchRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i13.AllDoctorSearchView(),
       );
     },
     DocDetailsRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i14.DocDetailsView(),
       );
     },
     BookAppointmentRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i15.BookAppointmentView(),
       );
     },
     PaymentMethodRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i16.PaymentMethodView(),
       );
     },
     InvoiceRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i17.InvoiceView(),
       );
     },
-    HomeRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+    AnatomyRoute.name: (routeData) {
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i18.HomeView(),
+        child: const _i18.AnatomyView(),
+      );
+    },
+    HomeRoute.name: (routeData) {
+      return _i23.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i19.HomeView(),
       );
     },
     SetAppointmentRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i19.SetAppointmentView(),
+        child: const _i20.SetAppointmentView(),
       );
     },
     FavouritesRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i20.FavouritesView(),
+        child: const _i21.FavouritesView(),
       );
     },
     BasketRoute.name: (routeData) {
-      return _i22.MaterialPageX<dynamic>(
+      return _i23.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i21.BasketView(),
+        child: const _i22.BasketView(),
       );
     },
   };
 
   @override
-  List<_i22.RouteConfig> get routes => [
-        _i22.RouteConfig(
+  List<_i23.RouteConfig> get routes => [
+        _i23.RouteConfig(
           '/#redirect',
           path: '/',
           redirectTo: '/splash',
           fullMatch: true,
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           SplashRoute.name,
           path: '/splash',
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           Splash2Route.name,
           path: '/splash',
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           SignInRoute.name,
           path: '/sign-in',
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           SignUpRoute.name,
           path: '/signup',
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           OnBoardingRoute.name,
           path: '/onBoarding',
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           PinCodeVerificationRoute.name,
           path: '/pinCode',
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           CreateAccountRoute.name,
           path: '/create-account',
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           DashboardRoute.name,
           path: '/dashboard',
           children: [
-            _i22.RouteConfig(
+            _i23.RouteConfig(
               '#redirect',
               path: '',
               parent: DashboardRoute.name,
               redirectTo: 'home',
               fullMatch: true,
             ),
-            _i22.RouteConfig(
+            _i23.RouteConfig(
               HomeRoute.name,
               path: 'home',
               parent: DashboardRoute.name,
             ),
-            _i22.RouteConfig(
+            _i23.RouteConfig(
               SetAppointmentRoute.name,
               path: 'set-appointments',
               parent: DashboardRoute.name,
             ),
-            _i22.RouteConfig(
+            _i23.RouteConfig(
               FavouritesRoute.name,
               path: 'favourites',
               parent: DashboardRoute.name,
             ),
-            _i22.RouteConfig(
+            _i23.RouteConfig(
               BasketRoute.name,
               path: 'basket',
               parent: DashboardRoute.name,
             ),
           ],
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           NotificationsRoute.name,
           path: '/notification',
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           MyDoctorRoute.name,
           path: '/my-doctor',
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           MyRecordRoute.name,
           path: '/my-record',
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           MyDoctorCategoryWiseRoute.name,
           path: '/my-doctor-category-wise',
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           AllDoctorSearchRoute.name,
           path: '/all-doctor-search',
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           DocDetailsRoute.name,
           path: '/doc-detail',
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           BookAppointmentRoute.name,
           path: '/book-appointment',
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           PaymentMethodRoute.name,
           path: '/payment-method',
         ),
-        _i22.RouteConfig(
+        _i23.RouteConfig(
           InvoiceRoute.name,
           path: '/invoice',
+        ),
+        _i23.RouteConfig(
+          AnatomyRoute.name,
+          path: '/anatomy',
         ),
       ];
 }
 
 /// generated route for
 /// [_i1.SplashView]
-class SplashRoute extends _i22.PageRouteInfo<void> {
+class SplashRoute extends _i23.PageRouteInfo<void> {
   const SplashRoute()
       : super(
           SplashRoute.name,
@@ -302,7 +313,7 @@ class SplashRoute extends _i22.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.Splash2View]
-class Splash2Route extends _i22.PageRouteInfo<void> {
+class Splash2Route extends _i23.PageRouteInfo<void> {
   const Splash2Route()
       : super(
           Splash2Route.name,
@@ -314,7 +325,7 @@ class Splash2Route extends _i22.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.SignInView]
-class SignInRoute extends _i22.PageRouteInfo<void> {
+class SignInRoute extends _i23.PageRouteInfo<void> {
   const SignInRoute()
       : super(
           SignInRoute.name,
@@ -326,7 +337,7 @@ class SignInRoute extends _i22.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.SignUpView]
-class SignUpRoute extends _i22.PageRouteInfo<void> {
+class SignUpRoute extends _i23.PageRouteInfo<void> {
   const SignUpRoute()
       : super(
           SignUpRoute.name,
@@ -338,7 +349,7 @@ class SignUpRoute extends _i22.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.OnBoardingView]
-class OnBoardingRoute extends _i22.PageRouteInfo<void> {
+class OnBoardingRoute extends _i23.PageRouteInfo<void> {
   const OnBoardingRoute()
       : super(
           OnBoardingRoute.name,
@@ -351,9 +362,9 @@ class OnBoardingRoute extends _i22.PageRouteInfo<void> {
 /// generated route for
 /// [_i6.PinCodeVerificationView]
 class PinCodeVerificationRoute
-    extends _i22.PageRouteInfo<PinCodeVerificationRouteArgs> {
+    extends _i23.PageRouteInfo<PinCodeVerificationRouteArgs> {
   PinCodeVerificationRoute({
-    _i23.Key? key,
+    _i24.Key? key,
     String? phoneNumber,
   }) : super(
           PinCodeVerificationRoute.name,
@@ -373,7 +384,7 @@ class PinCodeVerificationRouteArgs {
     this.phoneNumber,
   });
 
-  final _i23.Key? key;
+  final _i24.Key? key;
 
   final String? phoneNumber;
 
@@ -385,7 +396,7 @@ class PinCodeVerificationRouteArgs {
 
 /// generated route for
 /// [_i7.CreateAccountView]
-class CreateAccountRoute extends _i22.PageRouteInfo<void> {
+class CreateAccountRoute extends _i23.PageRouteInfo<void> {
   const CreateAccountRoute()
       : super(
           CreateAccountRoute.name,
@@ -397,8 +408,8 @@ class CreateAccountRoute extends _i22.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.DashboardView]
-class DashboardRoute extends _i22.PageRouteInfo<void> {
-  const DashboardRoute({List<_i22.PageRouteInfo>? children})
+class DashboardRoute extends _i23.PageRouteInfo<void> {
+  const DashboardRoute({List<_i23.PageRouteInfo>? children})
       : super(
           DashboardRoute.name,
           path: '/dashboard',
@@ -410,7 +421,7 @@ class DashboardRoute extends _i22.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.NotificationsView]
-class NotificationsRoute extends _i22.PageRouteInfo<void> {
+class NotificationsRoute extends _i23.PageRouteInfo<void> {
   const NotificationsRoute()
       : super(
           NotificationsRoute.name,
@@ -422,7 +433,7 @@ class NotificationsRoute extends _i22.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.MyDoctorView]
-class MyDoctorRoute extends _i22.PageRouteInfo<void> {
+class MyDoctorRoute extends _i23.PageRouteInfo<void> {
   const MyDoctorRoute()
       : super(
           MyDoctorRoute.name,
@@ -434,7 +445,7 @@ class MyDoctorRoute extends _i22.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i11.MyRecordView]
-class MyRecordRoute extends _i22.PageRouteInfo<void> {
+class MyRecordRoute extends _i23.PageRouteInfo<void> {
   const MyRecordRoute()
       : super(
           MyRecordRoute.name,
@@ -447,9 +458,9 @@ class MyRecordRoute extends _i22.PageRouteInfo<void> {
 /// generated route for
 /// [_i12.MyDoctorCategoryWiseView]
 class MyDoctorCategoryWiseRoute
-    extends _i22.PageRouteInfo<MyDoctorCategoryWiseRouteArgs> {
+    extends _i23.PageRouteInfo<MyDoctorCategoryWiseRouteArgs> {
   MyDoctorCategoryWiseRoute({
-    _i23.Key? key,
+    _i24.Key? key,
     required String categoryName,
   }) : super(
           MyDoctorCategoryWiseRoute.name,
@@ -469,7 +480,7 @@ class MyDoctorCategoryWiseRouteArgs {
     required this.categoryName,
   });
 
-  final _i23.Key? key;
+  final _i24.Key? key;
 
   final String categoryName;
 
@@ -481,7 +492,7 @@ class MyDoctorCategoryWiseRouteArgs {
 
 /// generated route for
 /// [_i13.AllDoctorSearchView]
-class AllDoctorSearchRoute extends _i22.PageRouteInfo<void> {
+class AllDoctorSearchRoute extends _i23.PageRouteInfo<void> {
   const AllDoctorSearchRoute()
       : super(
           AllDoctorSearchRoute.name,
@@ -493,7 +504,7 @@ class AllDoctorSearchRoute extends _i22.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i14.DocDetailsView]
-class DocDetailsRoute extends _i22.PageRouteInfo<void> {
+class DocDetailsRoute extends _i23.PageRouteInfo<void> {
   const DocDetailsRoute()
       : super(
           DocDetailsRoute.name,
@@ -505,7 +516,7 @@ class DocDetailsRoute extends _i22.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i15.BookAppointmentView]
-class BookAppointmentRoute extends _i22.PageRouteInfo<void> {
+class BookAppointmentRoute extends _i23.PageRouteInfo<void> {
   const BookAppointmentRoute()
       : super(
           BookAppointmentRoute.name,
@@ -517,7 +528,7 @@ class BookAppointmentRoute extends _i22.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i16.PaymentMethodView]
-class PaymentMethodRoute extends _i22.PageRouteInfo<void> {
+class PaymentMethodRoute extends _i23.PageRouteInfo<void> {
   const PaymentMethodRoute()
       : super(
           PaymentMethodRoute.name,
@@ -529,7 +540,7 @@ class PaymentMethodRoute extends _i22.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i17.InvoiceView]
-class InvoiceRoute extends _i22.PageRouteInfo<void> {
+class InvoiceRoute extends _i23.PageRouteInfo<void> {
   const InvoiceRoute()
       : super(
           InvoiceRoute.name,
@@ -540,8 +551,20 @@ class InvoiceRoute extends _i22.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i18.HomeView]
-class HomeRoute extends _i22.PageRouteInfo<void> {
+/// [_i18.AnatomyView]
+class AnatomyRoute extends _i23.PageRouteInfo<void> {
+  const AnatomyRoute()
+      : super(
+          AnatomyRoute.name,
+          path: '/anatomy',
+        );
+
+  static const String name = 'AnatomyRoute';
+}
+
+/// generated route for
+/// [_i19.HomeView]
+class HomeRoute extends _i23.PageRouteInfo<void> {
   const HomeRoute()
       : super(
           HomeRoute.name,
@@ -552,8 +575,8 @@ class HomeRoute extends _i22.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i19.SetAppointmentView]
-class SetAppointmentRoute extends _i22.PageRouteInfo<void> {
+/// [_i20.SetAppointmentView]
+class SetAppointmentRoute extends _i23.PageRouteInfo<void> {
   const SetAppointmentRoute()
       : super(
           SetAppointmentRoute.name,
@@ -564,8 +587,8 @@ class SetAppointmentRoute extends _i22.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i20.FavouritesView]
-class FavouritesRoute extends _i22.PageRouteInfo<void> {
+/// [_i21.FavouritesView]
+class FavouritesRoute extends _i23.PageRouteInfo<void> {
   const FavouritesRoute()
       : super(
           FavouritesRoute.name,
@@ -576,8 +599,8 @@ class FavouritesRoute extends _i22.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i21.BasketView]
-class BasketRoute extends _i22.PageRouteInfo<void> {
+/// [_i22.BasketView]
+class BasketRoute extends _i23.PageRouteInfo<void> {
   const BasketRoute()
       : super(
           BasketRoute.name,
