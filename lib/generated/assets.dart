@@ -9,9 +9,12 @@ class Assets {
   static const String iconsFacebook = 'assets/icons/facebook.png';
   static const String iconsFamily = 'assets/icons/family.png';
   static const String iconsGoogle = 'assets/icons/google.png';
+  static const String imagesAmericanExpress = 'assets/images/americanExpress.png';
   static const String imagesAvatar = 'assets/images/avatar.png';
   static const String imagesBackground = 'assets/images/background.png';
+  static const String imagesBkash = 'assets/images/bkash.png';
   static const String imagesCardiology = 'assets/images/cardiology.png';
+  static const String imagesCash = 'assets/images/cash.png';
   static const String imagesChamber = 'assets/images/chamber.png';
   static const String imagesDayActive = 'assets/images/day_active.png';
   static const String imagesDayInActive = 'assets/images/day_in_active.png';
@@ -21,16 +24,20 @@ class Assets {
   static const String imagesLogoGreen = 'assets/images/logo-green.png';
   static const String imagesLogoWhite = 'assets/images/logo-white.png';
   static const String imagesMacroHealthPlus = 'assets/images/macro-health-plus.png';
+  static const String imagesMastercard = 'assets/images/mastercard.png';
   static const String imagesMobile = 'assets/images/mobile.png';
   static const String imagesMyDoctor = 'assets/images/my-doctor.png';
   static const String imagesMyDoctorAppBar = 'assets/images/my-doctor-app_bar.png';
+  static const String imagesNagad = 'assets/images/nagad.png';
   static const String imagesNightActive = 'assets/images/night_active.png';
   static const String imagesNightInActive = 'assets/images/night_in_active.png';
   static const String imagesOb1 = 'assets/images/ob1.png';
   static const String imagesOb2 = 'assets/images/ob2.png';
   static const String imagesOb3 = 'assets/images/ob3.png';
+  static const String imagesRocket = 'assets/images/rocket.png';
   static const String imagesStar = 'assets/images/star.png';
   static const String imagesUser = 'assets/images/user.png';
+  static const String imagesVisa = 'assets/images/visa.png';
   static const String imagesWelcomeBackground = 'assets/images/welcome-background.png';
 
 }

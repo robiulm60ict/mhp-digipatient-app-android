@@ -40,6 +40,14 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
         leadingWidth: leadingWidth,
         leading: const CustomBackButton(),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          context.router.push(const PaymentMethodRoute());
+        },
+        backgroundColor: AppColors.primaryColor,
+        label: Text("Confirm Appointment", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: ListView(
 padding: EdgeInsets.all(20.r),
         children: [

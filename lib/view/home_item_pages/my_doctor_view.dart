@@ -31,7 +31,7 @@ class MyDoctorView extends StatelessWidget {
         centerTitle: true,
         title: Text("My Doctor", style: TextStyle(fontSize: 18.sp, color: Colors.white),),
         leading: Padding(
-          padding: Platform.isIOS ? EdgeInsets.only( bottom: 60) : EdgeInsets.symmetric(vertical: 30.0),
+          padding: Platform.isIOS ? const EdgeInsets.only( bottom: 60) : const EdgeInsets.symmetric(vertical: 30.0),
           child: const CustomBackButton(),
         ),
         flexibleSpace: const Image(
@@ -81,7 +81,9 @@ class MyDoctorView extends StatelessWidget {
                 itemBuilder: (context, index) {
               return SizedBox(
                 width: MediaQuery.of(context).size.width - 25,
-                child: const DoctorListTileFavourite(),
+                child: DoctorListTileFavourite(onTap: (){
+                  context.router.push(const DocDetailsRoute());
+                },),
               );
             }),
           ),

@@ -36,7 +36,7 @@ class AllDoctorSearchView extends StatelessWidget {
                 itemCount: 7,
                 itemBuilder: (context, index){
                   return DoctorListTileOurDoc(onTap: (){
-                    context.router.push(DocDetailsRoute());
+                    context.router.push(const DocDetailsRoute());
                   },);
                 },
             separatorBuilder: (context, index)=> SizedBox(height: 6.h,),

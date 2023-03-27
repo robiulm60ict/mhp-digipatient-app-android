@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/utils/custom_rating.dart';
@@ -6,6 +7,8 @@ import 'package:digi_patient/widgets/back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
+
+import '../../routes/routes.gr.dart';
 
 class MyDoctorCategoryWiseView extends StatelessWidget {
   const MyDoctorCategoryWiseView({Key? key, required this.categoryName}) : super(key: key);
@@ -52,39 +55,46 @@ class MyDoctorCategoryWiseView extends StatelessWidget {
                   crossAxisSpacing: 16,
                   height: 135.h
 
-                ), itemBuilder: (context, index)=> Stack(
+                ), itemBuilder: (context, index)=> InkWell(
+              onTap: (){
+                context.router.push(const DocDetailsRoute());
+              },
+                  child: Stack(
               alignment: Alignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 4.0),
-                  child: Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    margin: const EdgeInsets.only(top: 35),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4.0.w),
-                      child: Column(
-                        children: [
-                          SizedBox(height: 35.h, width: double.infinity,),
-                          Text("Dr. Asif Manwar", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464),),),
-                          const SizedBox(height: 4,),
-                          Text("Consultant, Cardiology", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A),),),
-                          const SizedBox(height: 4,),
-                          Text("Square Hospital", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp,  color: const Color(0xFF8A8A8A),),),
-                          const SizedBox(height: 4,),
-                          CustomRating.ratingBar(onRatingUpdate: (val){}),
-                        ],
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 4.0),
+                    child: Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      margin: const EdgeInsets.only(top: 35),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4.0.w),
+                        child: Column(
+                          children: [
+                            SizedBox(height: 35.h, width: double.infinity,),
+                            Text("Dr. Asif Manwar", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464),),),
+                            const SizedBox(height: 4,),
+                            Text("Consultant, Cardiology", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A),),),
+                            const SizedBox(height: 4,),
+                            Text("Square Hospital", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp,  color: const Color(0xFF8A8A8A),),),
+                            const SizedBox(height: 4,),
+                            CustomRating.ratingBar(onRatingUpdate: (val){}),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Positioned(
-                    top: 0,
-                    child: CircleAvatar(radius: 25.h,),),
+                  Positioned(
+                      top: 0,
+                      child: CircleAvatar(radius: 25.h,),),
               ],
-            ),),),
+            ),
+                ),
+            ),
+            ),
             // SizedBox(height: 50.h,),
           ],
         ),

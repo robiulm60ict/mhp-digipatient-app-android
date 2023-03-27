@@ -17,7 +17,7 @@ class NotificationsView extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         leading: const CustomBackButton(),
-        leadingWidth: leadingWidth.w,
+        leadingWidth: leadingWidth,
         title: Text(
           "Notification",
           style: TextStyle(color: AppColors.primaryColor),
