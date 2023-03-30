@@ -1,4 +1,6 @@
 import 'package:digi_patient/generated/assets.dart';
+import 'package:digi_patient/utils/popup_dialogue.dart';
+import 'package:digi_patient/widgets/payment_user_detail.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -51,122 +53,13 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
       body: ListView(
         padding: EdgeInsets.all(20.r),
         children: [
-          Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.r)),
-            child: Padding(
-              padding: EdgeInsets.all(15.r),
-              child: Column(
-                children: [
-                  ListTile(
-                    leading: const CircleAvatar(),
-                    title: Text(
-                      "Habibur Rahman",
-                      style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xFF646464)),
-                    ),
-                    subtitle: Text(
-                      "Associate Consultant, Cardiology",
-                      style: TextStyle(
-                          fontSize: 12.sp, color: const Color(0xFF8A8A8A)),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Card(
-                    color: const Color(0xFFF1F4F7),
-                    child: Padding(
-                      padding: EdgeInsets.all(10.r),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.watch_later_outlined,
-                                size: 12.h,
-                                color: const Color(0xFF8A8A8A),
-                              ),
-                              SizedBox(
-                                width: 4.w,
-                              ),
-                              Text(
-                                "10:00 AM - 10:30 AM",
-                                style: TextStyle(
-                                  fontSize: 10.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: const Color(0xFF8A8A8A),
-                                ),
-                              ),
-                              const Spacer(),
-                              Icon(
-                                Icons.home,
-                                size: 12.h,
-                                color: const Color(0xFF8A8A8A),
-                              ),
-                              SizedBox(
-                                width: 4.w,
-                              ),
-                              Text(
-                                "Square Hospital",
-                                style: TextStyle(
-                                  fontSize: 10.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: const Color(0xFF8A8A8A),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 8.h,
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.date_range,
-                                size: 12.h,
-                                color: const Color(0xFF8A8A8A),
-                              ),
-                              SizedBox(
-                                width: 4.w,
-                              ),
-                              Text(
-                                "December 2023",
-                                style: TextStyle(
-                                  fontSize: 10.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: const Color(0xFF8A8A8A),
-                                ),
-                              ),
-                              const Spacer(),
-                              Icon(
-                                Icons.location_on,
-                                size: 12.h,
-                                color: const Color(0xFF8A8A8A),
-                              ),
-                              SizedBox(
-                                width: 4.w,
-                              ),
-                              Text(
-                                "Dhanmondi Dhaka",
-                                style: TextStyle(
-                                  fontSize: 10.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: const Color(0xFF8A8A8A),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          const PaymentUserDetail(
+              name: "Habibur Rahman",
+              designation: "Associate Consultant,Cardiology",
+              visitingTime: "10.00 AM - 10.30 AM",
+              hospitalName: "Square Hospital",
+              date: "December 2023",
+              location: "Dhanmondi Dhaka"),
           SizedBox(
             height: 20.h,
           ),
@@ -525,7 +418,9 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryColor),
-                    onPressed: (){}, child: Text("Pay Now", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: Colors.white),),),
+                    onPressed: (){
+                      invoiceSuccessPopUp(context,);
+                    }, child: Text("Pay Now", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: Colors.white),),),
                   ),
                 ],
               ),

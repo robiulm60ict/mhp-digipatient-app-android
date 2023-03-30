@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String animationSuccessful = 'assets/animation/successful.json';
   static const String fontsRobotoMedium = 'assets/fonts/Roboto-Medium.ttf';
   static const String fontsRobotoRegular = 'assets/fonts/Roboto-Regular.ttf';
   static const String iconsAppointment = 'assets/icons/appointment.png';

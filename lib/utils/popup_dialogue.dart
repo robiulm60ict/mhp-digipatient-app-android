@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:digi_patient/resources/colors.dart';
+import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 // import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -199,6 +202,7 @@ selectCategoryPopUp(BuildContext context,){
 popUpDialogue(BuildContext context, Widget content, ){
   return Alert(
     context: context,
+
     style: AlertStyle(
         alertElevation: 0,
         overlayColor: Colors.black.withOpacity(.6),
@@ -229,4 +233,33 @@ popUpDialogue(BuildContext context, Widget content, ){
       ),
       child: content,
     ),).show();
+}
+
+invoiceSuccessPopUp(BuildContext context,{bool barrierDismissible = false}){
+  return showDialog(
+    context: context,
+    barrierDismissible: barrierDismissible,
+    useSafeArea: true,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.r)
+        ),
+        actionsPadding: EdgeInsets.only(bottom: 25.h),
+        title: Lottie.asset(Assets.animationSuccessful, repeat: false),
+        content: Text('Payment Successful', textAlign: TextAlign.center, style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
+        alignment: Alignment.center,
+        actionsAlignment: MainAxisAlignment.center,
+        actions: <Widget>[
+          ElevatedButton(
+            onPressed: () {
+              context.router.push(const SingleInvoiceRoute());
+            },
+            child: Text('View Invoice', style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: Colors.white),),
+          ),
+        ],
+      );
+    },
+  );
+
 }

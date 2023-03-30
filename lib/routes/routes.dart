@@ -14,6 +14,7 @@ import 'package:digi_patient/view/notifications_view.dart';
 import 'package:digi_patient/view/onbording_view.dart';
 import 'package:digi_patient/view/payment/invoice_view.dart';
 import 'package:digi_patient/view/payment/payment_method_view.dart';
+import 'package:digi_patient/view/payment/single_invoice_view.dart';
 import 'package:digi_patient/view/pincode_verification_view.dart';
 import 'package:digi_patient/view/splash_view_2.dart';
 
@@ -109,6 +110,10 @@ import '../view/splash_view.dart';
     AutoRoute(
       path: '/anatomy',
       page: AnatomyView,
+    ),
+    AutoRoute(
+      path: '/single-invoice',
+      page: SingleInvoiceView,
     ),
   ],
 )
