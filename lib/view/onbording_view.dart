@@ -36,14 +36,15 @@ class _OnBoardingViewState extends State<OnBoardingView> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
+            Expanded(child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 45.0,
                 vertical: 90.0,
               ),
               child: Image.asset(Assets.imagesOb1,
-                  ),
-            ),
+                fit: BoxFit.fill,
+              ),
+            ),),
              Padding(
               padding: EdgeInsets.symmetric(horizontal: 45.0.w),
               child: Text(

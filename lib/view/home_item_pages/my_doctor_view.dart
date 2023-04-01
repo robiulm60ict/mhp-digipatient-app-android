@@ -31,7 +31,7 @@ class MyDoctorView extends StatelessWidget {
         centerTitle: true,
         title: Text("My Doctor", style: TextStyle(fontSize: 18.sp, color: Colors.white),),
         leading: Padding(
-          padding: Platform.isIOS ? const EdgeInsets.only( bottom: 60) : const EdgeInsets.symmetric(vertical: 30.0),
+          padding: Platform.isIOS ? const EdgeInsets.only( bottom: 60) : const EdgeInsets.symmetric(vertical: 20.0),
           child: const CustomBackButton(),
         ),
         flexibleSpace: const Image(
@@ -44,7 +44,9 @@ class MyDoctorView extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Expanded(child: SearchTextField(hintText: "Search item..",)),
+               Expanded(child: SearchTextField(
+                height: 50.h,
+                hintText: "Search item..",)),
               SizedBox(width: 8.w,),
               Card(
                 shape: RoundedRectangleBorder(
@@ -104,7 +106,7 @@ class MyDoctorView extends StatelessWidget {
           // SizedBox(height: 300.h,)
           GridView.builder(
               shrinkWrap: true,
-              // physics: null,
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: provider.categoryItemsList.length,
               gridDelegate: FlutterzillaFixedGridView(
               crossAxisCount: 2,mainAxisSpacing: 10.w, crossAxisSpacing: 10.h,
@@ -124,10 +126,12 @@ class MyDoctorView extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(
-                        height: 35.h,
-                        width: 35.w,
-                        child: Image.asset(provider.categoryItemsList[index].image, fit: BoxFit.fill,),
+                      Expanded(
+                        child: SizedBox(
+                          height: 35.h,
+                          width: 35.w,
+                          child: Image.asset(provider.categoryItemsList[index].image, fit: BoxFit.fill,),
+                        ),
                       ),
                       SizedBox(height: 5.h,),
                       Text(provider.categoryItemsList[index].title, textAlign: TextAlign.center, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),)

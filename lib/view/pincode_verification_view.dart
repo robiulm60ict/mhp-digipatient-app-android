@@ -215,10 +215,10 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
 
                 });
               },
-              title: RichText(text: TextSpan(text: "I accept the ", style: TextStyle(fontSize: 10.sp, color: Colors.grey), children: [
+              title: RichText(text: TextSpan(text: "I accept the ", style: TextStyle(fontSize: 13.sp, color: Colors.grey), children: [
                 TextSpan(
                     text: "Terms & conditions",
-                    style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),
+                    style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),
                 recognizer: TapGestureRecognizer()..onTap = ()=>{}
                 ),
               ],),),

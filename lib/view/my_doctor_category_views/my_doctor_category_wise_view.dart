@@ -53,7 +53,7 @@ class MyDoctorCategoryWiseView extends StatelessWidget {
                     crossAxisCount: 2,
                   mainAxisSpacing: 12,
                   crossAxisSpacing: 16,
-                  height: 135.h
+                  height: 150.h
 
                 ), itemBuilder: (context, index)=> InkWell(
               onTap: (){

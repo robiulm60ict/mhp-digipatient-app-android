@@ -74,6 +74,7 @@ class _HomeViewState extends State<HomeView> {
               ),
               SizedBox(height: 5.h),
               Text("V 2.0.0(200)", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFFAAAAAA)),)
+            ,SizedBox(height: 100.h,),
             ],
           ),
         ),
@@ -88,21 +89,28 @@ class _HomeViewState extends State<HomeView> {
             }
           ),
           actions: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                const SizedBox(height: 15,),
-                badges.Badge(
-                  position: BadgePosition.topEnd(top: 3, end: 6),
-                    badgeContent: const Text("6", style: TextStyle(color: Colors.white),),
-                    child: IconButton(onPressed: (){
-                      context.router.push(const NotificationsRoute());
-                    }, icon: Icon(Icons.notification_important, color: AppColors.primaryColor,))),
-              ],
-            ),
-          SizedBox(width: 8.w,),
+            // Column(
+            //   mainAxisSize: MainAxisSize.min,
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   crossAxisAlignment: CrossAxisAlignment.end,
+            //   children: [
+            //     const SizedBox(height: 15,),
+            //     badges.Badge(
+            //       position: BadgePosition.topEnd(top: 3, end: 6),
+            //         badgeContent: const Text("6", style: TextStyle(color: Colors.white),),
+            //         child: IconButton(onPressed: (){
+            //           context.router.push(const NotificationsRoute());
+            //         }, icon: Icon(Icons.notification_important, color: AppColors.primaryColor,))),
+            //   ],
+            // ),
+            badges.Badge(
+                position: BadgePosition.topEnd(top: 3, end: 6),
+                badgeContent: const Text("6", style: TextStyle(color: Colors.white),),
+                child: IconButton(onPressed: (){
+                  context.router.push(const NotificationsRoute());
+                }, icon: Icon(Icons.notification_important, color: AppColors.primaryColor,))),
+
+            SizedBox(width: 8.w,),
           ],
         ),
         body: ListView(

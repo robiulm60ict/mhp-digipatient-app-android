@@ -27,22 +27,42 @@ class _SignUpViewState extends State<SignUpView> {
       body: ListView(
         children: [
           const GradientAppBar(text: "Sign Up"),
-          SizedBox(height: 70.h,),
+          SizedBox(height: 60.h,),
           Padding(padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
           child: Text("Enter Mobile Number", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
           ),
           SizedBox(height: 10.h,),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
-            child: CustomTextField(
-              keyboardType: TextInputType.number,
-              prefix: Padding(
-                padding: EdgeInsets.only(top: isTablet ? 7.0.h : 9.h, left: 5.w, right: 4.w),
-                child: Text("+880", style: TextStyle(fontSize: 16.sp, color: Colors.black),),
-              ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
+          //   child: CustomTextField(
+          //     keyboardType: TextInputType.number,
+          //     prefix: Padding(
+          //       padding: EdgeInsets.only(top: isTablet ? 7.0.h : 9, left: 5.w, right: 4.w),
+          //       child: Text("+880", style: TextStyle(fontSize: 16.sp, color: Colors.black),),
+          //     ),
+          //   ),
+          // ),
+          Card(
+            margin: EdgeInsets.all(defaultPadding.r),
+            // color: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.r),
+              side: BorderSide(color: AppColors.primaryColor,
+
+              )
+            ),
+            child: Row(
+              children: [
+                Text("  +880  ", style: TextStyle(fontSize: 16.sp, color: AppColors.blackColor),),
+                const Expanded(child: TextField(
+                  keyboardType: TextInputType.number,
+                  enabled: true,
+                ))
+              ],
             ),
           ),
-          SizedBox(height: 40.h,),
+
+          SizedBox(height: 30.h,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
             child: CustomButton(text: "Continue", onTap: (){

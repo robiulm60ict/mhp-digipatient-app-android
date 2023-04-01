@@ -1,9 +1,6 @@
 import 'dart:io';
 
-import 'package:agora_uikit/models/rtm_message.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:digi_patient/utils/utils.dart';
-import 'package:digi_patient/widgets/auth_textfield.dart';
 import 'package:digi_patient/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -125,30 +122,41 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                             fontWeight: FontWeight.w700,
                             color: AppColors.primaryColor),
                       ),
-                      actions: [
-                        ElevatedButton(
-                            child: const Text("From Gallery"),
-                            onPressed: () {
-                              // pickImage(fromGallery: true);
-                              context.router.pop(true);
-                            }),
-                        SizedBox(
-                          width: kPadding.w,
-                        ),
-                        ElevatedButton(
-                            child: const Text("Take Photo"),
-                            onPressed: () {
-                              // pickImage(fromGallery: false);
-                              context.router.pop(false);
-                            }),
-                        // CustomElevatedButton(
-                        //     notExpandedWidth: 100,
-                        //     isExpanded: false,
-                        //     title: "Take Photo",
-                        //     onPressed: () {
-                        //       context.router.pop(false);
-                        //     }),
-                      ],
+                      actionsAlignment: MainAxisAlignment.center,
+
+                      content:
+                     Column(
+                       crossAxisAlignment: CrossAxisAlignment.center,
+                       // mainAxisAlignment: MainAxisAlignment.center
+                       mainAxisSize: MainAxisSize.min,
+                       children:  [
+                         SizedBox(
+                           height: kPadding.h,
+                         ),
+                         ElevatedButton(
+                             child: const Text("From Gallery"),
+                             onPressed: () {
+                               // pickImage(fromGallery: true);
+                               context.router.pop(true);
+                             }),
+                         SizedBox(
+                           height: 10.h,
+                         ),
+                         ElevatedButton(
+                             child: const Text("Take Photo"),
+                             onPressed: () {
+                               // pickImage(fromGallery: false);
+                               context.router.pop(false);
+                             }),
+                         // CustomElevatedButton(
+                         //     notExpandedWidth: 100,
+                         //     isExpanded: false,
+                         //     title: "Take Photo",
+                         //     onPressed: () {
+                         //       context.router.pop(false);
+                         //     }),
+                       ],
+                     )
                     ),
                   );
                   debugPrint(res.toString());
@@ -324,7 +332,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
 TextStyle genderTextStyle(BuildContext context) {
   debugPrint(MediaQuery.of(context).size.width.toString());
   return TextStyle(
-    fontSize: MediaQuery.of(context).size.width >= 450 ? 12.sp : 10.sp,
+    fontSize: MediaQuery.of(context).size.width >= 450 ? 12.sp : 9.sp,
     fontWeight: FontWeight.w400,
     color: const Color(0xFF606060),
   );

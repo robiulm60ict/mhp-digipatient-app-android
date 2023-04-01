@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
-import 'package:digi_patient/view/anatomy/anatomy_view.dart';
 import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,7 +51,6 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
 padding: EdgeInsets.all(20.r),
         children: [
           TextButton(onPressed: ()async{
-
             await appointmentViewModel.setAppointmentDate(context);
 
           }, child: Text(appointmentViewModel.monthName, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xFF646464)),)),
@@ -98,6 +96,7 @@ padding: EdgeInsets.all(20.r),
                 child: Card(
                   color: morningButton ? AppColors.primaryColor : Colors.white,
                   child: ListTile(
+
                     onTap: (){
                       morningButton = true;
                       setState(() {
@@ -105,7 +104,7 @@ padding: EdgeInsets.all(20.r),
                       });
                     },
                     leading: Image.asset( morningButton ? Assets.imagesDayInActive : Assets.imagesDayActive, height: 20.h, width: 20.w, fit: BoxFit.fill,),
-                    title: Text("MORNING", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: morningButton ? Colors.white : AppColors.primaryColor),),
+                    title: Text("MORNING", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: morningButton ? Colors.white : AppColors.primaryColor),),
                   ),
                 ),
               ),
@@ -120,7 +119,7 @@ padding: EdgeInsets.all(20.r),
                       });
                     },
                     leading: Image.asset( morningButton ? Assets.imagesNightActive : Assets.imagesNightInActive, height: 20.h, width: 20.w, fit: BoxFit.fill,),
-                    title: Text("EVENING", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: morningButton ? AppColors.primaryColor : AppColors.whiteColor),),
+                    title: Text("EVENING", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: morningButton ? AppColors.primaryColor : AppColors.whiteColor),),
                   ),
                 ),
               ),
@@ -167,7 +166,7 @@ padding: EdgeInsets.all(20.r),
                       });
                     },
                     leading: Image.asset( Assets.imagesChamber,  height: 20.h, width: 20.w, fit: BoxFit.fill,),
-                    title: Text("CHAMBER", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: isChamber ? Colors.white : AppColors.primaryColor),),
+                    title: Text("CHAMBER", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: isChamber ? Colors.white : AppColors.primaryColor),),
                   ),
                 ),
               ),
@@ -182,7 +181,7 @@ padding: EdgeInsets.all(20.r),
                       });
                     },
                     leading: Image.asset(Assets.imagesMobile, height: 20.h, width: 10.w, fit: BoxFit.fill,),
-                    title: Text("ONLINE", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: isChamber ? AppColors.primaryColor : AppColors.whiteColor),),
+                    title: Text("ONLINE", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: isChamber ? AppColors.primaryColor : AppColors.whiteColor),),
                   ),
                 ),
               ),

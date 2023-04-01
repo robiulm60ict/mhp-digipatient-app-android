@@ -105,6 +105,7 @@ class _SignInViewState extends State<SignInView> {
               ]
             ),),
           ),
+          SizedBox(height: 100.h,),
         ],
       ),
     );

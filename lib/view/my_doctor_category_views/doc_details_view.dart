@@ -206,7 +206,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                         elevation: 5,
                         child: ListTile(
                           leading: Icon(Icons.people, color: AppColors.primaryColor,),
-                        title: Text("3000+", style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
+                        title: Text("3000+", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
                         subtitle: Text("Patients", style: TextStyle(fontSize: 12.sp,  color: Colors.grey),),
 
                         ),
@@ -217,7 +217,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                         elevation: 5,
                         child: ListTile(
                           leading: Icon(Icons.cases_outlined, color: AppColors.primaryColor,),
-                        title: Text("+9 years", style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
+                        title: Text("+9 years", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
                         subtitle: Text("Experience", style: TextStyle(fontSize: 12.sp,  color: Colors.grey),),
 
                         ),
