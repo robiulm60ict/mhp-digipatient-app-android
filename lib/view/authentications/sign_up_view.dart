@@ -3,7 +3,6 @@ import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/utils/utils.dart';
 import 'package:digi_patient/widgets/custom_button.dart';
-import 'package:digi_patient/widgets/custom_textfield.dart';
 import 'package:digi_patient/widgets/gradient_appBar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -32,16 +31,7 @@ class _SignUpViewState extends State<SignUpView> {
           child: Text("Enter Mobile Number", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
           ),
           SizedBox(height: 10.h,),
-          // Padding(
-          //   padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
-          //   child: CustomTextField(
-          //     keyboardType: TextInputType.number,
-          //     prefix: Padding(
-          //       padding: EdgeInsets.only(top: isTablet ? 7.0.h : 9, left: 5.w, right: 4.w),
-          //       child: Text("+880", style: TextStyle(fontSize: 16.sp, color: Colors.black),),
-          //     ),
-          //   ),
-          // ),
+
           Card(
             margin: EdgeInsets.all(defaultPadding.r),
             // color: Colors.transparent,
@@ -57,7 +47,11 @@ class _SignUpViewState extends State<SignUpView> {
                 const Expanded(child: TextField(
                   keyboardType: TextInputType.number,
                   enabled: true,
-                ))
+                  // decoration: InputDecoration(
+                  //   border: InputBorder.none,
+                  //
+                  // ),
+                ),),
               ],
             ),
           ),

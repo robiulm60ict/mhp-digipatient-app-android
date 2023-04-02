@@ -10,6 +10,11 @@ import 'package:digi_patient/view/home_item_pages/my_doctor_view.dart';
 import 'package:digi_patient/view/home_item_pages/my_record_view.dart';
 import 'package:digi_patient/view/my_doctor_category_views/all_doctor_search_view.dart';
 import 'package:digi_patient/view/my_doctor_category_views/my_doctor_category_wise_view.dart';
+import 'package:digi_patient/view/my_record/my_medical_history_view.dart';
+import 'package:digi_patient/view/my_record/my_report_view.dart';
+import 'package:digi_patient/view/my_record/reason_for_visit_view.dart';
+import 'package:digi_patient/view/my_record/self_medical_history_from_great_doc_view.dart';
+import 'package:digi_patient/view/my_record/vital_view.dart';
 import 'package:digi_patient/view/notifications_view.dart';
 import 'package:digi_patient/view/onbording_view.dart';
 import 'package:digi_patient/view/payment/invoice_view.dart';
@@ -115,6 +120,15 @@ import '../view/splash_view.dart';
       path: '/single-invoice',
       page: SingleInvoiceView,
     ),
+
+    /// My Record routes
+
+    AutoRoute(path: '/vital', page: VitalsView,),
+    AutoRoute(path: '/my-medical-history', page: MyMedicalHistoryView,),
+    AutoRoute(path: '/self-medical-history', page: SelfMedicalHistoryFGDView,),
+    AutoRoute(path: '/reason-visit', page: ReasonForVisitView,),
+    AutoRoute(path: '/my-report', page: MyReportView,),
+
   ],
 )
 class $AppRouter {}
