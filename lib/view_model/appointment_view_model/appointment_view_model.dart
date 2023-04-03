@@ -9,6 +9,8 @@ class AppointmentViewModel with ChangeNotifier{
 
   String monthName = DateFormat('MMMM').format(DateTime.now());
 
+  String year = DateTime.now().year.toString();
+
   List<WeekDayModel> weekDayList = [];
 
   setAppointmentDate(BuildContext context) async{
@@ -21,7 +23,7 @@ class AppointmentViewModel with ChangeNotifier{
 
       DateTime startWeekDay = getDate(appointmentDate.subtract(Duration(days: appointmentDate.weekday - 1)));
 
-      startWeekDay = startWeekDay.subtract(const Duration(days: 2));
+      // startWeekDay = startWeekDay.subtract(const Duration(days: 2));
 
       weekDayList.clear();
 
@@ -32,7 +34,13 @@ class AppointmentViewModel with ChangeNotifier{
         weekDayList.add(WeekDayModel(weekName: DateFormat("EEEE").format(date).substring(0,3), isSelected: date.isAtSameMomentAs(selectedDate), dateTime: date, day: date.day));
 
       }
+      // List<WeekDayModel> setWeek = [weekDayList[5],weekDayList[6],weekDayList[0],weekDayList[1],weekDayList[2],weekDayList[3],weekDayList[4],];
+      //
+      // weekDayList = setWeek;
+
        monthName = DateFormat('MMMM').format(appointmentDate);
+
+      year = appointmentDate.year.toString();
 
 
       notifyListeners();

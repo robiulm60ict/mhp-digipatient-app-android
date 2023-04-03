@@ -53,7 +53,7 @@ padding: EdgeInsets.all(20.r),
           TextButton(onPressed: ()async{
             await appointmentViewModel.setAppointmentDate(context);
 
-          }, child: Text(appointmentViewModel.monthName, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xFF646464)),)),
+          }, child: Text("${appointmentViewModel.monthName}  ${appointmentViewModel.year}", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xFF646464)),)),
           const SizedBox(height: 10,),
 
           Row(

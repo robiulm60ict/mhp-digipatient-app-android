@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchTextField extends StatelessWidget {
-  const SearchTextField({Key? key, this.hintText, this.height = 40}) : super(key: key);
+  const SearchTextField({Key? key, this.hintText, this.height = 40, this.suffixIcon}) : super(key: key);
   final String? hintText;
   final double height;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,7 @@ class SearchTextField extends StatelessWidget {
           ),
           prefixIcon: Icon(Icons.search, color: AppColors.primaryColor,),
           hintText: hintText,
+          suffixIcon: suffixIcon,
         ),
       ),
     );

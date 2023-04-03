@@ -5,6 +5,15 @@ class Assets {
   static const String animationSuccessful = 'assets/animation/successful.json';
   static const String fontsRobotoMedium = 'assets/fonts/Roboto-Medium.ttf';
   static const String fontsRobotoRegular = 'assets/fonts/Roboto-Regular.ttf';
+  static const String homeAppointments = 'assets/icons/home/appointments.png';
+  static const String homeMyDoc = 'assets/icons/home/my-doc.png';
+  static const String homeMyFamily = 'assets/icons/home/my-family.png';
+  static const String homeMyLab = 'assets/icons/home/my-lab.png';
+  static const String homeMyMedicine = 'assets/icons/home/my-medicine.png';
+  static const String homeMyRec = 'assets/icons/home/my-rec.png';
+  static const String homePayments = 'assets/icons/home/payments.png';
+  static const String homeResources = 'assets/icons/home/resources.png';
+  static const String homeServices = 'assets/icons/home/services.png';
   static const String iconsAppointment = 'assets/icons/appointment.png';
   static const String iconsDrawer = 'assets/icons/drawer.png';
   static const String iconsFacebook = 'assets/icons/facebook.png';
@@ -40,5 +49,13 @@ class Assets {
   static const String imagesUser = 'assets/images/user.png';
   static const String imagesVisa = 'assets/images/visa.png';
   static const String imagesWelcomeBackground = 'assets/images/welcome-background.png';
+  static const String vitalsBloodPressure = 'assets/icons/my_record/vitals/blood-pressure.png';
+  static const String vitalsBloodSugar = 'assets/icons/my_record/vitals/blood-sugar.png';
+  static const String vitalsBmi = 'assets/icons/my_record/vitals/bmi.png';
+  static const String vitalsHeartRate = 'assets/icons/my_record/vitals/heart-rate.png';
+  static const String vitalsHeight = 'assets/icons/my_record/vitals/height.png';
+  static const String vitalsTemperature = 'assets/icons/my_record/vitals/temperature.png';
+  static const String vitalsVital = 'assets/icons/my_record/vitals/vital.png';
+  static const String vitalsWeight = 'assets/icons/my_record/vitals/weight.png';
 
 }

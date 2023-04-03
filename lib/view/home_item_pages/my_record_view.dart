@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/resources/colors.dart';
+import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/utils.dart';
 import 'package:digi_patient/widgets/back_button.dart';
 import 'package:digi_patient/widgets/my_record_list_tile.dart';
@@ -39,8 +41,8 @@ class MyRecordView extends StatelessWidget {
                       children: [
                         Text("Habibur Rahman", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
                         SizedBox(height: 2.h,),
-                        Text("28543564789",  maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A)),)
-                      ,SizedBox(height: 5.h,),
+                        Text("28543564789",  maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A)),),
+                        SizedBox(height: 5.h,),
                         Wrap(
                         children: [
                           Icon(Icons.male, size: 13.h, color: const Color(0xFF8A8A8A),),
@@ -61,15 +63,17 @@ class MyRecordView extends StatelessWidget {
           ),
           SizedBox(height: 30.h,),
 
-          MyRecordListTile(title: 'Vital', iconData: Icons.heart_broken, iconColor: Colors.red,),
+          MyRecordListTile(title: 'Vital', iconData: Icons.heart_broken, iconColor: Colors.red, onTap: (){
+            context.router.push(const VitalsRoute());
+          }),
           SizedBox(height: 5.h,),
-          MyRecordListTile(title: 'Patient medical History', iconData: Icons.medical_information, ),
+          const MyRecordListTile(title: 'My medical History', iconData: Icons.medical_information, ),
           SizedBox(height: 5.h,),
-          MyRecordListTile(title: 'Medical History from Great Doc', iconData: Icons.medication_liquid_sharp,),
+          const MyRecordListTile(title: 'Self Medical History from Great Doc', iconData: Icons.medication_liquid_sharp,),
           SizedBox(height: 5.h,),
-          MyRecordListTile(title: 'Reason For Visit', iconData: Icons.read_more,),
+          const MyRecordListTile(title: 'Reason For Visit', iconData: Icons.read_more,),
           SizedBox(height: 5.h,),
-          MyRecordListTile(title: 'Patient Report', iconData: Icons.report, iconColor: Colors.blue,),
+          const MyRecordListTile(title: 'My Report', iconData: Icons.report, iconColor: Colors.blue,),
           SizedBox(height: 5.h,),
         ],
       ),

@@ -22,6 +22,7 @@ class MyDoctorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MyDoctorViewModel>(context);
+    double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
@@ -31,7 +32,7 @@ class MyDoctorView extends StatelessWidget {
         centerTitle: true,
         title: Text("My Doctor", style: TextStyle(fontSize: 18.sp, color: Colors.white),),
         leading: Padding(
-          padding: Platform.isIOS ? const EdgeInsets.only( bottom: 60) : const EdgeInsets.symmetric(vertical: 20.0),
+          padding: Platform.isIOS ? const EdgeInsets.only( bottom: 60) :  EdgeInsets.symmetric(vertical: width < 411 ? 20.0 : 30),
           child: const CustomBackButton(),
         ),
         flexibleSpace: const Image(
@@ -46,20 +47,24 @@ class MyDoctorView extends StatelessWidget {
             children: [
                Expanded(child: SearchTextField(
                 height: 50.h,
-                hintText: "Search item..",)),
+                // suffixIcon: Card(
+                //   shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(8.r)
+                //   ),
+                //   child: Padding(
+                //     padding: EdgeInsets.all(2.0.r),
+                //     child: IconButton(onPressed: (){
+                //       selectCategoryPopUp(context);
+                //     }, icon: Icon(Icons.add_chart_sharp, color: AppColors.primaryColor,)),
+                //   ),
+                //
+                // ),
+                 suffixIcon: IconButton(onPressed: (){
+                   selectCategoryPopUp(context);
+                 }, icon: Icon(Icons.add_chart_sharp, color: AppColors.primaryColor,),),
+                hintText: "Search item..",),),
               SizedBox(width: 8.w,),
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r)
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(2.0.r),
-                  child: IconButton(onPressed: (){
-                    selectCategoryPopUp(context);
-                  }, icon: Icon(Icons.add_chart_sharp, color: AppColors.primaryColor,)),
-                ),
 
-              ),
               ],
           ),
           SizedBox(height: 15.h,),
@@ -103,13 +108,15 @@ class MyDoctorView extends StatelessWidget {
             ],
           ),
           SizedBox(height: 6.h,),
-          // SizedBox(height: 300.h,)
+
           GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: provider.categoryItemsList.length,
               gridDelegate: FlutterzillaFixedGridView(
-              crossAxisCount: 2,mainAxisSpacing: 10.w, crossAxisSpacing: 10.h,
+              crossAxisCount: 2,
+                mainAxisSpacing: 10.w,
+                crossAxisSpacing: 10.h,
                 height: 80.h,
 
           ), itemBuilder: (context, index){
