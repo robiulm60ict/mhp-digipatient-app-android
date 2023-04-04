@@ -1,0 +1,27 @@
+
+import 'package:digi_patient/model/doctor_model/doctors_model.dart';
+
+import '../../data/network/base_api_service.dart';
+import '/data/network/network_api_service.dart';
+import '/resources/app_url.dart';
+
+
+class DoctorRepository{
+
+  BaseApiService apiService = NetworkApiService();
+
+  Future<DoctorsModels> getAllDoctors() async{
+
+    try{
+
+      dynamic response = await apiService.getGetApiResponse(AppUrls.allDoctors,);
+
+      return DoctorsModels.fromJson(response);
+
+    }catch(e){
+
+      rethrow;
+
+    }
+  }
+}

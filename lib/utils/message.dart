@@ -82,7 +82,7 @@ class Messages {
     ).show(context);
   }
 
-  static snackBar(BuildContext context, String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+  static snackBar(BuildContext context, String msg, {Color backgroundColor = Colors.red}) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg), backgroundColor: backgroundColor, ));
   }
 }

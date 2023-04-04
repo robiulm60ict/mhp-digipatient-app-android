@@ -5,6 +5,7 @@ import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/view_model/home_view_model.dart';
+import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:digi_patient/widgets/back_button.dart';
 import 'package:digi_patient/widgets/drawer_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ class _HomeViewState extends State<HomeView> {
     width = width + width;
     debugPrint(size.width.toString());
     final provider = Provider.of<HomeViewModel>(context);
+    final dvm = Provider.of<MyDoctorViewModel>(context);
     return SafeArea(
       top: true,
       maintainBottomViewPadding: true,
@@ -211,6 +213,11 @@ class _HomeViewState extends State<HomeView> {
               //     );
                   return InkWell(
                     onTap: (){
+
+                      dvm.getAllDoctors(context);
+
+                      dvm.getDepartments(context);
+
                       provider.homeItemsRouteTo(context, index);
                     },
                     child: Column(

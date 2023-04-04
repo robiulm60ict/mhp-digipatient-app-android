@@ -129,6 +129,7 @@ class AppRouter extends _i29.RootStackRouter {
         child: _i12.MyDoctorCategoryWiseView(
           key: args.key,
           categoryName: args.categoryName,
+          departmentId: args.departmentId,
         ),
       );
     },
@@ -529,12 +530,14 @@ class MyDoctorCategoryWiseRoute
   MyDoctorCategoryWiseRoute({
     _i30.Key? key,
     required String categoryName,
+    required int departmentId,
   }) : super(
           MyDoctorCategoryWiseRoute.name,
           path: '/my-doctor-category-wise',
           args: MyDoctorCategoryWiseRouteArgs(
             key: key,
             categoryName: categoryName,
+            departmentId: departmentId,
           ),
         );
 
@@ -545,15 +548,18 @@ class MyDoctorCategoryWiseRouteArgs {
   const MyDoctorCategoryWiseRouteArgs({
     this.key,
     required this.categoryName,
+    required this.departmentId,
   });
 
   final _i30.Key? key;
 
   final String categoryName;
 
+  final int departmentId;
+
   @override
   String toString() {
-    return 'MyDoctorCategoryWiseRouteArgs{key: $key, categoryName: $categoryName}';
+    return 'MyDoctorCategoryWiseRouteArgs{key: $key, categoryName: $categoryName, departmentId: $departmentId}';
   }
 }
 
