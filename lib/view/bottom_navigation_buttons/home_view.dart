@@ -25,6 +25,21 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
 
+  late String? name;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
+
+  getUserData()async{
+    final prefs = await SharedPreferences.getInstance();
+    name = prefs.getString(UserP.name) ?? "";
+    setState(() {
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -143,7 +158,7 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   Text("Hello!", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 22.sp, color: AppColors.primaryColor ),),
                   SizedBox(height: 8.h,),
-                  Text("${authVM.user?.user?.name}", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: const Color(0xFF454545)),),
+                  Text("${name}", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: const Color(0xFF454545)),),
                   Text("Welcome to MacroHealthPlus", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: 14.sp, color: const Color(0xFF7A7A7A),),),
                 ],
               ),
