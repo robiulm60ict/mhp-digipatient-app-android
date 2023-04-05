@@ -1,8 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/repository/department_repo/department_repo.dart';
-import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../model/department_model/department_model.dart';
 import '../../model/doctor_model/doctors_model.dart';
@@ -91,6 +90,7 @@ class MyDoctorViewModel with ChangeNotifier{
 
     notifyListeners();
   }
+
 }
 
 class CategoryItemsModel{

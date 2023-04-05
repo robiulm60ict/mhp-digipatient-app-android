@@ -29,26 +29,25 @@ customSearchDialogue(BuildContext context, {required List<Doctors> doctorList}){
         failure: const Center(
           child: Text('No doctor found :('),
         ),
-        filter: (person) => [
-          person.drFullName,
-          person.department?.departmentsName,
-          person.usualProvider?.usualProviderName,
+        filter: (doctor) => [
+          doctor.drFullName,
+          doctor.department?.departmentsName,
+          doctor.usualProvider?.usualProviderName,
         ],
         // sort: (a, b) => a.compareTo(b),
-        builder: (person) => Padding(
+        builder: (doctor) => Padding(
           padding: EdgeInsets.all(8.0.r),
           child: DoctorListTileOurDoc(onTap: (){
-            context.router.push(const DocDetailsRoute());
-
+            context.router.push( DocDetailsRoute(id: doctor.id!));
           },
             docDegree: "",
-            docDepartment: person.department?.departmentsName ?? "",
+            docDepartment: doctor.department?.departmentsName ?? "",
             docHospitalImage: "",
             // docName: "${person.title?.titleName} ${person.drGivenName} ${person.drLastName}",
-            docName: person.drFullName ?? "",
+            docName: doctor.drFullName ?? "",
             docRating: 5,
-            docUrl: "${AppUrls.baseUrl}/mhp_server/public/doctors/images/${person.drImages!}",
-            docHospitalName:  person.usualProvider?.usualProviderName ?? "",
+            docUrl: "${AppUrls.baseUrl}/mhp_server/public/doctors/images/${doctor.drImages!}",
+            docHospitalName:  doctor.usualProvider?.usualProviderName ?? "",
           ),
         ),
     ),

@@ -1,7 +1,10 @@
 
 import 'package:digi_patient/utils/datetime.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../../model/online_model/online_model.dart';
 
 class AppointmentViewModel with ChangeNotifier{
 
@@ -46,6 +49,8 @@ class AppointmentViewModel with ChangeNotifier{
       notifyListeners();
 
     }
+
+
   }
 
 
@@ -58,6 +63,24 @@ class AppointmentViewModel with ChangeNotifier{
       }
     }
     notifyListeners();
+  }
+
+  List<OnlineModel> onlineList = [
+    OnlineModel(title: "Voice Call", subTitle: "Can you make voice call", amount: 150.00, iconData: Icons.call),
+    OnlineModel(title: "Video Call", subTitle: "Can you make video call", amount: 1500.00, iconData: Icons.video_call),
+    OnlineModel(title: "Messaging", subTitle: "Can messaging with Doctor", amount: 100.00, iconData: Icons.message),
+  ];
+
+  selectOnline(int index){
+    for(var i = 0; i < onlineList.length; i++){
+      if(i == index){
+        onlineList[i].isSelected = true;
+      }else{
+        onlineList[i].isSelected = false;
+      }
+
+      notifyListeners();
+    }
   }
 
 }

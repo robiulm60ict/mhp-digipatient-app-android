@@ -1,4 +1,6 @@
 
+import 'package:digi_patient/model/auth_model/login_model.dart';
+
 import '/data/network/network_api_service.dart';
 import '/resources/app_url.dart';
 
@@ -7,11 +9,11 @@ import '../data/network/base_api_service.dart';
 class AuthRepository{
   BaseApiService apiService = NetworkApiService();
 
-  Future<dynamic> loginApi(dynamic body) async{
+  Future<LoginModel> loginApi(dynamic body) async{
 
     try{
-      dynamic response = await apiService.getPostApiResponse(AppUrls.loginApiEndPoint, body);
-      return response;
+      dynamic response = await apiService.getPostApiResponse(AppUrls.login, body);
+      return LoginModel.fromJson(response);
     }catch(e){
       rethrow;
     }
@@ -23,7 +25,7 @@ class AuthRepository{
       dynamic response = await apiService.getPostApiResponse(AppUrls.singUpEndPoint, body);
       return response;
     }catch(e){
-      throw e;
+      rethrow;
     }
   }
 }

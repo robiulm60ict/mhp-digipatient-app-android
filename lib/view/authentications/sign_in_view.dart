@@ -1,11 +1,15 @@
+import 'package:agora_uikit/models/rtm_message.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
+import 'package:digi_patient/utils/message.dart';
 import 'package:digi_patient/utils/utils.dart';
+import 'package:digi_patient/view_model/auth_view_model.dart';
 import 'package:digi_patient/widgets/custom_button.dart';
 import 'package:digi_patient/widgets/custom_textfield.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../resources/colors.dart';
 import '../../widgets/gradient_appBar.dart';
@@ -20,14 +24,20 @@ class SignInView extends StatefulWidget {
 class _SignInViewState extends State<SignInView> {
   bool keepMeSignedIn = true;
   bool obSecureText = false;
+
   TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+
   @override
   void dispose() {
     super.dispose();
     passwordController.dispose();
+    emailController.dispose();
   }
   @override
   Widget build(BuildContext context) {
+    final authVm = Provider.of<AuthViewModel>(context);
+
     return Scaffold(
       body: ListView(
 
@@ -42,7 +52,8 @@ class _SignInViewState extends State<SignInView> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
             child: CustomTextField(
-              // keyboardType: TextInputType.number,
+              textEditingController: emailController,
+              keyboardType: TextInputType.emailAddress,
               prefix: Icon(Icons.person_pin, color: AppColors.primaryColor,), hintText: "Email or Mobile",),
           ),
           SizedBox(height: 15.h,),
@@ -89,8 +100,18 @@ class _SignInViewState extends State<SignInView> {
           SizedBox(height: 24.h,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
-            child: CustomButton(text: "Sign in", onTap: (){
-              context.router.replace(const DashboardRoute());
+            child: authVm.loginLoading ? const Center(child: CircularProgressIndicator(),) : CustomButton(text: "Sign in", onTap: (){
+              if(emailController.text.isNotEmpty || passwordController.text.isNotEmpty){
+                Map<String, String> body = {
+                  'email' : emailController.text,
+                  'password' : passwordController.text
+                };
+                authVm.loginApi(context, body);
+              }else{
+                Messages.snackBar(context, "Fill Up All of the field!", backgroundColor: Colors.red);
+              }
+
+              // context.router.replace(const DashboardRoute());
             },),
           ),
           SizedBox(height: 15.h,),

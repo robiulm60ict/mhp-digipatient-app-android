@@ -56,7 +56,7 @@ class DoctorListTileOurDoc extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("Degree:", textAlign: TextAlign.left, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: const Color(0xFF8A8A8A)),),
-                        Text(" MBBS, DA, FCPS", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),)
+                        Text("MBBS, DA, FCPS", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),)
                       ],
                     ),
                     SizedBox(height: 5.h,),
@@ -68,7 +68,7 @@ class DoctorListTileOurDoc extends StatelessWidget {
                         //     width: 62.w,
                         //     fit: BoxFit.fill,
                         //     Assets.imagesHospitalLogo),
-                        Text(docHospitalName, style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w500, color: Colors.black),),
+                        Expanded(child: Text(docHospitalName, style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w500, color: Colors.black),)),
                         CustomRating.ratingBar(onRatingUpdate: (r){}),
                       ],
                     ),

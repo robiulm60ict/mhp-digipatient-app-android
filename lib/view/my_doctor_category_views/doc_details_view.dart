@@ -1,17 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
+import 'package:digi_patient/model/doctor_model/doctors_model.dart';
+import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/custom_rating.dart';
+import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../utils/utils.dart';
 import '../../widgets/back_button.dart';
 
 class DocDetailsView extends StatefulWidget {
-  const DocDetailsView({Key? key}) : super(key: key);
+  const DocDetailsView({Key? key, required this.id}) : super(key: key);
+  final num id;
 
   @override
   State<DocDetailsView> createState() => _DocDetailsViewState();
@@ -25,6 +30,19 @@ class _DocDetailsViewState extends State<DocDetailsView> {
   //   super.dispose();
   //   // listViewController.dispose();
   // }
+  Doctors? doc;
+  @override
+  void initState() {
+    super.initState();
+    getDoctor(widget.id);
+  }
+
+  getDoctor(num id){
+    doc = context.read<MyDoctorViewModel>().allDoctorList.first.doctors?.firstWhere((element) => element.id == id);
+    setState(() {
+
+    });
+  }
 
   double rating = 3;
   @override
@@ -36,7 +54,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
         backgroundColor: AppColors.linearGradient2,
       ),
       backgroundColor: Colors.white,
-      body: Column(
+      body: doc == null ? const Center(child: CircularProgressIndicator(),) : Column(
         // alignment: Alignment.topCenter,
         // controller: listViewController,
         // shrinkWrap: true,
@@ -66,7 +84,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Dr. Habib",
+                          "${doc?.drFullName}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -78,7 +96,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           height: 8.h,
                         ),
                         Text(
-                          "Consultant Cardiology",
+                          "${doc?.department?.departmentsName}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style:
@@ -179,11 +197,12 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           backgroundColor: AppColors.linearGradient1,
                         ),
                       ),
-                      Image.asset(
-                        Assets.imagesUser,
+                      Image.network(
+                        "${AppUrls.docImage}${doc?.drImages}",
                         height: double.infinity,
                         width: double.infinity,
                         fit: BoxFit.fill,
+                        errorBuilder: (context, error, stackTrace) => const CircleAvatar(backgroundColor: Colors.red,radius: 40, child: Text("Error"),),
                       ),
                     ],
                   ),
@@ -217,7 +236,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                         elevation: 5,
                         child: ListTile(
                           leading: Icon(Icons.cases_outlined, color: AppColors.primaryColor,),
-                        title: Text("+9 years", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
+                        title: Text("${doc?.workExperienceYears} years", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
                         subtitle: Text("Experience", style: TextStyle(fontSize: 12.sp,  color: Colors.grey),),
 
                         ),
@@ -263,8 +282,8 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 SizedBox(height: 20.h,),
                 Text("About Doctor", style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
     ReadMoreText(
-      "Dr. Asif Manwar, a graduate of Chittagong Medical College, started career as Resident Medical Officer, BIRDEM in 2002 en-route to Ibrahim Cardiac Hospital. Dr. Manwar pursued PG Dip Cardiology in 2004 under University of London with Distinction & Sir John Goodwin Prize for academic excellence by Imperial College London. Academic up-gradation in 2006 created an opportunity to serve Apollo Hospital Dhaka as Registrar, Cardiology. To aspire proficiency at" + "...",
-    trimLines: 5,
+      "${doc?.drAbout}",
+      trimLines: 5,
     colorClickableText: Colors.pink,
     trimMode: TrimMode.Line,
     trimCollapsedText: 'See All',
@@ -315,7 +334,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                   ),
                   onPressed: (){
 
-                    context.router.push(const BookAppointmentRoute());
+                    context.router.push( BookAppointmentRoute(doctors: doc!));
 
                   }, child: Text("Request For Appointment", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),),),),
               ],
