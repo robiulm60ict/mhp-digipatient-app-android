@@ -95,7 +95,8 @@ class MyDoctorView extends StatelessWidget {
               return SizedBox(
                 width: MediaQuery.of(context).size.width - 25,
                 child: DoctorListTileFavourite(onTap: (){
-                  context.router.push(const DocDetailsRoute());
+                  //TODO: Connect api and Route
+                  // context.router.push( DocDetailsRoute(id: null));
                 },),
               );
             }),
@@ -126,7 +127,7 @@ class MyDoctorView extends StatelessWidget {
           provider.isDepartmentLoading ? const Center(child: CircularProgressIndicator(),) : GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: provider.departmentList.first.department?.length,
+              itemCount: provider.departmentList.isNotEmpty ? provider.departmentList.first.department?.length : 0,
               gridDelegate: FlutterzillaFixedGridView(
               crossAxisCount: 2,
                 mainAxisSpacing: 10.w,

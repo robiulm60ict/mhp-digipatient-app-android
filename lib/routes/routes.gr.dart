@@ -14,6 +14,7 @@
 import 'package:auto_route/auto_route.dart' as _i29;
 import 'package:flutter/material.dart' as _i30;
 
+import '../model/doctor_model/doctors_model.dart' as _i31;
 import '../view/anatomy/anatomy_view.dart' as _i18;
 import '../view/appointment/book_appointment_view.dart' as _i15;
 import '../view/authentications/create_account_view.dart' as _i7;
@@ -140,15 +141,23 @@ class AppRouter extends _i29.RootStackRouter {
       );
     },
     DocDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<DocDetailsRouteArgs>();
       return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i14.DocDetailsView(),
+        child: _i14.DocDetailsView(
+          key: args.key,
+          id: args.id,
+        ),
       );
     },
     BookAppointmentRoute.name: (routeData) {
+      final args = routeData.argsAs<BookAppointmentRouteArgs>();
       return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i15.BookAppointmentView(),
+        child: _i15.BookAppointmentView(
+          key: args.key,
+          doctors: args.doctors,
+        ),
       );
     },
     PaymentMethodRoute.name: (routeData) {
@@ -577,26 +586,71 @@ class AllDoctorSearchRoute extends _i29.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i14.DocDetailsView]
-class DocDetailsRoute extends _i29.PageRouteInfo<void> {
-  const DocDetailsRoute()
-      : super(
+class DocDetailsRoute extends _i29.PageRouteInfo<DocDetailsRouteArgs> {
+  DocDetailsRoute({
+    _i30.Key? key,
+    required num id,
+  }) : super(
           DocDetailsRoute.name,
           path: '/doc-detail',
+          args: DocDetailsRouteArgs(
+            key: key,
+            id: id,
+          ),
         );
 
   static const String name = 'DocDetailsRoute';
 }
 
+class DocDetailsRouteArgs {
+  const DocDetailsRouteArgs({
+    this.key,
+    required this.id,
+  });
+
+  final _i30.Key? key;
+
+  final num id;
+
+  @override
+  String toString() {
+    return 'DocDetailsRouteArgs{key: $key, id: $id}';
+  }
+}
+
 /// generated route for
 /// [_i15.BookAppointmentView]
-class BookAppointmentRoute extends _i29.PageRouteInfo<void> {
-  const BookAppointmentRoute()
-      : super(
+class BookAppointmentRoute
+    extends _i29.PageRouteInfo<BookAppointmentRouteArgs> {
+  BookAppointmentRoute({
+    _i30.Key? key,
+    required _i31.Doctors doctors,
+  }) : super(
           BookAppointmentRoute.name,
           path: '/book-appointment',
+          args: BookAppointmentRouteArgs(
+            key: key,
+            doctors: doctors,
+          ),
         );
 
   static const String name = 'BookAppointmentRoute';
+}
+
+class BookAppointmentRouteArgs {
+  const BookAppointmentRouteArgs({
+    this.key,
+    required this.doctors,
+  });
+
+  final _i30.Key? key;
+
+  final _i31.Doctors doctors;
+
+  @override
+  String toString() {
+    return 'BookAppointmentRouteArgs{key: $key, doctors: $doctors}';
+  }
 }
 
 /// generated route for

@@ -80,7 +80,7 @@ class _MyDoctorCategoryWiseViewState extends State<MyDoctorCategoryWiseView> {
 
                 return InkWell(
               onTap: (){
-                context.router.push(const DocDetailsRoute());
+                context.router.push( DocDetailsRoute(id: doc!.id!));
               },
                   child: Stack(
               alignment: Alignment.center,

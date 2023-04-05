@@ -4,6 +4,8 @@ import 'package:badges/badges.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
+import 'package:digi_patient/utils/user.dart';
+import 'package:digi_patient/view_model/auth_view_model.dart';
 import 'package:digi_patient/view_model/home_view_model.dart';
 import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:digi_patient/widgets/back_button.dart';
@@ -12,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -21,6 +24,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -29,6 +33,7 @@ class _HomeViewState extends State<HomeView> {
     debugPrint(size.width.toString());
     final provider = Provider.of<HomeViewModel>(context);
     final dvm = Provider.of<MyDoctorViewModel>(context);
+    final authVM = Provider.of<AuthViewModel>(context);
     return SafeArea(
       top: true,
       maintainBottomViewPadding: true,
@@ -66,7 +71,15 @@ class _HomeViewState extends State<HomeView> {
               Card(
                 color: AppColors.primaryColor,
                 child: ListTile(
-                  onTap: (){},
+                  onTap: () async{
+
+                    final prefs = await SharedPreferences.getInstance();
+
+                    prefs.setBool(UserP.isLoggedIn, false);
+
+                    context.router.replace(const SignInRoute());
+
+                  },
                   leading: CircleAvatar(
                     backgroundColor: Colors.white,
                     child: Icon(Icons.logout, size: 15.h, color: AppColors.primaryColor,),
@@ -130,8 +143,8 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   Text("Hello!", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 22.sp, color: AppColors.primaryColor ),),
                   SizedBox(height: 8.h,),
-                  Text("Habibur Rahman", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: const Color(0xFF454545)),),
-                  Text("Welcome to Macro Health Plus", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: 14.sp, color: const Color(0xFF7A7A7A),),),
+                  Text("${authVM.user?.user?.name}", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: const Color(0xFF454545)),),
+                  Text("Welcome to MacroHealthPlus", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: 14.sp, color: const Color(0xFF7A7A7A),),),
                 ],
               ),
             ),

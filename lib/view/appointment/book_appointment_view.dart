@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
+import 'package:digi_patient/model/doctor_model/doctors_model.dart';
+import 'package:digi_patient/model/online_model/online_model.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
@@ -11,17 +13,24 @@ import '../../utils/utils.dart';
 import '../../widgets/back_button.dart';
 
 class BookAppointmentView extends StatefulWidget {
-  const BookAppointmentView({Key? key}) : super(key: key);
+  const BookAppointmentView({Key? key, required this.doctors}) : super(key: key);
+  final Doctors doctors;
 
   @override
   State<BookAppointmentView> createState() => _BookAppointmentViewState();
 }
 
 class _BookAppointmentViewState extends State<BookAppointmentView> {
-  @override
-  void initState() {
-    super.initState();
-    // context.read<AppointmentViewModel>().setAppointmentDate(context);
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //  setAppointment(context);
+  //   // code that depends on myInheritedWidget can be executed here
+  // }
+
+  setAppointment(BuildContext context){
+    context.read<AppointmentViewModel>().setAppointmentDate(context);
+
   }
 
   bool morningButton = true;
@@ -190,41 +199,63 @@ padding: EdgeInsets.all(20.r),
           SizedBox(height: 20.h,),
           Visibility(
             visible: isChamber,
-            replacement: Column(
-              children: [
-                ListTile(
-                  onTap: (){},
-                  leading: CircleAvatar(
-                    backgroundColor: AppColors.primaryColor,
-                    child:  Icon(Icons.call, color: Colors.white, size: 15.h,),
-                  ),
-                  title: Text("Voice Call", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xFF646464)),),
-                  subtitle: Text("Can you make voice call", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
-                trailing: Text("150.00 BDT", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-                ),
-                ListTile(
-                  onTap: (){},
-                  leading: CircleAvatar(
-                    backgroundColor: AppColors.primaryColor,
-                    child:  Icon(Icons.video_call, color: Colors.white, size: 15.h,),
-                  ),
-                  title: Text("Video Call", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xFF646464)),),
-                  subtitle: Text("Can you make video call", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
-                trailing: Text("1500.00 BDT", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-                ),
-                ListTile(
-                  onTap: (){},
-                  leading: CircleAvatar(
-                    backgroundColor: AppColors.primaryColor,
-                    child:  Icon(Icons.message, color: Colors.white, size: 15.h,),
-                  ),
-                  title: Text("Messaging", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xFF646464)),),
-                  subtitle: Text("Can messaging with Doctor", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
-                trailing: Text("100.00 BDT", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-                ),
-
-              ],
-            ),
+            // replacement: Column(
+            //   children: [
+            //     ListTile(
+            //       onTap: (){},
+            //       leading: CircleAvatar(
+            //         backgroundColor: AppColors.primaryColor,
+            //         child:  Icon(Icons.call, color: Colors.white, size: 15.h,),
+            //       ),
+            //       title: Text("Voice Call", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xFF646464)),),
+            //       subtitle: Text("Can you make voice call", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
+            //     trailing: Text("150.00 BDT", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+            //     ),
+            //     ListTile(
+            //       onTap: (){},
+            //       leading: CircleAvatar(
+            //         backgroundColor: AppColors.primaryColor,
+            //         child:  Icon(Icons.video_call, color: Colors.white, size: 15.h,),
+            //       ),
+            //       title: Text("Video Call", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xFF646464)),),
+            //       subtitle: Text("Can you make video call", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
+            //     trailing: Text("1500.00 BDT", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+            //     ),
+            //     ListTile(
+            //       onTap: (){},
+            //       leading: CircleAvatar(
+            //         backgroundColor: AppColors.primaryColor,
+            //         child:  Icon(Icons.message, color: Colors.white, size: 15.h,),
+            //       ),
+            //       title: Text("Messaging", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xFF646464)),),
+            //       subtitle: Text("Can messaging with Doctor", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
+            //     trailing: Text("100.00 BDT", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+            //     ),
+            //
+            //   ],
+            // ),
+            replacement: ListView.builder(
+              shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: appointmentViewModel.onlineList.length,
+                itemBuilder: (context, index) {
+    OnlineModel on = appointmentViewModel.onlineList[index];
+    return Card(
+      color: on.isSelected ? Colors.white : Colors.white38,
+      child: ListTile(
+        onTap: (){
+          appointmentViewModel.selectOnline(index);
+        },
+        leading: CircleAvatar(
+          backgroundColor: AppColors.primaryColor,
+          child:  Icon(on.iconData, color: Colors.white, size: 15.h,),
+        ),
+        title: Text(on.title, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xFF646464)),),
+        subtitle: Text(on.subTitle, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
+        trailing: Text("${on.amount} BDT", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+      ),
+    );
+    } ),
             child: ListView.separated(
               shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),

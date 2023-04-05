@@ -2,8 +2,10 @@ import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
+import 'package:digi_patient/utils/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../generated/assets.dart';
 import '/resources/colors.dart';
 
@@ -18,6 +20,7 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   // SplashServices splashServices = SplashServices();
 
+
   @override
   void initState() {
     super.initState();
@@ -29,10 +32,24 @@ class _SplashViewState extends State<SplashView> {
         // AutoRouter.of(context).replace(const LoginRoute());
         //   context.router.replace(const Splash2Route());
         //   context.router.push(const LoginRoute());
-          context.router.push(const OnBoardingRoute());
+
+          navigateUser();
 
         }
     );
+  }
+
+  navigateUser()async{
+    final prefs = await SharedPreferences.getInstance();
+
+    bool isLoggedIn =  prefs.getBool(UserP.isLoggedIn) ?? false;
+
+    if(isLoggedIn){
+      context.router.replace(const DashboardRoute());
+    }else{
+      context.router.push(const OnBoardingRoute());
+    }
+
   }
 
   Duration duration = const Duration(seconds: 1);
