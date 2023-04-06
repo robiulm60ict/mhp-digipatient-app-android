@@ -90,7 +90,7 @@ class _HomeViewState extends State<HomeView> {
 
                     final prefs = await SharedPreferences.getInstance();
 
-                    prefs.setBool(UserP.isLoggedIn, false);
+                    await prefs.setBool(UserP.isLoggedIn, false);
 
                     context.router.replace(const SignInRoute());
 

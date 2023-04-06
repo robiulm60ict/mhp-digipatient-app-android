@@ -36,9 +36,11 @@ class AuthViewModel with ChangeNotifier {
     _authRepo.loginApi(body).then((value) async{
       Messages.flushBarMessage(context, '${value.message}',backgroundColor: AppColors.primaryColor);
       await saveUser(isLoggedIn: true, email: body['email'], password: body['password'], name: value.user!.name!, id: int.parse(value.user!.userId!));
-       Future.delayed(const Duration(seconds: 1));
-      setLoginLoading(false, value);
-      context.router.replace(const DashboardRoute());
+       Future.delayed(const Duration(seconds: 2)).then((value) {
+         setLoginLoading(false, value);
+         context.router.replace(const DashboardRoute());
+       });
+
     }).onError((error, stackTrace) {
       debugPrint(error.toString());
         Messages.flushBarMessage(context, error.toString());
