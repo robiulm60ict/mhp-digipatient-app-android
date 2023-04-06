@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
+import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/utils.dart';
 import 'package:digi_patient/widgets/back_button.dart';
 import 'package:digi_patient/widgets/line_chart.dart';
@@ -224,7 +226,7 @@ SizedBox(height: 10.h,),
             height: 300.h,
             child: TabBarView(
                 controller: _tabController,
-                children: [
+                children: const [
                   Card(
                     child: CustomLineChart()
                   ),
