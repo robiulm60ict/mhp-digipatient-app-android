@@ -1,3 +1,7 @@
+import 'package:digi_patient/enum/vitals_enum.dart';
+import 'package:digi_patient/utils/popup_dialogue.dart';
+import 'package:digi_patient/widgets/vitals_set_button.dart';
+import 'package:digi_patient/widgets/vitals_title_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,10 +10,11 @@ import '../../../utils/utils.dart';
 import '../../../widgets/back_button.dart';
 
 class VitalsItemDetailsView extends StatelessWidget {
-  const VitalsItemDetailsView({Key? key, required this.title, required this.img, required this.subtitle}) : super(key: key);
+  const VitalsItemDetailsView({Key? key, required this.title, required this.img, required this.subtitle, required this.v}) : super(key: key);
   final String title;
   final String img;
   final String subtitle;
+  final Vitals v;
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +46,6 @@ class VitalsItemDetailsView extends StatelessWidget {
                       children: [
                         Text(title, style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
                         Text(subtitle, style: TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-                        // ListTile(
-                        //   leading: Image.asset(img),
-                        //   title: Text(title, style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-                        //   subtitle: Text(subtitle, style: TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-                        // ),
                       ],
                     ),
                   ],
@@ -55,7 +55,9 @@ class VitalsItemDetailsView extends StatelessWidget {
             SizedBox(height: 30.h,),
             SizedBox(
               height: 40.h,
-              child: ElevatedButton(onPressed: (){}, child: Text("+ Add $title", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),)),
+              child: ElevatedButton(onPressed: (){
+                getPopUpDialogue(v, context);
+              }, child: Text("+ Add $title", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),)),
             ),
             SizedBox(height: 20.h,),
             Align(
@@ -95,7 +97,8 @@ class VitalsItemDetailsView extends StatelessWidget {
                             ],
                           ),
                         ),
-                      ));
+                      ),
+                  );
                 },))
           ],
         ),
@@ -103,3 +106,23 @@ class VitalsItemDetailsView extends StatelessWidget {
     );
   }
 }
+
+getPopUpDialogue(Vitals v, BuildContext context){
+  TextEditingController sbp = TextEditingController();
+  TextEditingController dbp = TextEditingController();
+
+  if(v == Vitals.bloodPressure){
+    return popUpDialogue(context, Column(
+      children: [
+        VitalTextTitle(title: "Systolic BP", controller: sbp),
+        SizedBox(height: 10.h,),
+        VitalTextTitle(title: "Diastolic BP", controller: dbp),
+        SizedBox(height: 20.h,),
+        VitalsSetButton(onPressed: (){}),
+      ],
+    ),
+    );
+  }
+}
+
+

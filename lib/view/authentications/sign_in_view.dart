@@ -1,4 +1,3 @@
-import 'package:agora_uikit/models/rtm_message.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/message.dart';

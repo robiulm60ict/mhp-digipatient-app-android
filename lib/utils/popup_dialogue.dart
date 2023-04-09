@@ -199,6 +199,7 @@ selectCategoryPopUp(BuildContext context,){
     ],
   ));
 }
+
 popUpDialogue(BuildContext context, Widget content, ){
   return Alert(
     context: context,

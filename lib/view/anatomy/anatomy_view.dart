@@ -48,6 +48,7 @@ class _AnatomyViewState extends State<AnatomyView> {
         dotColor: Colors.red,
 
         onChanged: (bodyPart, active) {
+          debugPrint("\n\n\n\n\n\n ${bodyPart.first.title}");
           Messages.flushBarMessage(context,
               "${active?.title} ${active?.id} ${active?.painLevel} ${active?.transformedPath} ${active?.props} ${active?.stringify}");
         },
@@ -72,8 +73,10 @@ class _AnatomyViewState extends State<AnatomyView> {
         dotColor: Colors.red,
 
         onChanged: (bodyPart, active) {
-          Messages.flushBarMessage(context,
-              "${active?.title} ${active?.id} ${active?.painLevel} ${active?.transformedPath} ${active?.props} ${active?.stringify}");
+          debugPrint("\n\n\n\n\n\n ${bodyPart.first.title}");
+
+          // Messages.flushBarMessage(context,
+          //     "${active?.title} ${active?.id} ${active?.painLevel} ${active?.transformedPath} ${active?.props} ${active?.stringify}");
         },
         onLevelChanged: (bodyPart) {
           for (var i in bodyPart) {
@@ -204,98 +207,99 @@ class _AnatomyViewState extends State<AnatomyView> {
               //     "${active?.title} ${active?.id} ${active?.painLevel} ${active?.transformedPath} ${active?.props} ${active?.stringify}",
               //   flushBarPosition: FlushbarPosition.BOTTOM
               // );
+              debugPrint("\n\n\n\n\n\n ${bodyPart.first.title} id${bodyPart.first.id} pain Level: ${bodyPart.first.painLevel} obj: ${bodyPart.first.props} active part ${active?.title}");
 
               debugPrint(provider.flushBarState.toString());
 
-              if (provider.flushBarState == 0) {
-                context.router.pop().then((value) => Future.delayed(
-                        const Duration(milliseconds: 1500))
-                    .then((value) => Messages.flushBarWithOption(
-                          context,
-                          child: SizedBox(
-                            height: 300.h,
-                            width: double.infinity,
-                            child: StatefulBuilder(
-                              builder: (context, setState) => GridView.builder(
-                                itemCount: diseasesList.length,
-                                itemBuilder: (context, index) {
-                                  return Card(
-                                    // child: RadioListTile(
-                                    //     title: Text("Diseases ${index + 1}"),
-                                    //     value: index, groupValue: value, onChanged: (ind) => setState(() => value = ind!)),
-                                    child: CheckboxListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.leading,
-                                      title: Text(
-                                        diseasesList[index].title,
-                                        style: const TextStyle(),
-                                      ),
-                                      value: diseasesList[index].selected,
-                                      onChanged: (bool? value) {
-                                        if (value != null) {
-                                          diseasesList[index].selected = value;
-                                          setState(
-                                            () {},
-                                          );
-                                        }
-                                      },
-                                    ),
-                                  );
-                                },
-                                gridDelegate: FlutterzillaFixedGridView(
-                                    crossAxisCount: 2,
-                                    height: 50.h,
-                                    mainAxisSpacing: 10.w,
-                                    crossAxisSpacing: 10.h),
-                              ),
-                            ),
-                          ),
-                        ),),);
-              } else {
-                Future.delayed(const Duration(milliseconds: 500)).then(
-                  (value) => Messages.flushBarWithOption(
-                    context,
-                    child: SizedBox(
-                      height: 300.h,
-                      width: double.infinity,
-                      child: StatefulBuilder(
-                        builder: (context, setState) => GridView.builder(
-                          itemCount: diseasesList.length,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              // child: RadioListTile(
-                              //     title: Text("Diseases ${index + 1}"),
-                              //     value: index, groupValue: value, onChanged: (ind) => setState(() => value = ind!)),
-                              child: CheckboxListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
-                                title: Text(
-                                  diseasesList[index].title,
-                                  style: const TextStyle(),
-                                ),
-                                value: diseasesList[index].selected,
-                                onChanged: (bool? value) {
-                                  if (value != null) {
-                                    diseasesList[index].selected = value;
-                                    setState(
-                                      () {},
-                                    );
-                                  }
-                                },
-                              ),
-                            );
-                          },
-                          gridDelegate: FlutterzillaFixedGridView(
-                              crossAxisCount: 2,
-                              height: 50.h,
-                              mainAxisSpacing: 10.w,
-                              crossAxisSpacing: 10.h),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              }
+              // if (provider.flushBarState == 0) {
+              //   context.router.pop().then((value) => Future.delayed(
+              //           const Duration(milliseconds: 1500))
+              //       .then((value) => Messages.flushBarWithOption(
+              //             context,
+              //             child: SizedBox(
+              //               height: 300.h,
+              //               width: double.infinity,
+              //               child: StatefulBuilder(
+              //                 builder: (context, setState) => GridView.builder(
+              //                   itemCount: diseasesList.length,
+              //                   itemBuilder: (context, index) {
+              //                     return Card(
+              //                       // child: RadioListTile(
+              //                       //     title: Text("Diseases ${index + 1}"),
+              //                       //     value: index, groupValue: value, onChanged: (ind) => setState(() => value = ind!)),
+              //                       child: CheckboxListTile(
+              //                         controlAffinity:
+              //                             ListTileControlAffinity.leading,
+              //                         title: Text(
+              //                           diseasesList[index].title,
+              //                           style: const TextStyle(),
+              //                         ),
+              //                         value: diseasesList[index].selected,
+              //                         onChanged: (bool? value) {
+              //                           if (value != null) {
+              //                             diseasesList[index].selected = value;
+              //                             setState(
+              //                               () {},
+              //                             );
+              //                           }
+              //                         },
+              //                       ),
+              //                     );
+              //                   },
+              //                   gridDelegate: FlutterzillaFixedGridView(
+              //                       crossAxisCount: 2,
+              //                       height: 50.h,
+              //                       mainAxisSpacing: 10.w,
+              //                       crossAxisSpacing: 10.h),
+              //                 ),
+              //               ),
+              //             ),
+              //           ),),);
+              // } else {
+              //   Future.delayed(const Duration(milliseconds: 500)).then(
+              //     (value) => Messages.flushBarWithOption(
+              //       context,
+              //       child: SizedBox(
+              //         height: 300.h,
+              //         width: double.infinity,
+              //         child: StatefulBuilder(
+              //           builder: (context, setState) => GridView.builder(
+              //             itemCount: diseasesList.length,
+              //             itemBuilder: (context, index) {
+              //               return Card(
+              //                 // child: RadioListTile(
+              //                 //     title: Text("Diseases ${index + 1}"),
+              //                 //     value: index, groupValue: value, onChanged: (ind) => setState(() => value = ind!)),
+              //                 child: CheckboxListTile(
+              //                   controlAffinity:
+              //                       ListTileControlAffinity.leading,
+              //                   title: Text(
+              //                     diseasesList[index].title,
+              //                     style: const TextStyle(),
+              //                   ),
+              //                   value: diseasesList[index].selected,
+              //                   onChanged: (bool? value) {
+              //                     if (value != null) {
+              //                       diseasesList[index].selected = value;
+              //                       setState(
+              //                         () {},
+              //                       );
+              //                     }
+              //                   },
+              //                 ),
+              //               );
+              //             },
+              //             gridDelegate: FlutterzillaFixedGridView(
+              //                 crossAxisCount: 2,
+              //                 height: 50.h,
+              //                 mainAxisSpacing: 10.w,
+              //                 crossAxisSpacing: 10.h),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   );
+              // }
             },
             onLevelChanged: (bodyPart) {
               for (var i in bodyPart) {
