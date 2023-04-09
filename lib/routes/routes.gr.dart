@@ -14,6 +14,7 @@
 import 'package:auto_route/auto_route.dart' as _i30;
 import 'package:flutter/material.dart' as _i31;
 
+import '../enum/vitals_enum.dart' as _i33;
 import '../model/doctor_model/doctors_model.dart' as _i32;
 import '../view/anatomy/anatomy_view.dart' as _i18;
 import '../view/appointment/book_appointment_view.dart' as _i15;
@@ -224,6 +225,7 @@ class AppRouter extends _i30.RootStackRouter {
           title: args.title,
           img: args.img,
           subtitle: args.subtitle,
+          v: args.v,
         ),
       );
     },
@@ -787,6 +789,7 @@ class VitalsItemDetailsRoute
     required String title,
     required String img,
     required String subtitle,
+    required _i33.Vitals v,
   }) : super(
           VitalsItemDetailsRoute.name,
           path: '/vitals-detail',
@@ -795,6 +798,7 @@ class VitalsItemDetailsRoute
             title: title,
             img: img,
             subtitle: subtitle,
+            v: v,
           ),
         );
 
@@ -807,6 +811,7 @@ class VitalsItemDetailsRouteArgs {
     required this.title,
     required this.img,
     required this.subtitle,
+    required this.v,
   });
 
   final _i31.Key? key;
@@ -817,9 +822,11 @@ class VitalsItemDetailsRouteArgs {
 
   final String subtitle;
 
+  final _i33.Vitals v;
+
   @override
   String toString() {
-    return 'VitalsItemDetailsRouteArgs{key: $key, title: $title, img: $img, subtitle: $subtitle}';
+    return 'VitalsItemDetailsRouteArgs{key: $key, title: $title, img: $img, subtitle: $subtitle, v: $v}';
   }
 }
 

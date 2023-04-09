@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:digi_patient/enum/vitals_enum.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
@@ -62,27 +63,27 @@ class _VitalsViewState extends State<VitalsView> with SingleTickerProviderStateM
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const VitalsCard(title: "Blood Pressure", subtitle: "120/80", image: Assets.vitalsBloodPressure),
+              const VitalsCard(title: "Blood Pressure", subtitle: "120/80", image: Assets.vitalsBloodPressure, v: Vitals.bloodPressure,),
               SizedBox(width: 6.w,),
-              const VitalsCard(title: "Heart Rate", subtitle: "89", image: Assets.vitalsHeartRate),
+              const VitalsCard(title: "Heart Rate", subtitle: "89", image: Assets.vitalsHeartRate, v: Vitals.heartRate),
             ],
           ),
           SizedBox(height: 6.h,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const VitalsCard(title: "Temperature", subtitle: "90.7  c", image: Assets.vitalsTemperature),
+              const VitalsCard(title: "Temperature", subtitle: "90.7  c", image: Assets.vitalsTemperature, v: Vitals.temperature),
               SizedBox(width: 6.w,),
-              const VitalsCard(title: "Weight", subtitle: "75kg", image: Assets.vitalsWeight),
+              const VitalsCard(title: "Weight", subtitle: "75kg", image: Assets.vitalsWeight, v: Vitals.weight),
             ],
           ),
           SizedBox(height: 6.h,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const VitalsCard(title: "Height", subtitle: "172cm", image: Assets.vitalsHeight),
+              const VitalsCard(title: "Height", subtitle: "172cm", image: Assets.vitalsHeight, v: Vitals.height),
               SizedBox(width: 6.w,),
-              const VitalsCard(title: "BMI", subtitle: "27.7", image: Assets.vitalsBmi),
+              const VitalsCard(title: "BMI", subtitle: "27.7", image: Assets.vitalsBmi, v: Vitals.bmi),
             ],
           ),
           SizedBox(height: 6.h,),

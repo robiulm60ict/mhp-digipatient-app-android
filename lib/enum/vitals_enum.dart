@@ -1,0 +1,1 @@
+enum Vitals{bloodPressure, heartRate, temperature, weight, height, bmi, bloodSugar}
