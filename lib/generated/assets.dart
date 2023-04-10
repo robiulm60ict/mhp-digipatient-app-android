@@ -49,6 +49,9 @@ class Assets {
   static const String imagesUser = 'assets/images/user.png';
   static const String imagesVisa = 'assets/images/visa.png';
   static const String imagesWelcomeBackground = 'assets/images/welcome-background.png';
+  static const String myMedicineBuyMedicineCircle = 'assets/icons/my_medicine/buy-medicine-circle.png';
+  static const String myMedicineMedicineCircle = 'assets/icons/my_medicine/medicine-circle.png';
+  static const String myMedicineMyMedicineFull = 'assets/icons/my_medicine/my-medicine-full.png';
   static const String vitalsBloodPressure = 'assets/icons/my_record/vitals/blood-pressure.png';
   static const String vitalsBloodSugar = 'assets/icons/my_record/vitals/blood-sugar.png';
   static const String vitalsBmi = 'assets/icons/my_record/vitals/bmi.png';

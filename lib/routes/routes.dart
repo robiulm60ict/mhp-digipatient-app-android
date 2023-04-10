@@ -28,6 +28,9 @@ import '../view/bottom_navigation_buttons/favourites_view.dart';
 import '../view/bottom_navigation_buttons/home_view.dart';
 import '../view/dashboard.dart';
 import '../view/my_doctor_category_views/doc_details_view.dart';
+import '../view/my_medicine/my_medicine_view.dart';
+import '../view/my_medicine/rx_detail_view.dart';
+import '../view/my_medicine/rx_view.dart';
 import '../view/splash_view.dart';
 
 @MaterialAutoRouter(
@@ -130,6 +133,12 @@ import '../view/splash_view.dart';
     AutoRoute(path: '/reason-visit', page: ReasonForVisitView,),
     AutoRoute(path: '/my-report', page: MyReportView,),
     AutoRoute(path: '/vitals-detail', page: VitalsItemDetailsView,),
+
+    /// My Medicine
+
+    AutoRoute(path: '/medicine', page: MyMedicineView,),
+    AutoRoute(path: '/rx', page: RXView,),
+    AutoRoute(path: '/rx-details', page: RXDetailView,),
 
   ],
 )

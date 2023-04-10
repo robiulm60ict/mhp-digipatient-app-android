@@ -16,7 +16,7 @@ import '../../routes/routes.gr.dart';
 class MyDoctorCategoryWiseView extends StatefulWidget {
   const MyDoctorCategoryWiseView({Key? key, required this.categoryName, required this.departmentId}) : super(key: key);
   final String categoryName;
-  final int departmentId;
+  final num departmentId;
 
   @override
   State<MyDoctorCategoryWiseView> createState() => _MyDoctorCategoryWiseViewState();

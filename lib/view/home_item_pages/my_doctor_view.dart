@@ -4,22 +4,18 @@ import 'package:digi_patient/model/department_model/department_model.dart';
 import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/utils/custom_search_dialogue.dart';
-import 'package:digi_patient/utils/popup_dialogue.dart';
 import 'package:digi_patient/utils/utils.dart';
 import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:digi_patient/widgets/back_button.dart';
 import 'package:digi_patient/widgets/doctor_list_tile.dart';
-import 'package:digi_patient/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:provider/provider.dart';
-import 'package:search_page/search_page.dart';
 import 'dart:io';
 
 import '../../model/doctor_model/doctors_model.dart';
 import '../../routes/routes.gr.dart';
-import '../../widgets/doctor_list_tile_our_doc.dart';
 
 
 class MyDoctorView extends StatelessWidget {
@@ -156,7 +152,10 @@ class MyDoctorView extends StatelessWidget {
                         child: SizedBox(
                           height: 35.h,
                           width: 35.w,
-                          child: Image.asset(Assets.imagesCardiology, fit: BoxFit.fill,),
+                          child: Image.network("${AppUrls.departmentImage}${department?.departmentImage}",
+                            fit: BoxFit.fill,
+                          errorBuilder: (context, error, stackTrace) => Icon(Icons.error, color: Colors.red, size: 20.h,),
+                          ),
                         ),
                       ),
                       SizedBox(height: 5.h,),
@@ -166,7 +165,8 @@ class MyDoctorView extends StatelessWidget {
                 ),
               ),
             );
-          })
+          },
+          ),
         ],
       ),
     );

@@ -17,6 +17,8 @@ class AppUrls{
 
   static const String department = '$baseUrl/mhp_server/public/api/department';
 
+  static const String departmentImage = '$baseUrl/mhp_server/public/department/';
+
   // static const String loginApiEndPoint = '$baseUrl/api/login';
 
   static const String singUpEndPoint = '$baseUrl/api//registration';
