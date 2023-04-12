@@ -60,7 +60,7 @@ class MyDoctorViewModel with ChangeNotifier{
   //
   // }
 
-  List<Doctors>? getDoctorsByType({required int departmentId}){
+  List<Doctors>? getDoctorsByType({required num departmentId}){
 
     return allDoctorList.first.doctors?.where((element) => element.department?.id == departmentId).toList();
   }

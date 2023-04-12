@@ -27,6 +27,9 @@ class HomeViewModel with ChangeNotifier{
       context.router.push(const MyRecordRoute());
     }else if(index == 2){
 
+    }else if(index == 3){
+      context.router.push(const MyMedicineRoute());
+
     }
   }
 

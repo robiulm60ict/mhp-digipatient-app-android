@@ -17,6 +17,8 @@ class AppUrls{
 
   static const String department = '$baseUrl/mhp_server/public/api/department';
 
+  static const String departmentImage = '$baseUrl/mhp_server/public/department/';
+
   // static const String loginApiEndPoint = '$baseUrl/api/login';
 
   static const String singUpEndPoint = '$baseUrl/api//registration';
@@ -26,6 +28,10 @@ class AppUrls{
   static const String diseaseByGenderAndName = '$baseUrl/mhp_server/public/api/patient-symptomsByGender/';
 
   static const String docImage = "$baseUrl/mhp_server/public/doctors/images/";
+
+  static const String currentRX = "$baseUrl/mhp_server/public/api/get-pescriped-dugs/";
+
+  static const String pastRX = "$baseUrl/mhp_server/public/api/past-dugs-history/";
 }
 
 const Map header = {'Accept': 'application/json'};

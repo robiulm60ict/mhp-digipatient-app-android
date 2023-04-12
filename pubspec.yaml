@@ -82,6 +82,7 @@ flutter:
     - assets/icons/
     - assets/icons/home/
     - assets/icons/my_record/
+    - assets/icons/my_medicine/
     - assets/icons/my_record/vitals/
     - assets/animation/
 
