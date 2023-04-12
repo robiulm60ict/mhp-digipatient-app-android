@@ -21,10 +21,10 @@ class MyMedicineRepo{
 
     final prefs =  await SharedPreferences.getInstance();
 
-    // int? id = prefs.getInt(UserP.id);
-    int id = 1;
+    int? id = prefs.getInt(UserP.id);
 
-    debugPrint("\n\n\n\n\n\n\n\n\n --------------------- Id is = $id");
+    //TODO: Remove this print statement
+    debugPrint("\n\n\n\n\n\n\n\n\n --------------------- User Id is = $id");
 
     try{
 
@@ -43,8 +43,8 @@ class MyMedicineRepo{
 
     final prefs =  await SharedPreferences.getInstance();
 
-    // int? id = prefs.getInt(UserP.id);
-    int id = 1;
+    int? id = prefs.getInt(UserP.id);
+
 
     try{
 
@@ -58,4 +58,6 @@ class MyMedicineRepo{
 
     }
   }
+
+
 }

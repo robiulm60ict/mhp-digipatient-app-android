@@ -32,6 +32,13 @@ class AppUrls{
   static const String currentRX = "$baseUrl/mhp_server/public/api/get-pescriped-dugs/";
 
   static const String pastRX = "$baseUrl/mhp_server/public/api/past-dugs-history/";
+
+  /// user
+  static const String userUrl = "$baseUrl/mhp_server/public/api/edit-patients/";
+
+  /// image
+
+  static const String image = "$baseUrl/mhp_server/public/";
 }
 
 const Map header = {'Accept': 'application/json'};

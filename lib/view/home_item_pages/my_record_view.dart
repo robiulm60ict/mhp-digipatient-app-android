@@ -1,17 +1,36 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:digi_patient/model/user_detail_model/user_model.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/utils.dart';
+import 'package:digi_patient/view_model/user_view_model/user_view_model.dart';
 import 'package:digi_patient/widgets/back_button.dart';
 import 'package:digi_patient/widgets/my_record_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
-class MyRecordView extends StatelessWidget {
+import '../../resources/app_url.dart';
+
+class MyRecordView extends StatefulWidget {
   const MyRecordView({Key? key}) : super(key: key);
 
   @override
+  State<MyRecordView> createState() => _MyRecordViewState();
+
+}
+
+class _MyRecordViewState extends State<MyRecordView> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<UserViewModel>().getUserDetails();
+  }
+  @override
   Widget build(BuildContext context) {
+    final userVM = Provider.of<UserViewModel>(context);
+    final user = Provider.of<UserViewModel>(context).user;
+
     return Scaffold(
       appBar: AppBar(
         leading: const CustomBackButton(),
@@ -22,45 +41,45 @@ class MyRecordView extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(15.r),
         children: [
-          Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.r),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 25.h,
-
-                  ), SizedBox(width: 8.w,),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text("Habibur Rahman", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
-                        SizedBox(height: 2.h,),
-                        Text("28543564789",  maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A)),),
-                        SizedBox(height: 5.h,),
-                        Wrap(
+           Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 25.h,
+                      backgroundImage: NetworkImage("${AppUrls.image}images/files/${user!.patientImages!}"),
+                    ), SizedBox(width: 8.w,),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(Icons.male, size: 13.h, color: const Color(0xFF8A8A8A),),
-                          Text("Gender:", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),),
-                          Text("Male", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A)),),
-                          SizedBox(width: 8.w,),
-                          Icon(Icons.bloodtype, size: 13.h, color: const Color(0xFF8A8A8A),),
-                          Text("Blood:", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),),
-                          Text("O+", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A)),),
+                          Text("${user?.patientFirstName} ${user?.patientMiddleName} ${user?.patientLastName}", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
+                          SizedBox(height: 2.h,),
+                          Text("${user?.patientHnNumber}",  maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A)),),
+                          SizedBox(height: 5.h,),
+                          Wrap(
+                          children: [
+                            Icon(Icons.male, size: 13.h, color: const Color(0xFF8A8A8A),),
+                            Text("Gender:", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),),
+                            Text("${user?.patientBirthSex?.birthSexName}", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A)),),
+                            SizedBox(width: 8.w,),
+                            Icon(Icons.bloodtype, size: 13.h, color: const Color(0xFF8A8A8A),),
+                            Text("Blood:", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),),
+                            Text("O+", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A)),),
+                          ],
+                        )
                         ],
-                      )
-                      ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
           SizedBox(height: 30.h,),
 
           MyRecordListTile(title: 'Vital', iconData: Icons.heart_broken, iconColor: Colors.red, onTap: (){

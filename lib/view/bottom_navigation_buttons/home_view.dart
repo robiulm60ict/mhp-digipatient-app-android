@@ -203,16 +203,7 @@ class _HomeViewState extends State<HomeView> {
             GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-            //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,
-            //   mainAxisSpacing: 5.h,
-            //   crossAxisSpacing: 10.w,
-            //   mainAxisExtent: 130
-            //
-            //   // maxCrossAxisExtent: 200,
-            //   // childAspectRatio: 3/1,
-            //   // crossAxisSpacing: 5.h,
-            //   // mainAxisSpacing: 5.w,
-            // ),
+
                 gridDelegate:  FlutterzillaFixedGridView(
                     crossAxisCount: 3,
                     mainAxisSpacing: 5,

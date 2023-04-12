@@ -6,6 +6,7 @@ import 'package:digi_patient/view_model/home_view_model.dart';
 import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:digi_patient/view_model/my_medicine_view_model/my_medicine_view_model.dart';
 import 'package:digi_patient/view_model/signup_model.dart';
+import 'package:digi_patient/view_model/user_view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localization/flutter_localization.dart';
@@ -54,6 +55,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => MyMedicineViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => UserViewModel(),
         ),
       ],
       child: MyApp(),
