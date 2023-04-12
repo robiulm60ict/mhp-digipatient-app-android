@@ -245,9 +245,14 @@ class AppRouter extends _i33.RootStackRouter {
       );
     },
     RXDetailRoute.name: (routeData) {
+      final args = routeData.argsAs<RXDetailRouteArgs>();
       return _i33.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i28.RXDetailView(),
+        child: _i28.RXDetailView(
+          key: args.key,
+          title: args.title,
+          isCurrentRxView: args.isCurrentRxView,
+        ),
       );
     },
     HomeRoute.name: (routeData) {
@@ -423,7 +428,7 @@ class AppRouter extends _i33.RootStackRouter {
         ),
         _i33.RouteConfig(
           RXDetailRoute.name,
-          path: '/rx-details',
+          path: '/details',
         ),
       ];
 }
@@ -889,14 +894,41 @@ class RXRoute extends _i33.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i28.RXDetailView]
-class RXDetailRoute extends _i33.PageRouteInfo<void> {
-  const RXDetailRoute()
-      : super(
+class RXDetailRoute extends _i33.PageRouteInfo<RXDetailRouteArgs> {
+  RXDetailRoute({
+    _i34.Key? key,
+    required String title,
+    required bool isCurrentRxView,
+  }) : super(
           RXDetailRoute.name,
-          path: '/rx-details',
+          path: '/details',
+          args: RXDetailRouteArgs(
+            key: key,
+            title: title,
+            isCurrentRxView: isCurrentRxView,
+          ),
         );
 
   static const String name = 'RXDetailRoute';
+}
+
+class RXDetailRouteArgs {
+  const RXDetailRouteArgs({
+    this.key,
+    required this.title,
+    required this.isCurrentRxView,
+  });
+
+  final _i34.Key? key;
+
+  final String title;
+
+  final bool isCurrentRxView;
+
+  @override
+  String toString() {
+    return 'RXDetailRouteArgs{key: $key, title: $title, isCurrentRxView: $isCurrentRxView}';
+  }
 }
 
 /// generated route for

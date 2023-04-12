@@ -138,7 +138,7 @@ import '../view/splash_view.dart';
 
     AutoRoute(path: '/medicine', page: MyMedicineView,),
     AutoRoute(path: '/rx', page: RXView,),
-    AutoRoute(path: '/rx-details', page: RXDetailView,),
+    AutoRoute(path: '/details', page: RXDetailView,),
 
   ],
 )

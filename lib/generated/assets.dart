@@ -52,6 +52,7 @@ class Assets {
   static const String myMedicineBuyMedicineCircle = 'assets/icons/my_medicine/buy-medicine-circle.png';
   static const String myMedicineMedicineCircle = 'assets/icons/my_medicine/medicine-circle.png';
   static const String myMedicineMyMedicineFull = 'assets/icons/my_medicine/my-medicine-full.png';
+  static const String myMedicineRx = 'assets/icons/my_medicine/rx.png';
   static const String vitalsBloodPressure = 'assets/icons/my_record/vitals/blood-pressure.png';
   static const String vitalsBloodSugar = 'assets/icons/my_record/vitals/blood-sugar.png';
   static const String vitalsBmi = 'assets/icons/my_record/vitals/bmi.png';

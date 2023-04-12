@@ -25,7 +25,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
 
-  late String? name;
+   String? name = "";
 
   @override
   void initState() {
@@ -158,7 +158,7 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   Text("Hello!", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 22.sp, color: AppColors.primaryColor ),),
                   SizedBox(height: 8.h,),
-                  Text("${name}", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: const Color(0xFF454545)),),
+                  Text("$name", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: const Color(0xFF454545)),),
                   Text("Welcome to MacroHealthPlus", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: 14.sp, color: const Color(0xFF7A7A7A),),),
                 ],
               ),
