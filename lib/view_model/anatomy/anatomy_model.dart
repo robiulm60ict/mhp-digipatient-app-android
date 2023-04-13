@@ -1,6 +1,10 @@
 
+import 'package:digi_patient/utils/message.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:human_body_selector/svg_painter/maps.dart';
+
+import '../../model/anatomy/anatomy_symptoms.dart';
+import '../../repository/anatomy_repo/anatomy_repo.dart';
 
 const maleFront = 'Male Front';
 const maleBack = 'Male Back';
@@ -58,4 +62,22 @@ class AnatomyModelView with ChangeNotifier{
       // return Maps.MALE;
     }
   }
+
+  List<AnatomySymptoms> anatomySymptomsList = [];
+
+  List<SymptomsAnatomy> symptomsList = [];
+
+  AnatomyRepo anatomyRepo = AnatomyRepo();
+
+  getAnatomySymptoms(BuildContext context)async{
+    anatomySymptomsList.clear();
+    symptomsList.clear();
+    await anatomyRepo.getAnatomySymptoms().then((value) {
+      anatomySymptomsList.add(value);
+      symptomsList.addAll(value.symptomsAnatomy!);
+    }).onError((error, stackTrace) {
+      Messages.snackBar(context, error.toString());
+    });
+  }
+
 }
