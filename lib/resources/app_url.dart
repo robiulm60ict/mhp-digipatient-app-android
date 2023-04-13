@@ -45,6 +45,10 @@ class AppUrls{
   /// book appointment
 
   static const String bookAppointment = '$baseUrl/mhp_server/public/api/online-booking-app';
+
+  /// Anatomy Symptoms
+
+  static const String anatomySymptoms = '$baseUrl/mhp_server/public/api/symptoms-anatomy';
 }
 
 const Map header = {'Accept': 'application/json'};
