@@ -15,6 +15,8 @@ class AppUrls{
 
   static const String allDoctors = '$baseUrl/mhp_server/public/api/doctors';
 
+  static const String docFee = '$baseUrl/mhp_server/public/api/doctors-consultation-Fee/';
+
   static const String department = '$baseUrl/mhp_server/public/api/department';
 
   static const String departmentImage = '$baseUrl/mhp_server/public/department/';
@@ -39,6 +41,10 @@ class AppUrls{
   /// image
 
   static const String image = "$baseUrl/mhp_server/public/";
+
+  /// book appointment
+
+  static const String bookAppointment = '$baseUrl/mhp_server/public/api/online-booking-app';
 }
 
 const Map header = {'Accept': 'application/json'};

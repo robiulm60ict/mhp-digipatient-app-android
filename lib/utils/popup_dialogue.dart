@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:flutter/material.dart';
@@ -236,7 +237,7 @@ popUpDialogue(BuildContext context, Widget content, ){
     ),).show();
 }
 
-invoiceSuccessPopUp(BuildContext context,{bool barrierDismissible = false}){
+invoiceSuccessPopUp(BuildContext context,{bool barrierDismissible = false, required String appointmentDate, required String doctorId, required String patientId, required String amount, required String paymentMethod, required String appointmentType, required Doctors doctor}){
   return showDialog(
     context: context,
     barrierDismissible: barrierDismissible,
@@ -254,7 +255,7 @@ invoiceSuccessPopUp(BuildContext context,{bool barrierDismissible = false}){
         actions: <Widget>[
           ElevatedButton(
             onPressed: () {
-              context.router.push(const SingleInvoiceRoute());
+              context.router.push(SingleInvoiceRoute(appointmentDate: appointmentDate, doctorId: doctorId, patientId: patientId, amount: amount, appointmentType: appointmentType, doctor: doctor, paymentMethod: paymentMethod));
             },
             child: Text('View Invoice', style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: Colors.white),),
           ),

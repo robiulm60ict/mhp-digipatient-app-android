@@ -51,7 +51,7 @@ class _MyRecordViewState extends State<MyRecordView> {
                   children: [
                     CircleAvatar(
                       radius: 25.h,
-                      backgroundImage: NetworkImage("${AppUrls.image}images/files/${user!.patientImages!}"),
+                      backgroundImage: NetworkImage("${AppUrls.image}images/files/${user?.patientImages}"),
                     ), SizedBox(width: 8.w,),
                     Expanded(
                       child: Column(

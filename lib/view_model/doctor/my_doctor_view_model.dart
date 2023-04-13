@@ -1,4 +1,5 @@
 import 'package:digi_patient/generated/assets.dart';
+import 'package:digi_patient/model/doctor_model/doctor_fee_model.dart';
 import 'package:digi_patient/repository/department_repo/department_repo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,6 @@ import '../../repository/doctor_repository/doctor_repository.dart';
 import '../../utils/message.dart';
 
 class MyDoctorViewModel with ChangeNotifier{
-
-
 
   List<DoctorsModels> allDoctorList = [];
 
@@ -43,6 +42,18 @@ class MyDoctorViewModel with ChangeNotifier{
 
     notifyListeners();
 
+  }
+
+  List<DoctorFeeModel> docFeeList = [];
+
+  getDoctorFee(dynamic id)async{
+    docFeeList.clear();
+    debugPrint(" id is = $id");
+    await DoctorRepository().getDocFee(id).then((value) {
+      docFeeList.add(value);
+    }).onError((error, stackTrace) {
+      debugPrint(error.toString());
+    });
   }
 
   List<CategoryItemsModel> categoryItemsList = [

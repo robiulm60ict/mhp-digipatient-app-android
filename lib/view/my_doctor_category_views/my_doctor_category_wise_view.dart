@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
+import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/utils/custom_rating.dart';
 import 'package:digi_patient/utils/utils.dart';
@@ -72,7 +73,7 @@ class _MyDoctorCategoryWiseViewState extends State<MyDoctorCategoryWiseView> {
                     crossAxisCount: 2,
                   mainAxisSpacing: 12,
                   crossAxisSpacing: 16,
-                  height: 150.h
+                  height: 155.h
 
                 ), itemBuilder: (context, index) {
 
@@ -117,10 +118,10 @@ class _MyDoctorCategoryWiseViewState extends State<MyDoctorCategoryWiseView> {
                   top: 0,
                   child: ClipOval(
                   child: Image.network(
-                    "https://dev.macrohealthplus.org/mhp_server/public/doctors/images/${doc?.drImages}",
+                    "${AppUrls.docImage}${doc?.drImages}",
                     fit: BoxFit.cover,
-                    width: 70,
-                    height: 70,
+                    width: 60,
+                    height: 60,
                     errorBuilder: (context, error, stackTrace) => const CircleAvatar(radius: 35, child: Text("Error"),),
                   ),
                 ),)

@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PaymentUserDetail extends StatelessWidget {
-  const PaymentUserDetail({Key? key, required this.name, required this.designation, required this.visitingTime, required this.hospitalName, required this.date, required this.location}) : super(key: key);
+  const PaymentUserDetail({Key? key, required this.name, required this.designation, required this.visitingTime, required this.hospitalName, required this.date, required this.location, required this.image}) : super(key: key);
   final String name;
   final String designation;
   final String visitingTime;
   final String hospitalName;
   final String date;
   final String location;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,14 @@ class PaymentUserDetail extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              leading: const CircleAvatar(),
+              leading: ClipOval(
+        child: Image.network(
+          image,
+          fit: BoxFit.cover,
+          width: 50.0,
+          height: 50.0,
+        )
+      ),
               title: Text(
                 name,
                 style: TextStyle(

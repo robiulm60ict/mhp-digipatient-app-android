@@ -1,10 +1,17 @@
 
+import 'package:auto_route/auto_route.dart';
+import 'package:digi_patient/model/doctor_model/doctors_model.dart';
+import 'package:digi_patient/repository/book_appointment/book_appointment_repo.dart';
 import 'package:digi_patient/utils/datetime.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:digi_patient/utils/message.dart';
+import 'package:digi_patient/utils/popup_dialogue.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/online_model/online_model.dart';
+import '../../routes/routes.gr.dart';
+import '../../utils/user.dart';
 
 class AppointmentViewModel with ChangeNotifier{
 
@@ -49,15 +56,69 @@ class AppointmentViewModel with ChangeNotifier{
       notifyListeners();
 
     }
+  }
 
+  int? patientId;
+  // int? docId;
+  // String appointmentType = 'Chamber';
+  // String paymentType = 'cash';
+  // String? transactionNo;
+
+
+  Future<int?> getPatientId()async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+     patientId = prefs.getInt(UserP.id);
+     notifyListeners();
+     return patientId;
 
   }
 
+  /// book appointment
+
+  bool isBookAppointmentLoading = false;
+
+  BookAppointmentRepo bookAppointmentRepo = BookAppointmentRepo();
+
+  bookAppointment(BuildContext context, { required Doctors doctor , required Map<String, dynamic> body})async{
+    isBookAppointmentLoading = true;
+    notifyListeners();
+    await bookAppointmentRepo.bookAppointment(body: body).then((value) {
+      Messages.snackBar(context, "Appointment Successful", backgroundColor: Colors.green);
+      isBookAppointmentLoading = false;
+      notifyListeners();
+      invoiceSuccessPopUp(context, appointmentDate: body["date"], amount: body["amount"], doctorId: body["doctor_id"], appointmentType: body["appointment_type"], doctor: doctor, patientId: body["patient_id"], paymentMethod: body["payment_type"],);
+
+    }).onError((error, stackTrace) {
+      Messages.snackBar(context, error.toString());
+      isBookAppointmentLoading = true;
+      notifyListeners();
+    });
+  }
+
+Map<String, dynamic> body = {
+
+};
+
+  setBody({required String docIcd, required String patientId, required String date, required String appointmentType, required String disease, required String paymentType, required String amount, required String trNxNo,}) async{
+    body = {
+      "doctor_id": docIcd,
+      "patient_id": patientId,
+      "date": date,
+      "appointment_type": appointmentType,
+      "disease": disease,
+      "payment_type": paymentType,
+      "amount": amount,
+      "transaction_no": trNxNo,
+    };
+    notifyListeners();
+  }
 
   selectButton(int index){
     for(var i = 0;  i< weekDayList.length; i++){
       if(i == index){
         weekDayList[index].isSelected = true;
+        appointmentDate = weekDayList[index].dateTime;
+        notifyListeners();
       }else{
         weekDayList[i].isSelected = false;
       }
