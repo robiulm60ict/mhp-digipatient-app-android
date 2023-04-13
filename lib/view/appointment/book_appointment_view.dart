@@ -4,34 +4,38 @@ import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/model/online_model/online_model.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
+import 'package:digi_patient/utils/user.dart';
 import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
+import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/utils.dart';
 import '../../widgets/back_button.dart';
 
 class BookAppointmentView extends StatefulWidget {
-  const BookAppointmentView({Key? key, required this.doctors}) : super(key: key);
+  const BookAppointmentView({Key? key, required this.doctors, required this.amount}) : super(key: key);
   final Doctors doctors;
+  final String amount;
 
   @override
   State<BookAppointmentView> createState() => _BookAppointmentViewState();
 }
 
 class _BookAppointmentViewState extends State<BookAppointmentView> {
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //  setAppointment(context);
-  //   // code that depends on myInheritedWidget can be executed here
-  // }
 
-  setAppointment(BuildContext context){
-    context.read<AppointmentViewModel>().setAppointmentDate(context);
-
+  @override
+  void initState() {
+    super.initState();
+    getAmount();
   }
+
+  getAmount(){
+    context.read<MyDoctorViewModel>().getDoctorFee(widget.doctors.id);
+  }
+
 
   bool morningButton = true;
   bool isChamber = true;
@@ -40,6 +44,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
   Widget build(BuildContext context) {
 
     final appointmentViewModel = Provider.of<AppointmentViewModel>(context);
+    final myDocVM = Provider.of<MyDoctorViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -49,8 +54,14 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
         leading: const CustomBackButton(),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          context.router.push(const PaymentMethodRoute());
+        onPressed: () async{
+
+          // String date = appointmentViewModel.appointmentDate.toString();
+          // appointmentViewModel.setBody(docIcd: "${widget.doctors.id}", patientId: "$patientId", date: date, appointmentType: isChamber ? "Chamber" : "Online", disease: "[asd, asdf]", paymentType: "Bkash", amount: "1200", trNxNo: "tr1205");
+          // appointmentViewModel.bookAppointment(context, body: appointmentViewModel.body);
+           await appointmentViewModel.getPatientId().then((value) => context.router.push( PaymentMethodRoute(appointmentDate: appointmentViewModel.appointmentDate.toString(), appointmentType: isChamber ? "Chamber" : "Online", doctorId: "${widget.doctors.id}", patientId: "$value", amount:  widget.amount, doctor: widget.doctors)));
+
+
         },
         backgroundColor: AppColors.primaryColor,
         label: Text("Confirm Appointment", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),),
@@ -256,50 +267,90 @@ padding: EdgeInsets.all(20.r),
       ),
     );
     } ),
-            child: ListView.separated(
-              shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) => Card(
-                  child: Column(
-                    children: [
-                      ListTile(
-                        onTap: (){
-                          isHospitalSelected = !isHospitalSelected;
-                          setState(() {
+            // child: ListView.separated(
+            //   shrinkWrap: true,
+            //     physics: const NeverScrollableScrollPhysics(),
+            //     itemBuilder: (context, index) => Card(
+            //       child: Column(
+            //         children: [
+            //           ListTile(
+            //             onTap: (){
+            //               isHospitalSelected = !isHospitalSelected;
+            //               setState(() {
+            //
+            //               });
+            //             },
+            //             leading: const CircleAvatar(
+            //             backgroundColor: Colors.transparent,
+            //             backgroundImage: AssetImage(Assets.imagesHospitalLogo),),
+            //           title: Text("Square Hospital Ltd.", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
+            //           trailing: Icon(Icons.check_circle_rounded, color: isHospitalSelected ? AppColors.primaryColor : Colors.grey,),),
+            //         const SizedBox(height: 5,),
+            //           Row(
+            //             mainAxisAlignment: MainAxisAlignment.center,
+            //             children: List.generate(
+            //                 appointmentViewModel.weekDayList.length,
+            //                     (index) {
+            //                   WeekDayModel avm = appointmentViewModel.weekDayList[index];
+            //                   return Card(
+            //                     elevation: 5,
+            //                     shape: RoundedRectangleBorder(
+            //                         borderRadius: BorderRadius.circular(6.r)
+            //                     ),
+            //                     color: avm.isSelected ? Colors.grey : Colors.white,
+            //                     child: Padding(
+            //                       padding: EdgeInsets.all(4.0.r),
+            //                       child: Text(avm.weekName, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: avm.isSelected ? Colors.white : const Color(0xFF646464)),),
+            //                     ),
+            //                   );
+            //                 }
+            //             ),
+            //           ),
+            //           SizedBox(height: 10.h,),
+            //         ],
+            //       ),
+            //     ),
+            //     separatorBuilder: (context, index) => SizedBox(height: 5.h,), itemCount: 7),
+            child: Card(
+              child: Column(
+                children: [
+                  ListTile(
+                    onTap: (){
+                      isHospitalSelected = !isHospitalSelected;
+                      setState(() {
 
-                          });
-                        },
-                        leading: const CircleAvatar(
-                        backgroundColor: Colors.transparent,
-                        backgroundImage: AssetImage(Assets.imagesHospitalLogo),),
-                      title: Text("Square Hospital Ltd.", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
-                      trailing: Icon(Icons.check_circle_rounded, color: isHospitalSelected ? AppColors.primaryColor : Colors.grey,),),
-                    const SizedBox(height: 5,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                            appointmentViewModel.weekDayList.length,
-                                (index) {
-                              WeekDayModel avm = appointmentViewModel.weekDayList[index];
-                              return Card(
-                                elevation: 5,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(6.r)
-                                ),
-                                color: avm.isSelected ? Colors.grey : Colors.white,
-                                child: Padding(
-                                  padding: EdgeInsets.all(4.0.r),
-                                  child: Text(avm.weekName, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: avm.isSelected ? Colors.white : const Color(0xFF646464)),),
-                                ),
-                              );
-                            }
-                        ),
-                      ),
-                      SizedBox(height: 10.h,),
-                    ],
+                      });
+                    },
+                    leading: const CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      backgroundImage: AssetImage(Assets.imagesHospitalLogo),),
+                    title: Text("${widget.doctors.usualProvider?.usualProviderName}", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
+                    trailing: Icon(Icons.check_circle_rounded, color: isHospitalSelected ? AppColors.primaryColor : Colors.grey,),),
+                  const SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                        appointmentViewModel.weekDayList.length,
+                            (index) {
+                          WeekDayModel avm = appointmentViewModel.weekDayList[index];
+                          return Card(
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6.r)
+                            ),
+                            color: Colors.white,
+                            child: Padding(
+                              padding: EdgeInsets.all(4.0.r),
+                              child: Text(avm.weekName, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
+                            ),
+                          );
+                        }
+                    ),
                   ),
-                ),
-                separatorBuilder: (context, index) => SizedBox(height: 5.h,), itemCount: 7),
+                  SizedBox(height: 10.h,),
+                ],
+              ),
+            ),
           ),
           SizedBox(height: 80.h,),
         ],

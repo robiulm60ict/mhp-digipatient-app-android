@@ -37,8 +37,9 @@ class _DocDetailsViewState extends State<DocDetailsView> {
     getDoctor(widget.id);
   }
 
-  getDoctor(num id){
+  getDoctor(num id) async{
     doc = context.read<MyDoctorViewModel>().allDoctorList.first.doctors?.firstWhere((element) => element.id == id);
+    await context.read<MyDoctorViewModel>().getDoctorFee(doc?.id);
     setState(() {
 
     });
@@ -47,6 +48,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
   double rating = 3;
   @override
   Widget build(BuildContext context) {
+    final mdVM = Provider.of<MyDoctorViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         leadingWidth: leadingWidth,
@@ -109,6 +111,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           children: [
                             CustomRating.ratingBar(
                                 itemSize: 20,
+                                ignoreGestures: false,
                                 onRatingUpdate: (rati) {
                                   rating = rati;
                                   setState(() {});
@@ -161,7 +164,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                 ),
                                 child: RichText(
                                   text: TextSpan(
-                                      text: "1500. ",
+                                      text: "${mdVM.docFeeList.isNotEmpty ? mdVM.docFeeList.first.doctors?.amount : " "} ",
                                       style: TextStyle(
                                           fontSize: 18.sp,
                                           fontWeight: FontWeight.bold,
@@ -334,7 +337,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                   ),
                   onPressed: (){
 
-                    context.router.push( BookAppointmentRoute(doctors: doc!));
+                    context.router.push( BookAppointmentRoute(doctors: doc!, amount: "${mdVM.docFeeList.isNotEmpty ? mdVM.docFeeList.first.doctors?.amount : "null"} "));
 
                   }, child: Text("Request For Appointment", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),),),),
               ],

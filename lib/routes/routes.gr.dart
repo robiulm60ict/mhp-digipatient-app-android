@@ -162,13 +162,23 @@ class AppRouter extends _i33.RootStackRouter {
         child: _i15.BookAppointmentView(
           key: args.key,
           doctors: args.doctors,
+          amount: args.amount,
         ),
       );
     },
     PaymentMethodRoute.name: (routeData) {
+      final args = routeData.argsAs<PaymentMethodRouteArgs>();
       return _i33.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i16.PaymentMethodView(),
+        child: _i16.PaymentMethodView(
+          key: args.key,
+          appointmentDate: args.appointmentDate,
+          doctorId: args.doctorId,
+          patientId: args.patientId,
+          amount: args.amount,
+          appointmentType: args.appointmentType,
+          doctor: args.doctor,
+        ),
       );
     },
     InvoiceRoute.name: (routeData) {
@@ -184,9 +194,19 @@ class AppRouter extends _i33.RootStackRouter {
       );
     },
     SingleInvoiceRoute.name: (routeData) {
+      final args = routeData.argsAs<SingleInvoiceRouteArgs>();
       return _i33.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i19.SingleInvoiceView(),
+        child: _i19.SingleInvoiceView(
+          key: args.key,
+          appointmentDate: args.appointmentDate,
+          doctorId: args.doctorId,
+          patientId: args.patientId,
+          amount: args.amount,
+          appointmentType: args.appointmentType,
+          doctor: args.doctor,
+          paymentMethod: args.paymentMethod,
+        ),
       );
     },
     VitalsRoute.name: (routeData) {
@@ -682,12 +702,14 @@ class BookAppointmentRoute
   BookAppointmentRoute({
     _i34.Key? key,
     required _i35.Doctors doctors,
+    required String amount,
   }) : super(
           BookAppointmentRoute.name,
           path: '/book-appointment',
           args: BookAppointmentRouteArgs(
             key: key,
             doctors: doctors,
+            amount: amount,
           ),
         );
 
@@ -698,28 +720,78 @@ class BookAppointmentRouteArgs {
   const BookAppointmentRouteArgs({
     this.key,
     required this.doctors,
+    required this.amount,
   });
 
   final _i34.Key? key;
 
   final _i35.Doctors doctors;
 
+  final String amount;
+
   @override
   String toString() {
-    return 'BookAppointmentRouteArgs{key: $key, doctors: $doctors}';
+    return 'BookAppointmentRouteArgs{key: $key, doctors: $doctors, amount: $amount}';
   }
 }
 
 /// generated route for
 /// [_i16.PaymentMethodView]
-class PaymentMethodRoute extends _i33.PageRouteInfo<void> {
-  const PaymentMethodRoute()
-      : super(
+class PaymentMethodRoute extends _i33.PageRouteInfo<PaymentMethodRouteArgs> {
+  PaymentMethodRoute({
+    _i34.Key? key,
+    required String appointmentDate,
+    required String doctorId,
+    required String patientId,
+    required String amount,
+    required String appointmentType,
+    required _i35.Doctors doctor,
+  }) : super(
           PaymentMethodRoute.name,
           path: '/payment-method',
+          args: PaymentMethodRouteArgs(
+            key: key,
+            appointmentDate: appointmentDate,
+            doctorId: doctorId,
+            patientId: patientId,
+            amount: amount,
+            appointmentType: appointmentType,
+            doctor: doctor,
+          ),
         );
 
   static const String name = 'PaymentMethodRoute';
+}
+
+class PaymentMethodRouteArgs {
+  const PaymentMethodRouteArgs({
+    this.key,
+    required this.appointmentDate,
+    required this.doctorId,
+    required this.patientId,
+    required this.amount,
+    required this.appointmentType,
+    required this.doctor,
+  });
+
+  final _i34.Key? key;
+
+  final String appointmentDate;
+
+  final String doctorId;
+
+  final String patientId;
+
+  final String amount;
+
+  final String appointmentType;
+
+  final _i35.Doctors doctor;
+
+  @override
+  String toString() {
+    return 'PaymentMethodRouteArgs{key: $key, appointmentDate: $appointmentDate, doctorId: $doctorId, patientId: $patientId, amount: $amount, appointmentType: $appointmentType, doctor: $doctor}';
+  }
 }
 
 /// generated route for
@@ -748,14 +820,66 @@ class AnatomyRoute extends _i33.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i19.SingleInvoiceView]
-class SingleInvoiceRoute extends _i33.PageRouteInfo<void> {
-  const SingleInvoiceRoute()
-      : super(
+class SingleInvoiceRoute extends _i33.PageRouteInfo<SingleInvoiceRouteArgs> {
+  SingleInvoiceRoute({
+    _i34.Key? key,
+    required String appointmentDate,
+    required String doctorId,
+    required String patientId,
+    required String amount,
+    required String appointmentType,
+    required _i35.Doctors doctor,
+    required String paymentMethod,
+  }) : super(
           SingleInvoiceRoute.name,
           path: '/single-invoice',
+          args: SingleInvoiceRouteArgs(
+            key: key,
+            appointmentDate: appointmentDate,
+            doctorId: doctorId,
+            patientId: patientId,
+            amount: amount,
+            appointmentType: appointmentType,
+            doctor: doctor,
+            paymentMethod: paymentMethod,
+          ),
         );
 
   static const String name = 'SingleInvoiceRoute';
+}
+
+class SingleInvoiceRouteArgs {
+  const SingleInvoiceRouteArgs({
+    this.key,
+    required this.appointmentDate,
+    required this.doctorId,
+    required this.patientId,
+    required this.amount,
+    required this.appointmentType,
+    required this.doctor,
+    required this.paymentMethod,
+  });
+
+  final _i34.Key? key;
+
+  final String appointmentDate;
+
+  final String doctorId;
+
+  final String patientId;
+
+  final String amount;
+
+  final String appointmentType;
+
+  final _i35.Doctors doctor;
+
+  final String paymentMethod;
+
+  @override
+  String toString() {
+    return 'SingleInvoiceRouteArgs{key: $key, appointmentDate: $appointmentDate, doctorId: $doctorId, patientId: $patientId, amount: $amount, appointmentType: $appointmentType, doctor: $doctor, paymentMethod: $paymentMethod}';
+  }
 }
 
 /// generated route for

@@ -1,4 +1,5 @@
 
+import 'package:digi_patient/model/doctor_model/doctor_fee_model.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 
 import '../../data/network/base_api_service.dart';
@@ -22,6 +23,16 @@ class DoctorRepository{
 
       rethrow;
 
+    }
+  }
+
+  Future<DoctorFeeModel> getDocFee(dynamic docId)async{
+
+    try{
+      dynamic response = await apiService.getGetApiResponse("${AppUrls.docFee}$docId");
+      return DoctorFeeModel.fromJson(response);
+    }catch (e){
+      rethrow;
     }
   }
 }

@@ -1,23 +1,33 @@
 import 'package:digi_patient/generated/assets.dart';
+import 'package:digi_patient/model/doctor_model/doctors_model.dart';
+import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/utils/popup_dialogue.dart';
+import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
 import 'package:digi_patient/widgets/payment_user_detail.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../resources/colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/back_button.dart';
 
 class PaymentMethodView extends StatefulWidget {
-  const PaymentMethodView({Key? key}) : super(key: key);
+  const PaymentMethodView({Key? key, required this.appointmentDate, required this.doctorId, required this.patientId, required this.amount, required this.appointmentType, required this.doctor}) : super(key: key);
+  final String appointmentDate;
+  final String doctorId;
+  final String patientId;
+  final String amount;
+  final String appointmentType;
+  final Doctors doctor;
 
   @override
   State<PaymentMethodView> createState() => _PaymentMethodViewState();
 }
 
 class _PaymentMethodViewState extends State<PaymentMethodView> {
-  int _selectedCreditValue = 1;
+  // int _selectedCreditValue = 1;
   int _selectedDigitalValue = 1;
 
   final List<String> creditCardValue = [
@@ -37,6 +47,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
 
   @override
   Widget build(BuildContext context) {
+    final apVM = Provider.of<AppointmentViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -53,13 +64,14 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
       body: ListView(
         padding: EdgeInsets.all(20.r),
         children: [
-          const PaymentUserDetail(
-              name: "Habibur Rahman",
-              designation: "Associate Consultant,Cardiology",
-              visitingTime: "10.00 AM - 10.30 AM",
-              hospitalName: "Square Hospital",
-              date: "December 2023",
-              location: "Dhanmondi Dhaka"),
+           PaymentUserDetail(
+              name: "${widget.doctor.drFullName}",
+              designation: "${widget.doctor.department?.departmentsName}",
+              visitingTime: "null",
+              hospitalName: "${widget.doctor.usualProvider?.usualProviderName}",
+              date: widget.appointmentDate,
+              location: "${widget.doctor.drMobilePhone}",
+             image: '${AppUrls.docImage}${widget.doctor.drImages}',),
           SizedBox(
             height: 20.h,
           ),
@@ -116,120 +128,120 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                   SizedBox(
                     height: 8.h,
                   ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(2.r),
-                        side: const BorderSide(color: Colors.black)),
-                    child: ExpansionTile(
-                      leading: CircleAvatar(
-                          radius: 10.r,
-                          // backgroundColor: Colors.white,
-                          child: Icon(
-                            Icons.circle,
-                            size: 15.h,
-                            color: payment == Payment.credit
-                                ? AppColors.primaryColor
-                                : Colors.white,
-                          )),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Image.asset(
-                            Assets.imagesVisa,
-                            height: 15.h,
-                            width: 30.w,
-                            fit: BoxFit.fill,
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          Image.asset(
-                            Assets.imagesMastercard,
-                            height: 15.h,
-                            width: 30.w,
-                            fit: BoxFit.fill,
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          Image.asset(
-                            Assets.imagesAmericanExpress,
-                            height: 15.h,
-                            width: 30.w,
-                            fit: BoxFit.fill,
-                          ),
-                        ],
-                      ),
-                      onExpansionChanged: (value) {
-                        setState(() {
-                          payment = Payment.credit;
-                        });
-                      },
-                      title: Text(
-                        "Credit / Devid Card",
-                        style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xFF8A8A8A)),
-                      ),
-                      children: [
-                        Row(
-                          children: creditCardValue.map((value) {
-                            return Expanded(
-                              child: RadioListTile(
-                                title: Image.asset(
-                                  value,
-                                  height: 15.h,
-                                  width: 10.w,
-                                  // fit: BoxFit.fill,
-                                ),
-                                value: creditCardValue.indexOf(value) + 1,
-                                groupValue: _selectedCreditValue,
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    _selectedCreditValue = newValue!;
-                                  });
-                                },
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8.0.r),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Card Number",
-                                style: TextStyle(
-                                    fontSize: 11.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey),
-                              ),
-                              SizedBox(
-                                width: 15.w,
-                              ),
-                              Expanded(
-                                  child: TextField(
-                                decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.grey.shade200,
-                                    border: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    hintText: "place here",
-                                    hintStyle:
-                                        TextStyle(color: Colors.grey.shade500)),
-                              ))
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
+                  // Card(
+                  //   shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(2.r),
+                  //       side: const BorderSide(color: Colors.black)),
+                  //   child: ExpansionTile(
+                  //     leading: CircleAvatar(
+                  //         radius: 10.r,
+                  //         // backgroundColor: Colors.white,
+                  //         child: Icon(
+                  //           Icons.circle,
+                  //           size: 15.h,
+                  //           color: payment == Payment.credit
+                  //               ? AppColors.primaryColor
+                  //               : Colors.white,
+                  //         )),
+                  //     trailing: Row(
+                  //       mainAxisSize: MainAxisSize.min,
+                  //       mainAxisAlignment: MainAxisAlignment.end,
+                  //       children: [
+                  //         Image.asset(
+                  //           Assets.imagesVisa,
+                  //           height: 15.h,
+                  //           width: 30.w,
+                  //           fit: BoxFit.fill,
+                  //         ),
+                  //         SizedBox(
+                  //           width: 5.w,
+                  //         ),
+                  //         Image.asset(
+                  //           Assets.imagesMastercard,
+                  //           height: 15.h,
+                  //           width: 30.w,
+                  //           fit: BoxFit.fill,
+                  //         ),
+                  //         SizedBox(
+                  //           width: 5.w,
+                  //         ),
+                  //         Image.asset(
+                  //           Assets.imagesAmericanExpress,
+                  //           height: 15.h,
+                  //           width: 30.w,
+                  //           fit: BoxFit.fill,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     onExpansionChanged: (value) {
+                  //       setState(() {
+                  //         payment = Payment.credit;
+                  //       });
+                  //     },
+                  //     title: Text(
+                  //       "Credit / Devid Card",
+                  //       style: TextStyle(
+                  //           fontSize: 12.sp,
+                  //           fontWeight: FontWeight.w500,
+                  //           color: const Color(0xFF8A8A8A)),
+                  //     ),
+                  //     children: [
+                  //       Row(
+                  //         children: creditCardValue.map((value) {
+                  //           return Expanded(
+                  //             child: RadioListTile(
+                  //               title: Image.asset(
+                  //                 value,
+                  //                 height: 15.h,
+                  //                 width: 10.w,
+                  //                 // fit: BoxFit.fill,
+                  //               ),
+                  //               value: creditCardValue.indexOf(value) + 1,
+                  //               groupValue: _selectedCreditValue,
+                  //               onChanged: (newValue) {
+                  //                 setState(() {
+                  //                   _selectedCreditValue = newValue!;
+                  //                 });
+                  //               },
+                  //             ),
+                  //           );
+                  //         }).toList(),
+                  //       ),
+                  //       Padding(
+                  //         padding: EdgeInsets.all(8.0.r),
+                  //         child: Row(
+                  //           children: [
+                  //             Text(
+                  //               "Card Number",
+                  //               style: TextStyle(
+                  //                   fontSize: 11.sp,
+                  //                   fontWeight: FontWeight.w500,
+                  //                   color: Colors.grey),
+                  //             ),
+                  //             SizedBox(
+                  //               width: 15.w,
+                  //             ),
+                  //             Expanded(
+                  //                 child: TextField(
+                  //               decoration: InputDecoration(
+                  //                   filled: true,
+                  //                   fillColor: Colors.grey.shade200,
+                  //                   border: InputBorder.none,
+                  //                   focusedBorder: InputBorder.none,
+                  //                   enabledBorder: InputBorder.none,
+                  //                   hintText: "place here",
+                  //                   hintStyle:
+                  //                       TextStyle(color: Colors.grey.shade500)),
+                  //             ))
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 10.h,
+                  // ),
                   Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(2.r),
@@ -365,7 +377,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("Total", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF3B3B3B)),),
-                              Text("1500.00", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF3B3B3B)),),
+                              Text(widget.amount, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF3B3B3B)),),
                             ],
                           ),
                           SizedBox(height: 6.h,),
@@ -403,7 +415,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("Total Amount", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: const Color(0xFF3B3B3B)),),
-                              Text("1500.00", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: const Color(0xFF3B3B3B)),),
+                              Text(widget.amount, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: const Color(0xFF3B3B3B)),),
                             ],
                           ),
                         ],
@@ -416,10 +428,24 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                   SizedBox(
                     height: 40.h,
                   width: double.infinity,
-                  child: ElevatedButton(
+                  child: apVM.isBookAppointmentLoading ? const Center(child: CircularProgressIndicator(),) : ElevatedButton(
                     style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryColor),
-                    onPressed: (){
-                      invoiceSuccessPopUp(context,);
+                    onPressed: () async{
+
+                      //TODO: add disease list and transaction no
+
+                      Map<String, dynamic> body = {
+                        "doctor_id": widget.doctorId,
+                        "patient_id": widget.patientId,
+                        "date": widget.appointmentDate,
+                        "appointment_type": widget.appointmentType,
+                        "disease": "[d, s ]",
+                        "payment_type": getPaymentMethod(),
+                        "amount": widget.amount,
+                        "transaction_no": "trNxNo",
+                      };
+
+                      await apVM.bookAppointment(context, body: body, doctor: widget.doctor);
                     }, child: Text("Pay Now", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: Colors.white),),),
                   ),
                 ],
@@ -430,6 +456,21 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
         ],
       ),
     );
+  }
+
+  String getPaymentMethod() {
+
+    if(payment == Payment.cash){
+      return "Cash";
+    }else{
+      if(_selectedDigitalValue == 1){
+        return "Bkash";
+      }else if(_selectedDigitalValue == 2){
+        return "Rocket";
+      }else{
+        return "Nagad";
+      }
+    }
   }
 }
 

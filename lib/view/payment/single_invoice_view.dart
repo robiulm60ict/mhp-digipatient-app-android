@@ -2,17 +2,42 @@ import 'package:digi_patient/widgets/single_invoice_row.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
+import '../../model/doctor_model/doctors_model.dart';
+import '../../resources/app_url.dart';
 import '../../resources/colors.dart';
 import '../../utils/utils.dart';
+import '../../view_model/user_view_model/user_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/payment_user_detail.dart';
 
-class SingleInvoiceView extends StatelessWidget {
-  const SingleInvoiceView({Key? key}) : super(key: key);
+class SingleInvoiceView extends StatefulWidget {
+  const SingleInvoiceView({Key? key, required this.appointmentDate, required this.doctorId, required this.patientId, required this.amount, required this.appointmentType, required this.doctor, required this.paymentMethod}) : super(key: key);
+  final String appointmentDate;
+  final String doctorId;
+  final String patientId;
+  final String amount;
+  final String appointmentType;
+  final Doctors doctor;
+  final String paymentMethod;
 
   @override
+  State<SingleInvoiceView> createState() => _SingleInvoiceViewState();
+}
+
+class _SingleInvoiceViewState extends State<SingleInvoiceView> {
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<UserViewModel>().getUserDetails();
+
+  }
+  @override
   Widget build(BuildContext context) {
+    final userVM = Provider.of<UserViewModel>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -29,13 +54,14 @@ class SingleInvoiceView extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(20.r),
         children: [
-          const PaymentUserDetail(
-              name: "Habibur Rahman",
-              designation: "Associate Consultant,Cardiology",
-              visitingTime: "10.00 AM - 10.30 AM",
-              hospitalName: "Square Hospital",
-              date: "December 2023",
-              location: "Dhanmondi Dhaka"),
+      PaymentUserDetail(
+      name: "${widget.doctor.drFullName}",
+        designation: "${widget.doctor.department?.departmentsName}",
+        visitingTime: "null",
+        hospitalName: "${widget.doctor.usualProvider?.usualProviderName}",
+        date: widget.appointmentDate,
+        location: "${widget.doctor.drMobilePhone}",
+        image: '${AppUrls.docImage}${widget.doctor.drImages}',),
           SizedBox(
             height: 20.h,
           ),
@@ -80,7 +106,7 @@ class SingleInvoiceView extends StatelessWidget {
                         children: [
                           Icon(Icons.date_range, color: Colors.white, size: 15.h,),
                           SizedBox(width: 5.w,),
-                          Text("17, December, 2022 ", style: TextStyle(fontSize: 14.sp, color: Colors.white),),
+                          Text(widget.appointmentDate, style: TextStyle(fontSize: 14.sp, color: Colors.white),),
                         ],
                       ),
 
@@ -93,11 +119,11 @@ class SingleInvoiceView extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.all(15.r),
                   child: Column(
-                    children: const [
-                      SingleInvoiceRow(lTitle: "Patient Name :", rTitle: "Imran Harnandez"),
-                      SingleInvoiceRow(lTitle: "Mobile Number :", rTitle: "01700000000"),
-                      SingleInvoiceRow(lTitle: "Address :", rTitle: "Falguni Tower, Postogola, Dhaka"),
-                      SingleInvoiceRow(lTitle: "Payment Method :", rTitle: "Bkash"),
+                    children:  [
+                      SingleInvoiceRow(lTitle: "Patient Name :", rTitle: "${userVM.user?.patientFirstName} ${userVM.user?.patientMiddleName} ${userVM.user?.patientLastName}"),
+                      SingleInvoiceRow(lTitle: "Mobile Number :", rTitle: "${userVM.user?.patientMobilePhone}"),
+                      SingleInvoiceRow(lTitle: "Address :", rTitle: "${userVM.user?.patientAddress1}"),
+                      SingleInvoiceRow(lTitle: "Payment Method :", rTitle: "${widget.paymentMethod}"),
 
                     ],
                   ),
@@ -121,7 +147,7 @@ class SingleInvoiceView extends StatelessWidget {
                   padding: EdgeInsets.all(15.r),
                   child: Column(
                     children:  [
-                      const SingleInvoiceRow(lTitle: "Total Charge", rTitle: "1500.00"),
+                       SingleInvoiceRow(lTitle: "Total Charge", rTitle: widget.amount),
                       const SingleInvoiceRow(lTitle: "Discount", rTitle: "0.00"),
                       const SingleInvoiceRow(lTitle: "Due ", rTitle: "0.00"),
                       const SingleInvoiceRow(lTitle: "VAT/TAX", rTitle: "0.00"),
@@ -140,7 +166,7 @@ class SingleInvoiceView extends StatelessWidget {
                         dashGapRadius: 0.0,
                       ),
                       SizedBox(height: 12.h,),
-                      const SingleInvoiceRow(lTitle: "Total Amount ", rTitle: "1500.00"),
+                       SingleInvoiceRow(lTitle: "Total Amount ", rTitle: widget.amount),
 
                     ],
                   ),
