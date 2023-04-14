@@ -2,6 +2,9 @@
 class Assets {
   Assets._();
 
+  static const String animationFemaleWalking = 'assets/animation/female-walking.json';
+  static const String animationMaleWalking = 'assets/animation/male-walking.json';
+  static const String animationOnlineAppointment = 'assets/animation/online-appointment.json';
   static const String animationSuccessful = 'assets/animation/successful.json';
   static const String fontsRobotoMedium = 'assets/fonts/Roboto-Medium.ttf';
   static const String fontsRobotoRegular = 'assets/fonts/Roboto-Regular.ttf';

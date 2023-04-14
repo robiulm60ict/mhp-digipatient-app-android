@@ -1,3 +1,4 @@
+import 'package:digi_patient/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -51,12 +52,16 @@ class DocCard extends StatelessWidget {
           Positioned(
             top: 0,
             child: ClipOval(
-              child: Image.network(
-                docImage,
+              child: FadeInImage(
                 fit: BoxFit.cover,
-                width: 60,
-                height: 60,
-                errorBuilder: (context, error, stackTrace) => const CircleAvatar(radius: 35, child: Text("Error"),),
+                width: 65,
+                height: 65,
+                image: NetworkImage(
+                  docImage,
+                ),
+                imageErrorBuilder: (context, error, stackTrace) => const CircleAvatar(radius: 35, child: Text("Error"),),
+                placeholder: const AssetImage(Assets.imagesAvatar),
+
               ),
             ),)
         ],

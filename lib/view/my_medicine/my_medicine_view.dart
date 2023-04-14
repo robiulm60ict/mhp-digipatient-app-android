@@ -40,39 +40,41 @@ class MyMedicineView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                InkWell(
-                  onTap: (){
-                    context.router.push(RXRoute());
-                  },
-                  child: Card(child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 18.h),
-                    child: Column(
+                Expanded(
+                  child: InkWell(
+                    onTap: (){
+                      context.router.push(const RXRoute());
+                    },
+                    child: Card(child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        SizedBox(height: 10.h,),
                         const CircleAvatar(
                           backgroundImage: AssetImage(Assets.myMedicineMedicineCircle),
                         ),
                         SizedBox(height: 8.r,),
-                        Text("Medication ", style: TextStyle(fontSize: 14.sp, color: AppColors.primaryColor),),
+                        Text("Medication", style: TextStyle(fontSize: 14.sp, color: AppColors.primaryColor),),
+                        SizedBox(height: 10.h,),
                       ],
-                    ),
-                  ),),
+                    ),),
+                  ),
                 ),
-                Card(child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 18.h),
-                  child: Column(
+                Expanded(
+                  child: Card(child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      SizedBox(height: 10.h,),
                       const CircleAvatar(
                         backgroundImage: AssetImage(Assets.myMedicineBuyMedicineCircle),
                       ),
                       SizedBox(height: 8.r,),
                       Text("Buy Medicine ", style: TextStyle(fontSize: 14.sp, color: AppColors.primaryColor),),
+                      SizedBox(height: 10.h,),
                     ],
-                  ),
-                ),),
+                  ),),
+                ),
               ],
             ),
           ],

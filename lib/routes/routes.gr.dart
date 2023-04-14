@@ -140,6 +140,7 @@ class AppRouter extends _i35.RootStackRouter {
           key: args.key,
           categoryName: args.categoryName,
           departmentId: args.departmentId,
+          departmentImage: args.departmentImage,
         ),
       );
     },
@@ -649,6 +650,7 @@ class MyDoctorCategoryWiseRoute
     _i36.Key? key,
     required String categoryName,
     required num departmentId,
+    required String departmentImage,
   }) : super(
           MyDoctorCategoryWiseRoute.name,
           path: '/my-doctor-category-wise',
@@ -656,6 +658,7 @@ class MyDoctorCategoryWiseRoute
             key: key,
             categoryName: categoryName,
             departmentId: departmentId,
+            departmentImage: departmentImage,
           ),
         );
 
@@ -667,6 +670,7 @@ class MyDoctorCategoryWiseRouteArgs {
     this.key,
     required this.categoryName,
     required this.departmentId,
+    required this.departmentImage,
   });
 
   final _i36.Key? key;
@@ -675,9 +679,11 @@ class MyDoctorCategoryWiseRouteArgs {
 
   final num departmentId;
 
+  final String departmentImage;
+
   @override
   String toString() {
-    return 'MyDoctorCategoryWiseRouteArgs{key: $key, categoryName: $categoryName, departmentId: $departmentId}';
+    return 'MyDoctorCategoryWiseRouteArgs{key: $key, categoryName: $categoryName, departmentId: $departmentId, departmentImage: $departmentImage}';
   }
 }
 
