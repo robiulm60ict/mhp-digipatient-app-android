@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 
 import '../../model/doctor_model/doctors_model.dart';
 import '../../routes/routes.gr.dart';
+import '../../widgets/doc_card.dart';
 
 class MyDoctorCategoryWiseView extends StatefulWidget {
   const MyDoctorCategoryWiseView({Key? key, required this.categoryName, required this.departmentId}) : super(key: key);
@@ -79,55 +80,65 @@ class _MyDoctorCategoryWiseViewState extends State<MyDoctorCategoryWiseView> {
 
                 Doctors? doc = doctors?[index];
 
-                return InkWell(
-              onTap: (){
-                context.router.push( DocDetailsRoute(id: doc!.id!));
-              },
-                  child: Stack(
-              alignment: Alignment.center,
-              children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 4.0),
-                    child: Card(
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                      margin: const EdgeInsets.only(top: 35),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 4.0.w),
-                        child: Column(
-                          children: [
-                            SizedBox(height: 35.h, width: double.infinity,),
-                            Text("${doc?.drFullName}", maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464),),),
-                            const SizedBox(height: 4,),
-                            Text("${doc?.department?.departmentsName }", maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A),),),
-                            const SizedBox(height: 4,),
-                            Text("${doc?.usualProvider?.usualProviderName}", maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp,  color: const Color(0xFF8A8A8A),),),
-                            const SizedBox(height: 4,),
-                            CustomRating.ratingBar(onRatingUpdate: (val){}),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Positioned(
-                  //     top: 0,
-                  //     child: CircleAvatar(radius: 25.h,),),
-                Positioned(
-                  top: 0,
-                  child: ClipOval(
-                  child: Image.network(
-                    "${AppUrls.docImage}${doc?.drImages}",
-                    fit: BoxFit.cover,
-                    width: 60,
-                    height: 60,
-                    errorBuilder: (context, error, stackTrace) => const CircleAvatar(radius: 35, child: Text("Error"),),
-                  ),
-                ),)
-              ],
-            ),
-                );},
+                return DocCard(
+                  onTap: (){
+                    context.router.push( DocDetailsRoute(id: doc!.id!));
+                  },
+                  docImage: "${AppUrls.docImage}${doc?.drImages}",
+                  docName: "${doc?.drFullName}",
+                  docSpeciality: "${doc?.department?.departmentsName }",
+                  docHospital: "${doc?.usualProvider?.usualProviderName}",
+                );
+            //     return InkWell(
+            //   onTap: (){
+            //     context.router.push( DocDetailsRoute(id: doc!.id!));
+            //   },
+            //       child: Stack(
+            //   alignment: Alignment.center,
+            //   children: [
+            //       Padding(
+            //         padding: const EdgeInsets.only(bottom: 4.0),
+            //         child: Card(
+            //           elevation: 5,
+            //           shape: RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(12.r),
+            //           ),
+            //           margin: const EdgeInsets.only(top: 35),
+            //           child: Padding(
+            //             padding: EdgeInsets.symmetric(horizontal: 4.0.w),
+            //             child: Column(
+            //               children: [
+            //                 SizedBox(height: 35.h, width: double.infinity,),
+            //                 Text("${doc?.drFullName}", maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464),),),
+            //                 const SizedBox(height: 4,),
+            //                 Text("${doc?.department?.departmentsName }", maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A),),),
+            //                 const SizedBox(height: 4,),
+            //                 Text("${doc?.usualProvider?.usualProviderName}", maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp,  color: const Color(0xFF8A8A8A),),),
+            //                 const SizedBox(height: 4,),
+            //                 CustomRating.ratingBar(onRatingUpdate: (val){}),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       // Positioned(
+            //       //     top: 0,
+            //       //     child: CircleAvatar(radius: 25.h,),),
+            //     Positioned(
+            //       top: 0,
+            //       child: ClipOval(
+            //       child: Image.network(
+            //         "${AppUrls.docImage}${doc?.drImages}",
+            //         fit: BoxFit.cover,
+            //         width: 60,
+            //         height: 60,
+            //         errorBuilder: (context, error, stackTrace) => const CircleAvatar(radius: 35, child: Text("Error"),),
+            //       ),
+            //     ),)
+            //   ],
+            // ),
+            //     );
+                },
             ),
             ),
             // SizedBox(height: 50.h,),

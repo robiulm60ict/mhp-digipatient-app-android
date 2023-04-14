@@ -26,6 +26,8 @@ import 'package:digi_patient/view/splash_view_2.dart';
 
 import '../view/bottom_navigation_buttons/favourites_view.dart';
 import '../view/bottom_navigation_buttons/home_view.dart';
+import '../view/daily_upcomming_appointment/daily_and_upcomming_appointments_detail_view.dart';
+import '../view/daily_upcomming_appointment/daily_and_upcomming_appointments_view.dart';
 import '../view/dashboard.dart';
 import '../view/my_doctor_category_views/doc_details_view.dart';
 import '../view/my_medicine/my_medicine_view.dart';
@@ -139,6 +141,11 @@ import '../view/splash_view.dart';
     AutoRoute(path: '/medicine', page: MyMedicineView,),
     AutoRoute(path: '/rx', page: RXView,),
     AutoRoute(path: '/details', page: RXDetailView,),
+
+    /// daily and upcomming appointments
+
+    AutoRoute(path: '/daua', page: DailyAndUpcommingView,),
+    AutoRoute(path: '/daua-detail', page: DailyAndUpcommingDetailView,),
 
   ],
 )

@@ -30,6 +30,9 @@ class HomeViewModel with ChangeNotifier{
     }else if(index == 3){
       context.router.push(const MyMedicineRoute());
 
+    }else if(index == 5){
+      context.router.push(const DailyAndUpcommingRoute());
+
     }
   }
 
