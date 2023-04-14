@@ -16,9 +16,10 @@ import '../../routes/routes.gr.dart';
 import '../../widgets/doc_card.dart';
 
 class MyDoctorCategoryWiseView extends StatefulWidget {
-  const MyDoctorCategoryWiseView({Key? key, required this.categoryName, required this.departmentId}) : super(key: key);
+  const MyDoctorCategoryWiseView({Key? key, required this.categoryName, required this.departmentId, required this.departmentImage}) : super(key: key);
   final String categoryName;
   final num departmentId;
+  final String departmentImage;
 
   @override
   State<MyDoctorCategoryWiseView> createState() => _MyDoctorCategoryWiseViewState();
@@ -60,7 +61,18 @@ class _MyDoctorCategoryWiseViewState extends State<MyDoctorCategoryWiseView> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.asset(Assets.imagesCardiology, height: 117.h, width: 134.w,),
+                    FadeInImage(
+                      // fit: BoxFit.cover,
+                      height: 117.h,
+                      width: 134.w,
+                      image: NetworkImage(
+                        widget.departmentImage,
+                      ),
+                      imageErrorBuilder: (context, error, stackTrace) => const CircleAvatar(radius: 35, child: Text("Error"),),
+                      placeholder: const AssetImage(Assets.imagesCardiology),
+
+                    ),
+                    // Image.asset(Assets.imagesCardiology, height: 117.h, width: 134.w,),
                     SizedBox(width: 12.w,),
                     Expanded(child: Text(widget.categoryName, textAlign: TextAlign.start, style: TextStyle(fontSize: 26.sp, color: Colors.white),))
                   ],
@@ -74,7 +86,7 @@ class _MyDoctorCategoryWiseViewState extends State<MyDoctorCategoryWiseView> {
                     crossAxisCount: 2,
                   mainAxisSpacing: 12,
                   crossAxisSpacing: 16,
-                  height: 155.h
+                  height: 175.h
 
                 ), itemBuilder: (context, index) {
 
@@ -89,55 +101,7 @@ class _MyDoctorCategoryWiseViewState extends State<MyDoctorCategoryWiseView> {
                   docSpeciality: "${doc?.department?.departmentsName }",
                   docHospital: "${doc?.usualProvider?.usualProviderName}",
                 );
-            //     return InkWell(
-            //   onTap: (){
-            //     context.router.push( DocDetailsRoute(id: doc!.id!));
-            //   },
-            //       child: Stack(
-            //   alignment: Alignment.center,
-            //   children: [
-            //       Padding(
-            //         padding: const EdgeInsets.only(bottom: 4.0),
-            //         child: Card(
-            //           elevation: 5,
-            //           shape: RoundedRectangleBorder(
-            //             borderRadius: BorderRadius.circular(12.r),
-            //           ),
-            //           margin: const EdgeInsets.only(top: 35),
-            //           child: Padding(
-            //             padding: EdgeInsets.symmetric(horizontal: 4.0.w),
-            //             child: Column(
-            //               children: [
-            //                 SizedBox(height: 35.h, width: double.infinity,),
-            //                 Text("${doc?.drFullName}", maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464),),),
-            //                 const SizedBox(height: 4,),
-            //                 Text("${doc?.department?.departmentsName }", maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A),),),
-            //                 const SizedBox(height: 4,),
-            //                 Text("${doc?.usualProvider?.usualProviderName}", maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp,  color: const Color(0xFF8A8A8A),),),
-            //                 const SizedBox(height: 4,),
-            //                 CustomRating.ratingBar(onRatingUpdate: (val){}),
-            //               ],
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //       // Positioned(
-            //       //     top: 0,
-            //       //     child: CircleAvatar(radius: 25.h,),),
-            //     Positioned(
-            //       top: 0,
-            //       child: ClipOval(
-            //       child: Image.network(
-            //         "${AppUrls.docImage}${doc?.drImages}",
-            //         fit: BoxFit.cover,
-            //         width: 60,
-            //         height: 60,
-            //         errorBuilder: (context, error, stackTrace) => const CircleAvatar(radius: 35, child: Text("Error"),),
-            //       ),
-            //     ),)
-            //   ],
-            // ),
-            //     );
+
                 },
             ),
             ),

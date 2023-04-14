@@ -19,27 +19,35 @@ class DailyAndUpcommingViewModel with ChangeNotifier{
   bool isUpcommingAppointmentLoading = true;
 
   getTodayAppointments(BuildContext context)async{
+    isTodayAppointmentLoading = true;
     todayAppointmentList.clear();
+    notifyListeners();
     todayAppointmentFullList.clear();
     await appointmentRepo.getTodayAppointment().then((value) {
       todayAppointmentFullList.add(value);
       todayAppointmentList.addAll(value.todaysPatientAppointments!);
       isTodayAppointmentLoading = false;
+      notifyListeners();
     }).onError((error, stackTrace) {
       isTodayAppointmentLoading = true;
+      notifyListeners();
       Messages.snackBar(context, error.toString());
     });
   }
 
   getUpcommingAppointments(BuildContext context)async{
+    isUpcommingAppointmentLoading = true;
     upcommingAppointmentFullList.clear();
     upcommingAppointmentList.clear();
+    notifyListeners();
     await appointmentRepo.getUpcommingAppointment().then((value) {
       upcommingAppointmentFullList.add(value);
       upcommingAppointmentList.addAll(value.upcomingPatientAppointments!);
       isUpcommingAppointmentLoading = false;
+      notifyListeners();
     }).onError((error, stackTrace) {
       isUpcommingAppointmentLoading = true;
+      notifyListeners();
       Messages.snackBar(context, error.toString());
     });
   }

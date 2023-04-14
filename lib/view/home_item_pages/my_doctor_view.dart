@@ -137,7 +137,7 @@ class MyDoctorView extends StatelessWidget {
             return InkWell(
               onTap: (){
                 // provider.categoryRouteTo(context, index);
-                context.router.push(MyDoctorCategoryWiseRoute(categoryName: department?.departmentsName ?? "", departmentId: department!.id!));
+                context.router.push(MyDoctorCategoryWiseRoute(categoryName: department?.departmentsName ?? "", departmentId: department!.id!, departmentImage: "${AppUrls.departmentImage}${department?.departmentImage}"));
               },
               child: Card(
                 shape: RoundedRectangleBorder(
