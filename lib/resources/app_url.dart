@@ -46,6 +46,11 @@ class AppUrls{
 
   static const String bookAppointment = '$baseUrl/mhp_server/public/api/online-booking-app';
 
+  /// Appointments
+
+  static const String todayAppointments = '$baseUrl/mhp_server/public/api/todays-patientappointment/';
+
+  static const String upcommingAppointments = '$baseUrl/mhp_server/public/api/upcoming-patientappointment/';
   /// Anatomy Symptoms
 
   static const String anatomySymptoms = '$baseUrl/mhp_server/public/api/symptoms-anatomy';

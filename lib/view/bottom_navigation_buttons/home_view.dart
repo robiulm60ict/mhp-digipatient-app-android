@@ -119,20 +119,7 @@ class _HomeViewState extends State<HomeView> {
             }
           ),
           actions: [
-            // Column(
-            //   mainAxisSize: MainAxisSize.min,
-            //   mainAxisAlignment: MainAxisAlignment.start,
-            //   crossAxisAlignment: CrossAxisAlignment.end,
-            //   children: [
-            //     const SizedBox(height: 15,),
-            //     badges.Badge(
-            //       position: BadgePosition.topEnd(top: 3, end: 6),
-            //         badgeContent: const Text("6", style: TextStyle(color: Colors.white),),
-            //         child: IconButton(onPressed: (){
-            //           context.router.push(const NotificationsRoute());
-            //         }, icon: Icon(Icons.notification_important, color: AppColors.primaryColor,))),
-            //   ],
-            // ),
+
             badges.Badge(
                 position: BadgePosition.topEnd(top: 3, end: 6),
                 badgeContent: const Text("6", style: TextStyle(color: Colors.white),),
@@ -164,9 +151,6 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             SizedBox(height: 15.h,),
-            // SizedBox(
-            //     height: 100.h,
-            //     child: Image.asset('assets/images/macro-health-plus.png', height: 100.h, width: 300.w,)),
             Container(
               height: 31.h,
               // width: double.infinity,
@@ -212,24 +196,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 itemCount: provider.homeItemsList.length,
                 itemBuilder: (BuildContext context, index){
-              // return Card(
-              //   shape: RoundedRectangleBorder(
-              //     borderRadius: BorderRadius.circular(12.r)
-              //   ),
-              // );
-              //     return Card(
-              //         shape: RoundedRectangleBorder(
-              //             borderRadius: BorderRadius.circular(12.r)
-              //           ),
-              //       child: ListTile(
-              //         onTap: (){},
-              //         shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(12.r),
-              //         ),
-              //         leading: const CircleAvatar(),
-              //         title: Text("My Doctor", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-              //       ),
-              //     );
+
                   return InkWell(
                     onTap: (){
 
