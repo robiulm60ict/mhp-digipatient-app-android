@@ -67,34 +67,40 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
             Row(
               children: [
                 Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: showTodayAppointments ? AppColors.primaryColor : Colors.white
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        showTodayAppointments = true;
-                      });
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0.h),
-                      child: Text("Todays Appointments", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: showTodayAppointments ? Colors.white : AppColors.primaryColor),),
+                  child: SizedBox(
+                    height: 60.h,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: showTodayAppointments ? AppColors.primaryColor : Colors.white
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          showTodayAppointments = true;
+                        });
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.0.h),
+                        child: Text("Todays Appointments", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: showTodayAppointments ? Colors.white : AppColors.primaryColor),),
+                      ),
                     ),
                   ),
                 ),
                 Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: !showTodayAppointments ? AppColors.primaryColor : Colors.white
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        showTodayAppointments = false;
-                      });
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0.h),
-                      child: Text("Upcomming Appointments", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: !showTodayAppointments ? Colors.white : AppColors.primaryColor),),
+                  child: SizedBox(
+                    height: 60.h,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: !showTodayAppointments ? AppColors.primaryColor : Colors.white
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          showTodayAppointments = false;
+                        });
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.0.h),
+                        child: Text("Upcomming Appointments", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: !showTodayAppointments ? Colors.white : AppColors.primaryColor),),
+                      ),
                     ),
                   ),
                 ),
