@@ -17,8 +17,10 @@ class MyMedicineViewModel with ChangeNotifier{
   bool isCurrentRxLoading = true;
 
   getCurrentRx(BuildContext context)async{
+    isCurrentRxLoading = true;
     currentRxList.clear();
     drugList.clear();
+    notifyListeners();
     medicineRepo.getCurrentRX().then((value) {
       currentRxList.add(value);
       drugList.addAll(value.drugs!);
@@ -34,6 +36,7 @@ class MyMedicineViewModel with ChangeNotifier{
     isCurrentRxLoading = true;
     pastRxList.clear();
     drugList.clear();
+    notifyListeners();
     medicineRepo.getPastRX().then((value) {
       pastRxList.add(value);
       drugList.addAll(value.drugs!);
