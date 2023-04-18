@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
+import 'package:digi_patient/model/doctor_model/doctor_chember_time_model.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/model/online_model/online_model.dart';
 import 'package:digi_patient/resources/colors.dart';
@@ -14,6 +15,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/utils.dart';
 import '../../widgets/back_button.dart';
+
+import 'package:carousel_slider/carousel_slider.dart';
 
 class BookAppointmentView extends StatefulWidget {
   const BookAppointmentView({Key? key, required this.doctors, required this.amount}) : super(key: key);
@@ -34,6 +37,8 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
 
   getAmount(){
     context.read<MyDoctorViewModel>().getDoctorFee(widget.doctors.id);
+     context.read<MyDoctorViewModel>().getDocChamberTime(context, docId: 1);
+
   }
 
 
@@ -147,17 +152,45 @@ padding: EdgeInsets.all(20.r),
           ),
           SizedBox(height: 20.h,),
           SizedBox(
-            height: 35.h,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 7,
-              itemBuilder: (context, index) => Card(
-                color: index == 1 ? AppColors.primaryColor : Colors.white,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
-                  child: Text("9.30AM", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: index == 1 ? Colors.white : const Color(0xFF646464)),),
+            height: 55.h,
+            child: myDocVM.isDocChamberTimeLoading ? const Center(child: CircularProgressIndicator(),) :
+            CarouselSlider.builder(
+              // scrollDirection: Axis.horizontal,
+              itemCount: myDocVM.doctorTimeSlotList.length,
+              itemBuilder: (BuildContext context, int index, int pageViewIndex) {
+                DocTimeSlots docTime = myDocVM.doctorTimeSlotList[index];
+                return SizedBox(
+                  // width: MediaQuery.of(context).size.width - 50,
+                  child: Card(child: ListTile(
+                    title: Text("${docTime.day}-${docTime.month}-${docTime.year}"),
+                    subtitle: Text("${myDocVM.getTime(docTime.slotFrom)} To ${myDocVM.getTime(docTime.slotTo)}"),
+                    trailing: Text("${docTime.type}"),
+                  )),
+                );
+              },
+                options: CarouselOptions(
+                  // height: 400,
+                  // aspectRatio: 16/9,
+                  viewportFraction: 0.8,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 3),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 1600),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  // enlargeFactor: 0.3,
+                  scrollDirection: Axis.horizontal,
                 ),
-              ),),
+              // itemBuilder: (context, index) => Card(
+              //   color: index == 1 ? AppColors.primaryColor : Colors.white,
+              //   child: Padding(
+              //     padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
+              //     child: Text("9.30AM", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: index == 1 ? Colors.white : const Color(0xFF646464)),),
+              //   ),
+              // ),
+            ),
           ),
           SizedBox(height: 20.h,),
           InkWell(

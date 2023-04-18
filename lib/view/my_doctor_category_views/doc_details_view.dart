@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
+import 'package:digi_patient/model/doctor_model/doctor_chember_time_model.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/resources/colors.dart';
@@ -40,6 +41,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
   getDoctor(num id) async{
     doc = context.read<MyDoctorViewModel>().allDoctorList.first.doctors?.firstWhere((element) => element.id == id);
     await context.read<MyDoctorViewModel>().getDoctorFee(doc?.id);
+    await context.read<MyDoctorViewModel>().getDocChamberTime(context, docId: 1);
     setState(() {
 
     });
@@ -300,10 +302,14 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 SizedBox(height: 20.h,),
                 SizedBox(
                   height: 70.h,
-                  child: ListView.builder(
-                    itemCount: 5,
+                  child: mdVM.isDocChamberTimeLoading ? const Center(child: CircularProgressIndicator(),) : ListView.builder(
+                    itemCount: mdVM.doctorTimeSlotList.length,
                     scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => Card(
+                      itemBuilder: (context, index) {
+                      DocTimeSlots docTime = mdVM.doctorTimeSlotList[index];
+                      bool isMorning = docTime.type?.toLowerCase() == "morning";
+                      return Card
+                      (
                         elevation: 5,
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 8.0.h, horizontal: 16.w),
@@ -312,22 +318,22 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text("Monday", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+                              Text("${docTime.day}-${docTime.month}-${docTime.year}", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
                               SizedBox(height: 4.h,),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Image.asset(index == 0 ? Assets.imagesDayActive : Assets.imagesDayInActive, height: 20.h, width: 20.w, fit: BoxFit.fill,),
+                                  Image.asset(isMorning ? Assets.imagesDayActive : Assets.imagesDayInActive, height: 20.h, width: 20.w, fit: BoxFit.fill,),
                                   SizedBox(width: 8.w,),
-                                  Image.asset(index == 0 ? Assets.imagesNightInActive : Assets.imagesNightActive, height: 20.h, width: 20.w, fit: BoxFit.fill,),
+                                  Image.asset(isMorning ? Assets.imagesNightInActive : Assets.imagesNightActive, height: 20.h, width: 20.w, fit: BoxFit.fill,),
                                 ],
                               ),
                             ],
                           ),
                         ),
-                      ),),
+                      );}),
                 ),
                 SizedBox(height: 20.h,),
                 SizedBox(height: 50.h,

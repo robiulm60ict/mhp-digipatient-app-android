@@ -6,6 +6,7 @@ import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/view_model/daily_appointments_view_model/daily_appointments_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/appointment_model/todays_appointment_model.dart';
@@ -36,7 +37,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
   String getTime(String? date){
     DateTime? dateObject = DateTime.tryParse(date ?? "");
     if(dateObject != null){
-      return "${dateObject.hour} : ${dateObject.minute}";
+      return DateFormat.jm().format(dateObject);
     }else{
       return "null";
     }

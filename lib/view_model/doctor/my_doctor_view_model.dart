@@ -1,8 +1,10 @@
 import 'package:digi_patient/generated/assets.dart';
+import 'package:digi_patient/model/doctor_model/doctor_chember_time_model.dart';
 import 'package:digi_patient/model/doctor_model/doctor_fee_model.dart';
 import 'package:digi_patient/repository/department_repo/department_repo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../model/department_model/department_model.dart';
 import '../../model/doctor_model/doctors_model.dart';
@@ -42,6 +44,35 @@ class MyDoctorViewModel with ChangeNotifier{
 
     notifyListeners();
 
+  }
+
+  List<DocTimeSlots> doctorTimeSlotList = [];
+
+  bool isDocChamberTimeLoading = true;
+  getDocChamberTime(BuildContext context, {required dynamic docId})async{
+    doctorTimeSlotList.clear();
+    isDocChamberTimeLoading = true;
+    notifyListeners();
+    DoctorRepository().getDocChamberTime(docId).then((value) {
+      doctorTimeSlotList.addAll(value.docTimeSlots!);
+      isDocChamberTimeLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      isDocChamberTimeLoading = true;
+      notifyListeners();
+      Messages.snackBar(context, error.toString());
+    });
+
+  }
+
+  String getTime(String? date){
+    DateTime? dateObject = DateTime.tryParse(date ?? "");
+
+    if(dateObject != null){
+      return DateFormat.jm().format(dateObject);
+    }else{
+      return "null";
+    }
   }
 
   List<DoctorFeeModel> docFeeList = [];
