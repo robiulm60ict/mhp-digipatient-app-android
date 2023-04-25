@@ -93,8 +93,9 @@ class _MyRecordViewState extends State<MyRecordView> {
           const MyRecordListTile(title: 'My medical History', iconData: Icons.medical_information, ),
           SizedBox(height: 5.h,),
            MyRecordListTile(title: 'Self Medical History from Great Doc', iconData: Icons.medication_liquid_sharp, onTap: () {
-            // context.router.push(const SelfMedicalHistoryFGDRoute());
-             showMedicalHistoryFromGreatDocSearchView(context);
+            context.router.push(const SelfMedicalHistoryFGDRoute());
+            // TODO: If searching is needed then uncomment this
+            //  showMedicalHistoryFromGreatDocSearchView(context);
           },),
           SizedBox(height: 5.h,),
           const MyRecordListTile(title: 'Reason For Visit', iconData: Icons.read_more,),
@@ -118,21 +119,39 @@ showMedicalHistoryFromGreatDocSearchView(BuildContext context){
       delegate: SearchPage<PastHistory>(
       items: mHFgdVM.medicalHistoryFromGreatDocPastList,
       searchLabel: 'Search History',
-      suggestion: Center(
+      suggestion: const Center(
       child: Text('Filter History by doctor name, date'),
   ),
-  failure: Center(
+  failure: const Center(
   child: Text('No history found :('),
   ),
   filter: (history) => [
   history.doctor?.drGivenName,
     history.date
   ],
-  builder: (history) => Card(
-    child: ListTile(
-    title: Text("${history.doctor?.drGivenName}"),
-    subtitle: Text("${history.description}"),
+  builder: (history) =>Card(
+    child: Row(
+      children: [
+        SizedBox(width: 5.w,),
+        SizedBox(
+            width: 40.w,
+            child: Text(mHFgdVM.getDate(history.date), maxLines: 3, overflow: TextOverflow.ellipsis,)),
+        Expanded(
+          child: ListTile(
+              onTap: (){
+                context.router.push(MedicalDocumentsRoute(history: history));
+              },
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage("${AppUrls.docImage}${history.doctor?.drImages}"),
+              ),
+              title: Text("${history.doctor?.drGivenName}"),
+              subtitle: Text("${history.description}"),
+              trailing: Text(mHFgdVM.getTime(history.date))
+          ),
+        ),
+      ],
     ),
   ),
-  ));
+  ),
+  );
 }

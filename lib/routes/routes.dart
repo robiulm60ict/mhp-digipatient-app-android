@@ -33,6 +33,7 @@ import '../view/my_doctor_category_views/doc_details_view.dart';
 import '../view/my_medicine/my_medicine_view.dart';
 import '../view/my_medicine/rx_detail_view.dart';
 import '../view/my_medicine/rx_view.dart';
+import '../view/my_record/medical_documents_view.dart';
 import '../view/splash_view.dart';
 
 @MaterialAutoRouter(
@@ -146,6 +147,7 @@ import '../view/splash_view.dart';
 
     AutoRoute(path: '/daua', page: DailyAndUpcommingView,),
     AutoRoute(path: '/daua-detail', page: DailyAndUpcommingDetailView,),
+    AutoRoute(path: '/document-detail', page: MedicalDocumentsView,),
 
   ],
 )
