@@ -54,6 +54,14 @@ class AppUrls{
   /// Anatomy Symptoms
 
   static const String anatomySymptoms = '$baseUrl/mhp_server/public/api/symptoms-anatomy';
+
+  /// Doctor chamber time
+
+  static const String docChamberTime = '$baseUrl/mhp_server/public/api/doctor-chamber-times/';
+
+/// Medical History From Great Doc
+
+  static const String medicalHistoryFromGreatDoc = '$baseUrl/mhp_server/public/api/past-history/';
 }
 
 const Map header = {'Accept': 'application/json'};

@@ -1,14 +1,18 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:digi_patient/model/my_record_model/medical_history_from_great_doc_model.dart';
 import 'package:digi_patient/model/user_detail_model/user_model.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
+import 'package:digi_patient/utils/message.dart';
 import 'package:digi_patient/utils/utils.dart';
+import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
 import 'package:digi_patient/view_model/user_view_model/user_view_model.dart';
 import 'package:digi_patient/widgets/back_button.dart';
 import 'package:digi_patient/widgets/my_record_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:search_page/search_page.dart';
 
 import '../../resources/app_url.dart';
 
@@ -88,7 +92,11 @@ class _MyRecordViewState extends State<MyRecordView> {
           SizedBox(height: 5.h,),
           const MyRecordListTile(title: 'My medical History', iconData: Icons.medical_information, ),
           SizedBox(height: 5.h,),
-          const MyRecordListTile(title: 'Self Medical History from Great Doc', iconData: Icons.medication_liquid_sharp,),
+           MyRecordListTile(title: 'Self Medical History from Great Doc', iconData: Icons.medication_liquid_sharp, onTap: () {
+            context.router.push(const SelfMedicalHistoryFGDRoute());
+            // TODO: If searching is needed then uncomment this
+            //  showMedicalHistoryFromGreatDocSearchView(context);
+          },),
           SizedBox(height: 5.h,),
           const MyRecordListTile(title: 'Reason For Visit', iconData: Icons.read_more,),
           SizedBox(height: 5.h,),
@@ -98,4 +106,52 @@ class _MyRecordViewState extends State<MyRecordView> {
       ),
     );
   }
+}
+
+showMedicalHistoryFromGreatDocSearchView(BuildContext context){
+  final mHFgdVM = Provider.of<MyRecordViewModel>(context, listen: false);
+  mHFgdVM.getMedicalHistoryFromGreatDoc(context);
+  if(mHFgdVM.isMedicalHistoryFromGreatDocLoading){
+
+  }
+  return showSearch(
+      context: context,
+      delegate: SearchPage<PastHistory>(
+      items: mHFgdVM.medicalHistoryFromGreatDocPastList,
+      searchLabel: 'Search History',
+      suggestion: const Center(
+      child: Text('Filter History by doctor name, date'),
+  ),
+  failure: const Center(
+  child: Text('No history found :('),
+  ),
+  filter: (history) => [
+  history.doctor?.drGivenName,
+    history.date
+  ],
+  builder: (history) =>Card(
+    child: Row(
+      children: [
+        SizedBox(width: 5.w,),
+        SizedBox(
+            width: 40.w,
+            child: Text(mHFgdVM.getDate(history.date), maxLines: 3, overflow: TextOverflow.ellipsis,)),
+        Expanded(
+          child: ListTile(
+              onTap: (){
+                context.router.push(MedicalDocumentsRoute(history: history));
+              },
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage("${AppUrls.docImage}${history.doctor?.drImages}"),
+              ),
+              title: Text("${history.doctor?.drGivenName}"),
+              subtitle: Text("${history.description}"),
+              trailing: Text(mHFgdVM.getTime(history.date))
+          ),
+        ),
+      ],
+    ),
+  ),
+  ),
+  );
 }

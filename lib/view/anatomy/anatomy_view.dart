@@ -13,7 +13,7 @@ import '../../resources/constants.dart';
 import '../../utils/message.dart';
 import '../../utils/modal_sheet.dart';
 import '../../utils/utils.dart';
-import '../../view_model/anatomy/anatomy_model.dart';
+import '../../view_model/anatomy/anatomy_view_model.dart';
 import '../../widgets/back_button.dart';
 
 
@@ -28,6 +28,15 @@ class _AnatomyViewState extends State<AnatomyView> {
   String _selectedValue = maleFront;
   bool isFlushBarShowing = false;
   final GlobalKey flushBarKey = GlobalKey();
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+
+      context.read<AnatomyModelView>().getAnatomySymptoms(context);
+
+    });
+  }
 
   String returnHumanBodyFacing(String selectedValue) {
     if (selectedValue == maleBack) {
@@ -350,7 +359,7 @@ class _AnatomyViewState extends State<AnatomyView> {
               // );
               debugPrint("\n\n\n\n\n\n ${bodyPart.first.title} id${bodyPart.first.id} pain Level: ${bodyPart.first.painLevel} obj: ${bodyPart.first.props} active part ${active?.title}");
 
-              getDiseaseModalSheet(context, name: bodyPart.first.title);
+              getDiseaseModalSheet(context, name: bodyPart.first.title,);
               // debugPrint(provider.flushBarState.toString());
 
               // if (provider.flushBarState == 0) {

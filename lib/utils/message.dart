@@ -1,7 +1,7 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import '../view_model/anatomy/anatomy_model.dart';
+import '../view_model/anatomy/anatomy_view_model.dart';
 import '/resources/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:another_flushbar/flushbar.dart';

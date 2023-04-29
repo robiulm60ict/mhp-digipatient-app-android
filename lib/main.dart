@@ -1,4 +1,4 @@
-import 'package:digi_patient/view_model/anatomy/anatomy_model.dart';
+import 'package:digi_patient/view_model/anatomy/anatomy_view_model.dart';
 import 'package:digi_patient/view_model/app_locale_state/app_locale_view_model.dart';
 import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
 import 'package:digi_patient/view_model/communication%20view%20model/communication_view_model.dart';
@@ -6,6 +6,7 @@ import 'package:digi_patient/view_model/daily_appointments_view_model/daily_appo
 import 'package:digi_patient/view_model/home_view_model.dart';
 import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:digi_patient/view_model/my_medicine_view_model/my_medicine_view_model.dart';
+import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
 import 'package:digi_patient/view_model/signup_model.dart';
 import 'package:digi_patient/view_model/user_view_model/user_view_model.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +63,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => DailyAndUpcommingViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MyRecordViewModel(),
         ),
       ],
       child: MyApp(),
