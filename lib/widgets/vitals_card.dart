@@ -20,7 +20,8 @@ class VitalsCard extends StatelessWidget {
       child: InkWell(
         onTap: (){
           if(v != Vitals.bmi){
-            context.router.push(VitalsItemDetailsRoute(title: title, img: image, subtitle: subtitle, v: v));
+            //TODO: Uncomment this to visit route
+            // context.router.push(VitalsItemDetailsRoute(title: title, img: image, subtitle: subtitle, v: v));
           }
         },
         child: Card(
@@ -38,7 +39,7 @@ class VitalsCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(title, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-                    Image.asset(image, height: 35.h,  fit: BoxFit.fill,),
+                    Image.network(image, height: 35.h,  fit: BoxFit.fill, errorBuilder: (context, error, stackTrace) => Icon(Icons.error, color: Colors.red,),),
                   ],
                 ),
                 Align(

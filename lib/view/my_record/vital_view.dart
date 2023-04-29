@@ -1,15 +1,19 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/enum/vitals_enum.dart';
 import 'package:digi_patient/generated/assets.dart';
+import 'package:digi_patient/model/my_record_model/vitals_model.dart';
+import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/utils.dart';
+import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
 import 'package:digi_patient/widgets/back_button.dart';
 import 'package:digi_patient/widgets/line_chart.dart';
 import 'package:digi_patient/widgets/vitals_card.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class VitalsView extends StatefulWidget {
   const VitalsView({Key? key}) : super(key: key);
@@ -24,6 +28,11 @@ class _VitalsViewState extends State<VitalsView> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+
+     context.read<MyRecordViewModel>().getVitals(context);
+
+    });
     _tabController = TabController(length: 4, vsync: this);
   }
 
@@ -41,6 +50,7 @@ class _VitalsViewState extends State<VitalsView> with SingleTickerProviderStateM
     final double itemWidth = size.width / 2;
     double tabBarHeight = 70;
 
+    final vital = Provider.of<MyRecordViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         leadingWidth: leadingWidth,
@@ -60,99 +70,112 @@ class _VitalsViewState extends State<VitalsView> with SingleTickerProviderStateM
 
           SizedBox(height: 45.h,),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const VitalsCard(title: "Blood Pressure", subtitle: "120/80", image: Assets.vitalsBloodPressure, v: Vitals.bloodPressure,),
-              SizedBox(width: 6.w,),
-              const VitalsCard(title: "Heart Rate", subtitle: "89", image: Assets.vitalsHeartRate, v: Vitals.heartRate),
-            ],
-          ),
-          SizedBox(height: 6.h,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const VitalsCard(title: "Temperature", subtitle: "90.7  c", image: Assets.vitalsTemperature, v: Vitals.temperature),
-              SizedBox(width: 6.w,),
-              const VitalsCard(title: "Weight", subtitle: "75kg", image: Assets.vitalsWeight, v: Vitals.weight),
-            ],
-          ),
-          SizedBox(height: 6.h,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const VitalsCard(title: "Height", subtitle: "172cm", image: Assets.vitalsHeight, v: Vitals.height),
-              SizedBox(width: 6.w,),
-              const VitalsCard(title: "BMI", subtitle: "27.7", image: Assets.vitalsBmi, v: Vitals.bmi),
-            ],
-          ),
-          SizedBox(height: 6.h,),
-          Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.r),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 10.h),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Blood Sugar", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-                      SizedBox(width: 5.w,),
-                      Image.asset(Assets.vitalsBloodSugar, height: 35.h, fit: BoxFit.fill,),
-                    ],
-                  ),
-                  SizedBox(height: 15.h,),
-                  Table(
-                    border: TableBorder.all(color: Colors.transparent,),
-
-                    children: [
-                      TableRow(
-                          children: [
-                        const Text("  "),
-                        Text("HBA1C", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
-                        Text("Mean Blood", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
-                        Text("Glucose", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
-                      ]),
-                      TableRow(children: [
-                        Text("F", textAlign: TextAlign.left, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
-                        Text("5.0", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
-                        Text("80", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
-                        Text("4.7", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
-                      ]),
-                      TableRow(children: [
-                        Text("NF", textAlign: TextAlign.left, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
-                        Text("6.0", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
-                        Text("70", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
-                        Text("4.7", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
-                      ]),
-                    ],
-                  ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     Text("  "),
-                  //     Text("HBA1C", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
-                  //     Text("Mean Blood", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
-                  //     Text("Glucose", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
-                  //   ],
-                  // ),
-                  // SizedBox(height: 6.h,),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     Text("F", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
-                  //     Text("5.0", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
-                  //     Text("80",style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
-                  //     Text("4.7", style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
-                  //   ],
-                  // ),
-                  // SizedBox(height: 6.h,),
-                ],
-              ),
-            ),
-          ),
+          vital.isVitalLoading ? const Center(child: CircularProgressIndicator(),) : ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: vital.vitalsList.isNotEmpty ? vital.vitalsList.first.vsArray?.length : 0,
+              itemBuilder: (context, index) {
+              // if(vital.vitalsList.isNotEmpty){
+              //   PatientsVs? vitals = vital.vitalsList.first.vsArray?[index].patientsVs?.first;
+              // }else{
+              //   PatientsVs? vitals;
+              // }
+             final vitals =  vital.vitalsList.first.vsArray?[index];
+                return VitalsCard(title: "${vitals!.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.name : ""}", subtitle: "${ vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.refRangeValue : ""}", image: "${AppUrls.image}images/VitalSignIcon/${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.icon : ""}", v: Vitals.bloodPressure,);
+              },),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     const VitalsCard(title: "Blood Pressure", subtitle: "120/80", image: Assets.vitalsBloodPressure, v: Vitals.bloodPressure,),
+          //     SizedBox(width: 6.w,),
+          //     const VitalsCard(title: "Heart Rate", subtitle: "89", image: Assets.vitalsHeartRate, v: Vitals.heartRate),
+          //   ],
+          // ),
+          // SizedBox(height: 6.h,),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     const VitalsCard(title: "Temperature", subtitle: "90.7  c", image: Assets.vitalsTemperature, v: Vitals.temperature),
+          //     SizedBox(width: 6.w,),
+          //     const VitalsCard(title: "Weight", subtitle: "75kg", image: Assets.vitalsWeight, v: Vitals.weight),
+          //   ],
+          // ),
+          // SizedBox(height: 6.h,),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     const VitalsCard(title: "Height", subtitle: "172cm", image: Assets.vitalsHeight, v: Vitals.height),
+          //     SizedBox(width: 6.w,),
+          //     const VitalsCard(title: "BMI", subtitle: "27.7", image: Assets.vitalsBmi, v: Vitals.bmi),
+          //   ],
+          // ),
+          // SizedBox(height: 6.h,),
+          // Card(
+          //   shape: RoundedRectangleBorder(
+          //     borderRadius: BorderRadius.circular(8.r),
+          //   ),
+          //   child: Padding(
+          //     padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 10.h),
+          //     child: Column(
+          //       children: [
+          //         Row(
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //           children: [
+          //             Text("Blood Sugar", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
+          //             SizedBox(width: 5.w,),
+          //             Image.asset(Assets.vitalsBloodSugar, height: 35.h, fit: BoxFit.fill,),
+          //           ],
+          //         ),
+          //         SizedBox(height: 15.h,),
+          //         Table(
+          //           border: TableBorder.all(color: Colors.transparent,),
+          //
+          //           children: [
+          //             TableRow(
+          //                 children: [
+          //               const Text("  "),
+          //               Text("HBA1C", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
+          //               Text("Mean Blood", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
+          //               Text("Glucose", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
+          //             ]),
+          //             TableRow(children: [
+          //               Text("F", textAlign: TextAlign.left, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
+          //               Text("5.0", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
+          //               Text("80", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
+          //               Text("4.7", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
+          //             ]),
+          //             TableRow(children: [
+          //               Text("NF", textAlign: TextAlign.left, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
+          //               Text("6.0", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
+          //               Text("70", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
+          //               Text("4.7", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
+          //             ]),
+          //           ],
+          //         ),
+          //         // Row(
+          //         //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //         //   children: [
+          //         //     Text("  "),
+          //         //     Text("HBA1C", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
+          //         //     Text("Mean Blood", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
+          //         //     Text("Glucose", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
+          //         //   ],
+          //         // ),
+          //         // SizedBox(height: 6.h,),
+          //         // Row(
+          //         //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //         //   children: [
+          //         //     Text("F", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
+          //         //     Text("5.0", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
+          //         //     Text("80",style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
+          //         //     Text("4.7", style: TextStyle(fontSize: 16.sp, color: AppColors.primaryColor),),
+          //         //   ],
+          //         // ),
+          //         // SizedBox(height: 6.h,),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           SizedBox(height: 12.h,),
           Text("Overview", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: const Color(0xFF3C3C3C)),),
           SizedBox(height: 18.h,),

@@ -38,7 +38,7 @@ class VitalsItemDetailsView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(img, height: 70, width: 70, fit: BoxFit.fitHeight,),
+                    Image.network(img, height: 70, width: 70, fit: BoxFit.fitHeight,),
                     SizedBox(width: 16.w,),
                     Column(
                       mainAxisSize: MainAxisSize.min,
@@ -67,37 +67,23 @@ class VitalsItemDetailsView extends StatelessWidget {
             Expanded(child: ListView.builder(
               itemCount: 7,
                 itemBuilder: (context, index) {
-                  return Dismissible(
-                      key: UniqueKey(),
-                      direction: DismissDirection.endToStart,
-                      background: Card(
-                        color: Colors.red,
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 8.0.w),
-                            child: Icon(Icons.delete, color: AppColors.primaryColor, size: 16.h,),
-                          ),
-                        ),
+                  return Card(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5.0.w, vertical: 4.h),
+                      child: Row(
+                        children: [
+                          Image.asset(img, height: 30, width: 30, fit: BoxFit.fill,),
+                          SizedBox(width: 5.w,),
+                          Text(subtitle, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+                          const Spacer(),
+                          Icon(Icons.date_range, color: const Color(0xFF646464), size: 16.h,),
+                          SizedBox(width: 3.w,),
+                          Text("03/12/2022", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
+                          SizedBox(width: 5.w,),
+                          // IconButton(onPressed: (){}, icon:  Icon(Icons.delete, color: Colors.red, size: 16.h,))
+                        ],
                       ),
-                      child: Card(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5.0.w, vertical: 4.h),
-                          child: Row(
-                            children: [
-                              Image.asset(img, height: 30, width: 30, fit: BoxFit.fill,),
-                              SizedBox(width: 5.w,),
-                              Text(subtitle, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-                              const Spacer(),
-                              Icon(Icons.date_range, color: const Color(0xFF646464), size: 16.h,),
-                              SizedBox(width: 3.w,),
-                              Text("03/12/2022", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-                              SizedBox(width: 5.w,),
-                              IconButton(onPressed: (){}, icon:  Icon(Icons.delete, color: Colors.red, size: 16.h,))
-                            ],
-                          ),
-                        ),
-                      ),
+                    ),
                   );
                 },))
           ],

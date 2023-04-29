@@ -1,3 +1,5 @@
+import 'package:digi_patient/model/my_record_model/procedure_mHFGD_model.dart';
+import 'package:digi_patient/model/my_record_model/vitals_model.dart';
 import 'package:digi_patient/utils/message.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
@@ -29,6 +31,49 @@ class MyRecordViewModel with ChangeNotifier{
       Messages.snackBar(context, error.toString());
     });
   }
+
+  List<AllProcedures> procedureList = [];
+  bool isProcedureLoading = true;
+
+  getProcedureFromGreatDoc(BuildContext context)async{
+    isProcedureLoading = true;
+    procedureList.clear();
+    notifyListeners();
+
+    await myRecordRepo.getProcedureFromGreatDoc().then((value) {
+      procedureList.addAll(value.allProcedures!);
+      isProcedureLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      isProcedureLoading = true;
+      Messages.snackBar(context, error.toString());
+    });
+  }
+
+  /// vitals
+
+  bool isVitalLoading = true;
+
+  List<VitalsModel> vitalsList = [];
+  List<PatientsVs> patientVsList = [];
+
+  getVitals(BuildContext context)async{
+    isVitalLoading = true;
+    vitalsList.clear();
+    patientVsList.clear();
+    notifyListeners();
+
+    myRecordRepo.getVitals().then((value) {
+      vitalsList.add(value);
+      // patientVsList.addAll(value.vsArray?.first.patientsVs?);
+      isVitalLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      isVitalLoading = true;
+      Messages.snackBar(context, error.toString());
+    });
+  }
+
 
   String getTime(String? date){
     DateTime? dateObject = DateTime.tryParse(date ?? "");
