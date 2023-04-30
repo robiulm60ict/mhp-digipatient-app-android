@@ -32,12 +32,19 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
   @override
   void initState() {
     super.initState();
-    getAmount();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      getAmount();
+
+    });
+
   }
 
   getAmount(){
     context.read<MyDoctorViewModel>().getDoctorFee(widget.doctors.id);
+    context.read<AppointmentViewModel>().setWeekDays();
      context.read<MyDoctorViewModel>().getDocChamberTime(context, docId: 1);
+
+
 
   }
 
@@ -113,6 +120,41 @@ padding: EdgeInsets.all(20.r),
               );
             }
             )
+          ),
+          SizedBox(height: 20.h,),
+          Row(
+            children: [
+              Expanded(
+                child: Card(
+                  color: isChamber ? AppColors.primaryColor : Colors.white,
+                  child: ListTile(
+                    onTap: (){
+                      isChamber = true;
+                      setState(() {
+
+                      });
+                    },
+                    leading: Image.asset( Assets.imagesChamber,  height: 20.h, width: 20.w, fit: BoxFit.fill,),
+                    title: Text("CHAMBER", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: isChamber ? Colors.white : AppColors.primaryColor),),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Card(
+                  color: isChamber ? Colors.white : AppColors.primaryColor,
+                  child: ListTile(
+                    onTap: (){
+                      isChamber = false;
+                      setState(() {
+
+                      });
+                    },
+                    leading: Image.asset(Assets.imagesMobile, height: 20.h, width: 10.w, fit: BoxFit.fill,),
+                    title: Text("ONLINE", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: isChamber ? AppColors.primaryColor : AppColors.whiteColor),),
+                  ),
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 20.h,),
           Row(
@@ -205,41 +247,7 @@ padding: EdgeInsets.all(20.r),
               ),
             ),
           ),
-          SizedBox(height: 20.h,),
-          Row(
-            children: [
-              Expanded(
-                child: Card(
-                  color: isChamber ? AppColors.primaryColor : Colors.white,
-                  child: ListTile(
-                    onTap: (){
-                      isChamber = true;
-                      setState(() {
 
-                      });
-                    },
-                    leading: Image.asset( Assets.imagesChamber,  height: 20.h, width: 20.w, fit: BoxFit.fill,),
-                    title: Text("CHAMBER", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: isChamber ? Colors.white : AppColors.primaryColor),),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Card(
-                  color: isChamber ? Colors.white : AppColors.primaryColor,
-                  child: ListTile(
-                    onTap: (){
-                      isChamber = false;
-                      setState(() {
-
-                      });
-                    },
-                    leading: Image.asset(Assets.imagesMobile, height: 20.h, width: 10.w, fit: BoxFit.fill,),
-                    title: Text("ONLINE", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: isChamber ? AppColors.primaryColor : AppColors.whiteColor),),
-                  ),
-                ),
-              ),
-            ],
-          ),
           SizedBox(height: 20.h,),
           Visibility(
             visible: isChamber,

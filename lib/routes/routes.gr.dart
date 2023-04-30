@@ -17,7 +17,8 @@ import 'package:flutter/material.dart' as _i37;
 import '../enum/vitals_enum.dart' as _i39;
 import '../model/doctor_model/doctors_model.dart' as _i38;
 import '../model/my_record_model/medical_history_from_great_doc_model.dart'
-    as _i40;
+    as _i41;
+import '../model/my_record_model/vitals_model.dart' as _i40;
 import '../view/anatomy/anatomy_view.dart' as _i18;
 import '../view/appointment/book_appointment_view.dart' as _i15;
 import '../view/authentications/create_account_view.dart' as _i7;
@@ -257,6 +258,8 @@ class AppRouter extends _i36.RootStackRouter {
           img: args.img,
           subtitle: args.subtitle,
           v: args.v,
+          allData: args.allData,
+          index: args.index,
         ),
       );
     },
@@ -1007,6 +1010,8 @@ class VitalsItemDetailsRoute
     required String img,
     required String subtitle,
     required _i39.Vitals v,
+    List<_i40.PatientsVs>? allData,
+    required int index,
   }) : super(
           VitalsItemDetailsRoute.name,
           path: '/vitals-detail',
@@ -1016,6 +1021,8 @@ class VitalsItemDetailsRoute
             img: img,
             subtitle: subtitle,
             v: v,
+            allData: allData,
+            index: index,
           ),
         );
 
@@ -1029,6 +1036,8 @@ class VitalsItemDetailsRouteArgs {
     required this.img,
     required this.subtitle,
     required this.v,
+    this.allData,
+    required this.index,
   });
 
   final _i37.Key? key;
@@ -1041,9 +1050,13 @@ class VitalsItemDetailsRouteArgs {
 
   final _i39.Vitals v;
 
+  final List<_i40.PatientsVs>? allData;
+
+  final int index;
+
   @override
   String toString() {
-    return 'VitalsItemDetailsRouteArgs{key: $key, title: $title, img: $img, subtitle: $subtitle, v: $v}';
+    return 'VitalsItemDetailsRouteArgs{key: $key, title: $title, img: $img, subtitle: $subtitle, v: $v, allData: $allData, index: $index}';
   }
 }
 
@@ -1183,7 +1196,7 @@ class MedicalDocumentsRoute
     extends _i36.PageRouteInfo<MedicalDocumentsRouteArgs> {
   MedicalDocumentsRoute({
     _i37.Key? key,
-    required _i40.PastHistory? history,
+    required _i41.PastHistory? history,
   }) : super(
           MedicalDocumentsRoute.name,
           path: '/document-detail',
@@ -1204,7 +1217,7 @@ class MedicalDocumentsRouteArgs {
 
   final _i37.Key? key;
 
-  final _i40.PastHistory? history;
+  final _i41.PastHistory? history;
 
   @override
   String toString() {

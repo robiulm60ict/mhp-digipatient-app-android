@@ -119,7 +119,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
       debugPrint("--------------------${app.appType}");
         context.router.push(DailyAndUpcommingDetailRoute(docImage: "${AppUrls.docImage}${app.drImages}", docName: "${app.drGivenName}", docHospital: "${app.drProviderId}", docSpeciality: "${app.drProviderId}", appType: "${app.appType}".toLowerCase() == "online" ? true : false));
     },
-    title: "You have appointments on ${app.drGivenName} at ${getDate(app.startTime)}",
+    title: "You have an appointments with ${app.drGivenName} at ${getDate(app.startTime)}",
     subTitle: "Starts: ${getTime(app.startTime)} Ends: ${getTime(app.endTime)}",
     docImage: "${AppUrls.docImage}${app.drImages}",
     );
@@ -133,7 +133,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                       debugPrint("--------------------${app.appType}");
                       context.router.push(DailyAndUpcommingDetailRoute(docImage: "${AppUrls.docImage}${app.drImages}", docName: "${app.drGivenName}", docHospital: "${app.drProviderId}", docSpeciality: "${app.drProviderId}", appType: "${app.appType}".toLowerCase() == "online" ? true : false));
                     },
-                  title: "Today you have appointments on ${app.drGivenName}",
+                  title: "Today you have an appointments with ${app.drGivenName}",
                     subTitle: "Starts: ${getTime(app.startTime)} Ends: ${getTime(app.endTime)}",
                     docImage: "${AppUrls.docImage}${app.drImages}",
                   );
