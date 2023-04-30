@@ -1,23 +1,31 @@
 import 'package:digi_patient/enum/vitals_enum.dart';
+import 'package:digi_patient/model/my_record_model/vitals_model.dart';
 import 'package:digi_patient/utils/popup_dialogue.dart';
+import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
 import 'package:digi_patient/widgets/vitals_set_button.dart';
 import 'package:digi_patient/widgets/vitals_title_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
+import '../../../resources/app_url.dart';
 import '../../../resources/colors.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/back_button.dart';
 
 class VitalsItemDetailsView extends StatelessWidget {
-  const VitalsItemDetailsView({Key? key, required this.title, required this.img, required this.subtitle, required this.v}) : super(key: key);
+  const VitalsItemDetailsView({Key? key, required this.title, required this.img, required this.subtitle, required this.v, this.allData, required this.index}) : super(key: key);
   final String title;
   final String img;
   final String subtitle;
   final Vitals v;
+  final List<PatientsVs>? allData;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
+    final myRecord = Provider.of<MyRecordViewModel>(context);
+    debugPrint("----------------------------${allData?.length}");
     return Scaffold(
       appBar: AppBar(
         leadingWidth: leadingWidth,
@@ -38,7 +46,7 @@ class VitalsItemDetailsView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.network(img, height: 70, width: 70, fit: BoxFit.fitHeight,),
+                    Image.network(img, height: 70, width: 70, fit: BoxFit.fitHeight, errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),),
                     SizedBox(width: 16.w,),
                     Column(
                       mainAxisSize: MainAxisSize.min,
@@ -64,28 +72,56 @@ class VitalsItemDetailsView extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(" Last 2 Months  ", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),)),
             SizedBox(height: 8.h,),
+            // Expanded(child: ListView.builder(
+            //   itemCount: allData != null ? allData?.length : 0,
+            //     itemBuilder: (context, index) {
+            //     final vitals = allData![index];
+            //       return Card(
+            //         child: Padding(
+            //           padding: EdgeInsets.symmetric(horizontal: 5.0.w, vertical: 4.h),
+            //           child: Row(
+            //             children: [
+            //               Image.network("${AppUrls.image}images/VitalSignIcon/${vitals.icon}", height: 30, width: 30, fit: BoxFit.fill,),
+            //               SizedBox(width: 5.w,),
+            //               Text("${vitals.refRangeValue}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+            //               const Spacer(),
+            //               Icon(Icons.date_range, color: const Color(0xFF646464), size: 16.h,),
+            //               SizedBox(width: 3.w,),
+            //               Text(myRecord.getDate("${vitals.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
+            //               SizedBox(width: 5.w,),
+            //               // IconButton(onPressed: (){}, icon:  Icon(Icons.delete, color: Colors.red, size: 16.h,))
+            //             ],
+            //           ),
+            //         ),
+            //       );
+            //     },),),
             Expanded(child: ListView.builder(
-              itemCount: 7,
-                itemBuilder: (context, index) {
+              itemCount: myRecord.vitalsList.first.vsArray?[index].patientsVs?.length ?? 0,
+                itemBuilder: (context, ind) {
+                final vitals = myRecord.vitalsList.first.vsArray?[index].patientsVs![ind];
                   return Card(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5.0.w, vertical: 4.h),
                       child: Row(
                         children: [
-                          Image.asset(img, height: 30, width: 30, fit: BoxFit.fill,),
+                          Image.network(
+                            "${AppUrls.image}images/VitalSignIcon/${vitals?.icon}",
+                            height: 30, width: 30, fit: BoxFit.fill,
+                            errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),
+                          ),
                           SizedBox(width: 5.w,),
-                          Text(subtitle, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+                          Text("${vitals?.refRangeValue}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
                           const Spacer(),
                           Icon(Icons.date_range, color: const Color(0xFF646464), size: 16.h,),
                           SizedBox(width: 3.w,),
-                          Text("03/12/2022", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
+                          Text(myRecord.getDate("${vitals?.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
                           SizedBox(width: 5.w,),
                           // IconButton(onPressed: (){}, icon:  Icon(Icons.delete, color: Colors.red, size: 16.h,))
                         ],
                       ),
                     ),
                   );
-                },))
+                },),),
           ],
         ),
       ),
@@ -104,7 +140,9 @@ getPopUpDialogue(Vitals v, BuildContext context){
         SizedBox(height: 10.h,),
         VitalTextTitle(title: "Diastolic BP", controller: dbp),
         SizedBox(height: 20.h,),
-        VitalsSetButton(onPressed: (){}),
+        VitalsSetButton(onPressed: (){
+
+        }),
       ],
     ),
     );

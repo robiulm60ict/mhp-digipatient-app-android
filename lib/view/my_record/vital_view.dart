@@ -13,6 +13,7 @@ import 'package:digi_patient/widgets/vitals_card.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:provider/provider.dart';
 
 class VitalsView extends StatefulWidget {
@@ -70,7 +71,7 @@ class _VitalsViewState extends State<VitalsView> with SingleTickerProviderStateM
 
           SizedBox(height: 45.h,),
 
-          vital.isVitalLoading ? const Center(child: CircularProgressIndicator(),) : ListView.builder(
+          vital.isVitalLoading ? const Center(child: CircularProgressIndicator(),) : GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: vital.vitalsList.isNotEmpty ? vital.vitalsList.first.vsArray?.length : 0,
@@ -81,8 +82,13 @@ class _VitalsViewState extends State<VitalsView> with SingleTickerProviderStateM
               //   PatientsVs? vitals;
               // }
              final vitals =  vital.vitalsList.first.vsArray?[index];
-                return VitalsCard(title: "${vitals!.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.name : ""}", subtitle: "${ vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.refRangeValue : ""}", image: "${AppUrls.image}images/VitalSignIcon/${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.icon : ""}", v: Vitals.bloodPressure,);
-              },),
+             debugPrint(vitals.toString());
+
+                return VitalsCard(index: index, title: "${vitals!.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.name : ""}", subtitle: "${ vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.refRangeValue : ""}", image: "${AppUrls.image}images/VitalSignIcon/${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.icon : ""}", allData: vitals.patientsVs!.isNotEmpty ? vitals.patientsVs! : [], v: vitals!.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.name.toString().toLowerCase() == "blood pressure" ? Vitals.bloodPressure : Vitals.weight :  Vitals.weight,);
+              }, gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 3/2,
+          ),),
           // Row(
           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
           //   children: [

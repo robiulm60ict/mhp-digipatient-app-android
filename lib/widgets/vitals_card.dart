@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/enum/vitals_enum.dart';
+import 'package:digi_patient/model/my_record_model/vitals_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,21 +8,24 @@ import '../resources/colors.dart';
 import '../routes/routes.gr.dart';
 
 class VitalsCard extends StatelessWidget {
-  const VitalsCard({Key? key, required this.title, required this.subtitle, required this.image, this.onTap, required this.v}) : super(key: key);
+  const VitalsCard({Key? key, required this.title, required this.subtitle, required this.image, this.onTap, required this.v, required this.allData, required this.index}) : super(key: key);
   final String title;
   final String subtitle;
   final String image;
   final VoidCallback? onTap;
   final Vitals v;
+  final List<PatientsVs> allData;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
+    // debugPrint("----------------------------${allData.length}");
     return Expanded(
       child: InkWell(
         onTap: (){
           if(v != Vitals.bmi){
             //TODO: Uncomment this to visit route
-            // context.router.push(VitalsItemDetailsRoute(title: title, img: image, subtitle: subtitle, v: v));
+            context.router.push(VitalsItemDetailsRoute(index: index, title: title, img: image, subtitle: subtitle, v: v, allData: allData));
           }
         },
         child: Card(

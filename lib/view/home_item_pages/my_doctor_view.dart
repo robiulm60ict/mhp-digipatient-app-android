@@ -70,33 +70,33 @@ class MyDoctorView extends StatelessWidget {
             ),
           ),),
           SizedBox(height: 15.h,),
-          Row(
-            children: [
-              Text("Favourite List", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-            const Spacer(),
-              TextButton(onPressed: (){
-                debugPrint("view all");
-              }, child: Text("View All", style: TextStyle(
-                  decoration: TextDecoration.underline,
-                  fontSize: 12.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),))
-            ],
-          ),
-          SizedBox(height: 6.h,),
-          SizedBox(
-            height: 90.h,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-                itemCount: 5,
-                itemBuilder: (context, index) {
-              return SizedBox(
-                width: MediaQuery.of(context).size.width - 25,
-                child: DoctorListTileFavourite(onTap: (){
-                  //TODO: Connect api and Route
-                  // context.router.push( DocDetailsRoute(id: null));
-                },),
-              );
-            }),
-          ),
+          // Row(
+          //   children: [
+          //     Text("Favourite List", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
+          //   const Spacer(),
+          //     TextButton(onPressed: (){
+          //       debugPrint("view all");
+          //     }, child: Text("View All", style: TextStyle(
+          //         decoration: TextDecoration.underline,
+          //         fontSize: 12.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),))
+          //   ],
+          // ),
+          // SizedBox(height: 6.h,),
+          // SizedBox(
+          //   height: 90.h,
+          //   child: ListView.builder(
+          //     scrollDirection: Axis.horizontal,
+          //       itemCount: 5,
+          //       itemBuilder: (context, index) {
+          //     return SizedBox(
+          //       width: MediaQuery.of(context).size.width - 25,
+          //       child: DoctorListTileFavourite(onTap: (){
+          //         //TODO: Connect api and Route
+          //         // context.router.push( DocDetailsRoute(id: null));
+          //       },),
+          //     );
+          //   }),
+          // ),
           SizedBox(height: 15.h,),
           Row(
             children: [

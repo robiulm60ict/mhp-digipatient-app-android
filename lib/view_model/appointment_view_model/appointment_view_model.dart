@@ -58,6 +58,28 @@ class AppointmentViewModel with ChangeNotifier{
     }
   }
 
+  setWeekDays(){
+    weekDayList.clear();
+    notifyListeners();
+    DateTime selectedDate = DateTime.now();
+    DateTime startWeekDay = getDate(selectedDate.subtract(Duration(days: appointmentDate.weekday - 1)));
+
+
+
+    for(var i = 0; i<7; i++){
+
+      DateTime date = startWeekDay.add(Duration(days: i));
+
+      weekDayList.add(WeekDayModel(weekName: DateFormat("EEEE").format(date).substring(0,3), isSelected: date.isAtSameMomentAs(selectedDate), dateTime: date, day: date.day));
+
+    }
+    monthName = DateFormat('MMMM').format(appointmentDate);
+
+    year = appointmentDate.year.toString();
+
+
+    notifyListeners();
+  }
   int? patientId;
   // int? docId;
   // String appointmentType = 'Chamber';
