@@ -1,9 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/model/my_record_model/medical_history_from_great_doc_model.dart';
-import 'package:digi_patient/model/user_detail_model/user_model.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
-import 'package:digi_patient/utils/message.dart';
 import 'package:digi_patient/utils/utils.dart';
 import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
 import 'package:digi_patient/view_model/user_view_model/user_view_model.dart';
@@ -32,7 +30,6 @@ class _MyRecordViewState extends State<MyRecordView> {
   }
   @override
   Widget build(BuildContext context) {
-    final userVM = Provider.of<UserViewModel>(context);
     final user = Provider.of<UserViewModel>(context).user;
 
     return Scaffold(
@@ -90,9 +87,13 @@ class _MyRecordViewState extends State<MyRecordView> {
             context.router.push(const VitalsRoute());
           }),
           SizedBox(height: 5.h,),
-          const MyRecordListTile(title: 'My medical History', iconData: Icons.medical_information, ),
+           MyRecordListTile(title: 'My medical History', iconData: Icons.medical_information,
+          onTap: () {
+            context.router.push(const MyMedicalHistoryRoute());
+          },
+          ),
           SizedBox(height: 5.h,),
-           MyRecordListTile(title: 'Self Medical History from Great Doc', iconData: Icons.medication_liquid_sharp, onTap: () {
+           MyRecordListTile(title: 'Medical History from Great Doc', iconData: Icons.medication_liquid_sharp, onTap: () {
             context.router.push(const SelfMedicalHistoryFGDRoute());
             // TODO: If searching is needed then uncomment this
             //  showMedicalHistoryFromGreatDocSearchView(context);
