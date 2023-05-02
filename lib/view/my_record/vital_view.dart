@@ -1,19 +1,15 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/enum/vitals_enum.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/model/my_record_model/vitals_model.dart';
 import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/resources/colors.dart';
-import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/utils.dart';
 import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
 import 'package:digi_patient/widgets/back_button.dart';
 import 'package:digi_patient/widgets/line_chart.dart';
 import 'package:digi_patient/widgets/vitals_card.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:provider/provider.dart';
 
 class VitalsView extends StatefulWidget {
@@ -25,16 +21,74 @@ class VitalsView extends StatefulWidget {
 
 class _VitalsViewState extends State<VitalsView> with SingleTickerProviderStateMixin  {
   late TabController _tabController;
+  List<Widget> tabs = [];
+  List<Widget> tabView = [];
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_){
+  getVitals();
+  // getTabData();
+    });
+    try{
+      _tabController = TabController(length: context.read<MyRecordViewModel>().vitalsList.first.vsArray!.length + 1, vsync: this);
 
-     context.read<MyRecordViewModel>().getVitals(context);
+    }catch (e){
+      debugPrint(e.toString());
+      _tabController = TabController(length: 0, vsync: this);
+    }
+
+
+
+  }
+getVitals()async{
+    await context.read<MyRecordViewModel>().getVitals(context, this);
+}
+  getTabData()async{
+    tabs.clear();
+    tabView.clear();
+    tabs.add(Tab(
+        height: 70,
+        child: Card(
+            child: Padding(
+              padding:  EdgeInsets.all(4.0.r),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+
+                children: [
+                  Text("${context.read<MyRecordViewModel>().vitalsList.first.bpArray?.first.name}", textAlign: TextAlign.center, style: TextStyle(fontSize: 10.sp, color: const Color(0xFF646464)),),
+                  Text("${context.read<MyRecordViewModel>().vitalsList.first.bpArray?.first.systolic}/${context.read<MyRecordViewModel>().vitalsList.first.bpArray?.first.diastolic}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: _tabController.index == 0 ? AppColors.primaryColor : const Color(0xFF646464)),),
+                ],
+              ),
+            ))),);
+    tabView.add(const Card(
+        child: CustomLineChart()
+    ),);
+    context.read<MyRecordViewModel>().vitalsList.first.vsArray?.forEach((element) {
+
+      tabs.add(
+        Tab(
+          height: 70,
+          child: Card(
+              child: Padding(
+                padding:  EdgeInsets.all(4.0.r),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+
+                  children: [
+                    Text("${element.patientsVs!.isNotEmpty ? element.patientsVs?.first.name : ""}", textAlign: TextAlign.center, style: TextStyle(fontSize: 10.sp, color: const Color(0xFF646464)),),
+                    Text("${element.patientsVs!.isNotEmpty ? element.patientsVs?.first.refRangeValue : ""}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: _tabController.index == 0 ? AppColors.primaryColor : const Color(0xFF646464)),),
+                  ],
+                ),
+              ))),);
+      tabView.add(const Card(
+
+      ),);
+    });
+    setState(() {
 
     });
-    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -44,12 +98,10 @@ class _VitalsViewState extends State<VitalsView> with SingleTickerProviderStateM
   }
 
 
+  PatientsVs? dropdownValue ;
+  bool isBloodPressure = true;
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
-    final double itemWidth = size.width / 2;
-    double tabBarHeight = 70;
 
     final vital = Provider.of<MyRecordViewModel>(context);
     return Scaffold(
@@ -70,8 +122,8 @@ class _VitalsViewState extends State<VitalsView> with SingleTickerProviderStateM
           ),
 
           SizedBox(height: 45.h,),
-
-          vital.isVitalLoading ? const Center(child: CircularProgressIndicator(),) : GridView.builder(
+          vital.isVitalLoading ? const Center(child: CircularProgressIndicator(),) : VitalsCard(title: "${vital.vitalsList.first.bpArray?.first.name}", subtitle: "${vital.vitalsList.first.bpArray?.first.systolic}/${vital.vitalsList.first.bpArray?.first.diastolic}", image: "${AppUrls.image}images/VitalSignIcon/${vital.vitalsList.first.bpArray?.first.icon}", v: Vitals.bloodPressure, allData: const [], index: 0),
+          vital.isVitalLoading ? const Center(child: CircularProgressIndicator(),) : ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: vital.vitalsList.isNotEmpty ? vital.vitalsList.first.vsArray?.length : 0,
@@ -83,12 +135,14 @@ class _VitalsViewState extends State<VitalsView> with SingleTickerProviderStateM
               // }
              final vitals =  vital.vitalsList.first.vsArray?[index];
              debugPrint(vitals.toString());
+                return VitalsCard(index: index, title: "${vitals!.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.name : ""}", subtitle: "${ vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.refRangeValue : ""}", image: "${AppUrls.image}images/VitalSignIcon/${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.icon : ""}", allData: vitals.patientsVs!.isNotEmpty ? vitals.patientsVs! : [], v: vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.name.toString().toLowerCase() == "blood pressure" ? Vitals.bloodPressure : Vitals.weight :  Vitals.weight,);
+              },
+          //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          //   crossAxisCount: 2,
+          //   childAspectRatio: 3/2,
+          // ),
+          ),
 
-                return VitalsCard(index: index, title: "${vitals!.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.name : ""}", subtitle: "${ vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.refRangeValue : ""}", image: "${AppUrls.image}images/VitalSignIcon/${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.icon : ""}", allData: vitals.patientsVs!.isNotEmpty ? vitals.patientsVs! : [], v: vitals!.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.name.toString().toLowerCase() == "blood pressure" ? Vitals.bloodPressure : Vitals.weight :  Vitals.weight,);
-              }, gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 3/2,
-          ),),
           // Row(
           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
           //   children: [
@@ -185,88 +239,151 @@ class _VitalsViewState extends State<VitalsView> with SingleTickerProviderStateM
           SizedBox(height: 12.h,),
           Text("Overview", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: const Color(0xFF3C3C3C)),),
           SizedBox(height: 18.h,),
-    TabBar(
-    controller: _tabController,
-    indicatorSize: TabBarIndicatorSize.label,
-    indicatorColor: AppColors.primaryColor,
-    isScrollable: true,
-    onTap: (value) {
-      setState(() {
+//     vital.isVitalLoading ? const Center(child: CircularProgressIndicator(),) : TabBar(
+//     controller: _tabController,
+//     indicatorSize: TabBarIndicatorSize.label,
+//     indicatorColor: AppColors.primaryColor,
+//     isScrollable: true,
+//     onTap: (value) {
+//       setState(() {
+//
+//     });},
+//     tabs: tabs,
+//     // [
+//     // Tab(
+//     //   height: tabBarHeight,
+//     //     child: Card(
+//     //     child: Padding(
+//     //       padding:  EdgeInsets.all(4.0.r),
+//     //       child: Column(
+//     //         mainAxisSize: MainAxisSize.min,
+//     //
+//     //   children: [
+//     //       Text("Blood Pressure", textAlign: TextAlign.center, style: TextStyle(fontSize: 10.sp, color: const Color(0xFF646464)),),
+//     //       Text("120/80", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: _tabController.index == 0 ? AppColors.primaryColor : const Color(0xFF646464)),),
+//     //   ],
+//     // ),
+//     //     ))),
+//     // Tab(
+//     //   height: tabBarHeight,
+//     //     child: Card(
+//     //     child: Padding(
+//     //       padding:  EdgeInsets.all(4.0.r),
+//     //       child: Column(
+//     //         mainAxisSize: MainAxisSize.min,
+//     //   children: [
+//     //       Text("Heart Rate", textAlign: TextAlign.center, style: TextStyle(fontSize: 10.sp, color: const Color(0xFF646464)),),
+//     //       Text("89bpm", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: _tabController.index == 1 ? AppColors.primaryColor : const Color(0xFF646464)),),
+//     //   ],
+//     // ),
+//     //     ))),
+//     // Tab(
+//     //   height: tabBarHeight,
+//     //     child: Card(
+//     //     child: Padding(
+//     //       padding:  EdgeInsets.all(4.0.r),
+//     //       child: Column(
+//     //         mainAxisSize: MainAxisSize.min,
+//     //   children: [
+//     //       Text("Temperature", textAlign: TextAlign.center, style: TextStyle(fontSize: 10.sp, color: const Color(0xFF646464)),),
+//     //       Text("90.7  c", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: _tabController.index == 2 ? AppColors.primaryColor : const Color(0xFF646464)),),
+//     //   ],
+//     // ),
+//     //     ))),
+//     // Tab(
+//     //   height: tabBarHeight,
+//     //     child: Card(
+//     //     child: Padding(
+//     //       padding:  EdgeInsets.all(4.0.r),
+//     //       child: Column(
+//     //         mainAxisSize: MainAxisSize.min,
+//     //   children: [
+//     //       Text("Oxygen", textAlign: TextAlign.center, style: TextStyle(fontSize: 10.sp, color: const Color(0xFF646464)),),
+//     //       Text("98%", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: _tabController.index == 3 ? AppColors.primaryColor : const Color(0xFF646464)),),
+//     //   ],
+//     // ),
+//     //     ))
+//     // ),
+//     //
+//     // ],
+//     ),
+// SizedBox(height: 10.h,),
+//           vital.isVitalLoading ? const Center(child: CircularProgressIndicator(),) : SizedBox(
+//             height: 300.h,
+//             child: TabBarView(
+//                 controller: _tabController,
+//                 // children: const [
+//                 //   Card(
+//                 //     child: CustomLineChart()
+//                 //   ),
+//                 //   Card(),
+//                 //   Card(),
+//                 //   Card(),
+//                 // ],
+//               children: tabView,
+//             ),
+//           ),
+          vital.isVitalLoading ? const Center(child: CircularProgressIndicator(),) : Row(
+            children: [
+              SizedBox(
+                height: 40.h,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: isBloodPressure ? AppColors.primaryColor : Colors.black12
+                    ),
+                    onPressed:  () {
+                   setState(() {
+                     isBloodPressure = true;
+                   });
+                }, child: const Text("Blood Pressure")),
+              ),
+              Expanded(child: Card(
+                color: isBloodPressure ? Colors.black12 : AppColors.primaryColor,
+                child: SizedBox(
+                  height: 40.h,
+                  child: DropdownButton<PatientsVs>(
+                    isExpanded: true,
+                    onTap: () {
+setState(() {
+  isBloodPressure = false;
+});
+                    },
+                    value: dropdownValue,
 
-    });},
-    tabs: [
-    Tab(
-      height: tabBarHeight,
-        child: Card(
-        child: Padding(
-          padding:  EdgeInsets.all(4.0.r),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+                    items: vital.vitalsList.first.vsArray!
+                        .map<DropdownMenuItem<PatientsVs>>((VsArray value) {
+                      return DropdownMenuItem<PatientsVs>(
+                        value: value.patientsVs?.first,
+                        child: Text(
+                          "${value.patientsVs?.first.name}",
+                          style: TextStyle(fontSize: 18.sp),
+                        ),
+                      );
+                    }).toList(),
+                    // Step 5.
+                    onChanged: (PatientsVs? newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
 
-      children: [
-          Text("Blood Pressure", textAlign: TextAlign.center, style: TextStyle(fontSize: 10.sp, color: const Color(0xFF646464)),),
-          Text("120/80", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: _tabController.index == 0 ? AppColors.primaryColor : const Color(0xFF646464)),),
-      ],
-    ),
-        ))),
-    Tab(
-      height: tabBarHeight,
-        child: Card(
-        child: Padding(
-          padding:  EdgeInsets.all(4.0.r),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-      children: [
-          Text("Heart Rate", textAlign: TextAlign.center, style: TextStyle(fontSize: 10.sp, color: const Color(0xFF646464)),),
-          Text("89bpm", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: _tabController.index == 1 ? AppColors.primaryColor : const Color(0xFF646464)),),
-      ],
-    ),
-        ))),
-    Tab(
-      height: tabBarHeight,
-        child: Card(
-        child: Padding(
-          padding:  EdgeInsets.all(4.0.r),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-      children: [
-          Text("Temperature", textAlign: TextAlign.center, style: TextStyle(fontSize: 10.sp, color: const Color(0xFF646464)),),
-          Text("90.7  c", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: _tabController.index == 2 ? AppColors.primaryColor : const Color(0xFF646464)),),
-      ],
-    ),
-        ))),
-    Tab(
-      height: tabBarHeight,
-        child: Card(
-        child: Padding(
-          padding:  EdgeInsets.all(4.0.r),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-      children: [
-          Text("Oxygen", textAlign: TextAlign.center, style: TextStyle(fontSize: 10.sp, color: const Color(0xFF646464)),),
-          Text("98%", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: _tabController.index == 3 ? AppColors.primaryColor : const Color(0xFF646464)),),
-      ],
-    ),
-        ))),
-
-    ],
-    ),
-SizedBox(height: 10.h,),
-          SizedBox(
-            height: 300.h,
-            child: TabBarView(
-                controller: _tabController,
-                children: const [
-                  Card(
-                    child: CustomLineChart()
+                      });
+                    },
                   ),
-                  Card(),
-                  Card(),
-                  Card(),
-                ],),
+                ),
+              ),)
+            ],
           ),
+        SizedBox(height: 25.h,),
+          vital.isVitalLoading ? const Center(child: CircularProgressIndicator(),) : SizedBox(
+              height: 300.h,
+              width: double.infinity,
+              child: isBloodPressure ? const CustomLineChart() : getLineChart(dropdownValue?.name.toString().toLowerCase())),
+SizedBox(height: 50.h,),
         ],
       ),
     );
   }
+}
+
+getLineChart(String? val){
+  return CustomLineChartAll(selected: val);
 }
