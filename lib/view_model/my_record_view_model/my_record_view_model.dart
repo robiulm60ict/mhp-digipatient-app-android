@@ -1,4 +1,5 @@
 import 'package:digi_patient/model/my_record_model/procedure_mHFGD_model.dart';
+import 'package:digi_patient/model/my_record_model/reason_for_visit_model.dart';
 import 'package:digi_patient/model/my_record_model/vitals_model.dart';
 import 'package:digi_patient/utils/message.dart';
 import 'package:flutter/cupertino.dart';
@@ -74,7 +75,23 @@ class MyRecordViewModel with ChangeNotifier{
     });
   }
 
+  bool isReasonForVisitLoading = true;
+  List<AllReasons> reasonForVisitList = [];
 
+  getReasonForVisit(BuildContext context)async{
+    isReasonForVisitLoading = true;
+    reasonForVisitList.clear();
+    await myRecordRepo.getReasonForVisit().then((value) {
+      reasonForVisitList.addAll(value.allReasons!);
+      isReasonForVisitLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      isReasonForVisitLoading = true;
+      Messages.snackBar(context, error.toString());
+      notifyListeners();
+    });
+
+  }
   String getTime(String? date){
     DateTime? dateObject = DateTime.tryParse(date ?? "");
     if(dateObject != null){

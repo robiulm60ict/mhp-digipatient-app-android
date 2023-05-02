@@ -99,7 +99,12 @@ class _MyRecordViewState extends State<MyRecordView> {
             //  showMedicalHistoryFromGreatDocSearchView(context);
           },),
           SizedBox(height: 5.h,),
-          const MyRecordListTile(title: 'Reason For Visit', iconData: Icons.read_more,),
+           MyRecordListTile(title: 'Reason For Visit', iconData: Icons.read_more,
+          onTap: () {
+            context.router.push(const ReasonForVisitRoute());
+
+          },
+          ),
           SizedBox(height: 5.h,),
           const MyRecordListTile(title: 'My Report', iconData: Icons.report, iconColor: Colors.blue,),
           SizedBox(height: 5.h,),

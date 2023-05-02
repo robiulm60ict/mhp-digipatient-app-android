@@ -53,7 +53,7 @@ class _MyMedicalHistoryViewState extends State<MyMedicalHistoryView> {
                   SizedBox(width: 5.w,),
                   SizedBox(
                       width: 40.w,
-                      child: Text("${date}", maxLines: 3, overflow: TextOverflow.ellipsis,)),
+                      child: Text(date, maxLines: 3, overflow: TextOverflow.ellipsis,)),
                   Expanded(
                     child: ListTile(
                         onTap: (){
@@ -64,7 +64,7 @@ class _MyMedicalHistoryViewState extends State<MyMedicalHistoryView> {
                         // ),
                         title: Text("${history.condition}"),
                         subtitle: Text("${history.description}"),
-                        trailing: Text("${time}")
+                        trailing: Text(time)
                     ),
                   ),
                 ],
@@ -74,3 +74,4 @@ class _MyMedicalHistoryViewState extends State<MyMedicalHistoryView> {
     );
   }
 }
+
