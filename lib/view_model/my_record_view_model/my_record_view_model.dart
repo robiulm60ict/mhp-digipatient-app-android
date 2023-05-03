@@ -1,14 +1,15 @@
 import 'package:digi_patient/model/my_record_model/procedure_mHFGD_model.dart';
+import 'package:digi_patient/model/my_record_model/reason_for_visit_model.dart';
 import 'package:digi_patient/model/my_record_model/vitals_model.dart';
 import 'package:digi_patient/utils/message.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../model/my_record_model/medical_history_from_great_doc_model.dart';
 import '../../repository/my_record_repo/my_record_repo.dart';
 
-class MyRecordViewModel with ChangeNotifier{
-
+class MyRecordViewModel with ChangeNotifier {
   List<MedicalHistoryFromGreatDocModel> medicalHistoryFromGreatDocList = [];
   List<PastHistory> medicalHistoryFromGreatDocPastList = [];
 
@@ -16,7 +17,7 @@ class MyRecordViewModel with ChangeNotifier{
 
   MyRecordRepo myRecordRepo = MyRecordRepo();
 
-  getMedicalHistoryFromGreatDoc(BuildContext context)async{
+  getMedicalHistoryFromGreatDoc(BuildContext context) async {
     medicalHistoryFromGreatDocList.clear();
     medicalHistoryFromGreatDocPastList.clear();
     isMedicalHistoryFromGreatDocLoading = true;
@@ -35,7 +36,7 @@ class MyRecordViewModel with ChangeNotifier{
   List<AllProcedures> procedureList = [];
   bool isProcedureLoading = true;
 
-  getProcedureFromGreatDoc(BuildContext context)async{
+  getProcedureFromGreatDoc(BuildContext context) async {
     isProcedureLoading = true;
     procedureList.clear();
     notifyListeners();
@@ -56,8 +57,9 @@ class MyRecordViewModel with ChangeNotifier{
 
   List<VitalsModel> vitalsList = [];
   List<PatientsVs> patientVsList = [];
+  // TabController? tabController ;
 
-  getVitals(BuildContext context)async{
+  getVitals(BuildContext context, TickerProvider vsync) async {
     isVitalLoading = true;
     vitalsList.clear();
     patientVsList.clear();
@@ -65,7 +67,8 @@ class MyRecordViewModel with ChangeNotifier{
 
     myRecordRepo.getVitals().then((value) {
       vitalsList.add(value);
-      // patientVsList.addAll(value.vsArray?.first.patientsVs?);
+      // tabController = TabController(length: vitalsList.first.vsArray!.length + 1, vsync: vsync);
+      // patientVsList.addAll(value.vsArray!.first.patientsVs!);
       isVitalLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
@@ -74,22 +77,47 @@ class MyRecordViewModel with ChangeNotifier{
     });
   }
 
+  bool isReasonForVisitLoading = true;
+  List<AllReasons> reasonForVisitList = [];
 
-  String getTime(String? date){
+  getReasonForVisit(BuildContext context) async {
+    isReasonForVisitLoading = true;
+    reasonForVisitList.clear();
+    await myRecordRepo.getReasonForVisit().then((value) {
+      reasonForVisitList.addAll(value.allReasons!);
+      isReasonForVisitLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      isReasonForVisitLoading = true;
+      Messages.snackBar(context, error.toString());
+      notifyListeners();
+    });
+  }
+
+  String getTime(String? date) {
     DateTime? dateObject = DateTime.tryParse(date ?? "");
-    if(dateObject != null){
+    if (dateObject != null) {
       return DateFormat.jm().format(dateObject);
-    }else{
+    } else {
       return "null";
     }
   }
 
   String getDate(String? date) {
     DateTime? dateObject = DateTime.tryParse(date ?? "");
-    if(dateObject != null){
+    if (dateObject != null) {
       return "${dateObject.day}-${dateObject.month}-${dateObject.year}";
-    }else{
+    } else {
       return "null";
+    }
+  }
+
+  DateTime getDateTime(String? date){
+    DateTime? dateObject = DateTime.tryParse(date ?? "");
+    if (dateObject != null) {
+      return dateObject;
+    } else {
+      return DateTime.now();
     }
   }
 }

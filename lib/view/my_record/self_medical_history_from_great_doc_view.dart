@@ -40,7 +40,7 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
       appBar: AppBar(
         leadingWidth: leadingWidth,
         leading: const CustomBackButton(),
-        title: Text("Self Medical History From Great Doc", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
+        title: Text("Medical History From Great Doc", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
         centerTitle: true,
         actions: [
           IconButton(onPressed: () {
@@ -134,10 +134,10 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
                               onTap: (){
                                 // context.router.push(MedicalDocumentsRoute(history: history));
                               },
-                              leading: CircleAvatar(
-                                backgroundImage: NetworkImage("${AppUrls.docImage}${history.doctor?.drImages}"),
-                              ),
-                              title: Text("${history.doctor?.drGivenName}"),
+                              // leading: CircleAvatar(
+                              //   backgroundImage: NetworkImage("${AppUrls.docImage}${history.doctor?.drImages}"),
+                              // ),
+                              title: Text("${history.condition}"),
                               subtitle: Text("${history.description}"),
                               trailing: Text("${time}")
                           ),

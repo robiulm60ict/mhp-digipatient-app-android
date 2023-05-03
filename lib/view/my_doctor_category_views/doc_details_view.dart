@@ -41,7 +41,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
   getDoctor(num id) async{
     doc = context.read<MyDoctorViewModel>().allDoctorList.first.doctors?.firstWhere((element) => element.id == id);
     await context.read<MyDoctorViewModel>().getDoctorFee(doc?.id);
-    await context.read<MyDoctorViewModel>().getDocChamberTime(context, docId: 1);
+    await context.read<MyDoctorViewModel>().getDocChamberTime(context, docId: doc?.id);
     setState(() {
 
     });

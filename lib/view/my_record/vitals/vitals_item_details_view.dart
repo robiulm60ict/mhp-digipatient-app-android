@@ -25,6 +25,70 @@ class VitalsItemDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final myRecord = Provider.of<MyRecordViewModel>(context);
+    Widget getView(){
+      if(v == Vitals.bloodPressure){
+        return Expanded(
+          child: ListView.builder(
+            itemCount: myRecord.vitalsList.first.bpArray?.length ?? 0,
+            itemBuilder: (context, index) {
+              BpArray vitals =  myRecord.vitalsList.first.bpArray![index] ;
+              // myRecord.vitalsList.first.bpArray!.isNotEmpty ?
+              return Card(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5.0.w, vertical: 4.h),
+                  child: Row(
+                    children: [
+                      Image.network(
+                        "${AppUrls.image}images/VitalSignIcon/${vitals.icon}",
+                        height: 30, width: 30, fit: BoxFit.fill,
+                        errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),
+                      ),
+                      SizedBox(width: 5.w,),
+                      Text("${vitals.systolic}/${vitals.diastolic}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+                      const Spacer(),
+                      Icon(Icons.date_range, color: const Color(0xFF646464), size: 16.h,),
+                      SizedBox(width: 3.w,),
+                      Text(myRecord.getDate("${vitals.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
+                      SizedBox(width: 5.w,),
+                      // IconButton(onPressed: (){}, icon:  Icon(Icons.delete, color: Colors.red, size: 16.h,))
+                    ],
+                  ),
+                ),
+              );
+            } ,),
+        );
+      }else{
+        return Expanded(child: ListView.builder(
+          itemCount:  myRecord.vitalsList.first.vsArray?[index].patientsVs?.length ?? 0,
+          itemBuilder: (context, ind) {
+
+            final vitals =  myRecord.vitalsList.first.vsArray?[index].patientsVs![ind];
+            return Card(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5.0.w, vertical: 4.h),
+                child: Row(
+                  children: [
+                    Image.network(
+                      "${AppUrls.image}images/VitalSignIcon/${vitals?.icon}",
+                      height: 30, width: 30, fit: BoxFit.fill,
+                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),
+                    ),
+                    SizedBox(width: 5.w,),
+                    Text("${vitals?.refRangeValue}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+                    const Spacer(),
+                    Icon(Icons.date_range, color: const Color(0xFF646464), size: 16.h,),
+                    SizedBox(width: 3.w,),
+                    Text(myRecord.getDate("${vitals?.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
+                    SizedBox(width: 5.w,),
+                    // IconButton(onPressed: (){}, icon:  Icon(Icons.delete, color: Colors.red, size: 16.h,))
+                  ],
+                ),
+              ),
+            );
+          },),);
+      }
+    }
+
     debugPrint("----------------------------${allData?.length}");
     return Scaffold(
       appBar: AppBar(
@@ -64,7 +128,7 @@ class VitalsItemDetailsView extends StatelessWidget {
             SizedBox(
               height: 40.h,
               child: ElevatedButton(onPressed: (){
-                getPopUpDialogue(v, context);
+                getPopUpDialogue(v, context, title);
               }, child: Text("+ Add $title", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),)),
             ),
             SizedBox(height: 20.h,),
@@ -95,46 +159,73 @@ class VitalsItemDetailsView extends StatelessWidget {
             //         ),
             //       );
             //     },),),
-            Expanded(child: ListView.builder(
-              itemCount: myRecord.vitalsList.first.vsArray?[index].patientsVs?.length ?? 0,
-                itemBuilder: (context, ind) {
-                final vitals = myRecord.vitalsList.first.vsArray?[index].patientsVs![ind];
-                  return Card(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5.0.w, vertical: 4.h),
-                      child: Row(
-                        children: [
-                          Image.network(
-                            "${AppUrls.image}images/VitalSignIcon/${vitals?.icon}",
-                            height: 30, width: 30, fit: BoxFit.fill,
-                            errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),
-                          ),
-                          SizedBox(width: 5.w,),
-                          Text("${vitals?.refRangeValue}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-                          const Spacer(),
-                          Icon(Icons.date_range, color: const Color(0xFF646464), size: 16.h,),
-                          SizedBox(width: 3.w,),
-                          Text(myRecord.getDate("${vitals?.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-                          SizedBox(width: 5.w,),
-                          // IconButton(onPressed: (){}, icon:  Icon(Icons.delete, color: Colors.red, size: 16.h,))
-                        ],
-                      ),
-                    ),
-                  );
-                },),),
+            getView()
+            //  Expanded(child: ListView.builder(
+            //   itemCount:  myRecord.vitalsList.first.vsArray?[index].patientsVs?.length ?? 0,
+            //     itemBuilder: (context, ind) {
+            //
+            //     final vitals =  myRecord.vitalsList.first.vsArray?[index].patientsVs![ind];
+            //       return Card(
+            //         child: Padding(
+            //           padding: EdgeInsets.symmetric(horizontal: 5.0.w, vertical: 4.h),
+            //           child: Row(
+            //             children: [
+            //               Image.network(
+            //                 "${AppUrls.image}images/VitalSignIcon/${vitals?.icon}",
+            //                 height: 30, width: 30, fit: BoxFit.fill,
+            //                 errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),
+            //               ),
+            //               SizedBox(width: 5.w,),
+            //               Text("${vitals?.refRangeValue}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+            //               const Spacer(),
+            //               Icon(Icons.date_range, color: const Color(0xFF646464), size: 16.h,),
+            //               SizedBox(width: 3.w,),
+            //               Text(myRecord.getDate("${vitals?.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
+            //               SizedBox(width: 5.w,),
+            //               // IconButton(onPressed: (){}, icon:  Icon(Icons.delete, color: Colors.red, size: 16.h,))
+            //             ],
+            //           ),
+            //         ),
+            //       );
+            //     },),),
           ],
         ),
       ),
     );
+
   }
 }
 
-getPopUpDialogue(Vitals v, BuildContext context){
+getPopUpDialogue(Vitals v, BuildContext context, String title){
   TextEditingController sbp = TextEditingController();
   TextEditingController dbp = TextEditingController();
 
+  return popUpDialogue(context, getPopUp(v,title));
+  // if(v == Vitals.bloodPressure){
+  //   return popUpDialogue(context, Column(
+  //     children: [
+  //       VitalTextTitle(title: "Systolic BP", controller: sbp),
+  //       SizedBox(height: 10.h,),
+  //       VitalTextTitle(title: "Diastolic BP", controller: dbp),
+  //       SizedBox(height: 20.h,),
+  //       VitalsSetButton(onPressed: (){
+  //
+  //       }),
+  //     ],
+  //   ),
+  //   );
+  // }else{
+  //
+  // }
+}
+
+getPopUp(Vitals v, String title){
+  TextEditingController sbp = TextEditingController();
+  TextEditingController dbp = TextEditingController();
+  TextEditingController tC = TextEditingController();
+
   if(v == Vitals.bloodPressure){
-    return popUpDialogue(context, Column(
+    return Column(
       children: [
         VitalTextTitle(title: "Systolic BP", controller: sbp),
         SizedBox(height: 10.h,),
@@ -144,9 +235,16 @@ getPopUpDialogue(Vitals v, BuildContext context){
 
         }),
       ],
-    ),
+    );
+  }else{
+    return Column(
+      children: [
+        VitalTextTitle(title: title, controller: tC),
+        SizedBox(height: 20.h,),
+        VitalsSetButton(onPressed: (){
+
+        }),
+      ],
     );
   }
 }
-
-

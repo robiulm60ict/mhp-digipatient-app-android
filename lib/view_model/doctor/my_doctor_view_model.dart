@@ -56,6 +56,8 @@ class MyDoctorViewModel with ChangeNotifier{
     DoctorRepository().getDocChamberTime(docId).then((value) {
       doctorTimeSlotList.addAll(value.docTimeSlots!);
       isDocChamberTimeLoading = false;
+      // debugPrint("-------------------------------------------\n\n\n\n\n");
+      // debugPrint(doctorTimeSlotList.length.toString());
       notifyListeners();
     }).onError((error, stackTrace) {
       isDocChamberTimeLoading = true;

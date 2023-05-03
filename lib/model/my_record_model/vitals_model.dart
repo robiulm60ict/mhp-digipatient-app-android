@@ -1,13 +1,12 @@
 //
-//
-//
 // import 'dart:convert';
 // VitalsModel vitalsModelFromJson(String str) => VitalsModel.fromJson(json.decode(str));
 // String vitalsModelToJson(VitalsModel data) => json.encode(data.toJson());
 // class VitalsModel {
 //   VitalsModel({
-//       this.status,
-//       this.vsArray,});
+//     this.status,
+//     this.vsArray,
+//     this.bpArray,});
 //
 //   VitalsModel.fromJson(dynamic json) {
 //     status = json['status'];
@@ -17,9 +16,16 @@
 //         vsArray?.add(VsArray.fromJson(v));
 //       });
 //     }
+//     if (json['bpArray'] != null) {
+//       bpArray = [];
+//       json['bpArray'].forEach((v) {
+//         bpArray?.add(BpArray.fromJson(v));
+//       });
+//     }
 //   }
 //   num? status;
 //   List<VsArray>? vsArray;
+//   List<BpArray>? bpArray;
 //
 //   Map<String, dynamic> toJson() {
 //     final map = <String, dynamic>{};
@@ -27,6 +33,40 @@
 //     if (vsArray != null) {
 //       map['vsArray'] = vsArray?.map((v) => v.toJson()).toList();
 //     }
+//     if (bpArray != null) {
+//       map['bpArray'] = bpArray?.map((v) => v.toJson()).toList();
+//     }
+//     return map;
+//   }
+//
+// }
+//
+// BpArray bpArrayFromJson(String str) => BpArray.fromJson(json.decode(str));
+// String bpArrayToJson(BpArray data) => json.encode(data.toJson());
+// class BpArray {
+//   BpArray({
+//     this.name,
+//     this.systolic,
+//     this.diastolic,
+//     this.icon,});
+//
+//   BpArray.fromJson(dynamic json) {
+//     name = json['name'];
+//     systolic = json['systolic'];
+//     diastolic = json['diastolic'];
+//     icon = json['icon'];
+//   }
+//   String? name;
+//   num? systolic;
+//   num? diastolic;
+//   String? icon;
+//
+//   Map<String, dynamic> toJson() {
+//     final map = <String, dynamic>{};
+//     map['name'] = name;
+//     map['systolic'] = systolic;
+//     map['diastolic'] = diastolic;
+//     map['icon'] = icon;
 //     return map;
 //   }
 //
@@ -36,49 +76,49 @@
 // String vsArrayToJson(VsArray data) => json.encode(data.toJson());
 // class VsArray {
 //   VsArray({
-//       this.o2,});
+//     this.patientsVs,});
 //
 //   VsArray.fromJson(dynamic json) {
-//     if (json['O2'] != null) {
-//       o2 = [];
-//       json['O2'].forEach((v) {
-//         o2?.add(O2.fromJson(v));
+//     if (json['patientsVs'] != null) {
+//       patientsVs = [];
+//       json['patientsVs'].forEach((v) {
+//         patientsVs?.add(PatientsVs.fromJson(v));
 //       });
 //     }
 //   }
-//   List<O2>? o2;
+//   List<PatientsVs>? patientsVs;
 //
 //   Map<String, dynamic> toJson() {
 //     final map = <String, dynamic>{};
-//     if (o2 != null) {
-//       map['O2'] = o2?.map((v) => v.toJson()).toList();
+//     if (patientsVs != null) {
+//       map['patientsVs'] = patientsVs?.map((v) => v.toJson()).toList();
 //     }
 //     return map;
 //   }
 //
 // }
 //
-// O2 o2FromJson(String str) => O2.fromJson(json.decode(str));
-// String o2ToJson(O2 data) => json.encode(data.toJson());
-// class O2 {
-//   O2({
-//       this.id,
-//       this.patientId,
-//       this.name,
-//       this.value,
-//       this.desc,
-//       this.icon,
-//       this.color,
-//       this.lastCheckUpDate,
-//       this.unitsId,
-//       this.statusId,
-//       this.refRangeValue,
-//       this.nurseId,
-//       this.remarks,
-//       this.createdAt,
-//       this.updatedAt,});
+// PatientsVs patientsVsFromJson(String str) => PatientsVs.fromJson(json.decode(str));
+// String patientsVsToJson(PatientsVs data) => json.encode(data.toJson());
+// class PatientsVs {
+//   PatientsVs({
+//     this.id,
+//     this.patientId,
+//     this.name,
+//     this.value,
+//     this.desc,
+//     this.icon,
+//     this.color,
+//     this.lastCheckUpDate,
+//     this.unitsId,
+//     this.statusId,
+//     this.refRangeValue,
+//     this.nurseId,
+//     this.remarks,
+//     this.createdAt,
+//     this.updatedAt,});
 //
-//   O2.fromJson(dynamic json) {
+//   PatientsVs.fromJson(dynamic json) {
 //     id = json['id'];
 //     patientId = json['patient_id'];
 //     name = json['name'];
@@ -105,9 +145,9 @@
 //   String? lastCheckUpDate;
 //   String? unitsId;
 //   String? statusId;
-//   String? refRangeValue;
-//   String? nurseId;
-//   String? remarks;
+//   dynamic refRangeValue;
+//   dynamic nurseId;
+//   dynamic remarks;
 //   String? createdAt;
 //   String? updatedAt;
 //
@@ -182,18 +222,21 @@ class BpArray {
     this.name,
     this.systolic,
     this.diastolic,
-    this.icon,});
+    this.icon,
+    this.createdAt,});
 
   BpArray.fromJson(dynamic json) {
     name = json['name'];
     systolic = json['systolic'];
     diastolic = json['diastolic'];
     icon = json['icon'];
+    createdAt = json['created_at'];
   }
   String? name;
   num? systolic;
   num? diastolic;
   String? icon;
+  String? createdAt;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -201,6 +244,7 @@ class BpArray {
     map['systolic'] = systolic;
     map['diastolic'] = diastolic;
     map['icon'] = icon;
+    map['created_at'] = createdAt;
     return map;
   }
 
@@ -279,9 +323,9 @@ class PatientsVs {
   String? lastCheckUpDate;
   String? unitsId;
   String? statusId;
-  dynamic refRangeValue;
-  dynamic nurseId;
-  dynamic remarks;
+  String? refRangeValue;
+  String? nurseId;
+  String? remarks;
   String? createdAt;
   String? updatedAt;
 

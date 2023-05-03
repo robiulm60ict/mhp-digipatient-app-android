@@ -20,40 +20,74 @@ class VitalsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // debugPrint("----------------------------${allData.length}");
-    return Expanded(
-      child: InkWell(
-        onTap: (){
-          if(v != Vitals.bmi){
-            //TODO: Uncomment this to visit route
-            context.router.push(VitalsItemDetailsRoute(index: index, title: title, img: image, subtitle: subtitle, v: v, allData: allData));
-          }
-        },
-        child: Card(
-          shape: RoundedRectangleBorder(
+    return Card(
+        shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.r)
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 20.h),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(title, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-                    Image.network(image, height: 35.h,  fit: BoxFit.fill, errorBuilder: (context, error, stackTrace) => Icon(Icons.error, color: Colors.red,),),
-                  ],
-                ),
-                Align(
-                    // alignment: Alignment.centerLeft,
-                    child: Text(subtitle, textAlign: TextAlign.start, style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),)),
-              ],
-            ),
-          )
         ),
-      ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 20.h),
+          child: ListTile(
+            onTap: (){
+              context.router.push(VitalsItemDetailsRoute(index: index, title: title, img: image, subtitle: subtitle, v: v, allData: allData));
+
+            },
+            title: Text(title, style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
+          subtitle: Text(subtitle, textAlign: TextAlign.start, style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+          leading: Image.network(image, height: 35.h,  fit: BoxFit.fill, errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),),
+          ),
+          // child: Column(
+          //   mainAxisSize: MainAxisSize.min,
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   crossAxisAlignment: CrossAxisAlignment.center,
+          //   children: [
+          //     Row(
+          //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //       children: [
+          //         Text(title, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
+          //         Image.network(image, height: 35.h,  fit: BoxFit.fill, errorBuilder: (context, error, stackTrace) => Icon(Icons.error, color: Colors.red,),),
+          //       ],
+          //     ),
+          //     Align(
+          //       // alignment: Alignment.centerLeft,
+          //         child: Text(subtitle, textAlign: TextAlign.start, style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),)),
+          //   ],
+          // ),
+        )
     );
+    // return Expanded(
+    //   child: InkWell(
+    //     onTap: (){
+    //       if(v != Vitals.bmi){
+    //         //TODO: Uncomment this to visit route
+    //         context.router.push(VitalsItemDetailsRoute(index: index, title: title, img: image, subtitle: subtitle, v: v, allData: allData));
+    //       }
+    //     },
+    //     child: Card(
+    //       shape: RoundedRectangleBorder(
+    //         borderRadius: BorderRadius.circular(8.r)
+    //       ),
+    //       child: Padding(
+    //         padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 20.h),
+    //         child: Column(
+    //           mainAxisSize: MainAxisSize.min,
+    //           mainAxisAlignment: MainAxisAlignment.center,
+    //           crossAxisAlignment: CrossAxisAlignment.center,
+    //           children: [
+    //             Row(
+    //               mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //               children: [
+    //                 Text(title, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
+    //                 Image.network(image, height: 35.h,  fit: BoxFit.fill, errorBuilder: (context, error, stackTrace) => Icon(Icons.error, color: Colors.red,),),
+    //               ],
+    //             ),
+    //             Align(
+    //                 // alignment: Alignment.centerLeft,
+    //                 child: Text(subtitle, textAlign: TextAlign.start, style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),)),
+    //           ],
+    //         ),
+    //       )
+    //     ),
+    //   ),
+    // );
   }
 }

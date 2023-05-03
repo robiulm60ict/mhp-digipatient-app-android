@@ -5,13 +5,11 @@ import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/model/online_model/online_model.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
-import 'package:digi_patient/utils/user.dart';
 import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
 import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/utils.dart';
 import '../../widgets/back_button.dart';
@@ -34,7 +32,6 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_){
       getAmount();
-
     });
 
   }
@@ -42,7 +39,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
   getAmount(){
     context.read<MyDoctorViewModel>().getDoctorFee(widget.doctors.id);
     context.read<AppointmentViewModel>().setWeekDays();
-     context.read<MyDoctorViewModel>().getDocChamberTime(context, docId: 1);
+     context.read<MyDoctorViewModel>().getDocChamberTime(context, docId: widget.doctors.id);
 
 
 
@@ -195,7 +192,7 @@ padding: EdgeInsets.all(20.r),
           SizedBox(height: 20.h,),
           SizedBox(
             height: 55.h,
-            child: myDocVM.isDocChamberTimeLoading ? const Center(child: CircularProgressIndicator(),) :
+            child: myDocVM.isDocChamberTimeLoading || myDocVM.doctorTimeSlotList.isEmpty ? const Center(child: CircularProgressIndicator(),) :
             CarouselSlider.builder(
               // scrollDirection: Axis.horizontal,
               itemCount: myDocVM.doctorTimeSlotList.length,

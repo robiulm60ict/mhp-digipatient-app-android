@@ -3,6 +3,7 @@ import 'package:digi_patient/model/doctor_model/doctor_fee_model.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/model/my_record_model/medical_history_from_great_doc_model.dart';
 import 'package:digi_patient/model/my_record_model/procedure_mHFGD_model.dart';
+import 'package:digi_patient/model/my_record_model/reason_for_visit_model.dart';
 import 'package:digi_patient/model/my_record_model/vitals_model.dart';
 import 'package:digi_patient/utils/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -65,4 +66,20 @@ class MyRecordRepo{
     }
   }
 
+
+  Future<ReasonForVisitModel> getReasonForVisit() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? id = prefs.getInt(UserP.id);
+    try{
+
+      dynamic response = await apiService.getGetApiResponse("${AppUrls.reasonForVisit}$id",);
+
+      return ReasonForVisitModel.fromJson(response);
+
+    }catch(e){
+
+      rethrow;
+
+    }
+  }
 }
