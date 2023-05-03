@@ -29,7 +29,6 @@ class VitalsCard extends StatelessWidget {
           child: ListTile(
             onTap: (){
               context.router.push(VitalsItemDetailsRoute(index: index, title: title, img: image, subtitle: subtitle, v: v, allData: allData));
-
             },
             title: Text(title, style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
           subtitle: Text(subtitle, textAlign: TextAlign.start, style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
