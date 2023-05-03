@@ -242,8 +242,9 @@ class _MyHomePageState extends State<CustomLineChart> {
   }
 
   class CustomLineChartAll extends StatefulWidget {
-    const CustomLineChartAll({Key? key, required this.selected}) : super(key: key);
-    final String? selected;
+    const CustomLineChartAll({Key? key,  required this.patientVsList}) : super(key: key);
+    // final String? selected;
+    final List<PatientsVs> patientVsList;
 
   @override
   State<CustomLineChartAll> createState() => _CustomLineChartAllState();
@@ -256,22 +257,22 @@ class _CustomLineChartAllState extends State<CustomLineChartAll> {
   void initState() {
     super.initState();
     // vitalsList = context.read<MyRecordViewModel>().vitalsList.first.vsArray!.where((element) => element.patientsVs?.first.name?.toLowerCase() == widget.selected).toList();
-  getPatientArray();
+  // getPatientArray();
     debugPrint("-------------------------${vitalsList.length}");
   }
 
-  getPatientArray(){
-    for(var i = 0; i<context.read<MyRecordViewModel>().vitalsList.first.vsArray!.length; i++){
-      if(
-      context.read<MyRecordViewModel>().vitalsList.first.vsArray![i].patientsVs?.first.name.toString().toLowerCase() == widget.selected){
-        vitalsList = context.read<MyRecordViewModel>().vitalsList.first.vsArray![i].patientsVs!;
-      setState(() {
-
-      });
-      }
-
-    }
-  }
+  // getPatientArray(){
+  //   for(var i = 0; i<context.read<MyRecordViewModel>().vitalsList.first.vsArray!.length; i++){
+  //     if(
+  //     context.read<MyRecordViewModel>().vitalsList.first.vsArray![i].patientsVs?.first.name.toString().toLowerCase() == widget.selected){
+  //       vitalsList = context.read<MyRecordViewModel>().vitalsList.first.vsArray![i].patientsVs!;
+  //     setState(() {
+  //
+  //     });
+  //     }
+  //
+  //   }
+  // }
     @override
     Widget build(BuildContext context) {
       final vitals = Provider.of<MyRecordViewModel>(context);
@@ -284,11 +285,11 @@ class _CustomLineChartAllState extends State<CustomLineChartAll> {
           ),
           lineBarsData: [
             LineChartBarData(
-              spots: vitalsList
+              spots: widget.patientVsList
                   .asMap()
                   .entries
                   .map((entry) {
-                return FlSpot(entry.key.toDouble(), double.tryParse(entry.value.toString() ?? "0") ?? 0);
+                return FlSpot(entry.key.toDouble(), double.tryParse(entry.value.value.toString() ?? "0") ?? 0);
               }).toList(),
               isCurved: true,
               color: AppColors.primaryColor,

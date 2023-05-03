@@ -31,6 +31,7 @@ class _MyRecordViewState extends State<MyRecordView> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserViewModel>(context).user;
+    final vital = Provider.of<MyRecordViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -83,7 +84,7 @@ class _MyRecordViewState extends State<MyRecordView> {
             ),
           SizedBox(height: 30.h,),
 
-          MyRecordListTile(title: 'Vital', iconData: Icons.heart_broken, iconColor: Colors.red, onTap: (){
+           MyRecordListTile(title: 'Vital', iconData: Icons.heart_broken, iconColor: Colors.red, onTap: (){
             context.router.push(const VitalsRoute());
           }),
           SizedBox(height: 5.h,),

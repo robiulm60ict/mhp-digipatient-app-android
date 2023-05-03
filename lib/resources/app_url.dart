@@ -66,7 +66,10 @@ class AppUrls{
   static const String medicalProcedureFromGreatDoc = '$baseUrl/mhp_server/public/api/great-doc-procedure/';
 
   static const String vitals = '$baseUrl/mhp_server/public/api/patient-search-by-id/';
+
   static const String reasonForVisit = '$baseUrl/mhp_server/public/api/get-great-doc-reson/';
+
+  static const String saveVital = '$baseUrl/mhp_server/public/api/save-vital-sign-patient';
 }
 
 const Map header = {'Accept': 'application/json'};

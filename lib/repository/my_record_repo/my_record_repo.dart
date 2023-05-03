@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/network/base_api_service.dart';
 import '../../model/doctor_model/doctor_chember_time_model.dart';
+import '../../model/my_record_model/save_vital_model.dart';
 import '/data/network/network_api_service.dart';
 import '/resources/app_url.dart';
 
@@ -75,6 +76,21 @@ class MyRecordRepo{
       dynamic response = await apiService.getGetApiResponse("${AppUrls.reasonForVisit}$id",);
 
       return ReasonForVisitModel.fromJson(response);
+
+    }catch(e){
+
+      rethrow;
+
+    }
+  }
+
+  Future<SaveVitalModel> saveVital(dynamic body)async{
+
+    try{
+
+      dynamic response = await apiService.getPostApiResponse(AppUrls.saveVital, body);
+
+      return SaveVitalModel.fromJson(response);
 
     }catch(e){
 

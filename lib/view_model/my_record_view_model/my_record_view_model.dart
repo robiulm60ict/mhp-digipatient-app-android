@@ -1,13 +1,18 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/model/my_record_model/procedure_mHFGD_model.dart';
 import 'package:digi_patient/model/my_record_model/reason_for_visit_model.dart';
+import 'package:digi_patient/model/my_record_model/save_vital_model.dart';
 import 'package:digi_patient/model/my_record_model/vitals_model.dart';
 import 'package:digi_patient/utils/message.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/my_record_model/medical_history_from_great_doc_model.dart';
 import '../../repository/my_record_repo/my_record_repo.dart';
+import '../../routes/routes.gr.dart';
+import '../../utils/user.dart';
 
 class MyRecordViewModel with ChangeNotifier {
   List<MedicalHistoryFromGreatDocModel> medicalHistoryFromGreatDocList = [];
@@ -59,7 +64,7 @@ class MyRecordViewModel with ChangeNotifier {
   List<PatientsVs> patientVsList = [];
   // TabController? tabController ;
 
-  getVitals(BuildContext context, TickerProvider vsync) async {
+  getVitals(BuildContext context,) async {
     isVitalLoading = true;
     vitalsList.clear();
     patientVsList.clear();
@@ -71,6 +76,13 @@ class MyRecordViewModel with ChangeNotifier {
       // patientVsList.addAll(value.vsArray!.first.patientsVs!);
       isVitalLoading = false;
       notifyListeners();
+
+      // if(vitalsList.first.bpArray != null){
+      //   context.router.push( VitalsRoute(tabLength: vitalsList.first.vsArray!.length.toInt()+1));
+      // }else{
+      //   context.router.push( VitalsRoute(tabLength: vitalsList.first.vsArray!.length.toInt()));
+      // }
+
     }).onError((error, stackTrace) {
       isVitalLoading = true;
       Messages.snackBar(context, error.toString());
@@ -93,6 +105,48 @@ class MyRecordViewModel with ChangeNotifier {
       notifyListeners();
     });
   }
+
+  List<SaveVitalModel> saveVitalList = [];
+  bool isSaveVitalLoading = false;
+  String vitalStatus = "Enter Data" ;
+
+  setVitalStatus(String val){
+    vitalStatus = val;
+    notifyListeners();
+  }
+  
+  saveVitals(BuildContext context, {required String vitalName, required String value})async{
+    setVitalStatus("Please wait----");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? id = prefs.getInt(UserP.id);
+    saveVitalList.clear();
+    isSaveVitalLoading = true;
+    notifyListeners();
+
+    Map<String,dynamic> body = {
+      "patient_id": "$id",
+      "name": vitalName,
+      "value": value,
+      "desc": "",
+      "color": "",
+      "last_check_up_date": DateTime.now().toString(),
+      "icon": "null",
+      "units_id": "",
+      "status_id": "",
+    };
+    await myRecordRepo.saveVital(body).then((value) {
+      saveVitalList.add(value);
+      setVitalStatus("$vitalName Added Successfully");
+      // Messages.snackBar(context, "$vitalName Added Successfully");
+      isSaveVitalLoading = false;
+
+    }).onError((error, stackTrace) {
+      setVitalStatus("Something went wrong please try again later");
+      isSaveVitalLoading = true;
+      Messages.snackBar(context, error.toString());
+    });
+  }
+
 
   String getTime(String? date) {
     DateTime? dateObject = DateTime.tryParse(date ?? "");
