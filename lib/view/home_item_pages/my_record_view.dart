@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/model/my_record_model/medical_history_from_great_doc_model.dart';
+import 'package:digi_patient/model/my_record_model/procedure_mHFGD_model.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/utils.dart';
@@ -115,50 +116,119 @@ class _MyRecordViewState extends State<MyRecordView> {
   }
 }
 
-showMedicalHistoryFromGreatDocSearchView(BuildContext context){
+showMedicalHistoryFromGreatDocSearchView(BuildContext context,{required bool showPastHistory}){
   final mHFgdVM = Provider.of<MyRecordViewModel>(context, listen: false);
-  mHFgdVM.getMedicalHistoryFromGreatDoc(context);
+  // mHFgdVM.getMedicalHistoryFromGreatDoc(context);
   if(mHFgdVM.isMedicalHistoryFromGreatDocLoading){
 
-  }
-  return showSearch(
-      context: context,
-      delegate: SearchPage<PastHistory>(
-      items: mHFgdVM.medicalHistoryFromGreatDocPastList,
-      searchLabel: 'Search History',
-      suggestion: const Center(
-      child: Text('Filter History by doctor name, date'),
-  ),
-  failure: const Center(
-  child: Text('No history found :('),
-  ),
-  filter: (history) => [
-  history.doctor?.drGivenName,
-    history.date
-  ],
-  builder: (history) =>Card(
-    child: Row(
-      children: [
-        SizedBox(width: 5.w,),
-        SizedBox(
-            width: 40.w,
-            child: Text(mHFgdVM.getDate(history.date), maxLines: 3, overflow: TextOverflow.ellipsis,)),
-        Expanded(
-          child: ListTile(
-              onTap: (){
-                context.router.push(MedicalDocumentsRoute(history: history));
-              },
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage("${AppUrls.docImage}${history.doctor?.drImages}"),
+  }else{
+    if(showPastHistory){
+      return showSearch(
+        context: context,
+        delegate: SearchPage<PastHistory>(
+          barTheme: ThemeData(
+              appBarTheme: AppBarTheme(backgroundColor: AppColors.primaryColor)
+          ),
+          items: mHFgdVM.medicalHistoryFromGreatDocPastList,
+          searchLabel: 'Search Past History',
+          suggestion: const Center(
+            child: Text('Filter Past History by name or date'),
+          ),
+          failure: const Center(
+            child: Text('No history found :('),
+          ),
+          filter: (history) => [
+            history.condition,
+            history.date
+          ],
+          builder: (history) =>Padding(
+            padding:  EdgeInsets.all(4.0.r),
+            child: Card(
+              child: ListTile(
+
+                  title: Text("${history.condition}"),
+                  subtitle: Text(mHFgdVM.getDate(history.date)),
+                  trailing: Text(mHFgdVM.getTime(history.date))
               ),
-              title: Text("${history.doctor?.drGivenName}"),
-              subtitle: Text("${history.description}"),
-              trailing: Text(mHFgdVM.getTime(history.date))
+              // child: Row(
+              //   children: [
+              //     SizedBox(width: 5.w,),
+              //     SizedBox(
+              //         width: 40.w,
+              //         child: Text(mHFgdVM.getDate(history.date), maxLines: 3, overflow: TextOverflow.ellipsis,)),
+              //     Expanded(
+              //       child: ListTile(
+              //           onTap: (){
+              //             context.router.push(MedicalDocumentsRoute(history: history));
+              //           },
+              //           leading: CircleAvatar(
+              //             backgroundImage: NetworkImage("${AppUrls.docImage}${history.doctor?.drImages}"),
+              //           ),
+              //           title: Text("${history.doctor?.drGivenName}"),
+              //           subtitle: Text("${history.description}"),
+              //           trailing: Text(mHFgdVM.getTime(history.date))
+              //       ),
+              //     ),
+              //   ],
+              // ),
+            ),
           ),
         ),
-      ],
-    ),
-  ),
-  ),
-  );
+      );
+    }else{
+      return showSearch(
+        context: context,
+        delegate: SearchPage<AllProcedures>(
+          barTheme: ThemeData(
+              appBarTheme: AppBarTheme(backgroundColor: AppColors.primaryColor)
+          ),
+          items: mHFgdVM.procedureList,
+          searchLabel: 'Search Procedures',
+          suggestion: const Center(
+            child: Text('Filter Procedures by doctor name or date'),
+          ),
+          failure: const Center(
+            child: Text('No Procedure found :('),
+          ),
+          filter: (procedure) => [
+            procedure.procedureName,
+            procedure.createdAt
+          ],
+          builder: (procedure) =>Padding(
+            padding: EdgeInsets.all(4.0.r),
+            child: Card(
+              child: ListTile(
+
+                  title: Text("${procedure.procedureName}"),
+                  subtitle: Text(mHFgdVM.getDate(procedure.createdAt)),
+                  trailing: Text(mHFgdVM.getTime(procedure.createdAt))
+              ),
+              // child: Row(
+              //   children: [
+              //     SizedBox(width: 5.w,),
+              //     SizedBox(
+              //         width: 40.w,
+              //         child: Text(mHFgdVM.getDate(history.date), maxLines: 3, overflow: TextOverflow.ellipsis,)),
+              //     Expanded(
+              //       child: ListTile(
+              //           onTap: (){
+              //             context.router.push(MedicalDocumentsRoute(history: history));
+              //           },
+              //           leading: CircleAvatar(
+              //             backgroundImage: NetworkImage("${AppUrls.docImage}${history.doctor?.drImages}"),
+              //           ),
+              //           title: Text("${history.doctor?.drGivenName}"),
+              //           subtitle: Text("${history.description}"),
+              //           trailing: Text(mHFgdVM.getTime(history.date))
+              //       ),
+              //     ),
+              //   ],
+              // ),
+            ),
+          ),
+        ),
+      );
+    }
+  }
+
 }

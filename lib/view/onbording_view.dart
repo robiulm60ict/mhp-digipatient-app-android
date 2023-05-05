@@ -187,12 +187,12 @@ class _OnBoardingViewState extends State<OnBoardingView> {
       child: InkWell(
         borderRadius: defaultProceedButtonBorderRadius,
         onTap: () {
-          AutoRouter.of(context).replace(const SignUpRoute());
+          AutoRouter.of(context).replace(const SignInRoute());
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 10.h),
           child: const Text(
-            'Sign up',
+            'Sign In',
             style: defaultProceedButtonTextStyle,
           ),
         ),

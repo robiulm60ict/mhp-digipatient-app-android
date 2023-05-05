@@ -191,15 +191,14 @@ padding: EdgeInsets.all(20.r),
           ),
           SizedBox(height: 20.h,),
           SizedBox(
-            height: 55.h,
+            height: 80.h,
             child: myDocVM.isDocChamberTimeLoading || myDocVM.doctorTimeSlotList.isEmpty ? const Center(child: CircularProgressIndicator(),) :
             CarouselSlider.builder(
               // scrollDirection: Axis.horizontal,
               itemCount: myDocVM.doctorTimeSlotList.length,
               itemBuilder: (BuildContext context, int index, int pageViewIndex) {
                 DocTimeSlots docTime = myDocVM.doctorTimeSlotList[index];
-                return SizedBox(
-                  // width: MediaQuery.of(context).size.width - 50,
+                return Center(
                   child: Card(child: ListTile(
                     title: Text("${docTime.day}-${docTime.month}-${docTime.year}"),
                     subtitle: Text("${myDocVM.getTime(docTime.slotFrom)} To ${myDocVM.getTime(docTime.slotTo)}"),
