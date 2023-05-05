@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/model/my_record_model/procedure_mHFGD_model.dart';
 import 'package:digi_patient/model/my_record_model/reason_for_visit_model.dart';
@@ -139,11 +140,12 @@ class MyRecordViewModel with ChangeNotifier {
       setVitalStatus("$vitalName Added Successfully");
       // Messages.snackBar(context, "$vitalName Added Successfully");
       isSaveVitalLoading = false;
+      Messages.flushBarMessage(context, "$vitalName Added Successfully", flushBarPosition: FlushbarPosition.TOP);
 
     }).onError((error, stackTrace) {
       setVitalStatus("Something went wrong please try again later");
       isSaveVitalLoading = true;
-      Messages.snackBar(context, error.toString());
+      Messages.flushBarMessage(context, error.toString(), flushBarPosition: FlushbarPosition.TOP);
     });
   }
 

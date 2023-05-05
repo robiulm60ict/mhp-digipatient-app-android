@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../../../resources/app_url.dart';
 import '../../../resources/colors.dart';
+import '../../../utils/message.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/back_button.dart';
 
@@ -46,23 +47,7 @@ class VitalsItemDetailsView extends StatelessWidget {
                     title: Text("${vitals.systolic}/${vitals.diastolic}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
                     subtitle: Text(myRecord.getDate("${vitals.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
                     trailing: Text(myRecord.getTime("${vitals.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-                    // trailing: Row(
-                    //   children: [
-                    //     Image.network(
-                    //       "${AppUrls.image}images/VitalSignIcon/${vitals.icon}",
-                    //       height: 30, width: 30, fit: BoxFit.fill,
-                    //       errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),
-                    //     ),
-                    //     SizedBox(width: 5.w,),
-                    //     Text("${vitals.systolic}/${vitals.diastolic}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-                    //     const Spacer(),
-                    //     Icon(Icons.date_range, color: const Color(0xFF646464), size: 16.h,),
-                    //     SizedBox(width: 3.w,),
-                    //     Text("${myRecord.getDate("${vitals.createdAt}")}  ${myRecord.getTime("${vitals.createdAt}")}", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-                    //     SizedBox(width: 5.w,),
-                    //     // IconButton(onPressed: (){}, icon:  Icon(Icons.delete, color: Colors.red, size: 16.h,))
-                    //   ],
-                    // ),
+
                   ),
                 ),
               );
@@ -100,26 +85,9 @@ class VitalsItemDetailsView extends StatelessWidget {
                     height: 30, width: 30, fit: BoxFit.fill,
                     errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),
                   ),
-                  title: Text("${vitals?.refRangeValue}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+                  title: Text("${vitals?.value}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
                   subtitle: Text(myRecord.getDate("${vitals?.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
                   trailing: Text(myRecord.getTime("${vitals?.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-                  // trailing: Row(
-                  //   children: [
-                  //     Image.network(
-                  //       "${AppUrls.image}images/VitalSignIcon/${vitals.icon}",
-                  //       height: 30, width: 30, fit: BoxFit.fill,
-                  //       errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),
-                  //     ),
-                  //     SizedBox(width: 5.w,),
-                  //     Text("${vitals.systolic}/${vitals.diastolic}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-                  //     const Spacer(),
-                  //     Icon(Icons.date_range, color: const Color(0xFF646464), size: 16.h,),
-                  //     SizedBox(width: 3.w,),
-                  //     Text("${myRecord.getDate("${vitals.createdAt}")}  ${myRecord.getTime("${vitals.createdAt}")}", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-                  //     SizedBox(width: 5.w,),
-                  //     // IconButton(onPressed: (){}, icon:  Icon(Icons.delete, color: Colors.red, size: 16.h,))
-                  //   ],
-                  // ),
                 ),
               ),
             );
@@ -127,7 +95,6 @@ class VitalsItemDetailsView extends StatelessWidget {
       }
     }
 
-    debugPrint("----------------------------${allData?.length}");
     return Scaffold(
       appBar: AppBar(
         leadingWidth: leadingWidth,
@@ -167,6 +134,8 @@ class VitalsItemDetailsView extends StatelessWidget {
               height: 40.h,
               child: ElevatedButton(onPressed: (){
                 getPopUpDialogue(v, context, title);
+                // getVitalModalSheet(context, v: v, title: title);
+                // context.router.push(AddVitalsRoute());
               }, child: Text("+ Add $title", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),)),
             ),
             SizedBox(height: 20.h,),
@@ -174,58 +143,8 @@ class VitalsItemDetailsView extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(" Last 2 Months  ", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),)),
             SizedBox(height: 8.h,),
-            // Expanded(child: ListView.builder(
-            //   itemCount: allData != null ? allData?.length : 0,
-            //     itemBuilder: (context, index) {
-            //     final vitals = allData![index];
-            //       return Card(
-            //         child: Padding(
-            //           padding: EdgeInsets.symmetric(horizontal: 5.0.w, vertical: 4.h),
-            //           child: Row(
-            //             children: [
-            //               Image.network("${AppUrls.image}images/VitalSignIcon/${vitals.icon}", height: 30, width: 30, fit: BoxFit.fill,),
-            //               SizedBox(width: 5.w,),
-            //               Text("${vitals.refRangeValue}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-            //               const Spacer(),
-            //               Icon(Icons.date_range, color: const Color(0xFF646464), size: 16.h,),
-            //               SizedBox(width: 3.w,),
-            //               Text(myRecord.getDate("${vitals.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-            //               SizedBox(width: 5.w,),
-            //               // IconButton(onPressed: (){}, icon:  Icon(Icons.delete, color: Colors.red, size: 16.h,))
-            //             ],
-            //           ),
-            //         ),
-            //       );
-            //     },),),
+
             getView()
-            //  Expanded(child: ListView.builder(
-            //   itemCount:  myRecord.vitalsList.first.vsArray?[index].patientsVs?.length ?? 0,
-            //     itemBuilder: (context, ind) {
-            //
-            //     final vitals =  myRecord.vitalsList.first.vsArray?[index].patientsVs![ind];
-            //       return Card(
-            //         child: Padding(
-            //           padding: EdgeInsets.symmetric(horizontal: 5.0.w, vertical: 4.h),
-            //           child: Row(
-            //             children: [
-            //               Image.network(
-            //                 "${AppUrls.image}images/VitalSignIcon/${vitals?.icon}",
-            //                 height: 30, width: 30, fit: BoxFit.fill,
-            //                 errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),
-            //               ),
-            //               SizedBox(width: 5.w,),
-            //               Text("${vitals?.refRangeValue}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-            //               const Spacer(),
-            //               Icon(Icons.date_range, color: const Color(0xFF646464), size: 16.h,),
-            //               SizedBox(width: 3.w,),
-            //               Text(myRecord.getDate("${vitals?.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-            //               SizedBox(width: 5.w,),
-            //               // IconButton(onPressed: (){}, icon:  Icon(Icons.delete, color: Colors.red, size: 16.h,))
-            //             ],
-            //           ),
-            //         ),
-            //       );
-            //     },),),
           ],
         ),
       ),
@@ -234,49 +153,18 @@ class VitalsItemDetailsView extends StatelessWidget {
   }
 }
 
-// showModalSheet(BuildContext context){
-//   showModalBottomSheet(
-//       context: context,
-//       builder: (builder){
-//         return  Container(
-//           height: 350.0,
-//           color: Colors.transparent, //could change this to Color(0xFF737373),
-//           //so you don't have to change MaterialApp canvasColor
-//           child:  Container(
-//               decoration:  BoxDecoration(
-//                   color: Colors.white,
-//                   borderRadius:  BorderRadius.only(
-//                       topLeft: const Radius.circular(10.0),
-//                       topRight: const Radius.circular(10.0))),
-//               child:  Center(
-//                 child:  Text("This is a modal sheet"),
-//               )),
-//         );
-//       }
-//   );
-// }
 
 getPopUpDialogue(Vitals v, BuildContext context, String title){
-  TextEditingController sbp = TextEditingController();
-  TextEditingController dbp = TextEditingController();
 
   return popUpDialogue(context, getPopUp(v,title, context));
-  // if(v == Vitals.bloodPressure){
-  //   return popUpDialogue(context, Column(
-  //     children: [
-  //       VitalTextTitle(title: "Systolic BP", controller: sbp),
-  //       SizedBox(height: 10.h,),
-  //       VitalTextTitle(title: "Diastolic BP", controller: dbp),
-  //       SizedBox(height: 20.h,),
-  //       VitalsSetButton(onPressed: (){
-  //
-  //       }),
-  //     ],
-  //   ),
-  //   );
-  // }else{
-  //
-  // }
+}
+
+getVitalModalSheet(BuildContext context,{required Vitals v,required String title}){
+  return showModalBottomSheet(context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return getPopUp(v, title, context);
+      },);
 }
 
 getPopUp(Vitals v, String title, BuildContext context){
@@ -287,10 +175,11 @@ final vital = Provider.of<MyRecordViewModel>(context, listen: false);
   if(v == Vitals.bloodPressure){
     return Column(
       children: [
-        Card(child: ListTile(
-          title: Text(vital.vitalStatus, textAlign: TextAlign.center, style: TextStyle(fontSize: 15.sp, color: Colors.black),),
-        trailing: vital.isSaveVitalLoading ? const Center(child: CircularProgressIndicator(),) : null,
-        ),),
+        // Card(child: ListTile(
+        //   title: Text(vital.vitalStatus, textAlign: TextAlign.center, style: TextStyle(fontSize: 15.sp, color: Colors.black),),
+        // trailing: vital.isSaveVitalLoading ? const Center(child: CircularProgressIndicator(),) : null,
+        // ),),
+        Text("Enter $title Data", textAlign: TextAlign.center, style: TextStyle(fontSize: 15.sp, color: Colors.black),),
         SizedBox(height: 50.h,),
         VitalTextTitle(title: "Systolic BP", controller: sbp),
         SizedBox(height: 10.h,),
@@ -302,6 +191,7 @@ final vital = Provider.of<MyRecordViewModel>(context, listen: false);
             context.router.pop();
           }else{
             vital.setVitalStatus("Enter Both Field data");
+            Messages.flushBarMessage(context, "Enter Both Field data");
           }
         }),
       ],
@@ -309,10 +199,18 @@ final vital = Provider.of<MyRecordViewModel>(context, listen: false);
   }else{
     return Column(
       children: [
+        Text("Enter $title Data", textAlign: TextAlign.center, style: TextStyle(fontSize: 15.sp, color: Colors.black),),
+        SizedBox(height: 50.h,),
         VitalTextTitle(title: title, controller: tC),
         SizedBox(height: 20.h,),
         VitalsSetButton(onPressed: (){
-
+          if(tC.text.isNotEmpty){
+            vital.saveVitals(context, vitalName: title, value: tC.text);
+            context.router.pop();
+          }else{
+            vital.setVitalStatus("Enter data");
+            Messages.flushBarMessage(context, "Enter data");
+          }
         }),
       ],
     );
