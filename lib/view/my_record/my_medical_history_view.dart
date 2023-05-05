@@ -48,27 +48,33 @@ class _MyMedicalHistoryViewState extends State<MyMedicalHistoryView> {
             final time = sMhFGD.getTime("${history.date}");
             final date = sMhFGD.getDate("${history.date}");
             return Card(
-              child: Row(
-                children: [
-                  SizedBox(width: 5.w,),
-                  SizedBox(
-                      width: 40.w,
-                      child: Text(date, maxLines: 3, overflow: TextOverflow.ellipsis,)),
-                  Expanded(
-                    child: ListTile(
-                        onTap: (){
-                          // context.router.push(MedicalDocumentsRoute(history: history));
-                        },
-                        // leading: CircleAvatar(
-                        //   backgroundImage: NetworkImage("${AppUrls.docImage}${history.doctor?.drImages}"),
-                        // ),
-                        title: Text("${history.condition}"),
-                        subtitle: Text("${history.description}"),
-                        trailing: Text(time)
-                    ),
-                  ),
-                ],
+              child: ListTile(
+
+                  title: Text("${history.condition}"),
+                  subtitle: Text(date),
+                  trailing: Text(time)
               ),
+              // child: Row(
+              //   children: [
+              //     SizedBox(width: 5.w,),
+              //     SizedBox(
+              //         width: 40.w,
+              //         child: Text(date, maxLines: 3, overflow: TextOverflow.ellipsis,)),
+              //     Expanded(
+              //       child: ListTile(
+              //           onTap: (){
+              //             // context.router.push(MedicalDocumentsRoute(history: history));
+              //           },
+              //           // leading: CircleAvatar(
+              //           //   backgroundImage: NetworkImage("${AppUrls.docImage}${history.doctor?.drImages}"),
+              //           // ),
+              //           title: Text("${history.condition}"),
+              //           subtitle: Text("${history.description}"),
+              //           trailing: Text(time)
+              //       ),
+              //     ),
+              //   ],
+              // ),
             );
           }),
     );

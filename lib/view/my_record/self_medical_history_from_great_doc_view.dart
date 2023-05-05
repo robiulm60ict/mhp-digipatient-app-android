@@ -44,7 +44,7 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
         centerTitle: true,
         actions: [
           IconButton(onPressed: () {
-            showMedicalHistoryFromGreatDocSearchView(context);
+            showMedicalHistoryFromGreatDocSearchView(context, showPastHistory: showPastHistory);
           }, icon: const Icon(Icons.search, color: Colors.black,),),
         ],
       ),
@@ -91,28 +91,36 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
                 itemBuilder: (context, index) {
                   AllProcedures procedure = sMhFGD.procedureList[index];
                   final date = sMhFGD.getDate("${procedure.createdAt}");
+                  final time = sMhFGD.getTime("${procedure.createdAt}");
                   return Card(
-                    child: Row(
-                      children: [
-                        SizedBox(width: 5.w,),
-                        SizedBox(
-                            width: 40.w,
-                            child: Text("${date}", maxLines: 3, overflow: TextOverflow.ellipsis,)),
-                        Expanded(
-                          child: ListTile(
-                              onTap: (){
-                                // context.router.push(MedicalDocumentsRoute(history: history));
-                              },
-                              // leading: CircleAvatar(
-                              //   backgroundImage: NetworkImage("${AppUrls.docImage}${history.doctor?.drImages}"),
-                              // ),
-                              title: Text("${procedure.procedureName}"),
-                              subtitle: Text("${procedure.procedureFurtherDetails}"),
+                    child: ListTile(
 
-                          ),
-                        ),
-                      ],
+                      title: Text("${procedure.procedureName}"),
+                      subtitle: Text(date),
+                      trailing: Text(time),
+
                     ),
+                    // child: Row(
+                    //   children: [
+                    //     SizedBox(width: 5.w,),
+                    //     SizedBox(
+                    //         width: 40.w,
+                    //         child: Text("${date}", maxLines: 3, overflow: TextOverflow.ellipsis,)),
+                    //     Expanded(
+                    //       child: ListTile(
+                    //           onTap: (){
+                    //             // context.router.push(MedicalDocumentsRoute(history: history));
+                    //           },
+                    //           // leading: CircleAvatar(
+                    //           //   backgroundImage: NetworkImage("${AppUrls.docImage}${history.doctor?.drImages}"),
+                    //           // ),
+                    //           title: Text("${procedure.procedureName}"),
+                    //           subtitle: Text("${procedure.procedureFurtherDetails}"),
+                    //
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   );
                 }),
                 child: sMhFGD.isMedicalHistoryFromGreatDocLoading ? const Center(child: CircularProgressIndicator()) : ListView.builder(
@@ -123,27 +131,32 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
                   final time = sMhFGD.getTime("${history.date}");
                   final date = sMhFGD.getDate("${history.date}");
                   return Card(
-                    child: Row(
-                      children: [
-                        SizedBox(width: 5.w,),
-                        SizedBox(
-                            width: 40.w,
-                            child: Text("${date}", maxLines: 3, overflow: TextOverflow.ellipsis,)),
-                        Expanded(
-                          child: ListTile(
-                              onTap: (){
-                                // context.router.push(MedicalDocumentsRoute(history: history));
-                              },
-                              // leading: CircleAvatar(
-                              //   backgroundImage: NetworkImage("${AppUrls.docImage}${history.doctor?.drImages}"),
-                              // ),
-                              title: Text("${history.condition}"),
-                              subtitle: Text("${history.description}"),
-                              trailing: Text("${time}")
-                          ),
-                        ),
-                      ],
+                    child: ListTile(
+                        title: Text("${history.condition}"),
+                        subtitle: Text(date),
+                        trailing: Text(time)
                     ),
+                    // child: Row(
+                    //   children: [
+                    //     SizedBox(width: 5.w,),
+                    //     SizedBox(
+                    //         width: 40.w,
+                    //         child: Text("${date}", maxLines: 3, overflow: TextOverflow.ellipsis,)),
+                    //     Expanded(
+                    //       child: ListTile(
+                    //           onTap: (){
+                    //             // context.router.push(MedicalDocumentsRoute(history: history));
+                    //           },
+                    //           // leading: CircleAvatar(
+                    //           //   backgroundImage: NetworkImage("${AppUrls.docImage}${history.doctor?.drImages}"),
+                    //           // ),
+                    //           title: Text("${history.condition}"),
+                    //           subtitle: Text("${history.description}"),
+                    //           trailing: Text(time)
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   );
                 }),
             ),
