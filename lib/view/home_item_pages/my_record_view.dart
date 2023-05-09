@@ -148,7 +148,7 @@ showMedicalHistoryFromGreatDocSearchView(BuildContext context,{required bool sho
 
                   title: Text("${history.condition}"),
                   subtitle: Text(mHFgdVM.getDate(history.date)),
-                  trailing: Text(mHFgdVM.getTime(history.date))
+                  trailing: Text(mHFgdVM.getTime(history.date, context))
               ),
               // child: Row(
               //   children: [
@@ -201,7 +201,7 @@ showMedicalHistoryFromGreatDocSearchView(BuildContext context,{required bool sho
 
                   title: Text("${procedure.procedureName}"),
                   subtitle: Text(mHFgdVM.getDate(procedure.createdAt)),
-                  trailing: Text(mHFgdVM.getTime(procedure.createdAt))
+                  trailing: Text(mHFgdVM.getTime(procedure.createdAt, context))
               ),
               // child: Row(
               //   children: [

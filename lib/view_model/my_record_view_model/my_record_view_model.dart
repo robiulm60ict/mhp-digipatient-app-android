@@ -116,7 +116,7 @@ class MyRecordViewModel with ChangeNotifier {
     notifyListeners();
   }
   
-  saveVitals(BuildContext context, {required String vitalName, required String value})async{
+  saveVitals(BuildContext context, {required String vitalName, required String icon, required String value, required String unitId, required String color})async{
     setVitalStatus("Please wait----");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? id = prefs.getInt(UserP.id);
@@ -126,23 +126,25 @@ class MyRecordViewModel with ChangeNotifier {
 
     Map<String,dynamic> body = {
       "patient_id": "$id",
+      "doctor_id": "1",
       "name": vitalName,
       "value": value,
       "desc": "",
-      "color": "",
+      "color": color,
       "last_check_up_date": DateTime.now().toString(),
-      "icon": "null",
-      "units_id": "",
-      "status_id": "",
+      "icon": icon,
+      "units_id": unitId,
+      "status_id": "1",
     };
     await myRecordRepo.saveVital(body).then((value) {
       saveVitalList.add(value);
       setVitalStatus("$vitalName Added Successfully");
       // Messages.snackBar(context, "$vitalName Added Successfully");
       isSaveVitalLoading = false;
-      Messages.flushBarMessage(context, "$vitalName Added Successfully", flushBarPosition: FlushbarPosition.TOP);
+      Messages.flushBarMessage(context, "$vitalName Added Successfully", flushBarPosition: FlushbarPosition.TOP, backgroundColor: Colors.green);
 
     }).onError((error, stackTrace) {
+      debugPrint("Error: \n\n\n\n\n\n$error");
       setVitalStatus("Something went wrong please try again later");
       isSaveVitalLoading = true;
       Messages.flushBarMessage(context, error.toString(), flushBarPosition: FlushbarPosition.TOP);
@@ -150,10 +152,15 @@ class MyRecordViewModel with ChangeNotifier {
   }
 
 
-  String getTime(String? date) {
+  String getTime(String? date, BuildContext context) {
     DateTime? dateObject = DateTime.tryParse(date ?? "");
+
     if (dateObject != null) {
-      return DateFormat.jm().format(dateObject);
+      TimeOfDay timeOfDay = TimeOfDay.fromDateTime(dateObject);
+
+      // return DateFormat.jm().format(dateObject);
+      // return DateFormat("h:mm a").format(dateObject);
+      return timeOfDay.format(context);
     } else {
       return "null";
     }

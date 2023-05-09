@@ -260,6 +260,9 @@ class AppRouter extends _i36.RootStackRouter {
           v: args.v,
           allData: args.allData,
           index: args.index,
+          icon: args.icon,
+          unitId: args.unitId,
+          color: args.color,
         ),
       );
     },
@@ -1012,6 +1015,9 @@ class VitalsItemDetailsRoute
     required _i39.Vitals v,
     List<_i40.PatientsVs>? allData,
     required int index,
+    required String icon,
+    required String unitId,
+    required String color,
   }) : super(
           VitalsItemDetailsRoute.name,
           path: '/vitals-detail',
@@ -1023,6 +1029,9 @@ class VitalsItemDetailsRoute
             v: v,
             allData: allData,
             index: index,
+            icon: icon,
+            unitId: unitId,
+            color: color,
           ),
         );
 
@@ -1038,6 +1047,9 @@ class VitalsItemDetailsRouteArgs {
     required this.v,
     this.allData,
     required this.index,
+    required this.icon,
+    required this.unitId,
+    required this.color,
   });
 
   final _i37.Key? key;
@@ -1054,9 +1066,15 @@ class VitalsItemDetailsRouteArgs {
 
   final int index;
 
+  final String icon;
+
+  final String unitId;
+
+  final String color;
+
   @override
   String toString() {
-    return 'VitalsItemDetailsRouteArgs{key: $key, title: $title, img: $img, subtitle: $subtitle, v: $v, allData: $allData, index: $index}';
+    return 'VitalsItemDetailsRouteArgs{key: $key, title: $title, img: $img, subtitle: $subtitle, v: $v, allData: $allData, index: $index, icon: $icon, unitId: $unitId, color: $color}';
   }
 }
 

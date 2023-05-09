@@ -91,7 +91,7 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
                 itemBuilder: (context, index) {
                   AllProcedures procedure = sMhFGD.procedureList[index];
                   final date = sMhFGD.getDate("${procedure.createdAt}");
-                  final time = sMhFGD.getTime("${procedure.createdAt}");
+                  final time = sMhFGD.getTime("${procedure.createdAt}", context);
                   return Card(
                     child: ListTile(
 
@@ -128,7 +128,7 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
                 padding: EdgeInsets.all(8.r),
                 itemBuilder: (context, index) {
                   final history = sMhFGD.medicalHistoryFromGreatDocPastList[index];
-                  final time = sMhFGD.getTime("${history.date}");
+                  final time = sMhFGD.getTime("${history.date}", context);
                   final date = sMhFGD.getDate("${history.date}");
                   return Card(
                     child: ListTile(

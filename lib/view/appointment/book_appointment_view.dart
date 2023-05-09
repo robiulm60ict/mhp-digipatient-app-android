@@ -1,10 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
+import 'package:digi_patient/model/anatomy/anatomy_symptoms_model.dart';
 import 'package:digi_patient/model/doctor_model/doctor_chember_time_model.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/model/online_model/online_model.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
+import 'package:digi_patient/utils/message.dart';
+import 'package:digi_patient/view_model/anatomy/anatomy_view_model.dart';
 import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
 import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +57,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
 
     final appointmentViewModel = Provider.of<AppointmentViewModel>(context);
     final myDocVM = Provider.of<MyDoctorViewModel>(context);
+    final anatomy = Provider.of<AnatomyModelView>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -68,9 +72,11 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
           // String date = appointmentViewModel.appointmentDate.toString();
           // appointmentViewModel.setBody(docIcd: "${widget.doctors.id}", patientId: "$patientId", date: date, appointmentType: isChamber ? "Chamber" : "Online", disease: "[asd, asdf]", paymentType: "Bkash", amount: "1200", trNxNo: "tr1205");
           // appointmentViewModel.bookAppointment(context, body: appointmentViewModel.body);
-           await appointmentViewModel.getPatientId().then((value) => context.router.push( PaymentMethodRoute(appointmentDate: appointmentViewModel.appointmentDate.toString(), appointmentType: isChamber ? "Chamber" : "Online", doctorId: "${widget.doctors.id}", patientId: "$value", amount:  widget.amount, doctor: widget.doctors)));
-
-
+          if(anatomy.getSelectedSymptomsList().isNotEmpty ){
+            await appointmentViewModel.getPatientId().then((value) => context.router.push( PaymentMethodRoute(appointmentDate: appointmentViewModel.appointmentDate.toString(), appointmentType: isChamber ? "Chamber" : "Online", doctorId: "${widget.doctors.id}", patientId: "$value", amount:  widget.amount, doctor: widget.doctors)));
+          }else{
+            Messages.snackBar(context, "Please Select Disease!");
+          }
         },
         backgroundColor: AppColors.primaryColor,
         label: Text("Confirm Appointment", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),),
@@ -304,6 +310,7 @@ padding: EdgeInsets.all(20.r),
       ),
     );
     } ),
+
             // child: ListView.separated(
             //   shrinkWrap: true,
             //     physics: const NeverScrollableScrollPhysics(),
@@ -389,6 +396,23 @@ padding: EdgeInsets.all(20.r),
               ),
             ),
           ),
+          SizedBox(height: 20.h,),
+          Visibility(
+              visible: anatomy.getSelectedSymptomsList().isNotEmpty,
+              child:  Text("Selected Diseases", style: TextStyle(fontSize: 18.sp, color: Colors.black, fontWeight: FontWeight.bold),),),
+          SizedBox(height: 10.h,),
+          ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: anatomy.getSelectedSymptomsList().length,
+              itemBuilder: (context, index) {
+              SymptomsAnatomy at = anatomy.getSelectedSymptomsList()[index];
+              return Card(
+                child: ListTile(
+                  title: Text("${at.symptomName}", style: TextStyle(fontSize: 15.sp, color: AppColors.primaryColor, fontWeight: FontWeight.bold),),
+                ),
+              );
+              },),
           SizedBox(height: 80.h,),
         ],
       ),
