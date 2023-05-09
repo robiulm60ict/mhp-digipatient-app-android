@@ -31,11 +31,11 @@ class AuthViewModel with ChangeNotifier {
 
   LoginModel? user;
 
-  Future<void> loginApi(BuildContext context, dynamic body) async{
+  Future<void> loginApi(BuildContext context, dynamic body, {bool keepMeSignIn = true}) async{
     setLoginLoading(true, null);
     _authRepo.loginApi(body).then((value) async{
       Messages.flushBarMessage(context, '${value.message}',backgroundColor: AppColors.primaryColor);
-      await saveUser(isLoggedIn: true, email: body['email'], password: body['password'], name: value.user!.name!, id: int.parse(value.user!.userId!));
+      await saveUser(isLoggedIn: keepMeSignIn, email: body['email'], password: body['password'], name: value.user!.name!, id: int.parse(value.user!.userId!));
        Future.delayed(const Duration(seconds: 2)).then((value) {
          setLoginLoading(false, value);
          context.router.replace(const DashboardRoute());
@@ -64,7 +64,7 @@ class AuthViewModel with ChangeNotifier {
   saveUser({required bool isLoggedIn, required String email, required String password, required String name, required int id}) async{
     final prefs = await SharedPreferences.getInstance();
 
-    await prefs.setBool(UserP.isLoggedIn, true);
+    await prefs.setBool(UserP.isLoggedIn, isLoggedIn);
     await prefs.setString(UserP.email, email);
     await prefs.setString(UserP.password, password);
     await prefs.setString(UserP.name, name);
