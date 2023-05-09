@@ -65,12 +65,13 @@ class _SignInViewState extends State<SignInView> {
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
             child: CustomTextField(
               textEditingController: passwordController,
-              prefix:  Icon(Icons.lock, color: AppColors.primaryColor,), hintText: "Password", ),),
-                // suffix: IconButton(onPressed: (){
-            //   setState(() {
-            //     obSecureText = !obSecureText;
-            //   });
-            // }, icon: Icon(obSecureText ? Icons.visibility : Icons.visibility_off, color: obSecureText! ? AppColors.primaryColor : Colors.grey,)),),
+              obscureText: !obSecureText,
+              prefix:  Icon(Icons.lock, color: AppColors.primaryColor,), hintText: "Password",
+                suffix: IconButton(onPressed: (){
+              setState(() {
+                obSecureText = !obSecureText;
+              });
+            }, icon: Icon(obSecureText ? Icons.visibility : Icons.visibility_off, color: obSecureText? AppColors.primaryColor : Colors.grey,)),),),
 
             // ),
           // SizedBox(height: 5.h,),
@@ -105,7 +106,7 @@ class _SignInViewState extends State<SignInView> {
                   'email' : emailController.text,
                   'password' : passwordController.text
                 };
-                authVm.loginApi(context, body);
+                authVm.loginApi(context, body, keepMeSignIn: keepMeSignedIn);
               }else{
                 Messages.snackBar(context, "Fill Up All of the field!", backgroundColor: Colors.red);
               }
