@@ -8,7 +8,7 @@ import '../resources/colors.dart';
 import '../routes/routes.gr.dart';
 
 class VitalsCard extends StatelessWidget {
-  const VitalsCard({Key? key, required this.title, required this.subtitle, required this.image, this.onTap, required this.v, required this.allData, required this.index}) : super(key: key);
+  const VitalsCard({Key? key, required this.title, required this.subtitle, required this.image, this.onTap, required this.v, required this.allData, required this.index, required this.icon, required this.unitId, required this.color}) : super(key: key);
   final String title;
   final String subtitle;
   final String image;
@@ -16,6 +16,9 @@ class VitalsCard extends StatelessWidget {
   final Vitals v;
   final List<PatientsVs> allData;
   final int index;
+  final String icon;
+  final String unitId;
+  final String color;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,7 @@ class VitalsCard extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 20.h),
           child: ListTile(
             onTap: (){
-              context.router.push(VitalsItemDetailsRoute(index: index, title: title, img: image, subtitle: subtitle, v: v, allData: allData));
+              context.router.push(VitalsItemDetailsRoute(index: index, icon: icon, title: title, img: image, subtitle: subtitle, v: v, allData: allData, unitId: unitId, color: color));
             },
             title: Text(title, style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
           subtitle: Text(subtitle, textAlign: TextAlign.start, style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),

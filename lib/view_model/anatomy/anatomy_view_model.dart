@@ -92,6 +92,7 @@ class AnatomyModelView with ChangeNotifier{
 
   bool getSymptomsByBodyPartLoading = true;
   List<SymptomsAnatomy> getSymptomsList = [];
+  // List<SymptomsAnatomy> selectedAnatomyList = [];
 
    bool getSymptomsByBodyPart({required String name}){
 
@@ -99,6 +100,19 @@ class AnatomyModelView with ChangeNotifier{
     notifyListeners();
     return false;
 
+   }
+
+   List<SymptomsAnatomy> getSelectedSymptomsList(){
+     List<SymptomsAnatomy> selected = [];
+     for(var i in getSymptomsList){
+       if(i.isSelected!= null && i.isSelected == true){
+         selected.add(i);
+       }else{
+
+       }
+     }
+     notifyListeners();
+     return selected;
    }
 
    selectSymptoms({
@@ -110,5 +124,22 @@ class AnatomyModelView with ChangeNotifier{
      // }
      getSymptomsList[index].isSelected = value;
      // notifyListeners();
+     if(value){
+       selectedAnatomyList.add(getSymptomsList[index]);
+     }else{
+       selectedAnatomyList.remove(getSymptomsList[index]);
+     }
+    bool contain =  selectedAnatomyList.contains(getSymptomsList[index]);
+     if(contain){
+       selectedAnatomyList.remove(getSymptomsList[index]);
+       for(var i in selectedAnatomyList){
+         debugPrint(i.symptomName);
+       }
+     }else{
+
+     }
+     notifyListeners();
+    debugPrint("\n\n\n value is = $value ---Does contain? ${getSymptomsList[index].symptomName} =$contain");
+
    }
 }

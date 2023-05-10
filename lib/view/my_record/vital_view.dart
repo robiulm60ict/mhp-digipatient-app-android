@@ -65,7 +65,7 @@ class _VitalsViewState extends State<VitalsView>
                           fontSize: 10.sp, color: const Color(0xFF646464)),
                     ),
                     Text(
-                      "${element.patientsVs!.isNotEmpty ? element.patientsVs?.first.refRangeValue : ""}",
+                      "${element.patientsVs!.isNotEmpty ? element.patientsVs?.first.value : ""}",
                       style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
@@ -91,153 +91,164 @@ class _VitalsViewState extends State<VitalsView>
       return tabView;
     }
 
-    return DefaultTabController(
-      length: vital.vitalsList.isNotEmpty
-          ? vital.vitalsList.first.vsArray!.length
-          : 0,
-      child: Scaffold(
-        appBar: AppBar(
-          leadingWidth: leadingWidth,
-          leading: const CustomBackButton(),
-          title: Text(
-            "Vitals",
-            style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.bold,
-                color: AppColors.primaryColor),
+    return RefreshIndicator(
+      onRefresh: () async{
+        getVitals();
+      },
+      child: DefaultTabController(
+        length: vital.vitalsList.isNotEmpty
+            ? vital.vitalsList.first.vsArray!.length
+            : 0,
+        child: Scaffold(
+          appBar: AppBar(
+            leadingWidth: leadingWidth,
+            leading: const CustomBackButton(),
+            title: Text(
+              "Vitals",
+              style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primaryColor),
+            ),
+            centerTitle: true,
           ),
-          centerTitle: true,
-        ),
-        body: vital.isVitalLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : ListView(
-                padding: EdgeInsets.all(defaultPadding.r),
-                children: [
-                  Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.r)),
-                    child: Image.asset(
-                      Assets.vitalsVital,
-                      height: 130.h,
+          body: vital.isVitalLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView(
+                  padding: EdgeInsets.all(defaultPadding.r),
+                  children: [
+                    Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.r)),
+                      child: Image.asset(
+                        Assets.vitalsVital,
+                        height: 130.h,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 45.h,
-                  ),
-                  vital.isVitalLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : VitalsCard(
-                          title:
-                              "${vital.vitalsList.first.bpArray?.first.name}",
-                          subtitle:
-                              "${vital.vitalsList.first.bpArray?.first.systolic}/${vital.vitalsList.first.bpArray?.first.diastolic}",
-                          image:
-                              "${AppUrls.image}images/VitalSignIcon/${vital.vitalsList.first.bpArray?.first.icon}",
-                          v: Vitals.bloodPressure,
-                          allData: const [],
-                          index: 0),
-                  vital.isVitalLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: vital.vitalsList.isNotEmpty
-                              ? vital.vitalsList.first.vsArray?.length
-                              : 0,
-                          itemBuilder: (context, index) {
-                            final vitals =
-                                vital.vitalsList.first.vsArray?[index];
-                            debugPrint(vitals.toString());
-                            return VitalsCard(
-                              index: index,
-                              title:
-                                  "${vitals!.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.name : ""}",
-                              subtitle:
-                                  "${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.refRangeValue : ""}",
-                              image:
-                                  "${AppUrls.image}images/VitalSignIcon/${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.icon : ""}",
-                              allData: vitals.patientsVs!.isNotEmpty
-                                  ? vitals.patientsVs!
-                                  : [],
-                              v: vitals.patientsVs!.isNotEmpty
-                                  ? vitals.patientsVs?.first.name
-                                              .toString()
-                                              .toLowerCase() ==
-                                          "blood pressure"
-                                      ? Vitals.bloodPressure
-                                      : Vitals.weight
-                                  : Vitals.weight,
-                            );
-                          },
-                        ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  Text(
-                    "Overview",
-                    style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFF3C3C3C)),
-                  ),
-                  SizedBox(
-                    height: 18.h,
-                  ),
-                  Text(
-                    "Blood Pressure",
-                    style: TextStyle(fontSize: 16.sp, color: Colors.black),
-                  ),
-                  SizedBox(
-                    height: 18.h,
-                  ),
-                  vital.isVitalLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : const SizedBox(
-                          height: 300,
-                          child: CustomLineChart(),
-                        ),
-                  SizedBox(
-                    height: 18.h,
-                  ),
-                  vital.isVitalLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : TabBar(
-                          // controller: _tabController,
-                          indicatorSize: TabBarIndicatorSize.label,
-                          indicatorColor: AppColors.primaryColor,
-                          isScrollable: true,
-
-                          tabs: getTabBar(),
-                        ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  vital.isVitalLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : SizedBox(
-                          height: 300.h,
-                          child: TabBarView(
-                            // controller: _tabController,
-                            children: getTabView(),
+                    SizedBox(
+                      height: 45.h,
+                    ),
+                    vital.isVitalLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : VitalsCard(
+                            title:
+                                "${vital.vitalsList.first.bpArray?.first.name}",
+                            subtitle:
+                                "${vital.vitalsList.first.bpArray?.first.systolic}/${vital.vitalsList.first.bpArray?.first.diastolic}",
+                            image:
+                                "${AppUrls.image}images/VitalSignIcon/${vital.vitalsList.first.bpArray?.first.icon}",
+                        icon: "${vital.vitalsList.first.bpArray?.first.icon}",
+                        unitId: "",
+                        color: "",
+                        v: Vitals.bloodPressure,
+                            allData: const [],
+                            index: 0),
+                    vital.isVitalLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: vital.vitalsList.isNotEmpty
+                                ? vital.vitalsList.first.vsArray?.length
+                                : 0,
+                            itemBuilder: (context, index) {
+                              final vitals =
+                                  vital.vitalsList.first.vsArray?[index];
+                              debugPrint(vitals.toString());
+                              return VitalsCard(
+                                index: index,
+                                title:
+                                    "${vitals!.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.name : ""}",
+                                subtitle:
+                                    "${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.value : ""}",
+                                image:
+                                    "${AppUrls.image}images/VitalSignIcon/${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.icon : ""}",
+                                unitId: "${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.unitsId : ""}",
+                                color: "${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.color : ""}",
+                                icon: "${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.icon : ""}",
+                                allData: vitals.patientsVs!.isNotEmpty
+                                    ? vitals.patientsVs!
+                                    : [],
+                                v: vitals.patientsVs!.isNotEmpty
+                                    ? vitals.patientsVs?.first.name
+                                                .toString()
+                                                .toLowerCase() ==
+                                            "blood pressure"
+                                        ? Vitals.bloodPressure
+                                        : Vitals.weight
+                                    : Vitals.weight,
+                              );
+                            },
                           ),
-                        ),
-                  SizedBox(
-                    height: 50.h,
-                  ),
-                ],
-              ),
+                    SizedBox(
+                      height: 12.h,
+                    ),
+                    Text(
+                      "Overview",
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFF3C3C3C)),
+                    ),
+                    SizedBox(
+                      height: 18.h,
+                    ),
+                    Text(
+                      "Blood Pressure",
+                      style: TextStyle(fontSize: 16.sp, color: Colors.black),
+                    ),
+                    SizedBox(
+                      height: 18.h,
+                    ),
+                    vital.isVitalLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : const SizedBox(
+                            height: 300,
+                            child: CustomLineChart(),
+                          ),
+                    SizedBox(
+                      height: 18.h,
+                    ),
+                    vital.isVitalLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : TabBar(
+                            // controller: _tabController,
+                            indicatorSize: TabBarIndicatorSize.label,
+                            indicatorColor: AppColors.primaryColor,
+                            isScrollable: true,
+
+                            tabs: getTabBar(),
+                          ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    vital.isVitalLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : SizedBox(
+                            height: 300.h,
+                            child: TabBarView(
+                              // controller: _tabController,
+                              children: getTabView(),
+                            ),
+                          ),
+                    SizedBox(
+                      height: 50.h,
+                    ),
+                  ],
+                ),
+        ),
       ),
     );
   }

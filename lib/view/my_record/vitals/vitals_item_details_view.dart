@@ -16,13 +16,16 @@ import '../../../utils/utils.dart';
 import '../../../widgets/back_button.dart';
 
 class VitalsItemDetailsView extends StatelessWidget {
-  const VitalsItemDetailsView({Key? key, required this.title, required this.img, required this.subtitle, required this.v, this.allData, required this.index}) : super(key: key);
+  const VitalsItemDetailsView({Key? key, required this.title, required this.img, required this.subtitle, required this.v, this.allData, required this.index, required this.icon, required this.unitId, required this.color}) : super(key: key);
   final String title;
   final String img;
   final String subtitle;
   final Vitals v;
   final List<PatientsVs>? allData;
   final int index;
+  final String icon;
+  final String unitId;
+  final String color;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +49,7 @@ class VitalsItemDetailsView extends StatelessWidget {
                     ),
                     title: Text("${vitals.systolic}/${vitals.diastolic}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
                     subtitle: Text(myRecord.getDate("${vitals.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-                    trailing: Text(myRecord.getTime("${vitals.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
+                    trailing: Text(myRecord.getTime("${vitals.createdAt}", context), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
 
                   ),
                 ),
@@ -86,8 +89,8 @@ class VitalsItemDetailsView extends StatelessWidget {
                     errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),
                   ),
                   title: Text("${vitals?.value}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-                  subtitle: Text(myRecord.getDate("${vitals?.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-                  trailing: Text(myRecord.getTime("${vitals?.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
+                  subtitle: Text(myRecord.getDate("${vitals?.lastCheckUpDate}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
+                  trailing: Text(myRecord.getTime("${vitals?.lastCheckUpDate}", context), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
                 ),
               ),
             );
@@ -133,7 +136,7 @@ class VitalsItemDetailsView extends StatelessWidget {
             SizedBox(
               height: 40.h,
               child: ElevatedButton(onPressed: (){
-                getPopUpDialogue(v, context, title);
+                getPopUpDialogue(v, context, title, icon: icon, unitId: unitId, color: color);
                 // getVitalModalSheet(context, v: v, title: title);
                 // context.router.push(AddVitalsRoute());
               }, child: Text("+ Add $title", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),)),
@@ -154,20 +157,20 @@ class VitalsItemDetailsView extends StatelessWidget {
 }
 
 
-getPopUpDialogue(Vitals v, BuildContext context, String title){
+getPopUpDialogue(Vitals v, BuildContext context, String title, {required String icon, required String unitId, required String color}){
 
-  return popUpDialogue(context, getPopUp(v,title, context));
+  return popUpDialogue(context, getPopUp(v,title, context, icon: icon, unitId: unitId, color: color));
 }
 
-getVitalModalSheet(BuildContext context,{required Vitals v,required String title}){
+getVitalModalSheet(BuildContext context,{required Vitals v, required String unitId, required String color, required String title, required String icon}){
   return showModalBottomSheet(context: context,
       isScrollControlled: true,
       builder: (context) {
-        return getPopUp(v, title, context);
+        return getPopUp(v, title, context, icon: icon, unitId: unitId, color: color);
       },);
 }
 
-getPopUp(Vitals v, String title, BuildContext context){
+getPopUp(Vitals v, String title, BuildContext context,{required String icon, required String unitId, required String color}){
   TextEditingController sbp = TextEditingController();
   TextEditingController dbp = TextEditingController();
   TextEditingController tC = TextEditingController();
@@ -187,7 +190,7 @@ final vital = Provider.of<MyRecordViewModel>(context, listen: false);
         SizedBox(height: 20.h,),
         VitalsSetButton(onPressed: (){
           if(sbp.text.isNotEmpty && dbp.text.isNotEmpty){
-            vital.saveVitals(context, vitalName: title, value: "${sbp.text}/${dbp.text}");
+            vital.saveVitals(context, vitalName: title, icon: icon, unitId: unitId, color: color, value: "${sbp.text}/${dbp.text}");
             context.router.pop();
           }else{
             vital.setVitalStatus("Enter Both Field data");
@@ -205,7 +208,7 @@ final vital = Provider.of<MyRecordViewModel>(context, listen: false);
         SizedBox(height: 20.h,),
         VitalsSetButton(onPressed: (){
           if(tC.text.isNotEmpty){
-            vital.saveVitals(context, vitalName: title, value: tC.text);
+            vital.saveVitals(context, vitalName: title, icon: icon, unitId: unitId, color: color, value: tC.text);
             context.router.pop();
           }else{
             vital.setVitalStatus("Enter data");

@@ -45,7 +45,7 @@ class _MyMedicalHistoryViewState extends State<MyMedicalHistoryView> {
           padding: EdgeInsets.all(8.r),
           itemBuilder: (context, index) {
             final history = sMhFGD.medicalHistoryFromGreatDocPastList[index];
-            final time = sMhFGD.getTime("${history.date}");
+            final time = sMhFGD.getTime("${history.date}", context);
             final date = sMhFGD.getDate("${history.date}");
             return Card(
               child: ListTile(
