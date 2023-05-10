@@ -24,6 +24,7 @@ import 'package:digi_patient/view/payment/single_invoice_view.dart';
 import 'package:digi_patient/view/pincode_verification_view.dart';
 import 'package:digi_patient/view/splash_view_2.dart';
 
+import '../view/authentications/user_detail_view.dart';
 import '../view/bottom_navigation_buttons/favourites_view.dart';
 import '../view/bottom_navigation_buttons/home_view.dart';
 import '../view/daily_upcomming_appointment/daily_and_upcomming_appointments_detail_view.dart';
@@ -148,6 +149,9 @@ import '../view/splash_view.dart';
     AutoRoute(path: '/daua', page: DailyAndUpcommingView,),
     AutoRoute(path: '/daua-detail', page: DailyAndUpcommingDetailView,),
     AutoRoute(path: '/document-detail', page: MedicalDocumentsView,),
+
+    ///User Detail
+    AutoRoute(path: '/user-detail', page: UserDetailView,),
 
   ],
 )

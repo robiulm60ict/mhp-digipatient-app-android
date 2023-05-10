@@ -97,21 +97,30 @@ class AnatomyModelView with ChangeNotifier{
    bool getSymptomsByBodyPart({required String name}){
 
     getSymptomsList = symptomsList.where((element) => element.subBodyPartName?.toLowerCase() == name.toLowerCase()).toList();
-    notifyListeners();
+    // notifyListeners();
     return false;
 
    }
 
-   List<SymptomsAnatomy> getSelectedSymptomsList(){
+   List<SymptomsAnatomy> getSelectedSymptomsList({bool setEmpty = false}){
      List<SymptomsAnatomy> selected = [];
+     // if(setEmpty){
+     //   return selected;
+     // }else{
+     //
+     // }
+     if(setEmpty){
+       return <SymptomsAnatomy>[];
+     }
      for(var i in getSymptomsList){
        if(i.isSelected!= null && i.isSelected == true){
          selected.add(i);
        }else{
-
+         return selected;
        }
      }
-     notifyListeners();
+
+     // notifyListeners();
      return selected;
    }
 

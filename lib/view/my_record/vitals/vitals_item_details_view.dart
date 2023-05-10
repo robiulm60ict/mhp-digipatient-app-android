@@ -65,23 +65,7 @@ class VitalsItemDetailsView extends StatelessWidget {
             return Card(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.0.w, vertical: 4.h),
-                // child: Row(
-                //   children: [
-                //     Image.network(
-                //       "${AppUrls.image}images/VitalSignIcon/${vitals?.icon}",
-                //       height: 30, width: 30, fit: BoxFit.fill,
-                //       errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),
-                //     ),
-                //     SizedBox(width: 5.w,),
-                //     Text("${vitals?.refRangeValue}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-                //     const Spacer(),
-                //     Icon(Icons.date_range, color: const Color(0xFF646464), size: 16.h,),
-                //     SizedBox(width: 3.w,),
-                //     Text(myRecord.getDate("${vitals?.createdAt}"), style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-                //     SizedBox(width: 5.w,),
-                //     // IconButton(onPressed: (){}, icon:  Icon(Icons.delete, color: Colors.red, size: 16.h,))
-                //   ],
-                // ),
+
                 child: ListTile(
                   leading: Image.network(
                     "${AppUrls.image}images/VitalSignIcon/${vitals?.icon}",

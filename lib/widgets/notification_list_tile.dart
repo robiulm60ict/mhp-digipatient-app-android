@@ -5,10 +5,12 @@ import '../generated/assets.dart';
 import '../resources/colors.dart';
 
 class NotificationListTile extends StatelessWidget {
-  const NotificationListTile({Key? key, required this.doctorName, required this.appointmentTime, this.onTap}) : super(key: key);
+  const NotificationListTile({Key? key, required this.doctorName, required this.appointmentTime, this.onTap, required this.docImage, required this.beforeText}) : super(key: key);
   final String doctorName;
+  final String beforeText;
   final String appointmentTime;
   final VoidCallback? onTap;
+  final String docImage;
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +20,14 @@ class NotificationListTile extends StatelessWidget {
       ),
       child: ListTile(
         onTap: onTap,
-        leading: const CircleAvatar(
-          backgroundImage: AssetImage(
-            Assets.imagesAvatar,
+        leading: CircleAvatar(
+          backgroundImage: NetworkImage(
+            docImage,
           ),
         ),
         title: RichText(
           text: TextSpan(
-            text: 'Today, You have an appointment on ',
+            text: beforeText,
             style: TextStyle(
               fontSize: 13.sp,
               fontWeight: FontWeight.w500,

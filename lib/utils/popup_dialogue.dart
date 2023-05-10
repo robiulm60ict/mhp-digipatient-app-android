@@ -10,7 +10,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../generated/assets.dart';
 
-notificationPopup(BuildContext context, {Color color = Colors.grey, required String doctorName, }) {
+notificationPopup(BuildContext context, {Color color = Colors.grey, required String doctorName, required String docImage, }) {
   return popUpDialogue(context, Column(
     children: [
       //doctor name designation and image
@@ -38,7 +38,7 @@ notificationPopup(BuildContext context, {Color color = Colors.grey, required Str
                 ),
                 //doctor designation
                 Text(
-                  "Heart specialist",
+                  "specialist",
                   style: TextStyle(
                     color: color,
                     fontSize: 14.sp,
@@ -47,7 +47,7 @@ notificationPopup(BuildContext context, {Color color = Colors.grey, required Str
               ],
             ),
           ),
-          //doctore image
+
           Container(
             padding: EdgeInsets.only(left: 5.w),
             decoration: BoxDecoration(
@@ -63,7 +63,7 @@ notificationPopup(BuildContext context, {Color color = Colors.grey, required Str
             ),
             child: CircleAvatar(
               radius: 25.h,
-              backgroundImage:  const AssetImage(Assets.imagesAvatar,),
+              backgroundImage:   NetworkImage(docImage),
             ),
           ),
         ],
@@ -91,7 +91,7 @@ notificationPopup(BuildContext context, {Color color = Colors.grey, required Str
                   width: 5,
                 ),
                 Text(
-                  "10:30PM - 11:00PM",
+                  "time",
                   style: TextStyle(
                     color: color,
                     fontSize: 14.sp,
@@ -116,7 +116,7 @@ notificationPopup(BuildContext context, {Color color = Colors.grey, required Str
                   width: 5.h,
                 ),
                 Text(
-                  "Dhaka Court",
+                  "hospital name",
                   style: TextStyle(
                     color: color,
                     fontSize: 14.sp,
@@ -141,7 +141,7 @@ notificationPopup(BuildContext context, {Color color = Colors.grey, required Str
                   width: 5.h,
                 ),
                 Text(
-                  "August 15,2021",
+                  "date",
                   style: TextStyle(
                     color: color,
                     fontSize: 14.sp,
@@ -166,7 +166,7 @@ notificationPopup(BuildContext context, {Color color = Colors.grey, required Str
                   width: 5.h,
                 ),
                 Text(
-                  "Dhanmondi, Dhaka",
+                  "location",
                   style: TextStyle(
                     color: color,
                     fontSize: 14.sp,

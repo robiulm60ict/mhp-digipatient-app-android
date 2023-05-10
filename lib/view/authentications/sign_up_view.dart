@@ -60,7 +60,7 @@ class _SignUpViewState extends State<SignUpView> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
             child: CustomButton(text: "Continue", onTap: (){
-              // context.router.push(PinCodeVerificationRoute());
+              context.router.push(PinCodeVerificationRoute());
             },),
           ),
           SizedBox(height: 15.h,),
