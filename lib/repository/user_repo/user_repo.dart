@@ -17,9 +17,6 @@ class UserRepo{
 
     int? id = prefs.getInt(UserP.id);
 
-    //TODO: Remove this print statement
-    debugPrint("\n\n\n\n\n\n\n\n\n --------------------- User Id is = $id");
-
     try{
 
       dynamic response = await apiService.getGetApiResponse("${AppUrls.userUrl}$id",);

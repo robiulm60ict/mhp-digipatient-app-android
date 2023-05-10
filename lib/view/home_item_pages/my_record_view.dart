@@ -32,7 +32,7 @@ class _MyRecordViewState extends State<MyRecordView> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserViewModel>(context).user;
-    final vital = Provider.of<MyRecordViewModel>(context);
+    // final vital = Provider.of<MyRecordViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -44,45 +44,50 @@ class _MyRecordViewState extends State<MyRecordView> {
       body: ListView(
         padding: EdgeInsets.all(15.r),
         children: [
-           Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 25.h,
-                      backgroundImage: NetworkImage("${AppUrls.image}images/files/${user?.patientImages}"),
-                    ), SizedBox(width: 8.w,),
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text("${user?.patientFirstName} ${user?.patientMiddleName} ${user?.patientLastName}", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
-                          SizedBox(height: 2.h,),
-                          Text("${user?.patientHnNumber}",  maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A)),),
-                          SizedBox(height: 5.h,),
-                          Wrap(
+           InkWell(
+             onTap: (){
+               context.router.push(UserDetailRoute(user: user!));
+             },
+             child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 25.h,
+                        backgroundImage: NetworkImage("${AppUrls.image}images/files/${user?.patientImages}"),
+                      ), SizedBox(width: 8.w,),
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(Icons.male, size: 13.h, color: const Color(0xFF8A8A8A),),
-                            Text("Gender:", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),),
-                            Text("${user?.patientBirthSex?.birthSexName}", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A)),),
-                            SizedBox(width: 8.w,),
-                            Icon(Icons.bloodtype, size: 13.h, color: const Color(0xFF8A8A8A),),
-                            Text("Blood:", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),),
-                            Text("O+", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A)),),
+                            Text("${user?.patientFirstName} ${user?.patientMiddleName} ${user?.patientLastName}", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
+                            SizedBox(height: 2.h,),
+                            Text("${user?.patientHnNumber}",  maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A)),),
+                            SizedBox(height: 5.h,),
+                            Wrap(
+                            children: [
+                              Icon(Icons.male, size: 13.h, color: const Color(0xFF8A8A8A),),
+                              Text("Gender:", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),),
+                              Text("${user?.patientBirthSex?.birthSexName}", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A)),),
+                              SizedBox(width: 8.w,),
+                              Icon(Icons.bloodtype, size: 13.h, color: const Color(0xFF8A8A8A),),
+                              Text("Blood:", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),),
+                              Text("O+", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A)),),
+                            ],
+                          )
                           ],
-                        )
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
+           ),
           SizedBox(height: 30.h,),
 
            MyRecordListTile(title: 'Vital', iconData: Icons.heart_broken, iconColor: Colors.red, onTap: (){
@@ -150,27 +155,7 @@ showMedicalHistoryFromGreatDocSearchView(BuildContext context,{required bool sho
                   subtitle: Text(mHFgdVM.getDate(history.date)),
                   trailing: Text(mHFgdVM.getTime(history.date, context))
               ),
-              // child: Row(
-              //   children: [
-              //     SizedBox(width: 5.w,),
-              //     SizedBox(
-              //         width: 40.w,
-              //         child: Text(mHFgdVM.getDate(history.date), maxLines: 3, overflow: TextOverflow.ellipsis,)),
-              //     Expanded(
-              //       child: ListTile(
-              //           onTap: (){
-              //             context.router.push(MedicalDocumentsRoute(history: history));
-              //           },
-              //           leading: CircleAvatar(
-              //             backgroundImage: NetworkImage("${AppUrls.docImage}${history.doctor?.drImages}"),
-              //           ),
-              //           title: Text("${history.doctor?.drGivenName}"),
-              //           subtitle: Text("${history.description}"),
-              //           trailing: Text(mHFgdVM.getTime(history.date))
-              //       ),
-              //     ),
-              //   ],
-              // ),
+
             ),
           ),
         ),
@@ -203,27 +188,7 @@ showMedicalHistoryFromGreatDocSearchView(BuildContext context,{required bool sho
                   subtitle: Text(mHFgdVM.getDate(procedure.createdAt)),
                   trailing: Text(mHFgdVM.getTime(procedure.createdAt, context))
               ),
-              // child: Row(
-              //   children: [
-              //     SizedBox(width: 5.w,),
-              //     SizedBox(
-              //         width: 40.w,
-              //         child: Text(mHFgdVM.getDate(history.date), maxLines: 3, overflow: TextOverflow.ellipsis,)),
-              //     Expanded(
-              //       child: ListTile(
-              //           onTap: (){
-              //             context.router.push(MedicalDocumentsRoute(history: history));
-              //           },
-              //           leading: CircleAvatar(
-              //             backgroundImage: NetworkImage("${AppUrls.docImage}${history.doctor?.drImages}"),
-              //           ),
-              //           title: Text("${history.doctor?.drGivenName}"),
-              //           subtitle: Text("${history.description}"),
-              //           trailing: Text(mHFgdVM.getTime(history.date))
-              //       ),
-              //     ),
-              //   ],
-              // ),
+
             ),
           ),
         ),

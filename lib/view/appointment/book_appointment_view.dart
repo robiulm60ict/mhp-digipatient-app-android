@@ -43,6 +43,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
     context.read<MyDoctorViewModel>().getDoctorFee(widget.doctors.id);
     context.read<AppointmentViewModel>().setWeekDays();
      context.read<MyDoctorViewModel>().getDocChamberTime(context, docId: widget.doctors.id);
+     context.read<AnatomyModelView>().getSelectedSymptomsList(setEmpty: true);
 
 
 

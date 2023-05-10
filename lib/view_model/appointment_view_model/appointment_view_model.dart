@@ -1,5 +1,3 @@
-
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/repository/book_appointment/book_appointment_repo.dart';
 import 'package:digi_patient/utils/datetime.dart';
@@ -10,7 +8,6 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/online_model/online_model.dart';
-import '../../routes/routes.gr.dart';
 import '../../utils/user.dart';
 
 class AppointmentViewModel with ChangeNotifier{
@@ -41,12 +38,9 @@ class AppointmentViewModel with ChangeNotifier{
 
         DateTime date = startWeekDay.add(Duration(days: i));
 
-        weekDayList.add(WeekDayModel(weekName: DateFormat("EEEE").format(date).substring(0,3), isSelected: date.isAtSameMomentAs(selectedDate), dateTime: date, day: date.day));
+        weekDayList.add(WeekDayModel(weekName: DateFormat("EEEE").format(date).substring(0,3), isSelected: isSameDate(date1: date, date2: selectedDate), dateTime: date, day: date.day));
 
       }
-      // List<WeekDayModel> setWeek = [weekDayList[5],weekDayList[6],weekDayList[0],weekDayList[1],weekDayList[2],weekDayList[3],weekDayList[4],];
-      //
-      // weekDayList = setWeek;
 
        monthName = DateFormat('MMMM').format(appointmentDate);
 
@@ -56,6 +50,16 @@ class AppointmentViewModel with ChangeNotifier{
       notifyListeners();
 
     }
+  }
+  bool isSameDate({required DateTime date1, required DateTime date2}){
+    if (date1.year == date2.year &&
+        date1.month == date2.month &&
+        date1.day == date2.day) {
+      return true;
+    } else {
+      return false;
+    }
+
   }
 
   setWeekDays(){
@@ -70,8 +74,8 @@ class AppointmentViewModel with ChangeNotifier{
 
       DateTime date = startWeekDay.add(Duration(days: i));
 
-      weekDayList.add(WeekDayModel(weekName: DateFormat("EEEE").format(date).substring(0,3), isSelected: date.isAtSameMomentAs(selectedDate), dateTime: date, day: date.day));
-
+      weekDayList.add(WeekDayModel(weekName: DateFormat("EEEE").format(date).substring(0,3), isSelected: isSameDate(date1: date, date2: selectedDate), dateTime: date, day: date.day));
+      // debugPrint("Date: ${date.toString()} week day: ${weekDayList[i].dateTime.toString()} is Selected: ${weekDayList[i].isSelected}-- is same date: ${date.isAtSameMomentAs(DateTime.now())}");
     }
     monthName = DateFormat('MMMM').format(appointmentDate);
 
