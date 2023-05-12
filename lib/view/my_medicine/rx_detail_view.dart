@@ -23,7 +23,12 @@ class _RXDetailViewState extends State<RXDetailView> {
   @override
   void initState() {
     super.initState();
-    getRx();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+
+      getRx();
+
+    });
+
   }
 
   getRx() {

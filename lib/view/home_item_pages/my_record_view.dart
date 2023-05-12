@@ -46,7 +46,11 @@ class _MyRecordViewState extends State<MyRecordView> {
         children: [
            InkWell(
              onTap: (){
-               context.router.push(UserDetailRoute(user: user!));
+               if(user == null){
+debugPrint("Reload page ");
+               }else{
+                 context.router.push(UserDetailRoute(user: user!));
+               }
              },
              child: Card(
                 shape: RoundedRectangleBorder(

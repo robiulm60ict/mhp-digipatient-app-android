@@ -130,7 +130,7 @@ class _VitalsViewState extends State<VitalsView>
                     SizedBox(
                       height: 45.h,
                     ),
-                    vital.isVitalLoading
+                    vital.isVitalLoading || vital.vitalsList.first.bpArray != null || vital.vitalsList.first.bpArray!.isNotEmpty
                         ? const Center(
                             child: CircularProgressIndicator(),
                           )
