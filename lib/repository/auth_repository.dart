@@ -1,7 +1,8 @@
 
 import 'package:digi_patient/model/auth_model/blood_group_model.dart';
 import 'package:digi_patient/model/auth_model/login_model.dart';
-import 'package:digi_patient/model/doctor_model/doctors_model.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
 
 import '../model/auth_model/birth_sex_model.dart';
 import '../model/registration/otp_check_model.dart';
@@ -72,4 +73,22 @@ class AuthRepository{
       rethrow;
     }
   }
+
+  // registration(Map<String, String> body, String filepath)async{
+  //   try{
+  //     Map<String, String> headers = {
+  //       'Content-Type': 'multipart/form-data',
+  //     };
+  //     var request = http.MultipartRequest('POST', Uri.parse(AppUrls.registration))
+  //       ..fields.addAll(body)
+  //       ..headers.addAll(headers)
+  //       ..files.add(await http.MultipartFile.fromPath('image', filepath));
+  //     var response = await request.send();
+  //     // NetworkApiService().returnResponse(response);
+  //     debugPrint("Response Code: ${response.statusCode}");
+  //     return RegistrationModel.fromJson(response);
+  //   }catch (e){
+  //     rethrow;
+  //   }
+  // }
 }

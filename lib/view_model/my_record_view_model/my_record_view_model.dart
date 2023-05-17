@@ -1,18 +1,15 @@
 import 'package:another_flushbar/flushbar.dart';
-import 'package:auto_route/auto_route.dart';
+import 'package:digi_patient/model/my_record_model/add_medical_history_model.dart';
 import 'package:digi_patient/model/my_record_model/procedure_mHFGD_model.dart';
 import 'package:digi_patient/model/my_record_model/reason_for_visit_model.dart';
 import 'package:digi_patient/model/my_record_model/save_vital_model.dart';
 import 'package:digi_patient/model/my_record_model/vitals_model.dart';
 import 'package:digi_patient/utils/message.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/my_record_model/medical_history_from_great_doc_model.dart';
 import '../../repository/my_record_repo/my_record_repo.dart';
-import '../../routes/routes.gr.dart';
 import '../../utils/user.dart';
 
 class MyRecordViewModel with ChangeNotifier {
@@ -151,6 +148,27 @@ class MyRecordViewModel with ChangeNotifier {
     });
   }
 
+  List<AddMedicalHistoryModel> addMedicalHistoryList = [];
+  bool isAddMedicalHistoryLoading = false;
+  setAddMedicalHistoryLoading(bool val){
+    isAddMedicalHistoryLoading = val;
+    notifyListeners();
+  }
+
+  addMedicalHistory(BuildContext context, dynamic body)async{
+
+    addMedicalHistoryList.clear();
+    setAddMedicalHistoryLoading(true);
+    myRecordRepo.addMedicalHistory(body).then((value) {
+      addMedicalHistoryList.add(value);
+      Messages.snackBar(context, "Medical History Added Successfully", backgroundColor: Colors.green);
+      setAddMedicalHistoryLoading(false);
+
+    }).onError((error, stackTrace) {
+      Messages.snackBar(context, error.toString());
+      setAddMedicalHistoryLoading(false);
+    });
+  }
 
   String getTime(String? date, BuildContext context) {
     DateTime? dateObject = DateTime.tryParse(date ?? "");

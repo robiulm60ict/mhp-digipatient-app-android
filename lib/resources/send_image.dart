@@ -1,4 +1,5 @@
 import 'package:digi_patient/resources/app_url.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 class SendImage {
@@ -13,6 +14,7 @@ class SendImage {
       ..headers.addAll(headers)
       ..files.add(await http.MultipartFile.fromPath('image', filepath));
     var response = await request.send();
+    debugPrint("Response Code: ${response.statusCode}");
     if (response.statusCode == 200 || response.statusCode == 201) {
       return true;
     } else {

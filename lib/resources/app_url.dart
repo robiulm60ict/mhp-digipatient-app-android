@@ -71,6 +71,8 @@ class AppUrls{
 
   static const String saveVital = '$baseUrl/mhp_server/public/api/save-vital-sign-patient';
 
+  static const String addMedicalHistory = '$baseUrl/mhp_server/public/api/past-history-save';
+
   /// Registration
 
   static const String sendVerification = '$baseUrl/mhp_server/public/api/send-verfication-code';

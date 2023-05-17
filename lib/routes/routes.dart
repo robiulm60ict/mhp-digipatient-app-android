@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:digi_patient/model/my_record_model/add_medical_history_model.dart';
 import 'package:digi_patient/view/anatomy/anatomy_view.dart';
 import 'package:digi_patient/view/appointment/book_appointment_view.dart';
 import 'package:digi_patient/view/authentications/create_account_view.dart';
@@ -34,6 +35,7 @@ import '../view/my_doctor_category_views/doc_details_view.dart';
 import '../view/my_medicine/my_medicine_view.dart';
 import '../view/my_medicine/rx_detail_view.dart';
 import '../view/my_medicine/rx_view.dart';
+import '../view/my_record/add_medical_history_view.dart';
 import '../view/my_record/medical_documents_view.dart';
 import '../view/splash_view.dart';
 
@@ -137,6 +139,7 @@ import '../view/splash_view.dart';
     AutoRoute(path: '/reason-visit', page: ReasonForVisitView,),
     AutoRoute(path: '/my-report', page: MyReportView,),
     AutoRoute(path: '/vitals-detail', page: VitalsItemDetailsView,),
+    AutoRoute(path: '/add-medical-history', page: AddMedicalHistoryView,),
 
     /// My Medicine
 
