@@ -47,7 +47,7 @@ class NetworkApiService extends BaseApiService{
       case 404:
     throw UnauthorisedException(response.body.toString());
       case 500:
-    throw InternalServerException("Internal Server Error");
+    throw InternalServerException("Internal Server Error ");
       default:
         throw FetchDataException("Error occurred During Communication with status code ${response.statusCode}");
     }

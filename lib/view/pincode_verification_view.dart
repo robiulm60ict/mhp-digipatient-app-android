@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
+import 'package:digi_patient/view_model/auth_view_model.dart';
 import 'package:digi_patient/widgets/gradient_appBar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:provider/provider.dart';
 
 import '../generated/assets.dart';
 import '../resources/colors.dart';
@@ -61,6 +63,7 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthViewModel>(context);
     return Scaffold(
       body: GestureDetector(
         onTap: () {},
@@ -72,14 +75,7 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
                const GradientAppBar(text: "Verification"),
 
               SizedBox(height: 50.h),
-              // Padding(
-              //   padding: EdgeInsets.symmetric(vertical: 8.0.w),
-              //   child: Text(
-              //     'Phone Number Verification',
-              //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.sp),
-              //     textAlign: TextAlign.center,
-              //   ),
-              // ),
+
               Padding(
                 padding:
                  EdgeInsets.symmetric(horizontal: 30.0.w, vertical: 8.h),
@@ -191,8 +187,12 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
                     style: TextStyle(color: Colors.black54, fontSize: 15.sp),
                   ),
                   TextButton(
-                    // TODO: Implement Resend OTP Here
-                    onPressed: () => snackBar("OTP resend!!"),
+                    onPressed: () {
+                      auth.sendOtp(context, phnNumber: widget.phoneNumber!).then((value) {
+                        snackBar("OTP resend!!");
+                      });
+
+                    },
                     child:  Text(
                       "RESEND",
                       style: TextStyle(
@@ -223,7 +223,7 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
                 ),
               ],),),
               ),
-              Container(
+              auth.isOtpCheckLoading ? const Center(child: CircularProgressIndicator(),) : Container(
                 margin:
                  EdgeInsets.symmetric(vertical: 16.0.h, horizontal: 30.w),
                 decoration: BoxDecoration(
@@ -242,10 +242,18 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
                 child: ButtonTheme(
                   height: 50.h,
                   child: TextButton(
-                    onPressed: () {
+                    onPressed: () async{
+                      Map<String,dynamic> body = {
+                        "phone_number" : widget.phoneNumber,
+                        "token" : auth.otpList.first.token,
+                        "verification_code" : currentText
+                      };
+
+                      // snackBar(" Enter The house ");
                       formKey.currentState!.validate();
                       // conditions for validating
-                      if (currentText.length != 4 || currentText != "1234") {
+                      if (currentText.length != 4) {
+                        // snackBar(" Wrong Place ");
                         errorController!.add(ErrorAnimationType
                             .shake); // Triggering error shake animation
                         setState(() => hasError = true);
@@ -253,14 +261,29 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
                         setState(
                               () {
                             hasError = false;
+                             auth.otpCheck(context, body).then((value) {
+                              if(auth.otpCheckError){
+                                errorController!.add(ErrorAnimationType
+                                    .shake);
+                                setState(() {
+                                  hasError = true;
+                                });
+                              }
+                            });
                             // snackBar("OTP Verified!!");
                             // congratsDialogue(context,onTap: (){
                             //   context.router.replace(const DashboardRoute(),);
                             // });
-                                context.router.push(const CreateAccountRoute());
+                            // if(auth.otpCheckList.first.verify!){
+                            //   context.router.push(const CreateAccountRoute());
+                            //
+                            // }else{
+                            //   snackBar(auth.otpCheckList.first.message);
+                            // }
                           },
                         );
                       }
+
                     },
                     child: Center(
                         child: Text(

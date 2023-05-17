@@ -5,5 +5,6 @@ class UserP{
   static const name = 'name';
   static const isLoggedIn = 'isLoggedIn';
   static const id = 'id';
+  static const phone = 'phone';
 
 }

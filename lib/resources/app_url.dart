@@ -70,6 +70,24 @@ class AppUrls{
   static const String reasonForVisit = '$baseUrl/mhp_server/public/api/get-great-doc-reson/';
 
   static const String saveVital = '$baseUrl/mhp_server/public/api/save-vital-sign-patient';
+
+  /// Registration
+
+  static const String sendVerification = '$baseUrl/mhp_server/public/api/send-verfication-code';
+
+  static const String checkOtp = '$baseUrl/mhp_server/public/api/verification-check';
+
+  static const String registration = '$baseUrl/mhp_server/public/api/patients-sign-up';
+
+  static const String loginAfterRegistration = '$baseUrl/mhp_server/public/api/login-patient';
+
+  /// Blood Group and Birth Sex Patient
+
+  static const String birthSex = '$baseUrl/mhp_server/public/api/birth-sex';
+
+  static const String bloodGroup = '$baseUrl/mhp_server/public/api/blood-group';
+
+
 }
 
 const Map header = {'Accept': 'application/json'};

@@ -109,9 +109,15 @@ class AppRouter extends _i37.RootStackRouter {
       );
     },
     CreateAccountRoute.name: (routeData) {
+      final args = routeData.argsAs<CreateAccountRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i7.CreateAccountView(),
+        child: _i7.CreateAccountView(
+          key: args.key,
+          phoneNumber: args.phoneNumber,
+          token: args.token,
+          vCode: args.vCode,
+        ),
       );
     },
     DashboardRoute.name: (routeData) {
@@ -622,14 +628,46 @@ class PinCodeVerificationRouteArgs {
 
 /// generated route for
 /// [_i7.CreateAccountView]
-class CreateAccountRoute extends _i37.PageRouteInfo<void> {
-  const CreateAccountRoute()
-      : super(
+class CreateAccountRoute extends _i37.PageRouteInfo<CreateAccountRouteArgs> {
+  CreateAccountRoute({
+    _i38.Key? key,
+    required String phoneNumber,
+    required String token,
+    required String vCode,
+  }) : super(
           CreateAccountRoute.name,
           path: '/create-account',
+          args: CreateAccountRouteArgs(
+            key: key,
+            phoneNumber: phoneNumber,
+            token: token,
+            vCode: vCode,
+          ),
         );
 
   static const String name = 'CreateAccountRoute';
+}
+
+class CreateAccountRouteArgs {
+  const CreateAccountRouteArgs({
+    this.key,
+    required this.phoneNumber,
+    required this.token,
+    required this.vCode,
+  });
+
+  final _i38.Key? key;
+
+  final String phoneNumber;
+
+  final String token;
+
+  final String vCode;
+
+  @override
+  String toString() {
+    return 'CreateAccountRouteArgs{key: $key, phoneNumber: $phoneNumber, token: $token, vCode: $vCode}';
+  }
 }
 
 /// generated route for

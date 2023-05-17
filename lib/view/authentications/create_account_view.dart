@@ -1,12 +1,17 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:digi_patient/model/auth_model/birth_sex_model.dart';
+import 'package:digi_patient/model/auth_model/blood_group_model.dart';
+import 'package:digi_patient/utils/datetime.dart';
+import 'package:digi_patient/view_model/auth_view_model.dart';
 import 'package:digi_patient/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
-import '../../enum/gender_enum.dart';
 import '../../generated/assets.dart';
 import '../../resources/colors.dart';
 import '../../resources/constants.dart';
@@ -15,20 +20,24 @@ import '../../utils/message.dart';
 import '../../widgets/custom_elivated_button.dart';
 
 class CreateAccountView extends StatefulWidget {
-  const CreateAccountView({Key? key}) : super(key: key);
-
+  const CreateAccountView({Key? key, required this.phoneNumber, required this.token, required this.vCode}) : super(key: key);
+  final String phoneNumber;
+  final String token;
+  final String vCode;
   @override
   State<CreateAccountView> createState() => _CreateAccountViewState();
 }
 
 class _CreateAccountViewState extends State<CreateAccountView> {
   final ImagePicker _picker = ImagePicker();
+
 // List<img.Image?> fileImage = [];
   List<XFile?> xFileList = [];
+
 // Pick an image
 
   pickImage({required bool fromGallery}) async {
-    try{
+    try {
       final XFile? image = await _picker.pickImage(
           source: fromGallery ? ImageSource.gallery : ImageSource.camera);
       if (image != null) {
@@ -42,8 +51,8 @@ class _CreateAccountViewState extends State<CreateAccountView> {
         Messages.flushBarMessage(
             context, fromGallery ? "Select an Image" : "Take a Photo");
       }
-    }catch (e){
-      debugPrint(e.toString());
+    } catch (e) {
+
       Messages.flushBarMessage(context, e.toString());
     }
 
@@ -61,12 +70,57 @@ class _CreateAccountViewState extends State<CreateAccountView> {
     // Message.flushBarMessage(context, "Something Went wrong Try Again");
     // }
   }
+
   TextEditingController dateOfBirthController = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController name = TextEditingController();
+  BloodGroup? bloodGroup;
+
+  BirthSex? birthSex;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Add Your Code here.
+      context.read<AuthViewModel>().getBirthSex(context);
+      context.read<AuthViewModel>().getBloodGroup(context);
+      // setBirthSexAndBloodGroup();
+    });
+  }
+
+  setBirthSexAndBloodGroup() {
+    if (!context
+        .read<AuthViewModel>()
+        .isBloodGroupLoading && !context
+        .read<AuthViewModel>()
+        .isBirthSexLoading) {
+      bloodGroup = context
+          .read<AuthViewModel>()
+          .bloodGroupList
+          .first
+          .bloodGroup!
+          .first;
+      birthSex = context
+          .read<AuthViewModel>()
+          .birthSexList
+          .first
+          .birthSex!
+          .first;
+      setState(() {
+
+      });
+    }
+  }
 
   @override
   void dispose() {
     super.dispose();
     dateOfBirthController.dispose();
+    password.dispose();
+    email.dispose();
+    name.dispose();
   }
 
 // saveImage(XFile xFile) async {
@@ -78,9 +132,10 @@ class _CreateAccountViewState extends State<CreateAccountView> {
 // setState(() {});
 // }
 
-  Gender _gender = Gender.male;
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthViewModel>(context);
+
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -214,6 +269,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
             ),
             SizedBox(height: 10.h,),
             CustomTextField(
+              textEditingController: name,
               prefix: Icon(Icons.person, color: AppColors.primaryColor,),
               hintText: "Name",
             ),
@@ -224,79 +280,145 @@ class _CreateAccountViewState extends State<CreateAccountView> {
               prefix: Icon(Icons.date_range, color: AppColors.primaryColor,),
               hintText: "Date of Birth",
               onTap: ()async{
-                final date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now(), lastDate: DateTime(3033));
+                // final date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now(), lastDate: DateTime(3033));
+                DateTime? date = await PickDateTime().pickDate(context, initialDate: DateTime.now());
                 dateOfBirthController.text = "${date?.day}-${date?.month}-${date?.year}";
                 },
             ),
             SizedBox(height: 10.h,),
-            CustomTextField(
-              prefix: Icon(Icons.bloodtype, color: AppColors.primaryColor,),
-              hintText: "Blood Group",
+            // CustomTextField(
+            //   prefix: Icon(Icons.bloodtype, color: AppColors.primaryColor,),
+            //   hintText: "Blood Group",
+            // ),
+            ///
+            // auth.isBloodGroupLoading ? const Center(child: CircularProgressIndicator(),) : SizedBox(
+            //   height: 50.h,
+            //   width: double.infinity,
+            //   child: DropdownButton<BloodGroup>(
+            //     items: auth.bloodGroupListItems,
+            //     isExpanded: true,
+            //     value: bloodGroup,
+            //     onChanged: (value) {
+            //       if(value != null){
+            //         setState(() {
+            //           bloodGroupId = "${value.id}";
+            //           bloodGroup = value;
+            //         });
+            //       }
+            //
+            //     },),
+            // ),
+            auth.isBloodGroupLoading ? const Center(child: CircularProgressIndicator(),) :
+
+            SizedBox(
+              height: 55.h,
+              width: double.infinity,
+              child: DropdownButton<BloodGroup>(
+                hint: Text("Select Blood Group", style: TextStyle(fontSize: 14.sp,),),
+                    items: auth.bloodGroupList.first.bloodGroup?.map((e) => DropdownMenuItem<BloodGroup>(value: e,child: Text("${e.bloodGroupName}", style: TextStyle(fontSize: 14.sp, ),),)).toList(),
+                    isExpanded: true,
+                    value: bloodGroup,
+                    onChanged: (value) {
+                      if(value != null){
+                        setState(() {
+                          // bloodGroupId = "${value.id}";
+                          bloodGroup = value;
+                        });
+                      }
+
+                    },),
+            ),
+
+            SizedBox(
+              height: 10.h,
+            ),
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: RadioListTile<Gender>(
+            //         activeColor: AppColors.primaryColor,
+            //         title: Text(
+            //           'Male',
+            //           style: genderTextStyle(context),
+            //         ),
+            //         value: Gender.male,
+            //         groupValue: _gender,
+            //         onChanged: (Gender? value) {
+            //           setState(() {
+            //             _gender = value!;
+            //           });
+            //         },
+            //       ),
+            //     ),
+            //     Expanded(
+            //       child: RadioListTile<Gender>(
+            //         activeColor: AppColors.primaryColor,
+            //         title: Text(
+            //           'Female',
+            //           style: genderTextStyle(context),
+            //         ),
+            //         value: Gender.female,
+            //         groupValue: _gender,
+            //         onChanged: (Gender? value) {
+            //           setState(() {
+            //             _gender = value!;
+            //           });
+            //         },
+            //       ),
+            //     ),
+            //     Expanded(
+            //       child: RadioListTile<Gender>(
+            //         activeColor: AppColors.primaryColor,
+            //         title: Text(
+            //           'Others',
+            //           style: genderTextStyle(context),
+            //         ),
+            //         value: Gender.others,
+            //         groupValue: _gender,
+            //         onChanged: (Gender? value) {
+            //           setState(() {
+            //             _gender = value!;
+            //           });
+            //         },
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            auth.isBirthSexLoading ? const Center(child: CircularProgressIndicator(),) :
+
+            SizedBox(
+              height: 55.h,
+              width: double.infinity,
+              child: DropdownButton<BirthSex>(
+                hint: Text("Select Gender", style: TextStyle(fontSize: 14.sp,),),
+
+                items: auth.birthSexList.first.birthSex?.map((e) => DropdownMenuItem<BirthSex>(value: e,child: Text("${e.birthSexName}", style: TextStyle(fontSize: 14.sp,),),)).toList(),
+                isExpanded: true,
+                value: birthSex,
+                onChanged: (value) {
+                  if(value != null){
+                    setState(() {
+                      // bloodGroupId = "${value.id}";
+                      birthSex = value;
+                    });
+                  }
+
+                },),
             ),
             SizedBox(
               height: 10.h,
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: RadioListTile<Gender>(
-                    activeColor: AppColors.primaryColor,
-                    title: Text(
-                      'Male',
-                      style: genderTextStyle(context),
-                    ),
-                    value: Gender.male,
-                    groupValue: _gender,
-                    onChanged: (Gender? value) {
-                      setState(() {
-                        _gender = value!;
-                      });
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: RadioListTile<Gender>(
-                    activeColor: AppColors.primaryColor,
-                    title: Text(
-                      'Female',
-                      style: genderTextStyle(context),
-                    ),
-                    value: Gender.female,
-                    groupValue: _gender,
-                    onChanged: (Gender? value) {
-                      setState(() {
-                        _gender = value!;
-                      });
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: RadioListTile<Gender>(
-                    activeColor: AppColors.primaryColor,
-                    title: Text(
-                      'Others',
-                      style: genderTextStyle(context),
-                    ),
-                    value: Gender.others,
-                    groupValue: _gender,
-                    onChanged: (Gender? value) {
-                      setState(() {
-                        _gender = value!;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
             CustomTextField(
+              textEditingController: password,
               prefix: Icon(Icons.lock, color: AppColors.primaryColor,),
               hintText: "Password",
             ),
             SizedBox(
               height: 10.h,
             ),CustomTextField(
-              prefix: Icon(Icons.bloodtype, color: AppColors.primaryColor,),
-              hintText: "Confirm Password",
+              textEditingController: email,
+              prefix: Icon(Icons.email, color: AppColors.primaryColor,),
+              hintText: "Email",
             ),
             SizedBox(
               height: 10.h,
@@ -308,15 +430,27 @@ class _CreateAccountViewState extends State<CreateAccountView> {
               isExpanded: false,
               title: "Save",
               onPressed: () {
-                debugPrint(_gender.name);
-                if (xFileList.isNotEmpty) {
-                  // congratsDialogue(context, onTap: (){
-                    context.router.replace(const DashboardRoute());
-                  // });
 
-                } else {
+                if(xFileList.isNotEmpty && name.text.isNotEmpty && dateOfBirthController.text.isNotEmpty && bloodGroup != null && birthSex != null && password.text.isNotEmpty && email.text.isNotEmpty){
+                  Map<String , String> body = {
+                    'phone_number' : widget.phoneNumber,
+                    'token' : widget.token,
+                    'verification_code' : widget.vCode,
+                    'patient_first_name' : name.text,
+                    'patient_birth_sex_id' : "${birthSex?.id}",
+                    'ptn_blood_group_id' : "${bloodGroup?.id}",
+                    'patient_dob' : dateOfBirthController.text,
+                    // 'patient_images' : File(xFileList.first!.name),
+                    'password' : password.text,
+                    'patient_email' : email.text,
+                  };
+                  // auth.signUpApi(context, body);
+                  auth.signUpAndSendImage(context, body: body, filePath: xFileList.first!.path);
+
+
+                }else {
                   Messages.flushBarMessage(
-                      context, "Please Upload your image");
+                      context, "Enter all of the field and upload image also");
                 }
               },
               backgroundColor: AppColors.primaryColor,

@@ -12,7 +12,7 @@ class PickDateTime{
     DateTime? picked = await showDatePicker(
       context: context,
       initialDate: initialDate,
-      firstDate: DateTime(1996, 1, 1),
+      firstDate: DateTime(1900, 1, 1),
       lastDate: DateTime(DateTime.now().year + 500, 10, 1),
     );
     return picked;

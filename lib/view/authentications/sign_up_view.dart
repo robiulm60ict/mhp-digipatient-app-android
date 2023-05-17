@@ -1,12 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
+import 'package:digi_patient/utils/message.dart';
 import 'package:digi_patient/utils/utils.dart';
+import 'package:digi_patient/view_model/auth_view_model.dart';
 import 'package:digi_patient/widgets/custom_button.dart';
 import 'package:digi_patient/widgets/gradient_appBar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../routes/routes.gr.dart';
 
@@ -18,10 +21,17 @@ class SignUpView extends StatefulWidget {
 }
 
 class _SignUpViewState extends State<SignUpView> {
+  TextEditingController phnNumber = TextEditingController();
+  @override
+  void dispose() {
+    super.dispose();
+    phnNumber.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     bool isTablet = MediaQuery.of(context).size.width > 450;
     debugPrint(MediaQuery.of(context).size.width.toString());
+    final auth = Provider.of<AuthViewModel>(context);
     return Scaffold(
       body: ListView(
         children: [
@@ -44,7 +54,8 @@ class _SignUpViewState extends State<SignUpView> {
             child: Row(
               children: [
                 Text("  +880  ", style: TextStyle(fontSize: 16.sp, color: AppColors.blackColor),),
-                const Expanded(child: TextField(
+                 Expanded(child: TextField(
+                  controller: phnNumber,
                   keyboardType: TextInputType.number,
                   enabled: true,
                   // decoration: InputDecoration(
@@ -57,12 +68,20 @@ class _SignUpViewState extends State<SignUpView> {
           ),
 
           SizedBox(height: 30.h,),
-          Padding(
+          Visibility(
+            visible: !auth.isSendOtpLoading,
+            replacement: const Center(child: CircularProgressIndicator()),
+            child: Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
             child: CustomButton(text: "Continue", onTap: (){
-              context.router.push(PinCodeVerificationRoute());
+              if(phnNumber.text.isNotEmpty){
+                auth.sendOtp(context, phnNumber: phnNumber.text);
+              }else{
+                Messages.snackBar(context, "Enter Mobile Number");
+              }
             },),
-          ),
+          ),),
+
           SizedBox(height: 15.h,),
           Text("Or", textAlign: TextAlign.center, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.grey),),
           SizedBox(height: 15.h,),
