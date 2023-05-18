@@ -73,8 +73,9 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
           // String date = appointmentViewModel.appointmentDate.toString();
           // appointmentViewModel.setBody(docIcd: "${widget.doctors.id}", patientId: "$patientId", date: date, appointmentType: isChamber ? "Chamber" : "Online", disease: "[asd, asdf]", paymentType: "Bkash", amount: "1200", trNxNo: "tr1205");
           // appointmentViewModel.bookAppointment(context, body: appointmentViewModel.body);
-          if(anatomy.getSelectedSymptomsList().isNotEmpty ){
-            await appointmentViewModel.getPatientId().then((value) => context.router.push( PaymentMethodRoute(appointmentDate: appointmentViewModel.appointmentDate.toString(), appointmentType: isChamber ? "Chamber" : "Online", doctorId: "${widget.doctors.id}", patientId: "$value", amount:  widget.amount, doctor: widget.doctors)));
+          List<SymptomsAnatomy> diseaseList = anatomy.getSelectedSymptomsList();
+          if(diseaseList.isNotEmpty ){
+            await appointmentViewModel.getPatientId().then((value) => context.router.push( PaymentMethodRoute(appointmentDate: appointmentViewModel.appointmentDate.toString(), appointmentType: isChamber ? "Chamber" : "Online", doctorId: "${widget.doctors.id}", patientId: "$value", amount:  widget.amount, doctor: widget.doctors, diseaseList: diseaseList)));
           }else{
             Messages.snackBar(context, "Please Select Disease!");
           }

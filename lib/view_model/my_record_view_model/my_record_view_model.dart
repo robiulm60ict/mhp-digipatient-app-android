@@ -1,5 +1,6 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:digi_patient/model/my_record_model/add_medical_history_model.dart';
+import 'package:digi_patient/model/my_record_model/diagnosis_procedure_model.dart';
 import 'package:digi_patient/model/my_record_model/procedure_mHFGD_model.dart';
 import 'package:digi_patient/model/my_record_model/reason_for_visit_model.dart';
 import 'package:digi_patient/model/my_record_model/save_vital_model.dart';
@@ -153,6 +154,34 @@ class MyRecordViewModel with ChangeNotifier {
   setAddMedicalHistoryLoading(bool val){
     isAddMedicalHistoryLoading = val;
     notifyListeners();
+  }
+
+  bool isDiagnosisLoading = true;
+  String diagnosisStatus = "";
+  List<Data> diagnosisList = [];
+   setDiagnosisLoadingAndStatus(bool val, String status){
+    isDiagnosisLoading = val;
+    diagnosisStatus = status;
+    notifyListeners();
+  }
+
+  Future<List<Data>> getDiagnosisList(BuildContext context)async{
+     List<Data>? data =  await myRecordRepo.getDiagnosisProcedure().then((value) => value.data).onError((error, stackTrace) => Messages.snackBar(context, error.toString()));
+  return data ?? <Data>[];
+
+   }
+
+  getDiagnosis()async{
+     diagnosisList.clear();
+     setDiagnosisLoadingAndStatus(true, "Loading...");
+     await myRecordRepo.getDiagnosisProcedure().then((value) {
+       // diagnosisList.add(value.data);
+       diagnosisList = value.data!;
+       setDiagnosisLoadingAndStatus(false, "Successful");
+
+     }).onError((error, stackTrace) {
+       setDiagnosisLoadingAndStatus(true, error.toString());
+     });
   }
 
   addMedicalHistory(BuildContext context, dynamic body)async{

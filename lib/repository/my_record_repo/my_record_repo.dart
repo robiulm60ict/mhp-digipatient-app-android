@@ -2,6 +2,7 @@
 import 'package:digi_patient/model/doctor_model/doctor_fee_model.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/model/my_record_model/add_medical_history_model.dart';
+import 'package:digi_patient/model/my_record_model/diagnosis_procedure_model.dart';
 import 'package:digi_patient/model/my_record_model/medical_history_from_great_doc_model.dart';
 import 'package:digi_patient/model/my_record_model/procedure_mHFGD_model.dart';
 import 'package:digi_patient/model/my_record_model/reason_for_visit_model.dart';
@@ -92,6 +93,21 @@ class MyRecordRepo{
       dynamic response = await apiService.getPostApiResponse(AppUrls.saveVital, body);
 
       return SaveVitalModel.fromJson(response);
+
+    }catch(e){
+
+      rethrow;
+
+    }
+  }
+
+  Future<DiagnosisProcedureModel> getDiagnosisProcedure()async{
+
+    try{
+
+      dynamic response = await apiService.getGetApiResponse(AppUrls.diagnosisProcedure,);
+
+      return DiagnosisProcedureModel.fromJson(response);
 
     }catch(e){
 

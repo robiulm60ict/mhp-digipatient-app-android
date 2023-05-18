@@ -73,6 +73,8 @@ class AppUrls{
 
   static const String addMedicalHistory = '$baseUrl/mhp_server/public/api/past-history-save';
 
+  static const String diagnosisProcedure = '$baseUrl/mhp_server/public/api/diagnosis-procedure-reason/diagnosis';
+
   /// Registration
 
   static const String sendVerification = '$baseUrl/mhp_server/public/api/send-verfication-code';

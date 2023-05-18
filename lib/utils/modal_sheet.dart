@@ -1,6 +1,7 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/resources/colors.dart';
+import 'package:digi_patient/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +42,10 @@ getDiseaseModalSheet(BuildContext context, {String name = "", String subName = "
                         ),
                       );
                     },)),
+                  SizedBox(height: 10.h,),
+                  CustomButton(text: "Set", onTap: () {
+                    context.router.pop();
+                  },)
                 ],
               ),
             )),

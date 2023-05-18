@@ -1,5 +1,7 @@
+import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class PaymentUserDetail extends StatelessWidget {
   const PaymentUserDetail({Key? key, required this.name, required this.designation, required this.visitingTime, required this.hospitalName, required this.date, required this.location, required this.image}) : super(key: key);
@@ -13,6 +15,7 @@ class PaymentUserDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final myRecord = Provider.of<MyRecordViewModel>(context);
     return Card(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.r)),
@@ -102,7 +105,7 @@ class PaymentUserDetail extends StatelessWidget {
                           width: 4.w,
                         ),
                         Text(
-                          date,
+                          myRecord.getDate(date),
                           style: TextStyle(
                             fontSize: 10.sp,
                             fontWeight: FontWeight.w500,

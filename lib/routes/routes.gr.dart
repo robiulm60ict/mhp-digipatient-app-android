@@ -14,12 +14,13 @@
 import 'package:auto_route/auto_route.dart' as _i38;
 import 'package:flutter/material.dart' as _i39;
 
-import '../enum/vitals_enum.dart' as _i41;
+import '../enum/vitals_enum.dart' as _i42;
+import '../model/anatomy/anatomy_symptoms_model.dart' as _i41;
 import '../model/doctor_model/doctors_model.dart' as _i40;
 import '../model/my_record_model/medical_history_from_great_doc_model.dart'
-    as _i43;
-import '../model/my_record_model/vitals_model.dart' as _i42;
-import '../model/user_detail_model/user_model.dart' as _i44;
+    as _i44;
+import '../model/my_record_model/vitals_model.dart' as _i43;
+import '../model/user_detail_model/user_model.dart' as _i45;
 import '../view/anatomy/anatomy_view.dart' as _i18;
 import '../view/appointment/book_appointment_view.dart' as _i15;
 import '../view/authentications/create_account_view.dart' as _i7;
@@ -196,6 +197,7 @@ class AppRouter extends _i38.RootStackRouter {
           amount: args.amount,
           appointmentType: args.appointmentType,
           doctor: args.doctor,
+          diseaseList: args.diseaseList,
         ),
       );
     },
@@ -872,6 +874,7 @@ class PaymentMethodRoute extends _i38.PageRouteInfo<PaymentMethodRouteArgs> {
     required String amount,
     required String appointmentType,
     required _i40.Doctors doctor,
+    required List<_i41.SymptomsAnatomy> diseaseList,
   }) : super(
           PaymentMethodRoute.name,
           path: '/payment-method',
@@ -883,6 +886,7 @@ class PaymentMethodRoute extends _i38.PageRouteInfo<PaymentMethodRouteArgs> {
             amount: amount,
             appointmentType: appointmentType,
             doctor: doctor,
+            diseaseList: diseaseList,
           ),
         );
 
@@ -898,6 +902,7 @@ class PaymentMethodRouteArgs {
     required this.amount,
     required this.appointmentType,
     required this.doctor,
+    required this.diseaseList,
   });
 
   final _i39.Key? key;
@@ -914,9 +919,11 @@ class PaymentMethodRouteArgs {
 
   final _i40.Doctors doctor;
 
+  final List<_i41.SymptomsAnatomy> diseaseList;
+
   @override
   String toString() {
-    return 'PaymentMethodRouteArgs{key: $key, appointmentDate: $appointmentDate, doctorId: $doctorId, patientId: $patientId, amount: $amount, appointmentType: $appointmentType, doctor: $doctor}';
+    return 'PaymentMethodRouteArgs{key: $key, appointmentDate: $appointmentDate, doctorId: $doctorId, patientId: $patientId, amount: $amount, appointmentType: $appointmentType, doctor: $doctor, diseaseList: $diseaseList}';
   }
 }
 
@@ -1077,8 +1084,8 @@ class VitalsItemDetailsRoute
     required String title,
     required String img,
     required String subtitle,
-    required _i41.Vitals v,
-    List<_i42.PatientsVs>? allData,
+    required _i42.Vitals v,
+    List<_i43.PatientsVs>? allData,
     required int index,
     required String icon,
     required String unitId,
@@ -1125,9 +1132,9 @@ class VitalsItemDetailsRouteArgs {
 
   final String subtitle;
 
-  final _i41.Vitals v;
+  final _i42.Vitals v;
 
-  final List<_i42.PatientsVs>? allData;
+  final List<_i43.PatientsVs>? allData;
 
   final int index;
 
@@ -1291,7 +1298,7 @@ class MedicalDocumentsRoute
     extends _i38.PageRouteInfo<MedicalDocumentsRouteArgs> {
   MedicalDocumentsRoute({
     _i39.Key? key,
-    required _i43.PastHistory? history,
+    required _i44.PastHistory? history,
   }) : super(
           MedicalDocumentsRoute.name,
           path: '/document-detail',
@@ -1312,7 +1319,7 @@ class MedicalDocumentsRouteArgs {
 
   final _i39.Key? key;
 
-  final _i43.PastHistory? history;
+  final _i44.PastHistory? history;
 
   @override
   String toString() {
@@ -1325,7 +1332,7 @@ class MedicalDocumentsRouteArgs {
 class UserDetailRoute extends _i38.PageRouteInfo<UserDetailRouteArgs> {
   UserDetailRoute({
     _i39.Key? key,
-    required _i44.Patient user,
+    required _i45.Patient user,
   }) : super(
           UserDetailRoute.name,
           path: '/user-detail',
@@ -1346,7 +1353,7 @@ class UserDetailRouteArgs {
 
   final _i39.Key? key;
 
-  final _i44.Patient user;
+  final _i45.Patient user;
 
   @override
   String toString() {

@@ -9,18 +9,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../model/anatomy/anatomy_symptoms_model.dart';
 import '../../resources/colors.dart';
 import '../../utils/utils.dart';
+import '../../view_model/anatomy/anatomy_view_model.dart';
 import '../../widgets/back_button.dart';
 
 class PaymentMethodView extends StatefulWidget {
-  const PaymentMethodView({Key? key, required this.appointmentDate, required this.doctorId, required this.patientId, required this.amount, required this.appointmentType, required this.doctor}) : super(key: key);
+  const PaymentMethodView({Key? key, required this.appointmentDate, required this.doctorId, required this.patientId, required this.amount, required this.appointmentType, required this.doctor, required this.diseaseList}) : super(key: key);
   final String appointmentDate;
   final String doctorId;
   final String patientId;
   final String amount;
   final String appointmentType;
   final Doctors doctor;
+  final List<SymptomsAnatomy> diseaseList;
 
   @override
   State<PaymentMethodView> createState() => _PaymentMethodViewState();
@@ -48,6 +51,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
   @override
   Widget build(BuildContext context) {
     final apVM = Provider.of<AppointmentViewModel>(context);
+    final anatomy = Provider.of<AnatomyModelView>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -67,7 +71,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
            PaymentUserDetail(
               name: "${widget.doctor.drFullName}",
               designation: "${widget.doctor.department?.departmentsName}",
-              visitingTime: "null",
+              visitingTime: "--",
               hospitalName: "${widget.doctor.usualProvider?.usualProviderName}",
               date: widget.appointmentDate,
               location: "${widget.doctor.drMobilePhone}",
@@ -439,7 +443,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                         "patient_id": widget.patientId,
                         "date": widget.appointmentDate,
                         "appointment_type": widget.appointmentType,
-                        "disease": "[d, s ]",
+                        "disease": widget.diseaseList.toString(),
                         "payment_type": getPaymentMethod(),
                         "amount": widget.amount,
                         "transaction_no": "trNxNo",
