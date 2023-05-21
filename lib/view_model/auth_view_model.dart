@@ -131,9 +131,10 @@ class AuthViewModel with ChangeNotifier {
   Future<void> signUpAndSendImage(BuildContext context, {required Map<String,String> body, required String filePath, bool keepMeSignIn = true,})async{
     setSignupLoading(true);
     await sendImage.addImage(body, filePath).then((value) async{
+      debugPrint("\n\n\n\n\n\n\n---returned value is $value---\n\n\n\n\n\n\n");
       if(value) {
         setSignupLoading(false,);
-        // await saveUser(isLoggedIn: keepMeSignIn, email: body['email'], password: body['password'], name: value.patients!.patientFirstName!, id: int.parse("${value.patients!.id!}"));
+        // await saveUser(isLoggedIn: keepMeSignIn, email: body['email']!, password: body['password']!, name: body["patient_first_name"]!, id: int.parse("${value.patients!.id!}"));
 
       Messages.flushBarMessage(context, "Sign UP Successful",backgroundColor: Colors.green);
         // context.router.replace(const DashboardRoute());
@@ -142,6 +143,7 @@ class AuthViewModel with ChangeNotifier {
         setSignupLoading(false,);
       }
     }).onError((error, stackTrace) {
+      debugPrint(error.toString());
       Messages.flushBarMessage(context, error.toString());
       setSignupLoading(false);
     });

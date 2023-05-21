@@ -109,7 +109,7 @@ class AppointmentViewModel with ChangeNotifier{
     isBookAppointmentLoading = true;
     notifyListeners();
     await bookAppointmentRepo.bookAppointment(body: body).then((value) {
-      Messages.snackBar(context, "Appointment Successful", backgroundColor: Colors.green);
+      // Messages.snackBar(context, "Appointment Successful", backgroundColor: Colors.green);
       isBookAppointmentLoading = false;
       notifyListeners();
       invoiceSuccessPopUp(context, appointmentDate: body["date"], amount: body["amount"], doctorId: body["doctor_id"], appointmentType: body["appointment_type"], doctor: doctor, patientId: body["patient_id"], paymentMethod: body["payment_type"],);
