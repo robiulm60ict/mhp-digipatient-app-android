@@ -45,7 +45,7 @@ class NetworkApiService extends BaseApiService{
       case 400:
         throw BadRequestException(response.body.toString());
       case 404:
-    throw UnauthorisedException("Unauthorised Request");
+    throw UnauthorisedException(response.body.toString());
       case 500:
     throw InternalServerException("Internal Server Error ");
       default:

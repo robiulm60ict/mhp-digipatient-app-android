@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/model/auth_model/birth_sex_model.dart';
 import 'package:digi_patient/model/auth_model/blood_group_model.dart';
+import 'package:digi_patient/resources/send_image.dart';
 import 'package:digi_patient/utils/datetime.dart';
 import 'package:digi_patient/view_model/auth_view_model.dart';
 import 'package:digi_patient/widgets/custom_textfield.dart';
@@ -425,26 +426,34 @@ class _CreateAccountViewState extends State<CreateAccountView> {
             SizedBox(
               height: 10.h,
             ),
-            CustomElevatedButton(
+            auth.isRegistrationLoading ? const Center(child: CircularProgressIndicator(),) : CustomElevatedButton(
               isExpanded: false,
               title: "Save",
-              onPressed: () {
+              onPressed: () async{
 
                 if(xFileList.isNotEmpty && name.text.isNotEmpty && dateOfBirthController.text.isNotEmpty && bloodGroup != null && birthSex != null && password.text.isNotEmpty && email.text.isNotEmpty){
-                  Map<String , String> body = {
-                    'phone_number' : widget.phoneNumber,
-                    'token' : widget.token,
-                    'verification_code' : widget.vCode,
-                    'patient_first_name' : name.text,
-                    'patient_birth_sex_id' : "${birthSex?.id}",
-                    'ptn_blood_group_id' : "${bloodGroup?.id}",
-                    'patient_dob' : dateOfBirthController.text,
-                    // 'patient_images' : File(xFileList.first!.name),
-                    'password' : password.text,
-                    'patient_email' : email.text,
-                  };
+                  // Map<String , String> body = {
+                  //   'phone_number' : widget.phoneNumber,
+                  //   'token' : widget.token,
+                  //   'verification_code' : widget.vCode,
+                  //   'patient_first_name' : name.text,
+                  //   'patient_birth_sex_id' : "${birthSex?.id}",
+                  //   'ptn_blood_group_id' : "${bloodGroup?.id}",
+                  //   'patient_dob' : dateOfBirthController.text,
+                  //   // 'patient_images' : File(xFileList.first!.name).path,
+                  //   'password' : password.text,
+                  //   'patient_email' : email.text,
+                  // };
+                  await auth.registration(context, imageFile: File(xFileList.first!.path),
+                      phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode,
+                      name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}",
+                      dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
+                  // await UserRegistration().sendImageAndData(imageFile: File(xFileList.first!.path),
+                  //     phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode,
+                  //     name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}",
+                  //     dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
                   // auth.signUpApi(context, body);
-                  auth.signUpAndSendImage(context, body: body, filePath: xFileList.first!.path);
+                  // auth.signUpAndSendImage(context, body: body, filePath: xFileList.first!.path);
 
 
                 }else {

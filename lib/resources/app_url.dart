@@ -81,7 +81,7 @@ class AppUrls{
 
   static const String checkOtp = '$baseUrl/mhp_server/public/api/verification-check';
 
-  static const String registration = '$baseUrl/mhp_server/public/api/patients-sign-up';
+  static const String registration = '$baseUrl/mhp_server/public/api/patient-sign-up';
 
   static const String loginAfterRegistration = '$baseUrl/mhp_server/public/api/login-patient';
 
