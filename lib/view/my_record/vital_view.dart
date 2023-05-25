@@ -130,23 +130,24 @@ class _VitalsViewState extends State<VitalsView>
                     SizedBox(
                       height: 45.h,
                     ),
-                    vital.isVitalLoading || vital.vitalsList.first.bpArray != null || vital.vitalsList.first.bpArray!.isNotEmpty
+                    // || vital.vitalsList.first.bpArray != null || vital.vitalsList.first.bpArray!.isNotEmpty
+                    vital.isVitalLoading || vital.vitalsList.first.bpArray!.isEmpty
                         ? const Center(
                             child: CircularProgressIndicator(),
                           )
                         : VitalsCard(
-                            title:
-                                "${vital.vitalsList.first.bpArray?.first.name}",
-                            subtitle:
-                                "${vital.vitalsList.first.bpArray?.first.systolic}/${vital.vitalsList.first.bpArray?.first.diastolic}",
-                            image:
-                                "${AppUrls.image}images/VitalSignIcon/${vital.vitalsList.first.bpArray?.first.icon}",
-                        icon: "${vital.vitalsList.first.bpArray?.first.icon}",
+                        title:
+                        "${vital.vitalsList.first.bpArray?.first.name}",
+                        subtitle:
+                        "${vital.vitalsList.first.bpArray?.first.systolic }/${vital.vitalsList.first.bpArray?.first.diastolic }",
+                        image:
+                        "${AppUrls.image}images/VitalSignIcon/${vital.vitalsList.first.bpArray?.first.icon }",
+                        icon: "${vital.vitalsList.first.bpArray?.first.icon }",
                         unitId: "",
                         color: "",
                         v: Vitals.bloodPressure,
-                            allData: const [],
-                            index: 0),
+                        allData: const [],
+                        index: 0),
                     vital.isVitalLoading
                         ? const Center(
                             child: CircularProgressIndicator(),

@@ -152,13 +152,13 @@ class AuthViewModel with ChangeNotifier {
     await auth.registration(imageFile: imageFile, phoneNumber: phoneNumber, token: token, verificationCode: verificationCode, name: name, genderId: genderId, bloodGroupId: bloodGroupId, dateOfBirth: dateOfBirth, password: password, email: email).then((value) {
       registrationList.add(value);
       Messages.snackBar(context, "Registration Successful", backgroundColor: AppColors.greenColor);
-      debugPrint("\n\n\n\n\n\n\n\n\n id: ${value.patients?.id}---\n${value.patients?.patientFirstName}");
+      debugPrint("\n---\n---\n---\n---\n---\n---\n---\n---\n id: ${value.patients?.id}---\n Name: ${value.patients?.patientFirstName} \n---\n---\n---\n---\n---\n---\n---\n---\n");
       saveUser(isLoggedIn: true, email: email, password: password, name: name, id: int.tryParse("${value.patients?.id}") ?? 0);
       setRegistrationLoading(false);
-      Future.delayed(const Duration(seconds: 1)).then((value) {
-        setLoginLoading(false, value);
-        context.router.replace(const DashboardRoute());
-      });
+      // Future.delayed(const Duration(seconds: 1)).then((value) {
+      //   setLoginLoading(false, value);
+      //   context.router.replace(const DashboardRoute());
+      // });
       // context.router.replaceAll(DashboardRoute());
     }).onError((error, stackTrace) {
       Messages.snackBar(context, error.toString());

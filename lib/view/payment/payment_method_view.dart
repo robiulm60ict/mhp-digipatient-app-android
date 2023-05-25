@@ -1,6 +1,7 @@
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/resources/app_url.dart';
+import 'package:digi_patient/utils/message.dart';
 import 'package:digi_patient/utils/popup_dialogue.dart';
 import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
 import 'package:digi_patient/widgets/payment_user_detail.dart';
@@ -47,6 +48,15 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
   // PageStorageKey creditKey = const PageStorageKey("credit");
 
   Payment payment = Payment.cash;
+  TextEditingController transaction = TextEditingController();
+  FocusNode transactionFocusNode = FocusNode();
+
+  @override
+ void dispose() {
+    super.dispose();
+    transaction.dispose();
+    transactionFocusNode.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,41 +107,42 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                   SizedBox(
                     height: 8.h,
                   ),
-                  ListTile(
-                    onTap: () {
-                      payment = Payment.cash;
-                      setState(() {});
-                    },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(2.r),
-                        side: const BorderSide(color: Colors.black)),
-                    leading: CircleAvatar(
-                        radius: 10.r,
-                        // backgroundColor: Colors.white,
-                        child: Icon(
-                          Icons.circle,
-                          size: 15.h,
-                          color: payment == Payment.cash
-                              ? AppColors.primaryColor
-                              : Colors.white,
-                        )),
-                    title: Text(
-                      "Cash",
-                      style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xFF8A8A8A)),
-                    ),
-                    trailing: Image.asset(
-                      Assets.imagesCash,
-                      height: 20.h,
-                      width: 30.w,
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 8.h,
-                  ),
+                  // ListTile(
+                  //   onTap: () {
+                  //     payment = Payment.cash;
+                  //     setState(() {});
+                  //   },
+                  //   shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(2.r),
+                  //       side: const BorderSide(color: Colors.black)),
+                  //   leading: CircleAvatar(
+                  //       radius: 10.r,
+                  //       // backgroundColor: Colors.white,
+                  //       child: Icon(
+                  //         Icons.circle,
+                  //         size: 15.h,
+                  //         color: payment == Payment.cash
+                  //             ? AppColors.primaryColor
+                  //             : Colors.white,
+                  //       )),
+                  //   title: Text(
+                  //     "Cash",
+                  //     style: TextStyle(
+                  //         fontSize: 12.sp,
+                  //         fontWeight: FontWeight.w500,
+                  //         color: const Color(0xFF8A8A8A)),
+                  //   ),
+                  //   trailing: Image.asset(
+                  //     Assets.imagesCash,
+                  //     height: 20.h,
+                  //     width: 30.w,
+                  //     fit: BoxFit.fill,
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 8.h,
+                  // ),
+                  ///
                   // Card(
                   //   shape: RoundedRectangleBorder(
                   //       borderRadius: BorderRadius.circular(2.r),
@@ -325,12 +336,16 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                             );
                           }).toList(),
                         ),
+                        Center(child: Text("Send Money To 01774142172", style: TextStyle(
+                            fontSize: 11.sp,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black),),),
                         Padding(
                           padding: EdgeInsets.all(8.0.r),
                           child: Row(
                             children: [
                               Text(
-                                "Account Number",
+                                "Transaction Id",
                                 style: TextStyle(
                                     fontSize: 11.sp,
                                     fontWeight: FontWeight.w500,
@@ -341,16 +356,18 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                               ),
                               Expanded(
                                   child: TextField(
+                                    controller: transaction,
                                 decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Colors.grey.shade200,
                                     border: InputBorder.none,
                                     focusedBorder: InputBorder.none,
                                     enabledBorder: InputBorder.none,
-                                    hintText: "place here",
+                                    hintText: "xxxxxxxxxxx",
                                     hintStyle:
                                         TextStyle(color: Colors.grey.shade500)),
-                              ))
+                              ),
+                              ),
                             ],
                           ),
                         ),
@@ -438,19 +455,26 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
 
                       //TODO: add disease list and transaction no
 
-                      Map<String, dynamic> body = {
-                        "doctor_id": widget.doctorId,
-                        "patient_id": widget.patientId,
-                        "date": widget.appointmentDate,
-                        "appointment_type": widget.appointmentType,
-                        "disease": widget.diseaseList.toString(),
-                        "payment_type": getPaymentMethod(),
-                        "amount": widget.amount,
-                        "transaction_no": "trNxNo",
-                      };
+                      if(transaction.text.isNotEmpty){
+                        Map<String, dynamic> body = {
+                          "doctor_id": widget.doctorId,
+                          "patient_id": widget.patientId,
+                          "date": widget.appointmentDate,
+                          "appointment_type": widget.appointmentType,
+                          "disease": widget.diseaseList.toString(),
+                          "payment_type": getPaymentMethod(),
+                          "amount": widget.amount,
+                          "transaction_no": transaction.text,
+                        };
 
-                      await apVM.bookAppointment(context, body: body, doctor: widget.doctor);
-                    }, child: Text("Pay Now", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: Colors.white),),),
+                        await apVM.bookAppointment(context, body: body, doctor: widget.doctor);
+
+                      }else{
+                        transactionFocusNode.requestFocus();
+                        Messages.snackBar(context, "Enter Transaction Id");
+                      }
+
+                       }, child: Text("Pay Now", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: Colors.white),),),
                   ),
                 ],
               ),

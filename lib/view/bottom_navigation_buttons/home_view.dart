@@ -71,9 +71,14 @@ class _HomeViewState extends State<HomeView> {
                 ],
               ),
               SizedBox(height: 50.h,),
-              DrawerListTile(iconData: Icons.person, title: "Profile", onTap: (){},),
+              DrawerListTile(iconData: Icons.person, title: "Profile", onTap: (){
+
+                // context.router.push(UserDetailRoute(user: user));
+              },),
               SizedBox(height: 6.h,),
-              DrawerListTile(iconData: Icons.calendar_view_day, title: "Appointment", onTap: (){},),
+              DrawerListTile(iconData: Icons.calendar_view_day, title: "Appointment", onTap: (){
+                context.router.push(const DailyAndUpcommingRoute());
+              },),
               SizedBox(height: 6.h,),
               DrawerListTile(iconData: Icons.favorite_border, title: "Favourite", onTap: (){},),
               SizedBox(height: 6.h,),

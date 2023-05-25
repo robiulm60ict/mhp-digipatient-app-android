@@ -100,7 +100,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                       },
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 8.0.h),
-                        child: Text("Upcomming Appointments", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: !showTodayAppointments ? Colors.white : AppColors.primaryColor),),
+                        child: Text("Upcoming Appointments", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: !showTodayAppointments ? Colors.white : AppColors.primaryColor),),
                       ),
                     ),
                   ),
@@ -110,14 +110,14 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
             SizedBox(height: 20.h,),
             Expanded(child: Visibility(
               visible: showTodayAppointments,
-              replacement: appointments.isUpcommingAppointmentLoading ? Center(child: SizedBox(height: 50.h,child: const CircularProgressIndicator())) : ListView.builder(
+              replacement: appointments.isUpcommingAppointmentLoading ? const Center(child: CircularProgressIndicator()) : ListView.builder(
     itemCount: appointments.upcommingAppointmentList.length,
     itemBuilder: (context, index) {
     UpcomingPatientAppointments app = appointments.upcommingAppointmentList[index];
     return AppointmentNotificationCard(
     onTap: (){
       debugPrint("--------------------${app.appType}");
-        context.router.push(DailyAndUpcommingDetailRoute(docImage: "${AppUrls.docImage}${app.drImages}", docName: "${app.drGivenName}", docHospital: "${app.drProviderId}", docSpeciality: "${app.drProviderId}", appType: "${app.appType}".toLowerCase() == "online" ? true : false));
+        context.router.push(DailyAndUpcommingDetailRoute(docImage: "${AppUrls.docImage}${app.drImages}", docName: "${app.drGivenName}", docHospital: "${app.drAbout}", docSpeciality: "${app.drProviderId}", appType: "${app.appType}".toLowerCase() == "online" ? true : false));
     },
     title: "You have an appointments with ${app.drGivenName} at ${getDate(app.startTime)}",
     subTitle: "Starts: ${getTime(app.startTime)} Ends: ${getTime(app.endTime)}",
@@ -131,7 +131,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                   return AppointmentNotificationCard(
                     onTap: (){
                       debugPrint("--------------------${app.appType}");
-                      context.router.push(DailyAndUpcommingDetailRoute(docImage: "${AppUrls.docImage}${app.drImages}", docName: "${app.drGivenName}", docHospital: "${app.drProviderId}", docSpeciality: "${app.drProviderId}", appType: "${app.appType}".toLowerCase() == "online" ? true : false));
+                      context.router.push(DailyAndUpcommingDetailRoute(docImage: "${AppUrls.docImage}${app.drImages}", docName: "${app.drGivenName}", docHospital: "${app.drAbout}", docSpeciality: "${app.drProviderId}", appType: "${app.appType}".toLowerCase() == "online" ? true : false));
                     },
                   title: "Today you have an appointments with ${app.drGivenName}",
                     subTitle: "Starts: ${getTime(app.startTime)} Ends: ${getTime(app.endTime)}",
