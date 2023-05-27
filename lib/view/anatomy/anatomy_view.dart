@@ -157,7 +157,7 @@ class _AnatomyViewState extends State<AnatomyView> {
     return WillPopScope(
       onWillPop: () {
         anatomy.getSelectedSymptomsList();
-      return Future.delayed(const Duration(milliseconds: 100)).then((value) => true);
+      return Future.delayed(const Duration(milliseconds: 1000)).then((value) => true);
 
         },
       child: Scaffold(

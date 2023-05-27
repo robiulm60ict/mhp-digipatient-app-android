@@ -95,8 +95,8 @@ class AnatomyModelView with ChangeNotifier{
   // List<SymptomsAnatomy> selectedAnatomyList = [];
 
    bool getSymptomsByBodyPart({required String name}){
-
-    getSymptomsList = symptomsList.where((element) => element.subBodyPartName?.toLowerCase() == name.toLowerCase()).toList();
+// symptomsList = symptomsList.where((e) => e.subBodyPartName?.contains(name) ?? false || e.mainBodyPartName?.contains(name) ?? false).toList();
+    getSymptomsList = symptomsList.where((element) => element.subBodyPartName?.toLowerCase() == name.toLowerCase() || element.mainBodyPartName?.toLowerCase() == name.toLowerCase()).toList();
     // notifyListeners();
     return false;
 

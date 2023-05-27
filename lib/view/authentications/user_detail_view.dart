@@ -7,12 +7,16 @@ import 'package:digi_patient/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 import '../../enum/gender_enum.dart';
+import '../../model/auth_model/birth_sex_model.dart';
+import '../../model/auth_model/blood_group_model.dart';
 import '../../resources/app_url.dart';
 import '../../resources/constants.dart';
 import '../../utils/message.dart';
 import '../../utils/utils.dart';
+import '../../view_model/auth_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/custom_elivated_button.dart';
 
@@ -69,16 +73,47 @@ class _UserDetailViewState extends State<UserDetailView> {
     // }
   }
   Gender _gender = Gender.male;
+  BloodGroup? bloodGroup;
+
+  BirthSex? birthSex;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Add Your Code here.
+      context.read<AuthViewModel>().getBirthSex(context);
+      context.read<AuthViewModel>().getBloodGroup(context);
+      // setBirthSexAndBloodGroup();
+    });
     nameController = TextEditingController(text: "${widget.user.patientFirstName} ${widget.user.patientMiddleName} ${widget.user.patientLastName}");
     emailController = TextEditingController(text: "${widget.user.patientEmail}");
     dateOfBirthController = TextEditingController(text: "${widget.user.patientDob}");
     setGender(widget.user.patientBirthSex?.birthSexName ?? "");
   }
-
+  // setBirthSexAndBloodGroup() {
+  //   if (!context
+  //       .read<AuthViewModel>()
+  //       .isBloodGroupLoading && !context
+  //       .read<AuthViewModel>()
+  //       .isBirthSexLoading) {
+  //     bloodGroup = context
+  //         .read<AuthViewModel>()
+  //         .bloodGroupList
+  //         .first
+  //         .bloodGroup!
+  //         .first;
+  //     birthSex = context
+  //         .read<AuthViewModel>()
+  //         .birthSexList
+  //         .first
+  //         .birthSex!
+  //         .first;
+  //     setState(() {
+  //
+  //     });
+  //   }
+  // }
   setGender(String gender){
     if( widget.user.patientBirthSex?.birthSexName.toString().toLowerCase() == "male"){
       setState(() {
@@ -108,6 +143,8 @@ class _UserDetailViewState extends State<UserDetailView> {
   }
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthViewModel>(context);
+
     return Scaffold(
       appBar: AppBar(
         leadingWidth: leadingWidth,
@@ -182,84 +219,201 @@ class _UserDetailViewState extends State<UserDetailView> {
                     },
                   ),
                   SizedBox(height: 10.h,),
-                  CustomTextField(
-                    prefix: Icon(Icons.bloodtype, color: AppColors.primaryColor,),
-                    hintText: "Blood Group",
+                  auth.isBloodGroupLoading ? const Center(child: CircularProgressIndicator(),) :
+
+                  SizedBox(
+                    height: 55.h,
+                    width: double.infinity,
+                    child: DropdownButton<BloodGroup>(
+                      hint: Text("Select Blood Group", style: TextStyle(fontSize: 14.sp,),),
+                      items: auth.bloodGroupList.first.bloodGroup?.map((e) => DropdownMenuItem<BloodGroup>(value: e,child: Text("${e.bloodGroupName}", style: TextStyle(fontSize: 14.sp, ),),)).toList(),
+                      isExpanded: true,
+                      value: bloodGroup,
+                      onChanged: (value) {
+                        if(value != null){
+                          setState(() {
+                            // bloodGroupId = "${value.id}";
+                            bloodGroup = value;
+                          });
+                        }
+
+                      },),
                   ),
+
                   SizedBox(
                     height: 10.h,
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: RadioListTile<Gender>(
-                          activeColor: AppColors.primaryColor,
-                          title: Text(
-                            'Male',
-                            style: genderTextStyle(context),
-                          ),
-                          value: Gender.male,
-                          groupValue: _gender,
-                          onChanged: (Gender? value) {
-                            setState(() {
-                              _gender = value!;
-                            });
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        child: RadioListTile<Gender>(
-                          activeColor: AppColors.primaryColor,
-                          title: Text(
-                            'Female',
-                            style: genderTextStyle(context),
-                          ),
-                          value: Gender.female,
-                          groupValue: _gender,
-                          onChanged: (Gender? value) {
-                            setState(() {
-                              _gender = value!;
-                            });
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        child: RadioListTile<Gender>(
-                          activeColor: AppColors.primaryColor,
-                          title: Text(
-                            'Others',
-                            style: genderTextStyle(context),
-                          ),
-                          value: Gender.others,
-                          groupValue: _gender,
-                          onChanged: (Gender? value) {
-                            setState(() {
-                              _gender = value!;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: RadioListTile<Gender>(
+                  //         activeColor: AppColors.primaryColor,
+                  //         title: Text(
+                  //           'Male',
+                  //           style: genderTextStyle(context),
+                  //         ),
+                  //         value: Gender.male,
+                  //         groupValue: _gender,
+                  //         onChanged: (Gender? value) {
+                  //           setState(() {
+                  //             _gender = value!;
+                  //           });
+                  //         },
+                  //       ),
+                  //     ),
+                  //     Expanded(
+                  //       child: RadioListTile<Gender>(
+                  //         activeColor: AppColors.primaryColor,
+                  //         title: Text(
+                  //           'Female',
+                  //           style: genderTextStyle(context),
+                  //         ),
+                  //         value: Gender.female,
+                  //         groupValue: _gender,
+                  //         onChanged: (Gender? value) {
+                  //           setState(() {
+                  //             _gender = value!;
+                  //           });
+                  //         },
+                  //       ),
+                  //     ),
+                  //     Expanded(
+                  //       child: RadioListTile<Gender>(
+                  //         activeColor: AppColors.primaryColor,
+                  //         title: Text(
+                  //           'Others',
+                  //           style: genderTextStyle(context),
+                  //         ),
+                  //         value: Gender.others,
+                  //         groupValue: _gender,
+                  //         onChanged: (Gender? value) {
+                  //           setState(() {
+                  //             _gender = value!;
+                  //           });
+                  //         },
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  auth.isBirthSexLoading ? const Center(child: CircularProgressIndicator(),) :
+
+                  SizedBox(
+                    height: 55.h,
+                    width: double.infinity,
+                    child: DropdownButton<BirthSex>(
+                      hint: Text("Select Gender", style: TextStyle(fontSize: 14.sp,),),
+
+                      items: auth.birthSexList.first.birthSex?.map((e) => DropdownMenuItem<BirthSex>(value: e,child: Text("${e.birthSexName}", style: TextStyle(fontSize: 14.sp,),),)).toList(),
+                      isExpanded: true,
+                      value: birthSex,
+                      onChanged: (value) {
+                        if(value != null){
+                          setState(() {
+                            // bloodGroupId = "${value.id}";
+                            birthSex = value;
+                          });
+                        }
+
+                      },),
                   ),
-                  CustomTextField(
-                    prefix: Icon(Icons.lock, color: AppColors.primaryColor,),
-                    hintText: "Password",
-                  ),
+
+                  // CustomTextField(
+                  //   prefix: Icon(Icons.bloodtype, color: AppColors.primaryColor,),
+                  //   hintText: "Blood Group",
+                  // ),
+                  // SizedBox(
+                  //   height: 10.h,
+                  // ),
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: RadioListTile<Gender>(
+                  //         activeColor: AppColors.primaryColor,
+                  //         title: Text(
+                  //           'Male',
+                  //           style: genderTextStyle(context),
+                  //         ),
+                  //         value: Gender.male,
+                  //         groupValue: _gender,
+                  //         onChanged: (Gender? value) {
+                  //           setState(() {
+                  //             _gender = value!;
+                  //           });
+                  //         },
+                  //       ),
+                  //     ),
+                  //     Expanded(
+                  //       child: RadioListTile<Gender>(
+                  //         activeColor: AppColors.primaryColor,
+                  //         title: Text(
+                  //           'Female',
+                  //           style: genderTextStyle(context),
+                  //         ),
+                  //         value: Gender.female,
+                  //         groupValue: _gender,
+                  //         onChanged: (Gender? value) {
+                  //           setState(() {
+                  //             _gender = value!;
+                  //           });
+                  //         },
+                  //       ),
+                  //     ),
+                  //     Expanded(
+                  //       child: RadioListTile<Gender>(
+                  //         activeColor: AppColors.primaryColor,
+                  //         title: Text(
+                  //           'Others',
+                  //           style: genderTextStyle(context),
+                  //         ),
+                  //         value: Gender.others,
+                  //         groupValue: _gender,
+                  //         onChanged: (Gender? value) {
+                  //           setState(() {
+                  //             _gender = value!;
+                  //           });
+                  //         },
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // CustomTextField(
+                  //   prefix: Icon(Icons.lock, color: AppColors.primaryColor,),
+                  //   hintText: "Password",
+                  // ),
+
                   SizedBox(
                     height: 10.h,
-                  ),CustomTextField(
-                    prefix: Icon(Icons.bloodtype, color: AppColors.primaryColor,),
-                    hintText: "Confirm Password",
                   ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
+                  // Stack(
+                  //   children: [
+                  //     CustomElevatedButton(
+                  //       isExpanded: false,
+                  //       title: "Save",
+                  //       onPressed: () {
+                  //         debugPrint(_gender.name);
+                  //         if (xFileList.isNotEmpty) {
+                  //           // congratsDialogue(context, onTap: (){
+                  //           // context.router.replace(const DashboardRoute());
+                  //           // });
+                  //
+                  //         } else {
+                  //           Messages.flushBarMessage(
+                  //               context, "Please Upload your image");
+                  //         }
+                  //       },
+                  //       backgroundColor: AppColors.primaryColor,
+                  //       textColor: Colors.white,
+                  //     ),
+                  //     Positioned(
+                  //         right: 0,
+                  //         top: -7,
+                  //         child: Card(child: Text("Upcoming", style: TextStyle(fontSize: 15.sp, color: Colors.red),),))
+                  //   ],
+                  // ),
                   CustomElevatedButton(
                     isExpanded: false,
                     title: "Save",
+
                     onPressed: () {
                       debugPrint(_gender.name);
                       if (xFileList.isNotEmpty) {
