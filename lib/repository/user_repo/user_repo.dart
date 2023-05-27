@@ -30,4 +30,23 @@ class UserRepo{
     }
   }
 
+  Future<UserModel> editUserData() async{
+
+    final prefs =  await SharedPreferences.getInstance();
+
+    int? id = prefs.getInt(UserP.id);
+
+    try{
+
+      dynamic response = await apiService.getGetApiResponse("${AppUrls.userUrl}$id",);
+
+      return UserModel.fromJson(response);
+
+    }catch(e){
+
+      rethrow;
+
+    }
+  }
+
 }

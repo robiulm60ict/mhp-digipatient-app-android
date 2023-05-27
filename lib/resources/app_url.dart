@@ -38,6 +38,9 @@ class AppUrls{
   /// user
   static const String userUrl = "$baseUrl/mhp_server/public/api/edit-patients/";
 
+  //TODO: set Edit user url
+  static const String editUserUrl = "$baseUrl/mhp_server/public/api/edit-patients/";
+
   /// image
 
   static const String image = "$baseUrl/mhp_server/public/";

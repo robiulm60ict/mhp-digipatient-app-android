@@ -22,7 +22,7 @@ class AddMedicalHistoryView extends StatefulWidget {
 }
 
 class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
-  DateTime? selectedDate;
+  DateTime? selectedDate = DateTime.now();
   // TextEditingController condition = TextEditingController();
   Data? selectedCondition;
   // TextEditingController code = TextEditingController();

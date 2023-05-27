@@ -359,7 +359,8 @@ class _UserDetailViewState extends State<UserDetailView> {
                         child: CircleAvatar(backgroundColor: Colors.white,child: Icon(Icons.edit, size: 15.h,),),),
                   ],
                 ),
-              )),
+              ),
+          ),
         ],
       ),
     );
