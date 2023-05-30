@@ -82,7 +82,9 @@ class _HomeViewState extends State<HomeView> {
               SizedBox(height: 6.h,),
               DrawerListTile(iconData: Icons.favorite_border, title: "Favourite", onTap: (){},),
               SizedBox(height: 6.h,),
-              DrawerListTile(iconData: Icons.payment, title: "Payment & Invoice", onTap: (){},),
+              DrawerListTile(iconData: Icons.payment, title: "Payment & Invoice", onTap: (){
+                context.router.push(const InvoiceRoute());
+              },),
               SizedBox(height: 6.h,),
               DrawerListTile(iconData: Icons.fact_check_outlined, title: "Faq", onTap: (){},),
               SizedBox(height: 6.h,),

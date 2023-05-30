@@ -129,6 +129,28 @@ class AuthViewModel with ChangeNotifier {
   //   var res = await request.send();
   // }
 
+  signUpOriginal(BuildContext context, Map<String, dynamic> body)async{
+    // registrationList.clear();
+    // setRegistrationLoading(true);
+    auth.signUpOriginal(context, body).then((value) {
+      // registrationList.add(value);
+      Messages.snackBar(context, value.message.toString(), backgroundColor: AppColors.greenColor);
+      debugPrint("Value: \n\n\n\n\n\n ${value.message} \n ${value.data?.name} \n ${value.patients?.patientFirstName}");
+    }).onError((error, stackTrace) {
+      debugPrint("Error: \n\n\n\n\n\n $error");
+      Messages.snackBar(context, error.toString());
+
+    });
+  }
+  signUp(BuildContext context, Map<String, String> body, imageBytes){
+    auth.signUpApi(body: body, imageBytes: imageBytes).then((value) {
+      debugPrint(value.message);
+      Messages.snackBar(context, value.message.toString());
+    }).onError((error, stackTrace) {
+      debugPrint(error.toString());
+ Messages.snackBar(context, error.toString());
+    });
+  }
   List<RegistrationModel> registrationList = [];
   bool isRegistrationLoading = false;
   setRegistrationLoading(bool val){

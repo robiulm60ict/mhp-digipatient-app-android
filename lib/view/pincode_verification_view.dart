@@ -40,6 +40,11 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
   @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+
+      context.read<AuthViewModel>().setOtpCheckLoading(false);
+
+    });
     super.initState();
   }
   bool acceptTheTerms = true;

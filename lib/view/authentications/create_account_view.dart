@@ -430,35 +430,52 @@ class _CreateAccountViewState extends State<CreateAccountView> {
               isExpanded: false,
               title: "Save",
               onPressed: () async{
+                debugPrint("------------------------------------------------\n\n\n\n\n\n");
+                debugPrint(widget.phoneNumber);
+                debugPrint(widget.token);
+                debugPrint(widget.vCode);
+                if(password.text.length < 7){
+                  Messages.snackBar(context, "Enter At least 8 Digit Password");
+                }else{
+                  if(xFileList.isNotEmpty && name.text.isNotEmpty && dateOfBirthController.text.isNotEmpty && bloodGroup != null && birthSex != null && password.text.isNotEmpty && email.text.isNotEmpty){
+                    Map<String , dynamic> body = {
+                      'phone_number' : widget.phoneNumber,
+                      'token' : widget.token,
+                      'verification_code' : widget.vCode,
+                      'patient_first_name' : name.text,
+                      'patient_birth_sex_id' : "${birthSex?.id}",
+                      'ptn_blood_group_id' : "${bloodGroup?.id}",
+                      'patient_dob' : dateOfBirthController.text,
+                      'image' : File(xFileList.first!.path).toString(),
+                      'password' : password.text,
+                      'patient_email' : email.text,
+                    };
+                    auth.signUpOriginal(context, body);
+                    // final imageBytes = File(xFileList.first!.name).length() as List<int>;
+                    // auth.signUp(context, body, File(xFileList.first!.name).toString());
+                    ///
+                    // final res = SendImage();
+                    // await res.addImage(body, File(xFileList.first!.name).path).onError((error, stackTrace) {
+                    //   debugPrint(error.toString());
+                    //   return false;
+                    // });
+                    ///
+                    // await auth.registration(context, imageFile: File(xFileList.first!.path),
+                    //     phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode,
+                    //     name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}",
+                    //     dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
+                    // await UserRegistration().sendImageAndData(imageFile: File(xFileList.first!.path),
+                    //     phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode,
+                    //     name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}",
+                    //     dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
+                    // auth.signUpApi(context, body);
+                    // auth.signUpAndSendImage(context, body: body, filePath: xFileList.first!.path);
 
-                if(xFileList.isNotEmpty && name.text.isNotEmpty && dateOfBirthController.text.isNotEmpty && bloodGroup != null && birthSex != null && password.text.isNotEmpty && email.text.isNotEmpty){
-                  // Map<String , String> body = {
-                  //   'phone_number' : widget.phoneNumber,
-                  //   'token' : widget.token,
-                  //   'verification_code' : widget.vCode,
-                  //   'patient_first_name' : name.text,
-                  //   'patient_birth_sex_id' : "${birthSex?.id}",
-                  //   'ptn_blood_group_id' : "${bloodGroup?.id}",
-                  //   'patient_dob' : dateOfBirthController.text,
-                  //   // 'patient_images' : File(xFileList.first!.name).path,
-                  //   'password' : password.text,
-                  //   'patient_email' : email.text,
-                  // };
-                  await auth.registration(context, imageFile: File(xFileList.first!.path),
-                      phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode,
-                      name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}",
-                      dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
-                  // await UserRegistration().sendImageAndData(imageFile: File(xFileList.first!.path),
-                  //     phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode,
-                  //     name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}",
-                  //     dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
-                  // auth.signUpApi(context, body);
-                  // auth.signUpAndSendImage(context, body: body, filePath: xFileList.first!.path);
 
-
-                }else {
-                  Messages.flushBarMessage(
-                      context, "Enter all of the field and upload image also");
+                  }else {
+                    Messages.flushBarMessage(
+                        context, "Enter all of the field and upload image also");
+                  }
                 }
               },
               backgroundColor: AppColors.primaryColor,

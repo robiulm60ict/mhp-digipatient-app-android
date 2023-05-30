@@ -50,11 +50,22 @@ class AuthRepository {
     }
   }
 
+  Future<RegistrationModel> signUpOriginal(BuildContext context, Map<String,dynamic> body)async{
+    try{
+      final json = await apiService.getPostApiResponse(AppUrls.registration, body);
+      // debugPrint("Json: \n\n\n\n\n\n $json");
+      return RegistrationModel.fromJson(json);
+    }catch (e){
+      rethrow;
+    }
+  }
+
   Future<RegistrationModel> signUpApi(
-      {required Map<String, dynamic> body}) async {
+      {required Map<String, String> body, required imageBytes}) async {
+    SendImage sendImage = SendImage();
     try {
-      dynamic response =
-          await apiService.getPostApiResponse(AppUrls.registration, body);
+      dynamic response = await sendImage.addImage(body, imageBytes);
+          // await apiService.getPostApiResponse(AppUrls.registration, body);
       return RegistrationModel.fromJson(response);
     } catch (e) {
       rethrow;

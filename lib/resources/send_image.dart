@@ -12,7 +12,7 @@ import 'dart:convert';
 import '../model/auth_model/RegistrationModel.dart';
 
 class SendImage {
-  Future<bool> addImage(Map<String, String> body, String filepath) async {
+  Future<bool> addImage(Map<String, String> body, String imageBytes) async {
     // String addimageUrl = '<domain-name>/api/imageadd';
 
     Map<String, String> headers = {
@@ -22,18 +22,20 @@ class SendImage {
       ..fields.addAll(body)
       ..headers.addAll(headers)
       ..files
-          .add(await http.MultipartFile.fromPath('patient_images', filepath));
+          .add(http.MultipartFile.fromString("patient_images", imageBytes));
     var response = await request.send();
     debugPrint("\n\n\n\n\n\n\n\n${response.reasonPhrase}");
     var res = await convertStreamedResponseToHttpResponse(response);
     var finalResponse = NetworkApiService().returnResponse(res);
-    debugPrint(
-        "--- \n\n\n\n\n\n\nResponse Code: ${response.statusCode} and response ${finalResponse.toString()}");
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      return true;
-    } else {
-      return false;
-    }
+
+    return finalResponse;
+    // debugPrint(
+    //     "--- \n\n\n\n\n\n\nResponse Code: ${response.statusCode} and response ${finalResponse.toString()}");
+    // if (response.statusCode == 200 || response.statusCode == 201) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
   }
 }
 
@@ -91,7 +93,6 @@ class UserRegistration {
 
     // Make the POST request
     http.Response response = await http.post(
-      //TODO: replace the string to appurls
       Uri.parse(AppUrls.registration),
       headers: headers,
       body: jsonData,

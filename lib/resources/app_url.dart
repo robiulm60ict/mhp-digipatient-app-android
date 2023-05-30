@@ -94,6 +94,9 @@ class AppUrls{
 
   static const String bloodGroup = '$baseUrl/mhp_server/public/api/blood-group';
 
+  static const String invoiceView = '$baseUrl/mhp_server/public/api/online-booking-app-payment-details/';
+
+
 
 }
 

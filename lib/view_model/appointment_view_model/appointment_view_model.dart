@@ -1,5 +1,7 @@
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
+import 'package:digi_patient/model/invoice_model/invoice_show_model.dart';
 import 'package:digi_patient/repository/book_appointment/book_appointment_repo.dart';
+import 'package:digi_patient/repository/invoice_repo/invoice_repo.dart';
 import 'package:digi_patient/utils/datetime.dart';
 import 'package:digi_patient/utils/message.dart';
 import 'package:digi_patient/utils/popup_dialogue.dart';
@@ -170,6 +172,27 @@ Map<String, dynamic> body = {
     }
   }
 
+  InvoiceRepo invoiceRepo = InvoiceRepo();
+  List<InvoiceShowModel> invoiceList = [];
+  bool isInvoiceLoading = true;
+  setInvoiceLoading(bool val){
+    isInvoiceLoading = val;
+    notifyListeners();
+  }
+
+  getInvoiceList(BuildContext context)async{
+    invoiceList.clear();
+    setInvoiceLoading(true);
+    final id = await getPatientId();
+    await invoiceRepo.getInvoiceList(id.toString()).then((value) {
+      invoiceList.add(value);
+      setInvoiceLoading(false);
+    }).onError((error, stackTrace) {
+      setInvoiceLoading(true);
+      debugPrint("\n\n\n\n\n\n\n\n\n Error: $error");
+      Messages.snackBar(context, error.toString());
+    });
+  }
 }
 
 DateTime getDate(DateTime d) => DateTime(d.year, d.month, d.day);

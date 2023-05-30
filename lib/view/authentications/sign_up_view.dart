@@ -83,50 +83,50 @@ class _SignUpViewState extends State<SignUpView> {
           ),),
 
           SizedBox(height: 15.h,),
-          Text("Or", textAlign: TextAlign.center, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.grey),),
-          SizedBox(height: 15.h,),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: defaultPadding.w),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8.r)
-            ),
-            height: 50.h,
-            child: InkWell(
-              onTap: (){
-                debugPrint("google ");
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(Assets.iconsGoogle, height: 20.h,),
-                  SizedBox(width: 5.w,),
-                  Text("Continue with Google", style: TextStyle(fontSize: 12.sp, color: Colors.black, fontWeight: FontWeight.w500),),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(height: 15.h,),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: defaultPadding.w),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8.r)
-            ),
-            height: 50.h,
-            child: InkWell(
-              onTap: (){},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(Assets.iconsFacebook, height: 13.h,),
-                  SizedBox(width: 5.w,),
-                  Text("Continue with Facebook", style: TextStyle(fontSize: 12.sp, color: Colors.black, fontWeight: FontWeight.w500),),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(height: 15.h,),
+          // Text("Or", textAlign: TextAlign.center, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.grey),),
+          // SizedBox(height: 15.h,),
+          // Container(
+          //   margin: EdgeInsets.symmetric(horizontal: defaultPadding.w),
+          //   decoration: BoxDecoration(
+          //     color: Colors.white,
+          //     borderRadius: BorderRadius.circular(8.r)
+          //   ),
+          //   height: 50.h,
+          //   child: InkWell(
+          //     onTap: (){
+          //       debugPrint("google ");
+          //     },
+          //     child: Row(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: [
+          //         Image.asset(Assets.iconsGoogle, height: 20.h,),
+          //         SizedBox(width: 5.w,),
+          //         Text("Continue with Google", style: TextStyle(fontSize: 12.sp, color: Colors.black, fontWeight: FontWeight.w500),),
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          // SizedBox(height: 15.h,),
+          // Container(
+          //   margin: EdgeInsets.symmetric(horizontal: defaultPadding.w),
+          //   decoration: BoxDecoration(
+          //     color: Colors.white,
+          //     borderRadius: BorderRadius.circular(8.r)
+          //   ),
+          //   height: 50.h,
+          //   child: InkWell(
+          //     onTap: (){},
+          //     child: Row(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: [
+          //         Image.asset(Assets.iconsFacebook, height: 13.h,),
+          //         SizedBox(width: 5.w,),
+          //         Text("Continue with Facebook", style: TextStyle(fontSize: 12.sp, color: Colors.black, fontWeight: FontWeight.w500),),
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          // SizedBox(height: 15.h,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
             child: RichText(
