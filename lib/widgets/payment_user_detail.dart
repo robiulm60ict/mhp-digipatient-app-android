@@ -81,12 +81,14 @@ class PaymentUserDetail extends StatelessWidget {
                         SizedBox(
                           width: 4.w,
                         ),
-                        Text(
-                          hospitalName,
-                          style: TextStyle(
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xFF8A8A8A),
+                        Expanded(
+                          child: Text(
+                            hospitalName,
+                            style: TextStyle(
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xFF8A8A8A),
+                            ),
                           ),
                         ),
                       ],
@@ -114,7 +116,7 @@ class PaymentUserDetail extends StatelessWidget {
                         ),
                         const Spacer(),
                         Icon(
-                          Icons.location_on,
+                          Icons.call,
                           size: 12.h,
                           color: const Color(0xFF8A8A8A),
                         ),

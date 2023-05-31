@@ -12,7 +12,7 @@ import 'dart:convert';
 import '../model/auth_model/RegistrationModel.dart';
 
 class SendImage {
-  Future<bool> addImage(Map<String, String> body, String imageBytes) async {
+  Future<dynamic> addImage(Map<String, String> body, String imageBytes) async {
     // String addimageUrl = '<domain-name>/api/imageadd';
 
     Map<String, String> headers = {
@@ -22,13 +22,14 @@ class SendImage {
       ..fields.addAll(body)
       ..headers.addAll(headers)
       ..files
-          .add(http.MultipartFile.fromString("patient_images", imageBytes));
+          .add(await http.MultipartFile.fromPath('image', imageBytes));
     var response = await request.send();
     debugPrint("\n\n\n\n\n\n\n\n${response.reasonPhrase}");
     var res = await convertStreamedResponseToHttpResponse(response);
     var finalResponse = NetworkApiService().returnResponse(res);
-
+    debugPrint("------------------------------------");
     return finalResponse;
+    // return RegistrationModel.fromJson(finalResponse);
     // debugPrint(
     //     "--- \n\n\n\n\n\n\nResponse Code: ${response.statusCode} and response ${finalResponse.toString()}");
     // if (response.statusCode == 200 || response.statusCode == 201) {
@@ -78,7 +79,7 @@ class UserRegistration {
       'patient_birth_sex_id': genderId,
       'ptn_blood_group_id': bloodGroupId,
       'patient_dob': dateOfBirth,
-      'patient_images': base64Image,
+      'image': base64Image,
       'password': password,
       'patient_email': email,
     };

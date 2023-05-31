@@ -77,6 +77,14 @@ class _UserDetailViewState extends State<UserDetailView> {
 
   BirthSex? birthSex;
 
+  selectBirthSexAndBloodGroup({required String birthSexId, required String bloodGroupId}){
+    birthSex = context.read<AuthViewModel>().birthSexList.first.birthSex?.where((element) => element.id.toString() == birthSexId).toList().first;
+    bloodGroup = context.read<AuthViewModel>().bloodGroupList.first.bloodGroup?.where((element) => element.id.toString() == bloodGroupId).toList().first;
+  setState(() {
+
+  });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -84,12 +92,13 @@ class _UserDetailViewState extends State<UserDetailView> {
       // Add Your Code here.
       context.read<AuthViewModel>().getBirthSex(context);
       context.read<AuthViewModel>().getBloodGroup(context);
+      // selectBirthSexAndBloodGroup(birthSexId: "${widget.user.patientBirthSex?.id.toString()}", bloodGroupId: widget.user.ptnBloodGroupId.toString());
       // setBirthSexAndBloodGroup();
     });
     nameController = TextEditingController(text: "${widget.user.patientFirstName} ${widget.user.patientMiddleName} ${widget.user.patientLastName}");
     emailController = TextEditingController(text: "${widget.user.patientEmail}");
     dateOfBirthController = TextEditingController(text: "${widget.user.patientDob}");
-    setGender(widget.user.patientBirthSex?.birthSexName ?? "");
+    // setGender(widget.user.patientBirthSex?.birthSexName ?? "");
   }
   // setBirthSexAndBloodGroup() {
   //   if (!context
@@ -225,6 +234,7 @@ class _UserDetailViewState extends State<UserDetailView> {
                     height: 55.h,
                     width: double.infinity,
                     child: DropdownButton<BloodGroup>(
+
                       hint: Text("Select Blood Group", style: TextStyle(fontSize: 14.sp,),),
                       items: auth.bloodGroupList.first.bloodGroup?.map((e) => DropdownMenuItem<BloodGroup>(value: e,child: Text("${e.bloodGroupName}", style: TextStyle(fontSize: 14.sp, ),),)).toList(),
                       isExpanded: true,
@@ -302,7 +312,6 @@ class _UserDetailViewState extends State<UserDetailView> {
                     width: double.infinity,
                     child: DropdownButton<BirthSex>(
                       hint: Text("Select Gender", style: TextStyle(fontSize: 14.sp,),),
-
                       items: auth.birthSexList.first.birthSex?.map((e) => DropdownMenuItem<BirthSex>(value: e,child: Text("${e.birthSexName}", style: TextStyle(fontSize: 14.sp,),),)).toList(),
                       isExpanded: true,
                       value: birthSex,

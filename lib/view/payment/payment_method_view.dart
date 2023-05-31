@@ -8,6 +8,7 @@ import 'package:digi_patient/widgets/payment_user_detail.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/anatomy/anatomy_symptoms_model.dart';
@@ -58,6 +59,23 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
     transactionFocusNode.dispose();
   }
 
+  String getDate(String? date) {
+    DateTime? dateObject = DateTime.tryParse(date ?? "");
+    if (dateObject != null) {
+      return "${dateObject.day}-${dateObject.month}-${dateObject.year}";
+    } else {
+      return "null";
+    }
+  }
+
+  String getTime(String? date){
+    DateTime? dateObject = DateTime.tryParse(date ?? "");
+    if(dateObject != null){
+      return DateFormat.jm().format(dateObject);
+    }else{
+      return "null";
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final apVM = Provider.of<AppointmentViewModel>(context);
@@ -81,7 +99,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
            PaymentUserDetail(
               name: "${widget.doctor.drFullName}",
               designation: "${widget.doctor.department?.departmentsName}",
-              visitingTime: "--",
+              visitingTime: getTime(widget.appointmentDate),
               hospitalName: "${widget.doctor.usualProvider?.usualProviderName}",
               date: widget.appointmentDate,
               location: "${widget.doctor.drMobilePhone}",
@@ -452,8 +470,6 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                   child: apVM.isBookAppointmentLoading ? const Center(child: CircularProgressIndicator(),) : ElevatedButton(
                     style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryColor),
                     onPressed: () async{
-
-                      //TODO: add disease list and transaction no
 
                       if(transaction.text.isNotEmpty){
                         Map<String, dynamic> body = {

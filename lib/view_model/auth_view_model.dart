@@ -105,7 +105,7 @@ class AuthViewModel with ChangeNotifier {
           Messages.snackBar(context, otpCheckList.first.message.toString(), backgroundColor: AppColors.greenColor);
           // Future.delayed(Duration(microseconds: 200));
           Future.delayed(Duration.zero);
-          context.router.replace( CreateAccountRoute(phoneNumber: body['verification_code'], token: body['token'], vCode: body["phone_number"]));
+          context.router.replace( CreateAccountRoute(phoneNumber: body['phone_number'], token: body['token'], vCode: body["verification_code"]));
         }else{
           setOtpCheckError(true);
           setOtpCheckLoading(false);
@@ -129,10 +129,10 @@ class AuthViewModel with ChangeNotifier {
   //   var res = await request.send();
   // }
 
-  signUpOriginal(BuildContext context, Map<String, dynamic> body)async{
+  signUpOriginal(BuildContext context, Map<String, dynamic> body, String token)async{
     // registrationList.clear();
     // setRegistrationLoading(true);
-    auth.signUpOriginal(context, body).then((value) {
+    auth.signUpOriginal(context, body, token).then((value) {
       // registrationList.add(value);
       Messages.snackBar(context, value.message.toString(), backgroundColor: AppColors.greenColor);
       debugPrint("Value: \n\n\n\n\n\n ${value.message} \n ${value.data?.name} \n ${value.patients?.patientFirstName}");
@@ -143,12 +143,21 @@ class AuthViewModel with ChangeNotifier {
     });
   }
   signUp(BuildContext context, Map<String, String> body, imageBytes){
+    registrationList.clear();
+    setRegistrationLoading(true);
     auth.signUpApi(body: body, imageBytes: imageBytes).then((value) {
-      debugPrint(value.message);
-      Messages.snackBar(context, value.message.toString());
+      registrationList.add(value);
+      debugPrint("\n\n\n\n\n\n ${value.patients?.patientFirstName} id: ${value.patients?.id}");
+      Messages.snackBar(context, value.message.toString(), backgroundColor: AppColors.greenColor);
+      saveUser(isLoggedIn: true, email: "${value.patients?.patientEmail}", password: "password", name: "${value.patients?.patientFirstName}", id: int.tryParse("${value.patients?.id}") ?? 0);
+      setRegistrationLoading(false);
+      Future.delayed(const Duration(seconds: 1)).then((value) {
+        // setLoginLoading(false, value);
+        context.router.replace(const DashboardRoute());
+      });
     }).onError((error, stackTrace) {
-      debugPrint(error.toString());
  Messages.snackBar(context, error.toString());
+      setRegistrationLoading(false);
     });
   }
   List<RegistrationModel> registrationList = [];
@@ -175,7 +184,7 @@ class AuthViewModel with ChangeNotifier {
       registrationList.add(value);
       Messages.snackBar(context, "Registration Successful", backgroundColor: AppColors.greenColor);
       debugPrint("\n---\n---\n---\n---\n---\n---\n---\n---\n id: ${value.patients?.id}---\n Name: ${value.patients?.patientFirstName} \n---\n---\n---\n---\n---\n---\n---\n---\n");
-      saveUser(isLoggedIn: true, email: email, password: password, name: name, id: int.tryParse("${value.patients?.id}") ?? 0);
+      // saveUser(isLoggedIn: true, email: email, password: password, name: name, id: int.tryParse("${value.patients?.id}") ?? 0);
       setRegistrationLoading(false);
       // Future.delayed(const Duration(seconds: 1)).then((value) {
       //   setLoginLoading(false, value);

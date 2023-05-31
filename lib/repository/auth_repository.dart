@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:digi_patient/model/auth_model/blood_group_model.dart';
@@ -6,6 +7,7 @@ import 'package:digi_patient/resources/send_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
+import '../data/app_exception.dart';
 import '../model/auth_model/RegistrationModel.dart';
 import '../model/auth_model/birth_sex_model.dart';
 import '../model/registration/otp_check_model.dart';
@@ -50,11 +52,31 @@ class AuthRepository {
     }
   }
 
-  Future<RegistrationModel> signUpOriginal(BuildContext context, Map<String,dynamic> body)async{
+  NetworkApiService api = NetworkApiService();
+  Future<RegistrationModel> signUpOriginal(BuildContext context, Map<String,dynamic> body, String token)async{
+    // try{
+    //   final json = await apiService.getPostApiResponse(AppUrls.registration, body);
+    //   // debugPrint("Json: \n\n\n\n\n\n $json");
+    //   return RegistrationModel.fromJson(json);
+    // }catch (e){
+    //   rethrow;
+    // }
+    dynamic responseJson;
     try{
-      final json = await apiService.getPostApiResponse(AppUrls.registration, body);
-      // debugPrint("Json: \n\n\n\n\n\n $json");
-      return RegistrationModel.fromJson(json);
+      final response = await http.post(
+          body: jsonEncode(body),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+          Uri.parse(AppUrls.registration)).timeout(const Duration(seconds: 10),
+      );
+      responseJson = api.returnResponse(response);
+      return RegistrationModel.fromJson(responseJson);
+
+    }on SocketException{
+      throw FetchDataException("No Internet Connection");
     }catch (e){
       rethrow;
     }

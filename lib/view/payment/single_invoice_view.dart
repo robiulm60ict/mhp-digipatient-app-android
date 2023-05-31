@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
 import 'package:digi_patient/widgets/single_invoice_row.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/doctor_model/doctors_model.dart';
@@ -36,6 +38,23 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
     context.read<UserViewModel>().getUserDetails();
 
   }
+
+  String getDate(String? date) {
+    DateTime? dateObject = DateTime.tryParse(date ?? "");
+    if (dateObject != null) {
+      return "${dateObject.day}-${dateObject.month}-${dateObject.year}";
+    } else {
+      return "null";
+    }
+  }
+  String getTime(String? date){
+    DateTime? dateObject = DateTime.tryParse(date ?? "");
+    if(dateObject != null){
+      return DateFormat.jm().format(dateObject);
+    }else{
+      return "null";
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final userVM = Provider.of<UserViewModel>(context);
@@ -66,7 +85,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
         PaymentUserDetail(
         name: "${widget.doctor.drFullName}",
           designation: "${widget.doctor.department?.departmentsName}",
-          visitingTime: "null",
+          visitingTime: getTime(widget.appointmentDate),
           hospitalName: "${widget.doctor.usualProvider?.usualProviderName}",
           date: widget.appointmentDate,
           location: "${widget.doctor.drMobilePhone}",
@@ -93,15 +112,15 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                         SizedBox(height: 8.h,),
                         Row(
                           children: [
-                            Expanded(child: Text("Invoice Number : ", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.white),)),
+                            // Expanded(child: Text("Invoice Number : ", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.white),)),
                             Expanded(child: Text("HN Number :", textAlign: TextAlign.start, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.white),)),
                           ],
                         ),
                         SizedBox(height: 3.h,),
                         Row(
                           children: [
-                            Expanded(child: Text("156858485487", style: TextStyle(fontSize: 14.sp,  color: Colors.white),)),
-                            Expanded(child: Text("28545815845", textAlign: TextAlign.start, style: TextStyle(fontSize: 14.sp, color: Colors.white),)),
+                            // Expanded(child: Text("${userVM.user?.}", style: TextStyle(fontSize: 14.sp,  color: Colors.white),)),
+                            Expanded(child: Text("${userVM.user?.patientHnNumber}", textAlign: TextAlign.start, style: TextStyle(fontSize: 14.sp, color: Colors.white),)),
                           ],
                         ),
                         SizedBox(height: 12.h,),
@@ -115,7 +134,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                           children: [
                             Icon(Icons.date_range, color: Colors.white, size: 15.h,),
                             SizedBox(width: 5.w,),
-                            Text(widget.appointmentDate, style: TextStyle(fontSize: 14.sp, color: Colors.white),),
+                            Text(getDate(widget.appointmentDate), style: TextStyle(fontSize: 14.sp, color: Colors.white),),
                           ],
                         ),
 

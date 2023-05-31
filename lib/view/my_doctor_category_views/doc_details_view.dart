@@ -147,7 +147,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                   border: Border.all(
                                       color: Colors.white, width: 0.5)),
                               child: const Icon(
-                                Icons.monetization_on_rounded,
+                                Icons.money,
                                 color: Colors.white,
                               ),
                             ),
@@ -166,7 +166,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                 ),
                                 child: RichText(
                                   text: TextSpan(
-                                      text: "${mdVM.docFeeList.isNotEmpty ? mdVM.docFeeList.first.doctors?.amount : " "} ",
+                                      text: "${mdVM.docFeeList.isNotEmpty ? mdVM.docFeeList.first.doctors?.amount ?? "0" : " "} ",
                                       style: TextStyle(
                                           fontSize: 18.sp,
                                           fontWeight: FontWeight.bold,
@@ -207,7 +207,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                         height: double.infinity,
                         width: double.infinity,
                         fit: BoxFit.fill,
-                        errorBuilder: (context, error, stackTrace) => const CircleAvatar(backgroundColor: Colors.red,radius: 40, child: Text("Error"),),
+                        errorBuilder: (context, error, stackTrace) => const CircleAvatar(backgroundColor: Colors.red,radius: 40,),
                       ),
                     ],
                   ),
@@ -343,7 +343,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                   ),
                   onPressed: (){
 
-                    context.router.push( BookAppointmentRoute(doctors: doc!, amount: "${mdVM.docFeeList.isNotEmpty ? mdVM.docFeeList.first.doctors?.amount : "null"} "));
+                    context.router.push( BookAppointmentRoute(doctors: doc!, amount: "${mdVM.docFeeList.isNotEmpty ? mdVM.docFeeList.first.doctors?.amount ?? "0" : "0"} "));
 
                   }, child: Text("Request For Appointment", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),),),),
               ],
