@@ -210,7 +210,14 @@ class _AnatomyViewState extends State<AnatomyView> {
           ],
         ),
 
-        body: Zoom(
+        body: anatomy.isAnatomyLoading ? Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Center(child: CircularProgressIndicator(),),
+            Text(anatomy.anatomyStatus, ),
+          ],
+        ) : Zoom(
           initTotalZoomOut: true,
           backgroundColor: Colors.transparent,
           canvasColor: Colors.transparent,

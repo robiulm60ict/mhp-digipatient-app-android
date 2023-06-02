@@ -60,7 +60,7 @@ class SymptomsAnatomy {
     mainBodyPartName = json['MainBodyPart_name'];
     subBodyPartName = json['SubBodyPart_name'];
     birthSexName = json['birth_sex_name'];
-    // isSelected = json['is_selected'];
+    isSelected = false;
   }
   String? id;
   String? mainBodyPartId;

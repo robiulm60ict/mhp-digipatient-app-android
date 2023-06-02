@@ -78,6 +78,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
   BloodGroup? bloodGroup;
 
   BirthSex? birthSex;
+  bool obSecureText = false;
 
   @override
   void initState() {
@@ -410,9 +411,19 @@ class _CreateAccountViewState extends State<CreateAccountView> {
             ),
             CustomTextField(
               textEditingController: password,
-              prefix: Icon(Icons.lock, color: AppColors.primaryColor,),
-              hintText: "Password",
-            ),
+              obscureText: !obSecureText,
+              prefix:  Icon(Icons.lock, color: AppColors.primaryColor,), hintText: "Password",
+              suffix: IconButton(onPressed: (){
+                setState(() {
+                  obSecureText = !obSecureText;
+                });
+              }, icon: Icon(obSecureText ? Icons.visibility : Icons.visibility_off, color: obSecureText? AppColors.primaryColor : Colors.grey,)),),
+
+            // CustomTextField(
+            //   textEditingController: password,
+            //   prefix: Icon(Icons.lock, color: AppColors.primaryColor,),
+            //   hintText: "Password",
+            // ),
             SizedBox(
               height: 10.h,
             ),CustomTextField(

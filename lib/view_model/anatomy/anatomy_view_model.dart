@@ -72,19 +72,28 @@ class AnatomyModelView with ChangeNotifier{
   AnatomyRepo anatomyRepo = AnatomyRepo();
 
   bool isAnatomyLoading = true;
+  String anatomyStatus = "Loading.....";
+  setAnatomyLoading(bool val, String status){
+    isAnatomyLoading = val;
+    anatomyStatus = status;
+    notifyListeners();
+  }
+
 
   getAnatomySymptoms(BuildContext context)async{
-    isAnatomyLoading = true;
+    setAnatomyLoading(true, "Loading......");
     anatomySymptomsList.clear();
     symptomsList.clear();
-    notifyListeners();
+
     await anatomyRepo.getAnatomySymptoms().then((value) {
       anatomySymptomsList.add(value);
       symptomsList.addAll(value.symptomsAnatomy!);
-      isAnatomyLoading = false;
-      notifyListeners();
+      setAnatomyLoading(false, "Successful");
+      for(var i in symptomsList){
+        debugPrint("SymptomName: ${i.symptomName} Selected: ${i.isSelected}");
+      }
     }).onError((error, stackTrace) {
-      isAnatomyLoading = true;
+      setAnatomyLoading(true, "Error Try Again Later......");
       notifyListeners();
       Messages.snackBar(context, error.toString());
     });
@@ -104,19 +113,18 @@ class AnatomyModelView with ChangeNotifier{
 
    List<SymptomsAnatomy> getSelectedSymptomsList({bool setEmpty = false}){
      List<SymptomsAnatomy> selected = [];
-     // if(setEmpty){
-     //   return selected;
-     // }else{
-     //
-     // }
+
      if(setEmpty){
        return <SymptomsAnatomy>[];
      }
      for(var i in getSymptomsList){
+       debugPrint("\nSelected: ${i.symptomName} ${i.isSelected}");
        if(i.isSelected!= null && i.isSelected == true){
          selected.add(i);
+         debugPrint("Added --");
+
        }else{
-         return selected;
+         debugPrint("denied --");
        }
      }
 
@@ -128,27 +136,30 @@ class AnatomyModelView with ChangeNotifier{
     required int index,
      required bool value,
   }){
-     // for(var i = 0; i< getSymptomsList.length; i++){
-     //
-     // }
+
      getSymptomsList[index].isSelected = value;
      // notifyListeners();
-     if(value){
-       selectedAnatomyList.add(getSymptomsList[index]);
-     }else{
-       selectedAnatomyList.remove(getSymptomsList[index]);
-     }
-    bool contain =  selectedAnatomyList.contains(getSymptomsList[index]);
-     if(contain){
-       selectedAnatomyList.remove(getSymptomsList[index]);
-       for(var i in selectedAnatomyList){
-         debugPrint(i.symptomName);
-       }
-     }else{
-
-     }
+    //  if(value){
+    //    selectedAnatomyList.add(getSymptomsList[index]);
+    //  }else{
+    //    selectedAnatomyList.remove(getSymptomsList[index]);
+    //  }
+    // bool contain =  selectedAnatomyList.contains(getSymptomsList[index]);
+    //  if(contain){
+    //    selectedAnatomyList.remove(getSymptomsList[index]);
+    //    for(var i in selectedAnatomyList){
+    //      debugPrint(i.symptomName);
+    //    }
+    //  }else{
+    //
+    //  }
      notifyListeners();
-    debugPrint("\n\n\n value is = $value ---Does contain? ${getSymptomsList[index].symptomName} =$contain");
+    // debugPrint("\n\n\n value is = $value ---Does contain? ${getSymptomsList[index].symptomName} =$contain");
 
    }
+
+//    selectSymtoms2({required int index, required bool value}){
+//      symptomsList[index].isSelected = value;
+// notifyListeners();
+//    }
 }
