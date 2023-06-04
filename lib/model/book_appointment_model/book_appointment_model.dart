@@ -3,6 +3,7 @@ BookAppointmentModel bookAppointmentModelFromJson(String str) => BookAppointment
 String bookAppointmentModelToJson(BookAppointmentModel data) => json.encode(data.toJson());
 class BookAppointmentModel {
   BookAppointmentModel({
+    this.inoviceNumber,
       this.doctorId, 
       this.patientId, 
       this.date, 
@@ -19,6 +20,7 @@ class BookAppointmentModel {
       this.id,});
 
   BookAppointmentModel.fromJson(dynamic json) {
+    inoviceNumber = json['inovice_number'];
     doctorId = json['doctor_id'];
     patientId = json['patient_id'];
     date = json['date'];
@@ -34,6 +36,7 @@ class BookAppointmentModel {
     createdAt = json['created_at'];
     id = json['id'];
   }
+  num? inoviceNumber;
   String? doctorId;
   String? patientId;
   String? date;
@@ -51,6 +54,7 @@ class BookAppointmentModel {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    map['inovice_number'] = inoviceNumber;
     map['doctor_id'] = doctorId;
     map['patient_id'] = patientId;
     map['date'] = date;

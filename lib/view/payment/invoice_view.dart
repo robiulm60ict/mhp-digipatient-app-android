@@ -5,10 +5,12 @@ import 'package:digi_patient/utils/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/invoice_model/invoice_show_model.dart';
 import '../../resources/colors.dart';
 import '../../utils/utils.dart';
+import '../../view_model/appointment_view_model/appointment_view_model.dart';
 import '../../widgets/back_button.dart';
 
 class InvoiceView extends StatefulWidget {
@@ -62,7 +64,7 @@ invoiceList.clear();
   }
   @override
   Widget build(BuildContext context) {
-    // final invoice = Provider.of<AppointmentViewModel>(context);
+    final invoice = Provider.of<AppointmentViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         leading: const CustomBackButton(),

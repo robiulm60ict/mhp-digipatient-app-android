@@ -58,6 +58,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
   @override
   Widget build(BuildContext context) {
     final userVM = Provider.of<UserViewModel>(context);
+    final invoice = Provider.of<AppointmentViewModel>(context);
 
     return WillPopScope(
       onWillPop: () {
@@ -112,14 +113,14 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                         SizedBox(height: 8.h,),
                         Row(
                           children: [
-                            // Expanded(child: Text("Invoice Number : ", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.white),)),
+                            Expanded(child: Text("Invoice Number : ", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.white),)),
                             Expanded(child: Text("HN Number :", textAlign: TextAlign.start, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.white),)),
                           ],
                         ),
                         SizedBox(height: 3.h,),
                         Row(
                           children: [
-                            // Expanded(child: Text("${userVM.user?.}", style: TextStyle(fontSize: 14.sp,  color: Colors.white),)),
+                            Expanded(child: Text("${invoice.appointmentList.isNotEmpty ? invoice.appointmentList.first.inoviceNumber : ""}", style: TextStyle(fontSize: 14.sp,  color: Colors.white),)),
                             Expanded(child: Text("${userVM.user?.patientHnNumber}", textAlign: TextAlign.start, style: TextStyle(fontSize: 14.sp, color: Colors.white),)),
                           ],
                         ),

@@ -1,3 +1,4 @@
+import 'package:digi_patient/model/book_appointment_model/book_appointment_model.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/model/invoice_model/invoice_show_model.dart';
 import 'package:digi_patient/repository/book_appointment/book_appointment_repo.dart';
@@ -103,14 +104,17 @@ class AppointmentViewModel with ChangeNotifier{
 
   /// book appointment
 
+  List<BookAppointmentModel> appointmentList = [];
   bool isBookAppointmentLoading = false;
 
   BookAppointmentRepo bookAppointmentRepo = BookAppointmentRepo();
 
   bookAppointment(BuildContext context, { required Doctors doctor , required Map<String, dynamic> body})async{
     isBookAppointmentLoading = true;
+    appointmentList.clear();
     notifyListeners();
     await bookAppointmentRepo.bookAppointment(body: body).then((value) {
+      appointmentList.add(value);
       // Messages.snackBar(context, "Appointment Successful", backgroundColor: Colors.green);
       isBookAppointmentLoading = false;
       notifyListeners();
