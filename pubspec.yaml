@@ -15,18 +15,21 @@ dependencies:
     sdk: flutter
 
   flutter_localization: ^0.1.10
-  intl: ^0.17.0
+  intl: ^0.18.1
+#  intl: ^0.17.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.5
   http: ^0.13.5
-  another_flushbar: ^1.12.29
+#  another_flushbar: ^1.12.29
+  another_flushbar: ^1.12.30
   fluttertoast: ^8.2.1
   provider: ^6.0.5
   auto_route: ^5.0.1
-  flutter_screenutil: ^5.7.0
-  screen_utils: ^0.0.1
+#  flutter_screenutil: ^5.7.0
+  flutter_screenutil: ^5.9.0
+#  screen_utils: ^0.0.1
   email_validator: ^2.1.17
   shared_preferences: ^2.1.0
 #  google_fonts: ^3.0.1
@@ -37,7 +40,8 @@ dependencies:
   pin_code_fields: ^7.4.0
   image_picker: ^0.8.7+1
   font_awesome_flutter: ^10.4.0
-  rflutter_alert: ^2.0.4
+#  rflutter_alert: ^2.0.4
+  rflutter_alert: ^2.0.7
   animated_text_kit: ^4.2.2
   onboarding: ^3.1.0
 #  dropdown_button2: ^2.1.2

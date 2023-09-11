@@ -84,24 +84,6 @@ class _MyAppState extends State<MyApp> {
   final _appRouter = AppRouter();
 
 
-  // @override
-  // void initState() {
-  //   localization.init(
-  //     mapLocales: [
-  //       const MapLocale('en', AppLocale.EN),
-  //       const MapLocale('bn', AppLocale.BD),
-  //       // const MapLocale('en', AppLocale.PLEN),
-  //       // const MapLocale('bn', AppLocale.PLBD),
-  //     ],
-  //     initLanguageCode: 'en',
-  //   );
-  //   localization.onTranslatedLanguage = _onTranslatedLanguage;
-  //   super.initState();
-  // }
-  //
-  // void _onTranslatedLanguage(Locale? locale) {
-  //   setState(() {});
-  // }
 
   @override
   Widget build(BuildContext context) {
