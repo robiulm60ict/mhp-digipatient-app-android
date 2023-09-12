@@ -11,26 +11,27 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i38;
-import 'package:flutter/material.dart' as _i39;
+import 'package:auto_route/auto_route.dart' as _i40;
+import 'package:flutter/material.dart' as _i41;
 
-import '../enum/vitals_enum.dart' as _i42;
-import '../model/anatomy/anatomy_symptoms_model.dart' as _i41;
-import '../model/doctor_model/doctors_model.dart' as _i40;
+import '../enum/vitals_enum.dart' as _i44;
+import '../model/anatomy/anatomy_symptoms_model.dart' as _i43;
+import '../model/doctor_model/doctors_model.dart' as _i42;
 import '../model/my_record_model/medical_history_from_great_doc_model.dart'
-    as _i44;
-import '../model/my_record_model/vitals_model.dart' as _i43;
-import '../model/user_detail_model/user_model.dart' as _i45;
+    as _i46;
+import '../model/my_record_model/vitals_model.dart' as _i45;
+import '../model/user_detail_model/user_model.dart' as _i47;
 import '../view/anatomy/anatomy_view.dart' as _i18;
 import '../view/appointment/book_appointment_view.dart' as _i15;
 import '../view/authentications/create_account_view.dart' as _i7;
 import '../view/authentications/sign_in_view.dart' as _i3;
 import '../view/authentications/sign_up_view.dart' as _i4;
 import '../view/authentications/user_detail_view.dart' as _i33;
-import '../view/bottom_navigation_buttons/basket_view.dart' as _i37;
-import '../view/bottom_navigation_buttons/favourites_view.dart' as _i36;
-import '../view/bottom_navigation_buttons/home_view.dart' as _i34;
-import '../view/bottom_navigation_buttons/set_appointment_view.dart' as _i35;
+import '../view/bottom_navigation_buttons/basket_view.dart' as _i39;
+import '../view/bottom_navigation_buttons/favourites_view.dart' as _i38;
+import '../view/bottom_navigation_buttons/home_view.dart' as _i36;
+import '../view/bottom_navigation_buttons/set_appointment_view.dart' as _i37;
+import '../view/communication/agora_chatting.dart' as _i34;
 import '../view/daily_upcomming_appointment/daily_and_upcomming_appointments_detail_view.dart'
     as _i31;
 import '../view/daily_upcomming_appointment/daily_and_upcomming_appointments_view.dart'
@@ -60,41 +61,42 @@ import '../view/payment/invoice_view.dart' as _i17;
 import '../view/payment/payment_method_view.dart' as _i16;
 import '../view/payment/single_invoice_view.dart' as _i19;
 import '../view/pincode_verification_view.dart' as _i6;
+import '../view/real_communication/chat_view.dart' as _i35;
 import '../view/splash_view.dart' as _i1;
 import '../view/splash_view_2.dart' as _i2;
 
-class AppRouter extends _i38.RootStackRouter {
-  AppRouter([_i39.GlobalKey<_i39.NavigatorState>? navigatorKey])
+class AppRouter extends _i40.RootStackRouter {
+  AppRouter([_i41.GlobalKey<_i41.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i38.PageFactory> pagesMap = {
+  final Map<String, _i40.PageFactory> pagesMap = {
     SplashRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.SplashView(),
       );
     },
     Splash2Route.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.Splash2View(),
       );
     },
     SignInRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i3.SignInView(),
       );
     },
     SignUpRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i4.SignUpView(),
       );
     },
     OnBoardingRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i5.OnBoardingView(),
       );
@@ -102,7 +104,7 @@ class AppRouter extends _i38.RootStackRouter {
     PinCodeVerificationRoute.name: (routeData) {
       final args = routeData.argsAs<PinCodeVerificationRouteArgs>(
           orElse: () => const PinCodeVerificationRouteArgs());
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i6.PinCodeVerificationView(
           key: args.key,
@@ -112,7 +114,7 @@ class AppRouter extends _i38.RootStackRouter {
     },
     CreateAccountRoute.name: (routeData) {
       final args = routeData.argsAs<CreateAccountRouteArgs>();
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i7.CreateAccountView(
           key: args.key,
@@ -123,32 +125,32 @@ class AppRouter extends _i38.RootStackRouter {
       );
     },
     DashboardRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i8.DashboardView(),
       );
     },
     NotificationsRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i9.NotificationsView(),
       );
     },
     MyDoctorRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i10.MyDoctorView(),
       );
     },
     MyRecordRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i11.MyRecordView(),
       );
     },
     MyDoctorCategoryWiseRoute.name: (routeData) {
       final args = routeData.argsAs<MyDoctorCategoryWiseRouteArgs>();
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i12.MyDoctorCategoryWiseView(
           key: args.key,
@@ -159,14 +161,14 @@ class AppRouter extends _i38.RootStackRouter {
       );
     },
     AllDoctorSearchRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i13.AllDoctorSearchView(),
       );
     },
     DocDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<DocDetailsRouteArgs>();
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i14.DocDetailsView(
           key: args.key,
@@ -176,7 +178,7 @@ class AppRouter extends _i38.RootStackRouter {
     },
     BookAppointmentRoute.name: (routeData) {
       final args = routeData.argsAs<BookAppointmentRouteArgs>();
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i15.BookAppointmentView(
           key: args.key,
@@ -187,7 +189,7 @@ class AppRouter extends _i38.RootStackRouter {
     },
     PaymentMethodRoute.name: (routeData) {
       final args = routeData.argsAs<PaymentMethodRouteArgs>();
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i16.PaymentMethodView(
           key: args.key,
@@ -202,20 +204,20 @@ class AppRouter extends _i38.RootStackRouter {
       );
     },
     InvoiceRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i17.InvoiceView(),
       );
     },
     AnatomyRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i18.AnatomyView(),
       );
     },
     SingleInvoiceRoute.name: (routeData) {
       final args = routeData.argsAs<SingleInvoiceRouteArgs>();
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i19.SingleInvoiceView(
           key: args.key,
@@ -230,38 +232,38 @@ class AppRouter extends _i38.RootStackRouter {
       );
     },
     VitalsRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i20.VitalsView(),
       );
     },
     MyMedicalHistoryRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i21.MyMedicalHistoryView(),
       );
     },
     SelfMedicalHistoryFGDRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i22.SelfMedicalHistoryFGDView(),
       );
     },
     ReasonForVisitRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i23.ReasonForVisitView(),
       );
     },
     MyReportRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i24.MyReportView(),
       );
     },
     VitalsItemDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<VitalsItemDetailsRouteArgs>();
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i25.VitalsItemDetailsView(
           key: args.key,
@@ -278,26 +280,26 @@ class AppRouter extends _i38.RootStackRouter {
       );
     },
     AddMedicalHistoryRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i26.AddMedicalHistoryView(),
       );
     },
     MyMedicineRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i27.MyMedicineView(),
       );
     },
     RXRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i28.RXView(),
       );
     },
     RXDetailRoute.name: (routeData) {
       final args = routeData.argsAs<RXDetailRouteArgs>();
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i29.RXDetailView(
           key: args.key,
@@ -307,14 +309,14 @@ class AppRouter extends _i38.RootStackRouter {
       );
     },
     DailyAndUpcommingRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i30.DailyAndUpcommingView(),
       );
     },
     DailyAndUpcommingDetailRoute.name: (routeData) {
       final args = routeData.argsAs<DailyAndUpcommingDetailRouteArgs>();
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i31.DailyAndUpcommingDetailView(
           key: args.key,
@@ -328,7 +330,7 @@ class AppRouter extends _i38.RootStackRouter {
     },
     MedicalDocumentsRoute.name: (routeData) {
       final args = routeData.argsAs<MedicalDocumentsRouteArgs>();
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i32.MedicalDocumentsView(
           key: args.key,
@@ -338,7 +340,7 @@ class AppRouter extends _i38.RootStackRouter {
     },
     UserDetailRoute.name: (routeData) {
       final args = routeData.argsAs<UserDetailRouteArgs>();
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i33.UserDetailView(
           key: args.key,
@@ -346,207 +348,227 @@ class AppRouter extends _i38.RootStackRouter {
         ),
       );
     },
-    HomeRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+    ChatRoute.name: (routeData) {
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i34.HomeView(),
+        child: const _i34.ChatView(),
+      );
+    },
+    ChatRTMRoute.name: (routeData) {
+      return _i40.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i35.ChatRTMView(),
+      );
+    },
+    HomeRoute.name: (routeData) {
+      return _i40.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i36.HomeView(),
       );
     },
     SetAppointmentRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i35.SetAppointmentView(),
+        child: const _i37.SetAppointmentView(),
       );
     },
     FavouritesRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i36.FavouritesView(),
+        child: const _i38.FavouritesView(),
       );
     },
     BasketRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i40.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i37.BasketView(),
+        child: const _i39.BasketView(),
       );
     },
   };
 
   @override
-  List<_i38.RouteConfig> get routes => [
-        _i38.RouteConfig(
+  List<_i40.RouteConfig> get routes => [
+        _i40.RouteConfig(
           '/#redirect',
           path: '/',
           redirectTo: '/splash',
           fullMatch: true,
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           SplashRoute.name,
           path: '/splash',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           Splash2Route.name,
           path: '/splash',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           SignInRoute.name,
           path: '/sign-in',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           SignUpRoute.name,
           path: '/signup',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           OnBoardingRoute.name,
           path: '/onBoarding',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           PinCodeVerificationRoute.name,
           path: '/pinCode',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           CreateAccountRoute.name,
           path: '/create-account',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           DashboardRoute.name,
           path: '/dashboard',
           children: [
-            _i38.RouteConfig(
+            _i40.RouteConfig(
               '#redirect',
               path: '',
               parent: DashboardRoute.name,
               redirectTo: 'home',
               fullMatch: true,
             ),
-            _i38.RouteConfig(
+            _i40.RouteConfig(
               HomeRoute.name,
               path: 'home',
               parent: DashboardRoute.name,
             ),
-            _i38.RouteConfig(
+            _i40.RouteConfig(
               SetAppointmentRoute.name,
               path: 'set-appointments',
               parent: DashboardRoute.name,
             ),
-            _i38.RouteConfig(
+            _i40.RouteConfig(
               FavouritesRoute.name,
               path: 'favourites',
               parent: DashboardRoute.name,
             ),
-            _i38.RouteConfig(
+            _i40.RouteConfig(
               BasketRoute.name,
               path: 'basket',
               parent: DashboardRoute.name,
             ),
           ],
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           NotificationsRoute.name,
           path: '/notification',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           MyDoctorRoute.name,
           path: '/my-doctor',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           MyRecordRoute.name,
           path: '/my-record',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           MyDoctorCategoryWiseRoute.name,
           path: '/my-doctor-category-wise',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           AllDoctorSearchRoute.name,
           path: '/all-doctor-search',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           DocDetailsRoute.name,
           path: '/doc-detail',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           BookAppointmentRoute.name,
           path: '/book-appointment',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           PaymentMethodRoute.name,
           path: '/payment-method',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           InvoiceRoute.name,
           path: '/invoice',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           AnatomyRoute.name,
           path: '/anatomy',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           SingleInvoiceRoute.name,
           path: '/single-invoice',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           VitalsRoute.name,
           path: '/vital',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           MyMedicalHistoryRoute.name,
           path: '/my-medical-history',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           SelfMedicalHistoryFGDRoute.name,
           path: '/self-medical-history',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           ReasonForVisitRoute.name,
           path: '/reason-visit',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           MyReportRoute.name,
           path: '/my-report',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           VitalsItemDetailsRoute.name,
           path: '/vitals-detail',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           AddMedicalHistoryRoute.name,
           path: '/add-medical-history',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           MyMedicineRoute.name,
           path: '/medicine',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           RXRoute.name,
           path: '/rx',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           RXDetailRoute.name,
           path: '/details',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           DailyAndUpcommingRoute.name,
           path: '/daua',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           DailyAndUpcommingDetailRoute.name,
           path: '/daua-detail',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           MedicalDocumentsRoute.name,
           path: '/document-detail',
         ),
-        _i38.RouteConfig(
+        _i40.RouteConfig(
           UserDetailRoute.name,
           path: '/user-detail',
+        ),
+        _i40.RouteConfig(
+          ChatRoute.name,
+          path: '/chat',
+        ),
+        _i40.RouteConfig(
+          ChatRTMRoute.name,
+          path: '/chat-rtm',
         ),
       ];
 }
 
 /// generated route for
 /// [_i1.SplashView]
-class SplashRoute extends _i38.PageRouteInfo<void> {
+class SplashRoute extends _i40.PageRouteInfo<void> {
   const SplashRoute()
       : super(
           SplashRoute.name,
@@ -558,7 +580,7 @@ class SplashRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.Splash2View]
-class Splash2Route extends _i38.PageRouteInfo<void> {
+class Splash2Route extends _i40.PageRouteInfo<void> {
   const Splash2Route()
       : super(
           Splash2Route.name,
@@ -570,7 +592,7 @@ class Splash2Route extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.SignInView]
-class SignInRoute extends _i38.PageRouteInfo<void> {
+class SignInRoute extends _i40.PageRouteInfo<void> {
   const SignInRoute()
       : super(
           SignInRoute.name,
@@ -582,7 +604,7 @@ class SignInRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.SignUpView]
-class SignUpRoute extends _i38.PageRouteInfo<void> {
+class SignUpRoute extends _i40.PageRouteInfo<void> {
   const SignUpRoute()
       : super(
           SignUpRoute.name,
@@ -594,7 +616,7 @@ class SignUpRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.OnBoardingView]
-class OnBoardingRoute extends _i38.PageRouteInfo<void> {
+class OnBoardingRoute extends _i40.PageRouteInfo<void> {
   const OnBoardingRoute()
       : super(
           OnBoardingRoute.name,
@@ -607,9 +629,9 @@ class OnBoardingRoute extends _i38.PageRouteInfo<void> {
 /// generated route for
 /// [_i6.PinCodeVerificationView]
 class PinCodeVerificationRoute
-    extends _i38.PageRouteInfo<PinCodeVerificationRouteArgs> {
+    extends _i40.PageRouteInfo<PinCodeVerificationRouteArgs> {
   PinCodeVerificationRoute({
-    _i39.Key? key,
+    _i41.Key? key,
     String? phoneNumber,
   }) : super(
           PinCodeVerificationRoute.name,
@@ -629,7 +651,7 @@ class PinCodeVerificationRouteArgs {
     this.phoneNumber,
   });
 
-  final _i39.Key? key;
+  final _i41.Key? key;
 
   final String? phoneNumber;
 
@@ -641,9 +663,9 @@ class PinCodeVerificationRouteArgs {
 
 /// generated route for
 /// [_i7.CreateAccountView]
-class CreateAccountRoute extends _i38.PageRouteInfo<CreateAccountRouteArgs> {
+class CreateAccountRoute extends _i40.PageRouteInfo<CreateAccountRouteArgs> {
   CreateAccountRoute({
-    _i39.Key? key,
+    _i41.Key? key,
     required String phoneNumber,
     required String token,
     required String vCode,
@@ -669,7 +691,7 @@ class CreateAccountRouteArgs {
     required this.vCode,
   });
 
-  final _i39.Key? key;
+  final _i41.Key? key;
 
   final String phoneNumber;
 
@@ -685,8 +707,8 @@ class CreateAccountRouteArgs {
 
 /// generated route for
 /// [_i8.DashboardView]
-class DashboardRoute extends _i38.PageRouteInfo<void> {
-  const DashboardRoute({List<_i38.PageRouteInfo>? children})
+class DashboardRoute extends _i40.PageRouteInfo<void> {
+  const DashboardRoute({List<_i40.PageRouteInfo>? children})
       : super(
           DashboardRoute.name,
           path: '/dashboard',
@@ -698,7 +720,7 @@ class DashboardRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.NotificationsView]
-class NotificationsRoute extends _i38.PageRouteInfo<void> {
+class NotificationsRoute extends _i40.PageRouteInfo<void> {
   const NotificationsRoute()
       : super(
           NotificationsRoute.name,
@@ -710,7 +732,7 @@ class NotificationsRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.MyDoctorView]
-class MyDoctorRoute extends _i38.PageRouteInfo<void> {
+class MyDoctorRoute extends _i40.PageRouteInfo<void> {
   const MyDoctorRoute()
       : super(
           MyDoctorRoute.name,
@@ -722,7 +744,7 @@ class MyDoctorRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i11.MyRecordView]
-class MyRecordRoute extends _i38.PageRouteInfo<void> {
+class MyRecordRoute extends _i40.PageRouteInfo<void> {
   const MyRecordRoute()
       : super(
           MyRecordRoute.name,
@@ -735,9 +757,9 @@ class MyRecordRoute extends _i38.PageRouteInfo<void> {
 /// generated route for
 /// [_i12.MyDoctorCategoryWiseView]
 class MyDoctorCategoryWiseRoute
-    extends _i38.PageRouteInfo<MyDoctorCategoryWiseRouteArgs> {
+    extends _i40.PageRouteInfo<MyDoctorCategoryWiseRouteArgs> {
   MyDoctorCategoryWiseRoute({
-    _i39.Key? key,
+    _i41.Key? key,
     required String categoryName,
     required num departmentId,
     required String departmentImage,
@@ -763,7 +785,7 @@ class MyDoctorCategoryWiseRouteArgs {
     required this.departmentImage,
   });
 
-  final _i39.Key? key;
+  final _i41.Key? key;
 
   final String categoryName;
 
@@ -779,7 +801,7 @@ class MyDoctorCategoryWiseRouteArgs {
 
 /// generated route for
 /// [_i13.AllDoctorSearchView]
-class AllDoctorSearchRoute extends _i38.PageRouteInfo<void> {
+class AllDoctorSearchRoute extends _i40.PageRouteInfo<void> {
   const AllDoctorSearchRoute()
       : super(
           AllDoctorSearchRoute.name,
@@ -791,9 +813,9 @@ class AllDoctorSearchRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i14.DocDetailsView]
-class DocDetailsRoute extends _i38.PageRouteInfo<DocDetailsRouteArgs> {
+class DocDetailsRoute extends _i40.PageRouteInfo<DocDetailsRouteArgs> {
   DocDetailsRoute({
-    _i39.Key? key,
+    _i41.Key? key,
     required num id,
   }) : super(
           DocDetailsRoute.name,
@@ -813,7 +835,7 @@ class DocDetailsRouteArgs {
     required this.id,
   });
 
-  final _i39.Key? key;
+  final _i41.Key? key;
 
   final num id;
 
@@ -826,10 +848,10 @@ class DocDetailsRouteArgs {
 /// generated route for
 /// [_i15.BookAppointmentView]
 class BookAppointmentRoute
-    extends _i38.PageRouteInfo<BookAppointmentRouteArgs> {
+    extends _i40.PageRouteInfo<BookAppointmentRouteArgs> {
   BookAppointmentRoute({
-    _i39.Key? key,
-    required _i40.Doctors doctors,
+    _i41.Key? key,
+    required _i42.Doctors doctors,
     required String amount,
   }) : super(
           BookAppointmentRoute.name,
@@ -851,9 +873,9 @@ class BookAppointmentRouteArgs {
     required this.amount,
   });
 
-  final _i39.Key? key;
+  final _i41.Key? key;
 
-  final _i40.Doctors doctors;
+  final _i42.Doctors doctors;
 
   final String amount;
 
@@ -865,16 +887,16 @@ class BookAppointmentRouteArgs {
 
 /// generated route for
 /// [_i16.PaymentMethodView]
-class PaymentMethodRoute extends _i38.PageRouteInfo<PaymentMethodRouteArgs> {
+class PaymentMethodRoute extends _i40.PageRouteInfo<PaymentMethodRouteArgs> {
   PaymentMethodRoute({
-    _i39.Key? key,
+    _i41.Key? key,
     required String appointmentDate,
     required String doctorId,
     required String patientId,
     required String amount,
     required String appointmentType,
-    required _i40.Doctors doctor,
-    required List<_i41.SymptomsAnatomy> diseaseList,
+    required _i42.Doctors doctor,
+    required List<_i43.SymptomsAnatomy> diseaseList,
   }) : super(
           PaymentMethodRoute.name,
           path: '/payment-method',
@@ -905,7 +927,7 @@ class PaymentMethodRouteArgs {
     required this.diseaseList,
   });
 
-  final _i39.Key? key;
+  final _i41.Key? key;
 
   final String appointmentDate;
 
@@ -917,9 +939,9 @@ class PaymentMethodRouteArgs {
 
   final String appointmentType;
 
-  final _i40.Doctors doctor;
+  final _i42.Doctors doctor;
 
-  final List<_i41.SymptomsAnatomy> diseaseList;
+  final List<_i43.SymptomsAnatomy> diseaseList;
 
   @override
   String toString() {
@@ -929,7 +951,7 @@ class PaymentMethodRouteArgs {
 
 /// generated route for
 /// [_i17.InvoiceView]
-class InvoiceRoute extends _i38.PageRouteInfo<void> {
+class InvoiceRoute extends _i40.PageRouteInfo<void> {
   const InvoiceRoute()
       : super(
           InvoiceRoute.name,
@@ -941,7 +963,7 @@ class InvoiceRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i18.AnatomyView]
-class AnatomyRoute extends _i38.PageRouteInfo<void> {
+class AnatomyRoute extends _i40.PageRouteInfo<void> {
   const AnatomyRoute()
       : super(
           AnatomyRoute.name,
@@ -953,15 +975,15 @@ class AnatomyRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i19.SingleInvoiceView]
-class SingleInvoiceRoute extends _i38.PageRouteInfo<SingleInvoiceRouteArgs> {
+class SingleInvoiceRoute extends _i40.PageRouteInfo<SingleInvoiceRouteArgs> {
   SingleInvoiceRoute({
-    _i39.Key? key,
+    _i41.Key? key,
     required String appointmentDate,
     required String doctorId,
     required String patientId,
     required String amount,
     required String appointmentType,
-    required _i40.Doctors doctor,
+    required _i42.Doctors doctor,
     required String paymentMethod,
   }) : super(
           SingleInvoiceRoute.name,
@@ -993,7 +1015,7 @@ class SingleInvoiceRouteArgs {
     required this.paymentMethod,
   });
 
-  final _i39.Key? key;
+  final _i41.Key? key;
 
   final String appointmentDate;
 
@@ -1005,7 +1027,7 @@ class SingleInvoiceRouteArgs {
 
   final String appointmentType;
 
-  final _i40.Doctors doctor;
+  final _i42.Doctors doctor;
 
   final String paymentMethod;
 
@@ -1017,7 +1039,7 @@ class SingleInvoiceRouteArgs {
 
 /// generated route for
 /// [_i20.VitalsView]
-class VitalsRoute extends _i38.PageRouteInfo<void> {
+class VitalsRoute extends _i40.PageRouteInfo<void> {
   const VitalsRoute()
       : super(
           VitalsRoute.name,
@@ -1029,7 +1051,7 @@ class VitalsRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i21.MyMedicalHistoryView]
-class MyMedicalHistoryRoute extends _i38.PageRouteInfo<void> {
+class MyMedicalHistoryRoute extends _i40.PageRouteInfo<void> {
   const MyMedicalHistoryRoute()
       : super(
           MyMedicalHistoryRoute.name,
@@ -1041,7 +1063,7 @@ class MyMedicalHistoryRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i22.SelfMedicalHistoryFGDView]
-class SelfMedicalHistoryFGDRoute extends _i38.PageRouteInfo<void> {
+class SelfMedicalHistoryFGDRoute extends _i40.PageRouteInfo<void> {
   const SelfMedicalHistoryFGDRoute()
       : super(
           SelfMedicalHistoryFGDRoute.name,
@@ -1053,7 +1075,7 @@ class SelfMedicalHistoryFGDRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i23.ReasonForVisitView]
-class ReasonForVisitRoute extends _i38.PageRouteInfo<void> {
+class ReasonForVisitRoute extends _i40.PageRouteInfo<void> {
   const ReasonForVisitRoute()
       : super(
           ReasonForVisitRoute.name,
@@ -1065,7 +1087,7 @@ class ReasonForVisitRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i24.MyReportView]
-class MyReportRoute extends _i38.PageRouteInfo<void> {
+class MyReportRoute extends _i40.PageRouteInfo<void> {
   const MyReportRoute()
       : super(
           MyReportRoute.name,
@@ -1078,14 +1100,14 @@ class MyReportRoute extends _i38.PageRouteInfo<void> {
 /// generated route for
 /// [_i25.VitalsItemDetailsView]
 class VitalsItemDetailsRoute
-    extends _i38.PageRouteInfo<VitalsItemDetailsRouteArgs> {
+    extends _i40.PageRouteInfo<VitalsItemDetailsRouteArgs> {
   VitalsItemDetailsRoute({
-    _i39.Key? key,
+    _i41.Key? key,
     required String title,
     required String img,
     required String subtitle,
-    required _i42.Vitals v,
-    List<_i43.PatientsVs>? allData,
+    required _i44.Vitals v,
+    List<_i45.PatientsVs>? allData,
     required int index,
     required String icon,
     required String unitId,
@@ -1124,7 +1146,7 @@ class VitalsItemDetailsRouteArgs {
     required this.color,
   });
 
-  final _i39.Key? key;
+  final _i41.Key? key;
 
   final String title;
 
@@ -1132,9 +1154,9 @@ class VitalsItemDetailsRouteArgs {
 
   final String subtitle;
 
-  final _i42.Vitals v;
+  final _i44.Vitals v;
 
-  final List<_i43.PatientsVs>? allData;
+  final List<_i45.PatientsVs>? allData;
 
   final int index;
 
@@ -1152,7 +1174,7 @@ class VitalsItemDetailsRouteArgs {
 
 /// generated route for
 /// [_i26.AddMedicalHistoryView]
-class AddMedicalHistoryRoute extends _i38.PageRouteInfo<void> {
+class AddMedicalHistoryRoute extends _i40.PageRouteInfo<void> {
   const AddMedicalHistoryRoute()
       : super(
           AddMedicalHistoryRoute.name,
@@ -1164,7 +1186,7 @@ class AddMedicalHistoryRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i27.MyMedicineView]
-class MyMedicineRoute extends _i38.PageRouteInfo<void> {
+class MyMedicineRoute extends _i40.PageRouteInfo<void> {
   const MyMedicineRoute()
       : super(
           MyMedicineRoute.name,
@@ -1176,7 +1198,7 @@ class MyMedicineRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i28.RXView]
-class RXRoute extends _i38.PageRouteInfo<void> {
+class RXRoute extends _i40.PageRouteInfo<void> {
   const RXRoute()
       : super(
           RXRoute.name,
@@ -1188,9 +1210,9 @@ class RXRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i29.RXDetailView]
-class RXDetailRoute extends _i38.PageRouteInfo<RXDetailRouteArgs> {
+class RXDetailRoute extends _i40.PageRouteInfo<RXDetailRouteArgs> {
   RXDetailRoute({
-    _i39.Key? key,
+    _i41.Key? key,
     required String title,
     required bool isCurrentRxView,
   }) : super(
@@ -1213,7 +1235,7 @@ class RXDetailRouteArgs {
     required this.isCurrentRxView,
   });
 
-  final _i39.Key? key;
+  final _i41.Key? key;
 
   final String title;
 
@@ -1227,7 +1249,7 @@ class RXDetailRouteArgs {
 
 /// generated route for
 /// [_i30.DailyAndUpcommingView]
-class DailyAndUpcommingRoute extends _i38.PageRouteInfo<void> {
+class DailyAndUpcommingRoute extends _i40.PageRouteInfo<void> {
   const DailyAndUpcommingRoute()
       : super(
           DailyAndUpcommingRoute.name,
@@ -1240,9 +1262,9 @@ class DailyAndUpcommingRoute extends _i38.PageRouteInfo<void> {
 /// generated route for
 /// [_i31.DailyAndUpcommingDetailView]
 class DailyAndUpcommingDetailRoute
-    extends _i38.PageRouteInfo<DailyAndUpcommingDetailRouteArgs> {
+    extends _i40.PageRouteInfo<DailyAndUpcommingDetailRouteArgs> {
   DailyAndUpcommingDetailRoute({
-    _i39.Key? key,
+    _i41.Key? key,
     required String docImage,
     required String docName,
     required String docHospital,
@@ -1274,7 +1296,7 @@ class DailyAndUpcommingDetailRouteArgs {
     required this.appType,
   });
 
-  final _i39.Key? key;
+  final _i41.Key? key;
 
   final String docImage;
 
@@ -1295,10 +1317,10 @@ class DailyAndUpcommingDetailRouteArgs {
 /// generated route for
 /// [_i32.MedicalDocumentsView]
 class MedicalDocumentsRoute
-    extends _i38.PageRouteInfo<MedicalDocumentsRouteArgs> {
+    extends _i40.PageRouteInfo<MedicalDocumentsRouteArgs> {
   MedicalDocumentsRoute({
-    _i39.Key? key,
-    required _i44.PastHistory? history,
+    _i41.Key? key,
+    required _i46.PastHistory? history,
   }) : super(
           MedicalDocumentsRoute.name,
           path: '/document-detail',
@@ -1317,9 +1339,9 @@ class MedicalDocumentsRouteArgs {
     required this.history,
   });
 
-  final _i39.Key? key;
+  final _i41.Key? key;
 
-  final _i44.PastHistory? history;
+  final _i46.PastHistory? history;
 
   @override
   String toString() {
@@ -1329,10 +1351,10 @@ class MedicalDocumentsRouteArgs {
 
 /// generated route for
 /// [_i33.UserDetailView]
-class UserDetailRoute extends _i38.PageRouteInfo<UserDetailRouteArgs> {
+class UserDetailRoute extends _i40.PageRouteInfo<UserDetailRouteArgs> {
   UserDetailRoute({
-    _i39.Key? key,
-    required _i45.Patient user,
+    _i41.Key? key,
+    required _i47.Patient user,
   }) : super(
           UserDetailRoute.name,
           path: '/user-detail',
@@ -1351,9 +1373,9 @@ class UserDetailRouteArgs {
     required this.user,
   });
 
-  final _i39.Key? key;
+  final _i41.Key? key;
 
-  final _i45.Patient user;
+  final _i47.Patient user;
 
   @override
   String toString() {
@@ -1362,8 +1384,32 @@ class UserDetailRouteArgs {
 }
 
 /// generated route for
-/// [_i34.HomeView]
-class HomeRoute extends _i38.PageRouteInfo<void> {
+/// [_i34.ChatView]
+class ChatRoute extends _i40.PageRouteInfo<void> {
+  const ChatRoute()
+      : super(
+          ChatRoute.name,
+          path: '/chat',
+        );
+
+  static const String name = 'ChatRoute';
+}
+
+/// generated route for
+/// [_i35.ChatRTMView]
+class ChatRTMRoute extends _i40.PageRouteInfo<void> {
+  const ChatRTMRoute()
+      : super(
+          ChatRTMRoute.name,
+          path: '/chat-rtm',
+        );
+
+  static const String name = 'ChatRTMRoute';
+}
+
+/// generated route for
+/// [_i36.HomeView]
+class HomeRoute extends _i40.PageRouteInfo<void> {
   const HomeRoute()
       : super(
           HomeRoute.name,
@@ -1374,8 +1420,8 @@ class HomeRoute extends _i38.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i35.SetAppointmentView]
-class SetAppointmentRoute extends _i38.PageRouteInfo<void> {
+/// [_i37.SetAppointmentView]
+class SetAppointmentRoute extends _i40.PageRouteInfo<void> {
   const SetAppointmentRoute()
       : super(
           SetAppointmentRoute.name,
@@ -1386,8 +1432,8 @@ class SetAppointmentRoute extends _i38.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i36.FavouritesView]
-class FavouritesRoute extends _i38.PageRouteInfo<void> {
+/// [_i38.FavouritesView]
+class FavouritesRoute extends _i40.PageRouteInfo<void> {
   const FavouritesRoute()
       : super(
           FavouritesRoute.name,
@@ -1398,8 +1444,8 @@ class FavouritesRoute extends _i38.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i37.BasketView]
-class BasketRoute extends _i38.PageRouteInfo<void> {
+/// [_i39.BasketView]
+class BasketRoute extends _i40.PageRouteInfo<void> {
   const BasketRoute()
       : super(
           BasketRoute.name,

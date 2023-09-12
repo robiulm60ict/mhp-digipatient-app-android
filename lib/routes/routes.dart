@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:digi_patient/model/my_record_model/add_medical_history_model.dart';
+import 'package:digi_patient/resources/communication/video_calling.dart';
 import 'package:digi_patient/view/anatomy/anatomy_view.dart';
 import 'package:digi_patient/view/appointment/book_appointment_view.dart';
 import 'package:digi_patient/view/authentications/create_account_view.dart';
@@ -7,6 +8,7 @@ import 'package:digi_patient/view/authentications/sign_in_view.dart';
 import 'package:digi_patient/view/authentications/sign_up_view.dart';
 import 'package:digi_patient/view/bottom_navigation_buttons/basket_view.dart';
 import 'package:digi_patient/view/bottom_navigation_buttons/set_appointment_view.dart';
+import 'package:digi_patient/view/communication/chat_view.dart';
 import 'package:digi_patient/view/home_item_pages/my_doctor_view.dart';
 import 'package:digi_patient/view/home_item_pages/my_record_view.dart';
 import 'package:digi_patient/view/my_doctor_category_views/all_doctor_search_view.dart';
@@ -23,11 +25,14 @@ import 'package:digi_patient/view/payment/invoice_view.dart';
 import 'package:digi_patient/view/payment/payment_method_view.dart';
 import 'package:digi_patient/view/payment/single_invoice_view.dart';
 import 'package:digi_patient/view/pincode_verification_view.dart';
+import 'package:digi_patient/view/real_communication/chat_view.dart';
+import 'package:digi_patient/view/real_communication/video_call.dart';
 import 'package:digi_patient/view/splash_view_2.dart';
 
 import '../view/authentications/user_detail_view.dart';
 import '../view/bottom_navigation_buttons/favourites_view.dart';
 import '../view/bottom_navigation_buttons/home_view.dart';
+import '../view/communication/agora_chatting.dart';
 import '../view/daily_upcomming_appointment/daily_and_upcomming_appointments_detail_view.dart';
 import '../view/daily_upcomming_appointment/daily_and_upcomming_appointments_view.dart';
 import '../view/dashboard.dart';
@@ -155,6 +160,12 @@ import '../view/splash_view.dart';
 
     ///User Detail
     AutoRoute(path: '/user-detail', page: UserDetailView,),
+
+    /// communication audio, video, messages
+
+    AutoRoute(path: '/chat', page: ChatView,),
+    AutoRoute(path: '/chat-rtm', page: ChatRTMView,),
+    AutoRoute(path: '/video-call', page: VideoCallingView,),
 
   ],
 )
