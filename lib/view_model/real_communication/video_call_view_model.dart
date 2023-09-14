@@ -35,6 +35,7 @@ class VideoCallViewModel with ChangeNotifier {
     } )
         .onError((error, stackTrace) {
           setVideoCallLoading(true);
+          debugPrint(error.toString());
       Messages.snackBar(context, error.toString());
     });
   }

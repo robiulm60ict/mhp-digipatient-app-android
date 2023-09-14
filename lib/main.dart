@@ -1,3 +1,4 @@
+import 'package:digi_patient/data/firebase/firebase_api.dart';
 import 'package:digi_patient/view_model/anatomy/anatomy_view_model.dart';
 import 'package:digi_patient/view_model/app_locale_state/app_locale_view_model.dart';
 import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
@@ -10,6 +11,7 @@ import 'package:digi_patient/view_model/my_record_view_model/my_record_view_mode
 import 'package:digi_patient/view_model/real_communication/video_call_view_model.dart';
 import 'package:digi_patient/view_model/signup_model.dart';
 import 'package:digi_patient/view_model/user_view_model/user_view_model.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localization/flutter_localization.dart';
@@ -28,7 +30,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-
+  await Firebase.initializeApp();
+  await FirebaseApi().initNotifications();
   runApp(
     MultiProvider(
       providers: [
