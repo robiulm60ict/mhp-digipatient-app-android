@@ -96,7 +96,8 @@ class AppUrls{
 
   static const String invoiceView = '$baseUrl/mhp_server/public/api/online-booking-app-payment-details/';
 
-
+/// video call
+  static const String videoCall = 'http://35.240.201.91:8010/api/generate-agora-token';
 
 }
 

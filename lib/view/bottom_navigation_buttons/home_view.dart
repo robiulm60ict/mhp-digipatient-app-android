@@ -8,6 +8,7 @@ import 'package:digi_patient/utils/user.dart';
 import 'package:digi_patient/view_model/auth_view_model.dart';
 import 'package:digi_patient/view_model/home_view_model.dart';
 import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
+import 'package:digi_patient/view_model/real_communication/video_call_view_model.dart';
 import 'package:digi_patient/widgets/back_button.dart';
 import 'package:digi_patient/widgets/drawer_list_tile.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../real_communication/data.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -47,6 +50,7 @@ class _HomeViewState extends State<HomeView> {
     width = width + width;
     debugPrint(size.width.toString());
     final provider = Provider.of<HomeViewModel>(context);
+    final videoCall = Provider.of<VideoCallViewModel>(context);
     final dvm = Provider.of<MyDoctorViewModel>(context);
     final authVM = Provider.of<AuthViewModel>(context);
     return SafeArea(
@@ -178,15 +182,18 @@ class _HomeViewState extends State<HomeView> {
                     CircleAvatar(
                         backgroundColor:  const Color(0xFFF0F3F6),
                         child: IconButton(onPressed: (){
-                          context.router.push(const ChatRoute());
+                          // context.router.push(const ChatRoute());
                         }, icon: Icon(Icons.call, size: 18.h, color: AppColors.primaryColor,))),
                     CircleAvatar(
                         backgroundColor:  const Color(0xFFF0F3F6),
-                        child: IconButton(onPressed: (){}, icon: Icon(Icons.video_call, size: 18.h, color: AppColors.primaryColor,))),
+                        child: IconButton(onPressed: (){
+                          videoCall.getVideoCallToken(context, appId: appId, channelName: channelName, userId: channelName);
+
+                        }, icon: Icon(Icons.video_call, size: 18.h, color: AppColors.primaryColor,))),
                     CircleAvatar(
                         backgroundColor:  const Color(0xFFF0F3F6),
                         child: IconButton(onPressed: (){
-                          context.router.push(const ChatRTMRoute());
+                          // context.router.push(const ChatRTMRoute());
                         }, icon: Icon(Icons.message, size: 18.h, color: AppColors.primaryColor,))),
                   ],
                 ),

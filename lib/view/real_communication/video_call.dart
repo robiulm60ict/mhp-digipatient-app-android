@@ -4,31 +4,40 @@ import 'package:digi_patient/view/real_communication/data.dart';
 import 'package:flutter/material.dart';
 
 class VideoCallingView extends StatefulWidget {
-  const VideoCallingView({super.key});
+  const VideoCallingView({super.key, required this.token, required this.channelName, required this.appId});
+  final String token;
+  final String channelName;
+  final String appId;
 
   @override
   State<VideoCallingView> createState() => _VideoCallingViewState();
 }
 
 class _VideoCallingViewState extends State<VideoCallingView> {
-  final AgoraClient client = AgoraClient(
-    agoraConnectionData: AgoraConnectionData(
-      appId: appId,
-      channelName: channelName,
-      tempToken: token
 
-    ),
-  );
-
+  late final AgoraClient client;
   @override
   void initState() {
     super.initState();
+
     initAgora();
   }
-
   void initAgora() async {
+    client = AgoraClient(
+      agoraConnectionData: AgoraConnectionData(
+          appId: widget.appId,
+          channelName: widget.channelName,
+          tempToken: widget.token
+
+      ),
+    );
     await client.initialize();
+    setState(() {
+
+    });
   }
+  // var provider = context.read();
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
