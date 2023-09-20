@@ -43,10 +43,16 @@ class AuthViewModel with ChangeNotifier {
     setLoginLoading(true, null);
     _authRepo.loginApi(body).then((value) async{
       Messages.flushBarMessage(context, '${value.message}',backgroundColor: AppColors.primaryColor);
-      await saveUser(isLoggedIn: keepMeSignIn, email: body['email'], password: body['password'], name: value.user!.name!, id: int.parse(value.user!.userId!));
-       Future.delayed(const Duration(seconds: 2)).then((value) {
+      await saveUser(isLoggedIn: keepMeSignIn, email: body['email'], password: body['password'], name: value.user!.name!, id: int.parse(value.user!.userId!), role: value.user!.userType ?? "");
+       Future.delayed(const Duration(seconds: 2)).then((v) {
          setLoginLoading(false, value);
-         context.router.replace(const DashboardRoute());
+         if(value.user!.userType.toString().toLowerCase() == "patient"){
+           context.router.replace(const DashboardRoute());
+         }else if(value.user!.userType.toString().toLowerCase() == "doctor"){
+           context.router.replace(const DoctorHomeRoute());
+         }else{
+           Messages.flushBarMessage(context, "Role is not in the code ${value.user!.userType.toString().toLowerCase()}");
+         }
        });
 
     }).onError((error, stackTrace) {
@@ -149,11 +155,17 @@ class AuthViewModel with ChangeNotifier {
       registrationList.add(value);
       debugPrint("\n\n\n\n\n\n ${value.patients?.patientFirstName} id: ${value.patients?.id}");
       Messages.snackBar(context, value.message.toString(), backgroundColor: AppColors.greenColor);
-      saveUser(isLoggedIn: true, email: "${value.patients?.patientEmail}", password: "password", name: "${value.patients?.patientFirstName}", id: int.tryParse("${value.patients?.id}") ?? 0);
+      saveUser(isLoggedIn: true, email: "${value.patients?.patientEmail}", password: "password", name: "${value.patients?.patientFirstName}", id: int.tryParse("${value.patients?.id}") ?? 0, role: value.data!.userType ?? "");
       setRegistrationLoading(false);
-      Future.delayed(const Duration(seconds: 1)).then((value) {
+      Future.delayed(const Duration(seconds: 1)).then((v) {
         // setLoginLoading(false, value);
-        context.router.replace(const DashboardRoute());
+        if(value.data!.userType.toString().toLowerCase() == "patient"){
+          context.router.replace(const DashboardRoute());
+        }else if(value.data!.userType.toString().toLowerCase() == "doctor"){
+          context.router.replace(const DoctorHomeRoute());
+        }else{
+          Messages.flushBarMessage(context, "Role is not in the code ${value.data!.userType.toString().toLowerCase()}");
+        }
       });
     }).onError((error, stackTrace) {
  Messages.snackBar(context, error.toString());
@@ -235,12 +247,12 @@ class AuthViewModel with ChangeNotifier {
   //   });
   // }
 
-  saveUser({required bool isLoggedIn, required String email, required String password, required String name, required int id}) async{
+  saveUser({required bool isLoggedIn, required String email, required String password, required String name, required int id, required String role}) async{
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setBool(UserP.isLoggedIn, isLoggedIn);
     await prefs.setString(UserP.email, email);
-    // await prefs.setString(UserP.phone, email);
+    await prefs.setString(UserP.role, role);
     await prefs.setString(UserP.password, password);
     await prefs.setString(UserP.name, name);
     await prefs.setInt(UserP.id, id);

@@ -313,50 +313,7 @@ padding: EdgeInsets.all(20.r),
     );
     } ),
 
-            // child: ListView.separated(
-            //   shrinkWrap: true,
-            //     physics: const NeverScrollableScrollPhysics(),
-            //     itemBuilder: (context, index) => Card(
-            //       child: Column(
-            //         children: [
-            //           ListTile(
-            //             onTap: (){
-            //               isHospitalSelected = !isHospitalSelected;
-            //               setState(() {
-            //
-            //               });
-            //             },
-            //             leading: const CircleAvatar(
-            //             backgroundColor: Colors.transparent,
-            //             backgroundImage: AssetImage(Assets.imagesHospitalLogo),),
-            //           title: Text("Square Hospital Ltd.", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
-            //           trailing: Icon(Icons.check_circle_rounded, color: isHospitalSelected ? AppColors.primaryColor : Colors.grey,),),
-            //         const SizedBox(height: 5,),
-            //           Row(
-            //             mainAxisAlignment: MainAxisAlignment.center,
-            //             children: List.generate(
-            //                 appointmentViewModel.weekDayList.length,
-            //                     (index) {
-            //                   WeekDayModel avm = appointmentViewModel.weekDayList[index];
-            //                   return Card(
-            //                     elevation: 5,
-            //                     shape: RoundedRectangleBorder(
-            //                         borderRadius: BorderRadius.circular(6.r)
-            //                     ),
-            //                     color: avm.isSelected ? Colors.grey : Colors.white,
-            //                     child: Padding(
-            //                       padding: EdgeInsets.all(4.0.r),
-            //                       child: Text(avm.weekName, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: avm.isSelected ? Colors.white : const Color(0xFF646464)),),
-            //                     ),
-            //                   );
-            //                 }
-            //             ),
-            //           ),
-            //           SizedBox(height: 10.h,),
-            //         ],
-            //       ),
-            //     ),
-            //     separatorBuilder: (context, index) => SizedBox(height: 5.h,), itemCount: 7),
+
             child: Card(
               child: Column(
                 children: [

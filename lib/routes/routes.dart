@@ -36,6 +36,7 @@ import '../view/communication/agora_chatting.dart';
 import '../view/daily_upcomming_appointment/daily_and_upcomming_appointments_detail_view.dart';
 import '../view/daily_upcomming_appointment/daily_and_upcomming_appointments_view.dart';
 import '../view/dashboard.dart';
+import '../view/doctor_screen/doctor_view.dart';
 import '../view/my_doctor_category_views/doc_details_view.dart';
 import '../view/my_medicine/my_medicine_view.dart';
 import '../view/my_medicine/rx_detail_view.dart';
@@ -166,6 +167,11 @@ import '../view/splash_view.dart';
     AutoRoute(path: '/chat', page: ChatView,),
     AutoRoute(path: '/chat-rtm', page: ChatRTMView,),
     AutoRoute(path: '/video-call', page: VideoCallingView,),
+    AutoRoute(path: '/video-call-rtc', page: VideoCallingRTCView,),
+
+    /// Doctor view
+    AutoRoute(path: '/doctor', page: DoctorHomeView,),
+
 
   ],
 )

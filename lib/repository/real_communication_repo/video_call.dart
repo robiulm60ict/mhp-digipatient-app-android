@@ -15,7 +15,7 @@ class VideoCallRepo {
   Future<VideoCallToken> getVideoToken(dynamic body) async {
     try {
       dynamic response =
-      await apiService.getPostApiResponse(AppUrls.login, body);
+      await apiService.getPostApiResponse(AppUrls.videoCall, body);
       return VideoCallToken.fromJson(response);
     } catch (e) {
       rethrow;

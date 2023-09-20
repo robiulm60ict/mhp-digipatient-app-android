@@ -6,5 +6,6 @@ class UserP{
   static const isLoggedIn = 'isLoggedIn';
   static const id = 'id';
   static const phone = 'phone';
+  static const role = 'role';
 
 }

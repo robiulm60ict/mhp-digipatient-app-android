@@ -31,8 +31,9 @@ class VideoCallViewModel with ChangeNotifier {
 
       videoCallToken = value.token!;
       setVideoCallLoading(false);
-      context.router.push( VideoCallingRoute(token: value.token!, appId: appId, channelName: channelName));
-    } )
+      // context.router.push( VideoCallingRoute(token: value.token!, appId: appId, channelName: channelName));
+    context.router.push(VideoCallingRTCRoute(token: videoCallToken));
+        } )
         .onError((error, stackTrace) {
           setVideoCallLoading(true);
           debugPrint(error.toString());

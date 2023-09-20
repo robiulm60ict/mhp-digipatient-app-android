@@ -31,12 +31,15 @@ class FirebaseApi{
       settings,
       onDidReceiveNotificationResponse: (details) {
         final message = RemoteMessage.fromMap(jsonDecode(details.payload!));
+        /// checking message response
+        debugPrint("Message from init local notification did receive notification: \n\n\n${message.data.values}\n\n\n");
         handleMessage(message);
 
       },
       //TODO: please check below for notification error
       onDidReceiveBackgroundNotificationResponse: (details) {
         final message = RemoteMessage.fromMap(jsonDecode(details.payload!));
+        debugPrint("Message from init local notification did receive background notification: \n\n\n${message.data.values}\n\n\n");
         handleMessage(message);
       },
 
@@ -91,4 +94,5 @@ Future<void> handleBackgroundMessage(RemoteMessage message)async{
   debugPrint("Body: ${message.notification?.body}");
   debugPrint("Data: ${message.data}");
 }
+
 

@@ -4,6 +4,7 @@ import 'package:digi_patient/view_model/app_locale_state/app_locale_view_model.d
 import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
 import 'package:digi_patient/view_model/communication%20view%20model/communication_view_model.dart';
 import 'package:digi_patient/view_model/daily_appointments_view_model/daily_appointments_view_model.dart';
+import 'package:digi_patient/view_model/doctor_screen_view_model/all_patient_list_view_model.dart';
 import 'package:digi_patient/view_model/home_view_model.dart';
 import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:digi_patient/view_model/my_medicine_view_model/my_medicine_view_model.dart';
@@ -73,6 +74,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => VideoCallViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DoctorScreenViewModel(),
         ),
       ],
       child: MyApp(),
