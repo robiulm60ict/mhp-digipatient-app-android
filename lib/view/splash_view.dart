@@ -44,6 +44,8 @@ class _SplashViewState extends State<SplashView> {
       context.router.replace(const DashboardRoute());
     }else if(isLoggedIn && role.toLowerCase() == "doctor"){
       context.router.push(const DoctorHomeRoute());
+    }else{
+      context.router.push(const OnBoardingRoute());
     }
   }
 

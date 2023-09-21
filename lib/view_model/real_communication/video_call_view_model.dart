@@ -30,9 +30,11 @@ class VideoCallViewModel with ChangeNotifier {
         .then((value) {
 
       videoCallToken = value.token!;
+      debugPrint("\n\n\n\n\n\n\n\n\n\nVideo Call Token: \n ${value.token}\n\n\n\n\n\n\n\n\n\n");
       setVideoCallLoading(false);
       // context.router.push( VideoCallingRoute(token: value.token!, appId: appId, channelName: channelName));
-    context.router.push(VideoCallingRTCRoute(token: videoCallToken));
+    // context.router.push(VideoCallingRTCRoute(token: value.token!));
+    context.router.push(VideoCallingRoute(token: value.token!, channelName: channelName, appId: appId));
         } )
         .onError((error, stackTrace) {
           setVideoCallLoading(true);

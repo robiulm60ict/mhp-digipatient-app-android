@@ -193,7 +193,7 @@ class _HomeViewState extends State<HomeView> {
                     CircleAvatar(
                         backgroundColor:  const Color(0xFFF0F3F6),
                         child: IconButton(onPressed: (){
-                          // context.router.push(const ChatRTMRoute());
+                          context.router.push(const ChatRTMRoute());
                         }, icon: Icon(Icons.message, size: 18.h, color: AppColors.primaryColor,))),
                   ],
                 ),

@@ -7,7 +7,6 @@ import 'package:digi_patient/utils/custom_search_dialogue.dart';
 import 'package:digi_patient/utils/utils.dart';
 import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:digi_patient/widgets/back_button.dart';
-import 'package:digi_patient/widgets/doctor_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';

@@ -1,3 +1,4 @@
+import 'package:agora_rtm/agora_rtm.dart';
 import 'package:agora_uikit/agora_uikit.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/view/real_communication/data.dart';
@@ -86,6 +87,7 @@ class _VideoCallingRTCViewState extends State<VideoCallingRTCView> {
     initAgora();
   }
 
+
   Future<void> initAgora() async {
     // token = widget.token;
     // retrieve permissions
@@ -139,33 +141,40 @@ class _VideoCallingRTCViewState extends State<VideoCallingRTCView> {
   // Create UI with local view and remote view
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Agora Video Call'),
-      ),
-      body: Stack(
-        children: [
-          Center(
-            child: _remoteVideo(),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: SizedBox(
-              width: 100,
-              height: 150,
-              child: Center(
-                child: _localUserJoined
-                    ? AgoraVideoView(
-                  controller: VideoViewController(
-                    rtcEngine: _engine,
-                    canvas: const VideoCanvas(uid: 0),
-                  ),
-                )
-                    : const CircularProgressIndicator(),
+    return WillPopScope(
+      onWillPop: () async {
+        return true;
+
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Video Call'),
+        ),
+        body: Stack(
+          children: [
+            Center(
+              child: _remoteVideo(),
+            ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: SizedBox(
+                width: 100,
+                height: 150,
+                child: Center(
+                  child: _localUserJoined
+                      ? AgoraVideoView(
+                    controller: VideoViewController(
+                      rtcEngine: _engine,
+                      canvas: const VideoCanvas(uid: 0),
+                    ),
+                  )
+                      : const CircularProgressIndicator(),
+                ),
               ),
             ),
-          ),
-        ],
+
+          ],
+        ),
       ),
     );
   }

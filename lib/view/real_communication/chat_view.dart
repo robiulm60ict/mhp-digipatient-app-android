@@ -412,7 +412,7 @@ class ChatRTMViewState extends State<ChatRTMView> {
       }
 
       try {
-        await _client?.login(null, userId);
+        await _client?.login("007eJxTYPhZk/n+anaEgNrdc2lnPT8/PuZc43/Z6Ootse6khJR7HMsUGAyNzUySTA1TTCwTTU2Mkg0sLVJSzA2MLY1NjRNNTI0MRXh5UhsCGRlOiwqyMDKwMjACIYivwmBibJ6abGJsoGtqYWaga2iYmqqbZJiUqGtsbGpukmZgkmpmkQoAjF8l4w==", userId);
         _log('Login success: $userId');
         setState(() {
           _isLogin = true;

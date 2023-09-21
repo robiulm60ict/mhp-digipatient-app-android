@@ -11,7 +11,7 @@ class AppUrls{
 
   static const String auth = 'Authorization';
 
-  static const String login = '$baseUrl/mhp_server/public/api/login-patient';
+  static const String login = '$baseUrl/mhp_server/public/api/login';
 
   static const String allDoctors = '$baseUrl/mhp_server/public/api/doctors';
 

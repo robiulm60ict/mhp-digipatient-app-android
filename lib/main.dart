@@ -13,6 +13,7 @@ import 'package:digi_patient/view_model/real_communication/video_call_view_model
 import 'package:digi_patient/view_model/signup_model.dart';
 import 'package:digi_patient/view_model/user_view_model/user_view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localization/flutter_localization.dart';
@@ -23,16 +24,21 @@ import '/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 final FlutterLocalization localization = FlutterLocalization.instance;
 
+Future<void> backgroundMessageHandler(RemoteMessage message)async{
+  await Firebase.initializeApp();
+}
 void main() async {
   await ScreenUtil.ensureScreenSize();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  await Firebase.initializeApp();
-  await FirebaseApi().initNotifications();
+  await Firebase.initializeApp(
+  );
+  await FirebaseMessaging.instance.getInitialMessage();
+   FirebaseMessaging.onBackgroundMessage(backgroundMessageHandler);
+  // await FirebaseApi().initNotifications();
   runApp(
     MultiProvider(
       providers: [
@@ -79,13 +85,13 @@ void main() async {
           create: (context) => DoctorScreenViewModel(),
         ),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
