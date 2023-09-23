@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "954721516383",
+    "project_id": "digipatient-f8ec0",
+    "storage_bucket": "digipatient-f8ec0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954721516383:android:1948bd5a697e80bc9a94ea",
+        "android_client_info": {
+          "package_name": "com.example.digi_patient"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjQKWfJqcVa8FvcWZQHuZ03YoXhxpLeA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954721516383:android:139abe602eae0c219a94ea",
+        "android_client_info": {
+          "package_name": "com.example.mhp_doctor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjQKWfJqcVa8FvcWZQHuZ03YoXhxpLeA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

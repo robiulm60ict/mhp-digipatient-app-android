@@ -1,15 +1,21 @@
 import 'dart:convert';
 
+import 'package:auto_route/auto_route.dart';
+import 'package:digi_patient/routes/routes.gr.dart';
+import 'package:digi_patient/view/real_communication/video_call.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/user.dart';
+import '../../view/real_communication/data.dart';
 
 class FirebaseApi{
   FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
-   String icon = "@drawable/ic_launcher";
+   // String icon = "@drawable/ic_launcher";
+   String icon = "app_icon";
 
   final androidChannel = const AndroidNotificationChannel(
       "high_importance_channel", "High Importance Notification",
@@ -23,12 +29,16 @@ class FirebaseApi{
       return;
     }else{
       //TODO: Navigate to notification screen using the navigator key
+      debugPrint("Notification tapped Token: ${message.data['token']} Channel Name: ${message.data['channelName']}");
+      // router.navigateTo(VideoCallingRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId));
+      // context.router.push(VideoCallingRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId));
+    const AutoRouter().navigatorKey?.currentState?.push(MaterialPageRoute(builder: (BuildContext context) => VideoCallingView(token: message.data['token'], channelName: message.data['channelName'], appId: appId)));
     }
   }
 
   Future<void> initLocalNotifications()async{
     const ios = DarwinInitializationSettings();
-    const android = AndroidInitializationSettings("@drawable/ic_launcher");
+    const android = AndroidInitializationSettings("app_icon");
     const settings = InitializationSettings(android: android, iOS: ios);
     await localNotification.initialize(
       settings,
@@ -59,8 +69,8 @@ class FirebaseApi{
       sound: true,
     );
 
-    await FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
-    FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
+    await FirebaseMessaging.instance.getInitialMessage().then((message) => handleMessage(message));
+    FirebaseMessaging.onMessageOpenedApp.listen((message)=>handleMessage(message));
     FirebaseMessaging.onBackgroundMessage((handleBackgroundMessage));
     FirebaseMessaging.onMessage.listen((message) {
       final notification = message.notification;
@@ -101,7 +111,6 @@ class FirebaseApi{
       to: fcmToken,
       messageId: "0",
      data: data,
-
     );
   }
 }

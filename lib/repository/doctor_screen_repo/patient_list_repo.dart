@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:digi_patient/model/doctor_model/doctor_fee_model.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/model/doctor_screen_model/patient_list_model.dart';

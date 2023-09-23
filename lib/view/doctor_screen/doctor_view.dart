@@ -24,17 +24,17 @@ class _DoctorHomeViewState extends State<DoctorHomeView> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_){
-      getAllPatients();
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_){
+    //   // getAllPatients();
+    // });
 
   }
-  getAllPatients(){
-    context.read<DoctorScreenViewModel>().getAllPatientList(context);
-  }
+  // getAllPatients(){
+  //   context.read<DoctorScreenViewModel>().getAllPatientList(context);
+  // }
   @override
   Widget build(BuildContext context) {
-    var allPatients = Provider.of<DoctorScreenViewModel>(context).allPatientList.first.patients ?? [];
+    var allPatients = Provider.of<DoctorScreenViewModel>(context).allPatientList.isNotEmpty ? Provider.of<DoctorScreenViewModel>(context).allPatientList.first.patients : [];
     final videoCall = Provider.of<VideoCallViewModel>(context);
     return Scaffold(
       appBar: AppBar(

@@ -7,6 +7,7 @@ import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/utils/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/auth_model/RegistrationModel.dart';
 import '../model/auth_model/birth_sex_model.dart';
@@ -16,6 +17,7 @@ import '../repository/doctor_screen_repo/patient_list_repo.dart';
 import '/repository/auth_repository.dart';
 import '/routes/routes.gr.dart';
 import '/utils/message.dart';
+import 'doctor_screen_view_model/all_patient_list_view_model.dart';
 
 class AuthViewModel with ChangeNotifier {
   final _authRepo = AuthRepository();
@@ -62,7 +64,7 @@ class AuthViewModel with ChangeNotifier {
     };
 
     final String ptnId = prefs.getInt(UserP.id).toString();
-    patientListRepo.savePtnFCMToken(ptnId: ptnId, body: body).then((value) => null).onError((e, stackTrace){debugPrint("fcm error $e");});
+    patientListRepo.savePtnFCMToken(ptnId: ptnId, body: body).then((value) => debugPrint("\n\n\n\n Fcm token saved ${value.patient?.appToken}")).onError((e, stackTrace){debugPrint("\n\n\n\n\nfcm error $e");});
   }
 
 
@@ -78,7 +80,7 @@ class AuthViewModel with ChangeNotifier {
            context.router.replace(const DashboardRoute());
          }else if(value.user!.userType.toString().toLowerCase() == "doctor"){
            saveDocFcm();
-           context.router.replace(const DoctorHomeRoute());
+           context.read<DoctorScreenViewModel>().getAllPatientList(context);
          }else{
            Messages.flushBarMessage(context, "Role is not in the code ${value.user!.userType.toString().toLowerCase()}");
          }

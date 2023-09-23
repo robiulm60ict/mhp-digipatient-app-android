@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/repository/doctor_screen_repo/patient_list_repo.dart';
 import 'package:digi_patient/utils/message.dart';
 import 'package:digi_patient/utils/user.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/doctor_screen_model/patient_list_model.dart';
+import '../../routes/routes.gr.dart';
 
 class DoctorScreenViewModel extends ChangeNotifier{
 
@@ -24,8 +26,11 @@ class DoctorScreenViewModel extends ChangeNotifier{
       allPatientList.clear();
       allPatientList.add(value);
       setAllPatientLoading(false);
+      context.router.replace(const DoctorHomeRoute());
+
     }).onError((error, stackTrace) {
       setAllPatientLoading(true);
+      debugPrint("Error: ${error.toString()}");
       Messages.snackBar(context, error.toString());
     });
   }

@@ -25,24 +25,28 @@ import '/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'firebase_options.dart';
+
 final FlutterLocalization localization = FlutterLocalization.instance;
 
 Future<void> backgroundMessageHandler(RemoteMessage message)async{
   await Firebase.initializeApp();
 }
-void main() async {
+
+final navigatorKey = GlobalKey<NavigatorState>();
+
+Future<void> main() async {
   await ScreenUtil.ensureScreenSize();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await Firebase.initializeApp(
-    // options: DefaultFirebaseOptions.currentPlatform,
-
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   // await FirebaseMessaging.instance.getInitialMessage();
   //  FirebaseMessaging.onBackgroundMessage(backgroundMessageHandler);
   //  await NotificationService().getToken();
-  await FirebaseApi().initNotifications();
+   await FirebaseApi().initNotifications();
   runApp(
     MultiProvider(
       providers: [
