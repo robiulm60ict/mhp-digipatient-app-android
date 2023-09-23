@@ -20,15 +20,15 @@ class VideoCallingView extends StatefulWidget {
 class _VideoCallingViewState extends State<VideoCallingView> {
 
   late final AgoraClient client;
-  final notificationService = NotificationService();
+  // final notificationService = NotificationService();
 
   
   @override
   void initState() {
     super.initState();
     initAgora();
-    notificationService.firebaseNotification(context);
-    notificationService.sendNotification(body: widget.token, senderId: "senderId");
+    // notificationService.firebaseNotification(context);
+    // notificationService.sendNotification(body: widget.token, senderId: "senderId");
 
   }
   void initAgora() async {

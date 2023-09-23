@@ -82,6 +82,7 @@ class FirebaseApi{
   saveTokenLocally(String token)async{
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(UserP.fcmToken, token);
+    debugPrint("\n\n\n\n\ntoken saved locally success::: token: $token");
   }
 
 

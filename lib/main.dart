@@ -35,7 +35,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    // options: DefaultFirebaseOptions.currentPlatform,
+
+  );
   // await FirebaseMessaging.instance.getInitialMessage();
   //  FirebaseMessaging.onBackgroundMessage(backgroundMessageHandler);
   //  await NotificationService().getToken();
