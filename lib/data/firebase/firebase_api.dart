@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../utils/user.dart';
 
 class FirebaseApi{
   FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
@@ -32,14 +35,14 @@ class FirebaseApi{
       onDidReceiveNotificationResponse: (details) {
         final message = RemoteMessage.fromMap(jsonDecode(details.payload!));
         /// checking message response
-        debugPrint("Message from init local notification did receive notification: \n\n\n${message.data.values}\n\n\n");
+        debugPrint("---Message from init local notification did receive notification: \n\n\n${message.data.values}\n\n\n");
         handleMessage(message);
 
       },
       //TODO: please check below for notification error
       onDidReceiveBackgroundNotificationResponse: (details) {
         final message = RemoteMessage.fromMap(jsonDecode(details.payload!));
-        debugPrint("Message from init local notification did receive background notification: \n\n\n${message.data.values}\n\n\n");
+        debugPrint("---Message from init local notification did receive background notification: \n\n\n${message.data.values}\n\n\n");
         handleMessage(message);
       },
 
@@ -76,16 +79,29 @@ class FirebaseApi{
       );
     });
   }
-
+  saveTokenLocally(String token)async{
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString(UserP.fcmToken, token);
+  }
 
 
   Future<void> initNotifications()async{
     await firebaseMessaging.requestPermission();
     final fcmToken = await firebaseMessaging.getToken();
+    saveTokenLocally(fcmToken.toString());
     debugPrint("Token: ${fcmToken.toString()}");
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
     await initPushNotifications();
     await initLocalNotifications();
+  }
+
+  Future<void> sendNotification({required String fcmToken, required data})async{
+    firebaseMessaging.sendMessage(
+      to: fcmToken,
+      messageId: "0",
+     data: data,
+
+    );
   }
 }
 

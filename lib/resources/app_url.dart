@@ -16,7 +16,11 @@ class AppUrls{
   static const String allDoctors = '$baseUrl/mhp_server/public/api/doctors';
 
   static const String allPatients = '$baseUrl/mhp_server/public/api/patients';
-  
+
+  static const String saveDocFCM = '$baseUrl/mhp_server/public/api/doctor-app-token/';
+
+  static const String savePtnFCM = '$baseUrl/mhp_server/public/api/patient-app-token/';
+
   static const String docFee = '$baseUrl/mhp_server/public/api/doctors-consultation-Fee/';
 
   static const String department = '$baseUrl/mhp_server/public/api/department';

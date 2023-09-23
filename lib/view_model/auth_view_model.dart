@@ -12,6 +12,7 @@ import '../model/auth_model/RegistrationModel.dart';
 import '../model/auth_model/birth_sex_model.dart';
 import '../model/registration/otp_check_model.dart';
 import '../model/registration/send_verification_code_model.dart';
+import '../repository/doctor_screen_repo/patient_list_repo.dart';
 import '/repository/auth_repository.dart';
 import '/routes/routes.gr.dart';
 import '/utils/message.dart';
@@ -39,6 +40,32 @@ class AuthViewModel with ChangeNotifier {
 
   LoginModel? user;
 
+  saveDocFcm()async{
+    final prefs = await SharedPreferences.getInstance();
+    final String token = prefs.getString(UserP.fcmToken).toString();
+
+    Map<String, String> body = {
+      'token' : token
+    };
+
+    final String docId = prefs.getInt(UserP.id).toString();
+    patientListRepo.saveDocFCMToken(docId: docId, body: body).then((value) => null).onError((e, stackTrace) {debugPrint("fcm error $e");} );
+  }
+
+  PatientListRepo patientListRepo = PatientListRepo();
+
+  savePtnFcm()async{
+    final prefs = await SharedPreferences.getInstance();
+    final String token = prefs.getString(UserP.fcmToken).toString();
+    Map<String, String> body = {
+      'token' : token
+    };
+
+    final String ptnId = prefs.getInt(UserP.id).toString();
+    patientListRepo.savePtnFCMToken(ptnId: ptnId, body: body).then((value) => null).onError((e, stackTrace){debugPrint("fcm error $e");});
+  }
+
+
   Future<void> loginApi(BuildContext context, dynamic body, {bool keepMeSignIn = true}) async{
     setLoginLoading(true, null);
     _authRepo.loginApi(body).then((value) async{
@@ -47,8 +74,10 @@ class AuthViewModel with ChangeNotifier {
        Future.delayed(const Duration(seconds: 2)).then((v) {
          setLoginLoading(false, value);
          if(value.user!.userType.toString().toLowerCase() == "patient"){
+           savePtnFcm();
            context.router.replace(const DashboardRoute());
          }else if(value.user!.userType.toString().toLowerCase() == "doctor"){
+           saveDocFcm();
            context.router.replace(const DoctorHomeRoute());
          }else{
            Messages.flushBarMessage(context, "Role is not in the code ${value.user!.userType.toString().toLowerCase()}");
@@ -198,54 +227,14 @@ class AuthViewModel with ChangeNotifier {
       debugPrint("\n---\n---\n---\n---\n---\n---\n---\n---\n id: ${value.patients?.id}---\n Name: ${value.patients?.patientFirstName} \n---\n---\n---\n---\n---\n---\n---\n---\n");
       // saveUser(isLoggedIn: true, email: email, password: password, name: name, id: int.tryParse("${value.patients?.id}") ?? 0);
       setRegistrationLoading(false);
-      // Future.delayed(const Duration(seconds: 1)).then((value) {
-      //   setLoginLoading(false, value);
-      //   context.router.replace(const DashboardRoute());
-      // });
-      // context.router.replaceAll(DashboardRoute());
+
     }).onError((error, stackTrace) {
       Messages.snackBar(context, error.toString());
       setRegistrationLoading(false);
     });
 
   }
-  // SendImage sendImage = SendImage();
-  // Future<void> signUpAndSendImage(BuildContext context, {required Map<String,String> body, required String filePath, bool keepMeSignIn = true,})async{
-  //   setSignupLoading(true);
-  //   await sendImage.addImage(body, filePath).then((value) async{
-  //     debugPrint("\n\n\n\n\n\n\n---returned value is $value---\n\n\n\n\n\n\n");
-  //     if(value) {
-  //       setSignupLoading(false,);
-  //       // await saveUser(isLoggedIn: keepMeSignIn, email: body['email']!, password: body['password']!, name: body["patient_first_name"]!, id: int.parse("${value.patients!.id!}"));
-  //
-  //     Messages.flushBarMessage(context, "Sign UP Successful",backgroundColor: Colors.green);
-  //       // context.router.replace(const DashboardRoute());
-  //     }else{
-  //       Messages.flushBarMessage(context, "Something Went Wrong Please try again");
-  //       setSignupLoading(false,);
-  //     }
-  //   }).onError((error, stackTrace) {
-  //     debugPrint(error.toString());
-  //     Messages.flushBarMessage(context, error.toString());
-  //     setSignupLoading(false);
-  //   });
-  // }
-  // Future<void> signUpApi(BuildContext context, Map<String,dynamic> body, {bool keepMeSignIn = true}) async{
-  //   setSignupLoading(true);
-  //   _authRepo.signUpApi( body: body).then((value) async {
-  //     Messages.flushBarMessage(context, 'Signup Successful ${value.message}');
-  //     // userViewModel.saveUser(value.token);
-  //     await saveUser(isLoggedIn: keepMeSignIn, email: body['email'], password: body['password'], name: value.patients!.patientFirstName!, id: int.parse("${value.patients!.id!}"));
-  //     Future.delayed(const Duration(seconds: 1)).then((value) {
-  //       setSignupLoading(false,);
-  //     context.router.replace(const DashboardRoute());
-  //     });
-  //   }).onError((error, stackTrace) {
-  //     debugPrint(error.toString());
-  //     Messages.flushBarMessage(context, error.toString());
-  //     setSignupLoading(false);
-  //   });
-  // }
+
 
   saveUser({required bool isLoggedIn, required String email, required String password, required String name, required int id, required String role}) async{
     final prefs = await SharedPreferences.getInstance();

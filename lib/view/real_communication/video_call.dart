@@ -1,5 +1,6 @@
 import 'package:agora_rtm/agora_rtm.dart';
 import 'package:agora_uikit/agora_uikit.dart';
+import 'package:digi_patient/data/firebase/notification_fcm.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/view/real_communication/data.dart';
 import 'package:flutter/material.dart';
@@ -19,11 +20,16 @@ class VideoCallingView extends StatefulWidget {
 class _VideoCallingViewState extends State<VideoCallingView> {
 
   late final AgoraClient client;
+  final notificationService = NotificationService();
+
+  
   @override
   void initState() {
     super.initState();
-
     initAgora();
+    notificationService.firebaseNotification(context);
+    notificationService.sendNotification(body: widget.token, senderId: "senderId");
+
   }
   void initAgora() async {
     client = AgoraClient(
@@ -33,6 +39,66 @@ class _VideoCallingViewState extends State<VideoCallingView> {
           tempToken: widget.token,
           tokenUrl: AppUrls.videoCall,
 
+      ),
+    );
+    await client.initialize();
+    setState(() {
+
+    });
+  }
+  // var provider = context.read();
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          // leading: const CustomBackButton(),
+          automaticallyImplyLeading: false,
+          backgroundColor: AppColors.primaryColor,
+          title: const Text("Video Call"),
+          centerTitle: true,
+        ),
+        body: SafeArea(
+          child: Stack(
+            children: [
+              AgoraVideoViewer(client: client, layoutType: Layout.floating),
+              AgoraVideoButtons(client: client, ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+class PatientVideoCallView extends StatefulWidget {
+  const PatientVideoCallView({super.key, required this.channelName, required this.token});
+  final String channelName;
+  final String token;
+
+  @override
+  State<PatientVideoCallView> createState() => _PatientVideoCallViewState();
+}
+
+class _PatientVideoCallViewState extends State<PatientVideoCallView> {
+  late final AgoraClient client;
+  final notificationService = NotificationService();
+  @override
+  void initState() {
+    super.initState();
+    initAgora();
+    notificationService.firebaseNotification(context);
+  }
+  void initAgora() async {
+    client = AgoraClient(
+      agoraConnectionData: AgoraConnectionData(
+        appId: appId,
+        channelName: widget.channelName,
+        tempToken: widget.token,
+        tokenUrl: AppUrls.videoCall,
       ),
     );
     await client.initialize();

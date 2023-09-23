@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:badges/badges.dart';
+import 'package:digi_patient/data/firebase/notification_fcm.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
@@ -182,12 +183,13 @@ class _HomeViewState extends State<HomeView> {
                     CircleAvatar(
                         backgroundColor:  const Color(0xFFF0F3F6),
                         child: IconButton(onPressed: (){
+                          // NotificationService().sendNotification(body: "f__eQHA9TFmTrIFGdUh_e8:APA91bGyUQ5AxCwcQwtTFgxfpiUA2WGLHCGt2C4bnLazfCFRyqA1fl_KVX-zIkq27tmX-RTO_JGn_QpGBAEFpbBA0qCdn2gf-2-OZhGpqtSGEbaKbJW9Fgcdi3pmpjmsIvyBIFg6hzND", senderId: "senderId");
                           // context.router.push(const ChatRoute());
                         }, icon: Icon(Icons.call, size: 18.h, color: AppColors.primaryColor,))),
                     CircleAvatar(
                         backgroundColor:  const Color(0xFFF0F3F6),
                         child: IconButton(onPressed: (){
-                          videoCall.getVideoCallToken(context, appId: appId, channelName: channelName, userId: channelName);
+                          // videoCall.getVideoCallToken(context, appId: appId, channelName: channelName, userId: channelName);
 
                         }, icon: Icon(Icons.video_call, size: 18.h, color: AppColors.primaryColor,))),
                     CircleAvatar(

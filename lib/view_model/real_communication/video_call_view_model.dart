@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:digi_patient/data/firebase/firebase_api.dart';
 import 'package:digi_patient/repository/real_communication_repo/video_call.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -6,6 +7,8 @@ import '../../routes/routes.gr.dart';
 import '../../utils/message.dart';
 
 class VideoCallViewModel with ChangeNotifier {
+
+  FirebaseApi firebaseApi = FirebaseApi();
 
   bool isVideoCallTokenLoading = true;
   setVideoCallLoading(bool val){
@@ -20,7 +23,9 @@ class VideoCallViewModel with ChangeNotifier {
   getVideoCallToken(BuildContext context,
       {required String appId,
       required String channelName,
-      required String userId}) async {
+      required String userId,
+      required String fcmToken,
+      }) async {
     Map<String, dynamic> body = {
       "app_id": appId,
       "user_id": userId,
@@ -32,9 +37,14 @@ class VideoCallViewModel with ChangeNotifier {
       videoCallToken = value.token!;
       debugPrint("\n\n\n\n\n\n\n\n\n\nVideo Call Token: \n ${value.token}\n\n\n\n\n\n\n\n\n\n");
       setVideoCallLoading(false);
+      Map<String, String> data = {
+        'token' : "${value.token}",
+        'channelName' : "${value.channelName}"
+      };
+      firebaseApi.sendNotification(fcmToken: fcmToken, data: data);
       // context.router.push( VideoCallingRoute(token: value.token!, appId: appId, channelName: channelName));
     // context.router.push(VideoCallingRTCRoute(token: value.token!));
-    context.router.push(VideoCallingRoute(token: value.token!, channelName: channelName, appId: appId));
+    context.router.push(VideoCallingRoute(token: value.token!, channelName: value.channelName!, appId: appId));
         } )
         .onError((error, stackTrace) {
           setVideoCallLoading(true);

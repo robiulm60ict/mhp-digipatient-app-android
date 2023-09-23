@@ -7,5 +7,5 @@ class UserP{
   static const id = 'id';
   static const phone = 'phone';
   static const role = 'role';
-
+  static const fcmToken = 'fcm';
 }

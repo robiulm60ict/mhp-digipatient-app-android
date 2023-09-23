@@ -1,7 +1,4 @@
 import 'dart:convert';
-
-import 'package:auto_route/auto_route.dart';
-import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -76,7 +73,7 @@ class NotificationService{
 
   Future<void> getToken()async{
     final token = await FirebaseMessaging.instance.getToken();
-
+    debugPrint("\n\n\nFCM token: $token");
   }
 
 
@@ -98,7 +95,8 @@ class NotificationService{
             "Authorization" : "key=$key",
           },
           body: jsonEncode(<String, dynamic>{
-            "to" : receiverToken,
+            /// change body to receiverToken
+            "to" : body,
             "priority" : "high",
             "notification" : <String, dynamic> {
               "body" : body,
@@ -110,9 +108,9 @@ class NotificationService{
               "senderId" : senderId,
             }
           })
-      );
+      ).then((value) => debugPrint("\n\n\n\n\n\nMessage send success"));
     }catch (e){
-      debugPrint(e.toString());
+      debugPrint("\n\n\n\n\n\nSending notification Error: "+e.toString());
     }
   }
 

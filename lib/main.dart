@@ -1,4 +1,5 @@
 import 'package:digi_patient/data/firebase/firebase_api.dart';
+import 'package:digi_patient/data/firebase/notification_fcm.dart';
 import 'package:digi_patient/view_model/anatomy/anatomy_view_model.dart';
 import 'package:digi_patient/view_model/app_locale_state/app_locale_view_model.dart';
 import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
@@ -34,11 +35,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  await Firebase.initializeApp(
-  );
-  await FirebaseMessaging.instance.getInitialMessage();
-   FirebaseMessaging.onBackgroundMessage(backgroundMessageHandler);
-  // await FirebaseApi().initNotifications();
+  await Firebase.initializeApp();
+  // await FirebaseMessaging.instance.getInitialMessage();
+  //  FirebaseMessaging.onBackgroundMessage(backgroundMessageHandler);
+  //  await NotificationService().getToken();
+  await FirebaseApi().initNotifications();
   runApp(
     MultiProvider(
       providers: [
