@@ -35,13 +35,14 @@ class VideoCallViewModel with ChangeNotifier {
         .then((value) {
 
       videoCallToken = value.token!;
-      debugPrint("\n\n\n\n\n\n\n\n\n\nVideo Call Token: \n ${value.token}\n\n\n\n\n\n\n\n\n\n");
+      debugPrint("\n\n\n\n\n\n\n\n\n\nVideo Call Token: \n ${value.token} channel Name: ${value.channelName}\n\n\n\n\n\n\n\n\n\n");
       setVideoCallLoading(false);
-      Map<String, String> data = {
+      Map<String, String> body = {
         'token' : "${value.token}",
         'channelName' : "${value.channelName}"
       };
-      firebaseApi.sendNotification(fcmToken: fcmToken, data: data);
+      firebaseApi.sendApiNotification(channelName: "${value.channelName}", fcmToken: fcmToken, videoCallToken: "${value.token}");
+      // firebaseApi.sendNotification(fcmToken: fcmToken, data: data);
       // context.router.push( VideoCallingRoute(token: value.token!, appId: appId, channelName: channelName));
     // context.router.push(VideoCallingRTCRoute(token: value.token!));
     context.router.push(VideoCallingRoute(token: value.token!, channelName: value.channelName!, appId: appId));

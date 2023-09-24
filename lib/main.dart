@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/data/firebase/firebase_api.dart';
 import 'package:digi_patient/data/firebase/notification_fcm.dart';
 import 'package:digi_patient/view_model/anatomy/anatomy_view_model.dart';
@@ -34,6 +35,12 @@ Future<void> backgroundMessageHandler(RemoteMessage message)async{
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
+final appRoute = AppRouter(navigatorKey);
+// final navigatorKey = GlobalKey<NavigatorState>();
+// final _appRouter = AppRouter(
+//   navigatorKey: navigatorKey,
+// );
+// final navigationService = NavigationService(appRouter.navigatorKey);
 
 Future<void> main() async {
   await ScreenUtil.ensureScreenSize();
@@ -112,13 +119,15 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<AppLocaleViewModel>(context);
+    // final provider = Provider.of<AppLocaleViewModel>(context);
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp.router(
+
+          // routerConfig: appRouter.config(),
           // supportedLocales: localization.supportedLocales,
           // localizationsDelegates: localization.localizationsDelegates,
           // locale: provider.locale,
@@ -147,8 +156,10 @@ class _MyAppState extends State<MyApp> {
             iconTheme: IconThemeData(size: 25.h, color: Colors.grey),
           ),
           debugShowCheckedModeBanner: false,
-          routerDelegate: _appRouter.delegate(),
-          routeInformationParser: _appRouter.defaultRouteParser(),
+          routerDelegate: AutoRouterDelegate(appRoute),
+          routeInformationParser: appRoute.defaultRouteParser(),
+          // routerDelegate: _appRouter.delegate(),
+          // routeInformationParser: _appRouter.defaultRouteParser(),
         );
       },
     );

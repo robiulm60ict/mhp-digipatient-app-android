@@ -1,5 +1,7 @@
 import 'package:agora_rtm/agora_rtm.dart';
 import 'package:agora_uikit/agora_uikit.dart';
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/data/firebase/notification_fcm.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/view/real_communication/data.dart';
@@ -85,12 +87,12 @@ class PatientVideoCallView extends StatefulWidget {
 
 class _PatientVideoCallViewState extends State<PatientVideoCallView> {
   late final AgoraClient client;
-  final notificationService = NotificationService();
+  // final notificationService = NotificationService();
   @override
   void initState() {
     super.initState();
     initAgora();
-    notificationService.firebaseNotification(context);
+    // notificationService.firebaseNotification(context);
   }
   void initAgora() async {
     client = AgoraClient(
@@ -110,24 +112,33 @@ class _PatientVideoCallViewState extends State<PatientVideoCallView> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
-        appBar: AppBar(
-          // leading: const CustomBackButton(),
-          automaticallyImplyLeading: false,
-          backgroundColor: AppColors.primaryColor,
-          title: const Text("Video Call"),
-          centerTitle: true,
-        ),
-        body: SafeArea(
-          child: Stack(
-            children: [
-              AgoraVideoViewer(client: client, layoutType: Layout.floating),
-              AgoraVideoButtons(client: client, ),
-            ],
-          ),
-        ),
+    final message = ModalRoute.of(context)!.settings.arguments;
+    // return WillPopScope(
+    //   onWillPop: () async => false,
+    //   child: Scaffold(
+    //     appBar: AppBar(
+    //       // leading: const CustomBackButton(),
+    //       automaticallyImplyLeading: false,
+    //       backgroundColor: AppColors.primaryColor,
+    //       title: const Text("Video Call"),
+    //       centerTitle: true,
+    //     ),
+    //     body: SafeArea(
+    //       child: Stack(
+    //         children: [
+    //           AgoraVideoViewer(client: client, layoutType: Layout.floating),
+    //           AgoraVideoButtons(client: client, ),
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
+    return Scaffold(
+      appBar: AppBar(),
+      body: Column(
+        children: [
+          // Text("${message?.notification.title}")
+        ],
       ),
     );
   }

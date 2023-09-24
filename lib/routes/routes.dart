@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:digi_patient/model/my_record_model/add_medical_history_model.dart';
 import 'package:digi_patient/resources/communication/video_calling.dart';
+import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/view/anatomy/anatomy_view.dart';
 import 'package:digi_patient/view/appointment/book_appointment_view.dart';
 import 'package:digi_patient/view/authentications/create_account_view.dart';
@@ -44,7 +45,7 @@ import '../view/my_medicine/rx_view.dart';
 import '../view/my_record/add_medical_history_view.dart';
 import '../view/my_record/medical_documents_view.dart';
 import '../view/splash_view.dart';
-
+import 'package:auto_route/auto_route.dart';
 @MaterialAutoRouter(
   replaceInRouteName: 'View,Route',
   routes: <AutoRoute>[
@@ -176,3 +177,24 @@ import '../view/splash_view.dart';
   ],
 )
 class $AppRouter {}
+
+
+
+// import 'package:auto_route/auto_route.dart';
+// import 'package:digi_patient/routes/routes.gr.dart';
+//
+// import '../view/splash_view.dart';
+//
+// @AutoRouterConfig()
+// class AppRouter extends $AppRouter {
+//
+//   @override
+//   List<AutoRoute> get routes => [
+//     /// routes go here
+//   AutoRoute(
+//       path: '/splash',
+//       page: SplashView.,
+//       initial: true,
+//     ),
+//   ];
+// }
