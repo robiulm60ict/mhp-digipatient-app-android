@@ -29,6 +29,8 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
 
+  TextEditingController userName = TextEditingController();
+  TextEditingController password = TextEditingController();
    String? name = "";
 
   @override
@@ -43,6 +45,13 @@ class _HomeViewState extends State<HomeView> {
     setState(() {
 
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    userName.dispose();
+    password.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -195,7 +204,27 @@ class _HomeViewState extends State<HomeView> {
                     CircleAvatar(
                         backgroundColor:  const Color(0xFFF0F3F6),
                         child: IconButton(onPressed: (){
-                          context.router.push(const ChatRTMRoute());
+                          // context.router.push(const ChatRTMRoute());
+                          showDialog(context: context, builder: (context) => AlertDialog(
+                            title: const Text("Login"),
+                            actions: [
+                              TextButton(onPressed: (){
+                                // context.router.push( AgoraChatPageRoute(chatKey: appKey, userId: userId, agoraToken: agoraToken, receiverId: receiverId));
+
+                              }, child: const Text("Log-In")),
+                            ],
+                            content: Column(
+                              children: [
+                                TextField(
+                                  controller: userName,
+                                ),
+                                TextField(
+                                  controller: password,
+                                ),
+                              ],
+                            ),
+                          ),
+                          );
                         }, icon: Icon(Icons.message, size: 18.h, color: AppColors.primaryColor,))),
                   ],
                 ),

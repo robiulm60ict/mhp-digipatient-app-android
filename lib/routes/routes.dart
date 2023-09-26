@@ -172,6 +172,7 @@ import 'package:auto_route/auto_route.dart';
 
     /// Doctor view
     AutoRoute(path: '/doctor', page: DoctorHomeView,),
+    AutoRoute(path: '/chatR', page: AgoraChatPageView),
 
 
   ],

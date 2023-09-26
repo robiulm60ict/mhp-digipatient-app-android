@@ -390,6 +390,19 @@ class AppRouter extends _i42.RootStackRouter {
         child: const _i37.DoctorHomeView(),
       );
     },
+    AgoraChatPageRoute.name: (routeData) {
+      final args = routeData.argsAs<AgoraChatPageRouteArgs>();
+      return _i42.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i35.AgoraChatPageView(
+          key: args.key,
+          chatKey: args.chatKey,
+          userId: args.userId,
+          agoraToken: args.agoraToken,
+          receiverId: args.receiverId,
+        ),
+      );
+    },
     HomeRoute.name: (routeData) {
       return _i42.MaterialPageX<dynamic>(
         routeData: routeData,
@@ -604,6 +617,10 @@ class AppRouter extends _i42.RootStackRouter {
         _i42.RouteConfig(
           DoctorHomeRoute.name,
           path: '/doctor',
+        ),
+        _i42.RouteConfig(
+          AgoraChatPageRoute.name,
+          path: '/chatR',
         ),
       ];
 }
@@ -1538,6 +1555,55 @@ class DoctorHomeRoute extends _i42.PageRouteInfo<void> {
         );
 
   static const String name = 'DoctorHomeRoute';
+}
+
+/// generated route for
+/// [_i35.AgoraChatPageView]
+class AgoraChatPageRoute extends _i42.PageRouteInfo<AgoraChatPageRouteArgs> {
+  AgoraChatPageRoute({
+    _i43.Key? key,
+    required String chatKey,
+    required String userId,
+    required String agoraToken,
+    required String receiverId,
+  }) : super(
+          AgoraChatPageRoute.name,
+          path: '/chatR',
+          args: AgoraChatPageRouteArgs(
+            key: key,
+            chatKey: chatKey,
+            userId: userId,
+            agoraToken: agoraToken,
+            receiverId: receiverId,
+          ),
+        );
+
+  static const String name = 'AgoraChatPageRoute';
+}
+
+class AgoraChatPageRouteArgs {
+  const AgoraChatPageRouteArgs({
+    this.key,
+    required this.chatKey,
+    required this.userId,
+    required this.agoraToken,
+    required this.receiverId,
+  });
+
+  final _i43.Key? key;
+
+  final String chatKey;
+
+  final String userId;
+
+  final String agoraToken;
+
+  final String receiverId;
+
+  @override
+  String toString() {
+    return 'AgoraChatPageRouteArgs{key: $key, chatKey: $chatKey, userId: $userId, agoraToken: $agoraToken, receiverId: $receiverId}';
+  }
 }
 
 /// generated route for

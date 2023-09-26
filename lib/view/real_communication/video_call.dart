@@ -65,7 +65,7 @@ class _VideoCallingViewState extends State<VideoCallingView> {
         body: SafeArea(
           child: Stack(
             children: [
-              AgoraVideoViewer(client: client, layoutType: Layout.floating),
+              AgoraVideoViewer(client: client, layoutType: Layout.floating, showNumberOfUsers: true,),
               AgoraVideoButtons(client: client, ),
             ],
           ),
