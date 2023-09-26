@@ -166,7 +166,8 @@ class FirebaseApi{
     debugPrint("\n\n\n\n\n\n\n Notification tapped  ${message.ttl} Token: ${message.data['token']} Channel Name: ${message.data['channelName']}");
     // router.navigateTo(VideoCallingRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId));
     // context.router.push(VideoCallingRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId));
-  appRoute.push(VideoCallingRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId)) ;
+  // appRoute.push(VideoCallingRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId)) ;
+  appRoute.push(VideoCallingRTCRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId)) ;
   // const AutoRouter().navigatorKey?.currentState?.push(MaterialPageRoute(builder: (BuildContext context) => VideoCallingView(token: "", channelName: message.data['channelName'], appId: appId)));
 
 }

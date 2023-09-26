@@ -146,8 +146,11 @@ class _PatientVideoCallViewState extends State<PatientVideoCallView> {
 
 
 class VideoCallingRTCView extends StatefulWidget {
-  const VideoCallingRTCView({Key? key, required this.token}) : super(key: key);
+  const VideoCallingRTCView({Key? key, required this.token, required this.channelName, required this.appId}) : super(key: key);
   final String token;
+  // final String token;
+  final String channelName;
+  final String appId;
   @override
   State<VideoCallingRTCView> createState() => _VideoCallingRTCViewState();
 }
@@ -209,10 +212,16 @@ class _VideoCallingRTCViewState extends State<VideoCallingRTCView> {
 
     await _engine.joinChannel(
       token: widget.token,
-      channelId: channelName,
+      channelId: widget.channelName,
       uid: 0,
       options: const ChannelMediaOptions(),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _engine.release();
   }
 
   // Create UI with local view and remote view

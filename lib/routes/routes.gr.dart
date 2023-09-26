@@ -381,6 +381,8 @@ class AppRouter extends _i42.RootStackRouter {
         child: _i36.VideoCallingRTCView(
           key: args.key,
           token: args.token,
+          channelName: args.channelName,
+          appId: args.appId,
         ),
       );
     },
@@ -1517,12 +1519,16 @@ class VideoCallingRTCRoute
   VideoCallingRTCRoute({
     _i43.Key? key,
     required String token,
+    required String channelName,
+    required String appId,
   }) : super(
           VideoCallingRTCRoute.name,
           path: '/video-call-rtc',
           args: VideoCallingRTCRouteArgs(
             key: key,
             token: token,
+            channelName: channelName,
+            appId: appId,
           ),
         );
 
@@ -1533,15 +1539,21 @@ class VideoCallingRTCRouteArgs {
   const VideoCallingRTCRouteArgs({
     this.key,
     required this.token,
+    required this.channelName,
+    required this.appId,
   });
 
   final _i43.Key? key;
 
   final String token;
 
+  final String channelName;
+
+  final String appId;
+
   @override
   String toString() {
-    return 'VideoCallingRTCRouteArgs{key: $key, token: $token}';
+    return 'VideoCallingRTCRouteArgs{key: $key, token: $token, channelName: $channelName, appId: $appId}';
   }
 }
 

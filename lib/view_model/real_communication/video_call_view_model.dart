@@ -45,7 +45,8 @@ class VideoCallViewModel with ChangeNotifier {
       // firebaseApi.sendNotification(fcmToken: fcmToken, data: data);
       // context.router.push( VideoCallingRoute(token: value.token!, appId: appId, channelName: channelName));
     // context.router.push(VideoCallingRTCRoute(token: value.token!));
-    context.router.push(VideoCallingRoute(token: value.token!, channelName: value.channelName!, appId: appId));
+    // context.router.push(VideoCallingRoute(token: value.token!, channelName: value.channelName!, appId: appId));
+    context.router.push(VideoCallingRTCRoute(token: value.token!, channelName: value.channelName!, appId: appId));
         } )
         .onError((error, stackTrace) {
           setVideoCallLoading(true);
