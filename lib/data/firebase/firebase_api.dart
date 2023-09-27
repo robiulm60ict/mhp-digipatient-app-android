@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:agora_uikit/agora_uikit.dart';
+import 'package:agora_uikit/models/agora_connection_data.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:auto_route/auto_route.dart';
@@ -137,7 +139,7 @@ class FirebaseApi{
             "to" : fcmToken,
             "priority" : "high",
             "notification" : <String, dynamic> {
-              "body" : "null",
+              "body" : "Please Join The Call",
               "title" : "New Message!",
             },
             "data" : <String, String>{
@@ -166,8 +168,16 @@ class FirebaseApi{
     debugPrint("\n\n\n\n\n\n\n Notification tapped  ${message.ttl} Token: ${message.data['token']} Channel Name: ${message.data['channelName']}");
     // router.navigateTo(VideoCallingRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId));
     // context.router.push(VideoCallingRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId));
-  // appRoute.push(VideoCallingRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId)) ;
-  appRoute.push(VideoCallingRTCRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId)) ;
+
+  appRoute.push(VideoCallingRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId, client: AgoraClient(
+        agoraConnectionData: AgoraConnectionData(
+            appId: appId,
+            channelName: message.data['channelName'],
+            tempToken: message.data['token'],
+            // tokenUrl: AppUrls.videoCall,
+        ),
+      ))) ;
+  // appRoute.push(VideoCallingRTCRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId)) ;
   // const AutoRouter().navigatorKey?.currentState?.push(MaterialPageRoute(builder: (BuildContext context) => VideoCallingView(token: "", channelName: message.data['channelName'], appId: appId)));
 
 }

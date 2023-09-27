@@ -10,10 +10,12 @@ import '/resources/app_url.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 
 class VideoCallingView extends StatefulWidget {
-  const VideoCallingView({super.key, required this.token, required this.channelName, required this.appId});
+  const VideoCallingView({super.key, required this.token, required this.channelName, required this.appId, required this.client});
   final String token;
   final String channelName;
   final String appId;
+  final AgoraClient client;
+
 
   @override
   State<VideoCallingView> createState() => _VideoCallingViewState();
@@ -21,10 +23,10 @@ class VideoCallingView extends StatefulWidget {
 
 class _VideoCallingViewState extends State<VideoCallingView> {
 
-  late final AgoraClient client;
+  // late final AgoraClient client;
   // final notificationService = NotificationService();
 
-  
+
   @override
   void initState() {
     super.initState();
@@ -34,19 +36,16 @@ class _VideoCallingViewState extends State<VideoCallingView> {
 
   }
   void initAgora() async {
-    client = AgoraClient(
-      agoraConnectionData: AgoraConnectionData(
-          appId: widget.appId,
-          channelName: widget.channelName,
-          tempToken: widget.token,
-          tokenUrl: AppUrls.videoCall,
+    // client = AgoraClient(
+    //   agoraConnectionData: AgoraConnectionData(
+    //       appId: widget.appId,
+    //       channelName: widget.channelName,
+    //       tempToken: widget.token,
+    //       // tokenUrl: AppUrls.videoCall,
+    //   ),
+    // );
+    await widget.client.initialize();
 
-      ),
-    );
-    await client.initialize();
-    setState(() {
-
-    });
   }
   // var provider = context.read();
 
@@ -65,8 +64,8 @@ class _VideoCallingViewState extends State<VideoCallingView> {
         body: SafeArea(
           child: Stack(
             children: [
-              AgoraVideoViewer(client: client, layoutType: Layout.floating, showNumberOfUsers: true,),
-              AgoraVideoButtons(client: client, ),
+              AgoraVideoViewer(client: widget.client, layoutType: Layout.floating, showNumberOfUsers: true,),
+              AgoraVideoButtons(client: widget.client, ),
             ],
           ),
         ),
@@ -272,7 +271,7 @@ class _VideoCallingRTCViewState extends State<VideoCallingRTCView> {
         controller: VideoViewController.remote(
           rtcEngine: _engine,
           canvas: VideoCanvas(uid: _remoteUid),
-          connection: RtcConnection(channelId: channelName),
+          connection: RtcConnection(channelId: widget.channelName),
         ),
       );
     } else {
@@ -283,3 +282,26 @@ class _VideoCallingRTCViewState extends State<VideoCallingRTCView> {
     }
   }
 }
+
+// class CallPageView extends StatefulWidget {
+//   const CallPageView({super.key, required this.channelName, required this.role, required this.token});
+//   final String channelName;
+//   final ClientRoleType role;
+//   final String token;
+//
+//   @override
+//   State<CallPageView> createState() => _CallPageViewState();
+// }
+//
+// class _CallPageViewState extends State<CallPageView> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(child: Scaffold(
+//       appBar: AppBar(
+//         centerTitle: true,
+//         title: Text("Video Call"),
+//       ),
+//       body: ,
+//     ));
+//   }
+// }

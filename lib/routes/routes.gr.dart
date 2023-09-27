@@ -11,6 +11,7 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:agora_uikit/agora_uikit.dart' as _i50;
 import 'package:auto_route/auto_route.dart' as _i42;
 import 'package:flutter/material.dart' as _i43;
 
@@ -371,6 +372,7 @@ class AppRouter extends _i42.RootStackRouter {
           token: args.token,
           channelName: args.channelName,
           appId: args.appId,
+          client: args.client,
         ),
       );
     },
@@ -1476,6 +1478,7 @@ class VideoCallingRoute extends _i42.PageRouteInfo<VideoCallingRouteArgs> {
     required String token,
     required String channelName,
     required String appId,
+    required _i50.AgoraClient client,
   }) : super(
           VideoCallingRoute.name,
           path: '/video-call',
@@ -1484,6 +1487,7 @@ class VideoCallingRoute extends _i42.PageRouteInfo<VideoCallingRouteArgs> {
             token: token,
             channelName: channelName,
             appId: appId,
+            client: client,
           ),
         );
 
@@ -1496,6 +1500,7 @@ class VideoCallingRouteArgs {
     required this.token,
     required this.channelName,
     required this.appId,
+    required this.client,
   });
 
   final _i43.Key? key;
@@ -1506,9 +1511,11 @@ class VideoCallingRouteArgs {
 
   final String appId;
 
+  final _i50.AgoraClient client;
+
   @override
   String toString() {
-    return 'VideoCallingRouteArgs{key: $key, token: $token, channelName: $channelName, appId: $appId}';
+    return 'VideoCallingRouteArgs{key: $key, token: $token, channelName: $channelName, appId: $appId, client: $client}';
   }
 }
 

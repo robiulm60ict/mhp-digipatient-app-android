@@ -1,10 +1,11 @@
 String appId = '1364b51d49a542c098dd7039353a4521';
 String appCertificate = "18aeb9a78b9c41cca66d64a87b8cb5e4";
-String channelName = "digi_patient_app";
-String token = "007eJxTYMjdz7hqiVOTzaYHyvN43/pcf/CI22TjGbvj83/zG6/m49yiwGBobGaSZGqYYmKZaGpilGxgaZGSYm5gbGlsapxoYmpkeEKdIbUhkJEh9/BvRkYGCATxBRhSMtMz4wsSSzJT80riEwsKGBgAxaMjlA==";
+String cName = "digi_patient_app";
+// String token = "007eJxTYMjdz7hqiVOTzaYHyvN43/pcf/CI22TjGbvj83/zG6/m49yiwGBobGaSZGqYYmKZaGpilGxgaZGSYm5gbGlsapxoYmpkeEKdIbUhkJEh9/BvRkYGCATxBRhSMtMz4wsSSzJT80riEwsKGBgAxaMjlA==";
 String primaryCertificate = "18aeb9a78b9c41cca66d64a87b8cb5e4";
 
-
+String testToken = "007eJxTYHjXuHJWgpyChWzvjz6G3RNkQiK/LXy640Gy8KHf1W1x12coMBgam5kkmRqmmFgmmpoYJRtYWqSkmBsYWxqbGieamBoZ5h4TTm0IZGTwNV/IxMgAgSA+K0NGYlJmEgMDAIY+H2E=";
+String testChannelName = "habib";
 /// chatting
 String appKey = "41828119#1201697";
 String orgName = "41828119";

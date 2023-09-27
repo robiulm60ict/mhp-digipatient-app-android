@@ -90,7 +90,7 @@ class _DoctorHomeViewState extends State<DoctorHomeView> {
                     title: Text(patient.patientFirstName.toString(),),
                     subtitle: Text(patient.patientHnNumber.toString()),
                     trailing: IconButton(onPressed: (){
-                      videoCall.getVideoCallToken(context, appId: appId, channelName: channelName, userId: channelName, fcmToken: "${patient.appToken}");
+                      videoCall.getVideoCallToken(context, appId: appId, channelName: cName, userId: cName, fcmToken: "${patient.appToken}");
 
                       // context.router.push(VideoCallingRTCRoute(token: ));
                     }, icon: Icon(Icons.video_call, color: AppColors.primaryColor,)),
@@ -104,7 +104,7 @@ class _DoctorHomeViewState extends State<DoctorHomeView> {
                 title: Text(allPatients[index].patientFirstName.toString(),),
                 subtitle: Text(allPatients[index].patientHnNumber.toString()),
                 trailing: IconButton(onPressed: (){
-                  videoCall.getVideoCallToken(context, appId: appId, channelName: channelName, userId: channelName, fcmToken: "${allPatients[index].appToken}");
+                  videoCall.getVideoCallToken(context, appId: appId, channelName: cName, userId: cName, fcmToken: "${allPatients[index].appToken}");
                 }, icon: Icon(Icons.video_call, color: AppColors.primaryColor,)),
               );
             },),) : const Center(child: CircularProgressIndicator(),),
