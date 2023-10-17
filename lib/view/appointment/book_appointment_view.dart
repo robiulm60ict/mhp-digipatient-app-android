@@ -9,12 +9,12 @@ import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/message.dart';
 import 'package:digi_patient/view_model/anatomy/anatomy_view_model.dart';
 import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
-import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/utils.dart';
+import '../../view_model/doctor/my_doctor_view_model.dart';
 import '../../widgets/back_button.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';

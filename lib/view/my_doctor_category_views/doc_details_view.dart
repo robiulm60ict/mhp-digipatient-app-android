@@ -88,7 +88,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "${doc?.drFullName}",
+                          "${doc?.drGivenName}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(

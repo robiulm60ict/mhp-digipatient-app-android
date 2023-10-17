@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:digi_patient/model/doctor_model/doctor_fee_model.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 
@@ -16,9 +18,10 @@ class DoctorRepository{
 
     try{
 
-      dynamic response = await apiService.getGetApiResponse(AppUrls.allDoctors,);
+      dynamic response = await apiService.getGetApiResponse(AppUrls.allDoctors);
 
-      return DoctorsModels.fromJson(response);
+
+      return doctorsModelsFromJson(response);
 
     }catch(e){
 

@@ -11,45 +11,41 @@ import '../../model/doctor_model/doctors_model.dart';
 import '../../repository/doctor_repository/doctor_repository.dart';
 import '../../utils/message.dart';
 
-class MyDoctorViewModel with ChangeNotifier{
-
+class MyDoctorViewModel with ChangeNotifier {
   List<DoctorsModels> allDoctorList = [];
 
   DoctorRepository docRepo = DoctorRepository();
 
   bool isDoctorLoading = true;
 
-  getAllDoctors(BuildContext context)async{
-
+  getAllDoctors(BuildContext context) async {
     allDoctorList.clear();
 
     isDoctorLoading = true;
 
     await DoctorRepository().getAllDoctors().then((value) {
-
-
       allDoctorList.add(value);
 
       isDoctorLoading = false;
-
     }).onError((error, stackTrace) {
-
       isDoctorLoading = true;
 
       debugPrint(error.toString());
 
-      Messages.snackBar(context, error.toString(),);
-
+      Messages.snackBar(
+        context,
+        error.toString(),
+      );
     });
 
     notifyListeners();
-
   }
 
   List<DocTimeSlots> doctorTimeSlotList = [];
 
   bool isDocChamberTimeLoading = true;
-  getDocChamberTime(BuildContext context, {required dynamic docId})async{
+
+  getDocChamberTime(BuildContext context, {required dynamic docId}) async {
     doctorTimeSlotList.clear();
     isDocChamberTimeLoading = true;
     notifyListeners();
@@ -64,22 +60,21 @@ class MyDoctorViewModel with ChangeNotifier{
       notifyListeners();
       Messages.snackBar(context, error.toString());
     });
-
   }
 
-  String getTime(String? date){
+  String getTime(String? date) {
     DateTime? dateObject = DateTime.tryParse(date ?? "");
 
-    if(dateObject != null){
+    if (dateObject != null) {
       return DateFormat.jm().format(dateObject);
-    }else{
+    } else {
       return "null";
     }
   }
 
   List<DoctorFeeModel> docFeeList = [];
 
-  getDoctorFee(dynamic id)async{
+  getDoctorFee(dynamic id) async {
     docFeeList.clear();
     debugPrint(" id is = $id");
     await DoctorRepository().getDocFee(id).then((value) {
@@ -99,14 +94,16 @@ class MyDoctorViewModel with ChangeNotifier{
     CategoryItemsModel(title: "GASTROENTEROLOGY", image: Assets.imagesHeart),
     CategoryItemsModel(title: "UROLOGY", image: Assets.imagesHeart),
   ];
+
   // categoryRouteTo(BuildContext context, int index){
   //   context.router.push(MyDoctorCategoryWiseRoute(categoryName: categoryItemsList[index].title));
   //
   // }
 
-  List<Doctors>? getDoctorsByType({required num departmentId}){
-
-    return allDoctorList.first.doctors?.where((element) => element.department?.id == departmentId).toList();
+  List<Doctors>? getDoctorsByType({required num departmentId}) {
+    return allDoctorList.first.doctors
+        ?.where((element) => element.department?.id == departmentId)
+        .toList();
   }
 
   /// Department Model
@@ -115,18 +112,14 @@ class MyDoctorViewModel with ChangeNotifier{
 
   bool isDepartmentLoading = true;
 
-  getDepartments(BuildContext context) async{
-
+  getDepartments(BuildContext context) async {
     departmentList.clear();
 
     await DepartmentRepository().getAllDepartment().then((value) {
-
       departmentList.add(value);
 
       isDepartmentLoading = false;
-
     }).onError((error, stackTrace) {
-
       isDepartmentLoading = true;
 
       Messages.snackBar(context, error.toString());
@@ -134,11 +127,11 @@ class MyDoctorViewModel with ChangeNotifier{
 
     notifyListeners();
   }
-
 }
 
-class CategoryItemsModel{
+class CategoryItemsModel {
   String title;
   String image;
+
   CategoryItemsModel({required this.title, required this.image});
 }

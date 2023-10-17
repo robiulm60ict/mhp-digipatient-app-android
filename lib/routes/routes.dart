@@ -28,6 +28,7 @@ import 'package:digi_patient/view/payment/single_invoice_view.dart';
 import 'package:digi_patient/view/pincode_verification_view.dart';
 import 'package:digi_patient/view/real_communication/chat_view.dart';
 import 'package:digi_patient/view/real_communication/video_call.dart';
+import 'package:digi_patient/view/screen.dart';
 import 'package:digi_patient/view/splash_view_2.dart';
 
 import '../view/authentications/user_detail_view.dart';
@@ -44,8 +45,10 @@ import '../view/my_medicine/rx_detail_view.dart';
 import '../view/my_medicine/rx_view.dart';
 import '../view/my_record/add_medical_history_view.dart';
 import '../view/my_record/medical_documents_view.dart';
-import '../view/splash_view.dart';
 import 'package:auto_route/auto_route.dart';
+
+import '../view/splash_view.dart';
+
 @MaterialAutoRouter(
   replaceInRouteName: 'View,Route',
   routes: <AutoRoute>[
@@ -58,6 +61,10 @@ import 'package:auto_route/auto_route.dart';
       path: '/splash',
       page: Splash2View,
     ),
+    // AutoRoute(
+    //   path: '/screen-a',
+    //   page: ScreenA,
+    // ),
     // AutoRoute(path: '/login', page: LoginView),
     AutoRoute(
       path: '/sign-in',
@@ -84,13 +91,13 @@ import 'package:auto_route/auto_route.dart';
       path: '/dashboard',
       page: DashboardView,
       children: [
-         // AutoRoute(path: 'appointments', page: MyAppointmentsView),
+        // AutoRoute(path: 'appointments', page: MyAppointmentsView),
         AutoRoute(path: 'home', page: HomeView, initial: true),
         AutoRoute(path: 'set-appointments', page: SetAppointmentView),
-                AutoRoute(path: 'favourites', page: FavouritesView),
-                AutoRoute(path: 'basket', page: BasketView),
-         //        AutoRoute(path: 'notifications', page: NotificationsView),
-         //        AutoRoute(path: 'profile', page: ProfileView),
+        AutoRoute(path: 'favourites', page: FavouritesView),
+        AutoRoute(path: 'basket', page: BasketView),
+        //        AutoRoute(path: 'notifications', page: NotificationsView),
+        //        AutoRoute(path: 'profile', page: ProfileView),
       ],
     ),
     AutoRoute(
@@ -140,46 +147,99 @@ import 'package:auto_route/auto_route.dart';
 
     /// My Record routes
 
-    AutoRoute(path: '/vital', page: VitalsView,),
-    AutoRoute(path: '/my-medical-history', page: MyMedicalHistoryView,),
-    AutoRoute(path: '/self-medical-history', page: SelfMedicalHistoryFGDView,),
-    AutoRoute(path: '/reason-visit', page: ReasonForVisitView,),
-    AutoRoute(path: '/my-report', page: MyReportView,),
-    AutoRoute(path: '/vitals-detail', page: VitalsItemDetailsView,),
-    AutoRoute(path: '/add-medical-history', page: AddMedicalHistoryView,),
+    AutoRoute(
+      path: '/vital',
+      page: VitalsView,
+    ),
+    AutoRoute(
+      path: '/my-medical-history',
+      page: MyMedicalHistoryView,
+    ),
+    AutoRoute(
+      path: '/self-medical-history',
+      page: SelfMedicalHistoryFGDView,
+    ),
+    AutoRoute(
+      path: '/reason-visit',
+      page: ReasonForVisitView,
+    ),
+    AutoRoute(
+      path: '/my-report',
+      page: MyReportView,
+    ),
+    AutoRoute(
+      path: '/vitals-detail',
+      page: VitalsItemDetailsView,
+    ),
+    AutoRoute(
+      path: '/add-medical-history',
+      page: AddMedicalHistoryView,
+    ),
 
     /// My Medicine
 
-    AutoRoute(path: '/medicine', page: MyMedicineView,),
-    AutoRoute(path: '/rx', page: RXView,),
-    AutoRoute(path: '/details', page: RXDetailView,),
+    AutoRoute(
+      path: '/medicine',
+      page: MyMedicineView,
+    ),
+    AutoRoute(
+      path: '/rx',
+      page: RXView,
+    ),
+    AutoRoute(
+      path: '/details',
+      page: RXDetailView,
+    ),
 
     /// daily and upcomming appointments
 
-    AutoRoute(path: '/daua', page: DailyAndUpcommingView,),
-    AutoRoute(path: '/daua-detail', page: DailyAndUpcommingDetailView,),
-    AutoRoute(path: '/document-detail', page: MedicalDocumentsView,),
+    AutoRoute(
+      path: '/daua',
+      page: DailyAndUpcommingView,
+    ),
+    AutoRoute(
+      path: '/daua-detail',
+      page: DailyAndUpcommingDetailView,
+    ),
+    AutoRoute(
+      path: '/document-detail',
+      page: MedicalDocumentsView,
+    ),
 
     ///User Detail
-    AutoRoute(path: '/user-detail', page: UserDetailView,),
+    AutoRoute(
+      path: '/user-detail',
+      page: UserDetailView,
+    ),
 
     /// communication audio, video, messages
 
-    AutoRoute(path: '/chat', page: ChatView,),
-    AutoRoute(path: '/chat-rtm', page: ChatRTMView,),
-    AutoRoute(path: '/video-call', page: VideoCallingView,),
-    AutoRoute(path: '/video-call-rtc', page: VideoCallingRTCView,),
+    AutoRoute(
+      path: '/chat',
+      page: ChatView,
+    ),
+    AutoRoute(
+      path: '/chat-rtm',
+      page: ChatRTMView,
+    ),
+    AutoRoute(
+      path: '/video-call',
+      page: VideoCallingView,
+    ),
+    AutoRoute(
+      path: '/video-call-rtc',
+      page: VideoCallingRTCView,
+    ),
 
     /// Doctor view
-    AutoRoute(path: '/doctor', page: DoctorHomeView,),
+    AutoRoute(
+      path: '/doctor',
+      page: DoctorHomeView,
+    ),
     AutoRoute(path: '/chatR', page: AgoraChatPageView),
-
-
   ],
 )
 class $AppRouter {}
-
-
 
 // import 'package:auto_route/auto_route.dart';
 // import 'package:digi_patient/routes/routes.gr.dart';

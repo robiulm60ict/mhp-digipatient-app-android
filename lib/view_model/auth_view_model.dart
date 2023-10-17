@@ -108,6 +108,7 @@ class AuthViewModel with ChangeNotifier {
     otpList.clear();
     await _authRepo.sendOTP(body: body).then((value) {
 
+      print(value.toString());
       otpList.add(value);
       setSendOtpLoading(false);
       context.router.push(PinCodeVerificationRoute(phoneNumber: phnNumber));

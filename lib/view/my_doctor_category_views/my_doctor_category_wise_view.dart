@@ -97,7 +97,7 @@ class _MyDoctorCategoryWiseViewState extends State<MyDoctorCategoryWiseView> {
                     context.router.push( DocDetailsRoute(id: doc!.id!));
                   },
                   docImage: "${AppUrls.docImage}${doc?.drImages}",
-                  docName: "${doc?.drFullName}",
+                  docName: "${doc?.drGivenName}",
                   docSpeciality: "${doc?.department?.departmentsName }",
                   docHospital: "${doc?.usualProvider?.usualProviderName}",
                 );

@@ -21,6 +21,7 @@ class UserViewModel with ChangeNotifier{
   getUserDetails()async{
     userData.clear();
     await userRepo.getUserData().then((value) {
+      print(value.toString());
       userData.add(value);
       user = value.patient!;
       setUserLoading(false);

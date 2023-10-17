@@ -7,46 +7,41 @@ import '../../data/network/network_api_service.dart';
 import '../../resources/app_url.dart';
 import '../../utils/user.dart';
 
-class UserRepo{
-
+class UserRepo {
   BaseApiService apiService = NetworkApiService();
 
-  Future<UserModel> getUserData() async{
-
-    final prefs =  await SharedPreferences.getInstance();
+  Future<UserModel> getUserData() async {
+    final prefs = await SharedPreferences.getInstance();
 
     int? id = prefs.getInt(UserP.id);
+    print(id);
 
-    try{
+    try {
+      dynamic response = await apiService.getGetApiResponse(
+        "${AppUrls.userUrl}$id",
+      );
 
-      dynamic response = await apiService.getGetApiResponse("${AppUrls.userUrl}$id",);
-
+      print("object${response}");
       return UserModel.fromJson(response);
-
-    }catch(e){
-
+    } catch (e) {
       rethrow;
-
     }
   }
 
-  Future<UserModel> editUserData() async{
-
-    final prefs =  await SharedPreferences.getInstance();
+  Future<UserModel> editUserData() async {
+    final prefs = await SharedPreferences.getInstance();
 
     int? id = prefs.getInt(UserP.id);
+    print(id);
 
-    try{
-
-      dynamic response = await apiService.getGetApiResponse("${AppUrls.userUrl}$id",);
+    try {
+      dynamic response = await apiService.getGetApiResponse(
+        "${AppUrls.userUrl}$id",
+      );
 
       return UserModel.fromJson(response);
-
-    }catch(e){
-
+    } catch (e) {
       rethrow;
-
     }
   }
-
 }
