@@ -27,30 +27,32 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<DailyAndUpcommingViewModel>().getTodayAppointments(context);
-      context.read<DailyAndUpcommingViewModel>().getUpcommingAppointments(context);
+      context
+          .read<DailyAndUpcommingViewModel>()
+          .getUpcommingAppointments(context);
     });
+  }
 
-    }
-
-  String getTime(String? date){
+  String getTime(String? date) {
     DateTime? dateObject = DateTime.tryParse(date ?? "");
-    if(dateObject != null){
+    if (dateObject != null) {
       return DateFormat.jm().format(dateObject);
-    }else{
+    } else {
       return "null";
     }
   }
 
   String getDate(String? date) {
     DateTime? dateObject = DateTime.tryParse(date ?? "");
-    if(dateObject != null){
+    if (dateObject != null) {
       return "${dateObject.year}-${dateObject.month}-${dateObject.day}";
-    }else{
+    } else {
       return "null";
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final appointments = Provider.of<DailyAndUpcommingViewModel>(context);
@@ -59,10 +61,16 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
         leading: const CustomBackButton(),
         leadingWidth: leadingWidth,
         centerTitle: true,
-        title: Text("Appointments", style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
+        title: Text(
+          "Appointments",
+          style: TextStyle(
+              fontSize: 15.sp,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primaryColor),
+        ),
       ),
       body: Padding(
-        padding:  EdgeInsets.all(20.r),
+        padding: EdgeInsets.all(20.r),
         child: Column(
           children: [
             Row(
@@ -72,8 +80,9 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                     height: 60.h,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: showTodayAppointments ? AppColors.primaryColor : Colors.white
-                      ),
+                          backgroundColor: showTodayAppointments
+                              ? AppColors.primaryColor
+                              : Colors.white),
                       onPressed: () {
                         setState(() {
                           showTodayAppointments = true;
@@ -81,7 +90,16 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                       },
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 8.0.h),
-                        child: Text("Todays Appointments", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: showTodayAppointments ? Colors.white : AppColors.primaryColor),),
+                        child: Text(
+                          "Todays Appointments",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                              color: showTodayAppointments
+                                  ? Colors.white
+                                  : AppColors.primaryColor),
+                        ),
                       ),
                     ),
                   ),
@@ -91,8 +109,9 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                     height: 60.h,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: !showTodayAppointments ? AppColors.primaryColor : Colors.white
-                      ),
+                          backgroundColor: !showTodayAppointments
+                              ? AppColors.primaryColor
+                              : Colors.white),
                       onPressed: () {
                         setState(() {
                           showTodayAppointments = false;
@@ -100,50 +119,92 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                       },
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 8.0.h),
-                        child: Text("Upcoming Appointments", textAlign: TextAlign.center, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: !showTodayAppointments ? Colors.white : AppColors.primaryColor),),
+                        child: Text(
+                          "Upcoming Appointments",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                              color: !showTodayAppointments
+                                  ? Colors.white
+                                  : AppColors.primaryColor),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 20.h,),
-            Expanded(child: Visibility(
-              visible: showTodayAppointments,
-              replacement: appointments.isUpcommingAppointmentLoading ? const Center(child: CircularProgressIndicator()) : ListView.builder(
-    itemCount: appointments.upcommingAppointmentList.length,
-    itemBuilder: (context, index) {
-    UpcomingPatientAppointments app = appointments.upcommingAppointmentList[index];
-    return AppointmentNotificationCard(
-    onTap: (){
-      debugPrint("--------------------${app.appType}");
-        context.router.push(DailyAndUpcommingDetailRoute(docImage: "${AppUrls.docImage}${app.drImages}", docName: "${app.drGivenName}", docHospital: "${app.drAbout}", docSpeciality: "${app.drProviderId}", appType: "${app.appType}".toLowerCase() == "online" ? true : false));
-    },
-    title: "You have an appointments with ${app.drGivenName} at ${getDate(app.startTime)}",
-    subTitle: "Starts: ${getTime(app.startTime)} Ends: ${getTime(app.endTime)}",
-    docImage: "${AppUrls.docImage}${app.drImages}",
-    );
-    }),
-              child: appointments.isTodayAppointmentLoading ? Center(child: SizedBox(height: 50.h,child: const CircularProgressIndicator())) : ListView.builder(
-                itemCount: appointments.todayAppointmentList.length,
-                itemBuilder: (context, index) {
-                  TodaysPatientAppointments app = appointments.todayAppointmentList[index];
-                  return AppointmentNotificationCard(
-                    onTap: (){
-                      debugPrint("--------------------${app.appType}");
-                      context.router.push(DailyAndUpcommingDetailRoute(docImage: "${AppUrls.docImage}${app.drImages}", docName: "${app.drGivenName}", docHospital: "${app.drAbout}", docSpeciality: "${app.drProviderId}", appType: "${app.appType}".toLowerCase() == "online" ? true : false));
-                    },
-                  title: "Today you have an appointments with ${app.drGivenName}",
-                    subTitle: "Starts: ${getTime(app.startTime)} Ends: ${getTime(app.endTime)}",
-                    docImage: "${AppUrls.docImage}${app.drImages}",
-                  );
-                }),
+            SizedBox(
+              height: 20.h,
             ),
+            Expanded(
+              child: Visibility(
+                visible: showTodayAppointments,
+                replacement: appointments.isUpcommingAppointmentLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : ListView.builder(
+                        itemCount: appointments.upcommingAppointmentList.length,
+                        itemBuilder: (context, index) {
+                          UpcomingPatientAppointments app =
+                              appointments.upcommingAppointmentList[index];
+                          return AppointmentNotificationCard(
+                            onTap: () {
+                              debugPrint("--------------------${app.appType}");
+                              context.router.push(DailyAndUpcommingDetailRoute(
+                                  docImage:
+                                      "${AppUrls.docImage}${app.drImages}",
+                                  docName: "${app.drGivenName}",
+                                  docHospital: "${app.drAbout}",
+                                  docSpeciality: "${app.drProviderId}",
+                                  appType:
+                                      "${app.appType}".toLowerCase() == "online"
+                                          ? true
+                                          : false));
+                            },
+                            title:
+                                "You have an appointments with ${app.drGivenName} at ${getDate(app.startTime)}",
+                            subTitle:
+                                "Starts: ${getTime(app.startTime)} Ends: ${getTime(app.endTime)}",
+                            docImage: "${AppUrls.docImage}${app.drImages}",
+                          );
+                        }),
+                child: appointments.isTodayAppointmentLoading
+                    ? Center(
+                        child: SizedBox(
+                            height: 50.h,
+                            child: const CircularProgressIndicator()))
+                    : ListView.builder(
+                        itemCount: appointments.todayAppointmentList.length,
+                        itemBuilder: (context, index) {
+                          TodaysPatientAppointments app =
+                              appointments.todayAppointmentList[index];
+                          return AppointmentNotificationCard(
+                            onTap: () {
+                              debugPrint("--------------------${app.appType}");
+                              context.router.push(DailyAndUpcommingDetailRoute(
+                                  docImage:
+                                      "${AppUrls.docImage}${app.drImages}",
+                                  docName: "${app.drGivenName}",
+                                  docHospital: "${app.drAbout}",
+                                  docSpeciality: "${app.drProviderId}",
+                                  appType:
+                                      "${app.appType}".toLowerCase() == "online"
+                                          ? true
+                                          : false));
+                            },
+                            title:
+                                "Today you have an appointments with ${app.drGivenName}",
+                            subTitle:
+                                "Starts: ${getTime(app.startTime)} Ends: ${getTime(app.endTime)}",
+                            docImage: "${AppUrls.docImage}${app.drImages}",
+                          );
+                        }),
+              ),
             ),
           ],
         ),
       ),
     );
   }
-
 }

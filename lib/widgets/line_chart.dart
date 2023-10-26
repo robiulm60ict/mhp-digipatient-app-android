@@ -189,7 +189,7 @@ class _MyHomePageState extends State<CustomLineChart> {
         lineBarsData: [
           LineChartBarData(
             spots: vitals.vitalsList.first.bpArray
-                ?.asMap()
+                !.asMap()
                 .entries
                 .map((entry) {
               return FlSpot(entry.key.toDouble(), entry.value.systolic!.toDouble());
@@ -204,7 +204,7 @@ class _MyHomePageState extends State<CustomLineChart> {
           ),
           LineChartBarData(
             spots: vitals.vitalsList.first.bpArray
-                ?.asMap()
+                !.asMap()
                 .entries
                 .map((entry) {
               return FlSpot(entry.key.toDouble(), entry.value.diastolic!.toDouble());

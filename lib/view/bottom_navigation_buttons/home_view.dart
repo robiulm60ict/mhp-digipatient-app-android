@@ -28,10 +28,9 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-
   TextEditingController userName = TextEditingController();
   TextEditingController password = TextEditingController();
-   String? name = "";
+  String? name = "";
 
   @override
   void initState() {
@@ -39,12 +38,10 @@ class _HomeViewState extends State<HomeView> {
     getUserData();
   }
 
-  getUserData()async{
+  getUserData() async {
     final prefs = await SharedPreferences.getInstance();
     name = prefs.getString(UserP.name) ?? "";
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
@@ -53,6 +50,7 @@ class _HomeViewState extends State<HomeView> {
     userName.dispose();
     password.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -69,7 +67,7 @@ class _HomeViewState extends State<HomeView> {
       child: Scaffold(
         extendBody: true,
         drawer: Drawer(
-          width: width ,
+          width: width,
           shape: OutlineInputBorder(
             borderRadius: BorderRadius.only(bottomRight: Radius.circular(70.w)),
             borderSide: BorderSide.none,
@@ -80,75 +78,150 @@ class _HomeViewState extends State<HomeView> {
             children: [
               Row(
                 children: [
-                  const CustomBackButton(margin: 0, padding: 8,),
-                  Expanded(child: Text("Menu", textAlign: TextAlign.center, style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),)),
+                  const CustomBackButton(
+                    margin: 0,
+                    padding: 8,
+                  ),
+                  Expanded(
+                      child: Text(
+                    "Menu",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryColor),
+                  )),
                 ],
               ),
-              SizedBox(height: 50.h,),
-              DrawerListTile(iconData: Icons.person, title: "Profile", onTap: (){
-
-                // context.router.push(UserDetailRoute(user: user));
-              },),
-              SizedBox(height: 6.h,),
-              DrawerListTile(iconData: Icons.calendar_view_day, title: "Appointment", onTap: (){
-                context.router.push(const DailyAndUpcommingRoute());
-              },),
-              SizedBox(height: 6.h,),
-              DrawerListTile(iconData: Icons.favorite_border, title: "Favourite", onTap: (){},),
-              SizedBox(height: 6.h,),
-              DrawerListTile(iconData: Icons.payment, title: "Payment & Invoice", onTap: (){
-                context.router.push(const InvoiceRoute());
-              },),
-              SizedBox(height: 6.h,),
-              DrawerListTile(iconData: Icons.fact_check_outlined, title: "Faq", onTap: (){},),
-              SizedBox(height: 6.h,),
-              DrawerListTile(iconData: Icons.privacy_tip, title: "Privacy & Policy", onTap: (){},),
-              SizedBox(height: 6.h,),
+              SizedBox(
+                height: 50.h,
+              ),
+              DrawerListTile(
+                iconData: Icons.person,
+                title: "Profile",
+                onTap: () {
+                  // context.router.push(UserDetailRoute(user: user));
+                },
+              ),
+              SizedBox(
+                height: 6.h,
+              ),
+              DrawerListTile(
+                iconData: Icons.calendar_view_day,
+                title: "Appointment",
+                onTap: () {
+                  context.router.push(const DailyAndUpcommingRoute());
+                },
+              ),
+              SizedBox(
+                height: 6.h,
+              ),
+              DrawerListTile(
+                iconData: Icons.favorite_border,
+                title: "Favourite",
+                onTap: () {},
+              ),
+              SizedBox(
+                height: 6.h,
+              ),
+              DrawerListTile(
+                iconData: Icons.payment,
+                title: "Payment & Invoice",
+                onTap: () {
+                  context.router.push(const InvoiceRoute());
+                },
+              ),
+              SizedBox(
+                height: 6.h,
+              ),
+              DrawerListTile(
+                iconData: Icons.fact_check_outlined,
+                title: "Faq",
+                onTap: () {},
+              ),
+              SizedBox(
+                height: 6.h,
+              ),
+              DrawerListTile(
+                iconData: Icons.privacy_tip,
+                title: "Privacy & Policy",
+                onTap: () {},
+              ),
+              SizedBox(
+                height: 6.h,
+              ),
               Card(
                 color: AppColors.primaryColor,
                 child: ListTile(
-                  onTap: () async{
-
+                  onTap: () async {
                     final prefs = await SharedPreferences.getInstance();
 
                     await prefs.setBool(UserP.isLoggedIn, false);
 
                     context.router.replace(const SignInRoute());
-
                   },
                   leading: CircleAvatar(
                     backgroundColor: Colors.white,
-                    child: Icon(Icons.logout, size: 15.h, color: AppColors.primaryColor,),
+                    child: Icon(
+                      Icons.logout,
+                      size: 15.h,
+                      color: AppColors.primaryColor,
+                    ),
                   ),
-                  title: Text("Logout", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: Colors.white),),
+                  title: Text(
+                    "Logout",
+                    style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
                 ),
               ),
               SizedBox(height: 5.h),
-              Text("V 2.0.0(200)", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFFAAAAAA)),)
-            ,SizedBox(height: 100.h,),
+              Text(
+                "V 2.0.0(200)",
+                textAlign: TextAlign.center,
+                style:
+                    TextStyle(fontSize: 12.sp, color: const Color(0xFFAAAAAA)),
+              ),
+              SizedBox(
+                height: 100.h,
+              ),
             ],
           ),
         ),
-
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          leading: Builder(
-            builder: (context) {
-              return InkWell(onTap: (){
+          leading: Builder(builder: (context) {
+            return InkWell(
+              onTap: () {
                 Scaffold.of(context).openDrawer();
-              }, child: Image.asset(Assets.iconsDrawer, height: 100, width: 100,),);
-            }
-          ),
+              },
+              child: Image.asset(
+                Assets.iconsDrawer,
+                height: 100,
+                width: 100,
+              ),
+            );
+          }),
           actions: [
-
             badges.Badge(
                 position: BadgePosition.topEnd(top: 3, end: 6),
-                badgeContent: const Text("6", style: TextStyle(color: Colors.white),),
-                child: IconButton(onPressed: (){
-                  context.router.push(const NotificationsRoute());
-                }, icon: Icon(Icons.notification_important, color: AppColors.primaryColor,))),
-
-            SizedBox(width: 8.w,),
+                badgeContent: const Text(
+                  "6",
+                  style: TextStyle(color: Colors.white),
+                ),
+                child: IconButton(
+                    onPressed: () {
+                      context.router.push(const NotificationsRoute());
+                    },
+                    icon: Icon(
+                      Icons.notification_important,
+                      color: AppColors.primaryColor,
+                    ))),
+            SizedBox(
+              width: 8.w,
+            ),
           ],
         ),
         body: ListView(
@@ -158,100 +231,153 @@ class _HomeViewState extends State<HomeView> {
               height: 153.h,
               width: double.infinity,
               decoration: const BoxDecoration(
-                image: DecorationImage(image: AssetImage(Assets.imagesWelcomeBackground))
-              ),
+                  image: DecorationImage(
+                      image: AssetImage(Assets.imagesWelcomeBackground))),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Hello!", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 22.sp, color: AppColors.primaryColor ),),
-                  SizedBox(height: 8.h,),
-                  Text("$name", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: const Color(0xFF454545)),),
-                  Text("Welcome to MacroHealthPlus", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle( fontSize: 14.sp, color: const Color(0xFF7A7A7A),),),
+                  Text(
+                    "Hello!",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 22.sp,
+                        color: AppColors.primaryColor),
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
+                  Text(
+                    "$name",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.sp,
+                        color: const Color(0xFF454545)),
+                  ),
+                  Text(
+                    "Welcome to MacroHealthPlus",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      color: const Color(0xFF7A7A7A),
+                    ),
+                  ),
                 ],
               ),
             ),
-            SizedBox(height: 15.h,),
+            SizedBox(
+              height: 15.h,
+            ),
             Container(
               height: 31.h,
               // width: double.infinity,
               decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage(Assets.imagesMacroHealthPlus))
-              ),
+                  image: DecorationImage(
+                      image: AssetImage(Assets.imagesMacroHealthPlus))),
             ),
-            SizedBox(height: 15.h,),
+            SizedBox(
+              height: 15.h,
+            ),
             Card(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.h)
-              ),
+                  borderRadius: BorderRadius.circular(12.h)),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 0, vertical: 12.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CircleAvatar(
-                        backgroundColor:  const Color(0xFFF0F3F6),
-                        child: IconButton(onPressed: (){
-                          // NotificationService().sendNotification(body: "f__eQHA9TFmTrIFGdUh_e8:APA91bGyUQ5AxCwcQwtTFgxfpiUA2WGLHCGt2C4bnLazfCFRyqA1fl_KVX-zIkq27tmX-RTO_JGn_QpGBAEFpbBA0qCdn2gf-2-OZhGpqtSGEbaKbJW9Fgcdi3pmpjmsIvyBIFg6hzND", senderId: "senderId");
-                          // context.router.push(const ChatRoute());
-                        }, icon: Icon(Icons.call, size: 18.h, color: AppColors.primaryColor,))),
+                        backgroundColor: const Color(0xFFF0F3F6),
+                        child: IconButton(
+                            onPressed: () {
+                              // NotificationService().sendNotification(body: "f__eQHA9TFmTrIFGdUh_e8:APA91bGyUQ5AxCwcQwtTFgxfpiUA2WGLHCGt2C4bnLazfCFRyqA1fl_KVX-zIkq27tmX-RTO_JGn_QpGBAEFpbBA0qCdn2gf-2-OZhGpqtSGEbaKbJW9Fgcdi3pmpjmsIvyBIFg6hzND", senderId: "senderId");
+                              // context.router.push(const ChatRoute());
+                            },
+                            icon: Icon(
+                              Icons.call,
+                              size: 18.h,
+                              color: AppColors.primaryColor,
+                            ))),
                     CircleAvatar(
-                        backgroundColor:  const Color(0xFFF0F3F6),
-                        child: IconButton(onPressed: (){
-                          // videoCall.getVideoCallToken(context, appId: appId, channelName: channelName, userId: channelName);
-
-                        }, icon: Icon(Icons.video_call, size: 18.h, color: AppColors.primaryColor,))),
+                        backgroundColor: const Color(0xFFF0F3F6),
+                        child: IconButton(
+                            onPressed: () {
+                              // videoCall.getVideoCallToken(context, appId: appId, channelName: channelName, userId: channelName);
+                            },
+                            icon: Icon(
+                              Icons.video_call,
+                              size: 18.h,
+                              color: AppColors.primaryColor,
+                            ))),
                     CircleAvatar(
-                        backgroundColor:  const Color(0xFFF0F3F6),
-                        child: IconButton(onPressed: (){
-                          // context.router.push(const ChatRTMRoute());
-                          showDialog(context: context, builder: (context) => AlertDialog(
-                            title: const Text("Login"),
-                            actions: [
-                              TextButton(onPressed: (){
-                                // context.router.push( AgoraChatPageRoute(chatKey: appKey, userId: userId, agoraToken: agoraToken, receiverId: receiverId));
-
-                              }, child: const Text("Log-In")),
-                            ],
-                            content: Column(
-                              children: [
-                                TextField(
-                                  controller: userName,
+                        backgroundColor: const Color(0xFFF0F3F6),
+                        child: IconButton(
+                            onPressed: () {
+                              // context.router.push(const ChatRTMRoute());
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text("Login"),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          // context.router.push( AgoraChatPageRoute(chatKey: appKey, userId: userId, agoraToken: agoraToken, receiverId: receiverId));
+                                        },
+                                        child: const Text("Log-In")),
+                                  ],
+                                  content: Column(
+                                    children: [
+                                      TextField(
+                                        controller: userName,
+                                      ),
+                                      TextField(
+                                        controller: password,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                TextField(
-                                  controller: password,
-                                ),
-                              ],
-                            ),
-                          ),
-                          );
-                        }, icon: Icon(Icons.message, size: 18.h, color: AppColors.primaryColor,))),
+                              );
+                            },
+                            icon: Icon(
+                              Icons.message,
+                              size: 18.h,
+                              color: AppColors.primaryColor,
+                            ))),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 18.h,),
-            Text("What do you need?", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),),
-            SizedBox(height: 18.h,),
+            SizedBox(
+              height: 18.h,
+            ),
+            Text(
+              "What do you need?",
+              style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                  color: const Color(0xFF8A8A8A)),
+            ),
+            SizedBox(
+              height: 18.h,
+            ),
             GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-
-                gridDelegate:  FlutterzillaFixedGridView(
+                gridDelegate: FlutterzillaFixedGridView(
                     crossAxisCount: 3,
                     mainAxisSpacing: 5,
                     crossAxisSpacing: 10,
-                    height: 90.h
-                ),
+                    height: 90.h),
                 itemCount: provider.homeItemsList.length,
-                itemBuilder: (BuildContext context, index){
-
+                itemBuilder: (BuildContext context, index) {
                   return InkWell(
-                    onTap: (){
+                    onTap: () {
+                       dvm.getAllDoctors(context);
 
-                      dvm.getAllDoctors(context);
-
-                      dvm.getDepartments(context);
+                       dvm.getDepartments(context);
 
                       provider.homeItemsRouteTo(context, index);
                     },
@@ -280,17 +406,30 @@ class _HomeViewState extends State<HomeView> {
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(12.0.r),
-                              child: Image.asset(provider.homeItemsList[index].image,),
+                              child: Image.asset(
+                                provider.homeItemsList[index].image,
+                              ),
                             ),
                           ),
                         ),
 
-                        Text(provider.homeItemsList[index].title, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),)
+                        Text(
+                          provider.homeItemsList[index].title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.primaryColor),
+                        )
                       ],
                     ),
                   );
-            }),
-            SizedBox(height: 100.h,),
+                }),
+            SizedBox(
+              height: 100.h,
+            ),
           ],
         ),
       ),

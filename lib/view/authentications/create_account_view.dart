@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/model/auth_model/birth_sex_model.dart';
 import 'package:digi_patient/model/auth_model/blood_group_model.dart';
-import 'package:digi_patient/resources/send_image.dart';
 import 'package:digi_patient/utils/datetime.dart';
 import 'package:digi_patient/view_model/auth_view_model.dart';
 import 'package:digi_patient/widgets/custom_textfield.dart';

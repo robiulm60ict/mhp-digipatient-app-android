@@ -1,84 +1,85 @@
-import 'dart:convert';
-LoginModel loginModelFromJson(String str) => LoginModel.fromJson(json.decode(str));
-String loginModelToJson(LoginModel data) => json.encode(data.toJson());
-class LoginModel {
-  LoginModel({
-    this.message,
-    this.user,});
+// To parse this JSON data, do
+//
+//     final loginModel = loginModelFromJson(jsonString);
 
-  LoginModel.fromJson(dynamic json) {
-    message = json['message'];
-    user = json['user'] != null ? User.fromJson(json['user']) : null;
-  }
+import 'dart:convert';
+
+LoginModel loginModelFromJson(String str) => LoginModel.fromJson(json.decode(str));
+
+String loginModelToJson(LoginModel data) => json.encode(data.toJson());
+
+class LoginModel {
   String? message;
+  String? accessToken;
   User? user;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['message'] = message;
-    if (user != null) {
-      map['user'] = user?.toJson();
-    }
-    return map;
-  }
+  LoginModel({
+    this.message,
+    this.accessToken,
+    this.user,
+  });
 
+  factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
+    message: json["message"],
+    accessToken: json["access_token"],
+    user: json["user"] == null ? null : User.fromJson(json["user"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "message": message,
+    "access_token": accessToken,
+    "user": user?.toJson(),
+  };
 }
 
-User userFromJson(String str) => User.fromJson(json.decode(str));
-String userToJson(User data) => json.encode(data.toJson());
 class User {
+  int? id;
+  String? email;
+  String? mobile;
+  String? userId;
+  String? userType;
+  String? organizationName;
+  String? organizationMobile;
+  String? organizationEmail;
+  String? organizationAddress;
+  dynamic organizationLogo;
+
   User({
     this.id,
-    this.name,
     this.email,
-    this.emailVerifiedAt,
-    this.userType,
+    this.mobile,
     this.userId,
-    this.currentTeamId,
-    this.profilePhotoPath,
-    this.createdAt,
-    this.updatedAt,
-    this.profilePhotoUrl,});
+    this.userType,
+    this.organizationName,
+    this.organizationMobile,
+    this.organizationEmail,
+    this.organizationAddress,
+    this.organizationLogo,
+  });
 
-  User.fromJson(dynamic json) {
-    id = json['id'];
-    name = json['name'];
-    email = json['email'];
-    emailVerifiedAt = json['email_verified_at'];
-    userType = json['user_type'];
-    userId = json['user_id'];
-    currentTeamId = json['current_team_id'];
-    profilePhotoPath = json['profile_photo_path'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    profilePhotoUrl = json['profile_photo_url'];
-  }
-  num? id;
-  String? name;
-  String? email;
-  dynamic emailVerifiedAt;
-  String? userType;
-  String? userId;
-  dynamic currentTeamId;
-  dynamic profilePhotoPath;
-  String? createdAt;
-  String? updatedAt;
-  String? profilePhotoUrl;
+  factory User.fromJson(Map<String, dynamic> json) => User(
+    id: json["id"],
+    email: json["email"],
+    mobile: json["mobile"],
+    userId: json["user_id"],
+    userType: json["user_type"],
+    organizationName: json["organization_name"],
+    organizationMobile: json["organization_mobile"],
+    organizationEmail: json["organization_email"],
+    organizationAddress: json["organization_address"],
+    organizationLogo: json["organization_logo"],
+  );
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['name'] = name;
-    map['email'] = email;
-    map['email_verified_at'] = emailVerifiedAt;
-    map['user_type'] = userType;
-    map['user_id'] = userId;
-    map['current_team_id'] = currentTeamId;
-    map['profile_photo_path'] = profilePhotoPath;
-    map['created_at'] = createdAt;
-    map['updated_at'] = updatedAt;
-    map['profile_photo_url'] = profilePhotoUrl;
-    return map;
-  }
-
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "email": email,
+    "mobile": mobile,
+    "user_id": userId,
+    "user_type": userType,
+    "organization_name": organizationName,
+    "organization_mobile": organizationMobile,
+    "organization_email": organizationEmail,
+    "organization_address": organizationAddress,
+    "organization_logo": organizationLogo,
+  };
 }

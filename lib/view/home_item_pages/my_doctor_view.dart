@@ -29,7 +29,7 @@ class MyDoctorView extends StatelessWidget {
       appBar: AppBar(
         leadingWidth: leadingWidth,
         toolbarHeight: 100.h,
-        backgroundColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
         centerTitle: true,
         title: Text("My Doctor", style: TextStyle(fontSize: 18.sp, color: Colors.white),),
         leading: Padding(

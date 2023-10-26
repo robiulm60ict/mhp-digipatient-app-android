@@ -3,19 +3,21 @@ class AppUrls{
 
   static const String googleTranslate = '';
 
-   static const String baseUrll = 'https://dev.macrohealthplus.org';
-   static const String baseUrl = 'http://35.240.201.91:7000';
+   static const String baseUrl = 'https://dev.macrohealthplus.org/mhp_server/public';
+   // static const String baseUrl = 'http://35.240.201.91:7000';
 
   static const String baseAddApi = '/mhp_server/public/api/';
 
   static const String bearer = 'Bearer ';
 
   static const String auth = 'Authorization';
+  static const String drprofile = 'http://35.213.180.244:7000/api/doctors/';
+
 
   // static const String login = '$baseUrl/mhp_server/public/api/login';
-  static const String login = '$baseUrl/api/login';
+  static const String login = 'http://35.213.180.244:7000/api/login-with-saas';
 
-  static const String allDoctors = 'http://35.240.201.91:7000/api/doctors';
+  static const String allDoctors = '$baseUrl/api/doctors';
 
   static const String allPatients = '$baseUrl/api/patients';
 

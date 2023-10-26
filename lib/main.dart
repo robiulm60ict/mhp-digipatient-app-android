@@ -27,6 +27,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'firebase_options.dart';
+import 'view_model/qr_code_dr_profile_view_model/profile_view_model.dart';
 
 final FlutterLocalization localization = FlutterLocalization.instance;
 
@@ -97,6 +98,8 @@ Future<void> main() async {
           create: (context) => VideoCallViewModel(),
         ),
         ChangeNotifierProvider(
+          create: (context) => DrProfileViewModel(),
+        ), ChangeNotifierProvider(
           create: (context) => DoctorScreenViewModel(),
         ),
       ],
