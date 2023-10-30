@@ -4,7 +4,7 @@ class AppUrls{
   static const String googleTranslate = '';
 
    static const String baseUrl = 'https://dev.macrohealthplus.org/mhp_server/public';
-   // static const String baseUrl = 'http://35.240.201.91:7000';
+   static const String baseUrlIP = 'http://35.213.180.244:7000';
 
   static const String baseAddApi = '/mhp_server/public/api/';
 
@@ -14,8 +14,8 @@ class AppUrls{
   static const String drprofile = 'http://35.213.180.244:7000/api/doctors/';
 
 
-  // static const String login = '$baseUrl/mhp_server/public/api/login';
-  static const String login = 'http://35.213.180.244:7000/api/login-with-saas';
+   // static const String login = '$baseUrlIP/api/login';
+  static const String login = '$baseUrlIP/api/login-with-saas';
 
   static const String allDoctors = '$baseUrl/api/doctors';
 
@@ -25,9 +25,9 @@ class AppUrls{
 
   static const String savePtnFCM = '$baseUrl/api/patient-app-token/';
 
-  static const String docFee = '$baseUrl/api/doctors-consultation-Fee/';
+  static const String docFee = '$baseUrlIP/api/doctors-consultation-Fee/';
 
-  static const String department = '$baseUrl/api/department';
+  static const String department = '$baseUrlIP/api/department';
 
   static const String departmentImage = '$baseUrl/mhp_server/public/department/';
 

@@ -10,7 +10,7 @@ String doctorsModelsToJson(DoctorsModels data) => json.encode(data.toJson());
 
 class DoctorsModels {
   int? status;
-  List<Doctors>? doctors;
+  List<Doctor>? doctors;
   List<BirthSexElement>? birthSex;
 
   DoctorsModels({
@@ -21,7 +21,7 @@ class DoctorsModels {
 
   factory DoctorsModels.fromJson(Map<String, dynamic> json) => DoctorsModels(
     status: json["status"],
-    doctors: json["doctors"] == null ? [] : List<Doctors>.from(json["doctors"]!.map((x) => Doctors.fromJson(x))),
+    doctors: json["doctors"] == null ? [] : List<Doctor>.from(json["doctors"]!.map((x) => Doctor.fromJson(x))),
     birthSex: json["birth_sex"] == null ? [] : List<BirthSexElement>.from(json["birth_sex"]!.map((x) => BirthSexElement.fromJson(x))),
   );
 
@@ -35,7 +35,7 @@ class DoctorsModels {
 class BirthSexElement {
   int? id;
   String? birthSexName;
-  int? deleteStatus;
+  String? deleteStatus;
   dynamic createdBy;
   dynamic updatedBy;
   DateTime? createdAt;
@@ -72,13 +72,13 @@ class BirthSexElement {
   };
 }
 
-class Doctors {
+class Doctor {
   int? id;
   String? drIdentityNo;
   Title? title;
   String? departmentId;
   String? specialistsId;
-  String? departmentName;
+  dynamic departmentName;
   String? drFamilyName;
   String? drGivenName;
   String? drMiddleName;
@@ -90,8 +90,8 @@ class Doctors {
   String? drAddressLine2;
   String? drBmdcRegNo;
   String? drEmail;
-  String? drIsReferred;
-  String? drDob;
+  dynamic drIsReferred;
+  DateTime? drDob;
   String? drBirthSexId;
   String? drCityId;
   String? drPostalCode;
@@ -102,16 +102,17 @@ class Doctors {
   String? drProviderId;
   String? drImages;
   String? deleteStatus;
-  String? createdBy;
-  String? updatedBy;
-  String? createdAt;
-  String? updatedAt;
+  dynamic createdBy;
+  dynamic updatedBy;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  dynamic appToken;
   DoctorBirthSex? birthSex;
   UsualProvider? usualProvider;
   Department? department;
   Specialist? specialist;
 
-  Doctors({
+  Doctor({
     this.id,
     this.drIdentityNo,
     this.title,
@@ -145,13 +146,14 @@ class Doctors {
     this.updatedBy,
     this.createdAt,
     this.updatedAt,
+    this.appToken,
     this.birthSex,
     this.usualProvider,
     this.department,
     this.specialist,
   });
 
-  factory Doctors.fromJson(Map<String, dynamic> json) => Doctors(
+  factory Doctor.fromJson(Map<String, dynamic> json) => Doctor(
     id: json["id"],
     drIdentityNo: json["dr_identity_no"],
     title: json["title"] == null ? null : Title.fromJson(json["title"]),
@@ -170,7 +172,7 @@ class Doctors {
     drBmdcRegNo: json["dr_bmdc_reg_no"],
     drEmail: json["dr_email"],
     drIsReferred: json["dr_is_referred"],
-    drDob: json["dr_dob"],
+    drDob: json["dr_dob"] == null ? null : DateTime.parse(json["dr_dob"]),
     drBirthSexId: json["dr_birth_sex_id"],
     drCityId: json["dr_city_id"],
     drPostalCode: json["dr_postal_code"],
@@ -183,8 +185,9 @@ class Doctors {
     deleteStatus: json["delete_status"],
     createdBy: json["created_by"],
     updatedBy: json["updated_by"],
-    createdAt: json["created_at"],
-    updatedAt: json["updated_at"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    appToken: json["app_token"],
     birthSex: json["birth_sex"] == null ? null : DoctorBirthSex.fromJson(json["birth_sex"]),
     usualProvider: json["usual_provider"] == null ? null : UsualProvider.fromJson(json["usual_provider"]),
     department: json["department"] == null ? null : Department.fromJson(json["department"]),
@@ -210,7 +213,7 @@ class Doctors {
     "dr_bmdc_reg_no": drBmdcRegNo,
     "dr_email": drEmail,
     "dr_is_referred": drIsReferred,
-    "dr_dob": drDob,
+    "dr_dob": "${drDob!.year.toString().padLeft(4, '0')}-${drDob!.month.toString().padLeft(2, '0')}-${drDob!.day.toString().padLeft(2, '0')}",
     "dr_birth_sex_id": drBirthSexId,
     "dr_city_id": drCityId,
     "dr_postal_code": drPostalCode,
@@ -223,8 +226,9 @@ class Doctors {
     "delete_status": deleteStatus,
     "created_by": createdBy,
     "updated_by": updatedBy,
-    "created_at": createdAt,
-    "updated_at": updatedAt,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "app_token": appToken,
     "birth_sex": birthSex?.toJson(),
     "usual_provider": usualProvider?.toJson(),
     "department": department?.toJson(),

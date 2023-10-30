@@ -20,6 +20,7 @@ class DoctorRepository{
 
       dynamic response = await apiService.getGetApiResponse(AppUrls.allDoctors);
 
+      print(response);
 
       return doctorsModelsFromJson(response);
 

@@ -109,7 +109,7 @@ class AppointmentViewModel with ChangeNotifier{
 
   BookAppointmentRepo bookAppointmentRepo = BookAppointmentRepo();
 
-  bookAppointment(BuildContext context, { required Doctors doctor , required Map<String, dynamic> body})async{
+  bookAppointment(BuildContext context, { required Doctor doctor , required Map<String, dynamic> body})async{
     isBookAppointmentLoading = true;
     appointmentList.clear();
     notifyListeners();

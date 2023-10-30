@@ -21,7 +21,7 @@ class HomeViewModel with ChangeNotifier{
     HomeItemsModel(title: "Resources", image: Assets.homeResources),
     HomeItemsModel(title: "Payments", image: Assets.homePayments),
     HomeItemsModel(title: "Services", image: Assets.homeServices),
-    HomeItemsModel(title: "My Qr  Doctor", image: Assets.homeMyDoc),
+  //  HomeItemsModel(title: "My Qr  Doctor", image: Assets.homeMyDoc),
 
   ];
 

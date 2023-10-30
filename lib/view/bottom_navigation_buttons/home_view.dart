@@ -204,6 +204,13 @@ class _HomeViewState extends State<HomeView> {
               ),
             );
           }),
+          title: Container(
+            height: 30.h,
+            // width: double.infinity,
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(Assets.imagesMacroHealthPlus))),
+          ),
           actions: [
             badges.Badge(
                 position: BadgePosition.topEnd(top: 3, end: 6),
@@ -228,7 +235,7 @@ class _HomeViewState extends State<HomeView> {
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           children: [
             Container(
-              height: 153.h,
+              height: 150.h,
               width: double.infinity,
               decoration: const BoxDecoration(
                   image: DecorationImage(
@@ -268,24 +275,15 @@ class _HomeViewState extends State<HomeView> {
                 ],
               ),
             ),
+
             SizedBox(
-              height: 15.h,
-            ),
-            Container(
-              height: 31.h,
-              // width: double.infinity,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(Assets.imagesMacroHealthPlus))),
-            ),
-            SizedBox(
-              height: 15.h,
+              height: 6.h,
             ),
             Card(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.h)),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 12.h),
+                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 8.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -351,7 +349,7 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             SizedBox(
-              height: 18.h,
+              height: 6.h,
             ),
             Text(
               "What do you need?",
@@ -361,7 +359,39 @@ class _HomeViewState extends State<HomeView> {
                   color: const Color(0xFF8A8A8A)),
             ),
             SizedBox(
-              height: 18.h,
+              height: 8.h,
+            ),
+            Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.h)),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 6.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      width: 200.w,
+                      height: 40.h,
+                      child: TextField(
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey)),
+                            hintText: 'Enter 6 Digit Code',
+                            labelText: 'Doctor Add provider',
+                            suffixStyle: TextStyle(color: Colors.green)),
+                      ),
+                    ),
+                    MaterialButton(
+                      onPressed: () {},
+                      child: Text("Submit"),
+                      color: AppColors.primaryColor,
+                    )
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 8.h,
             ),
             GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
@@ -375,9 +405,9 @@ class _HomeViewState extends State<HomeView> {
                 itemBuilder: (BuildContext context, index) {
                   return InkWell(
                     onTap: () {
-                       dvm.getAllDoctors(context);
+                      dvm.getAllDoctors(context);
 
-                       dvm.getDepartments(context);
+                      // dvm.getDepartments(context);
 
                       provider.homeItemsRouteTo(context, index);
                     },

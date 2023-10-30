@@ -914,7 +914,7 @@ class BookAppointmentRoute
     extends _i42.PageRouteInfo<BookAppointmentRouteArgs> {
   BookAppointmentRoute({
     _i43.Key? key,
-    required _i44.Doctors doctors,
+    required _i44.Doctor doctors,
     required String amount,
   }) : super(
           BookAppointmentRoute.name,
@@ -938,7 +938,7 @@ class BookAppointmentRouteArgs {
 
   final _i43.Key? key;
 
-  final _i44.Doctors doctors;
+  final _i44.Doctor doctors;
 
   final String amount;
 
@@ -958,7 +958,7 @@ class PaymentMethodRoute extends _i42.PageRouteInfo<PaymentMethodRouteArgs> {
     required String patientId,
     required String amount,
     required String appointmentType,
-    required _i44.Doctors doctor,
+    required _i44.Doctor doctor,
     required List<_i45.SymptomsAnatomy> diseaseList,
   }) : super(
           PaymentMethodRoute.name,
@@ -1002,7 +1002,7 @@ class PaymentMethodRouteArgs {
 
   final String appointmentType;
 
-  final _i44.Doctors doctor;
+  final _i44.Doctor doctor;
 
   final List<_i45.SymptomsAnatomy> diseaseList;
 
@@ -1046,7 +1046,7 @@ class SingleInvoiceRoute extends _i42.PageRouteInfo<SingleInvoiceRouteArgs> {
     required String patientId,
     required String amount,
     required String appointmentType,
-    required _i44.Doctors doctor,
+    required _i44.Doctor doctor,
     required String paymentMethod,
   }) : super(
           SingleInvoiceRoute.name,
@@ -1090,7 +1090,7 @@ class SingleInvoiceRouteArgs {
 
   final String appointmentType;
 
-  final _i44.Doctors doctor;
+  final _i44.Doctor doctor;
 
   final String paymentMethod;
 

@@ -85,6 +85,7 @@ class AuthViewModel with ChangeNotifier {
       Messages.flushBarMessage(context, '${value.message}',
           backgroundColor: AppColors.primaryColor);
 
+
       await saveUser(
           isLoggedIn: keepMeSignIn,
           email: body['email'],

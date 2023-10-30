@@ -10,7 +10,7 @@ import '../routes/routes.gr.dart';
 import '../widgets/doctor_list_tile_our_doc.dart';
 
 customSearchDialogue(BuildContext context,
-    {required List<Doctors> doctorList}) {
+    {required List<Doctor> doctorList}) {
   return showSearch(
     context: context,
     delegate: SearchPage(

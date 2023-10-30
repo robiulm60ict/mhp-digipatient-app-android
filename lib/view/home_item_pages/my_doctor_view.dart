@@ -103,7 +103,7 @@ class MyDoctorView extends StatelessWidget {
               const Spacer(),
               TextButton(onPressed: () {
                 // List<Doctors>? doctorList = [];
-                List<Doctors>? allDoc = provider.allDoctorList.first.doctors;
+                List<Doctor>? allDoc = provider.allDoctorList.first.doctors;
                 // doctorList = allDoc?.where((element) => element.department?.departmentsName == "Dermatology".toLowerCase()).toList();
 
                 customSearchDialogue(context, doctorList: allDoc!);

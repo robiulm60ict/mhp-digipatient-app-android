@@ -27,7 +27,7 @@ class MyDoctorCategoryWiseView extends StatefulWidget {
 
 class _MyDoctorCategoryWiseViewState extends State<MyDoctorCategoryWiseView> {
 
-  late List<Doctors>? doctors;
+  late List<Doctor>? doctors;
 
   @override
   void initState() {
@@ -90,7 +90,7 @@ class _MyDoctorCategoryWiseViewState extends State<MyDoctorCategoryWiseView> {
 
                 ), itemBuilder: (context, index) {
 
-                Doctors? doc = doctors?[index];
+                Doctor? doc = doctors?[index];
 
                 return DocCard(
                   onTap: (){

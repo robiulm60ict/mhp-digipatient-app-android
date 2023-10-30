@@ -24,7 +24,9 @@ class MyDoctorViewModel with ChangeNotifier {
     isDoctorLoading = true;
 
     await DoctorRepository().getAllDoctors().then((value) {
+
       allDoctorList.add(value);
+
 
       isDoctorLoading = false;
     }).onError((error, stackTrace) {
@@ -100,7 +102,7 @@ class MyDoctorViewModel with ChangeNotifier {
   //
   // }
 
-  List<Doctors>? getDoctorsByType({required num departmentId}) {
+  List<Doctor>? getDoctorsByType({required num departmentId}) {
     return allDoctorList.first.doctors
         ?.where((element) => element.department?.id == departmentId)
         .toList();

@@ -24,7 +24,7 @@ class PaymentMethodView extends StatefulWidget {
   final String patientId;
   final String amount;
   final String appointmentType;
-  final Doctors doctor;
+  final Doctor doctor;
   final List<SymptomsAnatomy> diseaseList;
 
   @override

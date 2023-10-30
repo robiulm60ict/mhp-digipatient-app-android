@@ -237,7 +237,7 @@ popUpDialogue(BuildContext context, Widget content, ){
     ),).show();
 }
 
-invoiceSuccessPopUp(BuildContext context,{bool barrierDismissible = false, required String appointmentDate, required String doctorId, required String patientId, required String amount, required String paymentMethod, required String appointmentType, required Doctors doctor}){
+invoiceSuccessPopUp(BuildContext context,{bool barrierDismissible = false, required String appointmentDate, required String doctorId, required String patientId, required String amount, required String paymentMethod, required String appointmentType, required Doctor doctor}){
   return showDialog(
     context: context,
     barrierDismissible: barrierDismissible,

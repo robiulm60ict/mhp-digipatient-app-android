@@ -15,10 +15,12 @@ class NetworkApiService extends BaseApiService{
 
     dynamic responseJson;
     try{
-      final response = await http.get(Uri.parse(url),headers:{
-        'Authorization': 'Bearer 246|0L1Zj7bQxjn9pf2siy3O5vTGP6kqfJyaCsfUfL6P',
-        'Accept': 'application/json',
-      }, ).timeout(const Duration(seconds: 10));
+      final response = await http.get(Uri.parse(url)
+      //   ,headers:{
+      //   'Authorization': 'Bearer 246|0L1Zj7bQxjn9pf2siy3O5vTGP6kqfJyaCsfUfL6P',
+      //   'Accept': 'application/json',
+      // },
+      ).timeout(const Duration(seconds: 10));
       print(response);
       responseJson = returnResponse(response);
     }on SocketException{
