@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/anatomy/anatomy_symptoms_model.dart';
+import '../../model/myDoctorList/mydoctorList.dart';
 import '../../resources/colors.dart';
 import '../../utils/utils.dart';
 import '../../view_model/anatomy/anatomy_view_model.dart';
@@ -24,7 +25,7 @@ class PaymentMethodView extends StatefulWidget {
   final String patientId;
   final String amount;
   final String appointmentType;
-  final Doctor doctor;
+  final Datum doctor;
   final List<SymptomsAnatomy> diseaseList;
 
   @override
@@ -97,13 +98,13 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
         padding: EdgeInsets.all(20.r),
         children: [
            PaymentUserDetail(
-              name: "${widget.doctor.drGivenName}",
-              designation: "${widget.doctor.department?.departmentsName}",
+              name: "${widget.doctor.doctors?.drGivenName}",
+              designation: "{widget.doctor.doctors?.departmentsName}",
               visitingTime: getTime(widget.appointmentDate),
-              hospitalName: "${widget.doctor.usualProvider?.usualProviderName}",
+              hospitalName: "{widget.doctor.usualProvider?.usualProviderName}",
               date: widget.appointmentDate,
-              location: "${widget.doctor.drMobilePhone}",
-             image: '${AppUrls.docImage}${widget.doctor.drImages}',),
+              location: "${widget.doctor.doctors?.drWorkPhone}",
+             image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',),
           SizedBox(
             height: 20.h,
           ),

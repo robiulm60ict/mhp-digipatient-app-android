@@ -16,6 +16,7 @@ class SendImage {
     // String addimageUrl = '<domain-name>/api/imageadd';
 
     Map<String, String> headers = {
+      'databaseName': 'mhpgmailcom',
       'Content-Type': 'multipart/form-data',
     };
     var request = http.MultipartRequest('POST', Uri.parse(AppUrls.registration))
@@ -89,6 +90,7 @@ class UserRegistration {
 
     // Set the headers
     Map<String, String> headers = {
+      'databaseName': 'mhpgmailcom',
       'Content-Type': 'application/json',
     };
 

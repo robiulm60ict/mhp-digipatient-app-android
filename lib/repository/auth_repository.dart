@@ -54,22 +54,17 @@ class AuthRepository {
   }
 
   NetworkApiService api = NetworkApiService();
-  Future<RegistrationModel> signUpOriginal(BuildContext context, Map<String,dynamic> body, String token)async{
-    // try{
-    //   final json = await apiService.getPostApiResponse(AppUrls.registration, body);
-    //   // debugPrint("Json: \n\n\n\n\n\n $json");
-    //   return RegistrationModel.fromJson(json);
-    // }catch (e){
-    //   rethrow;
-    // }
+  Future<RegistrationModel> signUpOriginal(BuildContext context, Map<String,dynamic> body)async{
+
     dynamic responseJson;
     try{
       final response = await http.post(
           body: jsonEncode(body),
           headers: {
+            'databaseName': 'mhpgmailcom',
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'Authorization': 'Bearer $token',
+
           },
           Uri.parse(AppUrls.registration)).timeout(const Duration(seconds: 10),
       );
@@ -128,6 +123,7 @@ class AuthRepository {
   Future<BloodGroupModel> getBloodGroup() async {
     try {
       dynamic response = await apiService.getGetApiResponse(AppUrls.bloodGroup);
+      print(response);
       return BloodGroupModel.fromJson(response);
     } catch (e) {
       rethrow;
@@ -137,6 +133,8 @@ class AuthRepository {
   Future<BirthSexModel> getBirthSex() async {
     try {
       dynamic response = await apiService.getGetApiResponse(AppUrls.birthSex);
+      print(response);
+
       return BirthSexModel.fromJson(response);
     } catch (e) {
       rethrow;

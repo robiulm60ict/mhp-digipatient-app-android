@@ -5,6 +5,7 @@ class AppUrls{
 
    static const String baseUrl = 'https://dev.macrohealthplus.org/mhp_server/public';
    static const String baseUrlIP = 'http://35.213.180.244:7000';
+   static const String baseUrlPatient = 'http://35.213.180.244:7000/api/v1';
 
   static const String baseAddApi = '/mhp_server/public/api/';
 
@@ -14,9 +15,12 @@ class AppUrls{
   static const String drprofile = 'http://35.213.180.244:7000/api/doctors/';
 
 
+    static const String login = '$baseUrlPatient/login-patient';
+    static const String doctorrequest = '$baseUrlPatient/patient-request-to-doctor/';
    // static const String login = '$baseUrlIP/api/login';
-  static const String login = '$baseUrlIP/api/login-with-saas';
+ // static const String login = '$baseUrlIP/api/login-with-saas';
 
+  static const String myDoctorslist = '$baseUrlPatient/patient-list-for-doctor/1';
   static const String allDoctors = '$baseUrl/api/doctors';
 
   static const String allPatients = '$baseUrl/api/patients';
@@ -90,19 +94,19 @@ class AppUrls{
 
   /// Registration
 
-  static const String sendVerification = '$baseUrl/api/send-verfication-code';
+  static const String sendVerification = '$baseUrlPatient/send-verfication-code';
 
-  static const String checkOtp = '$baseUrl/api/verification-check';
+  static const String checkOtp = '$baseUrlPatient/verification-check';
 
-  static const String registration = '$baseUrl/api/patient-sign-up';
+  static const String registration = '$baseUrlPatient/patient-registration';
 
   static const String loginAfterRegistration = '$baseUrl/api/login-patient';
 
   /// Blood Group and Birth Sex Patient
 
-  static const String birthSex = '$baseUrl/api/birth-sex';
+  static const String birthSex = '$baseUrlPatient/birth-sex';
 
-  static const String bloodGroup = '$baseUrl/api/blood-group';
+  static const String bloodGroup = '$baseUrlPatient/blood-group';
 
   static const String invoiceView = '$baseUrl/api/online-booking-app-payment-details/';
 

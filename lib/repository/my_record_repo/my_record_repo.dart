@@ -1,4 +1,3 @@
-
 import 'package:digi_patient/model/doctor_model/doctor_fee_model.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/model/my_record_model/add_medical_history_model.dart';
@@ -16,118 +15,97 @@ import '../../model/my_record_model/save_vital_model.dart';
 import '/data/network/network_api_service.dart';
 import '/resources/app_url.dart';
 
-
-class MyRecordRepo{
-
+class MyRecordRepo {
   BaseApiService apiService = NetworkApiService();
 
-  Future<MedicalHistoryFromGreatDocModel> getMedicalHistoryFromGreatDoc() async{
+  Future<MedicalHistoryFromGreatDocModel>
+      getMedicalHistoryFromGreatDoc() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? id = prefs.getInt(UserP.id);
-    try{
-
-      dynamic response = await apiService.getGetApiResponse("${AppUrls.medicalHistoryFromGreatDoc}$id",);
+    try {
+      dynamic response = await apiService.getGetApiResponse(
+        "${AppUrls.medicalHistoryFromGreatDoc}$id",
+      );
 
       return MedicalHistoryFromGreatDocModel.fromJson(response);
-
-    }catch(e){
-
+    } catch (e) {
       rethrow;
-
     }
   }
 
-  Future<ProcedureMhfgdModel> getProcedureFromGreatDoc() async{
+  Future<ProcedureMhfgdModel> getProcedureFromGreatDoc() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? id = prefs.getInt(UserP.id);
-    try{
-
-      dynamic response = await apiService.getGetApiResponse("${AppUrls.medicalProcedureFromGreatDoc}$id",);
+    try {
+      dynamic response = await apiService.getGetApiResponse(
+        "${AppUrls.medicalProcedureFromGreatDoc}$id",
+      );
 
       return ProcedureMhfgdModel.fromJson(response);
-
-    }catch(e){
-
+    } catch (e) {
       rethrow;
-
     }
   }
 
-  Future<VitalsModel> getVitals() async{
+  Future<VitalsModel> getVitals() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? id = prefs.getInt(UserP.id);
-    try{
-
-      dynamic response = await apiService.getGetApiResponse("${AppUrls.vitals}$id",);
+    try {
+      dynamic response = await apiService.getGetApiResponse(
+        "${AppUrls.vitals}$id",
+      );
 
       return VitalsModel.fromJson(response);
-
-    }catch(e){
-
+    } catch (e) {
       rethrow;
-
     }
   }
 
-
-  Future<ReasonForVisitModel> getReasonForVisit() async{
+  Future<ReasonForVisitModel> getReasonForVisit() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? id = prefs.getInt(UserP.id);
-    try{
-
-      dynamic response = await apiService.getGetApiResponse("${AppUrls.reasonForVisit}$id",);
+    try {
+      dynamic response = await apiService.getGetApiResponse(
+        "${AppUrls.reasonForVisit}$id",
+      );
 
       return ReasonForVisitModel.fromJson(response);
-
-    }catch(e){
-
+    } catch (e) {
       rethrow;
-
     }
   }
 
-  Future<SaveVitalModel> saveVital(dynamic body)async{
-
-    try{
-
-      dynamic response = await apiService.getPostApiResponse(AppUrls.saveVital, body);
+  Future<SaveVitalModel> saveVital(dynamic body) async {
+    try {
+      dynamic response =
+          await apiService.getPostApiResponse(AppUrls.saveVital, body);
 
       return SaveVitalModel.fromJson(response);
-
-    }catch(e){
-
+    } catch (e) {
       rethrow;
-
     }
   }
 
-  Future<DiagnosisProcedureModel> getDiagnosisProcedure()async{
-
-    try{
-
-      dynamic response = await apiService.getGetApiResponse(AppUrls.diagnosisProcedure,);
+  Future<DiagnosisProcedureModel> getDiagnosisProcedure() async {
+    try {
+      dynamic response = await apiService.getGetApiResponse(
+        AppUrls.diagnosisProcedure,
+      );
 
       return DiagnosisProcedureModel.fromJson(response);
-
-    }catch(e){
-
+    } catch (e) {
       rethrow;
-
     }
   }
 
-   Future<AddMedicalHistoryModel> addMedicalHistory(dynamic body)async{
-
-    try{
-
-      dynamic response = await apiService.getPostApiResponse(AppUrls.addMedicalHistory, body);
+  Future<AddMedicalHistoryModel> addMedicalHistory(dynamic body) async {
+    try {
+      dynamic response =
+          await apiService.getPostApiResponse(AppUrls.addMedicalHistory, body);
 
       return AddMedicalHistoryModel.fromJson(response);
-
-    }catch(e){
-
+    } catch (e) {
       rethrow;
-
     }
   }
 }

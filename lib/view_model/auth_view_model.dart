@@ -85,26 +85,27 @@ class AuthViewModel with ChangeNotifier {
       Messages.flushBarMessage(context, '${value.message}',
           backgroundColor: AppColors.primaryColor);
 
-
       await saveUser(
           isLoggedIn: keepMeSignIn,
           email: body['email'],
           password: body['password'],
-          name: value.user!.organizationName!,
+          name: value.user!.name!,
           id: int.parse(value.user!.userId!),
-          role: value.user!.userType ?? "");
-      Future.delayed(const Duration(seconds: 2)).then((v) {
+          role: value.user!.userType ?? "",
+          token: value.token.toString());
+      Future.delayed(const Duration(seconds: 1)).then((v) {
         setLoginLoading(false, value);
-        if (value.user!.userType.toString().toLowerCase() == "patient") {
-          savePtnFcm();
-          context.router.replace(const DashboardRoute());
-        } else if (value.user!.userType.toString().toLowerCase() == "doctor") {
-          saveDocFcm();
-          context.read<DoctorScreenViewModel>().getAllPatientList(context);
-        } else {
-          Messages.flushBarMessage(context,
-              "Role is not in the code ${value.user!.userType.toString().toLowerCase()}");
-        }
+        context.router.replace(const DashboardRoute());
+        // if (value.user!.userType.toString().toLowerCase() == "patient") {
+        //   //  savePtnFcm();
+        //   context.router.replace(const DashboardRoute());
+        // } else if (value.user!.userType.toString().toLowerCase() == "doctor") {
+        //   // saveDocFcm();
+        //   context.read<DoctorScreenViewModel>().getAllPatientList(context);
+        // } else {
+        //   Messages.flushBarMessage(context,
+        //       "Role is not in the code ${value.user!.userType.toString().toLowerCase()}");
+        // }
       });
     }).onError((error, stackTrace) {
       debugPrint(error.toString());
@@ -166,10 +167,8 @@ class AuthViewModel with ChangeNotifier {
             backgroundColor: AppColors.greenColor);
         // Future.delayed(Duration(microseconds: 200));
         Future.delayed(Duration.zero);
-        context.router.replace(CreateAccountRoute(
-            phoneNumber: body['phone_number'],
-            token: body['token'],
-            vCode: body["verification_code"]));
+        context.router
+            .replace(CreateAccountRoute(phoneNumber: body['phone_number']));
       } else {
         setOtpCheckError(true);
         setOtpCheckLoading(false);
@@ -191,11 +190,10 @@ class AuthViewModel with ChangeNotifier {
   //   var res = await request.send();
   // }
 
-  signUpOriginal(
-      BuildContext context, Map<String, dynamic> body, String token) async {
+  signUpOriginal(BuildContext context, body) async {
     // registrationList.clear();
     // setRegistrationLoading(true);
-    auth.signUpOriginal(context, body, token).then((value) {
+    auth.signUpOriginal(context, body).then((value) {
       // registrationList.add(value);
       Messages.snackBar(context, value.message.toString(),
           backgroundColor: AppColors.greenColor);
@@ -216,25 +214,25 @@ class AuthViewModel with ChangeNotifier {
           "\n\n\n\n\n\n ${value.patients?.patientFirstName} id: ${value.patients?.id}");
       Messages.snackBar(context, value.message.toString(),
           backgroundColor: AppColors.greenColor);
-      saveUser(
-          isLoggedIn: true,
-          email: "${value.patients?.patientEmail}",
-          password: "password",
-          name: "${value.patients?.patientFirstName}",
-          id: int.tryParse("${value.patients?.id}") ?? 0,
-          role: value.data!.userType ?? "");
+      // saveUser(
+      //     isLoggedIn: true,
+      //     email: "${value.patients?.patientEmail}",
+      //     password: "password",
+      //     name: "${value.patients?.patientFirstName}",
+      //     id: int.tryParse("${value.patients?.id}") ?? 0,
+      //     role: value.data!.userType ?? "");
       setRegistrationLoading(false);
-      Future.delayed(const Duration(seconds: 1)).then((v) {
-        // setLoginLoading(false, value);
-        if (value.data!.userType.toString().toLowerCase() == "patient") {
-          context.router.replace(const DashboardRoute());
-        } else if (value.data!.userType.toString().toLowerCase() == "doctor") {
-          context.router.replace(const DoctorHomeRoute());
-        } else {
-          Messages.flushBarMessage(context,
-              "Role is not in the code ${value.data!.userType.toString().toLowerCase()}");
-        }
-      });
+      // Future.delayed(const Duration(seconds: 1)).then((v) {
+      //   // setLoginLoading(false, value);
+      //   if (value.data!.userType.toString().toLowerCase() == "patient") {
+      context.router.push(const SignInRoute());
+      //   } else if (value.data!.userType.toString().toLowerCase() == "doctor") {
+      //     context.router.replace(const DoctorHomeRoute());
+      //   } else {
+      //     Messages.flushBarMessage(context,
+      //         "Role is not in the code ${value.data!.userType.toString().toLowerCase()}");
+      //   }
+      // });
     }).onError((error, stackTrace) {
       Messages.snackBar(context, error.toString());
       setRegistrationLoading(false);
@@ -295,6 +293,7 @@ class AuthViewModel with ChangeNotifier {
       required String email,
       required String password,
       required String name,
+      required String token,
       required int id,
       required String role}) async {
     final prefs = await SharedPreferences.getInstance();
@@ -303,6 +302,7 @@ class AuthViewModel with ChangeNotifier {
     await prefs.setString(UserP.email, email);
     await prefs.setString(UserP.role, role);
     await prefs.setString(UserP.password, password);
+    await prefs.setString(UserP.fcmToken, token);
     await prefs.setString(UserP.name, name);
     await prefs.setInt(UserP.id, id);
   }
@@ -328,6 +328,8 @@ class AuthViewModel with ChangeNotifier {
     birthSexList.clear();
     birthSexListItems.clear();
     await _authRepo.getBirthSex().then((value) {
+      print(value);
+
       birthSexList.add(value);
       birthSexList.first.birthSex!.forEach((element) {
         birthSexListItems.add(DropdownMenuItem(
@@ -358,6 +360,7 @@ class AuthViewModel with ChangeNotifier {
     bloodGroupList.clear();
     bloodGroupListItems.clear();
     await _authRepo.getBloodGroup().then((value) {
+      print(value);
       bloodGroupList.add(value);
       bloodGroupList.first.bloodGroup!.forEach((element) {
         bloodGroupListItems.add(DropdownMenuItem(

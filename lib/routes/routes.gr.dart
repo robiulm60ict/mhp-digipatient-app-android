@@ -17,10 +17,10 @@ import 'package:flutter/material.dart' as _i43;
 
 import '../enum/vitals_enum.dart' as _i46;
 import '../model/anatomy/anatomy_symptoms_model.dart' as _i45;
-import '../model/doctor_model/doctors_model.dart' as _i44;
 import '../model/my_record_model/medical_history_from_great_doc_model.dart'
     as _i48;
 import '../model/my_record_model/vitals_model.dart' as _i47;
+import '../model/myDoctorList/mydoctorList.dart' as _i44;
 import '../model/user_detail_model/user_model.dart' as _i49;
 import '../view/anatomy/anatomy_view.dart' as _i18;
 import '../view/appointment/book_appointment_view.dart' as _i15;
@@ -122,8 +122,6 @@ class AppRouter extends _i42.RootStackRouter {
         child: _i7.CreateAccountView(
           key: args.key,
           phoneNumber: args.phoneNumber,
-          token: args.token,
-          vCode: args.vCode,
         ),
       );
     },
@@ -730,16 +728,12 @@ class CreateAccountRoute extends _i42.PageRouteInfo<CreateAccountRouteArgs> {
   CreateAccountRoute({
     _i43.Key? key,
     required String phoneNumber,
-    required String token,
-    required String vCode,
   }) : super(
           CreateAccountRoute.name,
           path: '/create-account',
           args: CreateAccountRouteArgs(
             key: key,
             phoneNumber: phoneNumber,
-            token: token,
-            vCode: vCode,
           ),
         );
 
@@ -750,21 +744,15 @@ class CreateAccountRouteArgs {
   const CreateAccountRouteArgs({
     this.key,
     required this.phoneNumber,
-    required this.token,
-    required this.vCode,
   });
 
   final _i43.Key? key;
 
   final String phoneNumber;
 
-  final String token;
-
-  final String vCode;
-
   @override
   String toString() {
-    return 'CreateAccountRouteArgs{key: $key, phoneNumber: $phoneNumber, token: $token, vCode: $vCode}';
+    return 'CreateAccountRouteArgs{key: $key, phoneNumber: $phoneNumber}';
   }
 }
 
@@ -914,7 +902,7 @@ class BookAppointmentRoute
     extends _i42.PageRouteInfo<BookAppointmentRouteArgs> {
   BookAppointmentRoute({
     _i43.Key? key,
-    required _i44.Doctor doctors,
+    required _i44.Datum doctors,
     required String amount,
   }) : super(
           BookAppointmentRoute.name,
@@ -938,7 +926,7 @@ class BookAppointmentRouteArgs {
 
   final _i43.Key? key;
 
-  final _i44.Doctor doctors;
+  final _i44.Datum doctors;
 
   final String amount;
 
@@ -958,7 +946,7 @@ class PaymentMethodRoute extends _i42.PageRouteInfo<PaymentMethodRouteArgs> {
     required String patientId,
     required String amount,
     required String appointmentType,
-    required _i44.Doctor doctor,
+    required _i44.Datum doctor,
     required List<_i45.SymptomsAnatomy> diseaseList,
   }) : super(
           PaymentMethodRoute.name,
@@ -1002,7 +990,7 @@ class PaymentMethodRouteArgs {
 
   final String appointmentType;
 
-  final _i44.Doctor doctor;
+  final _i44.Datum doctor;
 
   final List<_i45.SymptomsAnatomy> diseaseList;
 
@@ -1046,7 +1034,7 @@ class SingleInvoiceRoute extends _i42.PageRouteInfo<SingleInvoiceRouteArgs> {
     required String patientId,
     required String amount,
     required String appointmentType,
-    required _i44.Doctor doctor,
+    required _i44.Datum doctor,
     required String paymentMethod,
   }) : super(
           SingleInvoiceRoute.name,
@@ -1090,7 +1078,7 @@ class SingleInvoiceRouteArgs {
 
   final String appointmentType;
 
-  final _i44.Doctor doctor;
+  final _i44.Datum doctor;
 
   final String paymentMethod;
 

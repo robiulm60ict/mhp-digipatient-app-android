@@ -12,7 +12,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
+import '../../model/myDoctorList/mydoctorList.dart';
 import '../../utils/utils.dart';
+import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
 import '../../widgets/back_button.dart';
 
 class DocDetailsView extends StatefulWidget {
@@ -31,7 +33,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
   //   super.dispose();
   //   // listViewController.dispose();
   // }
-  Doctor? doc;
+  Datum? doc;
 
   @override
   void initState() {
@@ -41,12 +43,11 @@ class _DocDetailsViewState extends State<DocDetailsView> {
 
   getDoctor(num id) async {
     doc = context
-        .read<MyDoctorViewModel>()
-        .allDoctorList
-        .first
-        .doctors
-        ?.firstWhere((element) => element.id == id);
-    await context.read<MyDoctorViewModel>().getDoctorFee(doc?.id);
+        .read<MyDoctorDelaisViewModel>()
+        .myDoctorList.firstWhere((element) => element.doctorsMasterId == id) as Datum?;
+
+
+    // await context.read<MyDoctorViewModel>().getDoctorFee(doc?.id);
     await context
         .read<MyDoctorViewModel>()
         .getDocChamberTime(context, docId: doc?.id);
@@ -65,11 +66,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
         backgroundColor: AppColors.linearGradient2,
       ),
       backgroundColor: Colors.white,
-      body: doc == null
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : Column(
+      body: Column(
               // alignment: Alignment.topCenter,
               // controller: listViewController,
               // shrinkWrap: true,
@@ -99,7 +96,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "${doc?.drGivenName}",
+                                "${doc?.doctors?.drMiddleName}",
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -111,7 +108,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                 height: 8.h,
                               ),
                               Text(
-                                "${doc?.department?.departmentsName}",
+                                "${doc?.doctors?.departmentName}",
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -215,7 +212,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                               ),
                             ),
                             Image.network(
-                              "${AppUrls.docImage}${doc?.drImages}",
+                              "${AppUrls.docImage}${doc?.doctors?.drImages}",
                               height: double.infinity,
                               width: double.infinity,
                               fit: BoxFit.fill,
@@ -273,7 +270,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                   color: AppColors.primaryColor,
                                 ),
                                 title: Text(
-                                  "${doc?.workExperienceYears} years",
+                                  "${doc?.doctors?.workExperienceYears.toString()} years",
                                   style: TextStyle(
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.bold,
@@ -361,7 +358,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                             color: const Color(0xFF646464)),
                       ),
                       ReadMoreText(
-                        "${doc?.drAbout}",
+                        "${doc?.doctors?.drAbout.toString()}",
                         trimLines: 5,
                         colorClickableText: Colors.pink,
                         trimMode: TrimMode.Line,
@@ -390,79 +387,79 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       SizedBox(
                         height: 20.h,
                       ),
-                      SizedBox(
-                        height: 70.h,
-                        child: mdVM.isDocChamberTimeLoading
-                            ? const Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : ListView.builder(
-                                itemCount: mdVM.doctorTimeSlotList.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  DocTimeSlots docTime =
-                                      mdVM.doctorTimeSlotList[index];
-                                  bool isMorning =
-                                      docTime.type?.toLowerCase() == "morning";
-                                  return Card(
-                                    elevation: 5,
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 8.0.h, horizontal: 16.w),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            "${docTime.day}-${docTime.month}-${docTime.year}",
-                                            style: TextStyle(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w500,
-                                                color: AppColors.primaryColor),
-                                          ),
-                                          SizedBox(
-                                            height: 4.h,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Image.asset(
-                                                isMorning
-                                                    ? Assets.imagesDayActive
-                                                    : Assets.imagesDayInActive,
-                                                height: 20.h,
-                                                width: 20.w,
-                                                fit: BoxFit.fill,
-                                              ),
-                                              SizedBox(
-                                                width: 8.w,
-                                              ),
-                                              Image.asset(
-                                                isMorning
-                                                    ? Assets.imagesNightInActive
-                                                    : Assets.imagesNightActive,
-                                                height: 20.h,
-                                                width: 20.w,
-                                                fit: BoxFit.fill,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                }),
-                      ),
-                      SizedBox(
-                        height: 20.h,
-                      ),
+                      // SizedBox(
+                      //   height: 70.h,
+                      //   child: mdVM.isDocChamberTimeLoading
+                      //       ? const Center(
+                      //           child: CircularProgressIndicator(),
+                      //         )
+                      //       : ListView.builder(
+                      //           itemCount: mdVM.doctorTimeSlotList.length,
+                      //           scrollDirection: Axis.horizontal,
+                      //           itemBuilder: (context, index) {
+                      //             DocTimeSlots docTime =
+                      //                 mdVM.doctorTimeSlotList[index];
+                      //             bool isMorning =
+                      //                 docTime.type?.toLowerCase() == "morning";
+                      //             return Card(
+                      //               elevation: 5,
+                      //               child: Padding(
+                      //                 padding: EdgeInsets.symmetric(
+                      //                     vertical: 8.0.h, horizontal: 16.w),
+                      //                 child: Column(
+                      //                   mainAxisAlignment:
+                      //                       MainAxisAlignment.center,
+                      //                   crossAxisAlignment:
+                      //                       CrossAxisAlignment.center,
+                      //                   mainAxisSize: MainAxisSize.min,
+                      //                   children: [
+                      //                     Text(
+                      //                       "${docTime.day}-${docTime.month}-${docTime.year}",
+                      //                       style: TextStyle(
+                      //                           fontSize: 14.sp,
+                      //                           fontWeight: FontWeight.w500,
+                      //                           color: AppColors.primaryColor),
+                      //                     ),
+                      //                     SizedBox(
+                      //                       height: 4.h,
+                      //                     ),
+                      //                     Row(
+                      //                       mainAxisAlignment:
+                      //                           MainAxisAlignment.center,
+                      //                       crossAxisAlignment:
+                      //                           CrossAxisAlignment.center,
+                      //                       mainAxisSize: MainAxisSize.min,
+                      //                       children: [
+                      //                         Image.asset(
+                      //                           isMorning
+                      //                               ? Assets.imagesDayActive
+                      //                               : Assets.imagesDayInActive,
+                      //                           height: 20.h,
+                      //                           width: 20.w,
+                      //                           fit: BoxFit.fill,
+                      //                         ),
+                      //                         SizedBox(
+                      //                           width: 8.w,
+                      //                         ),
+                      //                         Image.asset(
+                      //                           isMorning
+                      //                               ? Assets.imagesNightInActive
+                      //                               : Assets.imagesNightActive,
+                      //                           height: 20.h,
+                      //                           width: 20.w,
+                      //                           fit: BoxFit.fill,
+                      //                         ),
+                      //                       ],
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //             );
+                      //           }),
+                      // ),
+                      // SizedBox(
+                      //   height: 20.h,
+                      // ),
                       SizedBox(
                         height: 50.h,
                         child: ElevatedButton(

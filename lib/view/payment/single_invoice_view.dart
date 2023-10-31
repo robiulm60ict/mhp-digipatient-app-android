@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/doctor_model/doctors_model.dart';
+import '../../model/myDoctorList/mydoctorList.dart';
 import '../../resources/app_url.dart';
 import '../../resources/colors.dart';
 import '../../routes/routes.gr.dart';
@@ -23,7 +24,7 @@ class SingleInvoiceView extends StatefulWidget {
   final String patientId;
   final String amount;
   final String appointmentType;
-  final Doctor doctor;
+  final Datum doctor;
   final String paymentMethod;
 
   @override
@@ -84,13 +85,13 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
           padding: EdgeInsets.all(20.r),
           children: [
         PaymentUserDetail(
-        name: "${widget.doctor.drGivenName}",
-          designation: "${widget.doctor.department?.departmentsName}",
+        name: "${widget.doctor.doctors!.drGivenName}",
+          designation: "{widget.doctor.doctors?.departmentsName}",
           visitingTime: getTime(widget.appointmentDate),
-          hospitalName: "${widget.doctor.usualProvider?.usualProviderName}",
+          hospitalName: "{widget.doctor.doctors?.hospitalName}",
           date: widget.appointmentDate,
-          location: "${widget.doctor.drMobilePhone}",
-          image: '${AppUrls.docImage}${widget.doctor.drImages}',),
+          location: "${widget.doctor.doctors?.drWorkPhone}",
+          image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',),
             SizedBox(
               height: 20.h,
             ),

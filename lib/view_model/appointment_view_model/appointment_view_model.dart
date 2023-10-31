@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../model/myDoctorList/mydoctorList.dart';
 import '../../model/online_model/online_model.dart';
 import '../../utils/user.dart';
 
@@ -109,7 +110,7 @@ class AppointmentViewModel with ChangeNotifier{
 
   BookAppointmentRepo bookAppointmentRepo = BookAppointmentRepo();
 
-  bookAppointment(BuildContext context, { required Doctor doctor , required Map<String, dynamic> body})async{
+  bookAppointment(BuildContext context, { required Datum doctor , required Map<String, dynamic> body})async{
     isBookAppointmentLoading = true;
     appointmentList.clear();
     notifyListeners();

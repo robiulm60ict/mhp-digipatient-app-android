@@ -1,73 +1,69 @@
-import 'dart:convert';
-BloodGroupModel bloodGroupModelFromJson(String str) => BloodGroupModel.fromJson(json.decode(str));
-String bloodGroupModelToJson(BloodGroupModel data) => json.encode(data.toJson());
-class BloodGroupModel {
-  BloodGroupModel({
-      this.status, 
-      this.bloodGroup,});
+// To parse this JSON data, do
+//
+//     final bloodGroupModel = bloodGroupModelFromJson(jsonString);
 
-  BloodGroupModel.fromJson(dynamic json) {
-    status = json['status'];
-    if (json['blood_group'] != null) {
-      bloodGroup = [];
-      json['blood_group'].forEach((v) {
-        bloodGroup?.add(BloodGroup.fromJson(v));
-      });
-    }
-  }
-  num? status;
+import 'dart:convert';
+
+BloodGroupModel bloodGroupModelFromJson(String str) => BloodGroupModel.fromJson(json.decode(str));
+
+String bloodGroupModelToJson(BloodGroupModel data) => json.encode(data.toJson());
+
+class BloodGroupModel {
+  int? status;
   List<BloodGroup>? bloodGroup;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['status'] = status;
-    if (bloodGroup != null) {
-      map['blood_group'] = bloodGroup?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
+  BloodGroupModel({
+    this.status,
+    this.bloodGroup,
+  });
 
+  factory BloodGroupModel.fromJson(Map<String, dynamic> json) => BloodGroupModel(
+    status: json["status"],
+    bloodGroup: json["blood_group"] == null ? [] : List<BloodGroup>.from(json["blood_group"]!.map((x) => BloodGroup.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "status": status,
+    "blood_group": bloodGroup == null ? [] : List<dynamic>.from(bloodGroup!.map((x) => x.toJson())),
+  };
 }
 
-BloodGroup bloodGroupFromJson(String str) => BloodGroup.fromJson(json.decode(str));
-String bloodGroupToJson(BloodGroup data) => json.encode(data.toJson());
 class BloodGroup {
-  BloodGroup({
-      this.id, 
-      this.bloodGroupName, 
-      this.deleteStatus, 
-      this.createdBy, 
-      this.updatedBy, 
-      this.createdAt, 
-      this.updatedAt,});
-
-  BloodGroup.fromJson(dynamic json) {
-    id = json['id'];
-    bloodGroupName = json['blood_group_name'];
-    deleteStatus = json['delete_status'];
-    createdBy = json['created_by'];
-    updatedBy = json['updated_by'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-  }
-  num? id;
+  int? id;
   String? bloodGroupName;
-  String? deleteStatus;
-  String? createdBy;
-  String? updatedBy;
-  String? createdAt;
-  String? updatedAt;
+  int? deleteStatus;
+  dynamic createdBy;
+  dynamic updatedBy;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['blood_group_name'] = bloodGroupName;
-    map['delete_status'] = deleteStatus;
-    map['created_by'] = createdBy;
-    map['updated_by'] = updatedBy;
-    map['created_at'] = createdAt;
-    map['updated_at'] = updatedAt;
-    return map;
-  }
+  BloodGroup({
+    this.id,
+    this.bloodGroupName,
+    this.deleteStatus,
+    this.createdBy,
+    this.updatedBy,
+    this.createdAt,
+    this.updatedAt,
+  });
 
+  factory BloodGroup.fromJson(Map<String, dynamic> json) => BloodGroup(
+    id: json["id"],
+    bloodGroupName: json["blood_group_name"],
+    deleteStatus: json["delete_status"],
+    createdBy: json["created_by"],
+    updatedBy: json["updated_by"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "blood_group_name": bloodGroupName,
+    "delete_status": deleteStatus,
+    "created_by": createdBy,
+    "updated_by": updatedBy,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+  };
 }

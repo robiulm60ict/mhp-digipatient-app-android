@@ -18,6 +18,8 @@ import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../utils/message.dart';
+import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
 import '../real_communication/data.dart';
 
 class HomeView extends StatefulWidget {
@@ -59,7 +61,7 @@ class _HomeViewState extends State<HomeView> {
     debugPrint(size.width.toString());
     final provider = Provider.of<HomeViewModel>(context);
     final videoCall = Provider.of<VideoCallViewModel>(context);
-    final dvm = Provider.of<MyDoctorViewModel>(context);
+    final dvm = Provider.of<MyDoctorDelaisViewModel>(context);
     final authVM = Provider.of<AuthViewModel>(context);
     return SafeArea(
       top: true,
@@ -275,7 +277,6 @@ class _HomeViewState extends State<HomeView> {
                 ],
               ),
             ),
-
             SizedBox(
               height: 6.h,
             ),
@@ -373,6 +374,7 @@ class _HomeViewState extends State<HomeView> {
                       width: 200.w,
                       height: 40.h,
                       child: TextField(
+                        controller: dvm.controllerRequest,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.grey)),
@@ -382,7 +384,18 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     ),
                     MaterialButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (dvm.controllerRequest.text.isNotEmpty) {
+                          dvm.docotrRequest(
+                              context, dvm.controllerRequest.text);
+
+                        } else {
+                          Messages.snackBar(
+                            context,
+                            "Enter Doctor identity number",
+                          );
+                        }
+                      },
                       child: Text("Submit"),
                       color: AppColors.primaryColor,
                     )
@@ -405,11 +418,14 @@ class _HomeViewState extends State<HomeView> {
                 itemBuilder: (BuildContext context, index) {
                   return InkWell(
                     onTap: () {
-                      dvm.getAllDoctors(context);
+                      if(index==0){
+                        dvm.getmyAllDoctors(context);
+                      }
+
 
                       // dvm.getDepartments(context);
 
-                      provider.homeItemsRouteTo(context, index);
+                     provider.homeItemsRouteTo(context, index);
                     },
                     child: Column(
                       mainAxisSize: MainAxisSize.min,

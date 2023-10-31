@@ -10,18 +10,35 @@ class NetworkApiService extends BaseApiService{
 
   @override
   Future getGetApiResponse(String url) async{
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString(UserP.fcmToken) ?? "";
+
 
     dynamic responseJson;
     try{
       final response = await http.get(Uri.parse(url)
-      //   ,headers:{
-      //   'Authorization': 'Bearer 246|0L1Zj7bQxjn9pf2siy3O5vTGP6kqfJyaCsfUfL6P',
-      //   'Accept': 'application/json',
-      // },
+        ,headers:{
+          'databaseName': 'mhpgmailcom',
+          'Accept': 'application/json',
+      },
       ).timeout(const Duration(seconds: 10));
-      print(response);
+      responseJson = returnResponse(response);
+    }on SocketException{
+      throw FetchDataException("No Internet Connection");
+    }
+    return responseJson;
+  } @override
+  Future getGetApiResponseHeder(String url) async{
+
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString(UserP.fcmToken) ?? "";
+    dynamic responseJson;
+    try{
+      final response = await http.get(Uri.parse(url)
+        ,headers:{
+          'Authorization': "Bearer $token",
+          'databaseName': 'mhpgmailcom',
+          'Accept': 'application/json',
+      },
+      ).timeout(const Duration(seconds: 10));
       responseJson = returnResponse(response);
     }on SocketException{
       throw FetchDataException("No Internet Connection");
@@ -35,7 +52,30 @@ class NetworkApiService extends BaseApiService{
     try{
       final response = await http.post(
           body: body,
-          Uri.parse(url)).timeout(const Duration(seconds: 10),
+          Uri.parse(url),  headers:{
+           'databaseName': 'mhpgmailcom',
+           'Accept': 'application/json',
+        },).timeout(const Duration(seconds: 10),
+      );
+      responseJson = returnResponse(response);
+    }on SocketException{
+      throw FetchDataException("No Internet Connection");
+    }
+    return responseJson;
+  }
+  @override
+  Future getPostApiResponsehader(String url, dynamic body) async{
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString(UserP.fcmToken) ?? "";
+    dynamic responseJson;
+    try{
+      final response = await http.post(
+          body: body,
+          Uri.parse(url),  headers:{
+        'Authorization': "Bearer $token",
+           'databaseName': 'mhpgmailcom',
+           'Accept': 'application/json',
+        },).timeout(const Duration(seconds: 10),
       );
       responseJson = returnResponse(response);
     }on SocketException{
@@ -55,6 +95,9 @@ class NetworkApiService extends BaseApiService{
       case 201:
         dynamic responseJson = jsonDecode(response.body.toString());
         return responseJson;
+        case 401:
+        dynamic responseJson = jsonDecode(response.body.toString());
+        return responseJson;
       case 400:
         throw BadRequestException(response.body.toString());
       case 404:
@@ -65,5 +108,7 @@ class NetworkApiService extends BaseApiService{
         throw FetchDataException("Error occurred During Communication with status code ${response.statusCode}");
     }
   }
+
+
 
 }

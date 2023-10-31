@@ -1,73 +1,69 @@
-import 'dart:convert';
-BirthSexModel birthSexModelFromJson(String str) => BirthSexModel.fromJson(json.decode(str));
-String birthSexModelToJson(BirthSexModel data) => json.encode(data.toJson());
-class BirthSexModel {
-  BirthSexModel({
-      this.status, 
-      this.birthSex,});
+// To parse this JSON data, do
+//
+//     final birthSexModel = birthSexModelFromJson(jsonString);
 
-  BirthSexModel.fromJson(dynamic json) {
-    status = json['status'];
-    if (json['birth_sex'] != null) {
-      birthSex = [];
-      json['birth_sex'].forEach((v) {
-        birthSex?.add(BirthSex.fromJson(v));
-      });
-    }
-  }
-  num? status;
+import 'dart:convert';
+
+BirthSexModel birthSexModelFromJson(String str) => BirthSexModel.fromJson(json.decode(str));
+
+String birthSexModelToJson(BirthSexModel data) => json.encode(data.toJson());
+
+class BirthSexModel {
+  int? status;
   List<BirthSex>? birthSex;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['status'] = status;
-    if (birthSex != null) {
-      map['birth_sex'] = birthSex?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
+  BirthSexModel({
+    this.status,
+    this.birthSex,
+  });
 
+  factory BirthSexModel.fromJson(Map<String, dynamic> json) => BirthSexModel(
+    status: json["status"],
+    birthSex: json["birth_sex"] == null ? [] : List<BirthSex>.from(json["birth_sex"]!.map((x) => BirthSex.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "status": status,
+    "birth_sex": birthSex == null ? [] : List<dynamic>.from(birthSex!.map((x) => x.toJson())),
+  };
 }
 
-BirthSex birthSexFromJson(String str) => BirthSex.fromJson(json.decode(str));
-String birthSexToJson(BirthSex data) => json.encode(data.toJson());
 class BirthSex {
-  BirthSex({
-      this.id, 
-      this.birthSexName, 
-      this.deleteStatus, 
-      this.createdBy, 
-      this.updatedBy, 
-      this.createdAt, 
-      this.updatedAt,});
-
-  BirthSex.fromJson(dynamic json) {
-    id = json['id'];
-    birthSexName = json['birth_sex_name'];
-    deleteStatus = json['delete_status'];
-    createdBy = json['created_by'];
-    updatedBy = json['updated_by'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-  }
-  num? id;
+  int? id;
   String? birthSexName;
-  String? deleteStatus;
-  String? createdBy;
-  String? updatedBy;
-  String? createdAt;
-  String? updatedAt;
+  int? deleteStatus;
+  dynamic createdBy;
+  dynamic updatedBy;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['birth_sex_name'] = birthSexName;
-    map['delete_status'] = deleteStatus;
-    map['created_by'] = createdBy;
-    map['updated_by'] = updatedBy;
-    map['created_at'] = createdAt;
-    map['updated_at'] = updatedAt;
-    return map;
-  }
+  BirthSex({
+    this.id,
+    this.birthSexName,
+    this.deleteStatus,
+    this.createdBy,
+    this.updatedBy,
+    this.createdAt,
+    this.updatedAt,
+  });
 
+  factory BirthSex.fromJson(Map<String, dynamic> json) => BirthSex(
+    id: json["id"],
+    birthSexName: json["birth_sex_name"],
+    deleteStatus: json["delete_status"],
+    createdBy: json["created_by"],
+    updatedBy: json["updated_by"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "birth_sex_name": birthSexName,
+    "delete_status": deleteStatus,
+    "created_by": createdBy,
+    "updated_by": updatedBy,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+  };
 }

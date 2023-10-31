@@ -9,6 +9,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 // import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../generated/assets.dart';
+import '../model/myDoctorList/mydoctorList.dart';
 
 notificationPopup(BuildContext context, {Color color = Colors.grey, required String doctorName, required String docImage, }) {
   return popUpDialogue(context, Column(
@@ -237,7 +238,7 @@ popUpDialogue(BuildContext context, Widget content, ){
     ),).show();
 }
 
-invoiceSuccessPopUp(BuildContext context,{bool barrierDismissible = false, required String appointmentDate, required String doctorId, required String patientId, required String amount, required String paymentMethod, required String appointmentType, required Doctor doctor}){
+invoiceSuccessPopUp(BuildContext context,{bool barrierDismissible = false, required String appointmentDate, required String doctorId, required String patientId, required String amount, required String paymentMethod, required String appointmentType, required Datum doctor}){
   return showDialog(
     context: context,
     barrierDismissible: barrierDismissible,

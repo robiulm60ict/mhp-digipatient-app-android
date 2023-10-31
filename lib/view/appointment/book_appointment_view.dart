@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../model/myDoctorList/mydoctorList.dart';
 import '../../utils/utils.dart';
 import '../../view_model/doctor/my_doctor_view_model.dart';
 import '../../widgets/back_button.dart';
@@ -23,7 +24,7 @@ class BookAppointmentView extends StatefulWidget {
   const BookAppointmentView(
       {Key? key, required this.doctors, required this.amount})
       : super(key: key);
-  final Doctor doctors;
+  final Datum doctors;
   final String amount;
 
   @override
@@ -41,7 +42,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
 
   getAmount() {
     context.read<MyDoctorViewModel>().getDoctorFee(widget.doctors.id);
-    context.read<AppointmentViewModel>().setWeekDays();
+    //context.read<AppointmentViewModel>().setWeekDays();
     context
         .read<MyDoctorViewModel>()
         .getDocChamberTime(context, docId: widget.doctors.id);
@@ -77,7 +78,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
           // appointmentViewModel.setBody(docIcd: "${widget.doctors.id}", patientId: "$patientId", date: date, appointmentType: isChamber ? "Chamber" : "Online", disease: "[asd, asdf]", paymentType: "Bkash", amount: "1200", trNxNo: "tr1205");
           // appointmentViewModel.bookAppointment(context, body: appointmentViewModel.body);
           List<SymptomsAnatomy> diseaseList = anatomy.getSelectedSymptomsList();
-          if (diseaseList.isNotEmpty) {
+       //   if (diseaseList.isNotEmpty) {
             await appointmentViewModel.getPatientId().then((value) =>
                 context.router.push(PaymentMethodRoute(
                     appointmentDate:
@@ -88,9 +89,9 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                     amount: widget.amount,
                     doctor: widget.doctors,
                     diseaseList: diseaseList)));
-          } else {
-            Messages.snackBar(context, "Please Select Disease!");
-          }
+         // } else {
+           // Messages.snackBar(context, "Please Select Disease!");
+         // }
         },
         backgroundColor: AppColors.primaryColor,
         label: Text(
@@ -457,7 +458,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                       backgroundImage: AssetImage(Assets.imagesHospitalLogo),
                     ),
                     title: Text(
-                      "${widget.doctors.usualProvider?.usualProviderName}",
+                      "{widget.doctors?.usualProviderName}",
                       style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.bold,
