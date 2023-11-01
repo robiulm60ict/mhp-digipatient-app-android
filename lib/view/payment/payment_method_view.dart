@@ -99,9 +99,9 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
         children: [
            PaymentUserDetail(
               name: "${widget.doctor.doctors?.drGivenName}",
-              designation: "{widget.doctor.doctors?.departmentsName}",
+              designation: "${widget.doctor.doctors!.department!.departmentsName}",
               visitingTime: getTime(widget.appointmentDate),
-              hospitalName: "{widget.doctor.usualProvider?.usualProviderName}",
+              hospitalName: "${widget.doctor..doctors!.usualProvider?.usualProviderName}",
               date: widget.appointmentDate,
               location: "${widget.doctor.doctors?.drWorkPhone}",
              image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',),
@@ -341,8 +341,8 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                                 title: Image.asset(
                                   value,
                                   height: 15.h,
-                                  width: 10.w,
-                                  // fit: BoxFit.fill,
+                                  width: 30.w,
+                                   fit: BoxFit.fill,
                                 ),
                                 value: digitalPayValue.indexOf(value) + 1,
                                 groupValue: _selectedDigitalValue,
@@ -468,23 +468,28 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                   SizedBox(
                     height: 40.h,
                   width: double.infinity,
-                  child: apVM.isBookAppointmentLoading ? const Center(child: CircularProgressIndicator(),) : ElevatedButton(
+                  child:  ElevatedButton(
                     style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryColor),
                     onPressed: () async{
 
                       if(transaction.text.isNotEmpty){
-                        Map<String, dynamic> body = {
-                          "doctor_id": widget.doctorId,
-                          "patient_id": widget.patientId,
-                          "date": widget.appointmentDate,
-                          "appointment_type": widget.appointmentType,
-                          "disease": widget.diseaseList.toString(),
-                          "payment_type": getPaymentMethod(),
-                          "amount": widget.amount,
-                          "transaction_no": transaction.text,
-                        };
+                        Map body = {
+                           "doctor_id": widget.doctorId,
+                           "patient_id": widget.patientId,
+                           "date": widget.appointmentDate,
+                           "appointment_type": widget.appointmentType,
+                           "disease":widget.diseaseList.toString(),
+                           "payment_type": getPaymentMethod(),
+                           "amount": widget.amount,
+                           "transaction_no": transaction.text,
+                          "time":"12:00",
+                          "calling_type":"online",
+                          "chamber_id":"1"
 
-                        await apVM.bookAppointment(context, body: body, doctor: widget.doctor);
+                        };
+                        print(body);
+
+                       await apVM.bookAppointment(context, body: body, doctor: widget.doctor);
 
                       }else{
                         transactionFocusNode.requestFocus();

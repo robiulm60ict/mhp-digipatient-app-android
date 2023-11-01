@@ -14,8 +14,7 @@ import '../../model/myDoctorList/mydoctorList.dart';
 import '../../model/online_model/online_model.dart';
 import '../../utils/user.dart';
 
-class AppointmentViewModel with ChangeNotifier{
-
+class AppointmentViewModel with ChangeNotifier {
   DateTime appointmentDate = DateTime.now();
 
   String monthName = DateFormat('MMMM').format(DateTime.now());
@@ -24,38 +23,39 @@ class AppointmentViewModel with ChangeNotifier{
 
   List<WeekDayModel> weekDayList = [];
 
-  setAppointmentDate(BuildContext context) async{
+  setAppointmentDate(BuildContext context) async {
+    DateTime? selectedDate =
+        await PickDateTime().pickDate(context, initialDate: appointmentDate);
 
-    DateTime? selectedDate = await PickDateTime().pickDate(context, initialDate: appointmentDate);
-
-    if(selectedDate != null){
-
+    if (selectedDate != null) {
       appointmentDate = selectedDate;
 
-      DateTime startWeekDay = getDate(appointmentDate.subtract(Duration(days: appointmentDate.weekday - 1)));
+      DateTime startWeekDay = getDate(appointmentDate
+          .subtract(Duration(days: appointmentDate.weekday - 1)));
 
       // startWeekDay = startWeekDay.subtract(const Duration(days: 2));
 
       weekDayList.clear();
 
-      for(var i = 0; i<7; i++){
-
+      for (var i = 0; i < 7; i++) {
         DateTime date = startWeekDay.add(Duration(days: i));
 
-        weekDayList.add(WeekDayModel(weekName: DateFormat("EEEE").format(date).substring(0,3), isSelected: isSameDate(date1: date, date2: selectedDate), dateTime: date, day: date.day));
-
+        weekDayList.add(WeekDayModel(
+            weekName: DateFormat("EEEE").format(date).substring(0, 3),
+            isSelected: isSameDate(date1: date, date2: selectedDate),
+            dateTime: date,
+            day: date.day));
       }
 
-       monthName = DateFormat('MMMM').format(appointmentDate);
+      monthName = DateFormat('MMMM').format(appointmentDate);
 
       year = appointmentDate.year.toString();
 
-
       notifyListeners();
-
     }
   }
-  bool isSameDate({required DateTime date1, required DateTime date2}){
+
+  bool isSameDate({required DateTime date1, required DateTime date2}) {
     if (date1.year == date2.year &&
         date1.month == date2.month &&
         date1.day == date2.day) {
@@ -63,44 +63,44 @@ class AppointmentViewModel with ChangeNotifier{
     } else {
       return false;
     }
-
   }
 
-  setWeekDays(){
+  setWeekDays() {
     weekDayList.clear();
     notifyListeners();
     DateTime selectedDate = DateTime.now();
-    DateTime startWeekDay = getDate(selectedDate.subtract(Duration(days: appointmentDate.weekday - 1)));
+    DateTime startWeekDay = getDate(
+        selectedDate.subtract(Duration(days: appointmentDate.weekday - 1)));
 
-
-
-    for(var i = 0; i<7; i++){
-
+    for (var i = 0; i < 7; i++) {
       DateTime date = startWeekDay.add(Duration(days: i));
 
-      weekDayList.add(WeekDayModel(weekName: DateFormat("EEEE").format(date).substring(0,3), isSelected: isSameDate(date1: date, date2: selectedDate), dateTime: date, day: date.day));
+      weekDayList.add(WeekDayModel(
+          weekName: DateFormat("EEEE").format(date).substring(0, 3),
+          isSelected: isSameDate(date1: date, date2: selectedDate),
+          dateTime: date,
+          day: date.day));
       // debugPrint("Date: ${date.toString()} week day: ${weekDayList[i].dateTime.toString()} is Selected: ${weekDayList[i].isSelected}-- is same date: ${date.isAtSameMomentAs(DateTime.now())}");
     }
     monthName = DateFormat('MMMM').format(appointmentDate);
 
     year = appointmentDate.year.toString();
 
-
     notifyListeners();
   }
+
   int? patientId;
+
   // int? docId;
   // String appointmentType = 'Chamber';
   // String paymentType = 'cash';
   // String? transactionNo;
 
-
-  Future<int?> getPatientId()async{
+  Future<int?> getPatientId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-     patientId = prefs.getInt(UserP.id);
-     notifyListeners();
-     return patientId;
-
+    patientId = prefs.getInt(UserP.id);
+    notifyListeners();
+    return patientId;
   }
 
   /// book appointment
@@ -110,17 +110,26 @@ class AppointmentViewModel with ChangeNotifier{
 
   BookAppointmentRepo bookAppointmentRepo = BookAppointmentRepo();
 
-  bookAppointment(BuildContext context, { required Datum doctor , required Map<String, dynamic> body})async{
+  bookAppointment(BuildContext context,
+      {required Datum doctor, required Map body}) async {
     isBookAppointmentLoading = true;
     appointmentList.clear();
     notifyListeners();
     await bookAppointmentRepo.bookAppointment(body: body).then((value) {
       appointmentList.add(value);
-      // Messages.snackBar(context, "Appointment Successful", backgroundColor: Colors.green);
+      //Messages.snackBar(context, "Appointment Successful", backgroundColor: Colors.green);
       isBookAppointmentLoading = false;
       notifyListeners();
-      invoiceSuccessPopUp(context, appointmentDate: body["date"], amount: body["amount"], doctorId: body["doctor_id"], appointmentType: body["appointment_type"], doctor: doctor, patientId: body["patient_id"], paymentMethod: body["payment_type"],);
-
+      invoiceSuccessPopUp(
+        context,
+        appointmentDate: body["date"],
+        amount: body["amount"],
+        doctorId: body["doctor_id"],
+        appointmentType: body["appointment_type"],
+        doctor: doctor,
+        patientId: body["patient_id"],
+        paymentMethod: body["payment_type"],
+      );
     }).onError((error, stackTrace) {
       Messages.snackBar(context, error.toString());
       isBookAppointmentLoading = true;
@@ -128,11 +137,18 @@ class AppointmentViewModel with ChangeNotifier{
     });
   }
 
-Map<String, dynamic> body = {
+  Map<String, dynamic> body = {};
 
-};
-
-  setBody({required String docIcd, required String patientId, required String date, required String appointmentType, required String disease, required String paymentType, required String amount, required String trNxNo,}) async{
+  setBody({
+    required String docIcd,
+    required String patientId,
+    required String date,
+    required String appointmentType,
+    required String disease,
+    required String paymentType,
+    required String amount,
+    required String trNxNo,
+  }) async {
     body = {
       "doctor_id": docIcd,
       "patient_id": patientId,
@@ -146,13 +162,13 @@ Map<String, dynamic> body = {
     notifyListeners();
   }
 
-  selectButton(int index){
-    for(var i = 0;  i< weekDayList.length; i++){
-      if(i == index){
+  selectButton(int index) {
+    for (var i = 0; i < weekDayList.length; i++) {
+      if (i == index) {
         weekDayList[index].isSelected = true;
         appointmentDate = weekDayList[index].dateTime;
         notifyListeners();
-      }else{
+      } else {
         weekDayList[i].isSelected = false;
       }
     }
@@ -160,16 +176,28 @@ Map<String, dynamic> body = {
   }
 
   List<OnlineModel> onlineList = [
-    OnlineModel(title: "Voice Call", subTitle: "Can you make voice call", amount: 150.00, iconData: Icons.call),
-    OnlineModel(title: "Video Call", subTitle: "Can you make video call", amount: 1500.00, iconData: Icons.video_call),
-    OnlineModel(title: "Messaging", subTitle: "Can messaging with Doctor", amount: 100.00, iconData: Icons.message),
+    OnlineModel(
+        title: "Voice Call",
+        subTitle: "Can you make voice call",
+        amount: 150.00,
+        iconData: Icons.call),
+    OnlineModel(
+        title: "Video Call",
+        subTitle: "Can you make video call",
+        amount: 1500.00,
+        iconData: Icons.video_call),
+    OnlineModel(
+        title: "Messaging",
+        subTitle: "Can messaging with Doctor",
+        amount: 100.00,
+        iconData: Icons.message),
   ];
 
-  selectOnline(int index){
-    for(var i = 0; i < onlineList.length; i++){
-      if(i == index){
+  selectOnline(int index) {
+    for (var i = 0; i < onlineList.length; i++) {
+      if (i == index) {
         onlineList[i].isSelected = true;
-      }else{
+      } else {
         onlineList[i].isSelected = false;
       }
 
@@ -180,12 +208,13 @@ Map<String, dynamic> body = {
   InvoiceRepo invoiceRepo = InvoiceRepo();
   List<InvoiceShowModel> invoiceList = [];
   bool isInvoiceLoading = true;
-  setInvoiceLoading(bool val){
+
+  setInvoiceLoading(bool val) {
     isInvoiceLoading = val;
     notifyListeners();
   }
 
-  getInvoiceList(BuildContext context)async{
+  getInvoiceList(BuildContext context) async {
     invoiceList.clear();
     setInvoiceLoading(true);
     final id = await getPatientId();
@@ -202,10 +231,15 @@ Map<String, dynamic> body = {
 
 DateTime getDate(DateTime d) => DateTime(d.year, d.month, d.day);
 
-class WeekDayModel{
+class WeekDayModel {
   String weekName;
   DateTime dateTime;
   bool isSelected;
   int day;
-   WeekDayModel({required this.weekName, this.isSelected = false, required this.dateTime, required this.day});
+
+  WeekDayModel(
+      {required this.weekName,
+      this.isSelected = false,
+      required this.dateTime,
+      required this.day});
 }

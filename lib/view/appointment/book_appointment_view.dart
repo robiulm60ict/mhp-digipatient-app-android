@@ -42,7 +42,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
 
   getAmount() {
     context.read<MyDoctorViewModel>().getDoctorFee(widget.doctors.id);
-    //context.read<AppointmentViewModel>().setWeekDays();
+    context.read<AppointmentViewModel>().setWeekDays();
     context
         .read<MyDoctorViewModel>()
         .getDocChamberTime(context, docId: widget.doctors.id);
@@ -78,7 +78,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
           // appointmentViewModel.setBody(docIcd: "${widget.doctors.id}", patientId: "$patientId", date: date, appointmentType: isChamber ? "Chamber" : "Online", disease: "[asd, asdf]", paymentType: "Bkash", amount: "1200", trNxNo: "tr1205");
           // appointmentViewModel.bookAppointment(context, body: appointmentViewModel.body);
           List<SymptomsAnatomy> diseaseList = anatomy.getSelectedSymptomsList();
-       //   if (diseaseList.isNotEmpty) {
+         if (diseaseList.isNotEmpty) {
             await appointmentViewModel.getPatientId().then((value) =>
                 context.router.push(PaymentMethodRoute(
                     appointmentDate:
@@ -89,9 +89,9 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                     amount: widget.amount,
                     doctor: widget.doctors,
                     diseaseList: diseaseList)));
-         // } else {
-           // Messages.snackBar(context, "Please Select Disease!");
-         // }
+          } else {
+           Messages.snackBar(context, "Please Select Disease!");
+         }
         },
         backgroundColor: AppColors.primaryColor,
         label: Text(
@@ -295,7 +295,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
             child: myDocVM.isDocChamberTimeLoading ||
                     myDocVM.doctorTimeSlotList.isEmpty
                 ? const Center(
-                    child: CircularProgressIndicator(),
+                    child: Text("No  Data"),
                   )
                 : CarouselSlider.builder(
                     // scrollDirection: Axis.horizontal,
@@ -458,7 +458,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                       backgroundImage: AssetImage(Assets.imagesHospitalLogo),
                     ),
                     title: Text(
-                      "{widget.doctors?.usualProviderName}",
+                      "${widget.doctors!.doctors?.usualProvider?.usualProviderName.toString()}",
                       style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.bold,

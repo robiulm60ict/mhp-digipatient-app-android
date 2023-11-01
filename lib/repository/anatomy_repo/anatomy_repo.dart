@@ -13,6 +13,7 @@ class AnatomyRepo{
 
     try{
       dynamic response = await apiService.getGetApiResponse(AppUrls.anatomySymptoms,);
+      print(response);
       return AnatomyModel.fromJson(response);
     }catch(e){
       rethrow;

@@ -20,7 +20,7 @@ class AppUrls{
    // static const String login = '$baseUrlIP/api/login';
  // static const String login = '$baseUrlIP/api/login-with-saas';
 
-  static const String myDoctorslist = '$baseUrlPatient/patient-list-for-doctor/1';
+  static const String myDoctorslist = '$baseUrlPatient/patient-list-for-doctor/';
   static const String allDoctors = '$baseUrl/api/doctors';
 
   static const String allPatients = '$baseUrl/api/patients';
@@ -43,7 +43,7 @@ class AppUrls{
 
   static const String diseaseByGenderAndName = '$baseUrl/api/patient-symptomsByGender/';
 
-  static const String docImage = "$baseUrl/mhp_server/public/doctors/images/";
+  static const String docImage = "http://35.213.180.244:7000/doctors/images/";
 
   static const String currentRX = "$baseUrl/api/get-pescriped-dugs/";
 
@@ -61,7 +61,7 @@ class AppUrls{
 
   /// book appointment
 
-  static const String bookAppointment = '$baseUrl/api/online-booking-app';
+  static const String bookAppointment = '$baseUrlPatient/online-booking-app';
 
   /// Appointments
 
@@ -70,11 +70,11 @@ class AppUrls{
   static const String upcommingAppointments = '$baseUrl/api/upcoming-patientappointment/';
   /// Anatomy Symptoms
 
-  static const String anatomySymptoms = '$baseUrl/api/symptoms-anatomy';
+  static const String anatomySymptoms = '$baseUrlPatient/symptoms-anatomy';
 
   /// Doctor chamber time
 
-  static const String docChamberTime = '$baseUrl/api/doctor-chamber-times/';
+  static const String docChamberTime = '$baseUrlPatient/doctor-chamber-times/';
 
 /// Medical History From Great Doc
 

@@ -75,23 +75,23 @@ class Doctors {
   String? departmentId;
   String? specialistsId;
   dynamic departmentName;
-  String? drFamilyName;
+  dynamic drFamilyName;
   String? drGivenName;
   String? drMiddleName;
   String? drLastName;
   String? drPreferredName;
-  String? drAbout;
+  dynamic drAbout;
   String? workExperienceYears;
   String? drAddressLine1;
-  String? drAddressLine2;
-  String? drBmdcRegNo;
+  dynamic drAddressLine2;
+  dynamic drBmdcRegNo;
   String? drEmail;
   dynamic drIsReferred;
-  String? drDob;
+  DateTime? drDob;
   String? drBirthSexId;
   String? drCityId;
-  String? drPostalCode;
-  String? drHomePhone;
+  dynamic drPostalCode;
+  dynamic drHomePhone;
   String? drWorkPhone;
   String? drMobilePhone;
   String? drContactViaId;
@@ -103,6 +103,9 @@ class Doctors {
   dynamic updatedBy;
   DateTime? createdAt;
   DateTime? updatedAt;
+  Specialist? specialist;
+  Department? department;
+  UsualProvider? usualProvider;
 
   Doctors({
     this.id,
@@ -139,6 +142,9 @@ class Doctors {
     this.updatedBy,
     this.createdAt,
     this.updatedAt,
+    this.specialist,
+    this.department,
+    this.usualProvider,
   });
 
   factory Doctors.fromJson(Map<String, dynamic> json) => Doctors(
@@ -160,7 +166,7 @@ class Doctors {
     drBmdcRegNo: json["dr_bmdc_reg_no"],
     drEmail: json["dr_email"],
     drIsReferred: json["dr_is_referred"],
-    drDob: json["dr_dob"],
+    drDob: json["dr_dob"] == null ? null : DateTime.parse(json["dr_dob"]),
     drBirthSexId: json["dr_birth_sex_id"],
     drCityId: json["dr_city_id"],
     drPostalCode: json["dr_postal_code"],
@@ -176,6 +182,9 @@ class Doctors {
     updatedBy: json["updated_by"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    specialist: json["specialist"] == null ? null : Specialist.fromJson(json["specialist"]),
+    department: json["department"] == null ? null : Department.fromJson(json["department"]),
+    usualProvider: json["usual_provider"] == null ? null : UsualProvider.fromJson(json["usual_provider"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -197,7 +206,7 @@ class Doctors {
     "dr_bmdc_reg_no": drBmdcRegNo,
     "dr_email": drEmail,
     "dr_is_referred": drIsReferred,
-    "dr_dob": drDob,
+    "dr_dob": "${drDob!.year.toString().padLeft(4, '0')}-${drDob!.month.toString().padLeft(2, '0')}-${drDob!.day.toString().padLeft(2, '0')}",
     "dr_birth_sex_id": drBirthSexId,
     "dr_city_id": drCityId,
     "dr_postal_code": drPostalCode,
@@ -213,5 +222,68 @@ class Doctors {
     "updated_by": updatedBy,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
+    "specialist": specialist?.toJson(),
+    "department": department?.toJson(),
+    "usual_provider": usualProvider?.toJson(),
+  };
+}
+
+class Department {
+  int? id;
+  String? departmentsName;
+
+  Department({
+    this.id,
+    this.departmentsName,
+  });
+
+  factory Department.fromJson(Map<String, dynamic> json) => Department(
+    id: json["id"],
+    departmentsName: json["departments_name"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "departments_name": departmentsName,
+  };
+}
+
+class Specialist {
+  int? id;
+  String? specialistsName;
+
+  Specialist({
+    this.id,
+    this.specialistsName,
+  });
+
+  factory Specialist.fromJson(Map<String, dynamic> json) => Specialist(
+    id: json["id"],
+    specialistsName: json["specialists_name"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "specialists_name": specialistsName,
+  };
+}
+
+class UsualProvider {
+  int? id;
+  String? usualProviderName;
+
+  UsualProvider({
+    this.id,
+    this.usualProviderName,
+  });
+
+  factory UsualProvider.fromJson(Map<String, dynamic> json) => UsualProvider(
+    id: json["id"],
+    usualProviderName: json["usual_provider_name"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "usual_provider_name": usualProviderName,
   };
 }

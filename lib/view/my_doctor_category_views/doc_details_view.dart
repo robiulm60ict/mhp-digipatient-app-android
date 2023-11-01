@@ -96,7 +96,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "${doc?.doctors?.drMiddleName}",
+                                "${doc?.doctors?.title} ${doc?.doctors?.drMiddleName} ${doc?.doctors?.drGivenName} ${doc?.doctors?.drLastName}",
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -310,38 +310,15 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                   elevation: 5,
                                   child: Padding(
                                     padding: EdgeInsets.all(3.0.r),
-                                    child: Text(
-                                      "MBBS",
+                                    child: Text("${doc?.doctors!.specialist?.specialistsName.toString()}"
+                                      ,
                                       style: TextStyle(
                                           fontSize: 16.sp,
                                           color: const Color(0xFF8A8A8A)),
                                     ),
                                   ),
                                 ),
-                                Card(
-                                  elevation: 5,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(3.0.r),
-                                    child: Text(
-                                      "FCPS",
-                                      style: TextStyle(
-                                          fontSize: 16.sp,
-                                          color: const Color(0xFF8A8A8A)),
-                                    ),
-                                  ),
-                                ),
-                                Card(
-                                  elevation: 5,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(3.0.r),
-                                    child: Text(
-                                      "MCS",
-                                      style: TextStyle(
-                                          fontSize: 16.sp,
-                                          color: const Color(0xFF8A8A8A)),
-                                    ),
-                                  ),
-                                ),
+
                               ],
                             ),
                           ),
@@ -387,79 +364,79 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       SizedBox(
                         height: 20.h,
                       ),
-                      // SizedBox(
-                      //   height: 70.h,
-                      //   child: mdVM.isDocChamberTimeLoading
-                      //       ? const Center(
-                      //           child: CircularProgressIndicator(),
-                      //         )
-                      //       : ListView.builder(
-                      //           itemCount: mdVM.doctorTimeSlotList.length,
-                      //           scrollDirection: Axis.horizontal,
-                      //           itemBuilder: (context, index) {
-                      //             DocTimeSlots docTime =
-                      //                 mdVM.doctorTimeSlotList[index];
-                      //             bool isMorning =
-                      //                 docTime.type?.toLowerCase() == "morning";
-                      //             return Card(
-                      //               elevation: 5,
-                      //               child: Padding(
-                      //                 padding: EdgeInsets.symmetric(
-                      //                     vertical: 8.0.h, horizontal: 16.w),
-                      //                 child: Column(
-                      //                   mainAxisAlignment:
-                      //                       MainAxisAlignment.center,
-                      //                   crossAxisAlignment:
-                      //                       CrossAxisAlignment.center,
-                      //                   mainAxisSize: MainAxisSize.min,
-                      //                   children: [
-                      //                     Text(
-                      //                       "${docTime.day}-${docTime.month}-${docTime.year}",
-                      //                       style: TextStyle(
-                      //                           fontSize: 14.sp,
-                      //                           fontWeight: FontWeight.w500,
-                      //                           color: AppColors.primaryColor),
-                      //                     ),
-                      //                     SizedBox(
-                      //                       height: 4.h,
-                      //                     ),
-                      //                     Row(
-                      //                       mainAxisAlignment:
-                      //                           MainAxisAlignment.center,
-                      //                       crossAxisAlignment:
-                      //                           CrossAxisAlignment.center,
-                      //                       mainAxisSize: MainAxisSize.min,
-                      //                       children: [
-                      //                         Image.asset(
-                      //                           isMorning
-                      //                               ? Assets.imagesDayActive
-                      //                               : Assets.imagesDayInActive,
-                      //                           height: 20.h,
-                      //                           width: 20.w,
-                      //                           fit: BoxFit.fill,
-                      //                         ),
-                      //                         SizedBox(
-                      //                           width: 8.w,
-                      //                         ),
-                      //                         Image.asset(
-                      //                           isMorning
-                      //                               ? Assets.imagesNightInActive
-                      //                               : Assets.imagesNightActive,
-                      //                           height: 20.h,
-                      //                           width: 20.w,
-                      //                           fit: BoxFit.fill,
-                      //                         ),
-                      //                       ],
-                      //                     ),
-                      //                   ],
-                      //                 ),
-                      //               ),
-                      //             );
-                      //           }),
-                      // ),
-                      // SizedBox(
-                      //   height: 20.h,
-                      // ),
+                      SizedBox(
+                        height: 70.h,
+                        child: mdVM.isDocChamberTimeLoading
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : ListView.builder(
+                                itemCount: mdVM.doctorTimeSlotList.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  DocTimeSlots docTime =
+                                      mdVM.doctorTimeSlotList[index];
+                                  bool isMorning =
+                                      docTime.type?.toLowerCase() == "morning";
+                                  return Card(
+                                    elevation: 5,
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 8.0.h, horizontal: 16.w),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            "${docTime.day}-${docTime.month}-${docTime.year}",
+                                            style: TextStyle(
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w500,
+                                                color: AppColors.primaryColor),
+                                          ),
+                                          SizedBox(
+                                            height: 4.h,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Image.asset(
+                                                isMorning
+                                                    ? Assets.imagesDayActive
+                                                    : Assets.imagesDayInActive,
+                                                height: 20.h,
+                                                width: 20.w,
+                                                fit: BoxFit.fill,
+                                              ),
+                                              SizedBox(
+                                                width: 8.w,
+                                              ),
+                                              Image.asset(
+                                                isMorning
+                                                    ? Assets.imagesNightInActive
+                                                    : Assets.imagesNightActive,
+                                                height: 20.h,
+                                                width: 20.w,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
                       SizedBox(
                         height: 50.h,
                         child: ElevatedButton(

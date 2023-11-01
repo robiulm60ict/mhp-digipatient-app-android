@@ -47,11 +47,11 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
 
   getmyAllDoctors(BuildContext context) async {
     myDoctorList.clear();
+    myDoctorFullList.clear();
 
     isDoctorLoading = true;
 
     await DoctorRepository().getmyAllDoctors().then((value) {
-      print(value);
        myDoctorFullList.add(value);
       myDoctorList.addAll(value.data!);
       isDoctorLoading = false;

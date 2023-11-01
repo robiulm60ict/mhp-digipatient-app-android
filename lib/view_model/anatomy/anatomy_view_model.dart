@@ -118,13 +118,13 @@ class AnatomyModelView with ChangeNotifier{
        return <SymptomsAnatomy>[];
      }
      for(var i in getSymptomsList){
-       debugPrint("\nSelected: ${i.symptomName} ${i.isSelected}");
+      // debugPrint("\nSelected: ${i.symptomName} ${i.isSelected}");
        if(i.isSelected!= null && i.isSelected == true){
          selected.add(i);
-         debugPrint("Added --");
+       //  debugPrint("Added --");
 
        }else{
-         debugPrint("denied --");
+       //  debugPrint("denied --");
        }
      }
 

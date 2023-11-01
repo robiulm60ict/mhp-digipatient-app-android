@@ -172,11 +172,11 @@ class MyDoctorView extends StatelessWidget {
                           .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
                     },
                     docImage:
-                        "{AppUrls.docImage}${doc?.doctors?.drImages.toString()}",
+                        "http://35.213.180.244:7000/doctors/images/${doc?.doctors?.drImages.toString()}",
                     docName:
-                        "${doc?.doctors?.title.toString()} ${doc?.doctors?.drFamilyName.toString()} ${doc?.doctors?.drMiddleName.toString()} ${doc?.doctors?.drLastName.toString()}",
-                    docSpeciality: "${doc?.doctors?.departmentName}",
-                    docHospital: "{doc?.doctors?.usualProviderName}",
+                        "${doc?.doctors?.title.toString()} ${doc?.doctors?.drGivenName.toString()} ${doc?.doctors?.drMiddleName.toString()} ${doc?.doctors?.drLastName.toString()}",
+                    docSpeciality: "${doc?.doctors?.specialist?.specialistsName.toString()}",
+                    docHospital: "${doc?.doctors!.usualProvider!.usualProviderName.toString()}",
                   );
                 },
               );

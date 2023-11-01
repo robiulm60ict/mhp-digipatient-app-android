@@ -29,8 +29,11 @@ class DoctorRepository {
 
   Future<MyDoctorList> getmyAllDoctors() async {
     try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      int? id = prefs.getInt(UserP.id);
       dynamic response =
-          await apiService.getGetApiResponse(AppUrls.myDoctorslist);
+          await apiService.getGetApiResponse("${AppUrls.myDoctorslist}$id");
+      print(response);
 
       return MyDoctorList.fromJson(response);
     } catch (e) {
@@ -61,9 +64,11 @@ class DoctorRepository {
   }
 
   Future<DoctorChamberTimeModel> getDocChamberTime(dynamic docId) async {
+    print(docId);
     try {
       dynamic response =
           await apiService.getGetApiResponse("${AppUrls.docChamberTime}$docId");
+      print(response);
       return DoctorChamberTimeModel.fromJson(response);
     } catch (e) {
       rethrow;
