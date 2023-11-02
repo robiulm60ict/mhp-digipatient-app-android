@@ -8,6 +8,7 @@ import 'package:digi_patient/view_model/auth_view_model.dart';
 import 'package:digi_patient/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -20,11 +21,11 @@ import '../../utils/message.dart';
 import '../../widgets/custom_elivated_button.dart';
 
 class CreateAccountView extends StatefulWidget {
-  const CreateAccountView({
+   CreateAccountView({
     Key? key,
     required this.phoneNumber,
   }) : super(key: key);
-  final String phoneNumber;
+   String phoneNumber="";
 
   @override
   State<CreateAccountView> createState() => _CreateAccountViewState();
@@ -75,7 +76,8 @@ class _CreateAccountViewState extends State<CreateAccountView> {
   TextEditingController password = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController address = TextEditingController();
-  TextEditingController name = TextEditingController();
+  TextEditingController namefast = TextEditingController();
+  TextEditingController namelast = TextEditingController();
   BloodGroup? bloodGroup;
 
   BirthSex? birthSex;
@@ -84,8 +86,10 @@ class _CreateAccountViewState extends State<CreateAccountView> {
   @override
   void initState() {
     super.initState();
+    print("init/////////////////////////////////");
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Add Your Code here.
+
       context.read<AuthViewModel>().getBirthSex(context);
       context.read<AuthViewModel>().getBloodGroup(context);
       // setBirthSexAndBloodGroup();
@@ -109,10 +113,9 @@ class _CreateAccountViewState extends State<CreateAccountView> {
     dateOfBirthController.dispose();
     password.dispose();
     email.dispose();
-    name.dispose();
+    namefast.dispose();
+    namelast.dispose();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +128,6 @@ class _CreateAccountViewState extends State<CreateAccountView> {
           // crossAxisAlignment: CrossAxisAlignment.center,
           padding: EdgeInsets.all(kPadding.r),
           children: [
-
             Image.asset(
               Assets.imagesLogoGreen,
               height: 74.h,
@@ -139,7 +141,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   fontWeight: FontWeight.w700,
                   color: AppColors.primaryColor),
             ),
-           Style.distan_size10,
+            Style.distan_size10,
             Align(
               alignment: Alignment.center,
               child: InkWell(
@@ -250,12 +252,21 @@ class _CreateAccountViewState extends State<CreateAccountView> {
             ),
             Style.distan_size10,
             CustomTextField(
-              textEditingController: name,
+              textEditingController: namefast,
               prefix: Icon(
                 Icons.person,
                 color: AppColors.primaryColor,
               ),
-              hintText: "Name",
+              hintText: "Fast Name",
+            ),
+            Style.distan_size5,
+            CustomTextField(
+              textEditingController: namelast,
+              prefix: Icon(
+                Icons.person,
+                color: AppColors.primaryColor,
+              ),
+              hintText: "Last Name",
             ),
             Style.distan_size5,
             CustomTextField(
@@ -275,7 +286,6 @@ class _CreateAccountViewState extends State<CreateAccountView> {
               },
             ),
             Style.distan_size5,
-
             auth.isBloodGroupLoading
                 ? const Center(
                     child: CircularProgressIndicator(),
@@ -325,9 +335,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       },
                     ),
                   ),
-
             Style.distan_size5,
-
             auth.isBirthSexLoading
                 ? const Center(
                     child: CircularProgressIndicator(),
@@ -386,7 +394,8 @@ class _CreateAccountViewState extends State<CreateAccountView> {
               ),
               hintText: "Email",
             ),
-            Style.distan_size5,  CustomTextField(
+            Style.distan_size5,
+            CustomTextField(
               textEditingController: address,
               prefix: Icon(
                 Icons.location_city,
@@ -414,10 +423,9 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                     color: obSecureText ? AppColors.primaryColor : Colors.grey,
                   )),
             ),
-
             Style.distan_size15,
-            auth.isRegistrationLoading
-                ? const Center(
+            auth. isRegistrationLoading == true
+                ? Center(
                     child: CircularProgressIndicator(),
                   )
                 : CustomElevatedButton(
@@ -433,7 +441,8 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                             context, "Enter At least 8 Digit Password");
                       } else {
                         if (xFileList.isNotEmpty &&
-                            name.text.isNotEmpty &&
+                            namefast.text.isNotEmpty &&
+                            namelast.text.isNotEmpty &&
                             dateOfBirthController.text.isNotEmpty &&
                             bloodGroup != null &&
                             birthSex != null &&
@@ -444,22 +453,21 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                             'patient_mobile_phone': widget.phoneNumber,
                             "app_token":
                                 "6WXtdlLMiJqi8m8Z0LBqQKVhc7VwOLYv7VoGZ6pFOuaFW3ptWFjRDyLBdQ5QBLNO",
-
-                            'patient_first_name': name.text,
+                            'patient_first_name': namefast.text,
                             'patient_birth_sex_id': "${birthSex?.id}",
                             'ptn_blood_group_id': "${bloodGroup?.id}",
                             'patient_dob': dateOfBirthController.text,
-                             'patient_images' : File(xFileList.first!.path).toString(),
+                            //'image': MultipartFile(File(xFileList.first!.path).toString(), filename: ""),
                             'password': password.text,
                             'patient_email': email.text,
-
-                            "patient_last_name": "",
+                            "patient_last_name": namelast.text,
                             "patient_address1": address.text,
                           };
                           print(body);
-                          await auth.signUpOriginal(context, body);
+                          //  await auth.signUpOriginal(context, body);
                           await auth.signUp(
                               context, body, File(xFileList.first!.path).path);
+                          widget.phoneNumber="";
                           // await auth.registration(context, imageFile: File(xFileList.first!.path), phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode, name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}", dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
                           // auth.signUpOriginal(context, body, widget.token);
                           ///

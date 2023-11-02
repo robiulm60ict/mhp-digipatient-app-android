@@ -22,15 +22,16 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
 
   docotrRequest(BuildContext context, drId) async {
     isDoctorLoading = true;
-    Map body = {"dr_identity_no": "${drId}"};
+    Map body = {"dr_identity_no": "${drId.toString()}"};
 
     await DoctorRepository().postdoctorRequest(body).then((value) {
+      getmyAllDoctors(context);
+      controllerRequest.clear();
+      isDoctorLoading = false;
       Messages.snackBar(
         context,
         value['message'],
       );
-      controllerRequest.clear();
-      isDoctorLoading = false;
     }).onError((error, stackTrace) {
       isDoctorLoading = true;
 
@@ -51,10 +52,12 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
 
     isDoctorLoading = true;
 
+    notifyListeners();
     await DoctorRepository().getmyAllDoctors().then((value) {
-       myDoctorFullList.add(value);
+      myDoctorFullList.add(value);
       myDoctorList.addAll(value.data!);
       isDoctorLoading = false;
+      notifyListeners();
     }).onError((error, stackTrace) {
       isDoctorLoading = true;
 

@@ -199,6 +199,7 @@ class AppRouter extends _i42.RootStackRouter {
           patientId: args.patientId,
           amount: args.amount,
           appointmentType: args.appointmentType,
+          shiftType: args.shiftType,
           doctor: args.doctor,
           diseaseList: args.diseaseList,
         ),
@@ -946,6 +947,7 @@ class PaymentMethodRoute extends _i42.PageRouteInfo<PaymentMethodRouteArgs> {
     required String patientId,
     required String amount,
     required String appointmentType,
+    required String shiftType,
     required _i44.Datum doctor,
     required List<_i45.SymptomsAnatomy> diseaseList,
   }) : super(
@@ -958,6 +960,7 @@ class PaymentMethodRoute extends _i42.PageRouteInfo<PaymentMethodRouteArgs> {
             patientId: patientId,
             amount: amount,
             appointmentType: appointmentType,
+            shiftType: shiftType,
             doctor: doctor,
             diseaseList: diseaseList,
           ),
@@ -974,6 +977,7 @@ class PaymentMethodRouteArgs {
     required this.patientId,
     required this.amount,
     required this.appointmentType,
+    required this.shiftType,
     required this.doctor,
     required this.diseaseList,
   });
@@ -990,13 +994,15 @@ class PaymentMethodRouteArgs {
 
   final String appointmentType;
 
+  final String shiftType;
+
   final _i44.Datum doctor;
 
   final List<_i45.SymptomsAnatomy> diseaseList;
 
   @override
   String toString() {
-    return 'PaymentMethodRouteArgs{key: $key, appointmentDate: $appointmentDate, doctorId: $doctorId, patientId: $patientId, amount: $amount, appointmentType: $appointmentType, doctor: $doctor, diseaseList: $diseaseList}';
+    return 'PaymentMethodRouteArgs{key: $key, appointmentDate: $appointmentDate, doctorId: $doctorId, patientId: $patientId, amount: $amount, appointmentType: $appointmentType, shiftType: $shiftType, doctor: $doctor, diseaseList: $diseaseList}';
   }
 }
 

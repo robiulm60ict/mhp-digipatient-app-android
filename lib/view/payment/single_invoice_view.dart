@@ -18,7 +18,9 @@ import '../../widgets/back_button.dart';
 import '../../widgets/payment_user_detail.dart';
 
 class SingleInvoiceView extends StatefulWidget {
-  const SingleInvoiceView({Key? key, required this.appointmentDate, required this.doctorId, required this.patientId, required this.amount, required this.appointmentType, required this.doctor, required this.paymentMethod}) : super(key: key);
+  const SingleInvoiceView(
+      {Key? key, required this.appointmentDate, required this.doctorId, required this.patientId, required this.amount, required this.appointmentType, required this.doctor, required this.paymentMethod})
+      : super(key: key);
   final String appointmentDate;
   final String doctorId;
   final String patientId;
@@ -37,7 +39,6 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
   void initState() {
     super.initState();
     context.read<UserViewModel>().getUserDetails();
-
   }
 
   String getDate(String? date) {
@@ -48,14 +49,16 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
       return "null";
     }
   }
-  String getTime(String? date){
+
+  String getTime(String? date) {
     DateTime? dateObject = DateTime.tryParse(date ?? "");
-    if(dateObject != null){
+    if (dateObject != null) {
       return DateFormat.jm().format(dateObject);
-    }else{
+    } else {
       return "null";
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final userVM = Provider.of<UserViewModel>(context);
@@ -66,7 +69,8 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
         context.router.replaceAll([
           const DashboardRoute()
         ]);
-        return Future.delayed(const Duration(milliseconds: 1000)).then((value) => true);
+        return Future.delayed(const Duration(milliseconds: 1000)).then((
+            value) => true);
       },
       child: Scaffold(
         appBar: AppBar(
@@ -79,19 +83,22 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
           ),
           centerTitle: true,
           leadingWidth: leadingWidth,
-          leading: const CustomBackButton( poopAllRoute: true,),
+          leading: const CustomBackButton(poopAllRoute: true,),
         ),
         body: ListView(
           padding: EdgeInsets.all(20.r),
           children: [
-        PaymentUserDetail(
-        name: "${widget.doctor.doctors!.drGivenName}",
-          designation: "{widget.doctor.doctors?.departmentsName}",
-          visitingTime: getTime(widget.appointmentDate),
-          hospitalName: "{widget.doctor.doctors?.hospitalName}",
-          date: widget.appointmentDate,
-          location: "${widget.doctor.doctors?.drWorkPhone}",
-          image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',),
+            PaymentUserDetail(
+              name: "${widget.doctor.doctors!.drGivenName} ${widget.doctor
+                  .doctors!.drMiddleName} ${widget.doctor.doctors!.drLastName}",
+              designation: "${widget.doctor.doctors!.department
+                  ?.departmentsName}",
+              visitingTime: getTime(widget.appointmentDate),
+              hospitalName: "${widget.doctor.doctors?.usualProvider
+                  ?.usualProviderName.toString()}",
+              date: widget.appointmentDate,
+              location: "${widget.doctor.doctors?.drWorkPhone}",
+              image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',),
             SizedBox(
               height: 20.h,
             ),
@@ -99,8 +106,10 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: AppColors.primaryColor,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(5.r), topRight: Radius.circular(5.r))
+                      color: AppColors.primaryColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5.r),
+                          topRight: Radius.circular(5.r))
 
                   ),
                   child: Padding(
@@ -110,33 +119,58 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                       children: [
                         Align(
                             alignment: Alignment.centerLeft,
-                            child: Text("Invoice", textAlign: TextAlign.start, style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold, color: Colors.white),)),
+                            child: Text("Invoice", textAlign: TextAlign.start,
+                              style: TextStyle(fontSize: 22.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),)),
                         SizedBox(height: 8.h,),
                         Row(
                           children: [
-                            Expanded(child: Text("Invoice Number : ", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.white),)),
-                            Expanded(child: Text("HN Number :", textAlign: TextAlign.start, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.white),)),
+                            Expanded(child: Text("Invoice Number : ",
+                              style: TextStyle(fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white),)),
+                            userVM.user?.patientHnNumber == null ? Expanded(
+                                child: Text(
+                                  "HN Number :", textAlign: TextAlign.start,
+                                  style: TextStyle(fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white),)):Container(),
                           ],
                         ),
                         SizedBox(height: 3.h,),
                         Row(
                           children: [
-                            Expanded(child: Text("${invoice.appointmentList.isNotEmpty ? invoice.appointmentList.first.inoviceNumber : ""}", style: TextStyle(fontSize: 14.sp,  color: Colors.white),)),
-                            Expanded(child: Text("${userVM.user?.patientHnNumber}", textAlign: TextAlign.start, style: TextStyle(fontSize: 14.sp, color: Colors.white),)),
+                            Expanded(child: Text(
+                              "${invoice.appointmentList.isNotEmpty ? invoice
+                                  .appointmentList.first.inoviceNumber : ""}",
+                              style: TextStyle(
+                                  fontSize: 14.sp, color: Colors.white),)),
+                            Expanded(child: Text(
+                              "${userVM.user?.patientHnNumber}",
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontSize: 14.sp, color: Colors.white),)),
                           ],
                         ),
                         SizedBox(height: 12.h,),
                         Align(
                             alignment: Alignment.centerLeft,
-                            child: Text("Date", textAlign: TextAlign.start, style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.white),)),
+                            child: Text("Date", textAlign: TextAlign.start,
+                              style: TextStyle(fontSize: 18.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),)),
                         SizedBox(height: 8.h,),
 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(Icons.date_range, color: Colors.white, size: 15.h,),
+                            Icon(Icons.date_range, color: Colors.white,
+                              size: 15.h,),
                             SizedBox(width: 5.w,),
-                            Text(getDate(widget.appointmentDate), style: TextStyle(fontSize: 14.sp, color: Colors.white),),
+                            Text(getDate(widget.appointmentDate),
+                              style: TextStyle(
+                                  fontSize: 14.sp, color: Colors.white),),
                           ],
                         ),
 
@@ -149,11 +183,17 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                   child: Padding(
                     padding: EdgeInsets.all(15.r),
                     child: Column(
-                      children:  [
-                        SingleInvoiceRow(lTitle: "Patient Name :", rTitle: "${userVM.user?.patientFirstName} ${userVM.user?.patientMiddleName} ${userVM.user?.patientLastName}"),
-                        SingleInvoiceRow(lTitle: "Mobile Number :", rTitle: "${userVM.user?.patientMobilePhone}"),
-                        SingleInvoiceRow(lTitle: "Address :", rTitle: "${userVM.user?.patientAddress1}"),
-                        SingleInvoiceRow(lTitle: "Payment Method :", rTitle: "${widget.paymentMethod}"),
+                      children: [
+                        SingleInvoiceRow(lTitle: "Patient Name :",
+                            rTitle: "${userVM.user?.patientFirstName} ${userVM
+                                .user?.patientMiddleName} ${userVM.user
+                                ?.patientLastName}"),
+                        SingleInvoiceRow(lTitle: "Mobile Number :",
+                            rTitle: "${userVM.user?.patientMobilePhone}"),
+                        SingleInvoiceRow(lTitle: "Address :",
+                            rTitle: "${userVM.user?.patientAddress1}"),
+                        SingleInvoiceRow(lTitle: "Payment Method :",
+                            rTitle: "${widget.paymentMethod}"),
 
                       ],
                     ),
@@ -166,8 +206,12 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("COST", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: Colors.black),),
-                      Text("PRICE", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: Colors.black),),
+                      Text("COST", style: TextStyle(fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),),
+                      Text("PRICE", style: TextStyle(fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),),
                     ],
                   ),
                 ),
@@ -176,11 +220,14 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                   child: Padding(
                     padding: EdgeInsets.all(15.r),
                     child: Column(
-                      children:  [
-                         SingleInvoiceRow(lTitle: "Total Charge", rTitle: widget.amount),
-                        const SingleInvoiceRow(lTitle: "Discount", rTitle: "0.00"),
+                      children: [
+                        SingleInvoiceRow(
+                            lTitle: "Total Charge", rTitle: widget.amount),
+                        const SingleInvoiceRow(
+                            lTitle: "Discount", rTitle: "0.00"),
                         const SingleInvoiceRow(lTitle: "Due ", rTitle: "0.00"),
-                        const SingleInvoiceRow(lTitle: "VAT/TAX", rTitle: "0.00"),
+                        const SingleInvoiceRow(
+                            lTitle: "VAT/TAX", rTitle: "0.00"),
                         SizedBox(height: 12.h,),
                         DottedLine(
                           direction: Axis.horizontal,
@@ -196,7 +243,8 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                           dashGapRadius: 0.0,
                         ),
                         SizedBox(height: 12.h,),
-                         SingleInvoiceRow(lTitle: "Total Amount ", rTitle: widget.amount),
+                        SingleInvoiceRow(
+                            lTitle: "Total Amount ", rTitle: widget.amount),
 
                       ],
                     ),

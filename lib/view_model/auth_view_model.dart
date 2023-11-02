@@ -160,6 +160,7 @@ class AuthViewModel with ChangeNotifier {
     setOtpCheckError(false);
     otpCheckList.clear();
     _authRepo.checkOTP(body: body).then((value) {
+      print(value);
       otpCheckList.add(value);
       if (otpCheckList.first.verify!) {
         setOtpCheckError(false);
@@ -168,7 +169,7 @@ class AuthViewModel with ChangeNotifier {
         // Future.delayed(Duration(microseconds: 200));
         Future.delayed(Duration.zero);
         context.router
-            .replace(CreateAccountRoute(phoneNumber: body['phone_number']));
+            .push(CreateAccountRoute(phoneNumber: body['phone_number']));
       } else {
         setOtpCheckError(true);
         setOtpCheckLoading(false);
@@ -208,10 +209,11 @@ class AuthViewModel with ChangeNotifier {
   signUp(BuildContext context, Map<String, String> body, imageBytes) {
     registrationList.clear();
     setRegistrationLoading(true);
+    isRegistrationLoading = true;
     auth.signUpApi(body: body, imageBytes: imageBytes).then((value) {
       registrationList.add(value);
-      debugPrint(
-          "\n\n\n\n\n\n ${value.patients?.patientFirstName} id: ${value.patients?.id}");
+      // debugPrint(
+      //     "\n\n\n\n\n\n ${value.patients?.patientFirstName} id: ${value.patients?.id}");
       Messages.snackBar(context, value.message.toString(),
           backgroundColor: AppColors.greenColor);
       // saveUser(
@@ -221,7 +223,7 @@ class AuthViewModel with ChangeNotifier {
       //     name: "${value.patients?.patientFirstName}",
       //     id: int.tryParse("${value.patients?.id}") ?? 0,
       //     role: value.data!.userType ?? "");
-      setRegistrationLoading(false);
+      isRegistrationLoading = false;
       // Future.delayed(const Duration(seconds: 1)).then((v) {
       //   // setLoginLoading(false, value);
       //   if (value.data!.userType.toString().toLowerCase() == "patient") {
@@ -236,6 +238,7 @@ class AuthViewModel with ChangeNotifier {
     }).onError((error, stackTrace) {
       Messages.snackBar(context, error.toString());
       setRegistrationLoading(false);
+      isRegistrationLoading = false;
     });
   }
 
@@ -261,8 +264,7 @@ class AuthViewModel with ChangeNotifier {
       required String password,
       required String email}) async {
     registrationList.clear();
-    setRegistrationLoading(true);
-    await auth
+    isRegistrationLoading = true;    await auth
         .registration(
             imageFile: imageFile,
             phoneNumber: phoneNumber,
@@ -281,10 +283,10 @@ class AuthViewModel with ChangeNotifier {
       debugPrint(
           "\n---\n---\n---\n---\n---\n---\n---\n---\n id: ${value.patients?.id}---\n Name: ${value.patients?.patientFirstName} \n---\n---\n---\n---\n---\n---\n---\n---\n");
       // saveUser(isLoggedIn: true, email: email, password: password, name: name, id: int.tryParse("${value.patients?.id}") ?? 0);
-      setRegistrationLoading(false);
+      isRegistrationLoading = false;
     }).onError((error, stackTrace) {
       Messages.snackBar(context, error.toString());
-      setRegistrationLoading(false);
+      isRegistrationLoading = false;
     });
   }
 

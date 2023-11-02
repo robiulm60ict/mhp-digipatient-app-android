@@ -78,6 +78,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
           // appointmentViewModel.setBody(docIcd: "${widget.doctors.id}", patientId: "$patientId", date: date, appointmentType: isChamber ? "Chamber" : "Online", disease: "[asd, asdf]", paymentType: "Bkash", amount: "1200", trNxNo: "tr1205");
           // appointmentViewModel.bookAppointment(context, body: appointmentViewModel.body);
           List<SymptomsAnatomy> diseaseList = anatomy.getSelectedSymptomsList();
+
          if (diseaseList.isNotEmpty) {
             await appointmentViewModel.getPatientId().then((value) =>
                 context.router.push(PaymentMethodRoute(
@@ -88,7 +89,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                     patientId: "$value",
                     amount: widget.amount,
                     doctor: widget.doctors,
-                    diseaseList: diseaseList)));
+                    diseaseList: diseaseList, shiftType: morningButton ? "morning" : "evening")));
           } else {
            Messages.snackBar(context, "Please Select Disease!");
          }
@@ -362,6 +363,38 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
               ),
             ),
           ),
+          Visibility(
+            visible: anatomy.getSelectedSymptomsList().isNotEmpty,
+            child: Text(
+              "Selected Diseases",
+              style: TextStyle(
+                  fontSize: 18.sp,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(
+            height: 5.h,
+          ),
+          ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: anatomy.getSelectedSymptomsList().length,
+            itemBuilder: (context, index) {
+              SymptomsAnatomy at = anatomy.getSelectedSymptomsList()[index];
+              return Card(
+                child: ListTile(
+                  title: Text(
+                    "${at.symptomName}",
+                    style: TextStyle(
+                        fontSize: 15.sp,
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              );
+            },
+          ),
           SizedBox(
             height: 20.h,
           ),
@@ -499,47 +532,13 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                     }),
                   ),
                   SizedBox(
-                    height: 10.h,
+                    height: 5.h,
                   ),
                 ],
               ),
             ),
           ),
-          SizedBox(
-            height: 20.h,
-          ),
-          Visibility(
-            visible: anatomy.getSelectedSymptomsList().isNotEmpty,
-            child: Text(
-              "Selected Diseases",
-              style: TextStyle(
-                  fontSize: 18.sp,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: anatomy.getSelectedSymptomsList().length,
-            itemBuilder: (context, index) {
-              SymptomsAnatomy at = anatomy.getSelectedSymptomsList()[index];
-              return Card(
-                child: ListTile(
-                  title: Text(
-                    "${at.symptomName}",
-                    style: TextStyle(
-                        fontSize: 15.sp,
-                        color: AppColors.primaryColor,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              );
-            },
-          ),
+
           SizedBox(
             height: 80.h,
           ),

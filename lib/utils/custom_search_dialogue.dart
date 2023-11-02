@@ -4,13 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:search_page/search_page.dart';
 
 import '../model/doctor_model/doctors_model.dart';
+import '../model/myDoctorList/mydoctorList.dart';
 import '../resources/app_url.dart';
 import '../resources/colors.dart';
 import '../routes/routes.gr.dart';
 import '../widgets/doctor_list_tile_our_doc.dart';
 
 customSearchDialogue(BuildContext context,
-    {required List<Doctor> doctorList}) {
+    {required List<Datum> doctorList}) {
   return showSearch(
     context: context,
     delegate: SearchPage(
@@ -30,9 +31,9 @@ customSearchDialogue(BuildContext context,
         child: Text('No doctor found :('),
       ),
       filter: (doctor) => [
-        doctor.drGivenName,
-        doctor.department?.departmentsName,
-        doctor.usualProvider?.usualProviderName,
+        doctor.doctors?.drGivenName,
+        doctor.doctors?.department?.departmentsName,
+        doctor.doctors?.usualProvider?.usualProviderName,
       ],
       // sort: (a, b) => a.compareTo(b),
       builder: (doctor) => Padding(
@@ -42,14 +43,14 @@ customSearchDialogue(BuildContext context,
             context.router.push(DocDetailsRoute(id: doctor.id!));
           },
           docDegree: "",
-          docDepartment: doctor.department?.departmentsName ?? "",
+          docDepartment: doctor.doctors?.department?.departmentsName ?? "",
           docHospitalImage: "",
-           docName: "${doctor.title?.titleName} ${doctor.drGivenName} ${doctor.drLastName}",
+           docName: "${doctor.doctors?.title} ${doctor.doctors?.drGivenName} ${doctor.doctors?.drLastName}",
           //docName: doctor.drFullName ?? "",
           docRating: 5,
           docUrl:
-              "${AppUrls.baseUrl}/mhp_server/public/doctors/images/${doctor.drImages!}",
-          docHospitalName: doctor.usualProvider?.usualProviderName ?? "",
+              "${AppUrls.baseUrl}/mhp_server/public/doctors/images/${doctor.doctors?.drImages!}",
+          docHospitalName: doctor.doctors?.usualProvider?.usualProviderName ?? "",
         ),
       ),
     ),

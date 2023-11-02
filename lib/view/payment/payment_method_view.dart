@@ -19,12 +19,23 @@ import '../../view_model/anatomy/anatomy_view_model.dart';
 import '../../widgets/back_button.dart';
 
 class PaymentMethodView extends StatefulWidget {
-  const PaymentMethodView({Key? key, required this.appointmentDate, required this.doctorId, required this.patientId, required this.amount, required this.appointmentType, required this.doctor, required this.diseaseList}) : super(key: key);
+  const PaymentMethodView(
+      {Key? key,
+      required this.appointmentDate,
+      required this.doctorId,
+      required this.patientId,
+      required this.amount,
+      required this.appointmentType,
+      required this.shiftType,
+      required this.doctor,
+      required this.diseaseList})
+      : super(key: key);
   final String appointmentDate;
   final String doctorId;
   final String patientId;
   final String amount;
   final String appointmentType;
+  final String shiftType;
   final Datum doctor;
   final List<SymptomsAnatomy> diseaseList;
 
@@ -51,12 +62,16 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
 
   Payment payment = Payment.cash;
   TextEditingController transaction = TextEditingController();
+  TextEditingController transactionphone = TextEditingController();
+  TextEditingController transactionrefer = TextEditingController();
   FocusNode transactionFocusNode = FocusNode();
 
   @override
- void dispose() {
+  void dispose() {
     super.dispose();
     transaction.dispose();
+    transactionphone.dispose();
+    transactionrefer.dispose();
     transactionFocusNode.dispose();
   }
 
@@ -69,14 +84,15 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
     }
   }
 
-  String getTime(String? date){
+  String getTime(String? date) {
     DateTime? dateObject = DateTime.tryParse(date ?? "");
-    if(dateObject != null){
+    if (dateObject != null) {
       return DateFormat.jm().format(dateObject);
-    }else{
+    } else {
       return "null";
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final apVM = Provider.of<AppointmentViewModel>(context);
@@ -97,14 +113,17 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
       body: ListView(
         padding: EdgeInsets.all(20.r),
         children: [
-           PaymentUserDetail(
-              name: "${widget.doctor.doctors?.drGivenName}",
-              designation: "${widget.doctor.doctors!.department!.departmentsName}",
-              visitingTime: getTime(widget.appointmentDate),
-              hospitalName: "${widget.doctor..doctors!.usualProvider?.usualProviderName}",
-              date: widget.appointmentDate,
-              location: "${widget.doctor.doctors?.drWorkPhone}",
-             image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',),
+          PaymentUserDetail(
+            name: "${widget.doctor.doctors?.drGivenName}",
+            designation:
+                "${widget.doctor.doctors!.department!.departmentsName}",
+            visitingTime: getTime(widget.appointmentDate),
+            hospitalName:
+                "${widget.doctor..doctors!.usualProvider?.usualProviderName}",
+            date: widget.appointmentDate,
+            location: "${widget.doctor.doctors?.drWorkPhone}",
+            image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',
+          ),
           SizedBox(
             height: 20.h,
           ),
@@ -340,9 +359,8 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                               child: RadioListTile(
                                 title: Image.asset(
                                   value,
-                                  height: 15.h,
-                                  width: 30.w,
-                                   fit: BoxFit.fill,
+
+                                  fit: BoxFit.fill,height: 20,
                                 ),
                                 value: digitalPayValue.indexOf(value) + 1,
                                 groupValue: _selectedDigitalValue,
@@ -355,37 +373,111 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                             );
                           }).toList(),
                         ),
-                        Center(child: Text("Send Money To 01774142172", style: TextStyle(
-                            fontSize: 11.sp,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black),),),
+                        Center(
+                          child: Text(
+                            "Send Money To 01774142172",
+                            style: TextStyle(
+                                fontSize: 11.sp,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black),
+                          ),
+                        ),
                         Padding(
                           padding: EdgeInsets.all(8.0.r),
                           child: Row(
                             children: [
-                              Text(
-                                "Transaction Id",
-                                style: TextStyle(
-                                    fontSize: 11.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey),
+                              SizedBox(
+                                width: 70.w,
+                                child: Text(
+                                  "Payment Number *",
+                                  style: TextStyle(
+                                      fontSize: 11.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.grey),
+                                ),
                               ),
                               SizedBox(
-                                width: 15.w,
+                                width: 5.w,
                               ),
                               Expanded(
-                                  child: TextField(
-                                    controller: transaction,
-                                decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.grey.shade200,
-                                    border: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    hintText: "xxxxxxxxxxx",
-                                    hintStyle:
-                                        TextStyle(color: Colors.grey.shade500)),
+                                child: TextField(
+                                  controller: transactionphone,
+                                  decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.grey.shade200,
+                                      border: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      hintText: "pay number",
+                                      hintStyle: TextStyle(
+                                          color: Colors.grey.shade500)),
+                                ),
                               ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(8.0.r),
+                          child: Row(
+                            children: [
+                              SizedBox( width: 70.w,
+                                child: Text(
+                                  "Transaction Id *",
+                                  style: TextStyle(
+                                      fontSize: 11.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.grey),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              Expanded(
+                                child: TextField(
+                                  controller: transaction,
+                                  decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.grey.shade200,
+                                      border: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      hintText: "xxxxxxxxxxx",
+                                      hintStyle: TextStyle(
+                                          color: Colors.grey.shade500)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(8.0.r),
+                          child: Row(
+                            children: [
+                              SizedBox( width: 70.w,
+                                child: Text(
+                                  "Reference name",
+                                  style: TextStyle(
+                                      fontSize: 11.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.grey),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              Expanded(
+                                child: TextField(
+                                  controller: transactionrefer,
+                                  decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.grey.shade200,
+                                      border: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      hintText: "xxxxxxxxxxx",
+                                      hintStyle: TextStyle(
+                                          color: Colors.grey.shade500)),
+                                ),
                               ),
                             ],
                           ),
@@ -416,27 +508,63 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Total", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF3B3B3B)),),
-                              Text(widget.amount, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF3B3B3B)),),
+                              Text(
+                                "Total",
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: const Color(0xFF3B3B3B)),
+                              ),
+                              Text(
+                                widget.amount,
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: const Color(0xFF3B3B3B)),
+                              ),
                             ],
                           ),
-                          SizedBox(height: 6.h,),
+                          SizedBox(
+                            height: 6.h,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Discount", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF3B3B3B)),),
-                              Text("00.00", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF3B3B3B)),),
+                              Text(
+                                "Discount",
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: const Color(0xFF3B3B3B)),
+                              ),
+                              Text(
+                                "00.00",
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: const Color(0xFF3B3B3B)),
+                              ),
                             ],
                           ),
-                          SizedBox(height: 6.h,),
+                          SizedBox(
+                            height: 6.h,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Vat/Tax", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF3B3B3B)),),
-                              Text("00.00", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF3B3B3B)),),
+                              Text(
+                                "Vat/Tax",
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: const Color(0xFF3B3B3B)),
+                              ),
+                              Text(
+                                "00.00",
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: const Color(0xFF3B3B3B)),
+                              ),
                             ],
                           ),
-                          SizedBox(height: 12.h,),
+                          SizedBox(
+                            height: 12.h,
+                          ),
                           DottedLine(
                             direction: Axis.horizontal,
                             lineLength: double.infinity,
@@ -450,12 +578,26 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                             dashGapGradient: const [Colors.red, Colors.blue],
                             dashGapRadius: 0.0,
                           ),
-                          SizedBox(height: 6.h,),
+                          SizedBox(
+                            height: 6.h,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Total Amount", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: const Color(0xFF3B3B3B)),),
-                              Text(widget.amount, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: const Color(0xFF3B3B3B)),),
+                              Text(
+                                "Total Amount",
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: const Color(0xFF3B3B3B)),
+                              ),
+                              Text(
+                                widget.amount,
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: const Color(0xFF3B3B3B)),
+                              ),
                             ],
                           ),
                         ],
@@ -467,57 +609,61 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                   ),
                   SizedBox(
                     height: 40.h,
-                  width: double.infinity,
-                  child:  ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryColor),
-                    onPressed: () async{
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primaryColor),
+                      onPressed: () async {
+                        if (transaction.text.isNotEmpty) {
+                          Map body = {
+                            "doctor_id": widget.doctorId,
+                            "patient_id": widget.patientId,
+                            "date": widget.appointmentDate,
+                            "appointment_type": widget.appointmentType,
+                            "disease": widget.diseaseList.toString(),
+                            "payment_type": getPaymentMethod(),
+                            "amount": widget.amount,
+                            "transaction_no": transaction.text,
+                            "referred_name": transactionrefer.text,
+                            "transaction_phone_number": transactionphone.text,
+                            "shift": widget.shiftType,
+                          };
+                          print(body);
 
-                      if(transaction.text.isNotEmpty){
-                        Map body = {
-                           "doctor_id": widget.doctorId,
-                           "patient_id": widget.patientId,
-                           "date": widget.appointmentDate,
-                           "appointment_type": widget.appointmentType,
-                           "disease":widget.diseaseList.toString(),
-                           "payment_type": getPaymentMethod(),
-                           "amount": widget.amount,
-                           "transaction_no": transaction.text,
-                          "time":"12:00",
-                          "calling_type":"online",
-                          "chamber_id":"1"
-
-                        };
-                        print(body);
-
-                       await apVM.bookAppointment(context, body: body, doctor: widget.doctor);
-
-                      }else{
-                        transactionFocusNode.requestFocus();
-                        Messages.snackBar(context, "Enter Transaction Id");
-                      }
-
-                       }, child: Text("Pay Now", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: Colors.white),),),
+                          await apVM.bookAppointment(context,
+                              body: body, doctor: widget.doctor);
+                        } else {
+                          transactionFocusNode.requestFocus();
+                          Messages.snackBar(context, "Enter Transaction Id");
+                        }
+                      },
+                      child: Text(
+                        "Pay Now",
+                        style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
           ),
-
         ],
       ),
     );
   }
 
   String getPaymentMethod() {
-
-    if(payment == Payment.cash){
+    if (payment == Payment.cash) {
       return "Cash";
-    }else{
-      if(_selectedDigitalValue == 1){
+    } else {
+      if (_selectedDigitalValue == 1) {
         return "Bkash";
-      }else if(_selectedDigitalValue == 2){
+      } else if (_selectedDigitalValue == 2) {
         return "Rocket";
-      }else{
+      } else {
         return "Nagad";
       }
     }
