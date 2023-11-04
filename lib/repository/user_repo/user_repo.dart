@@ -4,13 +4,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/network/base_api_service.dart';
 import '../../data/network/network_api_service.dart';
+import '../../model/userprofile/userprofile_model.dart';
 import '../../resources/app_url.dart';
 import '../../utils/user.dart';
 
 class UserRepo {
   BaseApiService apiService = NetworkApiService();
 
-  Future<UserModel> getUserData() async {
+  Future<UserProfileModel> getUserData() async {
     final prefs = await SharedPreferences.getInstance();
 
     int? id = prefs.getInt(UserP.id);
@@ -18,12 +19,13 @@ class UserRepo {
 
     try {
       dynamic response = await apiService.getGetApiResponse(
-        "${AppUrls.userUrl}$id",
+        "${AppUrls.userProfileUrl}$id",
       );
 
       print("object${response}");
-      return UserModel.fromJson(response);
+      return UserProfileModel.fromJson(response);
     } catch (e) {
+      print(e.toString());
       rethrow;
     }
   }

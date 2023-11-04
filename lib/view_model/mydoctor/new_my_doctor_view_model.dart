@@ -25,22 +25,32 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
     Map body = {"dr_identity_no": "${drId.toString()}"};
 
     await DoctorRepository().postdoctorRequest(body).then((value) {
-      getmyAllDoctors(context);
+      print(value);
       controllerRequest.clear();
+      if (value['sucess'].toString() == "Successfully store data") {
+        Messages.snackBar(
+          context,
+          value['success'].toString(),
+        );
+        getmyAllDoctors(context);
+      } else {
+        Messages.snackBar(
+          context,
+          value['message'].toString(),
+        );
+      }
+
       isDoctorLoading = false;
-      Messages.snackBar(
-        context,
-        value['message'],
-      );
+      notifyListeners();
     }).onError((error, stackTrace) {
       isDoctorLoading = true;
 
       debugPrint(error.toString());
 
-      Messages.snackBar(
-        context,
-        error.toString(),
-      );
+      // Messages.snackBar(
+      //   context,
+      //   error.toString(),
+      // );
     });
 
     notifyListeners();

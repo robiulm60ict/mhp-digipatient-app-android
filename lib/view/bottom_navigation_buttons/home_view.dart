@@ -20,6 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/message.dart';
 import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
+import '../../view_model/user_view_model/user_view_model.dart';
 import '../real_communication/data.dart';
 
 class HomeView extends StatefulWidget {
@@ -38,12 +39,13 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     getUserData();
+    context.read<UserViewModel>().getUserDetails();
+
   }
 
   getUserData() async {
     final prefs = await SharedPreferences.getInstance();
     name = prefs.getString(UserP.name) ?? "";
-    setState(() {});
   }
 
   @override
@@ -59,6 +61,8 @@ class _HomeViewState extends State<HomeView> {
     double width = (size.width / 3);
     width = width + width;
     debugPrint(size.width.toString());
+    final userVM = Provider.of<UserViewModel>(context);
+
     final provider = Provider.of<HomeViewModel>(context);
     final videoCall = Provider.of<VideoCallViewModel>(context);
     final dvm = Provider.of<MyDoctorDelaisViewModel>(context);

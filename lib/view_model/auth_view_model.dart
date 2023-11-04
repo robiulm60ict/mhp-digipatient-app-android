@@ -211,7 +211,7 @@ class AuthViewModel with ChangeNotifier {
     setRegistrationLoading(true);
     isRegistrationLoading = true;
     auth.signUpApi(body: body, imageBytes: imageBytes).then((value) {
-      registrationList.add(value);
+     // registrationList.add(value);
       // debugPrint(
       //     "\n\n\n\n\n\n ${value.patients?.patientFirstName} id: ${value.patients?.id}");
       Messages.snackBar(context, value.message.toString(),
@@ -224,17 +224,10 @@ class AuthViewModel with ChangeNotifier {
       //     id: int.tryParse("${value.patients?.id}") ?? 0,
       //     role: value.data!.userType ?? "");
       isRegistrationLoading = false;
-      // Future.delayed(const Duration(seconds: 1)).then((v) {
-      //   // setLoginLoading(false, value);
-      //   if (value.data!.userType.toString().toLowerCase() == "patient") {
+
+
       context.router.push(const SignInRoute());
-      //   } else if (value.data!.userType.toString().toLowerCase() == "doctor") {
-      //     context.router.replace(const DoctorHomeRoute());
-      //   } else {
-      //     Messages.flushBarMessage(context,
-      //         "Role is not in the code ${value.data!.userType.toString().toLowerCase()}");
-      //   }
-      // });
+
     }).onError((error, stackTrace) {
       Messages.snackBar(context, error.toString());
       setRegistrationLoading(false);

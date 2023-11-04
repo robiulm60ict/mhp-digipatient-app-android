@@ -185,8 +185,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                     child: Column(
                       children: [
                         SingleInvoiceRow(lTitle: "Patient Name :",
-                            rTitle: "${userVM.user?.patientFirstName} ${userVM
-                                .user?.patientMiddleName} ${userVM.user
+                            rTitle: "${userVM.user?.patientFirstName} ${userVM.user
                                 ?.patientLastName}"),
                         SingleInvoiceRow(lTitle: "Mobile Number :",
                             rTitle: "${userVM.user?.patientMobilePhone}"),

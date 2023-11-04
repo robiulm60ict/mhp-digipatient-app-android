@@ -50,6 +50,7 @@ class AppUrls{
   static const String pastRX = "$baseUrl/api/past-dugs-history/";
 
   /// user
+  static const String userProfileUrl = "$baseUrlPatient/patients-profile/";
   static const String userUrl = "$baseUrl/api/edit-patients/";
 
   //TODO: set Edit user url
@@ -57,7 +58,7 @@ class AppUrls{
 
   /// image
 
-  static const String image = "$baseUrl/mhp_server/public/";
+  static const String image = "$baseUrlIP/images/files/";
 
   /// book appointment
 
@@ -78,13 +79,13 @@ class AppUrls{
 
 /// Medical History From Great Doc
 
-  static const String medicalHistoryFromGreatDoc = '$baseUrl/api/past-history/';
+  static const String medicalHistoryFromGreatDoc = '$baseUrlIP/api/past-history/';
 
-  static const String medicalProcedureFromGreatDoc = '$baseUrl/api/great-doc-procedure/';
+  static const String medicalProcedureFromGreatDoc = '$baseUrlIP/api/great-doc-procedure/';
 
   static const String vitals = '$baseUrl/api/patient-search-by-id/';
 
-  static const String reasonForVisit = '$baseUrl/api/get-great-doc-reson/';
+  static const String reasonForVisit = '$baseUrlIP/api/get-great-doc-reson/';
 
   static const String saveVital = '$baseUrl/api/save-vital-sign-patient';
 
