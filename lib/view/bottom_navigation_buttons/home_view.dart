@@ -71,6 +71,7 @@ class _HomeViewState extends State<HomeView> {
       top: true,
       maintainBottomViewPadding: true,
       child: Scaffold(
+        backgroundColor: AppColors.backgroundColor,
         extendBody: true,
         drawer: Drawer(
           width: width,

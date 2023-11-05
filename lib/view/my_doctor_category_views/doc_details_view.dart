@@ -175,7 +175,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                 child: RichText(
                                   text: TextSpan(
                                       text:
-                                          "${mdVM.docFeeList.isNotEmpty ? mdVM.docFeeList.first.doctors?.amount ?? "0" : " "} ",
+                                          "${doc?.doctors?.doctorFee ?? "0"} ",
                                       style: TextStyle(
                                           fontSize: 18.sp,
                                           fontWeight: FontWeight.bold,
@@ -373,7 +373,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           itemCount: mdVM.doctorTimeSlotList.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            DocTimeSlots docTime =
+                            DocTimeSlot docTime =
                                 mdVM.doctorTimeSlotList[index];
                             bool isMorning =
                                 docTime.type?.toLowerCase() == "morning";
@@ -444,7 +444,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       context.router.push(BookAppointmentRoute(
                           doctors: doc!,
                           amount:
-                              "${mdVM.docFeeList.isNotEmpty ? mdVM.docFeeList.first.doctors?.amount ?? "0" : "0"} "));
+                          "${doc?.doctors?.doctorFee ?? "0"} "));
                     },
                     child: Text(
                       "Request For Appointment",

@@ -359,8 +359,8 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                               child: RadioListTile(
                                 title: Image.asset(
                                   value,
-
-                                  fit: BoxFit.fill,height: 20,
+                                  fit: BoxFit.fill,
+                                  height: 20,
                                 ),
                                 value: digitalPayValue.indexOf(value) + 1,
                                 groupValue: _selectedDigitalValue,
@@ -420,7 +420,8 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                           padding: EdgeInsets.all(8.0.r),
                           child: Row(
                             children: [
-                              SizedBox( width: 70.w,
+                              SizedBox(
+                                width: 70.w,
                                 child: Text(
                                   "Transaction Id *",
                                   style: TextStyle(
@@ -453,7 +454,8 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                           padding: EdgeInsets.all(8.0.r),
                           child: Row(
                             children: [
-                              SizedBox( width: 70.w,
+                              SizedBox(
+                                width: 70.w,
                                 child: Text(
                                   "Reference name",
                                   style: TextStyle(
@@ -614,7 +616,15 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryColor),
                       onPressed: () async {
-                        if (transaction.text.isNotEmpty) {
+                        if (payment != Payment.digital) {
+                          Messages.snackBar(context, "Select Digital Payment");
+                        } else if (transactionphone.text.isEmpty) {
+                          Messages.snackBar(context, "Enter Payment Number");
+                        } else if (transaction.text.isEmpty) {
+                          Messages.snackBar(context, "Enter Transaction Id");
+                        } else if (transactionrefer.text.isEmpty) {
+                          Messages.snackBar(context, "Enter reference name");
+                        } else {
                           Map body = {
                             "doctor_id": widget.doctorId,
                             "patient_id": widget.patientId,
@@ -632,9 +642,6 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
 
                           await apVM.bookAppointment(context,
                               body: body, doctor: widget.doctor);
-                        } else {
-                          transactionFocusNode.requestFocus();
-                          Messages.snackBar(context, "Enter Transaction Id");
                         }
                       },
                       child: Text(

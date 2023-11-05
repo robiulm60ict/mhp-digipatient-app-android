@@ -75,7 +75,7 @@ class AppUrls{
 
   /// Doctor chamber time
 
-  static const String docChamberTime = '$baseUrlPatient/doctor-chamber-times/';
+  static const String docChamberTime = 'http://35.213.180.244:7000/api/v1/doctor-chamber-times/1';
 
 /// Medical History From Great Doc
 

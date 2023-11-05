@@ -75,28 +75,29 @@ class Doctors {
   String? departmentId;
   String? specialistsId;
   dynamic departmentName;
-  dynamic drFamilyName;
+  String? drFamilyName;
   String? drGivenName;
   String? drMiddleName;
   String? drLastName;
   String? drPreferredName;
-  dynamic drAbout;
+  String? drAbout;
   String? workExperienceYears;
   String? drAddressLine1;
-  dynamic drAddressLine2;
-  dynamic drBmdcRegNo;
+  String? drAddressLine2;
+  String? drBmdcRegNo;
   String? drEmail;
   dynamic drIsReferred;
   DateTime? drDob;
   String? drBirthSexId;
   String? drCityId;
-  dynamic drPostalCode;
-  dynamic drHomePhone;
+  String? drPostalCode;
+  String? drHomePhone;
   String? drWorkPhone;
   String? drMobilePhone;
   String? drContactViaId;
   String? drProviderId;
   String? drImages;
+  String? doctorFee;
   dynamic appToken;
   String? deleteStatus;
   dynamic createdBy;
@@ -136,6 +137,7 @@ class Doctors {
     this.drContactViaId,
     this.drProviderId,
     this.drImages,
+    this.doctorFee,
     this.appToken,
     this.deleteStatus,
     this.createdBy,
@@ -176,6 +178,7 @@ class Doctors {
     drContactViaId: json["dr_contact_via_id"],
     drProviderId: json["dr_provider_id"],
     drImages: json["dr_images"],
+    doctorFee: json["doctor_fee"],
     appToken: json["app_token"],
     deleteStatus: json["delete_status"],
     createdBy: json["created_by"],
@@ -216,6 +219,7 @@ class Doctors {
     "dr_contact_via_id": drContactViaId,
     "dr_provider_id": drProviderId,
     "dr_images": drImages,
+    "doctor_fee": doctorFee,
     "app_token": appToken,
     "delete_status": deleteStatus,
     "created_by": createdBy,

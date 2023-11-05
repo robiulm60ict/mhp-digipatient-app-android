@@ -43,7 +43,7 @@ class MyDoctorViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  List<DocTimeSlots> doctorTimeSlotList = [];
+  List<DocTimeSlot> doctorTimeSlotList = [];
 
   bool isDocChamberTimeLoading = true;
 

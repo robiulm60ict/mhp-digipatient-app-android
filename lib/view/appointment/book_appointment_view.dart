@@ -59,7 +59,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
     final myDocVM = Provider.of<MyDoctorViewModel>(context);
     final anatomy = Provider.of<AnatomyModelView>(context);
 
-    return Scaffold(
+    return Scaffold( backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         title: Text(
           "Book Appointment ",
@@ -121,6 +121,8 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
           const SizedBox(
             height: 10,
           ),
+
+
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: List.generate(appointmentViewModel.weekDayList.length,
@@ -303,14 +305,14 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                     itemCount: myDocVM.doctorTimeSlotList.length,
                     itemBuilder:
                         (BuildContext context, int index, int pageViewIndex) {
-                      DocTimeSlots docTime = myDocVM.doctorTimeSlotList[index];
+                      DocTimeSlot docTime = myDocVM.doctorTimeSlotList[index];
                       return Center(
                         child: Card(
                             child: ListTile(
                           title: Text(
                               "${docTime.day}-${docTime.month}-${docTime.year}"),
                           subtitle: Text(
-                              "${myDocVM.getTime(docTime.slotFrom)} To ${myDocVM.getTime(docTime.slotTo)}"),
+                              "${myDocVM.getTime(docTime.slotFrom.toString())} To ${myDocVM.getTime(docTime.slotTo.toString())}"),
                           trailing: Text("${docTime.type}"),
                         )),
                       );
