@@ -280,7 +280,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
               onTap: () async {
                 // final date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now(), lastDate: DateTime(3033));
                 DateTime? date = await PickDateTime()
-                    .pickDate(context, initialDate: DateTime.now());
+                    .pickDateregister(context, initialDate: DateTime.now());
                 dateOfBirthController.text =
                     "${date?.day}-${date?.month}-${date?.year}";
               },

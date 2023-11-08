@@ -17,7 +17,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
+import '../../resources/app_url.dart';
 import '../../utils/message.dart';
 import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
 import '../../view_model/user_view_model/user_view_model.dart';
@@ -40,7 +42,6 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
     getUserData();
     context.read<UserViewModel>().getUserDetails();
-
   }
 
   getUserData() async {
@@ -61,12 +62,11 @@ class _HomeViewState extends State<HomeView> {
     double width = (size.width / 3);
     width = width + width;
     debugPrint(size.width.toString());
-    final userVM = Provider.of<UserViewModel>(context);
+    final user = Provider.of<UserViewModel>(context).user;
 
+    final auth = Provider.of<AuthViewModel>(context);
     final provider = Provider.of<HomeViewModel>(context);
-    final videoCall = Provider.of<VideoCallViewModel>(context);
     final dvm = Provider.of<MyDoctorDelaisViewModel>(context);
-    final authVM = Provider.of<AuthViewModel>(context);
     return SafeArea(
       top: true,
       maintainBottomViewPadding: true,
@@ -245,118 +245,148 @@ class _HomeViewState extends State<HomeView> {
               height: 150.h,
               width: double.infinity,
               decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(Assets.imagesWelcomeBackground))),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Hello!",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 22.sp,
-                        color: AppColors.primaryColor),
+                  // image: DecorationImage(
+                  //     image: AssetImage(Assets.imagesWelcomeBackground))
                   ),
-                  SizedBox(
-                    height: 8.h,
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Hello!",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18.sp,
+                                color: AppColors.primaryColor),
+                          ),
+                          SizedBox(
+                            height: 8.h,
+                          ),
+                          Text(
+                            "$name",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12.sp,
+                                color: const Color(0xFF454545)),
+                          ),
+                          SizedBox(
+                            height: 4.h,
+                          ),
+                          Text(
+                            "Welcome to MacroHealthPlus",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: const Color(0xFF7A7A7A),
+                            ),
+                          ),
+                        ],
+                      ),
+                      CircleAvatar(
+                        radius: 40,
+                          backgroundImage: NetworkImage(
+                              "${AppUrls.image}${user?.patientImages}"))
+                    ],
                   ),
-                  Text(
-                    "$name",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.sp,
-                        color: const Color(0xFF454545)),
-                  ),
-                  Text(
-                    "Welcome to MacroHealthPlus",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      color: const Color(0xFF7A7A7A),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 6.h,
-            ),
-            Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.h)),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 8.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    CircleAvatar(
-                        backgroundColor: const Color(0xFFF0F3F6),
-                        child: IconButton(
-                            onPressed: () {
-                              // NotificationService().sendNotification(body: "f__eQHA9TFmTrIFGdUh_e8:APA91bGyUQ5AxCwcQwtTFgxfpiUA2WGLHCGt2C4bnLazfCFRyqA1fl_KVX-zIkq27tmX-RTO_JGn_QpGBAEFpbBA0qCdn2gf-2-OZhGpqtSGEbaKbJW9Fgcdi3pmpjmsIvyBIFg6hzND", senderId: "senderId");
-                              // context.router.push(const ChatRoute());
-                            },
-                            icon: Icon(
-                              Icons.call,
-                              size: 18.h,
-                              color: AppColors.primaryColor,
-                            ))),
-                    CircleAvatar(
-                        backgroundColor: const Color(0xFFF0F3F6),
-                        child: IconButton(
-                            onPressed: () {
-                              // videoCall.getVideoCallToken(context, appId: appId, channelName: channelName, userId: channelName);
-                            },
-                            icon: Icon(
-                              Icons.video_call,
-                              size: 18.h,
-                              color: AppColors.primaryColor,
-                            ))),
-                    CircleAvatar(
-                        backgroundColor: const Color(0xFFF0F3F6),
-                        child: IconButton(
-                            onPressed: () {
-                              // context.router.push(const ChatRTMRoute());
-                              showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                  title: const Text("Login"),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () {
-                                          // context.router.push( AgoraChatPageRoute(chatKey: appKey, userId: userId, agoraToken: agoraToken, receiverId: receiverId));
-                                        },
-                                        child: const Text("Log-In")),
-                                  ],
-                                  content: Column(
-                                    children: [
-                                      TextField(
-                                        controller: userName,
-                                      ),
-                                      TextField(
-                                        controller: password,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                            icon: Icon(
-                              Icons.message,
-                              size: 18.h,
-                              color: AppColors.primaryColor,
-                            ))),
-                  ],
                 ),
               ),
             ),
             SizedBox(
               height: 6.h,
             ),
+
+            // ZegoSendCallInvitationButton(
+            //   isVideoCall: true,
+            //   resourceID: "digi_project", //You need to use the resourceID that you created in the subsequent steps. Please continue reading this document.
+            //   invitees: [
+            //     ZegoUIKitUser(
+            //       id: "1",
+            //       name: "Dr shahab fenk munir",
+            //     ),
+            //
+            //   ],
+            // ),
+            // Card(
+            //   shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(12.h)),
+            //   child: Padding(
+            //     padding: EdgeInsets.symmetric(horizontal: 0, vertical: 8.h),
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //       children: [
+            //         CircleAvatar(
+            //             backgroundColor: const Color(0xFFF0F3F6),
+            //             child: IconButton(
+            //                 onPressed: () {
+            //                   // NotificationService().sendNotification(body: "f__eQHA9TFmTrIFGdUh_e8:APA91bGyUQ5AxCwcQwtTFgxfpiUA2WGLHCGt2C4bnLazfCFRyqA1fl_KVX-zIkq27tmX-RTO_JGn_QpGBAEFpbBA0qCdn2gf-2-OZhGpqtSGEbaKbJW9Fgcdi3pmpjmsIvyBIFg6hzND", senderId: "senderId");
+            //                   // context.router.push(const ChatRoute());
+            //                 },
+            //                 icon: Icon(
+            //                   Icons.call,
+            //                   size: 18.h,
+            //                   color: AppColors.primaryColor,
+            //                 ))),
+            //         CircleAvatar(
+            //             backgroundColor: const Color(0xFFF0F3F6),
+            //             child: IconButton(
+            //                 onPressed: () {
+            //                   // videoCall.getVideoCallToken(context, appId: appId, channelName: channelName, userId: channelName);
+            //                 },
+            //                 icon: Icon(
+            //                   Icons.video_call,
+            //                   size: 18.h,
+            //                   color: AppColors.primaryColor,
+            //                 ))),
+            //         CircleAvatar(
+            //             backgroundColor: const Color(0xFFF0F3F6),
+            //             child: IconButton(
+            //                 onPressed: () {
+            //                   // context.router.push(const ChatRTMRoute());
+            //                   showDialog(
+            //                     context: context,
+            //                     builder: (context) => AlertDialog(
+            //                       title: const Text("Login"),
+            //                       actions: [
+            //                         TextButton(
+            //                             onPressed: () {
+            //                               // context.router.push( AgoraChatPageRoute(chatKey: appKey, userId: userId, agoraToken: agoraToken, receiverId: receiverId));
+            //                             },
+            //                             child: const Text("Log-In")),
+            //                       ],
+            //                       content: Column(
+            //                         children: [
+            //                           TextField(
+            //                             controller: userName,
+            //                           ),
+            //                           TextField(
+            //                             controller: password,
+            //                           ),
+            //                         ],
+            //                       ),
+            //                     ),
+            //                   );
+            //                 },
+            //                 icon: Icon(
+            //                   Icons.message,
+            //                   size: 18.h,
+            //                   color: AppColors.primaryColor,
+            //                 ))),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 6.h,
+            // ),
             Text(
               "What do you need?",
               style: TextStyle(
@@ -365,7 +395,7 @@ class _HomeViewState extends State<HomeView> {
                   color: const Color(0xFF8A8A8A)),
             ),
             SizedBox(
-              height: 8.h,
+              height: 4.h,
             ),
             Card(
               shape: RoundedRectangleBorder(
@@ -375,6 +405,17 @@ class _HomeViewState extends State<HomeView> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
+                    // ZegoSendCallInvitationButton(
+                    //   isVideoCall: true,
+                    //   resourceID: "digi_project",
+                    //   //You need to use the resourceID that you created in the subsequent steps. Please continue reading this document.
+                    //   invitees: [
+                    //     // ZegoUIKitUser(
+                    //     //   id: targetUserID,
+                    //     //   name: targetUserName,
+                    //     // ),
+                    //   ],
+                    // ),
                     SizedBox(
                       width: 200.w,
                       height: 40.h,
@@ -384,7 +425,7 @@ class _HomeViewState extends State<HomeView> {
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.grey)),
                             hintText: 'Enter 6 Digit Code',
-                            labelText: 'Doctor Add provider',
+                            labelText: 'Add Doctor / Clinic',
                             suffixStyle: TextStyle(color: Colors.green)),
                       ),
                     ),
@@ -393,7 +434,6 @@ class _HomeViewState extends State<HomeView> {
                         if (dvm.controllerRequest.text.isNotEmpty) {
                           dvm.docotrRequest(
                               context, dvm.controllerRequest.text);
-
                         } else {
                           Messages.snackBar(
                             context,
@@ -409,7 +449,7 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             SizedBox(
-              height: 8.h,
+              height: 4.h,
             ),
             GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
@@ -423,14 +463,13 @@ class _HomeViewState extends State<HomeView> {
                 itemBuilder: (BuildContext context, index) {
                   return InkWell(
                     onTap: () {
-                      if(index==0){
+                      if (index == 0) {
                         dvm.getmyAllDoctors(context);
                       }
 
-
                       // dvm.getDepartments(context);
 
-                     provider.homeItemsRouteTo(context, index);
+                      provider.homeItemsRouteTo(context, index);
                     },
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -470,7 +509,7 @@ class _HomeViewState extends State<HomeView> {
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 14.sp,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.w500,
                               color: AppColors.primaryColor),
                         )

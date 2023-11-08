@@ -1,13 +1,10 @@
 import 'dart:convert';
-import 'package:agora_uikit/agora_uikit.dart';
-import 'package:agora_uikit/models/agora_connection_data.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/view/real_communication/video_call.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main.dart';
@@ -32,45 +29,45 @@ class FirebaseApi{
    String icon = "@drawable/ic_launcher";
    // String icon = "app_icon";
 
-  final androidChannel = const AndroidNotificationChannel(
-      "high_importance_channel", "High Importance Notification",
-  description: "This channel is used for important notification",
-  importance: Importance.defaultImportance
-  );
-
-  final localNotification = FlutterLocalNotificationsPlugin();
-
-
-
-  Future<void> initLocalNotifications()async{
-    // const ios = DarwinInitializationSettings();
-    const android = AndroidInitializationSettings("@drawable/ic_launcher");
-    const settings = InitializationSettings(android: android,);
-    await localNotification.initialize(
-      settings,
-      onSelectNotification: (payload) {
-        final message = RemoteMessage.fromMap(jsonDecode(payload!));
-        handleMessage(message);
-      },
-      // onDidReceiveNotificationResponse: (details) {
-      //   final message = RemoteMessage.fromMap(jsonDecode(details.payload!));
-      //   /// checking message response
-      //   debugPrint("---Message from init local notification did receive notification: \n\n\n${message.data.values}\n\n\n");
-      //   handleMessage(message);
-      //
-      // },
-      // //TODO: please check below for notification error
-      // onDidReceiveBackgroundNotificationResponse: (details) {
-      //   final message = RemoteMessage.fromMap(jsonDecode(details.payload!));
-      //   debugPrint("---Message from init local notification did receive background notification: \n\n\n${message.data.values}\n\n\n");
-      //   handleMessage(message);
-      // },
-
-    );
-    final platform = localNotification.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
-    await platform?.createNotificationChannel(androidChannel);
-
-  }
+  // final androidChannel = const AndroidNotificationChannel(
+  //     "high_importance_channel", "High Importance Notification",
+  // description: "This channel is used for important notification",
+  // importance: Importance.defaultImportance
+  // );
+  //
+  // final localNotification = FlutterLocalNotificationsPlugin();
+  //
+  //
+  //
+  // Future<void> initLocalNotifications()async{
+  //   // const ios = DarwinInitializationSettings();
+  //   const android = AndroidInitializationSettings("@drawable/ic_launcher");
+  //   const settings = InitializationSettings(android: android,);
+  //   await localNotification.initialize(
+  //     settings,
+  //     onSelectNotification: (payload) {
+  //       final message = RemoteMessage.fromMap(jsonDecode(payload!));
+  //       handleMessage(message);
+  //     },
+  //     // onDidReceiveNotificationResponse: (details) {
+  //     //   final message = RemoteMessage.fromMap(jsonDecode(details.payload!));
+  //     //   /// checking message response
+  //     //   debugPrint("---Message from init local notification did receive notification: \n\n\n${message.data.values}\n\n\n");
+  //     //   handleMessage(message);
+  //     //
+  //     // },
+  //     // //TODO: please check below for notification error
+  //     // onDidReceiveBackgroundNotificationResponse: (details) {
+  //     //   final message = RemoteMessage.fromMap(jsonDecode(details.payload!));
+  //     //   debugPrint("---Message from init local notification did receive background notification: \n\n\n${message.data.values}\n\n\n");
+  //     //   handleMessage(message);
+  //     // },
+  //
+  //   );
+  //   final platform = localNotification.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+  //   await platform?.createNotificationChannel(androidChannel);
+  //
+  // }
 
   Future initPushNotifications()async{
     await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
@@ -85,18 +82,18 @@ class FirebaseApi{
     FirebaseMessaging.onMessage.listen((message) {
       final notification = message.notification;
       if(notification == null) return;
-      localNotification.show(
-          notification.hashCode, notification.title, notification.body,
-      NotificationDetails(
-        android: AndroidNotificationDetails(
-          androidChannel.id,
-          androidChannel.name,
-          channelDescription: androidChannel.description,
-          icon: icon,
-        )
-      ),
-        payload: jsonEncode(message.toMap()),
-      );
+      // localNotification.show(
+      //     notification.hashCode, notification.title, notification.body,
+      // // NotificationDetails(
+      // //   android: AndroidNotificationDetails(
+      // //     androidChannel.id,
+      // //     androidChannel.name,
+      // //     channelDescription: androidChannel.description,
+      // //     icon: icon,
+      // //   )
+      // // ),
+      //   payload: jsonEncode(message.toMap()),
+      // );
     });
   }
   saveTokenLocally(String token)async{
@@ -113,7 +110,7 @@ class FirebaseApi{
     debugPrint("Token: ${fcmToken.toString()}");
      FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
      initPushNotifications();
-     initLocalNotifications();
+     // initLocalNotifications();
   }
 
   Future<void> sendNotification({required String fcmToken, required data})async{
@@ -169,14 +166,14 @@ class FirebaseApi{
     // router.navigateTo(VideoCallingRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId));
     // context.router.push(VideoCallingRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId));
 
-  appRoute.push(VideoCallingRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId, client: AgoraClient(
-        agoraConnectionData: AgoraConnectionData(
-            appId: appId,
-            channelName: message.data['channelName'],
-            tempToken: message.data['token'],
-            // tokenUrl: AppUrls.videoCall,
-        ),
-      ))) ;
+  // appRoute.push(VideoCallingRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId, client: AgoraClient(
+  //       agoraConnectionData: AgoraConnectionData(
+  //           appId: appId,
+  //           channelName: message.data['channelName'],
+  //           tempToken: message.data['token'],
+  //           // tokenUrl: AppUrls.videoCall,
+  //       ),
+  //     ))) ;
   // appRoute.push(VideoCallingRTCRoute(token: message.data['token'], channelName: message.data['channelName'], appId: appId)) ;
   // const AutoRouter().navigatorKey?.currentState?.push(MaterialPageRoute(builder: (BuildContext context) => VideoCallingView(token: "", channelName: message.data['channelName'], appId: appId)));
 

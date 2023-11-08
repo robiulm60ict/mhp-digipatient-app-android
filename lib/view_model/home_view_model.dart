@@ -14,10 +14,11 @@ class HomeViewModel with ChangeNotifier{
   List<HomeItemsModel> homeItemsList = [
     HomeItemsModel(title: "My Doctor", image: Assets.homeMyDoc),
     HomeItemsModel(title: "My Record", image:Assets.homeMyRec),
-    HomeItemsModel(title: "My Lab", image: Assets.homeMyLab),
+    HomeItemsModel(title: "My Appointments", image: Assets.homeAppointments),
+
     HomeItemsModel(title: "My Medicine", image: Assets.homeMyMedicine),
     HomeItemsModel(title: "My Family", image: Assets.homeMyFamily),
-    HomeItemsModel(title: "Appointments", image: Assets.homeAppointments),
+    HomeItemsModel(title: "My Lab", image: Assets.homeMyLab),
     HomeItemsModel(title: "Resources", image: Assets.homeResources),
     HomeItemsModel(title: "Payments", image: Assets.homePayments),
     HomeItemsModel(title: "Services", image: Assets.homeServices),
@@ -33,12 +34,13 @@ class HomeViewModel with ChangeNotifier{
     }else if(index == 1){
       context.router.push(const MyRecordRoute());
     }else if(index == 2){
+      context.router.push(const DailyAndUpcommingRoute());
 
     }else if(index == 3){
       context.router.push(const MyMedicineRoute());
 
     }else if(index == 5){
-      context.router.push(const DailyAndUpcommingRoute());
+
 
     }else if(index == 9){
 

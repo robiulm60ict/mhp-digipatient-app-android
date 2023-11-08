@@ -32,7 +32,7 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
     android {
-    compileSdkVersion 33
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -53,7 +53,7 @@ if (keystorePropertiesFile.exists()) {
         applicationId "com.micro.digi_patient"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion 21
+        minSdkVersion 22
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -70,7 +70,10 @@ if (keystorePropertiesFile.exists()) {
         buildTypes {
             release {
                 signingConfig signingConfigs.release
+
                 crunchPngs false // or true
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
             }
         }
     }
@@ -84,4 +87,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
     implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation 'com.google.firebase:firebase-messaging:21.1.0'
+
 }

@@ -7,7 +7,6 @@ import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/utils/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/auth_model/RegistrationModel.dart';
 import '../model/auth_model/birth_sex_model.dart';
@@ -16,8 +15,10 @@ import '../model/registration/send_verification_code_model.dart';
 import '../repository/doctor_screen_repo/patient_list_repo.dart';
 import '/repository/auth_repository.dart';
 import '/routes/routes.gr.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
+
 import '/utils/message.dart';
-import 'doctor_screen_view_model/all_patient_list_view_model.dart';
 
 class AuthViewModel with ChangeNotifier {
   final _authRepo = AuthRepository();
@@ -95,6 +96,7 @@ class AuthViewModel with ChangeNotifier {
           token: value.token.toString());
       Future.delayed(const Duration(seconds: 1)).then((v) {
         setLoginLoading(false, value);
+        onUserLogin();
         context.router.replace(const DashboardRoute());
         // if (value.user!.userType.toString().toLowerCase() == "patient") {
         //   //  savePtnFcm();
@@ -112,6 +114,28 @@ class AuthViewModel with ChangeNotifier {
       Messages.flushBarMessage(context, error.toString());
       setLoginLoading(false, null);
     });
+  }
+  /// on App's user login
+  void onUserLogin() {
+    /// 1.2.1. initialized ZegoUIKitPrebuiltCallInvitationService
+    /// when app's user is logged in or re-logged in
+    /// We recommend calling this method as soon as the user logs in to your app.
+    ZegoUIKitPrebuiltCallInvitationService().init(
+      appID: 1222006055 /*input your AppID*/,
+      appSign:
+      "cf2a1ab2d6d433a3a3e99d076fafd27d42023c32b279fbff9b9b9cd525c96f29" /*input your AppSign*/,
+
+      userID: "10001",
+      userName: "Patient",
+      plugins: [ZegoUIKitSignalingPlugin()],
+    );
+  }
+
+  /// on App's user logout
+  void onUserLogout() {
+    /// 1.2.2. de-initialization ZegoUIKitPrebuiltCallInvitationService
+    /// when app's user is logged out
+    // ZegoUIKitPrebuiltCallInvitationService().uninit();
   }
 
   bool isSendOtpLoading = false;

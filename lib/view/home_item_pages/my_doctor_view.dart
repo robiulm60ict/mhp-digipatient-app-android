@@ -32,20 +32,21 @@ class MyDoctorView extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.page_background_color,
       appBar: AppBar(
+
         leadingWidth: leadingWidth,
-        toolbarHeight: 100.h,
+        toolbarHeight: 60.h,
         backgroundColor: Colors.transparent,
         centerTitle: true,
         title: Text(
           "My Doctor",
           style: TextStyle(fontSize: 18.sp, color: Colors.white),
         ),
-        leading: Padding(
-          padding: Platform.isIOS
-              ? const EdgeInsets.only(bottom: 60)
-              : EdgeInsets.symmetric(vertical: width < 411 ? 20.0 : 30),
-          child: const CustomBackButton(),
-        ),
+        // leading: Padding(
+        //   padding: Platform.isIOS
+        //       ? const EdgeInsets.only(bottom: 40)
+        //       : EdgeInsets.symmetric(vertical: width < 411 ? 20.0 : 30),
+        //   child: const CustomBackButton(),
+        // ),
         flexibleSpace: const Image(
           image: AssetImage(Assets.imagesMyDoctorAppBar),
           fit: BoxFit.fill,

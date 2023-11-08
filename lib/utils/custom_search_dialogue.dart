@@ -40,7 +40,9 @@ customSearchDialogue(BuildContext context,
         padding: EdgeInsets.all(8.0.r),
         child: DoctorListTileOurDoc(
           onTap: () {
-            context.router.push(DocDetailsRoute(id: doctor.id!));
+            context.router
+                .push(DocDetailsRoute(id: doctor.doctorsMasterId!.toInt()));
+           // context.router.push(DocDetailsRoute(id: doctor.id!));
           },
           docDegree: "",
           docDepartment: doctor.doctors?.department?.departmentsName ?? "",

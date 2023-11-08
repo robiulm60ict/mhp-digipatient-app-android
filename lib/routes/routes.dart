@@ -1,7 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:digi_patient/model/my_record_model/add_medical_history_model.dart';
 import 'package:digi_patient/resources/communication/video_calling.dart';
-import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/view/anatomy/anatomy_view.dart';
 import 'package:digi_patient/view/appointment/book_appointment_view.dart';
 import 'package:digi_patient/view/authentications/create_account_view.dart';
@@ -213,30 +212,30 @@ import '../view/splash_view.dart';
     ),
 
     /// communication audio, video, messages
-
-    AutoRoute(
-      path: '/chat',
-      page: ChatView,
-    ),
-    AutoRoute(
-      path: '/chat-rtm',
-      page: ChatRTMView,
-    ),
-    AutoRoute(
-      path: '/video-call',
-      page: VideoCallingView,
-    ),
-    AutoRoute(
-      path: '/video-call-rtc',
-      page: VideoCallingRTCView,
-    ),
+    //
+    // AutoRoute(
+    //   path: '/chat',
+    //   page: ChatView,
+    // ),
+    // AutoRoute(
+    //   path: '/chat-rtm',
+    //   page: ChatRTMView,
+    // ),
+    // AutoRoute(
+    //   path: '/video-call',
+    //   page: VideoCallingView,
+    // ),
+    // AutoRoute(
+    //   path: '/video-call-rtc',
+    //   page: VideoCallingRTCView,
+    // ),
 
     /// Doctor view
     AutoRoute(
       path: '/doctor',
       page: DoctorHomeView,
     ),
-    AutoRoute(path: '/chatR', page: AgoraChatPageView),
+    // AutoRoute(path: '/chatR', page: AgoraChatPageView),
   ],
 )
 class $AppRouter {}

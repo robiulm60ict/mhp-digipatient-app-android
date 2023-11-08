@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAjQKWfJqcVa8FvcWZQHuZ03YoXhxpLeA0',
-    appId: '1:954721516383:android:1948bd5a697e80bc9a94ea',
-    messagingSenderId: '954721516383',
-    projectId: 'digipatient-f8ec0',
-    storageBucket: 'digipatient-f8ec0.appspot.com',
+    apiKey: 'AIzaSyAhYi9dQ8Lh09FlAJuH2PJRXuIzko3hEs8',
+    appId: '1:355708416058:android:09060753407ffe6088c503',
+    messagingSenderId: '355708416058',
+    projectId: 'digidoctorpatient',
+    storageBucket: 'digidoctorpatient.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAKyxYUgYdyC32o0zcFEHBosZwGXwCbD78',
-    appId: '1:954721516383:ios:c68be0fb870d0ca89a94ea',
-    messagingSenderId: '954721516383',
-    projectId: 'digipatient-f8ec0',
-    storageBucket: 'digipatient-f8ec0.appspot.com',
+    apiKey: 'AIzaSyBngVcM89kygNz_f840JTuda5nmqZMixkk',
+    appId: '1:355708416058:ios:5a8108afcacd786188c503',
+    messagingSenderId: '355708416058',
+    projectId: 'digidoctorpatient',
+    storageBucket: 'digidoctorpatient.appspot.com',
     iosBundleId: 'com.example.digiPatient',
   );
 }

@@ -2,6 +2,9 @@
 class AppUrls{
 
   static const String googleTranslate = '';
+  static const String appId = '1222006055';
+  static const String appSign = 'cf2a1ab2d6d433a3a3e99d076fafd27d42023c32b279fbff9b9b9cd525c96f29';
+
 
    static const String baseUrl = 'https://dev.macrohealthplus.org/mhp_server/public';
    static const String baseUrlIP = 'http://35.213.180.244:7000';

@@ -1,4 +1,3 @@
-import 'package:agora_uikit/agora_uikit.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/data/firebase/firebase_api.dart';
 import 'package:digi_patient/repository/real_communication_repo/video_call.dart';
@@ -49,9 +48,9 @@ class VideoCallViewModel with ChangeNotifier {
       // context.router.push( VideoCallingRoute(token: value.token!, appId: appId, channelName: channelName));
     // context.router.push(VideoCallingRTCRoute(token: value.token!));
     // context.router.push(VideoCallingRoute(token: value.token!, channelName: value.channelName!, appId: appId));
-    context.router.push(VideoCallingRoute(token: testToken, channelName: testChannelName, appId: appId, client: AgoraClient(
-      agoraConnectionData: AgoraConnectionData(appId: appId, channelName: testChannelName, tempToken: testToken)
-    )));
+    // context.router.push(VideoCallingRoute(token: testToken, channelName: testChannelName, appId: appId, client: AgoraClient(
+    //   agoraConnectionData: AgoraConnectionData(appId: appId, channelName: testChannelName, tempToken: testToken)
+    // )));
     // context.router.push(VideoCallingRTCRoute(token: value.token!, channelName: value.channelName!, appId: appId));
     // context.router.push(VideoCallingRTCRoute(token: testToken, channelName: testChannelName, appId: appId));
         } )

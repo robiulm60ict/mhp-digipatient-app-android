@@ -31,7 +31,7 @@ class AppointmentViewModel with ChangeNotifier {
       appointmentDate = selectedDate;
 
       DateTime startWeekDay = getDate(appointmentDate
-          .subtract(Duration(days: appointmentDate.weekday - 1)));
+          .subtract(Duration(days: appointmentDate.weekday + 1)));
 
       // startWeekDay = startWeekDay.subtract(const Duration(days: 2));
 
@@ -69,7 +69,7 @@ class AppointmentViewModel with ChangeNotifier {
     notifyListeners();
     DateTime selectedDate = DateTime.now();
     DateTime startWeekDay = getDate(
-        selectedDate.subtract(Duration(days: appointmentDate.weekday - 7)));
+        selectedDate.subtract(Duration(days: appointmentDate.weekday + 1)));
 
     for (var i = 0; i < 7; i++) {
       DateTime date = startWeekDay.add(Duration(days: i));

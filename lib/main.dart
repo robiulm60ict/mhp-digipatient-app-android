@@ -15,11 +15,9 @@ import 'package:digi_patient/view_model/real_communication/video_call_view_model
 import 'package:digi_patient/view_model/signup_model.dart';
 import 'package:digi_patient/view_model/user_view_model/user_view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localization/flutter_localization.dart';
-
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import '/resources/colors.dart';
 import '/routes/routes.gr.dart';
 import '/view_model/auth_view_model.dart';
@@ -30,13 +28,14 @@ import 'firebase_options.dart';
 import 'view_model/mydoctor/new_my_doctor_view_model.dart';
 import 'view_model/qr_code_dr_profile_view_model/profile_view_model.dart';
 
-final FlutterLocalization localization = FlutterLocalization.instance;
 
-Future<void> backgroundMessageHandler(RemoteMessage message)async{
-  await Firebase.initializeApp();
-}
+// final FlutterLocalization localization = FlutterLocalization.instance;
 
-final navigatorKey = GlobalKey<NavigatorState>();
+// Future<void> backgroundMessageHandler(RemoteMessage message)async{
+//   await Firebase.initializeApp();
+// }
+
+ final navigatorKey = GlobalKey<NavigatorState>();
 final appRoute = AppRouter(navigatorKey);
 // final navigatorKey = GlobalKey<NavigatorState>();
 // final _appRouter = AppRouter(
@@ -47,15 +46,20 @@ final appRoute = AppRouter(navigatorKey);
 Future<void> main() async {
   await ScreenUtil.ensureScreenSize();
   WidgetsFlutterBinding.ensureInitialized();
+  final navigatorKey = GlobalKey<NavigatorState>();
+
+    ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await Firebase.initializeApp(
+    name: "digi",
     options: DefaultFirebaseOptions.currentPlatform,
   );
   // await FirebaseMessaging.instance.getInitialMessage();
   //  FirebaseMessaging.onBackgroundMessage(backgroundMessageHandler);
   //  await NotificationService().getToken();
-   await FirebaseApi().initNotifications();
+  // await FirebaseApi().initNotifications();
   runApp(
     MultiProvider(
       providers: [
@@ -79,7 +83,8 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => MyDoctorViewModel(),
-        ), ChangeNotifierProvider(
+        ),
+        ChangeNotifierProvider(
           create: (context) => MyDoctorDelaisViewModel(),
         ),
         ChangeNotifierProvider(
@@ -102,17 +107,25 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => DrProfileViewModel(),
-        ), ChangeNotifierProvider(
+        ),
+        ChangeNotifierProvider(
           create: (context) => DoctorScreenViewModel(),
         ),
       ],
-      child: const MyApp(),
+      child: MyApp(
+        navigatorKey: navigatorKey,
+      ),
     ),
   );
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final GlobalKey<NavigatorState> navigatorKey;
+
+  const MyApp({
+    required this.navigatorKey,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -120,8 +133,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _appRouter = AppRouter();
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +143,6 @@ class _MyAppState extends State<MyApp> {
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp.router(
-
           // routerConfig: appRouter.config(),
           // supportedLocales: localization.supportedLocales,
           // localizationsDelegates: localization.localizationsDelegates,
