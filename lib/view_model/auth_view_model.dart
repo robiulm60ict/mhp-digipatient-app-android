@@ -5,6 +5,8 @@ import 'package:digi_patient/model/auth_model/blood_group_model.dart';
 import 'package:digi_patient/model/auth_model/login_model.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/utils/user.dart';
+import 'package:digi_patient/view/authentications/create_account_view.dart';
+import 'package:digi_patient/view/pincode_verification_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,6 +15,8 @@ import '../model/auth_model/birth_sex_model.dart';
 import '../model/registration/otp_check_model.dart';
 import '../model/registration/send_verification_code_model.dart';
 import '../repository/doctor_screen_repo/patient_list_repo.dart';
+import '../utils/route/routes_name.dart';
+import '../view/authentications/sign_in_view.dart';
 import '/repository/auth_repository.dart';
 import '/routes/routes.gr.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
@@ -92,12 +96,14 @@ class AuthViewModel with ChangeNotifier {
           password: body['password'],
           name: value.user!.name!,
           id: int.parse(value.user!.userId!),
+          userid: int.parse(value.user!.id!.toString()),
           role: value.user!.userType ?? "",
           token: value.token.toString());
       Future.delayed(const Duration(seconds: 1)).then((v) {
         setLoginLoading(false, value);
         onUserLogin();
-        context.router.replace(const DashboardRoute());
+        Navigator.pushNamed(context, RoutesName.dashbord);
+        // context.router.replace(const DashboardRoute());
         // if (value.user!.userType.toString().toLowerCase() == "patient") {
         //   //  savePtnFcm();
         //   context.router.replace(const DashboardRoute());
@@ -115,18 +121,35 @@ class AuthViewModel with ChangeNotifier {
       setLoginLoading(false, null);
     });
   }
+
   /// on App's user login
-  void onUserLogin() {
+  void onUserLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? userid = prefs.getInt(UserP.userid);
+    String? name = prefs.getString(UserP.name);
+
     /// 1.2.1. initialized ZegoUIKitPrebuiltCallInvitationService
     /// when app's user is logged in or re-logged in
     /// We recommend calling this method as soon as the user logs in to your app.
+    final callController = ZegoUIKitPrebuiltCallController();
+
     ZegoUIKitPrebuiltCallInvitationService().init(
       appID: 1222006055 /*input your AppID*/,
       appSign:
-      "cf2a1ab2d6d433a3a3e99d076fafd27d42023c32b279fbff9b9b9cd525c96f29" /*input your AppSign*/,
-
-      userID: "10001",
-      userName: "Patient",
+          "cf2a1ab2d6d433a3a3e99d076fafd27d42023c32b279fbff9b9b9cd525c96f29" /*input your AppSign*/,
+      userID: userid.toString(),
+      userName: name.toString(),
+      notifyWhenAppRunningInBackgroundOrQuit: true,
+      androidNotificationConfig: ZegoAndroidNotificationConfig(
+        channelID: "ZegoUIKit",
+        channelName: "Call Notifications",
+        sound: "notification",
+      ),
+      controller: callController,
+      showCancelInvitationButton: true,
+      showDeclineButton: true,
+      appName: "Digi Patient",
+      ringtoneConfig: ZegoRingtoneConfig(),
       plugins: [ZegoUIKitSignalingPlugin()],
     );
   }
@@ -135,7 +158,7 @@ class AuthViewModel with ChangeNotifier {
   void onUserLogout() {
     /// 1.2.2. de-initialization ZegoUIKitPrebuiltCallInvitationService
     /// when app's user is logged out
-    // ZegoUIKitPrebuiltCallInvitationService().uninit();
+    ZegoUIKitPrebuiltCallInvitationService().uninit();
   }
 
   bool isSendOtpLoading = false;
@@ -156,7 +179,8 @@ class AuthViewModel with ChangeNotifier {
       print(value.toString());
       otpList.add(value);
       setSendOtpLoading(false);
-      context.router.push(PinCodeVerificationRoute(phoneNumber: phnNumber));
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> PinCodeVerificationView( phoneNumber: phnNumber)));
+     // context.router.push(PinCodeVerificationRoute(phoneNumber: phnNumber));
     }).onError((error, stackTrace) {
       setSendOtpLoading(false);
       debugPrint(error.toString());
@@ -192,8 +216,10 @@ class AuthViewModel with ChangeNotifier {
             backgroundColor: AppColors.greenColor);
         // Future.delayed(Duration(microseconds: 200));
         Future.delayed(Duration.zero);
-        context.router
-            .push(CreateAccountRoute(phoneNumber: body['phone_number']));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> CreateAccountView(phoneNumber: body['phone_number'],)));
+
+        // context.router
+        //     .push(CreateAccountRoute(phoneNumber: body['phone_number']));
       } else {
         setOtpCheckError(true);
         setOtpCheckLoading(false);
@@ -235,7 +261,7 @@ class AuthViewModel with ChangeNotifier {
     setRegistrationLoading(true);
     isRegistrationLoading = true;
     auth.signUpApi(body: body, imageBytes: imageBytes).then((value) {
-     // registrationList.add(value);
+      // registrationList.add(value);
       // debugPrint(
       //     "\n\n\n\n\n\n ${value.patients?.patientFirstName} id: ${value.patients?.id}");
       Messages.snackBar(context, value.message.toString(),
@@ -248,10 +274,8 @@ class AuthViewModel with ChangeNotifier {
       //     id: int.tryParse("${value.patients?.id}") ?? 0,
       //     role: value.data!.userType ?? "");
       isRegistrationLoading = false;
-
-
-      context.router.push(const SignInRoute());
-
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInView()));
+     // context.router.push(const SignInRoute());
     }).onError((error, stackTrace) {
       Messages.snackBar(context, error.toString());
       setRegistrationLoading(false);
@@ -281,7 +305,8 @@ class AuthViewModel with ChangeNotifier {
       required String password,
       required String email}) async {
     registrationList.clear();
-    isRegistrationLoading = true;    await auth
+    isRegistrationLoading = true;
+    await auth
         .registration(
             imageFile: imageFile,
             phoneNumber: phoneNumber,
@@ -314,6 +339,7 @@ class AuthViewModel with ChangeNotifier {
       required String name,
       required String token,
       required int id,
+      required int userid,
       required String role}) async {
     final prefs = await SharedPreferences.getInstance();
 
@@ -324,6 +350,7 @@ class AuthViewModel with ChangeNotifier {
     await prefs.setString(UserP.fcmToken, token);
     await prefs.setString(UserP.name, name);
     await prefs.setInt(UserP.id, id);
+    await prefs.setInt(UserP.userid, userid);
   }
 
   removeUser() async {

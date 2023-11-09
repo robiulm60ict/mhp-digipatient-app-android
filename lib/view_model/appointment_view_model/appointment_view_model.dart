@@ -192,10 +192,18 @@ class AppointmentViewModel with ChangeNotifier {
         iconData: Icons.message),
   ];
 
+  var online_amount=0;
+
   selectOnline(int index) {
     for (var i = 0; i < onlineList.length; i++) {
       if (i == index) {
+        //print(index);
+
         onlineList[i].isSelected = true;
+        //onlineList.add( onlineList[i].amount.toDouble() as OnlineModel)  ;
+        // print(onlineList);
+        online_amount=onlineList[i].amount.toInt();
+        print(online_amount);
       } else {
         onlineList[i].isSelected = false;
       }

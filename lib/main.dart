@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/data/firebase/firebase_api.dart';
 import 'package:digi_patient/data/firebase/notification_fcm.dart';
+import 'package:digi_patient/utils/route/routes.dart';
+import 'package:digi_patient/utils/route/routes_name.dart';
 import 'package:digi_patient/view_model/anatomy/anatomy_view_model.dart';
 import 'package:digi_patient/view_model/app_locale_state/app_locale_view_model.dart';
 import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
@@ -142,7 +144,9 @@ class _MyAppState extends State<MyApp> {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp.router(
+        return
+          MaterialApp(
+            navigatorKey: navigatorKey,
           // routerConfig: appRouter.config(),
           // supportedLocales: localization.supportedLocales,
           // localizationsDelegates: localization.localizationsDelegates,
@@ -172,11 +176,48 @@ class _MyAppState extends State<MyApp> {
             iconTheme: IconThemeData(size: 25.h, color: Colors.grey),
           ),
           debugShowCheckedModeBanner: false,
-          routerDelegate: AutoRouterDelegate(appRoute),
-          routeInformationParser: appRoute.defaultRouteParser(),
+            initialRoute: RoutesName.splash,
+            onGenerateRoute: Routes.generateRoute,
+          // routerDelegate: AutoRouterDelegate(appRoute),
+          // routeInformationParser: appRoute.defaultRouteParser(),
           // routerDelegate: _appRouter.delegate(),
           // routeInformationParser: _appRouter.defaultRouteParser(),
         );
+        // MaterialApp.router(
+        //   // routerConfig: appRouter.config(),
+        //   // supportedLocales: localization.supportedLocales,
+        //   // localizationsDelegates: localization.localizationsDelegates,
+        //   // locale: provider.locale,
+        //   theme: ThemeData(
+        //     // useMaterial3: true,
+        //
+        //     fontFamily: 'RobotoMono',
+        //     primaryColor: AppColors.primaryColor,
+        //     colorScheme: ColorScheme.fromSwatch(
+        //       primarySwatch: Colors.green,
+        //     ),
+        //
+        //     appBarTheme: AppBarTheme(
+        //       elevation: 0,
+        //       toolbarHeight: 50.h,
+        //
+        //       backgroundColor: const Color(0xFFe6e6e6),
+        //       // backgroundColor: const Color(0xFFf2f2f2),
+        //       titleTextStyle: TextStyle(
+        //         fontSize: 16.sp,
+        //         fontWeight: FontWeight.w700,
+        //         color: const Color(0xFF646464),
+        //       ),
+        //     ),
+        //     scaffoldBackgroundColor: const Color(0xFFe6e6e6),
+        //     iconTheme: IconThemeData(size: 25.h, color: Colors.grey),
+        //   ),
+        //   debugShowCheckedModeBanner: false,
+        //   routerDelegate: AutoRouterDelegate(appRoute),
+        //   routeInformationParser: appRoute.defaultRouteParser(),
+        //   // routerDelegate: _appRouter.delegate(),
+        //   // routeInformationParser: _appRouter.defaultRouteParser(),
+        // );
       },
     );
   }

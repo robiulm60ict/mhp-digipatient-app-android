@@ -15,7 +15,7 @@ class CustomBackButton extends StatelessWidget {
     return InkWell(
       onTap: () => poopAllRoute ? context.router.replaceAll([
         const DashboardRoute()
-      ]) : context.router.pop(),
+      ]) : Navigator.pop(context),
       child: Card(
         margin: EdgeInsets.all(margin.r),
         elevation: 5,

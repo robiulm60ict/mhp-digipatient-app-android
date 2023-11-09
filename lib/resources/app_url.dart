@@ -7,15 +7,16 @@ class AppUrls{
 
 
    static const String baseUrl = 'https://dev.macrohealthplus.org/mhp_server/public';
-   static const String baseUrlIP = 'http://35.213.180.244:7000';
-   static const String baseUrlPatient = 'http://35.213.180.244:7000/api/v1';
+   static const String baseUrlIP = 'https://gdbackend.macrohealthplus.org';
+   // static const String baseUrlPatient = 'http://35.213.180.244:7000/api/v1';
+   static const String baseUrlPatient = 'https://gdbackend.macrohealthplus.org/api/v1';
 
   static const String baseAddApi = '/mhp_server/public/api/';
 
   static const String bearer = 'Bearer ';
 
   static const String auth = 'Authorization';
-  static const String drprofile = 'http://35.213.180.244:7000/api/doctors/';
+  static const String drprofile = 'https://gdbackend.macrohealthplus.org/api/doctors/';
 
 
     static const String login = '$baseUrlPatient/login-patient';
@@ -46,7 +47,7 @@ class AppUrls{
 
   static const String diseaseByGenderAndName = '$baseUrl/api/patient-symptomsByGender/';
 
-  static const String docImage = "http://35.213.180.244:7000/doctors/images/";
+  static const String docImage = "https://gdbackend.macrohealthplus.org/doctors/images/";
 
   static const String currentRX = "$baseUrl/api/get-pescriped-dugs/";
 

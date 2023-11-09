@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/message.dart';
 import 'package:digi_patient/utils/utils.dart';
+import 'package:digi_patient/view/authentications/sign_up_view.dart';
 import 'package:digi_patient/view_model/auth_view_model.dart';
 import 'package:digi_patient/widgets/custom_button.dart';
 import 'package:digi_patient/widgets/custom_textfield.dart';
@@ -122,7 +123,7 @@ class _SignInViewState extends State<SignInView> {
               text: TextSpan(
               children: [
                 TextSpan(text: "Don't have account yet?", style: TextStyle(fontSize: 14.sp, color: Colors.black)),
-                TextSpan(text: "  Register Here", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor), recognizer: TapGestureRecognizer()..onTap = ()=> context.router.push(const SignUpRoute()))
+                TextSpan(text: "  Register Here", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor), recognizer: TapGestureRecognizer()..onTap = ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpView())))
               ]
             ),),
           ),

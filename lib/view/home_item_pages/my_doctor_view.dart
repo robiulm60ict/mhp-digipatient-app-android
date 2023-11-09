@@ -5,6 +5,7 @@ import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/utils/custom_search_dialogue.dart';
 import 'package:digi_patient/utils/utils.dart';
+import 'package:digi_patient/view/my_doctor_category_views/doc_details_view.dart';
 import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:digi_patient/widgets/back_button.dart';
 import 'package:flutter/material.dart';
@@ -115,11 +116,13 @@ class MyDoctorView extends StatelessWidget {
 
                       return DocCard(
                         onTap: () {
-                          context.router
-                              .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>DocDetailsView(id: doc!.doctorsMasterId!)));
+
+                          // context.router
+                          //     .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
                         },
                         docImage:
-                            "http://35.213.180.244:7000/doctors/images/${doc?.doctors?.drImages.toString()}",
+                            "https://gdbackend.macrohealthplus.org/doctors/images/${doc?.doctors?.drImages.toString()}",
                         docName:
                             "${doc?.doctors?.title.toString()} ${doc?.doctors?.drGivenName.toString()} ${doc?.doctors?.drMiddleName.toString()} ${doc?.doctors?.drLastName.toString()}",
                         docSpeciality:

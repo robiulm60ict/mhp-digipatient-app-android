@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:onboarding/onboarding.dart';
 
+import '../utils/route/routes_name.dart';
+
 
 TextStyle pageTitleTextStyle = TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700, color: AppColors.primaryColor);
 TextStyle pageBodyTextStyle = TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: AppColors.primaryColor);
@@ -187,7 +189,8 @@ class _OnBoardingViewState extends State<OnBoardingView> {
       child: InkWell(
         borderRadius: defaultProceedButtonBorderRadius,
         onTap: () {
-          AutoRouter.of(context).replace(const SignInRoute());
+          Navigator.pushNamed(context, RoutesName.login);
+        //  AutoRouter.of(context).replace(const SignInRoute());
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 10.h),

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
+import 'package:digi_patient/view/payment/single_invoice_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
@@ -256,7 +257,9 @@ invoiceSuccessPopUp(BuildContext context,{bool barrierDismissible = false, requi
         actions: <Widget>[
           ElevatedButton(
             onPressed: () {
-              context.router.push(SingleInvoiceRoute(appointmentDate: appointmentDate, doctorId: doctorId, patientId: patientId, amount: amount, appointmentType: appointmentType, doctor: doctor, paymentMethod: paymentMethod));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>SingleInvoiceView(appointmentDate: appointmentDate, doctorId: doctorId, patientId: patientId, amount: amount, appointmentType: appointmentType, doctor: doctor, paymentMethod: paymentMethod)));
+
+              // context.router.push(SingleInvoiceRoute(appointmentDate: appointmentDate, doctorId: doctorId, patientId: patientId, amount: amount, appointmentType: appointmentType, doctor: doctor, paymentMethod: paymentMethod));
             },
             child: Text('View Invoice', style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: Colors.white),),
           ),

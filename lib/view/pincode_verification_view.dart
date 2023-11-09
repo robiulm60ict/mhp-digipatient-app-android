@@ -18,7 +18,7 @@ class PinCodeVerificationView extends StatefulWidget {
 
   const PinCodeVerificationView({
     Key? key,
-    this.phoneNumber,
+   required this.phoneNumber,
   }) : super(key: key);
 
   @override

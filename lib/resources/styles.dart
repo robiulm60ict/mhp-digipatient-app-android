@@ -94,7 +94,7 @@ class Style {
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w400,
     color: AppColors.page_background_color,
-    fontSize: 18.sp,
+    fontSize: 12.sp,
   );
   static TextStyle alltext_default_white = TextStyle(
     fontFamily: 'Roboto',

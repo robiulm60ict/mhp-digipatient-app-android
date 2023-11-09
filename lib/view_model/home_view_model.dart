@@ -1,6 +1,7 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
+import 'package:digi_patient/view/home_item_pages/my_doctor_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,14 +31,15 @@ class HomeViewModel with ChangeNotifier{
   homeItemsRouteTo(BuildContext context, int index){
 
     if(index == 0){
-      context.router.push(const MyDoctorRoute());
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>MyDoctorView()));
+    //  context.router.push(const MyDoctorRoute());
     }else if(index == 1){
-      context.router.push(const MyRecordRoute());
+   //   context.router.push(const MyRecordRoute());
     }else if(index == 2){
-      context.router.push(const DailyAndUpcommingRoute());
+    //  context.router.push(const DailyAndUpcommingRoute());
 
     }else if(index == 3){
-      context.router.push(const MyMedicineRoute());
+    //  context.router.push(const MyMedicineRoute());
 
     }else if(index == 5){
 

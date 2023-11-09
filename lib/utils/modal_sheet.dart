@@ -44,7 +44,8 @@ getDiseaseModalSheet(BuildContext context, {String name = "", String subName = "
                     },)),
                   SizedBox(height: 10.h,),
                   CustomButton(text: "Set", onTap: () {
-                    context.router.pop();
+                    Navigator.pop(context);
+                    // context.router.pop();
                   },)
                 ],
               ),

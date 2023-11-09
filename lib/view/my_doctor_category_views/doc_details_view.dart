@@ -4,8 +4,10 @@ import 'package:digi_patient/model/doctor_model/doctor_chember_time_model.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/resources/colors.dart';
+import 'package:digi_patient/resources/styles.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/custom_rating.dart';
+import 'package:digi_patient/view/appointment/book_appointment_view.dart';
 import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,6 +62,32 @@ class _DocDetailsViewState extends State<DocDetailsView> {
   Widget build(BuildContext context) {
     final mdVM = Provider.of<MyDoctorViewModel>(context);
     return Scaffold(
+      bottomNavigationBar: BottomAppBar(
+        child:  SizedBox(
+          height: 50.h,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.r))),
+            onPressed: () {
+
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>BookAppointmentView(doctors: doc!, amount: "${doc?.doctors?.doctorFee ?? "0"} ")));
+
+              // context.router.push(BookAppointmentRoute(
+              //     doctors: doc!,
+              //     amount:
+              //     "${doc?.doctors?.doctorFee ?? "0"} "));
+            },
+            child: Text(
+              "Request For Appointment",
+              style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ),
+        ),
+      ),
       appBar: AppBar(
         leadingWidth: leadingWidth,
         leading: const CustomBackButton(),
@@ -73,7 +101,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
         // physics: const NeverScrollableScrollPhysics(),
         children: [
           Container(
-            height: 200.h,
+            height: 160.h,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -99,10 +127,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           "${doc?.doctors?.title} ${doc?.doctors?.drMiddleName} ${doc?.doctors?.drGivenName} ${doc?.doctors?.drLastName}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white),
+                          style:Style.alltext_default_white,
                         ),
                         SizedBox(
                           height: 8.h,
@@ -111,8 +136,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           "${doc?.doctors?.department?.departmentsName}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style:
-                              TextStyle(fontSize: 14.sp, color: Colors.white),
+                          style:Style.alltext_small_white,
                         ),
                         SizedBox(
                           height: 8.h,
@@ -139,13 +163,13 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           ],
                         ),
                         SizedBox(
-                          height: 18.h,
+                          height: 12.h,
                         ),
                         Row(
                           children: [
                             Container(
                               alignment: Alignment.center,
-                              height: 45.h,
+                              height: 40.h,
                               width: 60.w,
                               decoration: BoxDecoration(
                                   color: Colors.transparent,
@@ -162,7 +186,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                             Expanded(
                               child: Container(
                                 alignment: Alignment.center,
-                                height: 45.h,
+                                height: 40.h,
                                 // width: 60.w,
                                 decoration: BoxDecoration(
                                   color: Colors.transparent,
@@ -177,14 +201,14 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                       text:
                                           "${doc?.doctors?.doctorFee ?? "0"} ",
                                       style: TextStyle(
-                                          fontSize: 18.sp,
+                                          fontSize: 16.sp,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white),
                                       children: [
                                         TextSpan(
                                           text: "BDT",
                                           style: TextStyle(
-                                              fontSize: 14.sp,
+                                              fontSize: 12.sp,
                                               color: Colors.white),
                                         )
                                       ]),
@@ -207,21 +231,22 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       Align(
                         alignment: Alignment.bottomRight,
                         child: CircleAvatar(
-                          radius: 70.h,
+                          radius: 50.h,
                           backgroundColor: AppColors.linearGradient1,
+                          backgroundImage: NetworkImage( "${AppUrls.docImage}${doc?.doctors?.drImages}"),
                         ),
                       ),
-                      Image.network(
-                        "${AppUrls.docImage}${doc?.doctors?.drImages}",
-                        height: double.infinity,
-                        width: double.infinity,
-                        fit: BoxFit.fill,
-                        errorBuilder: (context, error, stackTrace) =>
-                            const CircleAvatar(
-                          backgroundColor: Colors.red,
-                          radius: 40,
-                        ),
-                      ),
+                      // Image.network(
+                      //   "${AppUrls.docImage}${doc?.doctors?.drImages}",
+                      //   height:70.h,
+                      //   width: 70.w,
+                      //   fit: BoxFit.fill,
+                      //   errorBuilder: (context, error, stackTrace) =>
+                      //       const CircleAvatar(
+                      //     backgroundColor: Colors.red,
+                      //     radius: 40,
+                      //   ),
+                      // ),
                     ],
                   ),
                 )
@@ -249,7 +274,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           title: Text(
                             "3000+",
                             style: TextStyle(
-                                fontSize: 16.sp,
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.primaryColor),
                           ),
@@ -272,14 +297,14 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           title: Text(
                             "${doc?.doctors?.workExperienceYears.toString()} years",
                             style: TextStyle(
-                                fontSize: 16.sp,
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.primaryColor),
                           ),
                           subtitle: Text(
                             "Experience",
                             style:
-                                TextStyle(fontSize: 12.sp, color: Colors.grey),
+                                TextStyle(fontSize: 10.sp, color: Colors.grey),
                           ),
                         ),
                       ),
@@ -290,46 +315,41 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                   height: 20.h,
                 ),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+
                   children: [
                     Text(
                       "Specialty",
                       style: TextStyle(
-                          fontSize: 18.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
                           color: const Color(0xFF646464)),
                     ),
                     SizedBox(
                       width: 8.w,
                     ),
-                    Expanded(
-                      child: Wrap(
-                        spacing: 5,
-                        children: [
-                          Card(
-                            elevation: 5,
-                            child: Padding(
-                              padding: EdgeInsets.all(3.0.r),
-                              child: Text(
-                                "${doc?.doctors!.specialist?.specialistsName.toString()}",
-                                style: TextStyle(
-                                    fontSize: 16.sp,
-                                    color: const Color(0xFF8A8A8A)),
-                              ),
-                            ),
-                          ),
-                        ],
+                    Card(
+                      elevation: 5,
+                      child: Padding(
+                        padding: EdgeInsets.all(0.r),
+                        child: Text(
+                          "${doc?.doctors!.specialist?.specialistsName.toString()}",
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              color: const Color(0xFF8A8A8A)),
+                        ),
                       ),
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 10.h,
                 ),
                 Text(
                   "About Doctor",
                   style: TextStyle(
-                      fontSize: 18.sp,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
                       color: const Color(0xFF646464)),
                 ),
@@ -341,27 +361,27 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                   trimCollapsedText: 'See All',
                   trimExpandedText: 'See less',
                   moreStyle: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w500,
                       color: AppColors.primaryColor),
                   lessStyle: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w500,
                       color: AppColors.primaryColor),
-                  style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                  style: TextStyle(fontSize: 10.sp, color: Colors.grey),
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 10.h,
                 ),
                 Text(
                   "Schedule",
                   style: TextStyle(
-                      fontSize: 18.sp,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
                       color: const Color(0xFF646464)),
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 10.h,
                 ),
                 SizedBox(
                   height: 70.h,
@@ -378,7 +398,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                             bool isMorning =
                                 docTime.type?.toLowerCase() == "morning";
                             return Card(
-                              elevation: 5,
+                              elevation: 2,
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 8.0.h, horizontal: 16.w),
@@ -390,7 +410,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                     Text(
                                       "${docTime.day}-${docTime.month}-${docTime.year}",
                                       style: TextStyle(
-                                          fontSize: 14.sp,
+                                          fontSize: 12.sp,
                                           fontWeight: FontWeight.w500,
                                           color: AppColors.primaryColor),
                                     ),
@@ -434,27 +454,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 SizedBox(
                   height: 20.h,
                 ),
-                SizedBox(
-                  height: 50.h,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.r))),
-                    onPressed: () {
-                      context.router.push(BookAppointmentRoute(
-                          doctors: doc!,
-                          amount:
-                          "${doc?.doctors?.doctorFee ?? "0"} "));
-                    },
-                    child: Text(
-                      "Request For Appointment",
-                      style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                  ),
-                ),
+
               ],
             ),
           ),

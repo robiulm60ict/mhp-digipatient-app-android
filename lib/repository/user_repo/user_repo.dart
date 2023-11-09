@@ -15,14 +15,12 @@ class UserRepo {
     final prefs = await SharedPreferences.getInstance();
 
     int? id = prefs.getInt(UserP.id);
-    print(id);
 
     try {
       dynamic response = await apiService.getGetApiResponse(
         "${AppUrls.userProfileUrl}$id",
       );
 
-      print("object${response}");
       return UserProfileModel.fromJson(response);
     } catch (e) {
       print(e.toString());

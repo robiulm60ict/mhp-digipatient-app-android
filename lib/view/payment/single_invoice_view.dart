@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:digi_patient/utils/route/routes_name.dart';
 import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
 import 'package:digi_patient/widgets/single_invoice_row.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -66,9 +67,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
 
     return WillPopScope(
       onWillPop: () {
-        context.router.replaceAll([
-          const DashboardRoute()
-        ]);
+       Navigator.pushNamed(context, RoutesName.dashbord);
         return Future.delayed(const Duration(milliseconds: 1000)).then((
             value) => true);
       },
@@ -83,7 +82,17 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
           ),
           centerTitle: true,
           leadingWidth: leadingWidth,
-          leading: const CustomBackButton(poopAllRoute: true,),
+          leading:InkWell(
+            onTap: () =>    Navigator.pushNamed(context, RoutesName.dashbord),
+            child: Card(
+              margin: EdgeInsets.all(8),
+              elevation: 5,
+              child: Padding(
+                padding: EdgeInsets.all(3),
+                child: Icon(Icons.arrow_back, color: AppColors.primaryColor, size: 20.h,),
+              ),
+            ),
+          ),
         ),
         body: ListView(
           padding: EdgeInsets.all(20.r),

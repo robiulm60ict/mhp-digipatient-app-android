@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../generated/assets.dart';
+import '../utils/route/routes_name.dart';
 import '/resources/colors.dart';
 
 
@@ -41,11 +42,13 @@ class _SplashViewState extends State<SplashView> {
     String role = prefs.getString(UserP.role) ?? "";
 
     if(isLoggedIn && role.toLowerCase() == "patient"){
-      context.router.replace(const DashboardRoute());
-    }else if(isLoggedIn && role.toLowerCase() == "doctor"){
-      context.router.push(const DoctorHomeRoute());
-    }else{
-      context.router.push(const OnBoardingRoute());
+      Navigator.pushNamed(context, RoutesName.dashbord);
+     // context.router.replace(const DashboardRoute());
+    }
+    else{
+      Navigator.pushNamed(context, RoutesName.onbording);
+
+      //context.router.push(const OnBoardingRoute());
     }
   }
 
@@ -57,14 +60,15 @@ class _SplashViewState extends State<SplashView> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-              AppColors.linearGradient1,
-              AppColors.linearGradient2,
-            ],),),
+        color: AppColors.page_background_color,
+        // decoration: BoxDecoration(
+        //     gradient: LinearGradient(
+        //         begin: Alignment.topCenter,
+        //         end: Alignment.bottomCenter,
+        //         colors: [
+        //       AppColors.linearGradient1,
+        //       AppColors.linearGradient2,
+        //     ],),),
 
         child: Stack(
           alignment: Alignment.center,
@@ -74,19 +78,19 @@ class _SplashViewState extends State<SplashView> {
                 curve: Curves.bounceInOut,
                 tween: Tween<double>(begin: 70, end: 300), duration: const Duration(seconds: 4),
                 builder: (BuildContext context, double value, Widget? child){
-              return Image.asset(Assets.imagesLogoWhite, height: value, width: value,);
+              return Image.asset(Assets.imagesLogoGreen, height: value, width: value,);
 
                 }),
 
             Positioned(
-              bottom: 50,
+              bottom: 60,
               child:
             AnimatedTextKit(
 
                 animatedTexts: [
-                    RotateAnimatedText('Android', textStyle: TextStyle(fontSize: 20.sp, color: Colors.white), duration: duration ),
-                    RotateAnimatedText('ios', textStyle: TextStyle(fontSize: 20.sp, color: Colors.white), duration: duration),
-                    RotateAnimatedText('Web', textStyle: TextStyle(fontSize: 20.sp, color: Colors.white),duration: duration ),
+                    RotateAnimatedText('Android', textStyle: TextStyle(fontSize: 20.sp, color: Colors.green), duration: duration ),
+                    RotateAnimatedText('ios', textStyle: TextStyle(fontSize: 20.sp, color: Colors.green), duration: duration),
+                    RotateAnimatedText('Web', textStyle: TextStyle(fontSize: 20.sp, color: Colors.green),duration: duration ),
                   ]),
             ),
           ],

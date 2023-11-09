@@ -178,8 +178,9 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                             ElevatedButton(
                                 child: const Text("From Gallery"),
                                 onPressed: () {
-                                  // pickImage(fromGallery: true);
-                                  context.router.pop(true);
+                                   pickImage(fromGallery: true);
+                                  Navigator.pop(context);
+                                 // context.router.pop(true);
                                 }),
                             SizedBox(
                               height: 10.h,
@@ -187,8 +188,9 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                             ElevatedButton(
                                 child: const Text("Take Photo"),
                                 onPressed: () {
-                                  // pickImage(fromGallery: false);
-                                  context.router.pop(false);
+                                   pickImage(fromGallery: false);
+                                  Navigator.pop(context);
+                                  // context.router.pop(false);
                                 }),
                             // CustomElevatedButton(
                             //     notExpandedWidth: 100,

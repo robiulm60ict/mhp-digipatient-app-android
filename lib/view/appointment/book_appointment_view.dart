@@ -7,6 +7,8 @@ import 'package:digi_patient/model/online_model/online_model.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/message.dart';
+import 'package:digi_patient/view/anatomy/anatomy_view.dart';
+import 'package:digi_patient/view/payment/payment_method_view.dart';
 import 'package:digi_patient/view_model/anatomy/anatomy_view_model.dart';
 import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
 import 'package:flutter/material.dart';
@@ -59,12 +61,13 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
     final myDocVM = Provider.of<MyDoctorViewModel>(context);
     final anatomy = Provider.of<AnatomyModelView>(context);
 
-    return Scaffold( backgroundColor: AppColors.backgroundColor,
+    return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         title: Text(
           "Book Appointment ",
           style: TextStyle(
-              fontSize: 18.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.bold,
               color: AppColors.primaryColor),
         ),
@@ -77,22 +80,28 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
           // String date = appointmentViewModel.appointmentDate.toString();
           // appointmentViewModel.setBody(docIcd: "${widget.doctors.id}", patientId: "$patientId", date: date, appointmentType: isChamber ? "Chamber" : "Online", disease: "[asd, asdf]", paymentType: "Bkash", amount: "1200", trNxNo: "tr1205");
           // appointmentViewModel.bookAppointment(context, body: appointmentViewModel.body);
+          print(isChamber ?widget.amount:"0");
           List<SymptomsAnatomy> diseaseList = anatomy.getSelectedSymptomsList();
 
-         if (diseaseList.isNotEmpty) {
+          if (diseaseList.isNotEmpty) {
+
             await appointmentViewModel.getPatientId().then((value) =>
-                context.router.push(PaymentMethodRoute(
-                    appointmentDate:
-                        appointmentViewModel.appointmentDate.toString(),
-                    appointmentType: isChamber ? "Chamber" : "Online",
-                    doctorId: "${widget.doctors.id}",
-                    patientId: "$value",
-                    amount: widget.amount,
-                    doctor: widget.doctors,
-                    diseaseList: diseaseList, shiftType: morningButton ? "morning" : "evening")));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                PaymentMethodView(
+                appointmentDate:
+                appointmentViewModel.appointmentDate.toString(),
+          appointmentType: isChamber ? "Chamber" : "Online",
+          doctorId: "${widget.doctors.doctorsMasterId}",
+          patientId: "$value",
+          amount: isChamber ?widget.amount:appointmentViewModel.online_amount.toString(),
+          doctor: widget.doctors,
+          diseaseList: diseaseList, shiftType: morningButton ? "morning" : "evening"
+          ))));
+
+
           } else {
-           Messages.snackBar(context, "Please Select Disease!");
-         }
+          Messages.snackBar(context, "Please Select Disease!");
+          }
         },
         backgroundColor: AppColors.primaryColor,
         label: Text(
@@ -112,9 +121,10 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                 await appointmentViewModel.setAppointmentDate(context);
               },
               child: Text(
-                "${appointmentViewModel.monthName}  ${appointmentViewModel.year}",
+                "${appointmentViewModel.monthName}  ${appointmentViewModel
+                    .year}",
                 style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.bold,
                     color: const Color(0xFF646464)),
               )),
@@ -126,50 +136,50 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: List.generate(appointmentViewModel.weekDayList.length,
-                  (index) {
-                WeekDayModel avm = appointmentViewModel.weekDayList[index];
-                return Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      appointmentViewModel.selectButton(index);
-                    },
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.r)),
-                      color: avm.isSelected
-                          ? AppColors.primaryColor
-                          : Colors.white,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6.0.h),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              avm.weekName,
-                              style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: avm.isSelected
-                                      ? Colors.white
-                                      : const Color(0xFF646464)),
+                      (index) {
+                    WeekDayModel avm = appointmentViewModel.weekDayList[index];
+                    return Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          appointmentViewModel.selectButton(index);
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6.r)),
+                          color: avm.isSelected
+                              ? AppColors.primaryColor
+                              : Colors.white,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 6.0.h),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  avm.weekName,
+                                  style: TextStyle(
+                                      fontSize: 12.sp,
+                                      color: avm.isSelected
+                                          ? Colors.white
+                                          : const Color(0xFF646464)),
+                                ),
+                                Text(
+                                  avm.day.toString(),
+                                  style: TextStyle(
+                                      fontSize: 12.sp,
+                                      color: avm.isSelected
+                                          ? Colors.white
+                                          : const Color(0xFF646464)),
+                                ),
+                              ],
                             ),
-                            Text(
-                              avm.day.toString(),
-                              style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: avm.isSelected
-                                      ? Colors.white
-                                      : const Color(0xFF646464)),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                );
-              })),
+                    );
+                  })),
           SizedBox(
-            height: 20.h,
+            height: 10.h,
           ),
           Row(
             children: [
@@ -228,7 +238,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
             ],
           ),
           SizedBox(
-            height: 20.h,
+            height: 10.h,
           ),
           Row(
             children: [
@@ -291,74 +301,79 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
             ],
           ),
           SizedBox(
-            height: 20.h,
+            height: 10.h,
           ),
           SizedBox(
             height: 80.h,
             child: myDocVM.isDocChamberTimeLoading ||
-                    myDocVM.doctorTimeSlotList.isEmpty
+                myDocVM.doctorTimeSlotList.isEmpty
                 ? const Center(
-                    child: Text("No  Data"),
-                  )
+              child: Text("No  Data"),
+            )
                 : CarouselSlider.builder(
-                    // scrollDirection: Axis.horizontal,
-                    itemCount: myDocVM.doctorTimeSlotList.length,
-                    itemBuilder:
-                        (BuildContext context, int index, int pageViewIndex) {
-                      DocTimeSlot docTime = myDocVM.doctorTimeSlotList[index];
-                      return Center(
-                        child: Card(
-                            child: ListTile(
-                          title: Text(
-                              "${docTime.day}-${docTime.month}-${docTime.year}"),
-                          subtitle: Text(
-                              "${myDocVM.getTime(docTime.slotFrom.toString())} To ${myDocVM.getTime(docTime.slotTo.toString())}"),
-                          trailing: Text("${docTime.type}"),
-                        )),
-                      );
-                    },
-                    options: CarouselOptions(
-                      // height: 400,
-                      // aspectRatio: 16/9,
-                      viewportFraction: 0.8,
-                      initialPage: 0,
-                      enableInfiniteScroll: true,
-                      reverse: false,
-                      autoPlay: true,
-                      autoPlayInterval: const Duration(seconds: 3),
-                      autoPlayAnimationDuration:
-                          const Duration(milliseconds: 1600),
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enlargeCenterPage: true,
-                      // enlargeFactor: 0.3,
-                      scrollDirection: Axis.horizontal,
-                    ),
-                    // itemBuilder: (context, index) => Card(
-                    //   color: index == 1 ? AppColors.primaryColor : Colors.white,
-                    //   child: Padding(
-                    //     padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
-                    //     child: Text("9.30AM", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: index == 1 ? Colors.white : const Color(0xFF646464)),),
-                    //   ),
-                    // ),
-                  ),
+              // scrollDirection: Axis.horizontal,
+              itemCount: myDocVM.doctorTimeSlotList.length,
+              itemBuilder:
+                  (BuildContext context, int index, int pageViewIndex) {
+                DocTimeSlot docTime = myDocVM.doctorTimeSlotList[index];
+                return Center(
+                  child: Card(
+                      child: ListTile(
+                        title: Text(
+                            "${docTime.day}-${docTime.month}-${docTime.year}"),
+                        subtitle: Text(
+                            "${myDocVM.getTime(
+                                docTime.slotFrom.toString())} To ${myDocVM
+                                .getTime(docTime.slotTo.toString())}"),
+                        trailing: Text("${docTime.type}"),
+                      )),
+                );
+              },
+              options: CarouselOptions(
+                // height: 400,
+                // aspectRatio: 16/9,
+                viewportFraction: 0.8,
+                initialPage: 0,
+                enableInfiniteScroll: true,
+                reverse: false,
+                autoPlay: true,
+                autoPlayInterval: const Duration(seconds: 3),
+                autoPlayAnimationDuration:
+                const Duration(milliseconds: 1600),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: true,
+                // enlargeFactor: 0.3,
+                scrollDirection: Axis.horizontal,
+              ),
+              // itemBuilder: (context, index) => Card(
+              //   color: index == 1 ? AppColors.primaryColor : Colors.white,
+              //   child: Padding(
+              //     padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
+              //     child: Text("9.30AM", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: index == 1 ? Colors.white : const Color(0xFF646464)),),
+              //   ),
+              // ),
+            ),
           ),
           SizedBox(
-            height: 20.h,
+            height: 10.h,
           ),
           InkWell(
             onTap: () {
-              context.router.push(const AnatomyRoute());
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AnatomyView()));
+
+              // context.router.push(const AnatomyRoute());
             },
             child: Card(
               color: AppColors.primaryColor,
               child: Padding(
                 padding:
-                    EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 10.h),
+                EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 10.h),
                 child: Text(
                   "Select Disease",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
@@ -366,11 +381,13 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
             ),
           ),
           Visibility(
-            visible: anatomy.getSelectedSymptomsList().isNotEmpty,
+            visible: anatomy
+                .getSelectedSymptomsList()
+                .isNotEmpty,
             child: Text(
               "Selected Diseases",
               style: TextStyle(
-                  fontSize: 18.sp,
+                  fontSize: 12.sp,
                   color: Colors.black,
                   fontWeight: FontWeight.bold),
             ),
@@ -381,7 +398,9 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
           ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: anatomy.getSelectedSymptomsList().length,
+            itemCount: anatomy
+                .getSelectedSymptomsList()
+                .length,
             itemBuilder: (context, index) {
               SymptomsAnatomy at = anatomy.getSelectedSymptomsList()[index];
               return Card(
@@ -389,7 +408,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                   title: Text(
                     "${at.symptomName}",
                     style: TextStyle(
-                        fontSize: 15.sp,
+                        fontSize: 12.sp,
                         color: AppColors.primaryColor,
                         fontWeight: FontWeight.bold),
                   ),
@@ -398,45 +417,12 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
             },
           ),
           SizedBox(
-            height: 20.h,
+            height: 10.h,
           ),
           Visibility(
             visible: isChamber,
-            // replacement: Column(
-            //   children: [
-            //     ListTile(
-            //       onTap: (){},
-            //       leading: CircleAvatar(
-            //         backgroundColor: AppColors.primaryColor,
-            //         child:  Icon(Icons.call, color: Colors.white, size: 15.h,),
-            //       ),
-            //       title: Text("Voice Call", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xFF646464)),),
-            //       subtitle: Text("Can you make voice call", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
-            //     trailing: Text("150.00 BDT", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-            //     ),
-            //     ListTile(
-            //       onTap: (){},
-            //       leading: CircleAvatar(
-            //         backgroundColor: AppColors.primaryColor,
-            //         child:  Icon(Icons.video_call, color: Colors.white, size: 15.h,),
-            //       ),
-            //       title: Text("Video Call", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xFF646464)),),
-            //       subtitle: Text("Can you make video call", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
-            //     trailing: Text("1500.00 BDT", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-            //     ),
-            //     ListTile(
-            //       onTap: (){},
-            //       leading: CircleAvatar(
-            //         backgroundColor: AppColors.primaryColor,
-            //         child:  Icon(Icons.message, color: Colors.white, size: 15.h,),
-            //       ),
-            //       title: Text("Messaging", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: const Color(0xFF646464)),),
-            //       subtitle: Text("Can messaging with Doctor", style: TextStyle(fontSize: 12.sp, color: const Color(0xFF646464)),),
-            //     trailing: Text("100.00 BDT", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
-            //     ),
-            //
-            //   ],
-            // ),
+
+
             replacement: ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -493,7 +479,8 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                       backgroundImage: AssetImage(Assets.imagesHospitalLogo),
                     ),
                     title: Text(
-                      "${widget.doctors!.doctors?.usualProvider?.usualProviderName.toString()}",
+                      "${widget.doctors!.doctors?.usualProvider
+                          ?.usualProviderName.toString()}",
                       style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.bold,
@@ -514,7 +501,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                     children: List.generate(
                         appointmentViewModel.weekDayList.length, (index) {
                       WeekDayModel avm =
-                          appointmentViewModel.weekDayList[index];
+                      appointmentViewModel.weekDayList[index];
                       return Card(
                         elevation: 5,
                         shape: RoundedRectangleBorder(

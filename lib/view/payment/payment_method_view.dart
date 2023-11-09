@@ -402,10 +402,13 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                               Expanded(
                                 child: TextField(
                                   controller: transactionphone,
+                                  keyboardType: TextInputType.number,
+
                                   decoration: InputDecoration(
                                       filled: true,
                                       fillColor: Colors.grey.shade200,
                                       border: InputBorder.none,
+
                                       focusedBorder: InputBorder.none,
                                       enabledBorder: InputBorder.none,
                                       hintText: "pay number",
@@ -435,6 +438,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                               ),
                               Expanded(
                                 child: TextField(
+                                  keyboardType: TextInputType.text,
                                   controller: transaction,
                                   decoration: InputDecoration(
                                       filled: true,

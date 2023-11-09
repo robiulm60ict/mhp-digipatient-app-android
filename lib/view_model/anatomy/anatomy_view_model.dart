@@ -110,6 +110,7 @@ class AnatomyModelView with ChangeNotifier{
     return false;
 
    }
+  List selecteddata = [];
 
    List<SymptomsAnatomy> getSelectedSymptomsList({bool setEmpty = false}){
      List<SymptomsAnatomy> selected = [];
@@ -121,12 +122,17 @@ class AnatomyModelView with ChangeNotifier{
       // debugPrint("\nSelected: ${i.symptomName} ${i.isSelected}");
        if(i.isSelected!= null && i.isSelected == true){
          selected.add(i);
-       //  debugPrint("Added --");
+         selecteddata.add(i.symptomName);
+         print(selected.first.symptomName);
+         // print(selecteddata.reversed.first.symptomName);
+       debugPrint("Added --");
 
        }else{
        //  debugPrint("denied --");
        }
      }
+     print(selected);
+     print("sss$selecteddata");
 
      // notifyListeners();
      return selected;

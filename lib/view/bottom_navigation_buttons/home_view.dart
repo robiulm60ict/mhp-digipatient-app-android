@@ -21,6 +21,7 @@ import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 import '../../resources/app_url.dart';
 import '../../utils/message.dart';
+import '../../utils/route/routes_name.dart';
 import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
 import '../../view_model/user_view_model/user_view_model.dart';
 import '../real_communication/data.dart';
@@ -164,8 +165,9 @@ class _HomeViewState extends State<HomeView> {
                     final prefs = await SharedPreferences.getInstance();
 
                     await prefs.setBool(UserP.isLoggedIn, false);
-
-                    context.router.replace(const SignInRoute());
+                    auth.onUserLogout();
+                    Navigator.pushNamed(context, RoutesName.login);
+                  //  context.router.replace(const SignInRoute());
                   },
                   leading: CircleAvatar(
                     backgroundColor: Colors.white,
@@ -309,8 +311,8 @@ class _HomeViewState extends State<HomeView> {
             //   resourceID: "digi_project", //You need to use the resourceID that you created in the subsequent steps. Please continue reading this document.
             //   invitees: [
             //     ZegoUIKitUser(
-            //       id: "1",
-            //       name: "Dr shahab fenk munir",
+            //       id: "2",
+            //       name: "Mhp",
             //     ),
             //
             //   ],

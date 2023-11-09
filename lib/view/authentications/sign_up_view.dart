@@ -3,6 +3,7 @@ import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/utils/message.dart';
 import 'package:digi_patient/utils/utils.dart';
+import 'package:digi_patient/view/authentications/sign_in_view.dart';
 import 'package:digi_patient/view_model/auth_view_model.dart';
 import 'package:digi_patient/widgets/custom_button.dart';
 import 'package:digi_patient/widgets/gradient_appBar.dart';
@@ -134,7 +135,7 @@ class _SignUpViewState extends State<SignUpView> {
               text: TextSpan(
                   children: [
                     TextSpan(text: "Did you have account?", style: TextStyle(fontSize: 14.sp, color: Colors.black)),
-                    TextSpan(text: "  Login", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor), recognizer: TapGestureRecognizer()..onTap = ()=> context.router.push(const SignInRoute()))
+                    TextSpan(text: "  Login", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor), recognizer: TapGestureRecognizer()..onTap = ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInView())))
                   ]
               ),),
           ),
