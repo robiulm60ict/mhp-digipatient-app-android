@@ -69,7 +69,7 @@ class DoctorRepository {
   Future<DoctorChamberTimeModel> getDocChamberTime(dynamic docId) async {
     try {
       dynamic response =
-          await apiService.getGetApiResponse("${AppUrls.docChamberTime}");
+          await apiService.getGetApiResponse("${AppUrls.docChamberTime}$docId");
       print(response);
       return DoctorChamberTimeModel.fromJson(response);
     } catch (e) {

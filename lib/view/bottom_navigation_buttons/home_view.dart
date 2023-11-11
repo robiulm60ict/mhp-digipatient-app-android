@@ -39,15 +39,26 @@ class _HomeViewState extends State<HomeView> {
   String? name = "";
 
   @override
-  void initState() {
+  void initState()  {
     super.initState();
     getUserData();
     context.read<UserViewModel>().getUserDetails();
+
   }
 
   getUserData() async {
     final prefs = await SharedPreferences.getInstance();
     name = prefs.getString(UserP.name) ?? "";
+
+    bool isLoggedIn = prefs.getBool(UserP.isLoggedIn) ?? false;
+
+    String role = prefs.getString(UserP.role) ?? "";
+
+    if (isLoggedIn) {
+      context.read<AuthViewModel>().onUserLogin();
+    } else {
+      context.read<AuthViewModel>().onUserLogout();
+    }
   }
 
   @override
@@ -167,7 +178,7 @@ class _HomeViewState extends State<HomeView> {
                     await prefs.setBool(UserP.isLoggedIn, false);
                     auth.onUserLogout();
                     Navigator.pushNamed(context, RoutesName.login);
-                  //  context.router.replace(const SignInRoute());
+                    //  context.router.replace(const SignInRoute());
                   },
                   leading: CircleAvatar(
                     backgroundColor: Colors.white,
@@ -294,7 +305,7 @@ class _HomeViewState extends State<HomeView> {
                         ],
                       ),
                       CircleAvatar(
-                        radius: 40,
+                          radius: 40,
                           backgroundImage: NetworkImage(
                               "${AppUrls.image}${user?.patientImages}"))
                     ],
@@ -308,13 +319,13 @@ class _HomeViewState extends State<HomeView> {
 
             // ZegoSendCallInvitationButton(
             //   isVideoCall: true,
-            //   resourceID: "digi_project", //You need to use the resourceID that you created in the subsequent steps. Please continue reading this document.
+            //   resourceID: "digi_project",
+            //   //You need to use the resourceID that you created in the subsequent steps. Please continue reading this document.
             //   invitees: [
             //     ZegoUIKitUser(
             //       id: "2",
             //       name: "Mhp",
             //     ),
-            //
             //   ],
             // ),
             // Card(

@@ -25,7 +25,7 @@ getDiseaseModalSheet(BuildContext context, {String name = "", String subName = "
                     alignment: Alignment.centerRight,
                     child: IconButton(
                       alignment: Alignment.centerRight,
-                      onPressed: () => context.router.pop(), icon: Icon(Icons.dangerous, color: Colors.red, size: 30.h,),),
+                      onPressed: () =>  Navigator.pop(context), icon: Icon(Icons.dangerous, color: Colors.red, size: 30.h,),),
                   ),
                   Text(name, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
                   SizedBox(height: 20.h,),
@@ -38,7 +38,7 @@ getDiseaseModalSheet(BuildContext context, {String name = "", String subName = "
                           anatomy.selectSymptoms(index: index, value: value);
                           setState((){});
                         },
-                          title: Text("${anatomy.getSymptomsList[index].symptomName}"),
+                          title: Text("${anatomy.getSymptomsList[index].symptomName}"),inactiveThumbColor : Colors.amber,
                         ),
                       );
                     },)),

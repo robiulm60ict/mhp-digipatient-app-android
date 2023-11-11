@@ -102,7 +102,7 @@ class AuthViewModel with ChangeNotifier {
       Future.delayed(const Duration(seconds: 1)).then((v) {
         setLoginLoading(false, value);
         onUserLogin();
-        Navigator.pushNamed(context, RoutesName.dashbord);
+      //  Navigator.pushNamed(context, RoutesName.dashbord);
         // context.router.replace(const DashboardRoute());
         // if (value.user!.userType.toString().toLowerCase() == "patient") {
         //   //  savePtnFcm();
@@ -176,7 +176,6 @@ class AuthViewModel with ChangeNotifier {
     setSendOtpLoading(true);
     otpList.clear();
     await _authRepo.sendOTP(body: body).then((value) {
-      print(value.toString());
       otpList.add(value);
       setSendOtpLoading(false);
       Navigator.push(context, MaterialPageRoute(builder: (context)=> PinCodeVerificationView( phoneNumber: phnNumber)));
@@ -208,7 +207,6 @@ class AuthViewModel with ChangeNotifier {
     setOtpCheckError(false);
     otpCheckList.clear();
     _authRepo.checkOTP(body: body).then((value) {
-      print(value);
       otpCheckList.add(value);
       if (otpCheckList.first.verify!) {
         setOtpCheckError(false);

@@ -8,6 +8,7 @@ import '../model/myDoctorList/mydoctorList.dart';
 import '../resources/app_url.dart';
 import '../resources/colors.dart';
 import '../routes/routes.gr.dart';
+import '../view/my_doctor_category_views/doc_details_view.dart';
 import '../widgets/doctor_list_tile_our_doc.dart';
 
 customSearchDialogue(BuildContext context,
@@ -40,8 +41,10 @@ customSearchDialogue(BuildContext context,
         padding: EdgeInsets.all(8.0.r),
         child: DoctorListTileOurDoc(
           onTap: () {
-            context.router
-                .push(DocDetailsRoute(id: doctor.doctorsMasterId!.toInt()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>DocDetailsView(id: doctor!.doctorsMasterId!)));
+
+            // context.router
+            //     .push(DocDetailsRoute(id: doctor.doctorsMasterId!.toInt()));
            // context.router.push(DocDetailsRoute(id: doctor.id!));
           },
           docDegree: "",
@@ -51,7 +54,7 @@ customSearchDialogue(BuildContext context,
           //docName: doctor.drFullName ?? "",
           docRating: 5,
           docUrl:
-              "${AppUrls.baseUrl}/mhp_server/public/doctors/images/${doctor.doctors?.drImages!}",
+              "${AppUrls.drprofile}${doctor.doctors?.drImages!}",
           docHospitalName: doctor.doctors?.usualProvider?.usualProviderName ?? "",
         ),
       ),

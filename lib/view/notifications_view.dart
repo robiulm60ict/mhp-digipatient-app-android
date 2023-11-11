@@ -88,13 +88,13 @@ class _NotificationsViewState extends State<NotificationsView> {
                 : Expanded(
                     child: ListView.separated(
                         itemBuilder: (context, index) {
-                          TodaysPatientAppointments app =
+                          TodaysPatientAppointment app =
                               appointments.todayAppointmentList[index];
 
                           return NotificationListTile(
                             doctorName: "${app.drGivenName}",
                             appointmentTime:
-                                "${getTime(app.startTime)}- ${getTime(app.endTime)}",
+                                "{getTime(app.startTime)}- {getTime(app.endTime)}",
                             onTap: () {
                               notificationPopup(context,
                                   doctorName: "${app.drGivenName}",

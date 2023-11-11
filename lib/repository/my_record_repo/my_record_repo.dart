@@ -51,10 +51,11 @@ class MyRecordRepo {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? id = prefs.getInt(UserP.id);
     try {
-      dynamic response = await apiService.getGetApiResponse(
+      dynamic response = await apiService.getGetApiResponseHeder(
         "${AppUrls.vitals}$id",
       );
 
+      print(response);
       return VitalsModel.fromJson(response);
     } catch (e) {
       rethrow;

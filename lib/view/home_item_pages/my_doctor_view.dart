@@ -122,7 +122,7 @@ class MyDoctorView extends StatelessWidget {
                           //     .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
                         },
                         docImage:
-                            "https://gdbackend.macrohealthplus.org/doctors/images/${doc?.doctors?.drImages.toString()}",
+                            "${AppUrls.drprofile}${doc?.doctors?.drImages.toString()}",
                         docName:
                             "${doc?.doctors?.title.toString()} ${doc?.doctors?.drGivenName.toString()} ${doc?.doctors?.drMiddleName.toString()} ${doc?.doctors?.drLastName.toString()}",
                         docSpeciality:

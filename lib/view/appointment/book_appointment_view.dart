@@ -158,7 +158,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                 Text(
                                   avm.weekName,
                                   style: TextStyle(
-                                      fontSize: 12.sp,
+                                      fontSize: 14.sp,
                                       color: avm.isSelected
                                           ? Colors.white
                                           : const Color(0xFF646464)),
@@ -166,7 +166,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                 Text(
                                   avm.day.toString(),
                                   style: TextStyle(
-                                      fontSize: 12.sp,
+                                      fontSize: 14.sp,
                                       color: avm.isSelected
                                           ? Colors.white
                                           : const Color(0xFF646464)),

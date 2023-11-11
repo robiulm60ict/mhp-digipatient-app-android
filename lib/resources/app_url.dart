@@ -16,7 +16,7 @@ class AppUrls{
   static const String bearer = 'Bearer ';
 
   static const String auth = 'Authorization';
-  static const String drprofile = 'https://gdbackend.macrohealthplus.org/api/doctors/';
+  static const String drprofile = 'https://gdbackend.macrohealthplus.org/doctors/images/';
 
 
     static const String login = '$baseUrlPatient/login-patient';
@@ -49,9 +49,9 @@ class AppUrls{
 
   static const String docImage = "https://gdbackend.macrohealthplus.org/doctors/images/";
 
-  static const String currentRX = "$baseUrl/api/get-pescriped-dugs/";
+  static const String currentRX = "$baseUrlPatient/get-pescriped-dugs/";
 
-  static const String pastRX = "$baseUrl/api/past-dugs-history/";
+  static const String pastRX = "$baseUrlPatient/past-dugs-history/";
 
   /// user
   static const String userProfileUrl = "$baseUrlPatient/patients-profile/";
@@ -70,32 +70,32 @@ class AppUrls{
 
   /// Appointments
 
-  static const String todayAppointments = '$baseUrl/api/todays-patientappointment/';
+  static const String todayAppointments = '$baseUrlPatient/todays-patientappointment/';
 
-  static const String upcommingAppointments = '$baseUrl/api/upcoming-patientappointment/';
+  static const String upcommingAppointments = '$baseUrlPatient/upcoming-patientappointment/';
   /// Anatomy Symptoms
 
   static const String anatomySymptoms = '$baseUrlPatient/symptoms-anatomy';
 
   /// Doctor chamber time
 
-  static const String docChamberTime = 'http://35.213.180.244:7000/api/v1/doctor-chamber-times/1';
+  static const String docChamberTime = '$baseUrlPatient/doctor-chamber-times/';
 
 /// Medical History From Great Doc
 
-  static const String medicalHistoryFromGreatDoc = '$baseUrlIP/api/past-history/';
+  static const String medicalHistoryFromGreatDoc = '$baseUrlPatient/past-history/';
 
-  static const String medicalProcedureFromGreatDoc = '$baseUrlIP/api/great-doc-procedure/';
+  static const String medicalProcedureFromGreatDoc = '$baseUrlPatient/great-doc-procedure/';
 
-  static const String vitals = '$baseUrl/api/patient-search-by-id/';
+  static const String vitals = '$baseUrlPatient/patient-search-by-id/';
 
-  static const String reasonForVisit = '$baseUrlIP/api/get-great-doc-reson/';
+  static const String reasonForVisit = '$baseUrlPatient/get-great-doc-reson/';
 
-  static const String saveVital = '$baseUrl/api/save-vital-sign-patient';
+  static const String saveVital = '$baseUrlPatient/save-vital-sign-patient';
 
-  static const String addMedicalHistory = '$baseUrl/api/past-history-save';
+  static const String addMedicalHistory = '$baseUrlPatient/past-history-save';
 
-  static const String diagnosisProcedure = '$baseUrl/api/diagnosis-procedure-reason/diagnosis';
+  static const String diagnosisProcedure = '$baseUrlPatient/diagnosis-procedure-reason/diagnosis';
 
   /// Registration
 

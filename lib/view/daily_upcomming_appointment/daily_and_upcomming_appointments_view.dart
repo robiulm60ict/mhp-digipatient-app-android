@@ -177,26 +177,26 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                     : ListView.builder(
                         itemCount: appointments.todayAppointmentList.length,
                         itemBuilder: (context, index) {
-                          TodaysPatientAppointments app =
+                          TodaysPatientAppointment app =
                               appointments.todayAppointmentList[index];
                           return AppointmentNotificationCard(
                             onTap: () {
                               debugPrint("--------------------${app.appType}");
-                              context.router.push(DailyAndUpcommingDetailRoute(
-                                  docImage:
-                                      "${AppUrls.docImage}${app.drImages}",
-                                  docName: "${app.drGivenName}",
-                                  docHospital: "${app.drAbout}",
-                                  docSpeciality: "${app.drProviderId}",
-                                  appType:
-                                      "${app.appType}".toLowerCase() == "online"
-                                          ? true
-                                          : false));
+                              // context.router.push(DailyAndUpcommingDetailRoute(
+                              //     docImage:
+                              //         "${AppUrls.docImage}${app.drImages}",
+                              //     docName: "${app.drGivenName}",
+                              //     docHospital: "${app.drAbout}",
+                              //     docSpeciality: "${app.drProviderId}",
+                              //     appType:
+                              //         "${app.appType}".toLowerCase() == "online"
+                              //             ? true
+                              //             : false));
                             },
                             title:
-                                "Today you have an appointments with ${app.drGivenName}",
+                                "${app.title} ${app.drGivenName} ${app.drLastName}",
                             subTitle:
-                                "Starts: ${getTime(app.startTime)} Ends: ${getTime(app.endTime)}",
+                                "Starts: ${DateFormat("hh:mm a").format(DateTime.parse(app.startTime.toString()))} Ends: ${DateFormat("hh:mm a").format(DateTime.parse(app.endTime.toString()))}",
                             docImage: "${AppUrls.docImage}${app.drImages}",
                           );
                         }),

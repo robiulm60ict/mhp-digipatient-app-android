@@ -16,6 +16,7 @@ import 'package:readmore/readmore.dart';
 
 import '../../model/myDoctorList/mydoctorList.dart';
 import '../../utils/utils.dart';
+import '../../view_model/appointment_view_model/appointment_view_model.dart';
 import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
 import '../../widgets/back_button.dart';
 
@@ -61,16 +62,19 @@ class _DocDetailsViewState extends State<DocDetailsView> {
   @override
   Widget build(BuildContext context) {
     final mdVM = Provider.of<MyDoctorViewModel>(context);
+    final appointmentViewModel = Provider.of<AppointmentViewModel>(context);
+
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         child:  SizedBox(
           height: 50.h,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary_color,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.r))),
             onPressed: () {
-
+             appointmentViewModel.selectButton(0);
               Navigator.push(context, MaterialPageRoute(builder: (context)=>BookAppointmentView(doctors: doc!, amount: "${doc?.doctors?.doctorFee ?? "0"} ")));
 
               // context.router.push(BookAppointmentRoute(

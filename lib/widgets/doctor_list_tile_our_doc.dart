@@ -51,15 +51,15 @@ class DoctorListTileOurDoc extends StatelessWidget {
                     SizedBox(height: 5.h,),
                     Text(docDepartment, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A)),)
                     ,SizedBox(height: 5.h,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Degree:", textAlign: TextAlign.left, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: const Color(0xFF8A8A8A)),),
-                        Text("MBBS, DA, FCPS", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),)
-                      ],
-                    ),
-                    SizedBox(height: 5.h,),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.start,
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     Text("Degree:", textAlign: TextAlign.left, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: const Color(0xFF8A8A8A)),),
+                    //     Text("MBBS, DA, FCPS", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),)
+                    //   ],
+                    // ),
+                    // SizedBox(height: 5.h,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,

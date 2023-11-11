@@ -2,11 +2,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/view/home_item_pages/my_doctor_view.dart';
+import 'package:digi_patient/view/my_medicine/my_medicine_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../routes/routes.gr.dart';
+import '../view/daily_upcomming_appointment/daily_and_upcomming_appointments_view.dart';
+import '../view/home_item_pages/my_record_view.dart';
 import '../view/qrcode/qrcode_scnner.dart';
 import 'doctor/my_doctor_view_model.dart';
 
@@ -34,13 +37,14 @@ class HomeViewModel with ChangeNotifier{
       Navigator.push(context, MaterialPageRoute(builder: (context)=>MyDoctorView()));
     //  context.router.push(const MyDoctorRoute());
     }else if(index == 1){
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>MyRecordView()));
    //   context.router.push(const MyRecordRoute());
     }else if(index == 2){
-    //  context.router.push(const DailyAndUpcommingRoute());
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>DailyAndUpcommingView()));
 
     }else if(index == 3){
     //  context.router.push(const MyMedicineRoute());
-
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>MyMedicineView()));
     }else if(index == 5){
 
 

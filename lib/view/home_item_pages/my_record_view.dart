@@ -14,6 +14,10 @@ import 'package:provider/provider.dart';
 import 'package:search_page/search_page.dart';
 
 import '../../resources/app_url.dart';
+import '../my_record/my_medical_history_view.dart';
+import '../my_record/reason_for_visit_view.dart';
+import '../my_record/self_medical_history_from_great_doc_view.dart';
+import '../my_record/vital_view.dart';
 
 class MyRecordView extends StatefulWidget {
   const MyRecordView({Key? key}) : super(key: key);
@@ -158,7 +162,9 @@ class _MyRecordViewState extends State<MyRecordView> {
               iconData: Icons.heart_broken,
               iconColor: Colors.red,
               onTap: () {
-                context.router.push(const VitalsRoute());
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>VitalsView()));
+
+                //   context.router.push(const VitalsRoute());
               }),
           SizedBox(
             height: 5.h,
@@ -167,7 +173,8 @@ class _MyRecordViewState extends State<MyRecordView> {
             title: 'My medical History',
             iconData: Icons.medical_information,
             onTap: () {
-              context.router.push(const MyMedicalHistoryRoute());
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>MyMedicalHistoryView()));
+              //context.router.push(const MyMedicalHistoryRoute());
             },
           ),
           SizedBox(
@@ -177,7 +184,8 @@ class _MyRecordViewState extends State<MyRecordView> {
             title: 'Medical History from Great Doc',
             iconData: Icons.medication_liquid_sharp,
             onTap: () {
-              context.router.push(const SelfMedicalHistoryFGDRoute());
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>SelfMedicalHistoryFGDView()));
+             // context.router.push(const SelfMedicalHistoryFGDRoute());
               // TODO: If searching is needed then uncomment this
               //  showMedicalHistoryFromGreatDocSearchView(context);
             },
@@ -189,7 +197,8 @@ class _MyRecordViewState extends State<MyRecordView> {
             title: 'Reason For Visit',
             iconData: Icons.read_more,
             onTap: () {
-              context.router.push(const ReasonForVisitRoute());
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>ReasonForVisitView()));
+              // context.router.push(const ReasonForVisitRoute());
             },
           ),
           SizedBox(

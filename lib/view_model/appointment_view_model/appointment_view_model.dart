@@ -26,12 +26,12 @@ class AppointmentViewModel with ChangeNotifier {
   setAppointmentDate(BuildContext context) async {
     DateTime? selectedDate =
         await PickDateTime().pickDate(context, initialDate: appointmentDate);
-
+    notifyListeners();
     if (selectedDate != null) {
       appointmentDate = selectedDate;
 
       DateTime startWeekDay = getDate(appointmentDate
-          .subtract(Duration(days: appointmentDate.weekday + 1)));
+          .subtract(Duration(days: appointmentDate.weekday)));
 
       // startWeekDay = startWeekDay.subtract(const Duration(days: 2));
 

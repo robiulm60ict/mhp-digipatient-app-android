@@ -3,6 +3,7 @@ import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/message.dart';
+import 'package:digi_patient/view/my_medicine/rx_detail_view.dart';
 import 'package:digi_patient/view_model/my_medicine_view_model/my_medicine_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -51,8 +52,8 @@ class _RXViewState extends State<RXView> {
                 padding: EdgeInsets.all(4.0.r),
                 child: ListTile(
                   onTap: () async{
-
-                    context.router.push( RXDetailRoute(title: "Current RX", isCurrentRxView: true));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RXDetailView(title: "Current RX", isCurrentRxView: true)));
+                    //context.router.push( RXDetailRoute(title: "Current RX", isCurrentRxView: true));
                   },
                   leading: Image.asset(Assets.myMedicineRx, height: 38.h, width: 36.w,),
                   title: Text("Current RX", style: TextStyle(fontSize: 12.sp, color: AppColors.primaryColor),),
@@ -65,7 +66,9 @@ class _RXViewState extends State<RXView> {
                 padding: EdgeInsets.all(4.0.r),
                 child: ListTile(
                   onTap: ()async{
-                    context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RXDetailView(title: "Past RX", isCurrentRxView: false)));
+
+                   // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
                   },
                   leading: Image.asset(Assets.myMedicineRx, height: 38.h, width: 36.w,),
                   title: Text("Past RX", style: TextStyle(fontSize: 12.sp, color: AppColors.primaryColor),),

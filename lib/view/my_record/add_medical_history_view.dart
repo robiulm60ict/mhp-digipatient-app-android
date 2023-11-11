@@ -104,11 +104,12 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
 
                 if (selectedDate != null &&
                     selectedCondition != null &&
-                    saverty.text.isNotEmpty &&
-                    description.text.isNotEmpty &&
-                    summary.text.isNotEmpty &&
-                    myHealthRecord.text.isNotEmpty &&
-                    details.text.isNotEmpty) {
+                  //  saverty.text.isNotEmpty &&
+                    description.text.isNotEmpty
+                 //  summary.text.isNotEmpty &&
+                  //  myHealthRecord.text.isNotEmpty &&
+                   // details.text.isNotEmpty
+                ) {
                   myRecord.addMedicalHistory(context, body);
                 } else {
                   Messages.snackBar(context, "Enter All of the Field");
@@ -197,13 +198,13 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
           SizedBox(
             height: 10.h,
           ),
-          CustomTextField(
-            textEditingController: saverty,
-            hintText: "severty",
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
+          // CustomTextField(
+          //   textEditingController: saverty,
+          //   hintText: "severty",
+          // ),
+          // SizedBox(
+          //   height: 10.h,
+          // ),
           CustomTextField(
             textEditingController: description,
             hintText: "description",
@@ -211,28 +212,28 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
           SizedBox(
             height: 10.h,
           ),
-          CustomTextField(
-            textEditingController: summary,
-            hintText: "summary",
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          CustomTextField(
-            textEditingController: myHealthRecord,
-            hintText: "my health record",
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          CustomTextField(
-            textEditingController: details,
-            hintText: "details",
-          ),
-
-          SizedBox(
-            height: 200.h,
-          )
+          // CustomTextField(
+          //   textEditingController: summary,
+          //   hintText: "summary",
+          // ),
+          // SizedBox(
+          //   height: 10.h,
+          // ),
+          // CustomTextField(
+          //   textEditingController: myHealthRecord,
+          //   hintText: "my health record",
+          // ),
+          // SizedBox(
+          //   height: 10.h,
+          // ),
+          // CustomTextField(
+          //   textEditingController: details,
+          //   hintText: "details",
+          // ),
+          //
+          // SizedBox(
+          //   height: 200.h,
+          // )
         ],
       ),
     );

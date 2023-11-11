@@ -8,6 +8,7 @@ import '../../resources/colors.dart';
 import '../../utils/utils.dart';
 import '../../view_model/my_record_view_model/my_record_view_model.dart';
 import '../../widgets/back_button.dart';
+import 'add_medical_history_view.dart';
 
 class MyMedicalHistoryView extends StatefulWidget {
   const MyMedicalHistoryView({Key? key}) : super(key: key);
@@ -53,7 +54,9 @@ class _MyMedicalHistoryViewState extends State<MyMedicalHistoryView> {
         floatingActionButton: FloatingActionButton(
             backgroundColor: AppColors.primaryColor,
             onPressed: () {
-              context.router.push(const AddMedicalHistoryRoute());
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>AddMedicalHistoryView()));
+
+              //  context.router.push(const AddMedicalHistoryRoute());
             },
             child: const Icon(
               Icons.add,

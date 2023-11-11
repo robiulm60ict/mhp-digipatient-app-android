@@ -146,13 +146,13 @@ class _MyAppState extends State<MyApp> {
       builder: (context, child) {
         return
           MaterialApp(
-            navigatorKey: navigatorKey,
+            navigatorKey:widget.navigatorKey,
           // routerConfig: appRouter.config(),
           // supportedLocales: localization.supportedLocales,
           // localizationsDelegates: localization.localizationsDelegates,
           // locale: provider.locale,
           theme: ThemeData(
-            // useMaterial3: true,
+           // useMaterial3: true,
 
             fontFamily: 'RobotoMono',
             primaryColor: AppColors.primaryColor,
