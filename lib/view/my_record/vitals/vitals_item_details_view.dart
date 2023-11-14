@@ -31,6 +31,7 @@ class VitalsItemDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final myRecord = Provider.of<MyRecordViewModel>(context);
     Widget getView(){
+      print(Vitals.bloodPressure.name);
       if(v == Vitals.bloodPressure){
         return Expanded(
           child: ListView.builder(
@@ -43,7 +44,7 @@ class VitalsItemDetailsView extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 5.0.w, vertical: 4.h),
                   child: ListTile(
                     leading: Image.network(
-                      "${AppUrls.image}images/VitalSignIcon/${vitals.icon}",
+                      "https://gdbackend.macrohealthplus.org//images/VitalSignIcon/${vitals.icon}",
                       height: 30, width: 30, fit: BoxFit.fill,
                       errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),
                     ),
@@ -68,7 +69,7 @@ class VitalsItemDetailsView extends StatelessWidget {
 
                 child: ListTile(
                   leading: Image.network(
-                    "${AppUrls.image}images/VitalSignIcon/${vitals?.icon}",
+                    "https://gdbackend.macrohealthplus.org//images/VitalSignIcon/${vitals?.icon}",
                     height: 30, width: 30, fit: BoxFit.fill,
                     errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),
                   ),

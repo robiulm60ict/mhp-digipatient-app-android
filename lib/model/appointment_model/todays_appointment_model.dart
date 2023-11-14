@@ -47,6 +47,7 @@ class TodaysPatientAppointment {
   String? appType;
   dynamic mediaTypeOnline;
   dynamic media;
+  int? appointmentCompleted;
   int? deleteStatus;
   dynamic createdBy;
   dynamic updatedBy;
@@ -89,7 +90,7 @@ class TodaysPatientAppointment {
   String? patientFirstName;
   dynamic patientMiddleName;
   String? patientLastName;
-  dynamic patientPreferredName;
+  String? patientPreferredName;
   dynamic patientContactVia;
   dynamic patientHomePhone;
   dynamic patientWorkPhone;
@@ -144,6 +145,7 @@ class TodaysPatientAppointment {
     this.appType,
     this.mediaTypeOnline,
     this.media,
+    this.appointmentCompleted,
     this.deleteStatus,
     this.createdBy,
     this.updatedBy,
@@ -242,6 +244,7 @@ class TodaysPatientAppointment {
     appType: json["app_type"],
     mediaTypeOnline: json["mediaType_online"],
     media: json["media"],
+    appointmentCompleted: json["appointment_completed"],
     deleteStatus: json["delete_status"],
     createdBy: json["created_by"],
     updatedBy: json["updated_by"],
@@ -340,6 +343,7 @@ class TodaysPatientAppointment {
     "app_type": appType,
     "mediaType_online": mediaTypeOnline,
     "media": media,
+    "appointment_completed": appointmentCompleted,
     "delete_status": deleteStatus,
     "created_by": createdBy,
     "updated_by": updatedBy,

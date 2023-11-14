@@ -234,7 +234,7 @@ class _AnatomyViewState extends State<AnatomyView> {
                 //     "${active?.title} ${active?.id} ${active?.painLevel} ${active?.transformedPath} ${active?.props} ${active?.stringify}",
                 //   flushBarPosition: FlushbarPosition.BOTTOM
                 // );
-                debugPrint("\n\n\n\n\n\n ${bodyPart.first.title} id${bodyPart.first.id} pain Level: ${bodyPart.first.painLevel} obj: ${bodyPart.first.props} active part ${active?.title}");
+                debugPrint("\n title ${bodyPart.first.title} id ${bodyPart.first.id} pain Level: ${bodyPart.first.painLevel} obj: ${bodyPart.first.props} active part ${active?.title}");
 
                 getDiseaseModalSheet(context, name: bodyPart.first.title,);
                 // debugPrint(provider.flushBarState.toString());
@@ -346,25 +346,25 @@ class _AnatomyViewState extends State<AnatomyView> {
     );
   }
 }
-
-List<DiseasesModel> diseasesList =
-
-[
-  DiseasesModel(title: "Head"),
-  DiseasesModel(title: "head1"),
-  DiseasesModel(title: "Head2"),
-  DiseasesModel(title: "Head3"),
-  DiseasesModel(title: "Head4"),
-  DiseasesModel(title: "Head5"),
-  DiseasesModel(title: "Head6"),
-  DiseasesModel(title: "Head7"),
-  DiseasesModel(title: "Head8"),
-  DiseasesModel(title: "Head9"),
-];
-
-class DiseasesModel {
-  String title;
-  bool selected;
-  DiseasesModel({required this.title, this.selected = false});
-}
+//
+// List<DiseasesModel> diseasesList =
+//
+// [
+//   DiseasesModel(title: "Head"),
+//   DiseasesModel(title: "head1"),
+//   DiseasesModel(title: "Head2"),
+//   DiseasesModel(title: "Head3"),
+//   DiseasesModel(title: "Head4"),
+//   DiseasesModel(title: "Head5"),
+//   DiseasesModel(title: "Head6"),
+//   DiseasesModel(title: "Head7"),
+//   DiseasesModel(title: "Head8"),
+//   DiseasesModel(title: "Head9"),
+// ];
+//
+// class DiseasesModel {
+//   String title;
+//   bool selected;
+//   DiseasesModel({required this.title, this.selected = false});
+// }
 

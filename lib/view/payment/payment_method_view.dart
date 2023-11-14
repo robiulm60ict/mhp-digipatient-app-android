@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/resources/app_url.dart';
@@ -65,7 +67,12 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
   TextEditingController transactionphone = TextEditingController();
   TextEditingController transactionrefer = TextEditingController();
   FocusNode transactionFocusNode = FocusNode();
-
+@override
+  void initState() {
+  data();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   void dispose() {
     super.dispose();
@@ -92,7 +99,16 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
       return "null";
     }
   }
+  List items = [];
 
+   data(){
+     for (var i in widget.diseaseList) {
+       items.add(i.symptomName
+
+       );
+     }
+     print("dfffffddddddddddddddddddddddddddddddfffff${items}");
+  }
   @override
   Widget build(BuildContext context) {
     final apVM = Provider.of<AppointmentViewModel>(context);
@@ -138,7 +154,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                     "Payment Method",
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
                         color: const Color(0xFF3C3C3C)),
                   ),
@@ -359,8 +375,9 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                               child: RadioListTile(
                                 title: Image.asset(
                                   value,
+                                  height: 15.h,
+                                  width: 30.w,
                                   fit: BoxFit.fill,
-                                  height: 20,
                                 ),
                                 value: digitalPayValue.indexOf(value) + 1,
                                 groupValue: _selectedDigitalValue,
@@ -377,7 +394,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                           child: Text(
                             "Send Money To 01774142172",
                             style: TextStyle(
-                                fontSize: 11.sp,
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black),
                           ),
@@ -391,7 +408,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                                 child: Text(
                                   "Payment Number *",
                                   style: TextStyle(
-                                      fontSize: 11.sp,
+                                      fontSize: 12.sp,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.grey),
                                 ),
@@ -428,7 +445,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                                 child: Text(
                                   "Transaction Id *",
                                   style: TextStyle(
-                                      fontSize: 11.sp,
+                                      fontSize: 12.sp,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.grey),
                                 ),
@@ -463,7 +480,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                                 child: Text(
                                   "Reference name",
                                   style: TextStyle(
-                                      fontSize: 11.sp,
+                                      fontSize: 12.sp,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.grey),
                                 ),
@@ -634,7 +651,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                             "patient_id": widget.patientId,
                             "date": widget.appointmentDate,
                             "appointment_type": widget.appointmentType,
-                            "disease": widget.diseaseList.toString(),
+                            "disease":jsonEncode(items),
                             "payment_type": getPaymentMethod(),
                             "amount": widget.amount,
                             "transaction_no": transaction.text,

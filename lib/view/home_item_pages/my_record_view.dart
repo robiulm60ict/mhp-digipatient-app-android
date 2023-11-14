@@ -254,7 +254,7 @@ showMedicalHistoryFromGreatDocSearchView(BuildContext context,
     } else {
       return showSearch(
         context: context,
-        delegate: SearchPage<AllProcedures>(
+        delegate: SearchPage<AllProcedure>(
           barTheme: ThemeData(
               appBarTheme:
                   AppBarTheme(backgroundColor: AppColors.primaryColor)),
@@ -266,15 +266,15 @@ showMedicalHistoryFromGreatDocSearchView(BuildContext context,
           failure: const Center(
             child: Text('No Procedure found :('),
           ),
-          filter: (procedure) => [procedure.procedureName, procedure.createdAt],
+          filter: (procedure) => [procedure.procedureName, procedure.createdAt.toString()],
           builder: (procedure) => Padding(
             padding: EdgeInsets.all(4.0.r),
             child: Card(
               child: ListTile(
                   title: Text("${procedure.procedureName}"),
-                  subtitle: Text(mHFgdVM.getDate(procedure.createdAt)),
+                  subtitle: Text(mHFgdVM.getDate(procedure.createdAt.toString())),
                   trailing:
-                      Text(mHFgdVM.getTime(procedure.createdAt, context))),
+                      Text(mHFgdVM.getTime(procedure.createdAt.toString(), context))),
             ),
           ),
         ),

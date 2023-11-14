@@ -72,7 +72,7 @@ class AppUrls{
 
   static const String todayAppointments = '$baseUrlPatient/todays-patientappointment/';
 
-  static const String upcommingAppointments = '$baseUrlPatient/upcoming-patientappointment/';
+  static const String upcommingAppointments = '$baseUrlPatient/upcomming-patient-appointment/';
   /// Anatomy Symptoms
 
   static const String anatomySymptoms = '$baseUrlPatient/symptoms-anatomy';

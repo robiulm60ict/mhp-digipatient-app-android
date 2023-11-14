@@ -40,7 +40,7 @@ class AppointmentViewModel with ChangeNotifier {
       for (var i = 0; i < 7; i++) {
         DateTime date = startWeekDay.add(Duration(days: i));
         weekDayList.add(WeekDayModel(
-            weekName: DateFormat("EEEE").format(date).substring(0, 3),
+            weekName: DateFormat("EEEE").format(date).substring(0, 2),
             isSelected: isSameDate(date1: date, date2: selectedDate),
             dateTime: date,
             day: date.day));
@@ -75,7 +75,7 @@ class AppointmentViewModel with ChangeNotifier {
       DateTime date = startWeekDay.add(Duration(days: i));
 
       weekDayList.add(WeekDayModel(
-          weekName: DateFormat("EEEE").format(date).substring(0, 3),
+          weekName: DateFormat("EEEE").format(date).substring(0, 1),
           isSelected: isSameDate(date1: date, date2: selectedDate),
           dateTime: date,
           day: date.day));

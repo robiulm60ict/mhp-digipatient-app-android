@@ -35,18 +35,18 @@ class PaymentUserDetail extends StatelessWidget {
               title: Text(
                 name,
                 style: TextStyle(
-                    fontSize: 18.sp,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
                     color: const Color(0xFF646464)),
               ),
               subtitle: Text(
                 designation,
                 style: TextStyle(
-                    fontSize: 12.sp, color: const Color(0xFF8A8A8A)),
+                    fontSize: 10.sp, color: const Color(0xFF8A8A8A)),
               ),
             ),
             SizedBox(
-              height: 20.h,
+              height: 10.h,
             ),
             Card(
               color: const Color(0xFFF1F4F7),
@@ -97,6 +97,7 @@ class PaymentUserDetail extends StatelessWidget {
                       height: 8.h,
                     ),
                     Row(
+
                       children: [
                         Icon(
                           Icons.date_range,

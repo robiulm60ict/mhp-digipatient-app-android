@@ -41,6 +41,7 @@ class MyRecordRepo {
         "${AppUrls.medicalProcedureFromGreatDoc}$id",
       );
 
+      print("aaa${response}");
       return ProcedureMhfgdModel.fromJson(response);
     } catch (e) {
       rethrow;
@@ -70,6 +71,7 @@ class MyRecordRepo {
         "${AppUrls.reasonForVisit}$id",
       );
 
+      print(response);
       return ReasonForVisitModel.fromJson(response);
     } catch (e) {
       rethrow;

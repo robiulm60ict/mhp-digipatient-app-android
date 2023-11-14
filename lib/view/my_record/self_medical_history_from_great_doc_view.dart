@@ -89,7 +89,7 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               itemCount: sMhFGD.procedureList.length,
                 itemBuilder: (context, index) {
-                  AllProcedures procedure = sMhFGD.procedureList[index];
+                  AllProcedure procedure = sMhFGD.procedureList[index];
                   final date = sMhFGD.getDate("${procedure.createdAt}");
                   final time = sMhFGD.getTime("${procedure.createdAt}", context);
                   return Card(

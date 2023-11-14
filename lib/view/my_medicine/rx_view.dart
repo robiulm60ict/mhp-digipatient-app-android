@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import '../../model/my_medicine_model/current_rx_model.dart';
 import '../../utils/utils.dart';
 import '../../widgets/back_button.dart';
+import 'pastrx_detail_view.dart';
 
 class RXView extends StatefulWidget {
   const RXView({Key? key}) : super(key: key);
@@ -66,7 +67,7 @@ class _RXViewState extends State<RXView> {
                 padding: EdgeInsets.all(4.0.r),
                 child: ListTile(
                   onTap: ()async{
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RXDetailView(title: "Past RX", isCurrentRxView: false)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>PastRXDetailView(title: "Past RX")));
 
                    // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
                   },

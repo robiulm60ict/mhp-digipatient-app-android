@@ -12,18 +12,19 @@ class MyMedicineViewModel with ChangeNotifier{
 
   List<PastRxModel> pastRxList = [];
 
-  List<Drugs> drugList = [];
+  // List<Drugs> drugList = [];
 
   bool isCurrentRxLoading = true;
 
   getCurrentRx(BuildContext context)async{
     isCurrentRxLoading = true;
     currentRxList.clear();
-    drugList.clear();
+    // drugList.clear();
     notifyListeners();
     medicineRepo.getCurrentRX().then((value) {
-      currentRxList.add(value);
-      drugList.addAll(value.drugs!);
+      currentRxList=value;
+      // currentRxList.add(value);
+      //drugList.addAll(value.drugs!);
       isCurrentRxLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
@@ -35,11 +36,11 @@ class MyMedicineViewModel with ChangeNotifier{
   getPastRx(BuildContext context)async{
     isCurrentRxLoading = true;
     pastRxList.clear();
-    drugList.clear();
+    // drugList.clear();
     notifyListeners();
     medicineRepo.getPastRX().then((value) {
-      pastRxList.add(value);
-      drugList.addAll(value.drugs!);
+      // pastRxList.add(value);
+      pastRxList = value;
       isCurrentRxLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {

@@ -46,7 +46,7 @@ class _SignInViewState extends State<SignInView> {
           SizedBox(height: 100.h,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
-            child: Text("Email or Mobile", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+            child: Text("Email", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
           ),
           SizedBox(height: 5.h,),
           Padding(
@@ -54,7 +54,7 @@ class _SignInViewState extends State<SignInView> {
             child: CustomTextField(
               textEditingController: emailController,
               keyboardType: TextInputType.emailAddress,
-              prefix: Icon(Icons.person_pin, color: AppColors.primaryColor,), hintText: "Email or Mobile",),
+              prefix: Icon(Icons.person_pin, color: AppColors.primaryColor,), hintText: "Email",),
           ),
           SizedBox(height: 15.h,),
           Padding(

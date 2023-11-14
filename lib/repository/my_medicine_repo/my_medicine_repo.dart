@@ -17,7 +17,7 @@ class MyMedicineRepo{
 
 
 
-  Future<CurrentRxModel> getCurrentRX() async{
+  Future<List<CurrentRxModel>> getCurrentRX() async{
 
     final prefs =  await SharedPreferences.getInstance();
 
@@ -30,7 +30,11 @@ class MyMedicineRepo{
 
       dynamic response = await apiService.getGetApiResponse("${AppUrls.currentRX}$id",);
 
-      return CurrentRxModel.fromJson(response);
+      List<CurrentRxModel> datalist = [];
+      for (var i in response['drugs']) {
+        datalist.add(CurrentRxModel.fromJson(i));
+      }
+      return datalist;
 
     }catch(e){
 
@@ -39,7 +43,7 @@ class MyMedicineRepo{
     }
   }
 
-  Future<PastRxModel> getPastRX() async{
+  Future<List<PastRxModel>> getPastRX() async{
 
     final prefs =  await SharedPreferences.getInstance();
 
@@ -50,7 +54,11 @@ class MyMedicineRepo{
 
       dynamic response = await apiService.getGetApiResponse("${AppUrls.pastRX}$id",);
 
-      return PastRxModel.fromJson(response);
+      List<PastRxModel> datalist = [];
+      for (var i in response['drugs']) {
+        datalist.add(PastRxModel.fromJson(i));
+      }
+      return datalist;
 
     }catch(e){
 

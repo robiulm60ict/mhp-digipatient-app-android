@@ -37,7 +37,7 @@ class MyRecordViewModel with ChangeNotifier {
     });
   }
 
-  List<AllProcedures> procedureList = [];
+  List<AllProcedure> procedureList = [];
   bool isProcedureLoading = true;
 
   getProcedureFromGreatDoc(BuildContext context) async {
@@ -89,7 +89,7 @@ class MyRecordViewModel with ChangeNotifier {
   }
 
   bool isReasonForVisitLoading = true;
-  List<AllReasons> reasonForVisitList = [];
+  List<AllReason> reasonForVisitList = [];
 
   getReasonForVisit(BuildContext context) async {
     isReasonForVisitLoading = true;
@@ -124,7 +124,7 @@ class MyRecordViewModel with ChangeNotifier {
 
     Map<String,dynamic> body = {
       "patient_id": "$id",
-      "doctor_id": "1",
+      // "doctor_id": "1",
       "name": vitalName,
       "value": value,
       "desc": "",

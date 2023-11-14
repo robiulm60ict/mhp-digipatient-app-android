@@ -123,16 +123,15 @@ class AnatomyModelView with ChangeNotifier{
        if(i.isSelected!= null && i.isSelected == true){
          selected.add(i);
          selecteddata.add(i.symptomName);
-         print(selected.first.symptomName);
-         // print(selecteddata.reversed.first.symptomName);
-       debugPrint("Added --");
+       //   print(selected.first.symptomName);
+       //   // print(selecteddata.reversed.first.symptomName);
+       // debugPrint("Added --");
 
        }else{
        //  debugPrint("denied --");
        }
      }
-     print(selected);
-     print("sss$selecteddata");
+
 
      // notifyListeners();
      return selected;

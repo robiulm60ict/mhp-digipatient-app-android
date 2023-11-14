@@ -101,7 +101,7 @@ class MyDoctorView extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 6.h,
+                    height: 4.h,
                   ),
                   GridView.builder(
                     itemCount: provider.myDoctorFullList.length,
@@ -110,7 +110,7 @@ class MyDoctorView extends StatelessWidget {
                         crossAxisCount: 2,
                         mainAxisSpacing: 12,
                         crossAxisSpacing: 16,
-                        height: 175.h),
+                        height: 165.h),
                     itemBuilder: (context, index) {
                       var doc = provider.myDoctorList[index];
 

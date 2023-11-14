@@ -31,6 +31,8 @@ class DocCard extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4.0.w),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: 35.h, width: double.infinity,),
                     Text(docName, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464),),),
@@ -40,7 +42,7 @@ class DocCard extends StatelessWidget {
                     Text(docHospital!, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp,  color: const Color(0xFF8A8A8A),),),
                     const SizedBox(height: 4,),
                     CustomRating.ratingBar(onRatingUpdate: (val){}),
-                  SizedBox(height: 5.h),
+                  SizedBox(height: 2.h),
                   ],
                 ),
               ),
@@ -50,7 +52,7 @@ class DocCard extends StatelessWidget {
           //     top: 0,
           //     child: CircleAvatar(radius: 25.h,),),
           Positioned(
-            top: 0,
+            top: 10,
             child: ClipOval(
               child: FadeInImage(
                 fit: BoxFit.cover,

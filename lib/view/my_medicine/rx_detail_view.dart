@@ -32,7 +32,7 @@ class _RXDetailViewState extends State<RXDetailView> {
     if (widget.isCurrentRxView) {
       context.read<MyMedicineViewModel>().getCurrentRx(context);
     } else {
-      context.read<MyMedicineViewModel>().getPastRx(context);
+      // context.read<MyMedicineViewModel>().getPastRx(context);
     }
   }
 
@@ -53,9 +53,9 @@ class _RXDetailViewState extends State<RXDetailView> {
           ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
               padding: EdgeInsets.all(15.r),
-              itemCount: mmVm.drugList.length,
+              itemCount: mmVm.currentRxList.length,
               itemBuilder: (context, index) {
-                final drugs = mmVm.drugList[index];
+                final drugs = mmVm.currentRxList[index];
                 return Padding(
                   padding: EdgeInsets.only(bottom: 15.0.h),
                   child: Column(

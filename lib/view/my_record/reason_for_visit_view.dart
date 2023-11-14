@@ -46,7 +46,7 @@ class _ReasonForVisitViewState extends State<ReasonForVisitView> {
                 itemCount: myRecord.reasonForVisitList.length,
                 padding: EdgeInsets.all(20.r),
                 itemBuilder: (context, index) {
-                  AllReasons reason = myRecord.reasonForVisitList[index];
+                  AllReason reason = myRecord.reasonForVisitList[index];
                   return Card(
                     child: ListTile(
                       title: Text(
@@ -62,7 +62,7 @@ class _ReasonForVisitViewState extends State<ReasonForVisitView> {
                           fontSize: 15.sp,
                         ),
                       ),
-                      trailing: Text(myRecord.getDate(reason.date)),
+                      trailing: Text(myRecord.getDate(reason.date.toString())),
                     ),
                   );
                 }));

@@ -101,8 +101,9 @@ class AuthViewModel with ChangeNotifier {
           token: value.token.toString());
       Future.delayed(const Duration(seconds: 1)).then((v) {
         setLoginLoading(false, value);
+
+       Navigator.pushNamed(context, RoutesName.dashbord);
         onUserLogin();
-      //  Navigator.pushNamed(context, RoutesName.dashbord);
         // context.router.replace(const DashboardRoute());
         // if (value.user!.userType.toString().toLowerCase() == "patient") {
         //   //  savePtnFcm();
@@ -125,9 +126,10 @@ class AuthViewModel with ChangeNotifier {
   /// on App's user login
   void onUserLogin() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int? userid = prefs.getInt(UserP.userid);
+    int? userid = prefs.getInt(UserP.id);
     String? name = prefs.getString(UserP.name);
 
+    print(userid);
     /// 1.2.1. initialized ZegoUIKitPrebuiltCallInvitationService
     /// when app's user is logged in or re-logged in
     /// We recommend calling this method as soon as the user logs in to your app.

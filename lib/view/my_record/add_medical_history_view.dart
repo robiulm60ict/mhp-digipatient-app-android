@@ -103,9 +103,10 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
                 };
 
                 if (selectedDate != null &&
-                    selectedCondition != null &&
+                    selectedCondition != null
+                //&&
                   //  saverty.text.isNotEmpty &&
-                    description.text.isNotEmpty
+                   // description.text.isNotEmpty
                  //  summary.text.isNotEmpty &&
                   //  myHealthRecord.text.isNotEmpty &&
                    // details.text.isNotEmpty

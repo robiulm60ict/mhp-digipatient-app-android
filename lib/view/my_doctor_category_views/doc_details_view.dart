@@ -75,7 +75,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                     borderRadius: BorderRadius.circular(15.r))),
             onPressed: () {
              appointmentViewModel.selectButton(0);
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>BookAppointmentView(doctors: doc!, amount: "${doc?.doctors?.doctorFee ?? "0"} ")));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>BookAppointmentView(doctors: doc!, amount: "${doc?.doctors?.doctorFee==null? "0":doc?.doctors?.doctorFee} ")));
 
               // context.router.push(BookAppointmentRoute(
               //     doctors: doc!,
@@ -205,7 +205,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                       text:
                                           "${doc?.doctors?.doctorFee ?? "0"} ",
                                       style: TextStyle(
-                                          fontSize: 16.sp,
+                                          fontSize: 14.sp,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white),
                                       children: [
@@ -233,9 +233,9 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                     alignment: Alignment.center,
                     children: [
                       Align(
-                        alignment: Alignment.bottomRight,
+                        alignment: Alignment.center,
                         child: CircleAvatar(
-                          radius: 50.h,
+                          radius: 50.r,
                           backgroundColor: AppColors.linearGradient1,
                           backgroundImage: NetworkImage( "${AppUrls.docImage}${doc?.doctors?.drImages}"),
                         ),
@@ -262,7 +262,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
               // controller: listViewController,
               // shrinkWrap: true,
               //   physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.all(20.r),
+              padding: EdgeInsets.all(12.r),
               children: [
                 // SizedBox(height: 10,)
                 Row(
@@ -276,7 +276,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                             color: AppColors.primaryColor,
                           ),
                           title: Text(
-                            "3000+",
+                            "1000+",
                             style: TextStyle(
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.bold,
@@ -285,7 +285,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           subtitle: Text(
                             "Patients",
                             style:
-                                TextStyle(fontSize: 12.sp, color: Colors.grey),
+                                TextStyle(fontSize: 10.sp, color: Colors.grey),
                           ),
                         ),
                       ),
@@ -316,7 +316,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                   ],
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 10.h,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -326,7 +326,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                     Text(
                       "Specialty",
                       style: TextStyle(
-                          fontSize: 16.sp,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w500,
                           color: const Color(0xFF646464)),
                     ),
@@ -340,7 +340,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                         child: Text(
                           "${doc?.doctors!.specialist?.specialistsName.toString()}",
                           style: TextStyle(
-                              fontSize: 16.sp,
+                              fontSize: 12.sp,
                               color: const Color(0xFF8A8A8A)),
                         ),
                       ),
