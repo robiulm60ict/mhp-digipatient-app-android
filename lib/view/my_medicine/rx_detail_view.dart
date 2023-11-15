@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../resources/colors.dart';
+import '../../resources/styles.dart';
 import '../../utils/utils.dart';
 import '../../view_model/my_medicine_view_model/my_medicine_view_model.dart';
 import '../../widgets/back_button.dart';
@@ -41,11 +42,12 @@ class _RXDetailViewState extends State<RXDetailView> {
     final mmVm = Provider.of<MyMedicineViewModel>(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.primary_color,
         leadingWidth: leadingWidth,
         leading: const CustomBackButton(),
         title: Text(
           widget.title,
-          style: TextStyle(fontSize: 18.sp, color: AppColors.primaryColor),
+          style: Style.alltext_appbar,
         ),
         centerTitle: true,
       ),
@@ -64,11 +66,8 @@ class _RXDetailViewState extends State<RXDetailView> {
                       Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            " Medicine ${index + 1}",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.bold,
-                                color: const Color(0xFF606060)),
+                            "Medicine ${index + 1}",
+                            style: Style.alltext_default_balck_blod,
                           )),
                       Card(
                           color: Colors.white,
@@ -84,9 +83,7 @@ class _RXDetailViewState extends State<RXDetailView> {
                                         Expanded(
                                             child: Text(
                                           "Drugs Name",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: const Color(0xFF8A8A8A)),
+                                          style:Style.alltext_default_balck,
                                         )),
                                         SizedBox(
                                           width: 5.w,
@@ -101,9 +98,7 @@ class _RXDetailViewState extends State<RXDetailView> {
                                             flex: 3,
                                             child: Text(
                                               "${drugs.drugName}",
-                                              style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  color: const Color(0xFF3D3D3D)),
+                                              style: Style.alltext_default_balck,
                                             )),
                                       ],
                                     ),
@@ -119,9 +114,7 @@ class _RXDetailViewState extends State<RXDetailView> {
                                         Expanded(
                                             child: Text(
                                           "Dose",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Color(0xFF8A8A8A)),
+                                          style:Style.alltext_default_balck,
                                         )),
                                         SizedBox(
                                           width: 5.w,
@@ -136,9 +129,7 @@ class _RXDetailViewState extends State<RXDetailView> {
                                             flex: 3,
                                             child: Text(
                                               "${drugs.dose}",
-                                              style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  color: Color(0xFF3D3D3D)),
+                                              style: Style.alltext_default_balck,
                                             )),
                                       ],
                                     ),
@@ -154,9 +145,7 @@ class _RXDetailViewState extends State<RXDetailView> {
                                         Expanded(
                                             child: Text(
                                           "Frequency",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Color(0xFF8A8A8A)),
+                                          style: Style.alltext_default_balck,
                                         )),
                                         SizedBox(
                                           width: 5.w,
@@ -171,9 +160,7 @@ class _RXDetailViewState extends State<RXDetailView> {
                                             flex: 3,
                                             child: Text(
                                               "${drugs.frequency}",
-                                              style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  color: Color(0xFF3D3D3D)),
+                                              style:Style.alltext_default_balck,
                                             )),
                                       ],
                                     ),
@@ -189,9 +176,7 @@ class _RXDetailViewState extends State<RXDetailView> {
                                         Expanded(
                                             child: Text(
                                           "Food",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Color(0xFF8A8A8A)),
+                                          style: Style.alltext_default_balck,
                                         )),
                                         SizedBox(
                                           width: 5.w,
@@ -206,9 +191,7 @@ class _RXDetailViewState extends State<RXDetailView> {
                                             flex: 3,
                                             child: Text(
                                               "${drugs.food}",
-                                              style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  color: const Color(0xFF3D3D3D)),
+                                              style: Style.alltext_default_balck,
                                             )),
                                       ],
                                     ),
@@ -224,9 +207,7 @@ class _RXDetailViewState extends State<RXDetailView> {
                                         Expanded(
                                             child: Text(
                                           "Quantity",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Color(0xFF8A8A8A)),
+                                          style: Style.alltext_default_balck,
                                         )),
                                         SizedBox(
                                           width: 5.w,
@@ -241,9 +222,7 @@ class _RXDetailViewState extends State<RXDetailView> {
                                             flex: 3,
                                             child: Text(
                                               "${drugs.quantity}",
-                                              style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  color: Color(0xFF3D3D3D)),
+                                              style: Style.alltext_default_balck,
                                             )),
                                       ],
                                     ),

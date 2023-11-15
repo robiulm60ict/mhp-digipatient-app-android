@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../resources/colors.dart';
+import '../../resources/styles.dart';
 import '../../utils/user.dart';
 import '../../utils/utils.dart';
 import '../../widgets/back_button.dart';
@@ -70,14 +71,12 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
     final myRecord = Provider.of<MyRecordViewModel>(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.primary_color,
         leadingWidth: leadingWidth,
         leading: const CustomBackButton(),
         title: Text(
           "Add Medical History",
-          style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primaryColor),
+          style:Style.alltext_appbar
         ),
         centerTitle: true,
         // backgroundColor: AppColors.primaryColor,
@@ -118,7 +117,7 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
               },
               label: Text(
                 "Save",
-                style: TextStyle(fontSize: 15.sp, color: Colors.white),
+                style: Style.alltext_appbar,
               ),
             ),
       body: ListView(
@@ -132,7 +131,7 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
               ),
               title: Text(selectedDate == null
                   ? "Select Date"
-                  : myRecord.getDate(selectedDate.toString())),
+                  : myRecord.getDate(selectedDate.toString()),style: Style.alltext_default_balck,),
               onTap: () async {
                 // selectedDate = await PickDateTime().pickDate(context, initialDate: DateTime.now());
                 await showDatePicker(
@@ -169,12 +168,10 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
                       child: ListTile(
                         title: Text(
                           "${item.diagnosisProcedureName}",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                          ),
+                          style: Style.alltext_default_balck,
                         ),
                         subtitle: Text(
-                          "${item.diagnosisProcedureCode}",
+                          "${item.diagnosisProcedureCode}",style: Style.alltext_default_balck,
                         ),
                       ),
                     )),

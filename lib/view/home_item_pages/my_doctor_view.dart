@@ -40,7 +40,7 @@ class MyDoctorView extends StatelessWidget {
         centerTitle: true,
         title: Text(
           "My Doctor",
-          style: TextStyle(fontSize: 18.sp, color: Colors.white),
+          style: Style.alltext_appbar,
         ),
         // leading: Padding(
         //   padding: Platform.isIOS

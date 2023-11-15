@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/enum/vitals_enum.dart';
 import 'package:digi_patient/model/my_record_model/vitals_model.dart';
+import 'package:digi_patient/resources/styles.dart';
 import 'package:digi_patient/view/my_record/vitals/vitals_item_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,14 +30,14 @@ class VitalsCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.r)
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 20.h),
+          padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 10.h),
           child: ListTile(
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>VitalsItemDetailsView(index: index, icon: icon, title: title, img: image, subtitle: subtitle, v: v, allData: allData, unitId: unitId, color: color)));
              // context.router.push(VitalsItemDetailsRoute(index: index, icon: icon, title: title, img: image, subtitle: subtitle, v: v, allData: allData, unitId: unitId, color: color));
             },
-            title: Text(title, style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464)),),
-          subtitle: Text(subtitle, textAlign: TextAlign.start, style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+            title: Text(title, style:Style.alltext_default_balck_blod),
+          subtitle: Text(subtitle, textAlign: TextAlign.start, style: Style.alltext_default_balck),
           leading: Image.network(image, height: 35.h, width: 30, fit: BoxFit.fill, errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),),
           ),
           // child: Column(

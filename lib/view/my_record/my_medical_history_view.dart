@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../resources/colors.dart';
+import '../../resources/styles.dart';
 import '../../utils/utils.dart';
 import '../../view_model/my_record_view_model/my_record_view_model.dart';
 import '../../widgets/back_button.dart';
@@ -40,14 +41,12 @@ class _MyMedicalHistoryViewState extends State<MyMedicalHistoryView> {
       },
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: AppColors.primary_color,
           leadingWidth: leadingWidth,
           leading: const CustomBackButton(),
           title: Text(
             "My Medical History",
-            style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.bold,
-                color: AppColors.primaryColor),
+            style: Style.alltext_appbar
           ),
           centerTitle: true,
         ),
@@ -74,9 +73,9 @@ class _MyMedicalHistoryViewState extends State<MyMedicalHistoryView> {
                   final date = sMhFGD.getDate("${history.date}");
                   return Card(
                     child: ListTile(
-                        title: Text("${history.condition}"),
-                        subtitle: Text(date),
-                        trailing: Text(time)),
+                        title: Text("${history.condition}",style: Style.alltext_default_balck_blod,),
+                        subtitle: Text(date,style: Style.alltext_default_balck,),
+                        trailing: Text(time,style: Style.alltext_default_balck,)),
                     // child: Row(
                     //   children: [
                     //     SizedBox(width: 5.w,),

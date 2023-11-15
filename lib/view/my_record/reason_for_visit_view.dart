@@ -1,4 +1,5 @@
 import 'package:digi_patient/model/my_record_model/reason_for_visit_model.dart';
+import 'package:digi_patient/resources/styles.dart';
 import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,14 +28,12 @@ class _ReasonForVisitViewState extends State<ReasonForVisitView> {
     final myRecord = Provider.of<MyRecordViewModel>(context);
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: AppColors.primary_color,
           leadingWidth: leadingWidth,
           leading: const CustomBackButton(),
           title: Text(
             "Reason For Visit",
-            style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.bold,
-                color: AppColors.primaryColor),
+            style: Style.alltext_appbar
           ),
           centerTitle: true,
         ),
@@ -51,18 +50,13 @@ class _ReasonForVisitViewState extends State<ReasonForVisitView> {
                     child: ListTile(
                       title: Text(
                         "${reason.resonName}",
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Style.alltext_default_balck_blod
                       ),
                       subtitle: Text(
                         "${reason.resonForName}",
-                        style: TextStyle(
-                          fontSize: 15.sp,
-                        ),
+                        style: Style.alltext_default_balck
                       ),
-                      trailing: Text(myRecord.getDate(reason.date.toString())),
+                      trailing: Text(myRecord.getDate(reason.date.toString()),style: Style.alltext_default_balck,),
                     ),
                   );
                 }));

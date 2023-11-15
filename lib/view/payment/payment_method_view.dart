@@ -16,6 +16,7 @@ import 'package:provider/provider.dart';
 import '../../model/anatomy/anatomy_symptoms_model.dart';
 import '../../model/myDoctorList/mydoctorList.dart';
 import '../../resources/colors.dart';
+import '../../resources/styles.dart';
 import '../../utils/utils.dart';
 import '../../view_model/anatomy/anatomy_view_model.dart';
 import '../../widgets/back_button.dart';
@@ -115,12 +116,10 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
     final anatomy = Provider.of<AnatomyModelView>(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.primary_color,
         title: Text(
           "Payment Method ",
-          style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primaryColor),
+          style:Style.alltext_appbar,
         ),
         centerTitle: true,
         leadingWidth: leadingWidth,
@@ -135,7 +134,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                 "${widget.doctor.doctors!.department!.departmentsName}",
             visitingTime: getTime(widget.appointmentDate),
             hospitalName:
-                "${widget.doctor..doctors!.usualProvider?.usualProviderName}",
+                "${widget.doctor.doctors!.usualProvider?.usualProviderName.toString()}",
             date: widget.appointmentDate,
             location: "${widget.doctor.doctors?.drWorkPhone}",
             image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',
@@ -153,10 +152,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                   Text(
                     "Payment Method",
                     textAlign: TextAlign.start,
-                    style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFF3C3C3C)),
+                    style: Style.alltext_default_balck_blod,
                   ),
                   SizedBox(
                     height: 8.h,
@@ -363,10 +359,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                       },
                       title: Text(
                         "Digital Payment",
-                        style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xFF8A8A8A)),
+                        style: Style.alltext_default_balck_blod,
                       ),
                       children: [
                         Row(
@@ -393,10 +386,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                         Center(
                           child: Text(
                             "Send Money To 01774142172",
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
+                            style: Style.alltext_default_balck,
                           ),
                         ),
                         Padding(
@@ -407,10 +397,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                                 width: 70.w,
                                 child: Text(
                                   "Payment Number *",
-                                  style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.grey),
+                                  style:Style.alltext_default_balck,
                                 ),
                               ),
                               SizedBox(
@@ -429,8 +416,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                                       focusedBorder: InputBorder.none,
                                       enabledBorder: InputBorder.none,
                                       hintText: "pay number",
-                                      hintStyle: TextStyle(
-                                          color: Colors.grey.shade500)),
+                                      hintStyle:Style.alltext_default_balck,),
                                 ),
                               ),
                             ],
@@ -443,11 +429,8 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                               SizedBox(
                                 width: 70.w,
                                 child: Text(
-                                  "Transaction Id *",
-                                  style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.grey),
+                                  "Transaction ID *",
+                                  style:Style.alltext_default_balck,
                                 ),
                               ),
                               SizedBox(
@@ -464,8 +447,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                                       focusedBorder: InputBorder.none,
                                       enabledBorder: InputBorder.none,
                                       hintText: "xxxxxxxxxxx",
-                                      hintStyle: TextStyle(
-                                          color: Colors.grey.shade500)),
+                                      hintStyle: Style.alltext_default_balck,),
                                 ),
                               ),
                             ],
@@ -479,10 +461,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                                 width: 70.w,
                                 child: Text(
                                   "Reference name",
-                                  style: TextStyle(
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.grey),
+                                  style: Style.alltext_default_balck,
                                 ),
                               ),
                               SizedBox(
@@ -498,8 +477,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                                       focusedBorder: InputBorder.none,
                                       enabledBorder: InputBorder.none,
                                       hintText: "xxxxxxxxxxx",
-                                      hintStyle: TextStyle(
-                                          color: Colors.grey.shade500)),
+                                      hintStyle: Style.alltext_default_balck,),
                                 ),
                               ),
                             ],
@@ -514,10 +492,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                   Text(
                     "Invoice Preview",
                     textAlign: TextAlign.start,
-                    style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFF3C3C3C)),
+                    style: Style.alltext_default_balck_blod,
                   ),
                   SizedBox(
                     height: 8.h,
@@ -533,15 +508,11 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                             children: [
                               Text(
                                 "Total",
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: const Color(0xFF3B3B3B)),
+                                style: Style.alltext_default_balck,
                               ),
                               Text(
                                 widget.amount,
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: const Color(0xFF3B3B3B)),
+                                style: Style.alltext_default_balck,
                               ),
                             ],
                           ),
@@ -553,15 +524,11 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                             children: [
                               Text(
                                 "Discount",
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: const Color(0xFF3B3B3B)),
+                                style: Style.alltext_default_balck,
                               ),
                               Text(
                                 "00.00",
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: const Color(0xFF3B3B3B)),
+                                style: Style.alltext_default_balck,
                               ),
                             ],
                           ),
@@ -573,15 +540,11 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                             children: [
                               Text(
                                 "Vat/Tax",
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: const Color(0xFF3B3B3B)),
+                                style: Style.alltext_default_balck,
                               ),
                               Text(
                                 "00.00",
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: const Color(0xFF3B3B3B)),
+                                style: Style.alltext_default_balck,
                               ),
                             ],
                           ),
@@ -609,17 +572,11 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                             children: [
                               Text(
                                 "Total Amount",
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: const Color(0xFF3B3B3B)),
+                                style: Style.alltext_default_balck,
                               ),
                               Text(
                                 widget.amount,
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: const Color(0xFF3B3B3B)),
+                                style: Style.alltext_default_balck,
                               ),
                             ],
                           ),

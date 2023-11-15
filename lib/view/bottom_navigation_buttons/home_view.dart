@@ -1,32 +1,26 @@
 import 'dart:io';
-
-import 'package:auto_route/auto_route.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:badges/badges.dart';
-import 'package:digi_patient/data/firebase/notification_fcm.dart';
-import 'package:digi_patient/generated/assets.dart';
-import 'package:digi_patient/resources/colors.dart';
-import 'package:digi_patient/routes/routes.gr.dart';
-import 'package:digi_patient/utils/user.dart';
-import 'package:digi_patient/view_model/auth_view_model.dart';
-import 'package:digi_patient/view_model/home_view_model.dart';
-import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
-import 'package:digi_patient/view_model/real_communication/video_call_view_model.dart';
-import 'package:digi_patient/widgets/back_button.dart';
-import 'package:digi_patient/widgets/drawer_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
+import '../../generated/assets.dart';
 import '../../resources/app_url.dart';
+import '../../resources/colors.dart';
+import '../../resources/styles.dart';
 import '../../utils/message.dart';
 import '../../utils/route/routes_name.dart';
+import '../../utils/user.dart';
+import '../../view_model/auth_view_model.dart';
+import '../../view_model/home_view_model.dart';
 import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
 import '../../view_model/user_view_model/user_view_model.dart';
-import '../real_communication/data.dart';
+import '../../widgets/back_button.dart';
+import '../../widgets/drawer_list_tile.dart';
+
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -136,7 +130,7 @@ class _HomeViewState extends State<HomeView> {
                   iconData: Icons.calendar_view_day,
                   title: "Appointment",
                   onTap: () {
-                    context.router.push(const DailyAndUpcommingRoute());
+                   // context.router.push(const DailyAndUpcommingRoute());
                   },
                 ),
                 SizedBox(
@@ -154,7 +148,7 @@ class _HomeViewState extends State<HomeView> {
                   iconData: Icons.payment,
                   title: "Payment & Invoice",
                   onTap: () {
-                    context.router.push(const InvoiceRoute());
+                  //  context.router.push(const InvoiceRoute());
                   },
                 ),
                 SizedBox(
@@ -247,7 +241,7 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   child: IconButton(
                       onPressed: () {
-                        context.router.push(const NotificationsRoute());
+                      //  context.router.push(const NotificationsRoute());
                       },
                       icon: Icon(
                         Icons.notification_important,
@@ -286,7 +280,7 @@ class _HomeViewState extends State<HomeView> {
                                   color: AppColors.primaryColor),
                             ),
                             SizedBox(
-                              height: 8.h,
+                              height: 4.h,
                             ),
                             Text(
                               "$name",
@@ -410,7 +404,7 @@ class _HomeViewState extends State<HomeView> {
               Text(
                 "What do you need?",
                 style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
                     color: const Color(0xFF8A8A8A)),
               ),
@@ -472,7 +466,7 @@ class _HomeViewState extends State<HomeView> {
                 height: 4.h,
               ),
               GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
+                  physics:  NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   gridDelegate: FlutterzillaFixedGridView(
                       crossAxisCount: 3,
@@ -528,10 +522,7 @@ class _HomeViewState extends State<HomeView> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.primaryColor),
+                            style: Style.alltext_default_balck,
                           )
                         ],
                       ),

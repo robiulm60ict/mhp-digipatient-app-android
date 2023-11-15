@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/my_medicine_model/current_rx_model.dart';
+import '../../resources/styles.dart';
 import '../../utils/utils.dart';
 import '../../widgets/back_button.dart';
 import 'pastrx_detail_view.dart';
@@ -39,9 +40,10 @@ class _RXViewState extends State<RXView> {
     return Scaffold(
 
       appBar: AppBar(
+        backgroundColor: AppColors.primary_color,
         leadingWidth: leadingWidth,
         leading: const CustomBackButton(),
-        title: Text("My Medicine", style: TextStyle(fontSize: 18.sp, color: AppColors.primaryColor),),
+        title: Text("My Medicine", style: Style.alltext_appbar,),
         centerTitle: true,
       ),
       body: Padding(
@@ -57,7 +59,7 @@ class _RXViewState extends State<RXView> {
                     //context.router.push( RXDetailRoute(title: "Current RX", isCurrentRxView: true));
                   },
                   leading: Image.asset(Assets.myMedicineRx, height: 38.h, width: 36.w,),
-                  title: Text("Current RX", style: TextStyle(fontSize: 12.sp, color: AppColors.primaryColor),),
+                  title: Text("Current RX", style: Style.alltext_default_balck,),
                 ),
               ),
             ),
@@ -72,7 +74,7 @@ class _RXViewState extends State<RXView> {
                    // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
                   },
                   leading: Image.asset(Assets.myMedicineRx, height: 38.h, width: 36.w,),
-                  title: Text("Past RX", style: TextStyle(fontSize: 12.sp, color: AppColors.primaryColor),),
+                  title: Text("Past RX", style:Style.alltext_default_balck,),
                 ),
               ),
             ),

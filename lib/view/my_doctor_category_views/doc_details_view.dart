@@ -131,7 +131,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           "${doc?.doctors?.title} ${doc?.doctors?.drMiddleName} ${doc?.doctors?.drGivenName} ${doc?.doctors?.drLastName}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style:Style.alltext_default_white,
+                          style:Style.alltext_default_balck_blod,
                         ),
                         SizedBox(
                           height: 8.h,
@@ -140,7 +140,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           "${doc?.doctors?.department?.departmentsName}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style:Style.alltext_small_white,
+                          style:Style.alltext_default_balck,
                         ),
                         SizedBox(
                           height: 8.h,
@@ -159,10 +159,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                             ),
                             Text(
                               "$rating",
-                              style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white),
+                                style: Style.alltext_default_balck,
                             )
                           ],
                         ),
@@ -184,7 +181,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                       color: Colors.white, width: 0.5)),
                               child: const Icon(
                                 Icons.money,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                             ),
                             Expanded(
@@ -204,16 +201,11 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                   text: TextSpan(
                                       text:
                                           "${doc?.doctors?.doctorFee ?? "0"} ",
-                                      style: TextStyle(
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
+                                      style: Style.alltext_default_balck,
                                       children: [
                                         TextSpan(
                                           text: "BDT",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Colors.white),
+                                          style: Style.alltext_default_balck,
                                         )
                                       ]),
                                 ),
@@ -277,15 +269,12 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           ),
                           title: Text(
                             "1000+",
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primaryColor),
+                            style:Style.alltext_default_balck,
                           ),
                           subtitle: Text(
                             "Patients",
                             style:
-                                TextStyle(fontSize: 10.sp, color: Colors.grey),
+                            Style.alltext_default_balck,
                           ),
                         ),
                       ),
@@ -300,15 +289,12 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           ),
                           title: Text(
                             "${doc?.doctors?.workExperienceYears.toString()} years",
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primaryColor),
+                            style: Style.alltext_default_balck,
                           ),
                           subtitle: Text(
                             "Experience",
                             style:
-                                TextStyle(fontSize: 10.sp, color: Colors.grey),
+                            Style.alltext_default_balck,
                           ),
                         ),
                       ),
@@ -325,10 +311,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                   children: [
                     Text(
                       "Specialty",
-                      style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xFF646464)),
+                      style: Style.alltext_default_balck_blod,
                     ),
                     SizedBox(
                       width: 8.w,
@@ -339,9 +322,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                         padding: EdgeInsets.all(0.r),
                         child: Text(
                           "${doc?.doctors!.specialist?.specialistsName.toString()}",
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              color: const Color(0xFF8A8A8A)),
+                          style: Style.alltext_default_balck,
                         ),
                       ),
                     ),
@@ -352,10 +333,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 ),
                 Text(
                   "About Doctor",
-                  style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xFF646464)),
+                  style: Style.alltext_default_balck_blod,
                 ),
                 ReadMoreText(
                   "${doc?.doctors?.drAbout.toString()}",
@@ -379,10 +357,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 ),
                 Text(
                   "Schedule",
-                  style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xFF646464)),
+                  style: Style.alltext_default_balck_blod,
                 ),
                 SizedBox(
                   height: 10.h,
@@ -413,10 +388,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                   children: [
                                     Text(
                                       "${docTime.day}-${docTime.month}-${docTime.year}",
-                                      style: TextStyle(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w500,
-                                          color: AppColors.primaryColor),
+                                      style:Style.alltext_default_balck,
                                     ),
                                     SizedBox(
                                       height: 4.h,

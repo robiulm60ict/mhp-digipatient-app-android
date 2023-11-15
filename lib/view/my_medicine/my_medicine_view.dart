@@ -7,6 +7,7 @@ import 'package:digi_patient/view/my_medicine/rx_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../resources/styles.dart';
 import '../../widgets/back_button.dart';
 
 class MyMedicineView extends StatelessWidget {
@@ -16,9 +17,10 @@ class MyMedicineView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.primary_color,
         leadingWidth: leadingWidth,
         leading: const CustomBackButton(),
-        title: Text("My Medicine", style: TextStyle(fontSize: 18.sp, color: AppColors.primaryColor),),
+        title: Text("My Medicine", style: Style.alltext_appbar,),
         centerTitle: true,
       ),
       body: Padding(
@@ -56,7 +58,7 @@ class MyMedicineView extends StatelessWidget {
                           backgroundImage: AssetImage(Assets.myMedicineMedicineCircle),
                         ),
                         SizedBox(height: 8.r,),
-                        Text("Medication", style: TextStyle(fontSize: 14.sp, color: AppColors.primaryColor),),
+                        Text("Medication", style: Style.alltext_default_balck,),
                         SizedBox(height: 10.h,),
                       ],
                     ),),
@@ -72,7 +74,7 @@ class MyMedicineView extends StatelessWidget {
                         backgroundImage: AssetImage(Assets.myMedicineBuyMedicineCircle),
                       ),
                       SizedBox(height: 8.r,),
-                      Text("Buy Medicine ", style: TextStyle(fontSize: 14.sp, color: AppColors.primaryColor),),
+                      Text("Buy Medicine ", style: Style.alltext_default_balck,),
                       SizedBox(height: 10.h,),
                     ],
                   ),),

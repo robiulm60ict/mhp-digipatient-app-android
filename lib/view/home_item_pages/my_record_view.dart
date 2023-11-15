@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/model/my_record_model/medical_history_from_great_doc_model.dart';
 import 'package:digi_patient/model/my_record_model/procedure_mHFGD_model.dart';
 import 'package:digi_patient/resources/colors.dart';
+import 'package:digi_patient/resources/styles.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/utils.dart';
 import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
@@ -40,12 +41,14 @@ class _MyRecordViewState extends State<MyRecordView> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.primary_color,
         leading: const CustomBackButton(),
         leadingWidth: leadingWidth,
         centerTitle: true,
+
         title: Text(
           "My Record",
-          style: TextStyle(fontSize: 18.sp, color: AppColors.primaryColor),
+          style: Style.alltext_appbar,
         ),
       ),
       body: ListView(
@@ -84,10 +87,7 @@ class _MyRecordViewState extends State<MyRecordView> {
                             "${user?.patientFirstName} ${user?.patientLastName}".toString(),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primaryColor),
+                            style: Style.alltext_default_balck_blod,
                           ),
                           SizedBox(
                             height: 2.h,
@@ -96,9 +96,7 @@ class _MyRecordViewState extends State<MyRecordView> {
                             "${user?.patientHnNumber}",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                color: const Color(0xFF8A8A8A)),
+                            style: Style.alltext_default_balck,
                           ),
                           SizedBox(
                             height: 5.h,
@@ -112,16 +110,11 @@ class _MyRecordViewState extends State<MyRecordView> {
                               ),
                               Text(
                                 "Gender:",
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xFF8A8A8A)),
+                                style:Style.alltext_default_balck,
                               ),
                               Text(
                                 "${user?.patientBirthSex?.birthSexName}",
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: const Color(0xFF8A8A8A)),
+                                style:Style.alltext_default_balck,
                               ),
                               SizedBox(
                                 width: 8.w,
@@ -133,16 +126,11 @@ class _MyRecordViewState extends State<MyRecordView> {
                               ),
                               Text(
                                 "Blood:",
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xFF8A8A8A)),
+                                style:Style.alltext_default_balck,
                               ),
                               Text(
-                                "O+",
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: const Color(0xFF8A8A8A)),
+                                "${user!.bloodGroup!.bloodGroupName}",
+                                style: Style.alltext_default_balck,
                               ),
                             ],
                           )

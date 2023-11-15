@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../resources/styles.dart';
+
 class PaymentUserDetail extends StatelessWidget {
   const PaymentUserDetail({Key? key, required this.name, required this.designation, required this.visitingTime, required this.hospitalName, required this.date, required this.location, required this.image}) : super(key: key);
   final String name;
@@ -34,15 +36,11 @@ class PaymentUserDetail extends StatelessWidget {
       ),
               title: Text(
                 name,
-                style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                    color: const Color(0xFF646464)),
+                style: Style.alltext_default_balck_blod,
               ),
               subtitle: Text(
                 designation,
-                style: TextStyle(
-                    fontSize: 10.sp, color: const Color(0xFF8A8A8A)),
+                style: Style.alltext_default_balck,
               ),
             ),
             SizedBox(
@@ -66,11 +64,7 @@ class PaymentUserDetail extends StatelessWidget {
                         ),
                         Text(
                           visitingTime,
-                          style: TextStyle(
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xFF8A8A8A),
-                          ),
+                          style: Style.alltext_default_balck,
                         ),
                         const Spacer(),
                         Icon(
@@ -84,11 +78,7 @@ class PaymentUserDetail extends StatelessWidget {
                         Expanded(
                           child: Text(
                             hospitalName,
-                            style: TextStyle(
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w500,
-                              color: const Color(0xFF8A8A8A),
-                            ),
+                            style: Style.alltext_default_balck,
                           ),
                         ),
                       ],
@@ -109,11 +99,7 @@ class PaymentUserDetail extends StatelessWidget {
                         ),
                         Text(
                           myRecord.getDate(date),
-                          style: TextStyle(
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xFF8A8A8A),
-                          ),
+                          style:Style.alltext_default_balck,
                         ),
                         const Spacer(),
                         Icon(
@@ -126,11 +112,7 @@ class PaymentUserDetail extends StatelessWidget {
                         ),
                         Text(
                           location,
-                          style: TextStyle(
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xFF8A8A8A),
-                          ),
+                          style:Style.alltext_default_balck,
                         ),
                       ],
                     ),

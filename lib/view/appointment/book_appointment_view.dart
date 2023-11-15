@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/myDoctorList/mydoctorList.dart';
+import '../../resources/styles.dart';
 import '../../utils/utils.dart';
 import '../../view_model/doctor/my_doctor_view_model.dart';
 import '../../widgets/back_button.dart';
@@ -64,12 +65,10 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
+        backgroundColor: AppColors.primary_color,
         title: Text(
           "Book Appointment ",
-          style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primaryColor),
+          style: Style.alltext_appbar,
         ),
         centerTitle: true,
         leadingWidth: leadingWidth,
@@ -106,10 +105,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
         backgroundColor: AppColors.primaryColor,
         label: Text(
           "Confirm Appointment",
-          style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.bold,
-              color: Colors.white),
+          style: Style.alltext_appbar,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -123,10 +119,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
               child: Text(
                 "${appointmentViewModel.monthName}  ${appointmentViewModel
                     .year}",
-                style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFF646464)),
+                style: Style.alltext_default_balck,
               )),
           const SizedBox(
             height: 10,
@@ -157,19 +150,11 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                               children: [
                                 Text(
                                   avm.weekName,
-                                  style: TextStyle(
-                                      fontSize: 12.sp,
-                                      color: avm.isSelected
-                                          ? Colors.white
-                                          : const Color(0xFF646464)),
+                                  style:Style.alltext_default_balck,
                                 ),
                                 Text(
                                   avm.day.toString(),
-                                  style: TextStyle(
-                                      fontSize: 12.sp,
-                                      color: avm.isSelected
-                                          ? Colors.white
-                                          : const Color(0xFF646464)),
+                                  style:Style.alltext_default_balck,
                                 ),
                               ],
                             ),
@@ -372,10 +357,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                 child: Text(
                   "Select Disease",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                  style: Style.alltext_appbar,
                 ),
               ),
             ),
@@ -407,10 +389,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                 child: ListTile(
                   title: Text(
                     "${at.symptomName}",
-                    style: TextStyle(
-                        fontSize: 12.sp,
-                        color: AppColors.primaryColor,
-                        fontWeight: FontWeight.bold),
+                    style:Style.alltext_default_balck,
                   ),
                 ),
               );
@@ -446,7 +425,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                       title: Text(
                         on.title,
                         style: TextStyle(
-                            fontSize: 14.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.bold,
                             color: const Color(0xFF646464)),
                       ),

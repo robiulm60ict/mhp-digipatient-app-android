@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../resources/colors.dart';
+import '../../resources/styles.dart';
 import '../../utils/utils.dart';
 import '../../view_model/my_record_view_model/my_record_view_model.dart';
 import '../../widgets/back_button.dart';
@@ -38,9 +39,10 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
 
     return  Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.primary_color,
         leadingWidth: leadingWidth,
         leading: const CustomBackButton(),
-        title: Text("Medical History From Great Doc", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
+        title: Text("Medical History From Great Doc", style: Style.alltext_appbar),
         centerTitle: true,
         actions: [
           IconButton(onPressed: () {
@@ -64,7 +66,7 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
                     setState(() {
                       showPastHistory = true;
                     });
-                  }, child: Text("Past History", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: Colors.white),)),
+                  }, child: Text("Past History", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: Colors.white),)),
                 )),
                 Expanded(child: SizedBox(
                   height: 45.h,
@@ -76,7 +78,7 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
                     setState(() {
                       showPastHistory = false;
                     });
-                  }, child: Text("Procedure", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: Colors.white),)),
+                  }, child: Text("Procedure", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: Colors.white),)),
                 )),
               ],
             ),
@@ -95,9 +97,9 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
                   return Card(
                     child: ListTile(
 
-                      title: Text("${procedure.procedureName}"),
-                      subtitle: Text(date),
-                      trailing: Text(time),
+                      title: Text("${procedure.procedureName}",style: Style.alltext_default_balck_blod,),
+                      subtitle: Text(date,style: Style.alltext_default_balck,),
+                      trailing: Text(time,style: Style.alltext_default_balck,),
 
                     ),
                     // child: Row(
@@ -132,9 +134,9 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
                   final date = sMhFGD.getDate("${history.date}");
                   return Card(
                     child: ListTile(
-                        title: Text("${history.condition}"),
-                        subtitle: Text(date),
-                        trailing: Text(time)
+                        title: Text("${history.condition}",style: Style.alltext_default_balck_blod,),
+                        subtitle: Text(date,style: Style.alltext_default_balck,),
+                        trailing: Text(time,style: Style.alltext_default_balck,)
                     ),
                     // child: Row(
                     //   children: [

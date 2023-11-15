@@ -2,6 +2,7 @@ import 'package:digi_patient/generated/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../resources/styles.dart';
 import '../utils/custom_rating.dart';
 
 class DocCard extends StatelessWidget {
@@ -35,11 +36,11 @@ class DocCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: 35.h, width: double.infinity,),
-                    Text(docName, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF646464),),),
+                    Text(docName, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: Style.alltext_default_balck_blod,),
                     const SizedBox(height: 4,),
-                    Text(docSpeciality!, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A),),),
+                    Text(docSpeciality!, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: Style.alltext_default_balck,),
                     const SizedBox(height: 4,),
-                    Text(docHospital!, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp,  color: const Color(0xFF8A8A8A),),),
+                    Text(docHospital!, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: Style.alltext_default_balck,),
                     const SizedBox(height: 4,),
                     CustomRating.ratingBar(onRatingUpdate: (val){}),
                   SizedBox(height: 2.h),

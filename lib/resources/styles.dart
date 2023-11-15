@@ -28,11 +28,12 @@ class Style {
     fontWeight: FontWeight.w400,
     color: AppColors.text_primary_color,
     fontSize: 14.sp,
-  ); static TextStyle alltext_default_balck = TextStyle(
+  );
+  static TextStyle alltext_default_balck = TextStyle(
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w400,
     color: AppColors.text_primary_color,
-    fontSize: 14.sp,
+    fontSize: 12.sp,
   );
   static TextStyle alltext_default_balck_w700 = TextStyle(
     fontFamily: 'Roboto',
@@ -44,7 +45,7 @@ class Style {
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w700,
     color: AppColors.text_primary_color,
-    fontSize: 14.sp,
+    fontSize: 12.sp,
   );
 
   static TextStyle alltext_ExtraSmall_black = TextStyle(
@@ -97,6 +98,11 @@ class Style {
     fontSize: 12.sp,
   );
   static TextStyle alltext_default_white = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w400,
+    color: AppColors.page_background_color,
+    fontSize:14.sp,
+  ); static TextStyle alltext_appbar = TextStyle(
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w400,
     color: AppColors.page_background_color,

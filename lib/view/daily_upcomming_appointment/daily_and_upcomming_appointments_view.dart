@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/appointment_model/todays_appointment_model.dart';
+import '../../resources/styles.dart';
 import '../../utils/utils.dart';
 import '../../widgets/appointment_notification_card.dart';
 import '../../widgets/back_button.dart';
@@ -58,15 +59,13 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
     final appointments = Provider.of<DailyAndUpcommingViewModel>(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.primary_color,
         leading: const CustomBackButton(),
         leadingWidth: leadingWidth,
         centerTitle: true,
         title: Text(
           "Appointments",
-          style: TextStyle(
-              fontSize: 15.sp,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primaryColor),
+          style: Style.alltext_appbar,
         ),
       ),
       body: Padding(
@@ -91,7 +90,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 8.0.h),
                         child: Text(
-                          "Todays Appointments",
+                          "Today's Appointments",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 16.sp,

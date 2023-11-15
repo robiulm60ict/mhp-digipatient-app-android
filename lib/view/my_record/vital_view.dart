@@ -3,6 +3,7 @@ import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/model/my_record_model/vitals_model.dart';
 import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/resources/colors.dart';
+import 'package:digi_patient/resources/styles.dart';
 import 'package:digi_patient/utils/utils.dart';
 import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
 import 'package:digi_patient/widgets/back_button.dart';
@@ -101,14 +102,12 @@ class _VitalsViewState extends State<VitalsView>
             : 0,
         child: Scaffold(
           appBar: AppBar(
+            backgroundColor: AppColors.primary_color,
             leadingWidth: leadingWidth,
             leading: const CustomBackButton(),
             title: Text(
               "Vitals",
-              style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primaryColor),
+              style:Style.alltext_appbar
             ),
             centerTitle: true,
           ),
@@ -128,7 +127,7 @@ class _VitalsViewState extends State<VitalsView>
                       ),
                     ),
                     SizedBox(
-                      height: 45.h,
+                      height: 25.h,
                     ),
                     // || vital.vitalsList.first.bpArray != null || vital.vitalsList.first.bpArray!.isNotEmpty
                     // vital.isVitalLoading || vital.vitalsList.first.bpArray!.isEmpty

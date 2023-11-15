@@ -12,6 +12,7 @@ import '../../model/doctor_model/doctors_model.dart';
 import '../../model/myDoctorList/mydoctorList.dart';
 import '../../resources/app_url.dart';
 import '../../resources/colors.dart';
+import '../../resources/styles.dart';
 import '../../routes/routes.gr.dart';
 import '../../utils/utils.dart';
 import '../../view_model/user_view_model/user_view_model.dart';
@@ -73,12 +74,10 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
       },
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: AppColors.primary_color,
           title: Text(
             "Single Invoice",
-            style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
-                color: AppColors.primaryColor),
+            style: Style.alltext_appbar,
           ),
           centerTitle: true,
           leadingWidth: leadingWidth,
@@ -129,22 +128,16 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                         Align(
                             alignment: Alignment.centerLeft,
                             child: Text("Invoice", textAlign: TextAlign.start,
-                              style: TextStyle(fontSize: 22.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),)),
+                              style: Style.alltext_default_balck_blod,)),
                         SizedBox(height: 8.h,),
                         Row(
                           children: [
                             Expanded(child: Text("Invoice Number : ",
-                              style: TextStyle(fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white),)),
+                              style: Style.alltext_default_balck,)),
                             userVM.user?.patientHnNumber == null ? Expanded(
                                 child: Text(
                                   "HN Number :", textAlign: TextAlign.start,
-                                  style: TextStyle(fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white),)):Container(),
+                                  style: Style.alltext_default_balck,)):Container(),
                           ],
                         ),
                         SizedBox(height: 3.h,),
@@ -153,22 +146,18 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                             Expanded(child: Text(
                               "${invoice.appointmentList.isNotEmpty ? invoice
                                   .appointmentList.first.inoviceNumber : ""}",
-                              style: TextStyle(
-                                  fontSize: 14.sp, color: Colors.white),)),
+                              style: Style.alltext_default_balck,)),
                             Expanded(child: Text(
                               "${userVM.user?.patientHnNumber}",
                               textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: 14.sp, color: Colors.white),)),
+                              style: Style.alltext_default_balck,)),
                           ],
                         ),
                         SizedBox(height: 12.h,),
                         Align(
                             alignment: Alignment.centerLeft,
                             child: Text("Date", textAlign: TextAlign.start,
-                              style: TextStyle(fontSize: 18.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),)),
+                              style: Style.alltext_default_balck,)),
                         SizedBox(height: 8.h,),
 
                         Row(
@@ -178,8 +167,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                               size: 15.h,),
                             SizedBox(width: 5.w,),
                             Text(getDate(widget.appointmentDate),
-                              style: TextStyle(
-                                  fontSize: 14.sp, color: Colors.white),),
+                              style: Style.alltext_default_balck,),
                           ],
                         ),
 
@@ -214,12 +202,8 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("COST", style: TextStyle(fontSize: 14.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),),
-                      Text("PRICE", style: TextStyle(fontSize: 14.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),),
+                      Text("COST", style: Style.alltext_default_balck_blod,),
+                      Text("PRICE", style: Style.alltext_default_balck_blod,),
                     ],
                   ),
                 ),
