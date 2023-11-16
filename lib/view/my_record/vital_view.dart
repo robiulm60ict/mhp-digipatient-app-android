@@ -123,7 +123,8 @@ class _VitalsViewState extends State<VitalsView>
                           borderRadius: BorderRadius.circular(8.r)),
                       child: Image.asset(
                         Assets.vitalsVital,
-                        height: 130.h,
+                        height: 100.h,
+
                       ),
                     ),
                     SizedBox(

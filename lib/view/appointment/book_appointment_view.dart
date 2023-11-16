@@ -185,8 +185,9 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                     title: Text(
                       "CHAMBER",
                       style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w400,
+                          fontSize:12.sp,
                           color: isChamber
                               ? Colors.white
                               : AppColors.primaryColor),
@@ -211,8 +212,9 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                     title: Text(
                       "ONLINE",
                       style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w400,
+                          fontSize:12.sp,
                           color: isChamber
                               ? AppColors.primaryColor
                               : AppColors.whiteColor),
@@ -246,8 +248,9 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                     title: Text(
                       "MORNING",
                       style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w400,
+                          fontSize:12.sp,
                           color: morningButton
                               ? Colors.white
                               : AppColors.primaryColor),
@@ -274,8 +277,9 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                     title: Text(
                       "EVENING",
                       style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w400,
+                          fontSize:12.sp,
                           color: morningButton
                               ? AppColors.primaryColor
                               : AppColors.whiteColor),
@@ -305,12 +309,12 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                   child: Card(
                       child: ListTile(
                         title: Text(
-                            "${docTime.day}-${docTime.month}-${docTime.year}"),
+                            "${docTime.day}-${docTime.month}-${docTime.year}",style: Style.alltext_default_balck,),
                         subtitle: Text(
                             "${myDocVM.getTime(
                                 docTime.slotFrom.toString())} To ${myDocVM
-                                .getTime(docTime.slotTo.toString())}"),
-                        trailing: Text("${docTime.type}"),
+                                .getTime(docTime.slotTo.toString())}",style: Style.alltext_default_balck,),
+                        trailing: Text("${docTime.type}",style: Style.alltext_default_balck,)
                       )),
                 );
               },
@@ -461,8 +465,9 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                       "${widget.doctors!.doctors?.usualProvider
                           ?.usualProviderName.toString()}",
                       style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12.sp,
                           color: AppColors.primaryColor),
                     ),
                     trailing: Icon(

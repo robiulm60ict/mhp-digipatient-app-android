@@ -1,6 +1,7 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/resources/colors.dart';
+import 'package:digi_patient/resources/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
@@ -164,34 +165,34 @@ class _AnatomyViewState extends State<AnatomyView> {
         appBar: AppBar(
           leadingWidth: leadingWidth,
           leading: const CustomBackButton(),
-          title: Text("Select Diseases", style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
+          title: Text("Select Diseases", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400,  fontFamily: 'Roboto',color: AppColors.primaryColor),),
 
           actions: [
             DropdownButton(
               value: _selectedValue,
-              items:  const [
+              items:   [
                 DropdownMenuItem(
                   value: maleFront,
                   child: Text(
-                    maleFront,
+                    maleFront,style: Style.alltext_default_balck,
                   ),
                 ),
                 DropdownMenuItem(
                   value: maleBack,
                   child: Text(
-                    maleBack,
+                    maleBack,style: Style.alltext_default_balck,
                   ),
                 ),
                 DropdownMenuItem(
                   value: femaleFront,
                   child: Text(
-                    femaleFront,
+                    femaleFront,style: Style.alltext_default_balck,
                   ),
                 ),
                 DropdownMenuItem(
                   value: femaleBack,
                   child: Text(
-                    femaleBack,
+                    femaleBack,style: Style.alltext_default_balck,
                   ),
                 ),
               ],

@@ -46,7 +46,7 @@ class VitalsItemDetailsView extends StatelessWidget {
                   child: ListTile(
                     leading: Image.network(
                       "https://gdbackend.macrohealthplus.org//images/VitalSignIcon/${vitals.icon}",
-                      height: 30, width: 30, fit: BoxFit.fill,
+                      height: 35, width: 35, fit: BoxFit.fill,
                       errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),
                     ),
                     title: Text("${vitals.systolic}/${vitals.diastolic}", style: Style.alltext_default_balck_blod),
@@ -71,7 +71,7 @@ class VitalsItemDetailsView extends StatelessWidget {
                 child: ListTile(
                   leading: Image.network(
                     "https://gdbackend.macrohealthplus.org//images/VitalSignIcon/${vitals?.icon}",
-                    height: 30, width: 30, fit: BoxFit.fill,
+                    height: 35, width: 35, fit: BoxFit.fill,
                     errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),
                   ),
                   title: Text("${vitals?.value}", style:Style.alltext_default_balck_blod),
@@ -105,7 +105,7 @@ class VitalsItemDetailsView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.network(img, height: 70, width: 70, fit: BoxFit.fitHeight, errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),),
+                    Image.network(img, height: 35, width: 35, fit: BoxFit.fill, errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),),
                     SizedBox(width: 16.w,),
                     Column(
                       mainAxisSize: MainAxisSize.min,

@@ -72,67 +72,152 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
         padding: EdgeInsets.all(20.r),
         child: Column(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 60.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: showTodayAppointments
-                              ? AppColors.primaryColor
-                              : Colors.white),
-                      onPressed: () {
-                        setState(() {
-                          showTodayAppointments = true;
-                        });
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.0.h),
-                        child: Text(
-                          "Today's Appointments",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: showTodayAppointments
-                                  ? Colors.white
-                                  : AppColors.primaryColor),
-                        ),
+            Card(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Card(
+                      elevation: showTodayAppointments ? 5 : 0,
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            showTodayAppointments = true;
+                          });
+
+                        },
+                        child: SizedBox(
+                            height: 60.h,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                color: showTodayAppointments
+                                    ? AppColors.primaryColor
+                                    : Colors.white,
+                              )),
+                              child: Center(
+                                  child: Text("Today's Appointments",
+                                      textAlign: TextAlign.center)),
+                            )
+                            // MaterialButton(
+                            //   elevation:showTodayAppointments
+                            //       ? 5
+                            //       :0 ,
+                            //
+                            //
+                            //       color: showTodayAppointments
+                            //           ? AppColors.primaryColor
+                            //           : Colors.white,
+                            //   onPressed: () {
+                            //     setState(() {
+                            //       showTodayAppointments = true;
+                            //     });
+                            //   },
+                            //   child: Padding(
+                            //     padding: EdgeInsets.symmetric(vertical: 8.0.h),
+                            //     child: Text(
+                            //       "Today's Appointments",
+                            //       textAlign: TextAlign.center,
+                            //       style: TextStyle(
+                            //           fontSize: 16.sp,
+                            //           fontWeight: FontWeight.w500,
+                            //           color: showTodayAppointments
+                            //               ? Colors.white
+                            //               : AppColors.primaryColor),
+                            //     ),
+                            //   ),
+                            // ),
+                            ),
                       ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: SizedBox(
-                    height: 60.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: !showTodayAppointments
-                              ? AppColors.primaryColor
-                              : Colors.white),
-                      onPressed: () {
-                        setState(() {
-                          showTodayAppointments = false;
-                        });
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.0.h),
-                        child: Text(
-                          "Upcoming Appointments",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: !showTodayAppointments
-                                  ? Colors.white
-                                  : AppColors.primaryColor),
-                        ),
+                  Expanded(
+                    child: Card(
+                      elevation: !showTodayAppointments ? 5 : 0,
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            showTodayAppointments = false;
+                          });
+                        },
+                        child: SizedBox(
+                            height: 60.h,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                color: !showTodayAppointments
+                                    ? AppColors.primaryColor
+                                    : Colors.white,
+                              )),
+                              child: Center(
+                                  child: Text("Upcoming Appointments",
+                                      textAlign: TextAlign.center)),
+                            )
+                            // MaterialButton(
+                            //   elevation:showTodayAppointments
+                            //       ? 5
+                            //       :0 ,
+                            //
+                            //
+                            //       color: showTodayAppointments
+                            //           ? AppColors.primaryColor
+                            //           : Colors.white,
+                            //   onPressed: () {
+                            //     setState(() {
+                            //       showTodayAppointments = true;
+                            //     });
+                            //   },
+                            //   child: Padding(
+                            //     padding: EdgeInsets.symmetric(vertical: 8.0.h),
+                            //     child: Text(
+                            //       "Today's Appointments",
+                            //       textAlign: TextAlign.center,
+                            //       style: TextStyle(
+                            //           fontSize: 16.sp,
+                            //           fontWeight: FontWeight.w500,
+                            //           color: showTodayAppointments
+                            //               ? Colors.white
+                            //               : AppColors.primaryColor),
+                            //     ),
+                            //   ),
+                            // ),
+                            ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                  // Expanded(
+                  //   child: SizedBox(
+                  //     height: 60.h,
+                  //     child: MaterialButton(
+                  //
+                  //       elevation:!showTodayAppointments
+                  //           ? 5
+                  //           :0 ,
+                  //           color: !showTodayAppointments
+                  //               ? AppColors.primaryColor
+                  //               : Colors.white,
+                  //       onPressed: () {
+                  //         setState(() {
+                  //           showTodayAppointments = false;
+                  //         });
+                  //       },
+                  //       child: Padding(
+                  //         padding: EdgeInsets.symmetric(vertical: 8.0.h),
+                  //         child: Text(
+                  //           "Upcoming Appointments",
+                  //           textAlign: TextAlign.center,
+                  //           style: TextStyle(
+                  //               fontSize: 16.sp,
+                  //               fontWeight: FontWeight.w500,
+                  //               color: !showTodayAppointments
+                  //                   ? Colors.white
+                  //                   : AppColors.primaryColor),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                ],
+              ),
             ),
             SizedBox(
               height: 20.h,

@@ -21,7 +21,7 @@ class MyRecordListTile extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 4.0.h),
         child: ListTile(
           onTap: onTap,
-          leading: Icon(iconData, color: iconColor, size: 18.h,),
+          leading: Icon(iconData, color: iconColor, size: 20.h,),
           title: Text(title, style:Style.alltext_default_balck_blod),
           trailing: Icon(Icons.arrow_forward_ios, size: 15.h, color: AppColors.blackColor,),
         ),

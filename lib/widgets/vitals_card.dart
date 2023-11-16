@@ -38,7 +38,8 @@ class VitalsCard extends StatelessWidget {
             },
             title: Text(title, style:Style.alltext_default_balck_blod),
           subtitle: Text(subtitle, textAlign: TextAlign.start, style: Style.alltext_default_balck),
-          leading: Image.network(image, height: 35.h, width: 30, fit: BoxFit.fill, errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),),
+          leading: Image.network(image, height: 35.h, width: 35.w
+            , fit: BoxFit.fill, errorBuilder: (context, error, stackTrace) => const Icon(Icons.error, color: Colors.red,),),
           ),
           // child: Column(
           //   mainAxisSize: MainAxisSize.min,
