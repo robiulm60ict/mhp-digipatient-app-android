@@ -158,7 +158,7 @@ class _MyRecordViewState extends State<MyRecordView> {
             height: 5.h,
           ),
           MyRecordListTile(
-            title: 'My medical History',
+            title: 'My Medical History',
             iconData: Icons.medical_information,
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context)=>MyMedicalHistoryView()));

@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:badges/badges.dart' as badges;
 import 'package:badges/badges.dart';
+import 'package:digi_patient/view/authentications/user_detail_view.dart';
+import 'package:digi_patient/view/daily_upcomming_appointment/daily_and_upcomming_appointments_view.dart';
+import 'package:digi_patient/view/payment/invoice_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
@@ -70,7 +73,8 @@ class _HomeViewState extends State<HomeView> {
     double width = (size.width / 3);
     width = width + width;
     debugPrint(size.width.toString());
-    final user = Provider.of<UserViewModel>(context).user;
+    final userprovider = Provider.of<UserViewModel>(context).user;
+    final userprovide = Provider.of<UserViewModel>(context).getUserDetails();
 
     final auth = Provider.of<AuthViewModel>(context);
     final provider = Provider.of<HomeViewModel>(context);
@@ -120,6 +124,8 @@ class _HomeViewState extends State<HomeView> {
                   iconData: Icons.person,
                   title: "Profile",
                   onTap: () {
+                   // Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDetailView(user: userprovide)));
+
                     // context.router.push(UserDetailRoute(user: user));
                   },
                 ),
@@ -130,7 +136,9 @@ class _HomeViewState extends State<HomeView> {
                   iconData: Icons.calendar_view_day,
                   title: "Appointment",
                   onTap: () {
-                   // context.router.push(const DailyAndUpcommingRoute());
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>DailyAndUpcommingView()));
+
+                    // context.router.push(const DailyAndUpcommingRoute());
                   },
                 ),
                 SizedBox(
@@ -148,6 +156,7 @@ class _HomeViewState extends State<HomeView> {
                   iconData: Icons.payment,
                   title: "Payment & Invoice",
                   onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>InvoiceView()));
                   //  context.router.push(const InvoiceRoute());
                   },
                 ),
@@ -156,7 +165,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 DrawerListTile(
                   iconData: Icons.fact_check_outlined,
-                  title: "Faq",
+                  title: "FAQ",
                   onTap: () {},
                 ),
                 SizedBox(
@@ -308,7 +317,7 @@ class _HomeViewState extends State<HomeView> {
                         CircleAvatar(
                             radius: 40,
                             backgroundImage: NetworkImage(
-                                "${AppUrls.image}${user?.patientImages}"))
+                                "${AppUrls.image}${userprovider?.patientImages}"))
                       ],
                     ),
                   ),

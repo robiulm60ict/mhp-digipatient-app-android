@@ -310,7 +310,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
 
                   children: [
                     Text(
-                      "Specialty",
+                      "Specialities",
                       style: Style.alltext_default_balck_blod,
                     ),
                     SizedBox(
@@ -337,7 +337,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 ),
                 ReadMoreText(
                   "${doc?.doctors?.drAbout.toString()}",
-                  trimLines: 5,
+                  trimLines: 3,
                   colorClickableText: Colors.pink,
                   trimMode: TrimMode.Line,
                   trimCollapsedText: 'See All',
@@ -362,6 +362,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 SizedBox(
                   height: 10.h,
                 ),
+
                 SizedBox(
                   height: 70.h,
                   child: mdVM.isDocChamberTimeLoading

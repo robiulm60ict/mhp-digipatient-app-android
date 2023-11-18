@@ -118,18 +118,18 @@ class _VitalsViewState extends State<VitalsView>
               : ListView(
                   padding: EdgeInsets.all(defaultPadding.r),
                   children: [
-                    Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.r)),
-                      child: Image.asset(
-                        Assets.vitalsVital,
-                        height: 100.h,
-
-                      ),
-                    ),
-                    SizedBox(
-                      height: 25.h,
-                    ),
+                    // Card(
+                    //   shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(8.r)),
+                    //   child: Image.asset(
+                    //     Assets.vitalsVital,
+                    //     height: 100.h,
+                    //
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 25.h,
+                    // ),
                     // || vital.vitalsList.first.bpArray != null || vital.vitalsList.first.bpArray!.isNotEmpty
                     // vital.isVitalLoading || vital.vitalsList.first.bpArray!.isEmpty
                     //     ? const Center(

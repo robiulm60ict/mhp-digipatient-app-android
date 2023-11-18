@@ -30,9 +30,9 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<DailyAndUpcommingViewModel>().getTodayAppointments(context);
-      context
-          .read<DailyAndUpcommingViewModel>()
-          .getUpcommingAppointments(context);
+      // context
+      //     .read<DailyAndUpcommingViewModel>()
+      //     .getUpcommingAppointments(context);
     });
   }
 
