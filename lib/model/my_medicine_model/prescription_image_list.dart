@@ -1,62 +1,59 @@
 // To parse this JSON data, do
 //
-//     final upcommingAppointmentsModel = upcommingAppointmentsModelFromJson(jsonString);
+//     final preccriptionListModel = preccriptionListModelFromJson(jsonString);
 
 import 'dart:convert';
 
-UpcommingAppointmentsModel upcommingAppointmentsModelFromJson(String str) => UpcommingAppointmentsModel.fromJson(json.decode(str));
+List<PreccriptionListModel> preccriptionListModelFromJson(String str) => List<PreccriptionListModel>.from(json.decode(str).map((x) => PreccriptionListModel.fromJson(x)));
 
-String upcommingAppointmentsModelToJson(UpcommingAppointmentsModel data) => json.encode(data.toJson());
+String preccriptionListModelToJson(List<PreccriptionListModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class UpcommingAppointmentsModel {
-  int? status;
-  String? message;
-  List<UpcomingPatientAppointment>? upcomingPatientAppointments;
-  int? totalUpcomingLists;
+class PreccriptionListModel {
+  int? id;
+  String? patientId;
+  String? doctorId;
+  String? prescriptionUrl;
+  dynamic createdAt;
+  dynamic updatedAt;
+  Patient? patient;
+  Doctor? doctor;
 
-  UpcommingAppointmentsModel({
-    this.status,
-    this.message,
-    this.upcomingPatientAppointments,
-    this.totalUpcomingLists,
+  PreccriptionListModel({
+    this.id,
+    this.patientId,
+    this.doctorId,
+    this.prescriptionUrl,
+    this.createdAt,
+    this.updatedAt,
+    this.patient,
+    this.doctor,
   });
 
-  factory UpcommingAppointmentsModel.fromJson(Map<String, dynamic> json) => UpcommingAppointmentsModel(
-    status: json["status"],
-    message: json["message"],
-    upcomingPatientAppointments: json["upcomingPatientAppointments"] == null ? [] : List<UpcomingPatientAppointment>.from(json["upcomingPatientAppointments"]!.map((x) => UpcomingPatientAppointment.fromJson(x))),
-    totalUpcomingLists: json["totalUpcomingLists"],
+  factory PreccriptionListModel.fromJson(Map<String, dynamic> json) => PreccriptionListModel(
+    id: json["id"],
+    patientId: json["patient_id"],
+    doctorId: json["doctor_id"],
+    prescriptionUrl: json["prescription_url"],
+    createdAt: json["created_at"],
+    updatedAt: json["updated_at"],
+    patient: json["patient"] == null ? null : Patient.fromJson(json["patient"]),
+    doctor: json["doctor"] == null ? null : Doctor.fromJson(json["doctor"]),
   );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "message": message,
-    "upcomingPatientAppointments": upcomingPatientAppointments == null ? [] : List<dynamic>.from(upcomingPatientAppointments!.map((x) => x.toJson())),
-    "totalUpcomingLists": totalUpcomingLists,
+    "id": id,
+    "patient_id": patientId,
+    "doctor_id": doctorId,
+    "prescription_url": prescriptionUrl,
+    "created_at": createdAt,
+    "updated_at": updatedAt,
+    "patient": patient?.toJson(),
+    "doctor": doctor?.toJson(),
   };
 }
 
-class UpcomingPatientAppointment {
+class Doctor {
   int? id;
-  String? doctorsId;
-  String? patientId;
-  String? patientName;
-  String? patientMobile;
-  dynamic notes;
-  String? statusColor;
-  dynamic statusName;
-  DateTime? startTime;
-  DateTime? endTime;
-  dynamic subject;
-  String? appType;
-  dynamic mediaTypeOnline;
-  dynamic media;
-  int? appointmentCompleted;
-  int? deleteStatus;
-  dynamic createdBy;
-  dynamic updatedBy;
-  DateTime? createdAt;
-  DateTime? updatedAt;
   String? drIdentityNo;
   String? title;
   String? departmentId;
@@ -86,6 +83,129 @@ class UpcomingPatientAppointment {
   String? drImages;
   dynamic doctorFee;
   dynamic appToken;
+  String? deleteStatus;
+  dynamic createdBy;
+  dynamic updatedBy;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+
+  Doctor({
+    this.id,
+    this.drIdentityNo,
+    this.title,
+    this.departmentId,
+    this.specialistsId,
+    this.departmentName,
+    this.drFamilyName,
+    this.drGivenName,
+    this.drMiddleName,
+    this.drLastName,
+    this.drPreferredName,
+    this.drAbout,
+    this.workExperienceYears,
+    this.drAddressLine1,
+    this.drAddressLine2,
+    this.drBmdcRegNo,
+    this.drEmail,
+    this.drIsReferred,
+    this.drDob,
+    this.drBirthSexId,
+    this.drCityId,
+    this.drPostalCode,
+    this.drHomePhone,
+    this.drWorkPhone,
+    this.drMobilePhone,
+    this.drContactViaId,
+    this.drProviderId,
+    this.drImages,
+    this.doctorFee,
+    this.appToken,
+    this.deleteStatus,
+    this.createdBy,
+    this.updatedBy,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory Doctor.fromJson(Map<String, dynamic> json) => Doctor(
+    id: json["id"],
+    drIdentityNo: json["dr_identity_no"],
+    title: json["title"],
+    departmentId: json["department_id"],
+    specialistsId: json["specialists_id"],
+    departmentName: json["department_name"],
+    drFamilyName: json["dr_family_name"],
+    drGivenName: json["dr_given_name"],
+    drMiddleName: json["dr_middle_name"],
+    drLastName: json["dr_last_name"],
+    drPreferredName: json["dr_preferred_name"],
+    drAbout: json["dr_about"],
+    workExperienceYears: json["work_experience_years"],
+    drAddressLine1: json["dr_address_line_1"],
+    drAddressLine2: json["dr_address_line_2"],
+    drBmdcRegNo: json["dr_bmdc_reg_no"],
+    drEmail: json["dr_email"],
+    drIsReferred: json["dr_is_referred"],
+    drDob: json["dr_dob"] == null ? null : DateTime.parse(json["dr_dob"]),
+    drBirthSexId: json["dr_birth_sex_id"],
+    drCityId: json["dr_city_id"],
+    drPostalCode: json["dr_postal_code"],
+    drHomePhone: json["dr_home_phone"],
+    drWorkPhone: json["dr_work_phone"],
+    drMobilePhone: json["dr_mobile_phone"],
+    drContactViaId: json["dr_contact_via_id"],
+    drProviderId: json["dr_provider_id"],
+    drImages: json["dr_images"],
+    doctorFee: json["doctor_fee"],
+    appToken: json["app_token"],
+    deleteStatus: json["delete_status"],
+    createdBy: json["created_by"],
+    updatedBy: json["updated_by"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "dr_identity_no": drIdentityNo,
+    "title": title,
+    "department_id": departmentId,
+    "specialists_id": specialistsId,
+    "department_name": departmentName,
+    "dr_family_name": drFamilyName,
+    "dr_given_name": drGivenName,
+    "dr_middle_name": drMiddleName,
+    "dr_last_name": drLastName,
+    "dr_preferred_name": drPreferredName,
+    "dr_about": drAbout,
+    "work_experience_years": workExperienceYears,
+    "dr_address_line_1": drAddressLine1,
+    "dr_address_line_2": drAddressLine2,
+    "dr_bmdc_reg_no": drBmdcRegNo,
+    "dr_email": drEmail,
+    "dr_is_referred": drIsReferred,
+    "dr_dob": "${drDob!.year.toString().padLeft(4, '0')}-${drDob!.month.toString().padLeft(2, '0')}-${drDob!.day.toString().padLeft(2, '0')}",
+    "dr_birth_sex_id": drBirthSexId,
+    "dr_city_id": drCityId,
+    "dr_postal_code": drPostalCode,
+    "dr_home_phone": drHomePhone,
+    "dr_work_phone": drWorkPhone,
+    "dr_mobile_phone": drMobilePhone,
+    "dr_contact_via_id": drContactViaId,
+    "dr_provider_id": drProviderId,
+    "dr_images": drImages,
+    "doctor_fee": doctorFee,
+    "app_token": appToken,
+    "delete_status": deleteStatus,
+    "created_by": createdBy,
+    "updated_by": updatedBy,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+  };
+}
+
+class Patient {
+  int? id;
   String? patientHnNumber;
   dynamic patientTitleId;
   dynamic patientNid;
@@ -94,7 +214,7 @@ class UpcomingPatientAppointment {
   String? patientFirstName;
   dynamic patientMiddleName;
   String? patientLastName;
-  dynamic patientPreferredName;
+  String? patientPreferredName;
   dynamic patientContactVia;
   dynamic patientHomePhone;
   dynamic patientWorkPhone;
@@ -132,58 +252,13 @@ class UpcomingPatientAppointment {
   dynamic patientGeneralNotes;
   dynamic patientAppointmentNotes;
   int? lactation;
-  dynamic mediaTypeOnlineName;
+  dynamic appToken;
+  int? deleteStatus;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
-  UpcomingPatientAppointment({
+  Patient({
     this.id,
-    this.doctorsId,
-    this.patientId,
-    this.patientName,
-    this.patientMobile,
-    this.notes,
-    this.statusColor,
-    this.statusName,
-    this.startTime,
-    this.endTime,
-    this.subject,
-    this.appType,
-    this.mediaTypeOnline,
-    this.media,
-    this.appointmentCompleted,
-    this.deleteStatus,
-    this.createdBy,
-    this.updatedBy,
-    this.createdAt,
-    this.updatedAt,
-    this.drIdentityNo,
-    this.title,
-    this.departmentId,
-    this.specialistsId,
-    this.departmentName,
-    this.drFamilyName,
-    this.drGivenName,
-    this.drMiddleName,
-    this.drLastName,
-    this.drPreferredName,
-    this.drAbout,
-    this.workExperienceYears,
-    this.drAddressLine1,
-    this.drAddressLine2,
-    this.drBmdcRegNo,
-    this.drEmail,
-    this.drIsReferred,
-    this.drDob,
-    this.drBirthSexId,
-    this.drCityId,
-    this.drPostalCode,
-    this.drHomePhone,
-    this.drWorkPhone,
-    this.drMobilePhone,
-    this.drContactViaId,
-    this.drProviderId,
-    this.drImages,
-    this.doctorFee,
-    this.appToken,
     this.patientHnNumber,
     this.patientTitleId,
     this.patientNid,
@@ -230,59 +305,14 @@ class UpcomingPatientAppointment {
     this.patientGeneralNotes,
     this.patientAppointmentNotes,
     this.lactation,
-    this.mediaTypeOnlineName,
+    this.appToken,
+    this.deleteStatus,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  factory UpcomingPatientAppointment.fromJson(Map<String, dynamic> json) => UpcomingPatientAppointment(
+  factory Patient.fromJson(Map<String, dynamic> json) => Patient(
     id: json["id"],
-    doctorsId: json["doctors_id"],
-    patientId: json["patient_id"],
-    patientName: json["patient_name"],
-    patientMobile: json["patient_mobile"],
-    notes: json["notes"],
-    statusColor: json["status_color"],
-    statusName: json["status_name"],
-    startTime: json["StartTime"] == null ? null : DateTime.parse(json["StartTime"]),
-    endTime: json["EndTime"] == null ? null : DateTime.parse(json["EndTime"]),
-    subject: json["Subject"],
-    appType: json["app_type"],
-    mediaTypeOnline: json["mediaType_online"],
-    media: json["media"],
-    appointmentCompleted: json["appointment_completed"],
-    deleteStatus: json["delete_status"],
-    createdBy: json["created_by"],
-    updatedBy: json["updated_by"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    drIdentityNo: json["dr_identity_no"],
-    title: json["title"],
-    departmentId: json["department_id"],
-    specialistsId: json["specialists_id"],
-    departmentName: json["department_name"],
-    drFamilyName: json["dr_family_name"],
-    drGivenName: json["dr_given_name"],
-    drMiddleName: json["dr_middle_name"],
-    drLastName: json["dr_last_name"],
-    drPreferredName: json["dr_preferred_name"],
-    drAbout: json["dr_about"],
-    workExperienceYears: json["work_experience_years"],
-    drAddressLine1: json["dr_address_line_1"],
-    drAddressLine2: json["dr_address_line_2"],
-    drBmdcRegNo: json["dr_bmdc_reg_no"],
-    drEmail: json["dr_email"],
-    drIsReferred: json["dr_is_referred"],
-    drDob: json["dr_dob"] == null ? null : DateTime.parse(json["dr_dob"]),
-    drBirthSexId: json["dr_birth_sex_id"],
-    drCityId: json["dr_city_id"],
-    drPostalCode: json["dr_postal_code"],
-    drHomePhone: json["dr_home_phone"],
-    drWorkPhone: json["dr_work_phone"],
-    drMobilePhone: json["dr_mobile_phone"],
-    drContactViaId: json["dr_contact_via_id"],
-    drProviderId: json["dr_provider_id"],
-    drImages: json["dr_images"],
-    doctorFee: json["doctor_fee"],
-    appToken: json["app_token"],
     patientHnNumber: json["patient_hn_number"],
     patientTitleId: json["patient_title_id"],
     patientNid: json["patient_nid"],
@@ -329,59 +359,14 @@ class UpcomingPatientAppointment {
     patientGeneralNotes: json["patient_general_notes"],
     patientAppointmentNotes: json["patient_appointment_notes"],
     lactation: json["lactation"],
-    mediaTypeOnlineName: json["media_typeOnline_name"],
+    appToken: json["app_token"],
+    deleteStatus: json["delete_status"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "doctors_id": doctorsId,
-    "patient_id": patientId,
-    "patient_name": patientName,
-    "patient_mobile": patientMobile,
-    "notes": notes,
-    "status_color": statusColor,
-    "status_name": statusName,
-    "StartTime": startTime?.toIso8601String(),
-    "EndTime": endTime?.toIso8601String(),
-    "Subject": subject,
-    "app_type": appType,
-    "mediaType_online": mediaTypeOnline,
-    "media": media,
-    "appointment_completed": appointmentCompleted,
-    "delete_status": deleteStatus,
-    "created_by": createdBy,
-    "updated_by": updatedBy,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "dr_identity_no": drIdentityNo,
-    "title": title,
-    "department_id": departmentId,
-    "specialists_id": specialistsId,
-    "department_name": departmentName,
-    "dr_family_name": drFamilyName,
-    "dr_given_name": drGivenName,
-    "dr_middle_name": drMiddleName,
-    "dr_last_name": drLastName,
-    "dr_preferred_name": drPreferredName,
-    "dr_about": drAbout,
-    "work_experience_years": workExperienceYears,
-    "dr_address_line_1": drAddressLine1,
-    "dr_address_line_2": drAddressLine2,
-    "dr_bmdc_reg_no": drBmdcRegNo,
-    "dr_email": drEmail,
-    "dr_is_referred": drIsReferred,
-    "dr_dob": "${drDob!.year.toString().padLeft(4, '0')}-${drDob!.month.toString().padLeft(2, '0')}-${drDob!.day.toString().padLeft(2, '0')}",
-    "dr_birth_sex_id": drBirthSexId,
-    "dr_city_id": drCityId,
-    "dr_postal_code": drPostalCode,
-    "dr_home_phone": drHomePhone,
-    "dr_work_phone": drWorkPhone,
-    "dr_mobile_phone": drMobilePhone,
-    "dr_contact_via_id": drContactViaId,
-    "dr_provider_id": drProviderId,
-    "dr_images": drImages,
-    "doctor_fee": doctorFee,
-    "app_token": appToken,
     "patient_hn_number": patientHnNumber,
     "patient_title_id": patientTitleId,
     "patient_nid": patientNid,
@@ -428,6 +413,9 @@ class UpcomingPatientAppointment {
     "patient_general_notes": patientGeneralNotes,
     "patient_appointment_notes": patientAppointmentNotes,
     "lactation": lactation,
-    "media_typeOnline_name": mediaTypeOnlineName,
+    "app_token": appToken,
+    "delete_status": deleteStatus,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
   };
 }

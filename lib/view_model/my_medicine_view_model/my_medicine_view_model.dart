@@ -4,6 +4,8 @@ import 'package:digi_patient/model/my_medicine_model/past_rx_model.dart';
 import 'package:digi_patient/repository/my_medicine_repo/my_medicine_repo.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../model/my_medicine_model/prescription_image_list.dart';
+
 class MyMedicineViewModel with ChangeNotifier{
 
   final medicineRepo = MyMedicineRepo();
@@ -11,11 +13,28 @@ class MyMedicineViewModel with ChangeNotifier{
   List<CurrentRxModel> currentRxList = [];
 
   List<PastRxModel> pastRxList = [];
+  List<PreccriptionListModel> imageRxList = [];
 
   // List<Drugs> drugList = [];
+  bool isPrescriptionRxLoading = true;
 
   bool isCurrentRxLoading = true;
+  getPrescriptionRx(BuildContext context) async {
+    isPrescriptionRxLoading = true;
+    pastRxList.clear();
 
+    notifyListeners();
+    medicineRepo.getprescriptionImage().then((value) {
+
+      imageRxList = value;
+
+      isPrescriptionRxLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      isPrescriptionRxLoading = true;
+      notifyListeners();
+    });
+  }
   getCurrentRx(BuildContext context)async{
     isCurrentRxLoading = true;
     currentRxList.clear();

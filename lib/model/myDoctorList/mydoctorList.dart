@@ -71,7 +71,7 @@ class Datum {
 class Doctors {
   int? id;
   String? drIdentityNo;
-  String? title;
+  Title? title;
   String? departmentId;
   String? specialistsId;
   dynamic departmentName;
@@ -97,7 +97,7 @@ class Doctors {
   String? drContactViaId;
   String? drProviderId;
   String? drImages;
-  String? doctorFee;
+  dynamic doctorFee;
   dynamic appToken;
   String? deleteStatus;
   dynamic createdBy;
@@ -107,6 +107,7 @@ class Doctors {
   Specialist? specialist;
   Department? department;
   UsualProvider? usualProvider;
+  List<Academic>? academic;
 
   Doctors({
     this.id,
@@ -147,12 +148,13 @@ class Doctors {
     this.specialist,
     this.department,
     this.usualProvider,
+    this.academic,
   });
 
   factory Doctors.fromJson(Map<String, dynamic> json) => Doctors(
     id: json["id"],
     drIdentityNo: json["dr_identity_no"],
-    title: json["title"],
+    title: json["title"] == null ? null : Title.fromJson(json["title"]),
     departmentId: json["department_id"],
     specialistsId: json["specialists_id"],
     departmentName: json["department_name"],
@@ -188,12 +190,13 @@ class Doctors {
     specialist: json["specialist"] == null ? null : Specialist.fromJson(json["specialist"]),
     department: json["department"] == null ? null : Department.fromJson(json["department"]),
     usualProvider: json["usual_provider"] == null ? null : UsualProvider.fromJson(json["usual_provider"]),
+    academic: json["academic"] == null ? [] : List<Academic>.from(json["academic"]!.map((x) => Academic.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "dr_identity_no": drIdentityNo,
-    "title": title,
+    "title": title?.toJson(),
     "department_id": departmentId,
     "specialists_id": specialistsId,
     "department_name": departmentName,
@@ -229,6 +232,79 @@ class Doctors {
     "specialist": specialist?.toJson(),
     "department": department?.toJson(),
     "usual_provider": usualProvider?.toJson(),
+    "academic": academic == null ? [] : List<dynamic>.from(academic!.map((x) => x.toJson())),
+  };
+}
+
+class Academic {
+  int? id;
+  String? doctorsMasterId;
+  String? degreeId;
+  String? passingYear;
+  String? result;
+  String? institutionId;
+  String? countryId;
+  String? cityId;
+  String? scanCopy;
+  String? scanCopyTitle;
+  int? deleteStatus;
+  dynamic createdBy;
+  dynamic updatedBy;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+
+  Academic({
+    this.id,
+    this.doctorsMasterId,
+    this.degreeId,
+    this.passingYear,
+    this.result,
+    this.institutionId,
+    this.countryId,
+    this.cityId,
+    this.scanCopy,
+    this.scanCopyTitle,
+    this.deleteStatus,
+    this.createdBy,
+    this.updatedBy,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory Academic.fromJson(Map<String, dynamic> json) => Academic(
+    id: json["id"],
+    doctorsMasterId: json["doctors_master_id"],
+    degreeId: json["degree_id"],
+    passingYear: json["passing_year"],
+    result: json["result"],
+    institutionId: json["institution_id"],
+    countryId: json["country_id"],
+    cityId: json["city_id"],
+    scanCopy: json["scan_copy"],
+    scanCopyTitle: json["scan_copy_title"],
+    deleteStatus: json["delete_status"],
+    createdBy: json["created_by"],
+    updatedBy: json["updated_by"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "doctors_master_id": doctorsMasterId,
+    "degree_id": degreeId,
+    "passing_year": passingYear,
+    "result": result,
+    "institution_id": institutionId,
+    "country_id": countryId,
+    "city_id": cityId,
+    "scan_copy": scanCopy,
+    "scan_copy_title": scanCopyTitle,
+    "delete_status": deleteStatus,
+    "created_by": createdBy,
+    "updated_by": updatedBy,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
   };
 }
 
@@ -269,6 +345,26 @@ class Specialist {
   Map<String, dynamic> toJson() => {
     "id": id,
     "specialists_name": specialistsName,
+  };
+}
+
+class Title {
+  int? id;
+  String? titleName;
+
+  Title({
+    this.id,
+    this.titleName,
+  });
+
+  factory Title.fromJson(Map<String, dynamic> json) => Title(
+    id: json["id"],
+    titleName: json["title_name"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "title_name": titleName,
   };
 }
 

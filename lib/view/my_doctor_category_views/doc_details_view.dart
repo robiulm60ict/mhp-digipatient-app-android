@@ -66,16 +66,22 @@ class _DocDetailsViewState extends State<DocDetailsView> {
 
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
-        child:  SizedBox(
+        child: SizedBox(
           height: 50.h,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary_color,
+                backgroundColor: AppColors.primary_color,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.r))),
             onPressed: () {
-             appointmentViewModel.selectButton(0);
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>BookAppointmentView(doctors: doc!, amount: "${doc?.doctors?.doctorFee==null? "0":doc?.doctors?.doctorFee} ")));
+              appointmentViewModel.selectButton(0);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BookAppointmentView(
+                          doctors: doc!,
+                          amount:
+                              "${doc?.doctors?.doctorFee == null ? "0" : doc?.doctors?.doctorFee} ")));
 
               // context.router.push(BookAppointmentRoute(
               //     doctors: doc!,
@@ -128,11 +134,27 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "${doc?.doctors?.title} ${doc?.doctors?.drMiddleName} ${doc?.doctors?.drGivenName} ${doc?.doctors?.drLastName}",
+                          "${doc?.doctors!.title!.titleName.toString()} ${doc?.doctors?.drMiddleName} ${doc?.doctors?.drGivenName} ${doc?.doctors?.drLastName}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style:Style.alltext_default_balck_blod,
+                          style: Style.alltext_default_balck_blod,
                         ),
+                        SizedBox(
+                          height: 8.h,
+                        ),
+                        Row(
+                            children: List.generate(
+                                doc!.doctors!.academic!.length, (index) {
+                              return Center(
+                                //  width: Get.size.width*0.26,
+                                child: Text(
+                                    "${doc!.doctors!.academic![index].degreeId.toString()} ,",
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                    style: Style.alltext_ExtraSmall_black),
+                              );
+                            })),
                         SizedBox(
                           height: 8.h,
                         ),
@@ -140,7 +162,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           "${doc?.doctors?.department?.departmentsName}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style:Style.alltext_default_balck,
+                          style: Style.alltext_default_balck,
                         ),
                         SizedBox(
                           height: 8.h,
@@ -159,7 +181,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                             ),
                             Text(
                               "$rating",
-                                style: Style.alltext_default_balck,
+                              style: Style.alltext_default_balck,
                             )
                           ],
                         ),
@@ -229,7 +251,8 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                         child: CircleAvatar(
                           radius: 50.r,
                           backgroundColor: AppColors.linearGradient1,
-                          backgroundImage: NetworkImage( "${AppUrls.docImage}${doc?.doctors?.drImages}"),
+                          backgroundImage: NetworkImage(
+                              "${AppUrls.docImage}${doc?.doctors?.drImages}"),
                         ),
                       ),
                       // Image.network(
@@ -269,12 +292,11 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           ),
                           title: Text(
                             "1000+",
-                            style:Style.alltext_default_balck,
+                            style: Style.alltext_default_balck,
                           ),
                           subtitle: Text(
                             "Patients",
-                            style:
-                            Style.alltext_default_balck,
+                            style: Style.alltext_default_balck,
                           ),
                         ),
                       ),
@@ -293,8 +315,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           ),
                           subtitle: Text(
                             "Experience",
-                            style:
-                            Style.alltext_default_balck,
+                            style: Style.alltext_default_balck,
                           ),
                         ),
                       ),
@@ -307,7 +328,6 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
-
                   children: [
                     Text(
                       "Specialities",
@@ -389,7 +409,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                   children: [
                                     Text(
                                       "${docTime.day}-${docTime.month}-${docTime.year}",
-                                      style:Style.alltext_default_balck,
+                                      style: Style.alltext_default_balck,
                                     ),
                                     SizedBox(
                                       height: 4.h,
@@ -431,7 +451,6 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 SizedBox(
                   height: 20.h,
                 ),
-
               ],
             ),
           ),

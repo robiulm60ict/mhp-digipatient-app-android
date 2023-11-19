@@ -83,80 +83,80 @@ class _NotificationsViewState extends State<NotificationsView> {
             SizedBox(
               height: 10.h,
             ),
-            appointments.isTodayAppointmentLoading
-                ? const Center(child: CircularProgressIndicator())
-                : Expanded(
-                    child: ListView.separated(
-                        itemBuilder: (context, index) {
-                          TodaysPatientAppointment app =
-                              appointments.todayAppointmentList[index];
-
-                          return NotificationListTile(
-                            doctorName: "${app.drGivenName}",
-                            appointmentTime:
-                                "{getTime(app.startTime)}- {getTime(app.endTime)}",
-                            onTap: () {
-                              notificationPopup(context,
-                                  doctorName: "${app.drGivenName}",
-                                  docImage:
-                                      "${AppUrls.docImage}${app.drImages}");
-                            },
-                            docImage: "${AppUrls.docImage}${app.drImages}",
-                            beforeText: 'Today, You have an appointment with ',
-                          );
-                        },
-                        separatorBuilder: (context, index) => SizedBox(
-                              height: 10.h,
-                            ),
-                        itemCount: appointments.todayAppointmentList.length),
-                  ),
-            SizedBox(
-              height: kPadding.h,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Up Coming",
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 17.sp,
-                  color: const Color(0xFF646464),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            appointments.isUpcommingAppointmentLoading
-                ? const Center(child: CircularProgressIndicator())
-                : Expanded(
-                    child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        UpcomingPatientAppointments app =
-                            appointments.upcommingAppointmentList[index];
-
-                        return NotificationListTile(
-                          doctorName: "${app.drGivenName}",
-                          appointmentTime:
-                              "${getTime(app.startTime)}- ${getTime(app.endTime)}",
-                          onTap: () {
-                            notificationPopup(context,
-                                doctorName: "${app.drGivenName}",
-                                docImage: "${AppUrls.docImage}${app.drImages}");
-                          },
-                          docImage: "${AppUrls.docImage}${app.drImages}",
-                          beforeText: 'You have an appointment with ',
-                        );
-                      },
-                      separatorBuilder: (context, index) => SizedBox(
-                        height: 10.h,
-                      ),
-                      itemCount: appointments.upcommingAppointmentList.length,
-                    ),
-                  ),
-            SizedBox(
-              height: kPadding.h,
-            ),
+            // appointments.isTodayAppointmentLoading
+            //     ? const Center(child: CircularProgressIndicator())
+            //     : Expanded(
+            //         child: ListView.separated(
+            //             itemBuilder: (context, index) {
+            //               TodaysPatientAppointment app =
+            //                   appointments.todayAppointmentList[index];
+            //
+            //               return NotificationListTile(
+            //                 doctorName: "${app.drGivenName}",
+            //                 appointmentTime:
+            //                     "{getTime(app.startTime)}- {getTime(app.endTime)}",
+            //                 onTap: () {
+            //                   notificationPopup(context,
+            //                       doctorName: "${app.drGivenName}",
+            //                       docImage:
+            //                           "${AppUrls.docImage}${app.drImages}");
+            //                 },
+            //                 docImage: "${AppUrls.docImage}${app.drImages}",
+            //                 beforeText: 'Today, You have an appointment with ',
+            //               );
+            //             },
+            //             separatorBuilder: (context, index) => SizedBox(
+            //                   height: 10.h,
+            //                 ),
+            //             itemCount: appointments.todayAppointmentList.length),
+            //       ),
+            // SizedBox(
+            //   height: kPadding.h,
+            // ),
+            // Align(
+            //   alignment: Alignment.centerLeft,
+            //   child: Text(
+            //     "Up Coming",
+            //     style: TextStyle(
+            //       fontWeight: FontWeight.w700,
+            //       fontSize: 17.sp,
+            //       color: const Color(0xFF646464),
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 10.h,
+            // ),
+            // appointments.isUpcommingAppointmentLoading
+            //     ? const Center(child: CircularProgressIndicator())
+            //     : Expanded(
+            //         child: ListView.separated(
+            //           itemBuilder: (context, index) {
+            //             UpcomingPatientAppointment app =
+            //                 appointments.upcommingAppointmentList[index];
+            //
+            //             return NotificationListTile(
+            //               doctorName: "${app.drGivenName}",
+            //               appointmentTime:
+            //                   "${getTime(app.startTime)}- ${getTime(app.endTime)}",
+            //               onTap: () {
+            //                 notificationPopup(context,
+            //                     doctorName: "${app.drGivenName}",
+            //                     docImage: "${AppUrls.docImage}${app.drImages}");
+            //               },
+            //               docImage: "${AppUrls.docImage}${app.drImages}",
+            //               beforeText: 'You have an appointment with ',
+            //             );
+            //           },
+            //           separatorBuilder: (context, index) => SizedBox(
+            //             height: 10.h,
+            //           ),
+            //           itemCount: appointments.upcommingAppointmentList.length,
+            //         ),
+            //       ),
+            // SizedBox(
+            //   height: kPadding.h,
+            // ),
           ],
         ),
       ),

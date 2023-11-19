@@ -24,7 +24,7 @@ class VitalsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // debugPrint("----------------------------${allData.length}");
+  //  debugPrint("----------------------------${v.name}");
     return Card(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.r)

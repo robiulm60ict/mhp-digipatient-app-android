@@ -23,6 +23,8 @@ import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
 import '../../view_model/user_view_model/user_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/drawer_list_tile.dart';
+import '../privacy_policy/privacypolicy.dart';
+import '../support/support_page.dart';
 
 
 class HomeView extends StatefulWidget {
@@ -172,9 +174,22 @@ class _HomeViewState extends State<HomeView> {
                   height: 6.h,
                 ),
                 DrawerListTile(
+                  iconData: Icons.support,
+                  title: "Support",
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>SupportPage()));
+
+                  },
+                ),
+                SizedBox(
+                  height: 6.h,
+                ) ,DrawerListTile(
                   iconData: Icons.privacy_tip,
                   title: "Privacy & Policy",
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>PrivacyPolicy()));
+
+                  },
                 ),
                 SizedBox(
                   height: 6.h,

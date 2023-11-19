@@ -21,7 +21,14 @@ import '../../widgets/payment_user_detail.dart';
 
 class SingleInvoiceView extends StatefulWidget {
   const SingleInvoiceView(
-      {Key? key, required this.appointmentDate, required this.doctorId, required this.patientId, required this.amount, required this.appointmentType, required this.doctor, required this.paymentMethod})
+      {Key? key,
+      required this.appointmentDate,
+      required this.doctorId,
+      required this.patientId,
+      required this.amount,
+      required this.appointmentType,
+      required this.doctor,
+      required this.paymentMethod})
       : super(key: key);
   final String appointmentDate;
   final String doctorId;
@@ -36,7 +43,6 @@ class SingleInvoiceView extends StatefulWidget {
 }
 
 class _SingleInvoiceViewState extends State<SingleInvoiceView> {
-
   @override
   void initState() {
     super.initState();
@@ -68,9 +74,9 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
 
     return WillPopScope(
       onWillPop: () {
-       Navigator.pushNamed(context, RoutesName.dashbord);
-        return Future.delayed(const Duration(milliseconds: 1000)).then((
-            value) => true);
+        Navigator.pushNamed(context, RoutesName.dashbord);
+        return Future.delayed(const Duration(milliseconds: 1000))
+            .then((value) => true);
       },
       child: Scaffold(
         appBar: AppBar(
@@ -81,14 +87,18 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
           ),
           centerTitle: true,
           leadingWidth: leadingWidth,
-          leading:InkWell(
-            onTap: () =>    Navigator.pushNamed(context, RoutesName.dashbord),
+          leading: InkWell(
+            onTap: () => Navigator.pushNamed(context, RoutesName.dashbord),
             child: Card(
               margin: EdgeInsets.all(8),
               elevation: 5,
               child: Padding(
                 padding: EdgeInsets.all(3),
-                child: Icon(Icons.arrow_back, color: AppColors.primaryColor, size: 20.h,),
+                child: Icon(
+                  Icons.arrow_back,
+                  color: AppColors.primaryColor,
+                  size: 20.h,
+                ),
               ),
             ),
           ),
@@ -97,16 +107,17 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
           padding: EdgeInsets.all(20.r),
           children: [
             PaymentUserDetail(
-              name: "${widget.doctor.doctors!.drGivenName} ${widget.doctor
-                  .doctors!.drMiddleName} ${widget.doctor.doctors!.drLastName}",
-              designation: "${widget.doctor.doctors!.department
-                  ?.departmentsName}",
+              name:
+                  "${widget.doctor.doctors!.title!.titleName} ${widget.doctor.doctors!.drGivenName} ${widget.doctor.doctors!.drMiddleName??""} ${widget.doctor.doctors!.drLastName}",
+              designation:
+                  "${widget.doctor.doctors!.department?.departmentsName}",
               visitingTime: getTime(widget.appointmentDate),
-              hospitalName: "${widget.doctor.doctors?.usualProvider
-                  ?.usualProviderName.toString()}",
+              hospitalName:
+                  "${widget.doctor.doctors?.usualProvider?.usualProviderName.toString()}",
               date: widget.appointmentDate,
               location: "${widget.doctor.doctors?.drWorkPhone}",
-              image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',),
+              image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',
+            ),
             SizedBox(
               height: 20.h,
             ),
@@ -117,9 +128,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                       color: AppColors.primaryColor,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(5.r),
-                          topRight: Radius.circular(5.r))
-
-                  ),
+                          topRight: Radius.circular(5.r))),
                   child: Padding(
                     padding: EdgeInsets.all(15.r),
                     child: Column(
@@ -127,48 +136,50 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                       children: [
                         Align(
                             alignment: Alignment.centerLeft,
-                            child: Text("Invoice", textAlign: TextAlign.start,
-                              style: Style.alltext_default_balck_blod,)),
-                        SizedBox(height: 8.h,),
-                        Row(
-                          children: [
-                            Expanded(child: Text("Invoice Number : ",
-                              style: Style.alltext_default_balck,)),
-                            userVM.user?.patientHnNumber == null ? Expanded(
-                                child: Text(
-                                  "HN Number :", textAlign: TextAlign.start,
-                                  style: Style.alltext_default_balck,)):Container(),
-                          ],
-                        ),
-                        SizedBox(height: 3.h,),
-                        Row(
-                          children: [
-                            Expanded(child: Text(
-                              "${invoice.appointmentList.isNotEmpty ? invoice
-                                  .appointmentList.first.inoviceNumber : ""}",
-                              style: Style.alltext_default_balck,)),
-                            Expanded(child: Text(
-                              "${userVM.user?.patientHnNumber}",
+                            child: Text(
+                              "Invoice",
                               textAlign: TextAlign.start,
-                              style: Style.alltext_default_balck,)),
-                          ],
+                              style: Style.alltext_default_balck_blod,
+                            )),
+                        SizedBox(
+                          height: 8.h,
                         ),
-                        SizedBox(height: 12.h,),
+                        SingleInvoiceRow(
+                          lTitle: "Invoice",
+                          rTitle:
+                              "${invoice.appointmentList.isNotEmpty ? invoice.appointmentList.first.inoviceNumber : ""}",
+                        ),
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        SingleInvoiceRow(
+                          lTitle: "Invoice Number",
+                          rTitle:
+                          "${userVM.user?.patientHnNumber}",
+                        ),
+
+                        SizedBox(
+                          height: 3.h,
+                        ),
+
+                        SizedBox(
+                          height: 12.h,
+                        ),
                         Align(
                             alignment: Alignment.centerLeft,
-                            child: Text("Date", textAlign: TextAlign.start,
-                              style: Style.alltext_default_balck,)),
-                        SizedBox(height: 8.h,),
+                            child: Text(
+                              "Date",
+                              textAlign: TextAlign.start,
+                              style: Style.alltext_default_balck,
+                            )),
+                        SizedBox(
+                          height: 8.h,
+                        ),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(Icons.date_range, color: Colors.white,
-                              size: 15.h,),
-                            SizedBox(width: 5.w,),
-                            Text(getDate(widget.appointmentDate),
-                              style: Style.alltext_default_balck,),
-                          ],
+                        SingleInvoiceRow(
+                          lTitle: "Date",
+                          rTitle:
+                          getDate(widget.appointmentDate),
                         ),
 
                       ],
@@ -181,16 +192,19 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                     padding: EdgeInsets.all(15.r),
                     child: Column(
                       children: [
-                        SingleInvoiceRow(lTitle: "Patient Name :",
-                            rTitle: "${userVM.user?.patientFirstName} ${userVM.user
-                                ?.patientLastName}"),
-                        SingleInvoiceRow(lTitle: "Mobile Number :",
+                        SingleInvoiceRow(
+                            lTitle: "Patient Name :",
+                            rTitle:
+                                "${userVM.user?.patientFirstName} ${userVM.user?.patientLastName}"),
+                        SingleInvoiceRow(
+                            lTitle: "Mobile Number :",
                             rTitle: "${userVM.user?.patientMobilePhone}"),
-                        SingleInvoiceRow(lTitle: "Address :",
+                        SingleInvoiceRow(
+                            lTitle: "Address :",
                             rTitle: "${userVM.user?.patientAddress1}"),
-                        SingleInvoiceRow(lTitle: "Payment Method :",
+                        SingleInvoiceRow(
+                            lTitle: "Payment Method :",
                             rTitle: "${widget.paymentMethod}"),
-
                       ],
                     ),
                   ),
@@ -202,8 +216,14 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("COST", style: Style.alltext_default_balck_blod,),
-                      Text("PRICE", style: Style.alltext_default_balck_blod,),
+                      Text(
+                        "COST",
+                        style: Style.alltext_default_balck_blod,
+                      ),
+                      Text(
+                        "PRICE",
+                        style: Style.alltext_default_balck_blod,
+                      ),
                     ],
                   ),
                 ),
@@ -220,7 +240,9 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                         const SingleInvoiceRow(lTitle: "Due ", rTitle: "0.00"),
                         const SingleInvoiceRow(
                             lTitle: "VAT/TAX", rTitle: "0.00"),
-                        SizedBox(height: 12.h,),
+                        SizedBox(
+                          height: 12.h,
+                        ),
                         DottedLine(
                           direction: Axis.horizontal,
                           lineLength: double.infinity,
@@ -234,10 +256,11 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                           dashGapGradient: const [Colors.red, Colors.blue],
                           dashGapRadius: 0.0,
                         ),
-                        SizedBox(height: 12.h,),
+                        SizedBox(
+                          height: 12.h,
+                        ),
                         SingleInvoiceRow(
                             lTitle: "Total Amount ", rTitle: widget.amount),
-
                       ],
                     ),
                   ),
@@ -250,6 +273,3 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
     );
   }
 }
-
-
-

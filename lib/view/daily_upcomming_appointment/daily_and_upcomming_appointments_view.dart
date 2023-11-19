@@ -30,9 +30,9 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<DailyAndUpcommingViewModel>().getTodayAppointments(context);
-      // context
-      //     .read<DailyAndUpcommingViewModel>()
-      //     .getUpcommingAppointments(context);
+      context
+          .read<DailyAndUpcommingViewModel>()
+          .getUpcommingAppointments(context);
     });
   }
 
@@ -230,7 +230,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                     : ListView.builder(
                         itemCount: appointments.upcommingAppointmentList.length,
                         itemBuilder: (context, index) {
-                          UpcomingPatientAppointments app =
+                          UpcomingPatientAppointment app =
                               appointments.upcommingAppointmentList[index];
                           return AppointmentNotificationCard(
                             onTap: () {
@@ -247,9 +247,9 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                                           : false));
                             },
                             title:
-                                "You have an appointments with ${app.drGivenName} at ${getDate(app.startTime)}",
+                                "You have an appointments with ${app.drGivenName} at ${getDate(app.startTime.toString())}",
                             subTitle:
-                                "Starts: ${getTime(app.startTime)} Ends: ${getTime(app.endTime)}",
+                                "Starts: ${getTime(app.startTime.toString())} Ends: ${getTime(app.endTime.toString())}",
                             docImage: "${AppUrls.docImage}${app.drImages}",
                           );
                         }),

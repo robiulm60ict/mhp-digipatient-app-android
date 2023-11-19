@@ -124,11 +124,12 @@ class MyDoctorView extends StatelessWidget {
                         docImage:
                             "${AppUrls.drprofile}${doc?.doctors?.drImages.toString()}",
                         docName:
-                            "${doc!.doctors!.title.toString()} ${doc?.doctors?.drGivenName.toString()} ${doc?.doctors?.drMiddleName.toString()} ${doc?.doctors?.drLastName.toString()}",
+                            "${doc!.doctors!.title!.titleName.toString()} ${doc?.doctors?.drGivenName.toString()} ${doc?.doctors?.drMiddleName.toString()} ${doc?.doctors?.drLastName.toString()}",
                         docSpeciality:
                             "${doc?.doctors?.specialist?.specialistsName.toString()}",
                         docHospital:
                             "${doc?.doctors!.usualProvider!.usualProviderName.toString()}",
+                        doctortitle: doc.doctors!.academic,
                       );
                     },
                   ),

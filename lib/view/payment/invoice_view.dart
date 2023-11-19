@@ -36,7 +36,7 @@ invoiceList.clear();
     final response = await http.get(Uri.parse("${AppUrls.invoiceView}$id"));
     final json = jsonDecode(response.body.toString());
     if(response.statusCode == 200){
-      for(Map i in json){
+      for(var i in json){
         invoiceList.add(InvoiceShowModel.fromJson(i));
       }
       return invoiceList;
@@ -50,7 +50,7 @@ invoiceList.clear();
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_){
 
-      // context.read<AppointmentViewModel>().getInvoiceList(context);
+       context.read<AppointmentViewModel>().getInvoiceList(context);
 
     });
   }
@@ -97,7 +97,7 @@ invoiceList.clear();
                       return Card(
                         child: ListTile(
                           title: Text("${iv.amount}",),
-                          subtitle: Text(getDate(iv.date)),
+                          subtitle: Text(getDate(iv.date.toString())),
                           trailing: Text("${iv.paymentType}"),
                         ),
                       );

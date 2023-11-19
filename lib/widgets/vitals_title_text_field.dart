@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../resources/colors.dart';
+import '../resources/styles.dart';
 
 class VitalTextTitle extends StatelessWidget {
   const VitalTextTitle({Key? key, required this.title, required this.controller, this.keyBoardType}) : super(key: key);
@@ -52,9 +53,10 @@ class VitalTextTitle extends StatelessWidget {
     // );
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
+        Text(title, style: Style.alltext_default_balck,),
         SizedBox(height: 20.h,),
         SizedBox(
           width: 200.w,

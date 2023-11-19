@@ -5,6 +5,7 @@ import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/resources/styles.dart';
 import 'package:digi_patient/utils/utils.dart';
+import 'package:digi_patient/view/bottom_navigation_buttons/home_view.dart';
 import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
 import 'package:digi_patient/widgets/back_button.dart';
 import 'package:digi_patient/widgets/line_chart.dart';
@@ -43,6 +44,7 @@ class _VitalsViewState extends State<VitalsView>
 
   PatientsVs? dropdownValue;
   bool isBloodPressure = true;
+
   @override
   Widget build(BuildContext context) {
     final vital = Provider.of<MyRecordViewModel>(context);
@@ -93,7 +95,7 @@ class _VitalsViewState extends State<VitalsView>
     }
 
     return RefreshIndicator(
-      onRefresh: () async{
+      onRefresh: () async {
         getVitals();
       },
       child: DefaultTabController(
@@ -104,11 +106,20 @@ class _VitalsViewState extends State<VitalsView>
           appBar: AppBar(
             backgroundColor: AppColors.primary_color,
             leadingWidth: leadingWidth,
-            leading: const CustomBackButton(),
-            title: Text(
-              "Vitals",
-              style:Style.alltext_appbar
+            leading: InkWell(
+              onTap: () {
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeView(),),(route) => false);
+              },
+              child: Card(
+                margin: EdgeInsets.all(8.r),
+                elevation: 5,
+                child: Padding(
+                  padding: EdgeInsets.all(6.r),
+                  child: Icon(Icons.arrow_back, color: AppColors.primaryColor, size: 20.h,),
+                ),
+              ),
             ),
+            title: Text("Vitals", style: Style.alltext_appbar),
             centerTitle: true,
           ),
           body: vital.isVitalLoading
@@ -148,7 +159,7 @@ class _VitalsViewState extends State<VitalsView>
                     //     v: Vitals.bloodPressure,
                     //     allData: const [],
                     //     index: 0),
-                    vital.isVitalLoading==true
+                    vital.isVitalLoading == true
                         ? const Center(
                             child: CircularProgressIndicator(),
                           )
@@ -167,12 +178,15 @@ class _VitalsViewState extends State<VitalsView>
                                 title:
                                     "${vitals!.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.name : ""}",
                                 subtitle:
-                                    "${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.value : ""}",
+                                    "${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.value : ""} ${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.unitsId : ""}",
                                 image:
                                     "https://gdbackend.macrohealthplus.org//images/VitalSignIcon/${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.icon : ""}",
-                                unitId: "${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.unitsId : ""}",
-                                color: "${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.color : ""}",
-                                icon: "${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.icon : ""}",
+                                unitId:
+                                    "${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.unitsId : ""}",
+                                color:
+                                    "${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.color : ""}",
+                                icon:
+                                    "${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.icon : ""}",
                                 allData: vitals.patientsVs!.isNotEmpty
                                     ? vitals.patientsVs!
                                     : [],
@@ -182,7 +196,12 @@ class _VitalsViewState extends State<VitalsView>
                                                 .toLowerCase() ==
                                             "blood pressure"
                                         ? Vitals.bloodPressure
-                                        : Vitals.weight
+                                        : vitals.patientsVs?.first.name
+                                                    .toString()
+                                                     ==
+                                                "BMI"
+                                            ? Vitals.bmi
+                                            : Vitals.weight
                                     : Vitals.weight,
                               );
                             },

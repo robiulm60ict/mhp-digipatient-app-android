@@ -6,6 +6,7 @@ import 'package:digi_patient/model/my_record_model/reason_for_visit_model.dart';
 import 'package:digi_patient/model/my_record_model/save_vital_model.dart';
 import 'package:digi_patient/model/my_record_model/vitals_model.dart';
 import 'package:digi_patient/utils/message.dart';
+import 'package:digi_patient/view/my_record/vital_view.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,9 +20,33 @@ class MyRecordViewModel with ChangeNotifier {
   List<PastHistory> medicalHistoryFromGreatDocPastList = [];
 
   bool isMedicalHistoryFromGreatDocLoading = true;
-
   MyRecordRepo myRecordRepo = MyRecordRepo();
+  double bmiResult = 0.0;
 
+  void calculateBMI(bmiw,bmih) {
+
+    double weight = double.tryParse(bmiw.text) ?? 0.0;
+    double height = double.tryParse(bmih.text) ?? 0.0;
+
+    if (weight > 0 && height > 0) {
+      double bmi = weight / ((height / 100) * (height / 100));
+      bmiResult = bmi;
+      print(bmiResult);
+
+
+      print("bmiResultvvvvvvvvvvvvvvvvvvvvv${bmiResult}");
+      print("bmivvvvvvvvvvvvvvvvvvvvv${bmi}");
+      print(bmi);
+      notifyListeners();
+    } else {
+      // Handle invalid input
+
+      print("eeeeeeeeeeeeeeeeeeee${bmiResult}");
+      bmiResult = 0.0;
+      notifyListeners();
+    }
+
+  }
   getMedicalHistoryFromGreatDoc(BuildContext context) async {
     medicalHistoryFromGreatDocList.clear();
     medicalHistoryFromGreatDocPastList.clear();
@@ -147,6 +172,8 @@ class MyRecordViewModel with ChangeNotifier {
       setVitalStatus("$vitalName Added Successfully");
       // Messages.snackBar(context, "$vitalName Added Successfully");
       isSaveVitalLoading = false;
+     // getVitals(context);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>VitalsView()));
       Messages.flushBarMessage(context, "$vitalName Added Successfully",
           flushBarPosition: FlushbarPosition.TOP,
           backgroundColor: Colors.green);

@@ -11,7 +11,7 @@ class DailyAndUpcommingViewModel with ChangeNotifier{
   List<UpcommingAppointmentsModel> upcommingAppointmentFullList = [];
 
   List<TodaysPatientAppointment> todayAppointmentList = [];
-  List<UpcomingPatientAppointments> upcommingAppointmentList = [];
+  List<UpcomingPatientAppointment> upcommingAppointmentList = [];
 
   AppointmentRepo appointmentRepo = AppointmentRepo();
 

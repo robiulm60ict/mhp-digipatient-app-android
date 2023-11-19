@@ -11,7 +11,7 @@ class InvoiceRepo{
   Future<InvoiceShowModel> getInvoiceList(String id) async{
 
     try{
-      dynamic response = await apiService.getGetApiResponse(AppUrls.invoiceView + id,);
+      dynamic response = await apiService.getGetApiResponse(AppUrls.invoiceView + id);
       return InvoiceShowModel.fromJson(response);
     }catch(e){
       rethrow;
