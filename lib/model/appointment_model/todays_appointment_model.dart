@@ -129,6 +129,7 @@ class TodaysPatientAppointment {
   dynamic patientAppointmentNotes;
   int? lactation;
   dynamic mediaTypeOnlineName;
+  String? titleName;
 
   TodaysPatientAppointment({
     this.id,
@@ -227,6 +228,7 @@ class TodaysPatientAppointment {
     this.patientAppointmentNotes,
     this.lactation,
     this.mediaTypeOnlineName,
+    this.titleName,
   });
 
   factory TodaysPatientAppointment.fromJson(Map<String, dynamic> json) => TodaysPatientAppointment(
@@ -326,6 +328,7 @@ class TodaysPatientAppointment {
     patientAppointmentNotes: json["patient_appointment_notes"],
     lactation: json["lactation"],
     mediaTypeOnlineName: json["media_typeOnline_name"],
+    titleName: json["title_name"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -425,5 +428,6 @@ class TodaysPatientAppointment {
     "patient_appointment_notes": patientAppointmentNotes,
     "lactation": lactation,
     "media_typeOnline_name": mediaTypeOnlineName,
+    "title_name": titleName,
   };
 }

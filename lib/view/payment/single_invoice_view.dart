@@ -162,19 +162,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                           height: 3.h,
                         ),
 
-                        SizedBox(
-                          height: 12.h,
-                        ),
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Date",
-                              textAlign: TextAlign.start,
-                              style: Style.alltext_default_balck,
-                            )),
-                        SizedBox(
-                          height: 8.h,
-                        ),
+
 
                         SingleInvoiceRow(
                           lTitle: "Date",

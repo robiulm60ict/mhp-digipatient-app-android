@@ -1,6 +1,7 @@
 import 'package:digi_patient/utils/message.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../model/appointment_model/UpcommingAppointmentModel.dart';
 import '../../model/appointment_model/todays_appointment_model.dart';
 import '../../model/appointment_model/upcomming_appointments_model.dart';
 import '../../repository/appointment_repo/appointment_repo.dart';
@@ -11,7 +12,7 @@ class DailyAndUpcommingViewModel with ChangeNotifier{
   List<UpcommingAppointmentsModel> upcommingAppointmentFullList = [];
 
   List<TodaysPatientAppointment> todayAppointmentList = [];
-  List<UpcomingPatientAppointment> upcommingAppointmentList = [];
+  List<UpcomingAppointment> upcommingAppointmentList = [];
 
   AppointmentRepo appointmentRepo = AppointmentRepo();
 
@@ -42,7 +43,7 @@ class DailyAndUpcommingViewModel with ChangeNotifier{
     notifyListeners();
     await appointmentRepo.getUpcommingAppointment().then((value) {
       upcommingAppointmentFullList.add(value);
-      upcommingAppointmentList.addAll(value.upcomingPatientAppointments!);
+      upcommingAppointmentList.addAll(value.upcomingAppointments!);
       isUpcommingAppointmentLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {

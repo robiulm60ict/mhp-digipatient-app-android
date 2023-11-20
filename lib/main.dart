@@ -13,6 +13,7 @@ import 'package:digi_patient/view_model/home_view_model.dart';
 import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:digi_patient/view_model/my_medicine_view_model/my_medicine_view_model.dart';
 import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
+import 'package:digi_patient/view_model/mypayment/my_payment_view.dart';
 import 'package:digi_patient/view_model/real_communication/video_call_view_model.dart';
 import 'package:digi_patient/view_model/signup_model.dart';
 import 'package:digi_patient/view_model/user_view_model/user_view_model.dart';
@@ -112,6 +113,8 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => DoctorScreenViewModel(),
+        ), ChangeNotifierProvider(
+          create: (context) => MyPaymentViewModel(),
         ),
       ],
       child: MyApp(

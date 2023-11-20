@@ -85,6 +85,7 @@ class AppUrls{
 
 /// Medical History From Great Doc
 
+  static const String mypayment = '$baseUrlPatient/online-booking-app-payment-details/';
   static const String medicalHistoryFromGreatDoc = '$baseUrlPatient/past-history/';
 
   static const String medicalProcedureFromGreatDoc = '$baseUrlPatient/great-doc-procedure/';

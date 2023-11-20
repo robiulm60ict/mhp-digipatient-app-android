@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/model/doctor_model/doctor_chember_time_model.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
@@ -380,73 +381,95 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                   style: Style.alltext_default_balck_blod,
                 ),
                 SizedBox(
-                  height: 10.h,
+                  height: 5.h,
                 ),
 
+                // SizedBox(
+                //   height: 70.h,
+                //   child: mdVM.isDocChamberTimeLoading
+                //       ? const Center(
+                //           child: CircularProgressIndicator(),
+                //         )
+                //       : ListView.builder(
+                //           itemCount: mdVM.doctorTimeSlotList.length,
+                //           scrollDirection: Axis.horizontal,
+                //           itemBuilder: (context, index) {
+                //             DocTimeSlot docTime =
+                //                 mdVM.doctorTimeSlotList[index];
+                //             bool isMorning =
+                //                 docTime.type?.toLowerCase() == "morning";
+                //             return Center(
+                //               child: Card(
+                //                   child: ListTile(
+                //                       title: Text(
+                //                         "${docTime.day}-${docTime.month}-${docTime.year}",
+                //                         style: Style.alltext_default_balck,
+                //                       ),
+                //                       // subtitle: Text(
+                //                       //   "${myDocVM.getTime(docTime.slotFrom.toString())} To ${myDocVM.getTime(docTime.slotTo.toString())}",
+                //                       //   style: Style.alltext_default_balck,
+                //                       // ),
+                //                       trailing: Text(
+                //                         "${docTime.type}",
+                //                         style: Style.alltext_default_balck,
+                //                       ))),
+                //             );
+                //           }),
+                // ),
                 SizedBox(
-                  height: 70.h,
-                  child: mdVM.isDocChamberTimeLoading
+                  height: 80.h,
+                  child: mdVM.isDocChamberTimeLoading ||
+                      mdVM.doctorTimeSlotList.isEmpty
                       ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : ListView.builder(
-                          itemCount: mdVM.doctorTimeSlotList.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            DocTimeSlot docTime =
-                                mdVM.doctorTimeSlotList[index];
-                            bool isMorning =
-                                docTime.type?.toLowerCase() == "morning";
-                            return Card(
-                              elevation: 2,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 8.0.h, horizontal: 16.w),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      "${docTime.day}-${docTime.month}-${docTime.year}",
-                                      style: Style.alltext_default_balck,
-                                    ),
-                                    SizedBox(
-                                      height: 4.h,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Image.asset(
-                                          isMorning
-                                              ? Assets.imagesDayActive
-                                              : Assets.imagesDayInActive,
-                                          height: 20.h,
-                                          width: 20.w,
-                                          fit: BoxFit.fill,
-                                        ),
-                                        SizedBox(
-                                          width: 8.w,
-                                        ),
-                                        Image.asset(
-                                          isMorning
-                                              ? Assets.imagesNightInActive
-                                              : Assets.imagesNightActive,
-                                          height: 20.h,
-                                          width: 20.w,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                    child: Text("No  Data"),
+                  )
+                      : CarouselSlider.builder(
+                    // scrollDirection: Axis.horizontal,
+                    itemCount: mdVM.doctorTimeSlotList.length,
+                    itemBuilder:
+                        (BuildContext context, int index, int pageViewIndex) {
+                      DocTimeSlot docTime = mdVM.doctorTimeSlotList[index];
+                      return Center(
+                        child: Card(
+                            child: ListTile(
+                                title: Text(
+                                  "${docTime.day}-${docTime.month}-${docTime.year}",
+                                  style: Style.alltext_default_balck,
                                 ),
-                              ),
-                            );
-                          }),
+                                subtitle: Text(
+                                  "${mdVM.getTime(docTime.slotFrom.toString())} To ${mdVM.getTime(docTime.slotTo.toString())}",
+                                  style: Style.alltext_default_balck,
+                                ),
+                                trailing: Text(
+                                  "${docTime.type}",
+                                  style: Style.alltext_default_balck,
+                                ))),
+                      );
+                    },
+                    options: CarouselOptions(
+                      // height: 400,
+                      // aspectRatio: 16/9,
+                      viewportFraction: 0.8,
+                      initialPage: 0,
+                      enableInfiniteScroll: true,
+                      reverse: false,
+                      autoPlay: true,
+                      autoPlayInterval: const Duration(seconds: 3),
+                      autoPlayAnimationDuration:
+                      const Duration(milliseconds: 1600),
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enlargeCenterPage: true,
+                      // enlargeFactor: 0.3,
+                      scrollDirection: Axis.horizontal,
+                    ),
+                    // itemBuilder: (context, index) => Card(
+                    //   color: index == 1 ? AppColors.primaryColor : Colors.white,
+                    //   child: Padding(
+                    //     padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
+                    //     child: Text("9.30AM", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: index == 1 ? Colors.white : const Color(0xFF646464)),),
+                    //   ),
+                    // ),
+                  ),
                 ),
                 SizedBox(
                   height: 20.h,

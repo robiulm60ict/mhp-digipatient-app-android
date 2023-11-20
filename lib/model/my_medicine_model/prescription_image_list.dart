@@ -12,6 +12,7 @@ class PreccriptionListModel {
   int? id;
   String? patientId;
   String? doctorId;
+  String? date;
   String? prescriptionUrl;
   dynamic createdAt;
   dynamic updatedAt;
@@ -22,6 +23,7 @@ class PreccriptionListModel {
     this.id,
     this.patientId,
     this.doctorId,
+    this.date,
     this.prescriptionUrl,
     this.createdAt,
     this.updatedAt,
@@ -33,6 +35,7 @@ class PreccriptionListModel {
     id: json["id"],
     patientId: json["patient_id"],
     doctorId: json["doctor_id"],
+    date: json["date"],
     prescriptionUrl: json["prescription_url"],
     createdAt: json["created_at"],
     updatedAt: json["updated_at"],
@@ -44,6 +47,7 @@ class PreccriptionListModel {
     "id": id,
     "patient_id": patientId,
     "doctor_id": doctorId,
+    "date": date,
     "prescription_url": prescriptionUrl,
     "created_at": createdAt,
     "updated_at": updatedAt,
@@ -81,7 +85,7 @@ class Doctor {
   String? drContactViaId;
   String? drProviderId;
   String? drImages;
-  dynamic doctorFee;
+  String? doctorFee;
   dynamic appToken;
   String? deleteStatus;
   dynamic createdBy;

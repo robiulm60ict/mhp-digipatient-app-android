@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../model/appointment_model/UpcommingAppointmentModel.dart';
 import '../../model/appointment_model/todays_appointment_model.dart';
 import '../../resources/styles.dart';
 import '../../utils/utils.dart';
@@ -98,34 +99,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                                   child: Text("Today's Appointments",
                                       textAlign: TextAlign.center)),
                             )
-                            // MaterialButton(
-                            //   elevation:showTodayAppointments
-                            //       ? 5
-                            //       :0 ,
-                            //
-                            //
-                            //       color: showTodayAppointments
-                            //           ? AppColors.primaryColor
-                            //           : Colors.white,
-                            //   onPressed: () {
-                            //     setState(() {
-                            //       showTodayAppointments = true;
-                            //     });
-                            //   },
-                            //   child: Padding(
-                            //     padding: EdgeInsets.symmetric(vertical: 8.0.h),
-                            //     child: Text(
-                            //       "Today's Appointments",
-                            //       textAlign: TextAlign.center,
-                            //       style: TextStyle(
-                            //           fontSize: 16.sp,
-                            //           fontWeight: FontWeight.w500,
-                            //           color: showTodayAppointments
-                            //               ? Colors.white
-                            //               : AppColors.primaryColor),
-                            //     ),
-                            //   ),
-                            // ),
+
                             ),
                       ),
                     ),
@@ -152,70 +126,12 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                                   child: Text("Upcoming Appointments",
                                       textAlign: TextAlign.center)),
                             )
-                            // MaterialButton(
-                            //   elevation:showTodayAppointments
-                            //       ? 5
-                            //       :0 ,
-                            //
-                            //
-                            //       color: showTodayAppointments
-                            //           ? AppColors.primaryColor
-                            //           : Colors.white,
-                            //   onPressed: () {
-                            //     setState(() {
-                            //       showTodayAppointments = true;
-                            //     });
-                            //   },
-                            //   child: Padding(
-                            //     padding: EdgeInsets.symmetric(vertical: 8.0.h),
-                            //     child: Text(
-                            //       "Today's Appointments",
-                            //       textAlign: TextAlign.center,
-                            //       style: TextStyle(
-                            //           fontSize: 16.sp,
-                            //           fontWeight: FontWeight.w500,
-                            //           color: showTodayAppointments
-                            //               ? Colors.white
-                            //               : AppColors.primaryColor),
-                            //     ),
-                            //   ),
-                            // ),
+
                             ),
                       ),
                     ),
                   ),
-                  // Expanded(
-                  //   child: SizedBox(
-                  //     height: 60.h,
-                  //     child: MaterialButton(
-                  //
-                  //       elevation:!showTodayAppointments
-                  //           ? 5
-                  //           :0 ,
-                  //           color: !showTodayAppointments
-                  //               ? AppColors.primaryColor
-                  //               : Colors.white,
-                  //       onPressed: () {
-                  //         setState(() {
-                  //           showTodayAppointments = false;
-                  //         });
-                  //       },
-                  //       child: Padding(
-                  //         padding: EdgeInsets.symmetric(vertical: 8.0.h),
-                  //         child: Text(
-                  //           "Upcoming Appointments",
-                  //           textAlign: TextAlign.center,
-                  //           style: TextStyle(
-                  //               fontSize: 16.sp,
-                  //               fontWeight: FontWeight.w500,
-                  //               color: !showTodayAppointments
-                  //                   ? Colors.white
-                  //                   : AppColors.primaryColor),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
+
                 ],
               ),
             ),
@@ -230,27 +146,27 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                     : ListView.builder(
                         itemCount: appointments.upcommingAppointmentList.length,
                         itemBuilder: (context, index) {
-                          UpcomingPatientAppointment app =
+                          UpcomingAppointment app =
                               appointments.upcommingAppointmentList[index];
                           return AppointmentNotificationCard(
                             onTap: () {
                               debugPrint("--------------------${app.appType}");
-                              context.router.push(DailyAndUpcommingDetailRoute(
-                                  docImage:
-                                      "${AppUrls.docImage}${app.drImages}",
-                                  docName: "${app.drGivenName}",
-                                  docHospital: "${app.drAbout}",
-                                  docSpeciality: "${app.drProviderId}",
-                                  appType:
-                                      "${app.appType}".toLowerCase() == "online"
-                                          ? true
-                                          : false));
+                              // context.router.push(DailyAndUpcommingDetailRoute(
+                              //     docImage:
+                              //         "${AppUrls.docImage}${app.doctors!.drImages}",
+                              //     docName: "${app.drGivenName}",
+                              //     docHospital: "${app.drAbout}",
+                              //     docSpeciality: "${app.drProviderId}",
+                              //     appType:
+                              //         "${app.appType}".toLowerCase() == "online"
+                              //             ? true
+                              //             : false));
                             },
                             title:
-                                "You have an appointments with ${app.drGivenName} at ${getDate(app.startTime.toString())}",
+                                "You have an appointments with  ${app.doctors!.title!.titleName} ${app.doctors!.drGivenName} at ${getDate(app.startTime.toString())}",
                             subTitle:
                                 "Starts: ${getTime(app.startTime.toString())} Ends: ${getTime(app.endTime.toString())}",
-                            docImage: "${AppUrls.docImage}${app.drImages}",
+                            docImage: "${AppUrls.docImage}${app.doctors!.drImages}",
                           );
                         }),
                 child: appointments.isTodayAppointmentLoading
@@ -278,7 +194,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                               //             : false));
                             },
                             title:
-                                "${app.title} ${app.drGivenName} ${app.drLastName}",
+                                "You have an appointments with ${app.titleName} ${app.drGivenName} ${app.drLastName}",
                             subTitle:
                                 "Starts: ${DateFormat("hh:mm a").format(DateTime.parse(app.startTime.toString()))} Ends: ${DateFormat("hh:mm a").format(DateTime.parse(app.endTime.toString()))}",
                             docImage: "${AppUrls.docImage}${app.drImages}",

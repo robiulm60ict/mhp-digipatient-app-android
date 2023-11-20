@@ -16,7 +16,7 @@ class AppointmentRepo{
     int? id = prefs.getInt(UserP.id);
     try{
       dynamic response = await apiService.getGetApiResponse("${AppUrls.todayAppointments}$id");
-      print(response);
+     // print(response);
     return TodaysAppointmentModel.fromJson(response);
     }catch (e){
       print(e);

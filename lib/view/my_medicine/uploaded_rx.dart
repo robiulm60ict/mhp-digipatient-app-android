@@ -127,13 +127,13 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                                                             style: Style
                                                                 .alltext_default_balck,
                                                           ),
-                                                          // SizedBox(
-                                                          //   width: 120.w,
-                                                          //   child: Text(
-                                                          //       "${info.patient!.id}",
-                                                          //       style: Style
-                                                          //           .alltext_default_balck),
-                                                          // ),
+                                                          SizedBox(
+                                                            width: 120.w,
+                                                            child: Text(
+                                                                "${info.patient!.patientFirstName} ${info.patient!.patientMiddleName?? ""} ${info.patient!.patientFirstName}",
+                                                                style: Style
+                                                                    .alltext_default_balck),
+                                                          ),
                                                         ],
                                                       ),
                                                       Style.distan_size2,Row(
@@ -157,23 +157,26 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                                                             style: Style
                                                                 .alltext_default_balck,
                                                           ),
-                                                          // SizedBox(
-                                                          //   width: 120.w,
-                                                          //   child: Text(
-                                                          //       "${info. ?? ""}",
-                                                          //       style: Style
-                                                          //           .alltext_default_balck),
-                                                          // ),
+                                                          SizedBox(
+                                                            width: 120.w,
+                                                            child: Text(
+                                                                "${info.date ?? ""}",
+                                                                style: Style
+                                                                    .alltext_default_balck),
+                                                          ),
                                                         ],
                                                       ),
                                                       Style.distan_size2,
                                                     ],
                                                   ),
                                                 ),
-                                                Image.network(
-                                                  "${AppUrls.prescription_image}${info.prescriptionUrl}",
-                                                  height: 75.h,
-                                                  width: 50.w,fit: BoxFit.fill,
+                                                SizedBox( height: 75.h,
+                                                  width: 50.w,
+                                                  child: Image.network(
+                                                    "${AppUrls.prescription_image}${info.prescriptionUrl}",
+                                                    height: 75.h,
+                                                    width: 50.w,fit: BoxFit.fill,
+                                                  ),
                                                 )
                                               ],
                                             ),
