@@ -77,7 +77,7 @@ class _MyPatientViewState extends State<MyPatientView> {
                               },
                             ),
                           )
-                        : noDataFounForList("No Appointment");
+                        : noDataFounForList("No Payment History");
                   } else {
                     return Column(
                       children: [

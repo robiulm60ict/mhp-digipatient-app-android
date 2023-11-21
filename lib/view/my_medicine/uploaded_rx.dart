@@ -33,6 +33,7 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.page_background_color,
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,
         leadingWidth: leadingWidth,
@@ -63,7 +64,7 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                       },
                     ),
                   )
-                      : noDataFounForList("No Payment");
+                      : noDataFounForList("No Uploaded History");
                 } else {
                   return SingleChildScrollView(
                     child: Column(

@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/shimmer.dart';
+
 class VitalsView extends StatefulWidget {
   const VitalsView({
     Key? key,
@@ -103,6 +105,7 @@ class _VitalsViewState extends State<VitalsView>
             ? vital.vitalsList.first.vsArray!.length
             : 0,
         child: Scaffold(
+          backgroundColor: AppColors.page_background_color,
           appBar: AppBar(
             backgroundColor: AppColors.primary_color,
             leadingWidth: leadingWidth,
@@ -122,10 +125,25 @@ class _VitalsViewState extends State<VitalsView>
             title: Text("Vitals", style: Style.alltext_appbar),
             centerTitle: true,
           ),
-          body: vital.isVitalLoading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
+          body:
+          vital.vitalsList.reversed.first.vsArray!.isEmpty?
+          vital.isVitalLoading == true
+              ? Center(
+            child: ListView.builder(
+              itemCount: 4,
+              scrollDirection: Axis.vertical,
+              physics: const ScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: bannerShimmereffect(
+                      94.toDouble(), 385.toDouble()),
+                );
+              },
+            ),
+          )
+              : noDataFounForList("No Vitals History")
               : ListView(
                   padding: EdgeInsets.all(defaultPadding.r),
                   children: [
@@ -159,10 +177,24 @@ class _VitalsViewState extends State<VitalsView>
                     //     v: Vitals.bloodPressure,
                     //     allData: const [],
                     //     index: 0),
+                    vital.vitalsList.isEmpty?
                     vital.isVitalLoading == true
-                        ? const Center(
-                            child: CircularProgressIndicator(),
-                          )
+                        ? Center(
+                      child: ListView.builder(
+                        itemCount: 4,
+                        scrollDirection: Axis.vertical,
+                        physics: const ScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: bannerShimmereffect(
+                                94.toDouble(), 385.toDouble()),
+                          );
+                        },
+                      ),
+                    )
+                        : noDataFounForList("No Vitals History")
                         : ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,

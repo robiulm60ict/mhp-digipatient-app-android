@@ -33,7 +33,6 @@ class MyDoctorView extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.page_background_color,
       appBar: AppBar(
-
         leadingWidth: leadingWidth,
         toolbarHeight: 60.h,
         backgroundColor: Colors.transparent,
@@ -104,7 +103,7 @@ class MyDoctorView extends StatelessWidget {
                     height: 4.h,
                   ),
                   GridView.builder(
-                    itemCount: provider.myDoctorFullList.length,
+                    itemCount: provider.myDoctorList.length,
                     shrinkWrap: true,
                     gridDelegate: FlutterzillaFixedGridView(
                         crossAxisCount: 2,
@@ -116,7 +115,11 @@ class MyDoctorView extends StatelessWidget {
 
                       return DocCard(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>DocDetailsView(id: doc!.doctorsMasterId!)));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DocDetailsView(
+                                      id: doc!.doctorsMasterId!)));
 
                           // context.router
                           //     .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
@@ -124,11 +127,11 @@ class MyDoctorView extends StatelessWidget {
                         docImage:
                             "${AppUrls.drprofile}${doc?.doctors?.drImages.toString()}",
                         docName:
-                            "${doc!.doctors!.title!.titleName.toString()} ${doc?.doctors?.drGivenName.toString()} ${doc?.doctors?.drMiddleName.toString()} ${doc?.doctors?.drLastName.toString()}",
+                            "${doc!.doctors!.title!.titleName.toString() ?? ""} ${doc?.doctors?.drGivenName ?? ""} ${doc?.doctors?.drMiddleName==null ?"":doc?.doctors?.drMiddleName.toString()} ${doc?.doctors?.drLastName.toString() ?? ""}",
                         docSpeciality:
-                            "${doc?.doctors?.specialist?.specialistsName.toString()}",
+                            doc?.doctors?.specialist?.specialistsName.toString()??"",
                         docHospital:
-                            "${doc?.doctors!.usualProvider!.usualProviderName.toString()}",
+                            "${doc?.doctors!.usualProvider!= null ? doc?.doctors!.usualProvider!.usualProviderName.toString() : ""}",
                         doctortitle: doc.doctors!.academic,
                       );
                     },

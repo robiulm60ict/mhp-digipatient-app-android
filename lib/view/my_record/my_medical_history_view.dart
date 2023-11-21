@@ -9,6 +9,7 @@ import '../../resources/styles.dart';
 import '../../utils/utils.dart';
 import '../../view_model/my_record_view_model/my_record_view_model.dart';
 import '../../widgets/back_button.dart';
+import '../../widgets/shimmer.dart';
 import 'add_medical_history_view.dart';
 
 class MyMedicalHistoryView extends StatefulWidget {
@@ -40,6 +41,7 @@ class _MyMedicalHistoryViewState extends State<MyMedicalHistoryView> {
         getMedicalHistory();
       },
       child: Scaffold(
+        backgroundColor: AppColors.page_background_color,
         appBar: AppBar(
           backgroundColor: AppColors.primary_color,
           leadingWidth: leadingWidth,
@@ -61,8 +63,26 @@ class _MyMedicalHistoryViewState extends State<MyMedicalHistoryView> {
               Icons.add,
               color: Colors.white,
             )),
-        body: sMhFGD.isMedicalHistoryFromGreatDocLoading
-            ? const Center(child: CircularProgressIndicator())
+        body: sMhFGD.medicalHistoryFromGreatDocPastList.isEmpty
+            ?
+        sMhFGD.isMedicalHistoryFromGreatDocLoading
+            ?
+        Center(
+          child: ListView.builder(
+            itemCount: 4,
+            scrollDirection: Axis.vertical,
+            physics: const ScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: bannerShimmereffect(
+                    94.toDouble(), 385.toDouble()),
+              );
+            },
+          ),
+        )
+            : noDataFounForList("No Medical History")
             : ListView.builder(
                 itemCount: sMhFGD.medicalHistoryFromGreatDocPastList.length,
                 padding: EdgeInsets.all(8.r),

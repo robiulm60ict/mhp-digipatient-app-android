@@ -90,7 +90,11 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                     MaterialPageRoute(
                         builder: (context) => PaymentMethodView(
                             appointmentDate:
-                                appointmentViewModel.appointmentDate.toString().split(" ").first,
+                                appointmentViewModel
+                                    .appointmentDate
+                                    .toString()
+                                    .split(" ")
+                                    .first,
                             appointmentType: isChamber ? "Chamber" : "Online",
                             doctorId: "${widget.doctors.doctorsMasterId}",
                             patientId: "$value",
@@ -459,8 +463,10 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                           Text(
                               "${widget.doctors.doctors!.title!.titleName.toString()} ${widget.doctors.doctors!.drGivenName.toString()} ${widget.doctors.doctors!.drMiddleName.toString()} ${widget.doctors.doctors!.drLastName.toString()}"),
                           Style.distan_size2,
-                          Text(
-                              "${widget.doctors.doctors!.usualProvider!.usualProviderName.toString()}"),
+                          widget.doctors.doctors!.usualProvider != null
+                              ? Text(
+                                  "${widget.doctors.doctors!.usualProvider!.usualProviderName.toString()}")
+                              : Container(),
                           Style.distan_size2,
                           Row(
                             children: [
@@ -487,13 +493,16 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                   : appointmentViewModel.online_amount
                                       .toString()),
                             ],
-                          ), Style.distan_size2,
-
+                          ),
+                          Style.distan_size2,
                           Row(
                             children: [
                               Text("Appointment Date "),
                               Text(": "),
-                              Text(appointmentViewModel.appointmentDate.toString().split(" ").first),
+                              Text(appointmentViewModel.appointmentDate
+                                  .toString()
+                                  .split(" ")
+                                  .first),
                             ],
                           ),
                         ],

@@ -18,7 +18,22 @@ import '../../view/my_record/my_medical_history_view.dart';
 class MyRecordViewModel with ChangeNotifier {
   List<MedicalHistoryFromGreatDocModel> medicalHistoryFromGreatDocList = [];
   List<PastHistory> medicalHistoryFromGreatDocPastList = [];
+  bool showPastHistory=true;
 
+  past(){
+    notifyListeners();
+    showPastHistory=true;
+    print(showPastHistory);
+    notifyListeners();
+
+  }
+  procedure(){
+    notifyListeners();
+    showPastHistory=false;
+    print(showPastHistory);
+
+    notifyListeners();
+  }
   bool isMedicalHistoryFromGreatDocLoading = true;
   MyRecordRepo myRecordRepo = MyRecordRepo();
   double bmiResult = 0.0;

@@ -15,6 +15,7 @@ import '../../resources/styles.dart';
 import '../../utils/utils.dart';
 import '../../widgets/appointment_notification_card.dart';
 import '../../widgets/back_button.dart';
+import '../../widgets/shimmer.dart';
 
 class DailyAndUpcommingView extends StatefulWidget {
   const DailyAndUpcommingView({Key? key}) : super(key: key);
@@ -59,6 +60,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
   Widget build(BuildContext context) {
     final appointments = Provider.of<DailyAndUpcommingViewModel>(context);
     return Scaffold(
+      backgroundColor: AppColors.page_background_color,
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,
         leading: const CustomBackButton(),
@@ -141,8 +143,28 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
             Expanded(
               child: Visibility(
                 visible: showTodayAppointments,
-                replacement: appointments.isUpcommingAppointmentLoading
-                    ? const Center(child: CircularProgressIndicator())
+                replacement:
+
+                appointments.upcommingAppointmentList.isEmpty?
+                appointments.isUpcommingAppointmentLoading == true
+                    ? Center(
+                  child: ListView.builder(
+                    itemCount: 4,
+                    scrollDirection: Axis.vertical,
+                    physics: const ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: bannerShimmereffect(
+                            94.toDouble(), 385.toDouble()),
+                      );
+                    },
+                  ),
+                )
+                    : noDataFounForList("No Appointment History")
+
+
                     : ListView.builder(
                         itemCount: appointments.upcommingAppointmentList.length,
                         itemBuilder: (context, index) {
@@ -169,11 +191,26 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                             docImage: "${AppUrls.docImage}${app.doctors!.drImages}",
                           );
                         }),
-                child: appointments.isTodayAppointmentLoading
+                child:
+
+                appointments.todayAppointmentList.isEmpty?
+                appointments.isTodayAppointmentLoading == true
                     ? Center(
-                        child: SizedBox(
-                            height: 50.h,
-                            child: const CircularProgressIndicator()))
+                  child: ListView.builder(
+                    itemCount: 4,
+                    scrollDirection: Axis.vertical,
+                    physics: const ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: bannerShimmereffect(
+                            94.toDouble(), 385.toDouble()),
+                      );
+                    },
+                  ),
+                )
+                    : noDataFounForList("No Appointment History")
                     : ListView.builder(
                         itemCount: appointments.todayAppointmentList.length,
                         itemBuilder: (context, index) {

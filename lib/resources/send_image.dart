@@ -16,7 +16,7 @@ class SendImage {
     // String addimageUrl = '<domain-name>/api/imageadd';
 
     Map<String, String> headers = {
-      'databaseName': 'mhpgmailcom',
+      'databaseName': 'mhpdemocom',
       'Content-Type': 'multipart/form-data',
     };
     var request = http.MultipartRequest('POST', Uri.parse(AppUrls.registration))

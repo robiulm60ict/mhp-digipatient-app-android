@@ -30,7 +30,7 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
       if (value['success'].toString() == "Successfully store data") {
         Messages.snackBar(
           context,
-          value['success'].toString(),
+          value['success'].toString(),backgroundColor:Colors.green
         );
         getmyAllDoctors(context);
       } else {
@@ -66,6 +66,7 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
     await DoctorRepository().getmyAllDoctors().then((value) {
       myDoctorFullList.add(value);
       myDoctorList.addAll(value.data!);
+      print("lenth${myDoctorList.length}");
       isDoctorLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {

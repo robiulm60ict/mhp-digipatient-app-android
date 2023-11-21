@@ -19,6 +19,7 @@ class MyMedicineViewModel with ChangeNotifier{
   bool isPrescriptionRxLoading = true;
 
   bool isCurrentRxLoading = true;
+  bool isPastRxLoading = true;
   getPrescriptionRx(BuildContext context) async {
     isPrescriptionRxLoading = true;
     pastRxList.clear();
@@ -53,17 +54,17 @@ class MyMedicineViewModel with ChangeNotifier{
   }
 
   getPastRx(BuildContext context)async{
-    isCurrentRxLoading = true;
+    isPastRxLoading = true;
     pastRxList.clear();
     // drugList.clear();
     notifyListeners();
     medicineRepo.getPastRX().then((value) {
       // pastRxList.add(value);
       pastRxList = value;
-      isCurrentRxLoading = false;
+      isPastRxLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
-      isCurrentRxLoading = true;
+      isPastRxLoading = true;
       notifyListeners();
     });
   }

@@ -97,7 +97,7 @@ class Doctors {
   String? drContactViaId;
   String? drProviderId;
   String? drImages;
-  dynamic doctorFee;
+  String? doctorFee;
   dynamic appToken;
   String? deleteStatus;
   dynamic createdBy;
@@ -240,13 +240,13 @@ class Academic {
   int? id;
   String? doctorsMasterId;
   String? degreeId;
-  String? passingYear;
-  String? result;
-  String? institutionId;
-  String? countryId;
-  String? cityId;
+  dynamic passingYear;
+  dynamic result;
+  dynamic institutionId;
+  dynamic countryId;
+  dynamic cityId;
   String? scanCopy;
-  String? scanCopyTitle;
+  dynamic scanCopyTitle;
   int? deleteStatus;
   dynamic createdBy;
   dynamic updatedBy;

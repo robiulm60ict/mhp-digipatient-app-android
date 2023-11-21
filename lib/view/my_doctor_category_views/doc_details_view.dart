@@ -135,7 +135,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "${doc?.doctors!.title!.titleName.toString()} ${doc?.doctors?.drMiddleName} ${doc?.doctors?.drGivenName} ${doc?.doctors?.drLastName}",
+                          "${doc?.doctors!.title!.titleName.toString()} ${doc?.doctors?.drGivenName} ${doc?.doctors?.drMiddleName.toString()??""}  ${doc?.doctors?.drLastName??""}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: Style.alltext_default_balck_blod,

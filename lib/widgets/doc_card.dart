@@ -50,7 +50,7 @@ class DocCard extends StatelessWidget {
                     ),
                     Text(
                       docName,
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       style: Style.alltext_default_balck_blod,
@@ -62,7 +62,7 @@ class DocCard extends StatelessWidget {
                       docSpeciality!,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.start,
                       style: Style.alltext_default_balck,
                     ),
                     const SizedBox(
@@ -70,19 +70,21 @@ class DocCard extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 12),
-                      child: Row(
-                          children: List.generate(
-                             doctortitle!.length, (index) {
-                            return Center(
-                              //  width: Get.size.width*0.26,
-                              child: Text(
-                                  "${doctortitle![index].degreeId.toString()} ,",
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.center,
-                                  style: Style.alltext_ExtraSmall_black),
-                            );
-                          })),
+                      child: Center(
+                        child: Row(
+                            children: List.generate(
+                               doctortitle!.length, (index) {
+                              return Center(
+                                //  width: Get.size.width*0.26,
+                                child: Text(
+                                    "${doctortitle![index].degreeId.toString()} ,",
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                    style: Style.alltext_ExtraSmall_black),
+                              );
+                            })),
+                      ),
                     ),
                     const SizedBox(
                       height: 2,

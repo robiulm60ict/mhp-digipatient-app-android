@@ -113,7 +113,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                   "${widget.doctor.doctors!.department?.departmentsName}",
               visitingTime: getTime(widget.appointmentDate),
               hospitalName:
-                  "${widget.doctor.doctors?.usualProvider?.usualProviderName.toString()}",
+                  "${widget.doctor.doctors?.usualProvider !=null? widget.doctor.doctors?.usualProvider?.usualProviderName.toString():""}",
               date: widget.appointmentDate,
               location: "${widget.doctor.doctors?.drWorkPhone}",
               image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',

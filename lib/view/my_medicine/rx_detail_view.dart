@@ -7,6 +7,7 @@ import '../../resources/styles.dart';
 import '../../utils/utils.dart';
 import '../../view_model/my_medicine_view_model/my_medicine_view_model.dart';
 import '../../widgets/back_button.dart';
+import '../../widgets/shimmer.dart';
 
 class RXDetailView extends StatefulWidget {
   const RXDetailView(
@@ -41,6 +42,7 @@ class _RXDetailViewState extends State<RXDetailView> {
   Widget build(BuildContext context) {
     final mmVm = Provider.of<MyMedicineViewModel>(context);
     return Scaffold(
+      backgroundColor: AppColors.page_background_color,
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,
         leadingWidth: leadingWidth,
@@ -51,9 +53,26 @@ class _RXDetailViewState extends State<RXDetailView> {
         ),
         centerTitle: true,
       ),
-      body: mmVm.isCurrentRxLoading
-          ? const Center(child: CircularProgressIndicator())
-          : ListView.builder(
+      body: mmVm.currentRxList.isEmpty?
+      mmVm.isCurrentRxLoading == true
+          ? Center(
+        child: ListView.builder(
+          itemCount: 4,
+          scrollDirection: Axis.vertical,
+          physics: const ScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: bannerShimmereffect(
+                  94.toDouble(), 385.toDouble()),
+            );
+          },
+        ),
+      )
+          : noDataFounForList("No Current Rx History")
+
+        : ListView.builder(
               padding: EdgeInsets.all(15.r),
               itemCount: mmVm.currentRxList.length,
               itemBuilder: (context, index) {

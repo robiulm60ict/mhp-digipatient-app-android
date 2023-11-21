@@ -8,6 +8,7 @@ import '/data/network/base_api_service.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkApiService extends BaseApiService {
+
   @override
   Future getGetApiResponse(String url) async {
     dynamic responseJson;
@@ -15,7 +16,8 @@ class NetworkApiService extends BaseApiService {
       final response = await http.get(
         Uri.parse(url),
         headers: {
-          'databaseName': 'mhpgmailcom',
+          //databaseName: mhpgmailcom
+          'databaseName': 'mhpdemocom',
           'Accept': 'application/json',
         },
       ).timeout(const Duration(seconds: 10));
@@ -36,7 +38,7 @@ class NetworkApiService extends BaseApiService {
         Uri.parse(url),
         headers: {
           'Authorization': "Bearer $token",
-          'databaseName': 'mhpgmailcom',
+          'databaseName': 'mhpdemocom',
           'Accept': 'application/json',
         },
       ).timeout(const Duration(seconds: 10));
@@ -55,7 +57,7 @@ class NetworkApiService extends BaseApiService {
         body: body,
         Uri.parse(url),
         headers: {
-          'databaseName': 'mhpgmailcom',
+          'databaseName': 'mhpdemocom',
           'Accept': 'application/json',
         },
       ).timeout(
@@ -79,7 +81,7 @@ class NetworkApiService extends BaseApiService {
         Uri.parse(url),
         headers: {
           'Authorization': "Bearer $token",
-          'databaseName': 'mhpgmailcom',
+          'databaseName': 'mhpdemocom',
           'Accept': 'application/json',
         },
       ).timeout(

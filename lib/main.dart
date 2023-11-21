@@ -31,14 +31,13 @@ import 'firebase_options.dart';
 import 'view_model/mydoctor/new_my_doctor_view_model.dart';
 import 'view_model/qr_code_dr_profile_view_model/profile_view_model.dart';
 
-
 // final FlutterLocalization localization = FlutterLocalization.instance;
 
 // Future<void> backgroundMessageHandler(RemoteMessage message)async{
 //   await Firebase.initializeApp();
 // }
 
- final navigatorKey = GlobalKey<NavigatorState>();
+final navigatorKey = GlobalKey<NavigatorState>();
 final appRoute = AppRouter(navigatorKey);
 // final navigatorKey = GlobalKey<NavigatorState>();
 // final _appRouter = AppRouter(
@@ -51,7 +50,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final navigatorKey = GlobalKey<NavigatorState>();
 
-    ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -113,7 +112,8 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => DoctorScreenViewModel(),
-        ), ChangeNotifierProvider(
+        ),
+        ChangeNotifierProvider(
           create: (context) => MyPaymentViewModel(),
         ),
       ],
@@ -147,15 +147,14 @@ class _MyAppState extends State<MyApp> {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return
-          MaterialApp(
-            navigatorKey:widget.navigatorKey,
+        return MaterialApp(
+          navigatorKey: widget.navigatorKey,
           // routerConfig: appRouter.config(),
           // supportedLocales: localization.supportedLocales,
           // localizationsDelegates: localization.localizationsDelegates,
           // locale: provider.locale,
           theme: ThemeData(
-           // useMaterial3: true,
+            // useMaterial3: true,
 
             fontFamily: 'RobotoMono',
             primaryColor: AppColors.primaryColor,
@@ -179,8 +178,8 @@ class _MyAppState extends State<MyApp> {
             iconTheme: IconThemeData(size: 25.h, color: Colors.grey),
           ),
           debugShowCheckedModeBanner: false,
-            initialRoute: RoutesName.splash,
-            onGenerateRoute: Routes.generateRoute,
+          initialRoute: RoutesName.splash,
+          onGenerateRoute: Routes.generateRoute,
           // routerDelegate: AutoRouterDelegate(appRoute),
           // routeInformationParser: appRoute.defaultRouteParser(),
           // routerDelegate: _appRouter.delegate(),
