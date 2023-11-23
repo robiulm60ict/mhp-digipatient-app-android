@@ -31,7 +31,7 @@ class _MyPatientViewState extends State<MyPatientView> {
   @override
   Widget build(BuildContext context) {
     print("object");
-    final myRecord = Provider.of<MyPaymentViewModel>(context);
+    final myRecord = Provider.of<MyPaymentViewModel>(context,listen: false);
 
     return SafeArea(
         child: RefreshIndicator(

@@ -40,7 +40,7 @@ class _RXDetailViewState extends State<RXDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    final mmVm = Provider.of<MyMedicineViewModel>(context);
+    final mmVm = Provider.of<MyMedicineViewModel>(context,listen: false);
     return Scaffold(
       backgroundColor: AppColors.page_background_color,
       appBar: AppBar(
@@ -53,42 +53,44 @@ class _RXDetailViewState extends State<RXDetailView> {
         ),
         centerTitle: true,
       ),
-      body: mmVm.currentRxList.isEmpty?
-      mmVm.isCurrentRxLoading == true
-          ? Center(
-        child: ListView.builder(
-          itemCount: 4,
-          scrollDirection: Axis.vertical,
-          physics: const ScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: bannerShimmereffect(
-                  94.toDouble(), 385.toDouble()),
-            );
-          },
-        ),
-      )
-          : noDataFounForList("No Current Rx History")
-
-        : ListView.builder(
-              padding: EdgeInsets.all(15.r),
-              itemCount: mmVm.currentRxList.length,
+      body:Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: Consumer<MyMedicineViewModel>(builder: (context, data, child) {
+          if (data.currentRxList.isEmpty) {
+            return data.isCurrentRxLoading == true
+                ? ListView.builder(
+              itemCount: 6,
+              // scrollDirection: Axis.vertical,
+              physics: const ScrollPhysics(),
+              shrinkWrap: true,
               itemBuilder: (context, index) {
-                final drugs = mmVm.currentRxList[index];
                 return Padding(
-                  padding: EdgeInsets.only(bottom: 15.0.h),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Medicine ${index + 1}",
-                            style: Style.alltext_default_balck_blod,
-                          )),
-                      Card(
+                  padding: const EdgeInsets.all(5.0),
+                  child: bannerShimmereffect(
+                      90.toDouble(), 385.toDouble()),
+                );
+              },
+            )
+                : noDataFounForList("No Current Rx History");
+          } else {
+            return ListView.builder(
+                padding: EdgeInsets.all(15.r),
+                itemCount: mmVm.currentRxList.length,
+                itemBuilder: (context, index) {
+                  final drugs = mmVm.currentRxList[index];
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: 15.0.h),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Medicine ${index + 1}",
+                              style: Style.alltext_default_balck_blod,
+                            )),
+                        Card(
                           color: Colors.white,
                           child: Table(
                             border: TableBorder.all(color: Colors.grey),
@@ -101,9 +103,9 @@ class _RXDetailViewState extends State<RXDetailView> {
                                       children: [
                                         Expanded(
                                             child: Text(
-                                          "Drugs Name",
-                                          style:Style.alltext_default_balck,
-                                        )),
+                                              "Drugs Name",
+                                              style:Style.alltext_default_balck,
+                                            )),
                                         SizedBox(
                                           width: 5.w,
                                         ),
@@ -132,9 +134,9 @@ class _RXDetailViewState extends State<RXDetailView> {
                                       children: [
                                         Expanded(
                                             child: Text(
-                                          "Dose",
-                                          style:Style.alltext_default_balck,
-                                        )),
+                                              "Dose",
+                                              style:Style.alltext_default_balck,
+                                            )),
                                         SizedBox(
                                           width: 5.w,
                                         ),
@@ -163,9 +165,9 @@ class _RXDetailViewState extends State<RXDetailView> {
                                       children: [
                                         Expanded(
                                             child: Text(
-                                          "Frequency",
-                                          style: Style.alltext_default_balck,
-                                        )),
+                                              "Frequency",
+                                              style: Style.alltext_default_balck,
+                                            )),
                                         SizedBox(
                                           width: 5.w,
                                         ),
@@ -194,9 +196,9 @@ class _RXDetailViewState extends State<RXDetailView> {
                                       children: [
                                         Expanded(
                                             child: Text(
-                                          "Food",
-                                          style: Style.alltext_default_balck,
-                                        )),
+                                              "Food",
+                                              style: Style.alltext_default_balck,
+                                            )),
                                         SizedBox(
                                           width: 5.w,
                                         ),
@@ -225,9 +227,9 @@ class _RXDetailViewState extends State<RXDetailView> {
                                       children: [
                                         Expanded(
                                             child: Text(
-                                          "Quantity",
-                                          style: Style.alltext_default_balck,
-                                        )),
+                                              "Quantity",
+                                              style: Style.alltext_default_balck,
+                                            )),
                                         SizedBox(
                                           width: 5.w,
                                         ),
@@ -286,11 +288,17 @@ class _RXDetailViewState extends State<RXDetailView> {
                               // ]),
                             ],
                           ),
-                      ),
-                    ],
-                  ),
-                );
-              }),
+                        ),
+                      ],
+                    ),
+                  );
+                });
+          }
+        }),
+      ),
+
+
+
     );
   }
 }

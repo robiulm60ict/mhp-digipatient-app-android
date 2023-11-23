@@ -8,20 +8,25 @@ import 'package:digi_patient/utils/message.dart';
 import 'package:digi_patient/utils/popup_dialogue.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/myDoctorList/mydoctorList.dart';
 import '../../model/online_model/online_model.dart';
 import '../../utils/user.dart';
+import '../anatomy/anatomy_view_model.dart';
 
 class AppointmentViewModel with ChangeNotifier {
   DateTime appointmentDate = DateTime.now();
+  var date = DateTime.now();
 
   String monthName = DateFormat('MMMM').format(DateTime.now());
 
   String year = DateTime.now().year.toString();
 
   List<WeekDayModel> weekDayList = [];
+
+  var selected;
 
   setAppointmentDate(BuildContext context) async {
     DateTime? selectedDate =
@@ -30,8 +35,8 @@ class AppointmentViewModel with ChangeNotifier {
     if (selectedDate != null) {
       appointmentDate = selectedDate;
 
-      DateTime startWeekDay = getDate(appointmentDate
-          .subtract(Duration(days: appointmentDate.weekday)));
+      DateTime startWeekDay = getDate(
+          appointmentDate.subtract(Duration(days: appointmentDate.weekday)));
 
       // startWeekDay = startWeekDay.subtract(const Duration(days: 2));
 
@@ -111,6 +116,8 @@ class AppointmentViewModel with ChangeNotifier {
 
   bookAppointment(BuildContext context,
       {required Datum doctor, required Map body}) async {
+    final anatomy = Provider.of<AnatomyModelView>(context,listen: false);
+
     isBookAppointmentLoading = true;
     appointmentList.clear();
     notifyListeners();
@@ -129,6 +136,12 @@ class AppointmentViewModel with ChangeNotifier {
         patientId: body["patient_id"],
         paymentMethod: body["payment_type"],
       );
+
+      anatomy.symptomsList.clear();
+      // anatomy.symptomsList.removeLast();
+      anatomy.getSymptomsList.clear();
+      //  anatomy.getSymptomsList.removeLast();
+      // print(diseaseList.length);
     }).onError((error, stackTrace) {
       Messages.snackBar(context, error.toString());
       isBookAppointmentLoading = true;
@@ -192,7 +205,7 @@ class AppointmentViewModel with ChangeNotifier {
         iconData: Icons.message),
   ];
 
-  var online_amount=0;
+  var online_amount = 0;
 
   selectOnline(int index) {
     for (var i = 0; i < onlineList.length; i++) {
@@ -202,7 +215,7 @@ class AppointmentViewModel with ChangeNotifier {
         onlineList[i].isSelected = true;
         //onlineList.add( onlineList[i].amount.toDouble() as OnlineModel)  ;
         // print(onlineList);
-        online_amount=onlineList[i].amount.toInt();
+        online_amount = onlineList[i].amount.toInt();
         print(online_amount);
       } else {
         onlineList[i].isSelected = false;

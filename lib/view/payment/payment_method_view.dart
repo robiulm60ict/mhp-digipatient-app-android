@@ -112,8 +112,8 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
   }
   @override
   Widget build(BuildContext context) {
-    final apVM = Provider.of<AppointmentViewModel>(context);
-    final anatomy = Provider.of<AnatomyModelView>(context);
+    final apVM = Provider.of<AppointmentViewModel>(context,listen: false);
+    final anatomy = Provider.of<AnatomyModelView>(context,listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,
@@ -129,12 +129,12 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
         padding: EdgeInsets.all(20.r),
         children: [
           PaymentUserDetail(
-            name: "${widget.doctor.doctors?.drGivenName}",
+            name: " ${widget.doctor.doctors?.drGivenName}",
             designation:
                 "${widget.doctor.doctors!.department!.departmentsName}",
             visitingTime: getTime(widget.appointmentDate),
             hospitalName:
-                "${widget.doctor.doctors!.usualProvider?.usualProviderName.toString()}",
+                "${widget.doctor.doctors!.usualProvider !=null?widget.doctor.doctors!.usualProvider?.usualProviderName.toString():""}",
             date: widget.appointmentDate,
             location: "${widget.doctor.doctors?.drWorkPhone}",
             image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',

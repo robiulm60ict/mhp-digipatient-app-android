@@ -149,7 +149,7 @@ class _AnatomyViewState extends State<AnatomyView> {
 
   @override
   Widget build(BuildContext context) {
-    final anatomy = Provider.of<AnatomyModelView>(context);
+    final anatomy = Provider.of<AnatomyModelView>(context,listen: false);
 
     double width = MediaQuery.of(context).size.width;
 

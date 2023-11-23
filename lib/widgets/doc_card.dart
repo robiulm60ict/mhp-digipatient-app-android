@@ -58,33 +58,35 @@ class DocCard extends StatelessWidget {
                     const SizedBox(
                       height: 4,
                     ),
+                    doctortitle!.isNotEmpty
+                        ? Padding(
+                            padding: const EdgeInsets.only(left: 12),
+                            child: Center(
+                                child: Row( mainAxisAlignment: MainAxisAlignment.center,
+                                    children: List.generate(doctortitle!.length,
+                                        (index) {
+                              var data = doctortitle![index];
+                              return Center(
+                                //  width: Get.size.width*0.26,
+                                child: Text(
+                                    "${data.degreeId}${doctortitle!.last == data ? "" : ", "}",
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                    style: Style.alltext_ExtraSmall_black),
+                              );
+                            }))),
+                          )
+                        : Container(),
+                    const SizedBox(
+                      height: 2,
+                    ),
                     Text(
                       docSpeciality!,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.start,
                       style: Style.alltext_default_balck,
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: Center(
-                        child: Row(
-                            children: List.generate(
-                               doctortitle!.length, (index) {
-                              return Center(
-                                //  width: Get.size.width*0.26,
-                                child: Text(
-                                    "${doctortitle![index].degreeId.toString()} ,",
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.center,
-                                    style: Style.alltext_ExtraSmall_black),
-                              );
-                            })),
-                      ),
                     ),
                     const SizedBox(
                       height: 2,

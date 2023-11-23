@@ -63,7 +63,7 @@ class AnatomyModelView with ChangeNotifier{
     }
   }
 
-  List<AnatomyModel> anatomySymptomsList = [];
+  //List<AnatomyModel> anatomySymptomsList = [];
 
   List<SymptomsAnatomy> symptomsList = [];
 
@@ -82,16 +82,16 @@ class AnatomyModelView with ChangeNotifier{
 
   getAnatomySymptoms(BuildContext context)async{
     setAnatomyLoading(true, "Loading......");
-    anatomySymptomsList.clear();
+    //anatomySymptomsList.clear();
     symptomsList.clear();
 
     await anatomyRepo.getAnatomySymptoms().then((value) {
-      anatomySymptomsList.add(value);
+    //  anatomySymptomsList.add(value);
       symptomsList.addAll(value.symptomsAnatomy!);
       setAnatomyLoading(false, "Successful");
-      for(var i in symptomsList){
-        debugPrint("SymptomName: ${i.symptomName} Selected: ${i.isSelected}");
-      }
+      // for(var i in symptomsList){
+      //   debugPrint("SymptomName: ${i.symptomName} Selected: ${i.isSelected}");
+      // }
     }).onError((error, stackTrace) {
       setAnatomyLoading(true, "Error Try Again Later......");
       notifyListeners();

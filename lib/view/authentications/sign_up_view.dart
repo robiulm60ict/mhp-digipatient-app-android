@@ -32,7 +32,7 @@ class _SignUpViewState extends State<SignUpView> {
   Widget build(BuildContext context) {
     bool isTablet = MediaQuery.of(context).size.width > 450;
     debugPrint(MediaQuery.of(context).size.width.toString());
-    final auth = Provider.of<AuthViewModel>(context);
+    final auth = Provider.of<AuthViewModel>(context,listen: false);
     return Scaffold(
       body: ListView(
         children: [

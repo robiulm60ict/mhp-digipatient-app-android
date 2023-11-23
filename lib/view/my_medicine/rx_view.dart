@@ -36,7 +36,6 @@ class _RXViewState extends State<RXView> {
 
   @override
   Widget build(BuildContext context) {
-    final mmVm = Provider.of<MyMedicineViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(

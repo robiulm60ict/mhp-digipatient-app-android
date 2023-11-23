@@ -69,8 +69,8 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
 
   @override
   Widget build(BuildContext context) {
-    final userVM = Provider.of<UserViewModel>(context);
-    final invoice = Provider.of<AppointmentViewModel>(context);
+    final userVM = Provider.of<UserViewModel>(context,listen: false);
+    final invoice = Provider.of<AppointmentViewModel>(context,listen: false);
 
     return WillPopScope(
       onWillPop: () {

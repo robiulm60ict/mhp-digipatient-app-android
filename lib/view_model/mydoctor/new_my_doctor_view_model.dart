@@ -36,7 +36,7 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
       } else {
         Messages.snackBar(
           context,
-          value['message'].toString(),
+          value['message'].toString()
         );
       }
 

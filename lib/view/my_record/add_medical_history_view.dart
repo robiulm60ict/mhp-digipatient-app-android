@@ -68,7 +68,7 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
 
   @override
   Widget build(BuildContext context) {
-    final myRecord = Provider.of<MyRecordViewModel>(context);
+    final myRecord = Provider.of<MyRecordViewModel>(context,listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,

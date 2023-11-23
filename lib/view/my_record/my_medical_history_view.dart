@@ -34,7 +34,7 @@ class _MyMedicalHistoryViewState extends State<MyMedicalHistoryView> {
 
   @override
   Widget build(BuildContext context) {
-    final sMhFGD = Provider.of<MyRecordViewModel>(context);
+    final sMhFGD = Provider.of<MyRecordViewModel>(context,listen: false);
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -63,32 +63,30 @@ class _MyMedicalHistoryViewState extends State<MyMedicalHistoryView> {
               Icons.add,
               color: Colors.white,
             )),
-        body: sMhFGD.medicalHistoryFromGreatDocPastList.isEmpty
-            ?
-        sMhFGD.isMedicalHistoryFromGreatDocLoading
-            ?
-        Center(
-          child: ListView.builder(
-            itemCount: 4,
-            scrollDirection: Axis.vertical,
-            physics: const ScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: bannerShimmereffect(
-                    94.toDouble(), 385.toDouble()),
-              );
-            },
-          ),
-        )
-            : noDataFounForList("No Medical History")
-            : ListView.builder(
+        body: Consumer<MyRecordViewModel>(builder: (context, data, child) {
+          if (data.medicalHistoryFromGreatDocPastList.isEmpty) {
+            return data.isMedicalHistoryFromGreatDocLoading == true
+                ? ListView.builder(
+              itemCount: 6,
+              // scrollDirection: Axis.vertical,
+              physics: const ScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: bannerShimmereffect(
+                      90.toDouble(), 385.toDouble()),
+                );
+              },
+            )
+                : noDataFounForList("No Medical History");
+          } else {
+            return ListView.builder(
                 itemCount: sMhFGD.medicalHistoryFromGreatDocPastList.length,
                 padding: EdgeInsets.all(8.r),
                 itemBuilder: (context, index) {
                   final history =
-                      sMhFGD.medicalHistoryFromGreatDocPastList[index];
+                  sMhFGD.medicalHistoryFromGreatDocPastList[index];
                   final time = sMhFGD.getTime("${history.date}", context);
                   final date = sMhFGD.getDate("${history.date}");
                   return Card(
@@ -118,7 +116,66 @@ class _MyMedicalHistoryViewState extends State<MyMedicalHistoryView> {
                     //   ],
                     // ),
                   );
-                }),
+                });
+          }
+        }),
+
+        // sMhFGD.medicalHistoryFromGreatDocPastList.isEmpty
+        //     ?
+        // sMhFGD.isMedicalHistoryFromGreatDocLoading
+        //     ?
+        // Center(
+        //   child: ListView.builder(
+        //     itemCount: 4,
+        //     scrollDirection: Axis.vertical,
+        //     physics: const ScrollPhysics(),
+        //     shrinkWrap: true,
+        //     itemBuilder: (context, index) {
+        //       return Padding(
+        //         padding: const EdgeInsets.all(5.0),
+        //         child: bannerShimmereffect(
+        //             94.toDouble(), 385.toDouble()),
+        //       );
+        //     },
+        //   ),
+        // )
+        //     : noDataFounForList("No Medical History")
+        //     : ListView.builder(
+        //         itemCount: sMhFGD.medicalHistoryFromGreatDocPastList.length,
+        //         padding: EdgeInsets.all(8.r),
+        //         itemBuilder: (context, index) {
+        //           final history =
+        //               sMhFGD.medicalHistoryFromGreatDocPastList[index];
+        //           final time = sMhFGD.getTime("${history.date}", context);
+        //           final date = sMhFGD.getDate("${history.date}");
+        //           return Card(
+        //             child: ListTile(
+        //                 title: Text("${history.condition}",style: Style.alltext_default_balck_blod,),
+        //                 subtitle: Text(date,style: Style.alltext_default_balck,),
+        //                 trailing: Text(time,style: Style.alltext_default_balck,)),
+        //             // child: Row(
+        //             //   children: [
+        //             //     SizedBox(width: 5.w,),
+        //             //     SizedBox(
+        //             //         width: 40.w,
+        //             //         child: Text(date, maxLines: 3, overflow: TextOverflow.ellipsis,)),
+        //             //     Expanded(
+        //             //       child: ListTile(
+        //             //           onTap: (){
+        //             //             // context.router.push(MedicalDocumentsRoute(history: history));
+        //             //           },
+        //             //           // leading: CircleAvatar(
+        //             //           //   backgroundImage: NetworkImage("${AppUrls.docImage}${history.doctor?.drImages}"),
+        //             //           // ),
+        //             //           title: Text("${history.condition}"),
+        //             //           subtitle: Text("${history.description}"),
+        //             //           trailing: Text(time)
+        //             //       ),
+        //             //     ),
+        //             //   ],
+        //             // ),
+        //           );
+        //         }),
       ),
     );
   }

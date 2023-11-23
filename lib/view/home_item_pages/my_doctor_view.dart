@@ -27,7 +27,7 @@ class MyDoctorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<MyDoctorDelaisViewModel>(context);
+    final provider = Provider.of<MyDoctorDelaisViewModel>(context,listen: false);
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(

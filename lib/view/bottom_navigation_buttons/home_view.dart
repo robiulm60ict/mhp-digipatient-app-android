@@ -76,11 +76,10 @@ class _HomeViewState extends State<HomeView> {
     width = width + width;
     debugPrint(size.width.toString());
     final userprovider = Provider.of<UserViewModel>(context).user;
-    final userprovide = Provider.of<UserViewModel>(context).getUserDetails();
 
     final auth = Provider.of<AuthViewModel>(context);
-    final provider = Provider.of<HomeViewModel>(context);
-    final dvm = Provider.of<MyDoctorDelaisViewModel>(context);
+    final provider = Provider.of<HomeViewModel>(context,listen: false);
+    final dvm = Provider.of<MyDoctorDelaisViewModel>(context,listen: false);
     return WillPopScope(
       onWillPop: (){
         return exit(0);
@@ -306,6 +305,7 @@ class _HomeViewState extends State<HomeView> {
                             SizedBox(
                               height: 4.h,
                             ),
+
                             Text(
                               "$name",
                               maxLines: 1,
@@ -459,7 +459,7 @@ class _HomeViewState extends State<HomeView> {
                         height: 40.h,
                         child: TextField(
                           controller: dvm.controllerRequest,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               border: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey)),
                               hintText: 'Enter 6 Digit Code',
@@ -479,8 +479,8 @@ class _HomeViewState extends State<HomeView> {
                             );
                           }
                         },
-                        child: Text("Submit"),
                         color: AppColors.primaryColor,
+                        child: Text("Submit"),
                       )
                     ],
                   ),

@@ -22,13 +22,14 @@ class MyDoctorViewModel with ChangeNotifier {
     allDoctorList.clear();
 
     isDoctorLoading = true;
-
+    notifyListeners();
     await DoctorRepository().getAllDoctors().then((value) {
 
       allDoctorList.add(value);
 
 
       isDoctorLoading = false;
+      notifyListeners();
     }).onError((error, stackTrace) {
       isDoctorLoading = true;
 
@@ -38,9 +39,10 @@ class MyDoctorViewModel with ChangeNotifier {
         context,
         error.toString(),
       );
+      notifyListeners();
     });
 
-    notifyListeners();
+
   }
 
   List<DocTimeSlot> doctorTimeSlotList = [];
@@ -54,8 +56,7 @@ class MyDoctorViewModel with ChangeNotifier {
     DoctorRepository().getDocChamberTime(docId).then((value) {
       doctorTimeSlotList.addAll(value.docTimeSlots!);
       isDocChamberTimeLoading = false;
-      // debugPrint("-------------------------------------------\n\n\n\n\n");
-      // debugPrint(doctorTimeSlotList.length.toString());
+
       notifyListeners();
     }).onError((error, stackTrace) {
       isDocChamberTimeLoading = true;
@@ -74,17 +75,17 @@ class MyDoctorViewModel with ChangeNotifier {
     }
   }
 
-  List<DoctorFeeModel> docFeeList = [];
-
-  getDoctorFee(dynamic id) async {
-    docFeeList.clear();
-    debugPrint(" id is = $id");
-    await DoctorRepository().getDocFee(id).then((value) {
-      docFeeList.add(value);
-    }).onError((error, stackTrace) {
-      debugPrint(error.toString());
-    });
-  }
+  // List<DoctorFeeModel> docFeeList = [];
+  //
+  // getDoctorFee(dynamic id) async {
+  //   docFeeList.clear();
+  //   debugPrint(" id is = $id");
+  //   await DoctorRepository().getDocFee(id).then((value) {
+  //     docFeeList.add(value);
+  //   }).onError((error, stackTrace) {
+  //     debugPrint(error.toString());
+  //   });
+ // }
 
   List<CategoryItemsModel> categoryItemsList = [
     CategoryItemsModel(title: "CARDIOLOGY", image: Assets.imagesHeart),
@@ -114,21 +115,21 @@ class MyDoctorViewModel with ChangeNotifier {
 
   bool isDepartmentLoading = true;
 
-  getDepartments(BuildContext context) async {
-    departmentList.clear();
-
-    await DepartmentRepository().getAllDepartment().then((value) {
-      departmentList.add(value);
-
-      isDepartmentLoading = false;
-    }).onError((error, stackTrace) {
-      isDepartmentLoading = true;
-
-      Messages.snackBar(context, error.toString());
-    });
-
-    notifyListeners();
-  }
+  // getDepartments(BuildContext context) async {
+  //   departmentList.clear();
+  //
+  //   await DepartmentRepository().getAllDepartment().then((value) {
+  //     departmentList.add(value);
+  //
+  //     isDepartmentLoading = false;
+  //   }).onError((error, stackTrace) {
+  //     isDepartmentLoading = true;
+  //
+  //     Messages.snackBar(context, error.toString());
+  //   });
+  //
+  //   notifyListeners();
+  // }
 }
 
 class CategoryItemsModel {

@@ -26,56 +26,59 @@ class _ReasonForVisitViewState extends State<ReasonForVisitView> {
 
   @override
   Widget build(BuildContext context) {
-    final myRecord = Provider.of<MyRecordViewModel>(context);
+    final myRecord = Provider.of<MyRecordViewModel>(context, listen: false);
     return Scaffold(
       backgroundColor: AppColors.page_background_color,
-        appBar: AppBar(
-          backgroundColor: AppColors.primary_color,
-          leadingWidth: leadingWidth,
-          leading: const CustomBackButton(),
-          title: Text(
-              "Reason For Visit",
-              style: Style.alltext_appbar
-          ),
-          centerTitle: true,
-        ),
-        body:
-        myRecord.reasonForVisitList.isEmpty
-            ? myRecord.isReasonForVisitLoading
-            ? Center(
-          child: ListView.builder(
-            itemCount: 6,
-            scrollDirection: Axis.vertical,
-            physics: const ScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: bannerShimmereffect(
-                    94.toDouble(), 385.toDouble()),
-              );
-            },
-          ),
-        ):   noDataFounForList("No History")
-            : ListView.builder(
-            itemCount: myRecord.reasonForVisitList.length,
-            padding: EdgeInsets.all(20.r),
-            itemBuilder: (context, index) {
-              AllReason reason = myRecord.reasonForVisitList[index];
-              return Card(
-                child: ListTile(
-                  title: Text(
-                      "${reason.resonName}",
-                      style: Style.alltext_default_balck_blod
-                  ),
-                  subtitle: Text(
-                      "${reason.resonForName}",
-                      style: Style.alltext_default_balck
-                  ),
-                  trailing: Text(myRecord.getDate(reason.date.toString()),
-                    style: Style.alltext_default_balck,),
-                ),
-              );
-            }));
+      appBar: AppBar(
+        backgroundColor: AppColors.primary_color,
+        leadingWidth: leadingWidth,
+        leading: const CustomBackButton(),
+        title: Text("Reason For Visit", style: Style.alltext_appbar),
+        centerTitle: true,
+      ),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: Consumer<MyRecordViewModel>(builder: (context, data, child) {
+          if (data.reasonForVisitList.isEmpty) {
+            return data.isReasonForVisitLoading == true
+                ? ListView.builder(
+                  itemCount: 6,
+                 // scrollDirection: Axis.vertical,
+                  physics: const ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: bannerShimmereffect(
+                          90.toDouble(), 385.toDouble()),
+                    );
+                  },
+                )
+                : noDataFounForList("No History");
+          } else {
+            return ListView.builder(
+                itemCount: data.reasonForVisitList.length,
+                padding: EdgeInsets.all(20.r),
+                itemBuilder: (context, index) {
+                  var reason = data.reasonForVisitList[index];
+                  return Card(
+                    child: ListTile(
+                      title: Text("${reason.resonName}",
+                          style: Style.alltext_default_balck_blod),
+                      subtitle: Text("${reason.resonForName}",
+                          style: Style.alltext_default_balck),
+                      trailing: Text(
+                        myRecord.getDate(reason.date.toString()),
+                        style: Style.alltext_default_balck,
+                      ),
+                    ),
+                  );
+                });
+          }
+        }),
+      ),
+
+    );
   }
 }

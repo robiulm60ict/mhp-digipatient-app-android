@@ -36,7 +36,7 @@ class _SignInViewState extends State<SignInView> {
   }
   @override
   Widget build(BuildContext context) {
-    final authVm = Provider.of<AuthViewModel>(context);
+    final authVm = Provider.of<AuthViewModel>(context,listen: false);
 
     return Scaffold(
       body: ListView(

@@ -68,7 +68,7 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthViewModel>(context);
+    final auth = Provider.of<AuthViewModel>(context,listen: false);
     return Scaffold(
       body: GestureDetector(
         onTap: () {},

@@ -63,12 +63,12 @@ class MyRecordViewModel with ChangeNotifier {
 
   }
   getMedicalHistoryFromGreatDoc(BuildContext context) async {
-    medicalHistoryFromGreatDocList.clear();
+    // medicalHistoryFromGreatDocList.clear();
     medicalHistoryFromGreatDocPastList.clear();
     isMedicalHistoryFromGreatDocLoading = true;
     notifyListeners();
     await myRecordRepo.getMedicalHistoryFromGreatDoc().then((value) {
-      medicalHistoryFromGreatDocList.add(value);
+      // medicalHistoryFromGreatDocList.add(value);
       medicalHistoryFromGreatDocPastList.addAll(value.pastHistory!);
       isMedicalHistoryFromGreatDocLoading = false;
       notifyListeners();
@@ -251,6 +251,7 @@ class MyRecordViewModel with ChangeNotifier {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => MyMedicalHistoryView()));
       getMedicalHistoryFromGreatDoc(context);
+      notifyListeners();
     }).onError((error, stackTrace) {
       Messages.snackBar(context, error.toString());
       setAddMedicalHistoryLoading(false);

@@ -15,6 +15,7 @@ import 'package:digi_patient/view_model/appointment_view_model/appointment_view_
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:weekly_date_picker/weekly_date_picker.dart';
 
 import '../../model/myDoctorList/mydoctorList.dart';
 import '../../resources/styles.dart';
@@ -23,6 +24,8 @@ import '../../view_model/doctor/my_doctor_view_model.dart';
 import '../../widgets/back_button.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
+
+import '../../widgets/shimmer.dart';
 
 class BookAppointmentView extends StatefulWidget {
   const BookAppointmentView(
@@ -45,8 +48,8 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
   }
 
   getAmount() {
-    context.read<MyDoctorViewModel>().getDoctorFee(widget.doctors.id);
-    context.read<AppointmentViewModel>().setWeekDays();
+    // context.read<MyDoctorViewModel>().getDoctorFee(widget.doctors.id);
+    // context.read<AppointmentViewModel>().setWeekDays();
     context
         .read<MyDoctorViewModel>()
         .getDocChamberTime(context, docId: widget.doctors.id);
@@ -59,12 +62,12 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
 
   @override
   Widget build(BuildContext context) {
-    final appointmentViewModel = Provider.of<AppointmentViewModel>(context);
-    final myDocVM = Provider.of<MyDoctorViewModel>(context);
-    final anatomy = Provider.of<AnatomyModelView>(context);
+    final appointmentViewModel = Provider.of<AppointmentViewModel>(context,listen: false);
+    final myDocVM = Provider.of<MyDoctorViewModel>(context,listen: false);
+    final anatomy = Provider.of<AnatomyModelView>(context,listen: false);
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.page_background_color,
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,
         title: Text(
@@ -91,7 +94,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                         builder: (context) => PaymentMethodView(
                             appointmentDate:
                                 appointmentViewModel
-                                    .appointmentDate
+                                    .date
                                     .toString()
                                     .split(" ")
                                     .first,
@@ -105,6 +108,19 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                             diseaseList: diseaseList,
                             shiftType:
                                 morningButton ? "morning" : "evening"))));
+
+            setState(() {
+              appointmentViewModel.date = DateTime.now();
+               // diseaseList.clear();
+               // diseaseList.removeLast();
+              anatomy.symptomsList.clear();
+             // anatomy.symptomsList.removeLast();
+              anatomy.getSymptomsList.clear();
+            //  anatomy.getSymptomsList.removeLast();
+              // print(diseaseList.length);
+              print("anatomy.symptomsList.length${anatomy.symptomsList.length}");
+              print("anatomy.getSymptomsList${anatomy.getSymptomsList.length}");
+            });
           } else {
             Messages.snackBar(context, "Please Select Disease!");
           }
@@ -124,49 +140,71 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                 await appointmentViewModel.setAppointmentDate(context);
               },
               child: Text(
-                "${appointmentViewModel.monthName}  ${appointmentViewModel.year}",
+                "${appointmentViewModel.date.day} -${appointmentViewModel.date.month}  -${appointmentViewModel.date.year}",
                 style: Style.alltext_default_balck,
               )),
-          const SizedBox(
-            height: 10,
+          WeeklyDatePicker(
+            enableWeeknumberText: true,
+            //  weekdayText: "data",
+            selectedDay: appointmentViewModel.date,
+            weeknumberColor: const Color(0xFF57AF87),
+            weeknumberTextColor: Colors.white,
+            //  backgroundColor: const Color(0xFF1A1A1A),
+            weekdayTextColor: const Color(0xFF8A8A8A),
+            //  digitsColor: Colors.white,
+            selectedBackgroundColor: const Color(0xFF57AF87),
+            // weekdays: const ["Mo", "Tu", "We", "Th", "Fr","Sa","Su"],
+            // daysInWeek: 7,
+            // DateTime
+            changeDay: (value) => setState(() {
+              print(value);
+
+              // setState(() {
+              appointmentViewModel.date = value;
+              // });// = value;
+            }),
           ),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: List.generate(appointmentViewModel.weekDayList.length,
-                  (index) {
-                WeekDayModel avm = appointmentViewModel.weekDayList[index];
-                return Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      appointmentViewModel.selectButton(index);
-                    },
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.r)),
-                      color: avm.isSelected
-                          ? AppColors.primaryColor
-                          : Colors.white,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 6.0.h),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              avm.weekName,
-                              style: Style.alltext_default_balck,
-                            ),
-                            Text(
-                              avm.day.toString(),
-                              style: Style.alltext_default_balck,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              })),
+
+          // const SizedBox(
+          //   height: 10,
+          // ),
+          // Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //     children: List.generate(appointmentViewModel.weekDayList.length,
+          //         (index) {
+          //       WeekDayModel avm = appointmentViewModel.weekDayList[index];
+          //       return Expanded(
+          //         child: InkWell(
+          //           onTap: () {
+          //             appointmentViewModel.selectButton(index);
+          //           },
+          //           child: Card(
+          //             shape: RoundedRectangleBorder(
+          //                 borderRadius: BorderRadius.circular(6.r)),
+          //             color: avm.isSelected
+          //                 ? AppColors.primaryColor
+          //                 : Colors.white,
+          //             child: Padding(
+          //               padding: EdgeInsets.symmetric(vertical: 6.0.h),
+          //               child: Column(
+          //                 mainAxisSize: MainAxisSize.min,
+          //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //                 children: [
+          //                   Text(
+          //                     avm.weekName,
+          //                     style: Style.alltext_default_balck,
+          //                   ),
+          //                   Text(
+          //                     avm.day.toString(),
+          //                     style: Style.alltext_default_balck,
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       );
+          //     })),
           SizedBox(
             height: 10.h,
           ),
@@ -296,24 +334,94 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
           SizedBox(
             height: 10.h,
           ),
+          // SizedBox(
+          //   height: 80.h,
+          //   child: myDocVM.isDocChamberTimeLoading ||
+          //           myDocVM.doctorTimeSlotList.isEmpty
+          //       ? const Center(
+          //           child: Text("No  Data"),
+          //         )
+          //       : CarouselSlider.builder(
+          //           // scrollDirection: Axis.horizontal,
+          //           itemCount: myDocVM.doctorTimeSlotList.length,
+          //           itemBuilder:
+          //               (BuildContext context, int index, int pageViewIndex) {
+          //             DocTimeSlot docTime = myDocVM.doctorTimeSlotList[index];
+          //             return Center(
+          //               child: Card(
+          //                   child: ListTile(
+          //                       title: Text(
+          //                         "${docTime.day}-${docTime.month}-${docTime.year}",
+          //                         style: Style.alltext_default_balck,
+          //                       ),
+          //                       subtitle: Text(
+          //                         "${myDocVM.getTime(docTime.slotFrom.toString())} To ${myDocVM.getTime(docTime.slotTo.toString())}",
+          //                         style: Style.alltext_default_balck,
+          //                       ),
+          //                       trailing: Text(
+          //                         "${docTime.type}",
+          //                         style: Style.alltext_default_balck,
+          //                       ))),
+          //             );
+          //           },
+          //           options: CarouselOptions(
+          //             // height: 400,
+          //             // aspectRatio: 16/9,
+          //             viewportFraction: 0.8,
+          //             initialPage: 0,
+          //             enableInfiniteScroll: true,
+          //             reverse: false,
+          //             autoPlay: true,
+          //             autoPlayInterval: const Duration(seconds: 3),
+          //             autoPlayAnimationDuration:
+          //                 const Duration(milliseconds: 1600),
+          //             autoPlayCurve: Curves.fastOutSlowIn,
+          //             enlargeCenterPage: true,
+          //             // enlargeFactor: 0.3,
+          //             scrollDirection: Axis.horizontal,
+          //           ),
+          //           // itemBuilder: (context, index) => Card(
+          //           //   color: index == 1 ? AppColors.primaryColor : Colors.white,
+          //           //   child: Padding(
+          //           //     padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
+          //           //     child: Text("9.30AM", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: index == 1 ? Colors.white : const Color(0xFF646464)),),
+          //           //   ),
+          //           // ),
+          //         ),
+          // ),
           SizedBox(
-            height: 80.h,
-            child: myDocVM.isDocChamberTimeLoading ||
-                    myDocVM.doctorTimeSlotList.isEmpty
-                ? const Center(
-                    child: Text("No  Data"),
+              height: 80.h,
+              child: Consumer<MyDoctorViewModel>(builder: (context, data, child) {
+                if (data.doctorTimeSlotList.isEmpty) {
+                  return data.isDocChamberTimeLoading == true
+                      ? ListView.builder(
+                    itemCount: 6,
+                    // scrollDirection: Axis.vertical,
+                    physics: const ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: bannerShimmereffect(
+                            90.toDouble(), 385.toDouble()),
+                      );
+                    },
                   )
-                : CarouselSlider.builder(
+                      : noDataFounForList("No History");
+                } else {
+                  return CarouselSlider.builder(
                     // scrollDirection: Axis.horizontal,
                     itemCount: myDocVM.doctorTimeSlotList.length,
-                    itemBuilder:
-                        (BuildContext context, int index, int pageViewIndex) {
-                      DocTimeSlot docTime = myDocVM.doctorTimeSlotList[index];
+                    itemBuilder: (BuildContext context, int index,
+                        int pageViewIndex) {
+                      DocTimeSlot docTime =
+                      myDocVM.doctorTimeSlotList[index];
                       return Center(
                         child: Card(
                             child: ListTile(
                                 title: Text(
-                                  "${docTime.day}-${docTime.month}-${docTime.year}",
+                                  //{docTime.day}-
+                                  "${docTime.month}-${docTime.year}",
                                   style: Style.alltext_default_balck,
                                 ),
                                 subtitle: Text(
@@ -336,7 +444,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                       autoPlay: true,
                       autoPlayInterval: const Duration(seconds: 3),
                       autoPlayAnimationDuration:
-                          const Duration(milliseconds: 1600),
+                      const Duration(milliseconds: 1600),
                       autoPlayCurve: Curves.fastOutSlowIn,
                       enlargeCenterPage: true,
                       // enlargeFactor: 0.3,
@@ -349,7 +457,12 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                     //     child: Text("9.30AM", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: index == 1 ? Colors.white : const Color(0xFF646464)),),
                     //   ),
                     // ),
-                  ),
+                  );
+                }
+              })
+
+
+
           ),
           SizedBox(
             height: 10.h,
@@ -499,7 +612,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                             children: [
                               Text("Appointment Date "),
                               Text(": "),
-                              Text(appointmentViewModel.appointmentDate
+                              Text(appointmentViewModel.date
                                   .toString()
                                   .split(" ")
                                   .first),
