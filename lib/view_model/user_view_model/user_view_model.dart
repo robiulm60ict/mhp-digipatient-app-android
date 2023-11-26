@@ -14,20 +14,19 @@ class UserViewModel with ChangeNotifier{
 
   bool isUserLoading = true;
 
-  setUserLoading(bool val){
-    isUserLoading = val;
-    notifyListeners();
-  }
+
 
   getUserDetails()async{
     userData.clear();
+    isUserLoading=true;
+    // notifyListeners();
     await userRepo.getUserData().then((value) {
       userData.add(value);
       user = value.patientsDetails!;
-      setUserLoading(false);
+      isUserLoading=false;
       notifyListeners();
     }).onError((error, stackTrace) {
-      setUserLoading(true);
+      isUserLoading=true;
       notifyListeners();
     });
   }

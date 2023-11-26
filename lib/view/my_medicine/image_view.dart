@@ -31,7 +31,7 @@ class ImageView extends StatelessWidget {
           child: PhotoView(
 
 
-              imageProvider: NetworkImage( "${AppUrls.prescription_image}${image}",),
+              imageProvider: NetworkImage( "${image}",),
              ),
         ),
       ),

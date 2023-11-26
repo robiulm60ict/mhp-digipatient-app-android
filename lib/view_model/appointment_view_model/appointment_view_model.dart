@@ -26,8 +26,33 @@ class AppointmentViewModel with ChangeNotifier {
 
   List<WeekDayModel> weekDayList = [];
 
-  var selected;
 
+  var selected;
+  bool morningButton = true;
+  bool isChamber = true;
+
+  appoinmenttimemorning(){
+    morningButton=true;
+    print(morningButton);
+
+    notifyListeners();
+  }
+  appoinmenttimeeveing(){
+    morningButton=false;
+    print(morningButton);
+    notifyListeners();
+  }
+  appoinmentchamber(){
+    isChamber=true;
+    print(isChamber);
+
+    notifyListeners();
+  }
+  appoinmentonline(){
+    isChamber=false;
+    print(isChamber);
+    notifyListeners();
+  }
   setAppointmentDate(BuildContext context) async {
     DateTime? selectedDate =
         await PickDateTime().pickDate(context, initialDate: appointmentDate);

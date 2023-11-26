@@ -21,11 +21,11 @@ class DoctorRepository {
       dynamic response = await apiService.getPostApiResponse(
           "${AppUrls.doctorrequest}${id.toString()}", body);
 
-      print("res$response");
+   //   print("$response");
 
       return response;
     } catch (e) {
-      print("aaa${e.toString()}");
+      print("${e.toString()}");
       rethrow;
     }
   }

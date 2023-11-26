@@ -50,8 +50,11 @@ class AppUrls{
   static const String docImage = "https://gdbackend.macrohealthplus.org/doctors/images/";
 
   static const String prescription_image = "https://gdbackend.macrohealthplus.org/images/online_prescription/";
+  static const String report_image = "https://gdbackend.macrohealthplus.org/images/patients_reports/";
   static const String currentRX = "$baseUrlPatient/get-pescriped-dugs/";
+  static const String getmyreportimage = "$baseUrlPatient/get-patient-report-file/";
   static const String uploadRXimage = "$baseUrlPatient/get-patient-prescriptions/";
+  static const String uploadMyReport = "$baseUrlPatient/upload-patient-report-file";
 
   static const String pastRX = "$baseUrlPatient/past-dugs-history/";
 

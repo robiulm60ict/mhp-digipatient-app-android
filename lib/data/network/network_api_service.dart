@@ -99,9 +99,12 @@ class NetworkApiService extends BaseApiService {
     switch (response.statusCode) {
       case 200:
         dynamic responseJson = jsonDecode(response.body.toString());
+        print(responseJson);
         return responseJson;
       case 201:
         dynamic responseJson = jsonDecode(response.body.toString());
+        print(responseJson);
+
         return responseJson;
       case 401:
         dynamic responseJson = jsonDecode(response.body.toString());
@@ -109,7 +112,8 @@ class NetworkApiService extends BaseApiService {
       case 400:
         throw BadRequestException(response.body.toString());
       case 404:
-        throw UnauthorisedException(response.body.toString());
+        dynamic responseJson = jsonDecode(response.body.toString());
+        return responseJson;
         case 413:
         throw LargeRequestException();
       case 500:

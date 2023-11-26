@@ -23,9 +23,9 @@ import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
 import '../../view_model/user_view_model/user_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/drawer_list_tile.dart';
+import '../../widgets/shimmer.dart';
 import '../privacy_policy/privacypolicy.dart';
 import '../support/support_page.dart';
-
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -40,11 +40,10 @@ class _HomeViewState extends State<HomeView> {
   String? name = "";
 
   @override
-  void initState()  {
+  void initState() {
     super.initState();
     getUserData();
     context.read<UserViewModel>().getUserDetails();
-
   }
 
   getUserData() async {
@@ -73,17 +72,14 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double width = (size.width / 3);
-    width = width + width;
     debugPrint(size.width.toString());
-    final userprovider = Provider.of<UserViewModel>(context).user;
 
-    final auth = Provider.of<AuthViewModel>(context);
-    final provider = Provider.of<HomeViewModel>(context,listen: false);
-    final dvm = Provider.of<MyDoctorDelaisViewModel>(context,listen: false);
+
+    final auth = Provider.of<AuthViewModel>(context, listen: false);
+    final dvm = Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
     return WillPopScope(
-      onWillPop: (){
+      onWillPop: () {
         return exit(0);
-
       },
       child: SafeArea(
         top: true,
@@ -94,7 +90,8 @@ class _HomeViewState extends State<HomeView> {
           drawer: Drawer(
             width: width,
             shape: OutlineInputBorder(
-              borderRadius: BorderRadius.only(bottomRight: Radius.circular(70.w)),
+              borderRadius:
+                  BorderRadius.only(bottomRight: Radius.circular(70.w)),
               borderSide: BorderSide.none,
             ),
             child: ListView(
@@ -125,7 +122,7 @@ class _HomeViewState extends State<HomeView> {
                   iconData: Icons.person,
                   title: "Profile",
                   onTap: () {
-                   // Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDetailView(user: userprovide)));
+                    // Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDetailView(user: userprovide)));
 
                     // context.router.push(UserDetailRoute(user: user));
                   },
@@ -137,7 +134,10 @@ class _HomeViewState extends State<HomeView> {
                   iconData: Icons.calendar_view_day,
                   title: "Appointment",
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>DailyAndUpcommingView()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DailyAndUpcommingView()));
 
                     // context.router.push(const DailyAndUpcommingRoute());
                   },
@@ -157,8 +157,9 @@ class _HomeViewState extends State<HomeView> {
                   iconData: Icons.payment,
                   title: "Payment & Invoice",
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>InvoiceView()));
-                  //  context.router.push(const InvoiceRoute());
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => InvoiceView()));
+                    //  context.router.push(const InvoiceRoute());
                   },
                 ),
                 SizedBox(
@@ -176,18 +177,21 @@ class _HomeViewState extends State<HomeView> {
                   iconData: Icons.support,
                   title: "Support",
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>SupportPage()));
-
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SupportPage()));
                   },
                 ),
                 SizedBox(
                   height: 6.h,
-                ) ,DrawerListTile(
+                ),
+                DrawerListTile(
                   iconData: Icons.privacy_tip,
                   title: "Privacy & Policy",
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>PrivacyPolicy()));
-
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PrivacyPolicy()));
                   },
                 ),
                 SizedBox(
@@ -225,8 +229,8 @@ class _HomeViewState extends State<HomeView> {
                 Text(
                   "V 2.0.0(200)",
                   textAlign: TextAlign.center,
-                  style:
-                      TextStyle(fontSize: 12.sp, color: const Color(0xFFAAAAAA)),
+                  style: TextStyle(
+                      fontSize: 12.sp, color: const Color(0xFFAAAAAA)),
                 ),
                 SizedBox(
                   height: 100.h,
@@ -264,7 +268,7 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   child: IconButton(
                       onPressed: () {
-                      //  context.router.push(const NotificationsRoute());
+                        //  context.router.push(const NotificationsRoute());
                       },
                       icon: Icon(
                         Icons.notification_important,
@@ -288,53 +292,75 @@ class _HomeViewState extends State<HomeView> {
                 child: Card(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Consumer<UserViewModel>(
+                        builder: (context, userprovider, child) {
+                      if (userprovider.userData.isEmpty) {
+                        return userprovider.isUserLoading == true
+                            ? Center(
+                                child: ListView.builder(
+                                  itemCount: 1,
+                                  scrollDirection: Axis.vertical,
+                                  physics: const ScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: bannerShimmereffect(
+                                          120.toDouble(), 400.toDouble()),
+                                    );
+                                  },
+                                ),
+                              )
+                            : noDataFounForList("");
+                      } else {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text(
-                              "Hello!",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18.sp,
-                                  color: AppColors.primaryColor),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Hello!",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18.sp,
+                                      color: AppColors.primaryColor),
+                                ),
+                                SizedBox(
+                                  height: 4.h,
+                                ),
+                                Text(
+                                  "$name",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12.sp,
+                                      color: const Color(0xFF454545)),
+                                ),
+                                SizedBox(
+                                  height: 4.h,
+                                ),
+                                Text(
+                                  "Welcome to MacroHealthPlus",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: const Color(0xFF7A7A7A),
+                                  ),
+                                ),
+                              ],
                             ),
-                            SizedBox(
-                              height: 4.h,
-                            ),
-
-                            Text(
-                              "$name",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12.sp,
-                                  color: const Color(0xFF454545)),
-                            ),
-                            SizedBox(
-                              height: 4.h,
-                            ),
-                            Text(
-                              "Welcome to MacroHealthPlus",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                color: const Color(0xFF7A7A7A),
-                              ),
-                            ),
+                            CircleAvatar(
+                                radius: 40,
+                                backgroundImage: NetworkImage(
+                                    "${AppUrls.image}${userprovider.user?.patientImages}"))
                           ],
-                        ),
-                        CircleAvatar(
-                            radius: 40,
-                            backgroundImage: NetworkImage(
-                                "${AppUrls.image}${userprovider?.patientImages}"))
-                      ],
-                    ),
+                        );
+                      }
+                    }),
                   ),
                 ),
               ),
@@ -435,123 +461,103 @@ class _HomeViewState extends State<HomeView> {
               SizedBox(
                 height: 4.h,
               ),
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.h)),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 6.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      // ZegoSendCallInvitationButton(
-                      //   isVideoCall: true,
-                      //   resourceID: "digi_project",
-                      //   //You need to use the resourceID that you created in the subsequent steps. Please continue reading this document.
-                      //   invitees: [
-                      //     // ZegoUIKitUser(
-                      //     //   id: targetUserID,
-                      //     //   name: targetUserName,
-                      //     // ),
-                      //   ],
-                      // ),
-                      SizedBox(
-                        width: 200.w,
-                        height: 40.h,
-                        child: TextField(
-                          controller: dvm.controllerRequest,
-                          decoration: const InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey)),
-                              hintText: 'Enter 6 Digit Code',
-                              labelText: 'Add Doctor / Clinic',
-                              suffixStyle: TextStyle(color: Colors.green)),
+              Consumer<MyDoctorDelaisViewModel>(builder: (context, dvm, child) {
+                return Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.h)),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: 6.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          width: 200.w,
+                          height: 40.h,
+                          child: TextField(
+                            controller: dvm.controllerRequest,
+                            decoration: const InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey)),
+                                hintText: 'Enter 6 Digit Code',
+                                labelText: 'Add Doctor / Clinic',
+                                suffixStyle: TextStyle(color: Colors.green)),
+                          ),
                         ),
-                      ),
-                      MaterialButton(
-                        onPressed: () {
-                          if (dvm.controllerRequest.text.isNotEmpty) {
-                            dvm.docotrRequest(
-                                context, dvm.controllerRequest.text);
-                          } else {
-                            Messages.snackBar(
-                              context,
-                              "Enter Doctor identity number",
-                            );
-                          }
-                        },
-                        color: AppColors.primaryColor,
-                        child: Text("Submit"),
-                      )
-                    ],
+                        MaterialButton(
+                          onPressed: () {
+                            if (dvm.controllerRequest.text.isNotEmpty) {
+                              dvm.docotrRequest(
+                                  context, dvm.controllerRequest.text);
+                            } else {
+                              Messages.snackBar(
+                                context,
+                                "Enter Doctor identity number",
+                              );
+                            }
+                          },
+                          color: AppColors.primaryColor,
+                          child: Text("Submit"),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ),
+                );
+              }),
+
               SizedBox(
                 height: 4.h,
               ),
-              GridView.builder(
-                  physics:  NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  gridDelegate: FlutterzillaFixedGridView(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 5,
-                      crossAxisSpacing: 10,
-                      height: 90.h),
-                  itemCount: provider.homeItemsList.length,
-                  itemBuilder: (BuildContext context, index) {
-                    return InkWell(
-                      onTap: () {
-                        if (index == 0) {
-                          dvm.getmyAllDoctors(context);
-                        }
+              Consumer<HomeViewModel>(builder: (context, provider, child) {
+                return GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    gridDelegate: FlutterzillaFixedGridView(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 10,
+                        height: 90.h),
+                    itemCount: provider.homeItemsList.length,
+                    itemBuilder: (BuildContext context, index) {
+                      return InkWell(
+                        onTap: () {
+                          if (index == 0) {
+                            dvm.getmyAllDoctors(context);
+                          }
 
-                        // dvm.getDepartments(context);
-
-                        provider.homeItemsRouteTo(context, index);
-                      },
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          // Container(
-                          //   margin: EdgeInsets.only(bottom: 4.h),
-                          //   height: 70.h,
-                          //   // padding: EdgeInsets.all(18.r),
-                          //   decoration: BoxDecoration(
-                          //     color: AppColors.primaryColor,
-                          //     borderRadius: BorderRadius.circular(12.r),
-                          //     image: const DecorationImage(
-                          //       // fit: BoxFit.fill,
-                          //       image: AssetImage(Assets.myDoctor),),
-                          //   ),
-                          // ),
-                          SizedBox(
-                            height: 70.h,
-                            width: double.infinity,
-                            child: Card(
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.r),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(12.0.r),
-                                child: Image.asset(
-                                  provider.homeItemsList[index].image,
+                          provider.homeItemsRouteTo(context, index);
+                        },
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              height: 70.h,
+                              width: double.infinity,
+                              child: Card(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.r),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(12.0.r),
+                                  child: Image.asset(
+                                    provider.homeItemsList[index].image,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                            Text(
+                              provider.homeItemsList[index].title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                              style: Style.alltext_default_balck,
+                            )
+                          ],
+                        ),
+                      );
+                    });
+              }),
 
-                          Text(
-                            provider.homeItemsList[index].title,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.center,
-                            style: Style.alltext_default_balck,
-                          )
-                        ],
-                      ),
-                    );
-                  }),
               SizedBox(
                 height: 100.h,
               ),

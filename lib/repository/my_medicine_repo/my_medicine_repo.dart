@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/network/base_api_service.dart';
 import '../../model/my_medicine_model/current_rx_model.dart';
+import '../../model/my_medicine_model/my_report_model.dart';
 import '../../model/my_medicine_model/prescription_image_list.dart';
 import '../../utils/user.dart';
 import '/data/network/network_api_service.dart';
@@ -15,7 +16,26 @@ class MyMedicineRepo{
 
   BaseApiService apiService = NetworkApiService();
 
+  Future<List<MyReportImageModel>> getmyreport() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    int? id = prefs.getInt(UserP.id);
+    try {
+      dynamic response = await apiService.getGetApiResponse(
+        "${AppUrls.getmyreportimage}$id",
+      );
+   //   print("data..................${response.toString()}");
+      List<MyReportImageModel> datalist = [];
+      for (var i in response['data']) {
+        datalist.add(MyReportImageModel.fromJson(i));
+      }
+
+      return datalist;
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
   Future<List<PreccriptionListModel>> getprescriptionImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 

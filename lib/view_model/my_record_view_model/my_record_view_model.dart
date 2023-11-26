@@ -116,7 +116,7 @@ class MyRecordViewModel with ChangeNotifier {
     myRecordRepo.getVitals().then((value) {
       vitalsList.add(value);
       // tabController = TabController(length: vitalsList.first.vsArray!.length + 1, vsync: vsync);
-      // patientVsList.addAll(value.vsArray!.first.patientsVs!);
+       patientVsList.addAll(value.vsArray!.first.patientsVs!);
       isVitalLoading = false;
       notifyListeners();
 

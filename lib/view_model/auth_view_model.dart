@@ -102,19 +102,9 @@ class AuthViewModel with ChangeNotifier {
       Future.delayed(const Duration(seconds: 1)).then((v) {
         setLoginLoading(false, value);
 
-       Navigator.pushNamed(context, RoutesName.dashbord);
+        Navigator.pushNamed(context, RoutesName.dashbord);
         onUserLogin();
-        // context.router.replace(const DashboardRoute());
-        // if (value.user!.userType.toString().toLowerCase() == "patient") {
-        //   //  savePtnFcm();
-        //   context.router.replace(const DashboardRoute());
-        // } else if (value.user!.userType.toString().toLowerCase() == "doctor") {
-        //   // saveDocFcm();
-        //   context.read<DoctorScreenViewModel>().getAllPatientList(context);
-        // } else {
-        //   Messages.flushBarMessage(context,
-        //       "Role is not in the code ${value.user!.userType.toString().toLowerCase()}");
-        // }
+
       });
     }).onError((error, stackTrace) {
       debugPrint(error.toString());
@@ -130,6 +120,7 @@ class AuthViewModel with ChangeNotifier {
     String? name = prefs.getString(UserP.name);
 
     print(userid);
+
     /// 1.2.1. initialized ZegoUIKitPrebuiltCallInvitationService
     /// when app's user is logged in or re-logged in
     /// We recommend calling this method as soon as the user logs in to your app.
@@ -180,8 +171,12 @@ class AuthViewModel with ChangeNotifier {
     await _authRepo.sendOTP(body: body).then((value) {
       otpList.add(value);
       setSendOtpLoading(false);
-      Navigator.push(context, MaterialPageRoute(builder: (context)=> PinCodeVerificationView( phoneNumber: phnNumber)));
-     // context.router.push(PinCodeVerificationRoute(phoneNumber: phnNumber));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  PinCodeVerificationView(phoneNumber: phnNumber)));
+      // context.router.push(PinCodeVerificationRoute(phoneNumber: phnNumber));
     }).onError((error, stackTrace) {
       setSendOtpLoading(false);
       debugPrint(error.toString());
@@ -216,7 +211,12 @@ class AuthViewModel with ChangeNotifier {
             backgroundColor: AppColors.greenColor);
         // Future.delayed(Duration(microseconds: 200));
         Future.delayed(Duration.zero);
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> CreateAccountView(phoneNumber: body['phone_number'],)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CreateAccountView(
+                      phoneNumber: body['phone_number'],
+                    )));
 
         // context.router
         //     .push(CreateAccountRoute(phoneNumber: body['phone_number']));
@@ -234,12 +234,6 @@ class AuthViewModel with ChangeNotifier {
     });
   }
 
-  // data()async{
-  //   var request = http.MultipartRequest(‘POST’, Uri.parse(''));
-  //   request.fields[‘ProductId’] = productId.toString();
-  //   request.files.add(http.MultipartFile.fromBytes(‘picture’, File(file!.path).readAsBytesSync(),filename: file!.path));
-  //   var res = await request.send();
-  // }
 
   signUpOriginal(BuildContext context, body) async {
     // registrationList.clear();
@@ -260,26 +254,30 @@ class AuthViewModel with ChangeNotifier {
     registrationList.clear();
     setRegistrationLoading(true);
     isRegistrationLoading = true;
+    notifyListeners();
     auth.signUpApi(body: body, imageBytes: imageBytes).then((value) {
-      // registrationList.add(value);
-      // debugPrint(
-      //     "\n\n\n\n\n\n ${value.patients?.patientFirstName} id: ${value.patients?.id}");
-      Messages.snackBar(context, value.message.toString(),
-          backgroundColor: AppColors.greenColor);
-      // saveUser(
-      //     isLoggedIn: true,
-      //     email: "${value.patients?.patientEmail}",
-      //     password: "password",
-      //     name: "${value.patients?.patientFirstName}",
-      //     id: int.tryParse("${value.patients?.id}") ?? 0,
-      //     role: value.data!.userType ?? "");
+
+      if (value['message'] == "User Registration Completed") {
+        Messages.snackBar(context, value['message'].toString(),
+            backgroundColor: AppColors.greenColor);
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInView()));
+      } else if (value['status'] == 400) {
+        Messages.snackBar(context, value['msg'].toString(),
+            backgroundColor: AppColors.redColor);
+      } else {
+        Messages.snackBar(context, value.toString(),
+            backgroundColor: AppColors.redColor);
+      }
+
+
       isRegistrationLoading = false;
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInView()));
-     // context.router.push(const SignInRoute());
+
+      notifyListeners();
     }).onError((error, stackTrace) {
       Messages.snackBar(context, error.toString());
       setRegistrationLoading(false);
       isRegistrationLoading = false;
+      notifyListeners();
     });
   }
 
@@ -293,44 +291,6 @@ class AuthViewModel with ChangeNotifier {
 
   AuthRepository auth = AuthRepository();
 
-  Future<void> registration(BuildContext context,
-      {required File imageFile,
-      required String phoneNumber,
-      required String token,
-      required String verificationCode,
-      required String name,
-      required String genderId,
-      required String bloodGroupId,
-      required String dateOfBirth,
-      required String password,
-      required String email}) async {
-    registrationList.clear();
-    isRegistrationLoading = true;
-    await auth
-        .registration(
-            imageFile: imageFile,
-            phoneNumber: phoneNumber,
-            token: token,
-            verificationCode: verificationCode,
-            name: name,
-            genderId: genderId,
-            bloodGroupId: bloodGroupId,
-            dateOfBirth: dateOfBirth,
-            password: password,
-            email: email)
-        .then((value) {
-      registrationList.add(value);
-      Messages.snackBar(context, "Registration Successful",
-          backgroundColor: AppColors.greenColor);
-      debugPrint(
-          "\n---\n---\n---\n---\n---\n---\n---\n---\n id: ${value.patients?.id}---\n Name: ${value.patients?.patientFirstName} \n---\n---\n---\n---\n---\n---\n---\n---\n");
-      // saveUser(isLoggedIn: true, email: email, password: password, name: name, id: int.tryParse("${value.patients?.id}") ?? 0);
-      isRegistrationLoading = false;
-    }).onError((error, stackTrace) {
-      Messages.snackBar(context, error.toString());
-      isRegistrationLoading = false;
-    });
-  }
 
   saveUser(
       {required bool isLoggedIn,

@@ -78,14 +78,14 @@ class AuthRepository {
     }
   }
 
-  Future<RegistrationModel> signUpApi(
+ signUpApi(
       {required Map<String, String> body, required imageBytes}) async {
     SendImage sendImage = SendImage();
     try {
       dynamic response =
       await sendImage.addImage(body, imageBytes);
         //   await apiService.getPostApiResponse(AppUrls.registration, body);
-      return RegistrationModel.fromJson(response);
+      return response;
     } catch (e) {
       rethrow;
     }

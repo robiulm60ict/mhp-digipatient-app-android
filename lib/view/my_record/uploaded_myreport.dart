@@ -10,23 +10,22 @@ import '../../../widgets/shimmer.dart';
 import '../../resources/app_url.dart';
 import '../../utils/utils.dart';
 import '../../view_model/my_medicine_view_model/my_medicine_view_model.dart';
-import 'image_view.dart';
+import '../my_medicine/image_view.dart';
 
-class UploadPrescription extends StatefulWidget {
-  UploadPrescription({super.key, this.id});
+class UploadMyReport extends StatefulWidget {
+  UploadMyReport({super.key, });
 
-  var id;
 
   @override
-  State<UploadPrescription> createState() => _UploadPrescriptionState();
+  State<UploadMyReport> createState() => _UploadMyReportState();
 }
 
-class _UploadPrescriptionState extends State<UploadPrescription> {
+class _UploadMyReportState extends State<UploadMyReport> {
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<MyMedicineViewModel>().getPrescriptionRx(context);
+      context.read<MyMedicineViewModel>().getMyReport(context);
     });
   }
 
@@ -38,7 +37,7 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
         backgroundColor: AppColors.primary_color,
         leadingWidth: leadingWidth,
         leading: const CustomBackButton(),
-        title: Text("Prescription", style: Style.alltext_appbar),
+        title: Text("My Report", style: Style.alltext_appbar),
         centerTitle: true,
       ),
       body: Container(
@@ -47,8 +46,8 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
           child: Column(
             children: [
               Consumer<MyMedicineViewModel>(builder: (context, data, child) {
-                if (data.imageRxList.isEmpty) {
-                  return data.isPrescriptionRxLoading == true
+                if (data.myreportimageRxList.isEmpty) {
+                  return data.ismyreportLoading == true
                       ? Center(
                           child: ListView.builder(
                             itemCount: 4,
@@ -70,11 +69,11 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                     child: Column(
                       children: [
                         ListView.builder(
-                            itemCount: data.imageRxList.length,
+                            itemCount: data.myreportimageRxList.length,
                             shrinkWrap: true,
                             physics: ScrollPhysics(),
                             itemBuilder: (context, index) {
-                              var info = data.imageRxList[index];
+                              var info = data.myreportimageRxList[index];
                               return Padding(
                                 padding: const EdgeInsets.only(top: 6),
                                 child: Container(
@@ -91,8 +90,8 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) => ImageView(
-                                                        image: "${AppUrls.prescription_image}${info
-                                                            .prescriptionUrl}")));
+                                                        image:"https://gdbackend.macrohealthplus.org/images/patients_reports/${info
+                                                            .file}")));
                                           },
                                           child: Card(
                                             color: Colors.white,
@@ -121,7 +120,7 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                                                           SizedBox(
                                                             width: 40.w,
                                                             child: Text(
-                                                              "Name",
+                                                              "Report",
                                                               style: Style
                                                                   .alltext_default_balck,
                                                             ),
@@ -134,37 +133,7 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                                                           SizedBox(
                                                             width: 180.w,
                                                             child: Text(
-                                                                "${info.patient!.patientFirstName} ${info.patient!.patientMiddleName ?? ""} ${info.patient!.patientFirstName}",
-                                                                style: Style
-                                                                    .alltext_default_balck),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Style.distan_size2, Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 40.w,
-                                                            child: Text(
-                                                              "Doctor",
-                                                              style: Style
-                                                                  .alltext_default_balck,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            ": ",
-                                                            style: Style
-                                                                .alltext_default_balck,
-                                                          ),
-                                                          SizedBox(
-                                                            width: 180.w,
-                                                            child: Text(
-                                                                "${info.doctor!.drGivenName} ${info.doctor!.drMiddleName ?? ""} ${info.doctor!.drLastName}",
+                                                                "${info.name ??""} ",
                                                                 style: Style
                                                                     .alltext_default_balck),
                                                           ),
@@ -192,13 +161,13 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                                                             style: Style
                                                                 .alltext_default_balck,
                                                           ),
-                                                          SizedBox(
-                                                            width: 180.w,
-                                                            child: Text(
-                                                                "${info.date ?? ""}",
-                                                                style: Style
-                                                                    .alltext_default_balck),
-                                                          ),
+                                                          // SizedBox(
+                                                          //   width: 180.w,
+                                                          //   child: Text(
+                                                          //       "${info.date ?? ""}",
+                                                          //       style: Style
+                                                          //           .alltext_default_balck),
+                                                          // ),
                                                         ],
                                                       ),
                                                       Style.distan_size2,
@@ -206,10 +175,10 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  height: 75.h,
+                                                  height: 70.h,
                                                   width: 50.w,
                                                   child: Image.network(
-                                                    "${AppUrls.prescription_image}${info.prescriptionUrl}",
+                                                    "${AppUrls.report_image}${info.file}",
                                                     height: 75.h,
                                                     width: 50.w,
                                                     fit: BoxFit.fill,

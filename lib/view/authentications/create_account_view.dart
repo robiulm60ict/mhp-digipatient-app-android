@@ -119,7 +119,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthViewModel>(context,listen: false);
+    final auth = Provider.of<AuthViewModel>(context);
 
     return Scaffold(
       body: SafeArea(
@@ -206,8 +206,8 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   if (res != null) {
                     await pickImage(fromGallery: res);
                   } else {
-                    Messages.flushBarMessage(
-                        context, "Select an option to continue");
+                    // Messages.flushBarMessage(
+                    //     context, "Select an option to continue");
                   }
                 },
                 child: Stack(

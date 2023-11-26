@@ -239,34 +239,34 @@ class _VitalsViewState extends State<VitalsView>
                       );
                     },
                   ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  Text(
-                    "Overview",
-                    style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFF3C3C3C)),
-                  ),
-                  SizedBox(
-                    height: 18.h,
-                  ),
-                  Text(
-                    "Blood Pressure",
-                    style: TextStyle(fontSize: 16.sp, color: Colors.black),
-                  ),
-                  SizedBox(
-                    height: 18.h,
-                  ),
-                  vital.isVitalLoading
-                      ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                      : const SizedBox(
-                    height: 300,
-                    child: CustomLineChart(),
-                  ),
+                  // SizedBox(
+                  //   height: 12.h,
+                  // ),
+                  // Text(
+                  //   "Overview",
+                  //   style: TextStyle(
+                  //       fontSize: 16.sp,
+                  //       fontWeight: FontWeight.bold,
+                  //       color: const Color(0xFF3C3C3C)),
+                  // ),
+                  // SizedBox(
+                  //   height: 18.h,
+                  // ),
+                  // Text(
+                  //   "Blood Pressure",
+                  //   style: TextStyle(fontSize: 16.sp, color: Colors.black),
+                  // ),
+                  // SizedBox(
+                  //   height: 18.h,
+                  // ),
+                  // vital.isVitalLoading
+                  //     ? const Center(
+                  //   child: CircularProgressIndicator(),
+                  // )
+                  //     : const SizedBox(
+                  //   height: 300,
+                  //   child: CustomLineChart(),
+                  // ),
                   SizedBox(
                     height: 18.h,
                   ),

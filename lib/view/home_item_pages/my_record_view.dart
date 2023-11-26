@@ -16,6 +16,7 @@ import 'package:search_page/search_page.dart';
 
 import '../../resources/app_url.dart';
 import '../my_record/my_medical_history_view.dart';
+import '../my_record/my_report_view.dart';
 import '../my_record/reason_for_visit_view.dart';
 import '../my_record/self_medical_history_from_great_doc_view.dart';
 import '../my_record/vital_view.dart';
@@ -192,10 +193,14 @@ class _MyRecordViewState extends State<MyRecordView> {
           SizedBox(
             height: 5.h,
           ),
-          const MyRecordListTile(
+           MyRecordListTile(
             title: 'My Report',
             iconData: Icons.report,
             iconColor: Colors.blue,
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>MyReportView()));
+              // context.router.push(const ReasonForVisitRoute());
+            },
           ),
           SizedBox(
             height: 5.h,
