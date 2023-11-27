@@ -30,6 +30,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'firebase_options.dart';
 import 'view_model/mydoctor/new_my_doctor_view_model.dart';
 import 'view_model/qr_code_dr_profile_view_model/profile_view_model.dart';
+import 'view_model/resources_view_model/resources_view_model.dart';
 
 // final FlutterLocalization localization = FlutterLocalization.instance;
 
@@ -115,6 +116,8 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => MyPaymentViewModel(),
+        ), ChangeNotifierProvider(
+          create: (context) => ResourcesViewModel(),
         ),
       ],
       child: MyApp(

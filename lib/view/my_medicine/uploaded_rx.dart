@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../generated/assets.dart';
@@ -112,11 +113,11 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                                                     children: [
                                                       Row(
                                                         mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                         crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                         children: [
                                                           SizedBox(
                                                             width: 40.w,
@@ -134,19 +135,20 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                                                           SizedBox(
                                                             width: 180.w,
                                                             child: Text(
-                                                                "${info.patient!.patientFirstName} ${info.patient!.patientMiddleName ?? ""} ${info.patient!.patientFirstName}",
+                                                                "${info.patient!.fullName ?? ""}",
                                                                 style: Style
                                                                     .alltext_default_balck),
                                                           ),
                                                         ],
                                                       ),
-                                                      Style.distan_size2, Row(
+                                                      Style.distan_size2,
+                                                      Row(
                                                         mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                         crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                         children: [
                                                           SizedBox(
                                                             width: 40.w,
@@ -164,7 +166,7 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                                                           SizedBox(
                                                             width: 180.w,
                                                             child: Text(
-                                                                "${info.doctor!.drGivenName} ${info.doctor!.drMiddleName ?? ""} ${info.doctor!.drLastName}",
+                                                                "${info.doctor!.title!.titleName.toString() ?? ""} ${info.doctor!.fullName ?? ""} ",
                                                                 style: Style
                                                                     .alltext_default_balck),
                                                           ),
@@ -173,11 +175,11 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                                                       Style.distan_size2,
                                                       Row(
                                                         mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                         crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                         children: [
                                                           SizedBox(
                                                             width: 40.w,
@@ -195,13 +197,43 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                                                           SizedBox(
                                                             width: 180.w,
                                                             child: Text(
-                                                                "${info.date ?? ""}",
+                                                                DateFormat("yyyy-MM-dd").format(DateTime.parse(info.createdAt.toString())),
                                                                 style: Style
                                                                     .alltext_default_balck),
                                                           ),
                                                         ],
                                                       ),
                                                       Style.distan_size2,
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 40.w,
+                                                            child: Text(
+                                                              "Time",
+                                                              style: Style
+                                                                  .alltext_default_balck,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            ": ",
+                                                            style: Style
+                                                                .alltext_default_balck,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 180.w,
+                                                            child: Text(
+                                                                "${DateFormat("hh:mm a").format(DateTime.parse(info.createdAt.toString()))}",
+                                                                style: Style
+                                                                    .alltext_default_balck),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ],
                                                   ),
                                                 ),

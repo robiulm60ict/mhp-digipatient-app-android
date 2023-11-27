@@ -12,9 +12,9 @@ class PreccriptionListModel {
   int? id;
   String? patientId;
   String? doctorId;
-  String? date;
+  DateTime? date;
   String? prescriptionUrl;
-  dynamic createdAt;
+  DateTime? createdAt;
   dynamic updatedAt;
   Patient? patient;
   Doctor? doctor;
@@ -35,9 +35,9 @@ class PreccriptionListModel {
     id: json["id"],
     patientId: json["patient_id"],
     doctorId: json["doctor_id"],
-    date: json["date"],
+    date: json["date"] == null ? null : DateTime.parse(json["date"]),
     prescriptionUrl: json["prescription_url"],
-    createdAt: json["created_at"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"],
     patient: json["patient"] == null ? null : Patient.fromJson(json["patient"]),
     doctor: json["doctor"] == null ? null : Doctor.fromJson(json["doctor"]),
@@ -47,9 +47,9 @@ class PreccriptionListModel {
     "id": id,
     "patient_id": patientId,
     "doctor_id": doctorId,
-    "date": date,
+    "date": "${date!.year.toString().padLeft(4, '0')}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}",
     "prescription_url": prescriptionUrl,
-    "created_at": createdAt,
+    "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt,
     "patient": patient?.toJson(),
     "doctor": doctor?.toJson(),
@@ -59,7 +59,7 @@ class PreccriptionListModel {
 class Doctor {
   int? id;
   String? drIdentityNo;
-  String? title;
+  Title? title;
   String? departmentId;
   String? specialistsId;
   dynamic departmentName;
@@ -92,6 +92,7 @@ class Doctor {
   dynamic updatedBy;
   DateTime? createdAt;
   DateTime? updatedAt;
+  String? fullName;
 
   Doctor({
     this.id,
@@ -129,12 +130,13 @@ class Doctor {
     this.updatedBy,
     this.createdAt,
     this.updatedAt,
+    this.fullName,
   });
 
   factory Doctor.fromJson(Map<String, dynamic> json) => Doctor(
     id: json["id"],
     drIdentityNo: json["dr_identity_no"],
-    title: json["title"],
+    title: json["title"] == null ? null : Title.fromJson(json["title"]),
     departmentId: json["department_id"],
     specialistsId: json["specialists_id"],
     departmentName: json["department_name"],
@@ -167,12 +169,13 @@ class Doctor {
     updatedBy: json["updated_by"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    fullName: json["fullName"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "dr_identity_no": drIdentityNo,
-    "title": title,
+    "title": title?.toJson(),
     "department_id": departmentId,
     "specialists_id": specialistsId,
     "department_name": departmentName,
@@ -205,6 +208,27 @@ class Doctor {
     "updated_by": updatedBy,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
+    "fullName": fullName,
+  };
+}
+
+class Title {
+  int? id;
+  String? titleName;
+
+  Title({
+    this.id,
+    this.titleName,
+  });
+
+  factory Title.fromJson(Map<String, dynamic> json) => Title(
+    id: json["id"],
+    titleName: json["title_name"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "title_name": titleName,
   };
 }
 
@@ -212,7 +236,7 @@ class Patient {
   int? id;
   String? patientHnNumber;
   dynamic patientTitleId;
-  dynamic patientNid;
+  String? patientNid;
   dynamic patientBcid;
   String? ptnBloodGroupId;
   String? patientFirstName;
@@ -225,15 +249,15 @@ class Patient {
   String? patientMobilePhone;
   dynamic patientHeadOfFamily;
   dynamic patientEmergencyContact;
-  String? patientDob;
+  DateTime? patientDob;
   dynamic patientPassport;
   String? patientStatus;
   String? patientEmail;
   String? patientBirthSexId;
   dynamic patientIndividualHealthIdentifierNo;
-  dynamic patientReligionId;
+  String? patientReligionId;
   dynamic patientUsualProviderId;
-  dynamic patientEthnicityId;
+  String? patientEthnicityId;
   dynamic patientParentId;
   String? patientAddress1;
   dynamic patientAddress2;
@@ -260,6 +284,7 @@ class Patient {
   int? deleteStatus;
   DateTime? createdAt;
   DateTime? updatedAt;
+  String? fullName;
 
   Patient({
     this.id,
@@ -313,6 +338,7 @@ class Patient {
     this.deleteStatus,
     this.createdAt,
     this.updatedAt,
+    this.fullName,
   });
 
   factory Patient.fromJson(Map<String, dynamic> json) => Patient(
@@ -332,7 +358,7 @@ class Patient {
     patientMobilePhone: json["patient_mobile_phone"],
     patientHeadOfFamily: json["patient_head_of_family"],
     patientEmergencyContact: json["patient_emergency_contact"],
-    patientDob: json["patient_dob"],
+    patientDob: json["patient_dob"] == null ? null : DateTime.parse(json["patient_dob"]),
     patientPassport: json["patient_passport"],
     patientStatus: json["patient_status"],
     patientEmail: json["patient_email"],
@@ -367,6 +393,7 @@ class Patient {
     deleteStatus: json["delete_status"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    fullName: json["fullName"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -386,7 +413,7 @@ class Patient {
     "patient_mobile_phone": patientMobilePhone,
     "patient_head_of_family": patientHeadOfFamily,
     "patient_emergency_contact": patientEmergencyContact,
-    "patient_dob": patientDob,
+    "patient_dob": "${patientDob!.year.toString().padLeft(4, '0')}-${patientDob!.month.toString().padLeft(2, '0')}-${patientDob!.day.toString().padLeft(2, '0')}",
     "patient_passport": patientPassport,
     "patient_status": patientStatus,
     "patient_email": patientEmail,
@@ -421,5 +448,6 @@ class Patient {
     "delete_status": deleteStatus,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
+    "fullName": fullName,
   };
 }

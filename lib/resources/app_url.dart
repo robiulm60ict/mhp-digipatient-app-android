@@ -48,7 +48,13 @@ class AppUrls{
   static const String diseaseByGenderAndName = '$baseUrl/api/patient-symptomsByGender/';
 
   static const String docImage = "https://gdbackend.macrohealthplus.org/doctors/images/";
-
+  static const String baseUrlResoures = 'https://server.macrohealthplus.org';
+  static const String medical_education = '$baseUrlResoures/medicalEducation/get';
+  static const String news_resoures = '$baseUrlResoures/newsAndViews/get';
+  static const String webinares_resoures = '$baseUrlResoures/webinars/get';
+  static const String patient_education_category = '$baseUrlResoures/category/get';
+  static const String patient_education_subCategory = '$baseUrlResoures/subCategory/get/';
+  static const String patient_education_resource = '$baseUrlResoures/resource/get/';
   static const String prescription_image = "https://gdbackend.macrohealthplus.org/images/online_prescription/";
   static const String report_image = "https://gdbackend.macrohealthplus.org/images/patients_reports/";
   static const String currentRX = "$baseUrlPatient/get-pescriped-dugs/";

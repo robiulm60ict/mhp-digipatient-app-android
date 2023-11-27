@@ -26,6 +26,22 @@ class NetworkApiService extends BaseApiService {
       throw FetchDataException("No Internet Connection");
     }
     return responseJson;
+  }  @override
+  Future getGetApiResponseNoHader(String url) async {
+    dynamic responseJson;
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+
+          'Accept': 'application/json',
+        },
+      ).timeout(const Duration(seconds: 10));
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw FetchDataException("No Internet Connection");
+    }
+    return responseJson;
   }
 
   @override
