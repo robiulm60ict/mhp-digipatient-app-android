@@ -127,9 +127,9 @@ class AuthViewModel with ChangeNotifier {
     final callController = ZegoUIKitPrebuiltCallController();
 
     ZegoUIKitPrebuiltCallInvitationService().init(
-      appID: 1222006055 /*input your AppID*/,
+      appID: 1293432009 /*input your AppID*/,
       appSign:
-          "cf2a1ab2d6d433a3a3e99d076fafd27d42023c32b279fbff9b9b9cd525c96f29" /*input your AppSign*/,
+          "ce9d090d86cd6d51344033934af611515fdb0fc5760cfd02df1f99c06b0b94cf" /*input your AppSign*/,
       userID: userid.toString(),
       userName: name.toString(),
       notifyWhenAppRunningInBackgroundOrQuit: true,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../generated/assets.dart';
@@ -142,11 +143,11 @@ class _UploadMyReportState extends State<UploadMyReport> {
                                                       Style.distan_size2,
                                                       Row(
                                                         mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                         crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                         children: [
                                                           SizedBox(
                                                             width: 40.w,
@@ -161,27 +162,61 @@ class _UploadMyReportState extends State<UploadMyReport> {
                                                             style: Style
                                                                 .alltext_default_balck,
                                                           ),
-                                                          // SizedBox(
-                                                          //   width: 180.w,
-                                                          //   child: Text(
-                                                          //       "${info.date ?? ""}",
-                                                          //       style: Style
-                                                          //           .alltext_default_balck),
-                                                          // ),
+                                                          SizedBox(
+                                                            width: 180.w,
+                                                            child: Text(
+                                                                DateFormat("yyyy-MM-dd").format(DateTime.parse(info.createdAt.toString())),
+                                                                style: Style
+                                                                    .alltext_default_balck),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Style.distan_size2,
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 40.w,
+                                                            child: Text(
+                                                              "Time",
+                                                              style: Style
+                                                                  .alltext_default_balck,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            ": ",
+                                                            style: Style
+                                                                .alltext_default_balck,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 180.w,
+                                                            child: Text(
+                                                                "${DateFormat("hh:mm a").format(DateTime.parse(info.createdAt.toString()))}",
+                                                                style: Style
+                                                                    .alltext_default_balck),
+                                                          ),
                                                         ],
                                                       ),
                                                       Style.distan_size2,
                                                     ],
                                                   ),
                                                 ),
-                                                SizedBox(
-                                                  height: 70.h,
-                                                  width: 50.w,
-                                                  child: Image.network(
-                                                    "${AppUrls.report_image}${info.file}",
-                                                    height: 75.h,
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: SizedBox(
+                                                    height: 70.h,
                                                     width: 50.w,
-                                                    fit: BoxFit.fill,
+                                                    child: Image.network(
+                                                      "${AppUrls.report_image}${info.file}",
+                                                      height: 75.h,
+                                                      width: 50.w,
+                                                      fit: BoxFit.fill,
+                                                    ),
                                                   ),
                                                 )
                                               ],

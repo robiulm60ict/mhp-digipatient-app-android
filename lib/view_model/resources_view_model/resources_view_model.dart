@@ -119,19 +119,23 @@ class ResourcesViewModel with ChangeNotifier {
   }
 
   homeItemsRouteTo(BuildContext context, int index) {
-    if (index == 0) {
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>MedicalEducationView()));
+    // if (index == 0) {
+    //   Navigator.push(context, MaterialPageRoute(builder: (context)=>MedicalEducationView()));
+    //
+    //   //   Navigator.pushNamed(context, RoutesName.medicalEducationView);
+    // }
+    //
+    // else
 
-      //   Navigator.pushNamed(context, RoutesName.medicalEducationView);
-    } else if (index == 1) {
+      if (index == 0) {
       Navigator.push(context, MaterialPageRoute(builder: (context)=>PatientEducationView()));
 
       //   Navigator.pushNamed(context, RoutesName.patientEducationView);
-    } else if (index == 2) {
+    } else if (index == 1) {
       Navigator.push(context, MaterialPageRoute(builder: (context)=>WebinarView()));
 
       // Navigator.pushNamed(context, RoutesName.webinarView);
-    } else if (index == 3) {
+    } else if (index == 2) {
       Navigator.push(context, MaterialPageRoute(builder: (context)=>EducationResourceView()));
 
       //   Navigator.pushNamed(context, RoutesName.educationResourceView);
@@ -139,14 +143,14 @@ class ResourcesViewModel with ChangeNotifier {
   }
 
   List<ResourcesImageItemsModel> resourseImageItemsList = [
+    // ResourcesImageItemsModel(
+    //     title: "Medical Education", image: Assets.homeMyRec),
     ResourcesImageItemsModel(
-        title: "Medical Education", image: Assets.homeMyRec),
+        title: "Patient Education ", image: Assets.res),
     ResourcesImageItemsModel(
-        title: "Patient Education ", image: Assets.homeMyRec),
+        title: "Webinars ", image: Assets.res),
     ResourcesImageItemsModel(
-        title: "Webinars ", image: Assets.homeMyRec),
-    ResourcesImageItemsModel(
-        title: "News", image: Assets.homeMyRec),
+        title: "News", image: Assets.res),
   ];
 }
 

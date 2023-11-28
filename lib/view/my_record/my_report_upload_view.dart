@@ -388,122 +388,130 @@ class _UploadReportViewState extends State<UploadReportView> {
               onPressed: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
 
-                int? id = prefs.getInt(UserP.id);
-                Map<String, String> body = {
-                  'patient_id': id.toString(),
-                  'name':reportName.text,
-                };
-
-                print(body);
-                if (selectedImages!.isNotEmpty) {
-                  print('Gallery');
-                  // if (selectedImages == null || selectedImages!.isEmpty) {
-                  //   print('No images selected Gallery');
-                  //   return;
-                  // }
-                  final token = prefs.getString(UserP.fcmToken) ?? "";
-                  Map<String, String> headers = {
-                    'Authorization': "Bearer $token",
-                    'Content-Type': 'multipart/form-data',
+                if(reportName.text.isEmpty){
+                  Messages.snackBar(context, "Report con not be empty !",
+                     );
+                }else{
+                  int? id = prefs.getInt(UserP.id);
+                  Map<String, String> body = {
+                    'patient_id': id.toString(),
+                    'name':reportName.text,
                   };
 
-                  final Uri apiUrl = Uri.parse(
-                      AppUrls.uploadMyReport); // Replace with your API endpoint
+                  print(body);
+                  if (selectedImages!.isNotEmpty) {
+                    print('Gallery');
+                    // if (selectedImages == null || selectedImages!.isEmpty) {
+                    //   print('No images selected Gallery');
+                    //   return;
+                    // }
+                    final token = prefs.getString(UserP.fcmToken) ?? "";
+                    Map<String, String> headers = {
+                      'Authorization': "Bearer $token",
+                      'Content-Type': 'multipart/form-data',
+                      'Accept': 'application/json',
+                      'databaseName': 'mhpdemocom',
+                    };
 
-                  var request = http.MultipartRequest('POST', apiUrl)
-                    ..fields.addAll(body)
-                    ..headers.addAll(headers);
+                    final Uri apiUrl = Uri.parse(
+                        AppUrls.uploadMyReport); // Replace with your API endpoint
 
-                  for (var image in selectedImages!) {
-                    final File file = File(image.path);
-                    request.files.add(
-                      await http.MultipartFile.fromPath(
-                        "images[]",
-                        file.path,
-                      ),
-                    );
-                  }
+                    var request = http.MultipartRequest('POST', apiUrl)
+                      ..fields.addAll(body)
+                      ..headers.addAll(headers);
 
-                  try {
-                    var response = await request.send();
-                    print("ddddddddddddddddddd${response}");
-
-                    if (response.statusCode == 200) {
-                      Messages.snackBar(context, "Images uploaded successfully",
-                          backgroundColor: AppColors.greenColor);
-                      print('Images uploaded successfully');
-                      reportName.clear();
-                      imageList.clear();
-                      selectedImages!.clear();
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MyRecordView()),
-                          (route) => false);
-                      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>ConsultationAppoinmentView()),(route) => DashbordView(),);
-                    } else {
-                      print(
-                          'Failed to upload images. Status code: ${response.statusCode}');
+                    for (var image in selectedImages!) {
+                      final File file = File(image.path);
+                      request.files.add(
+                        await http.MultipartFile.fromPath(
+                          "images[]",
+                          file.path,
+                        ),
+                      );
                     }
-                  } catch (error) {
-                    print('Error uploading images: $error');
+
+                    try {
+                      var response = await request.send();
+                      print("ddddddddddddddddddd${response}");
+
+                      if (response.statusCode == 200) {
+                        Messages.snackBar(context, "Images uploaded successfully",
+                            backgroundColor: AppColors.greenColor);
+                        print('Images uploaded successfully');
+                        reportName.clear();
+                        imageList.clear();
+                        selectedImages!.clear();
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyRecordView()),
+                                (route) => false);
+                        // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>ConsultationAppoinmentView()),(route) => DashbordView(),);
+                      } else {
+                        print(
+                            'Failed to upload images. Status code: ${response.statusCode}');
+                      }
+                    } catch (error) {
+                      print('Error uploading images: $error');
+                    }
+                  }
+                  else {
+                    print('Camra');
+                    // if (imageList!.isEmpty) {
+                    //   print('No images selected camera');
+                    //   return;
+                    // }
+                    final token = prefs.getString(UserP.fcmToken) ?? "";
+                    Map<String, String> headers = {
+                      'Authorization': "Bearer $token",
+                      'Content-Type': 'multipart/form-data',
+                      'Accept': 'application/json',
+                      'databaseName': 'mhpdemocom',
+                    };
+
+                    final Uri apiUrl = Uri.parse(
+                        AppUrls.uploadMyReport); // Replace with your API endpoint
+
+                    var request = http.MultipartRequest('POST', apiUrl)
+                      ..fields.addAll(body)
+                      ..headers.addAll(headers);
+
+                    for (var image in imageList!) {
+                      final File file = File(image.path);
+                      request.files.add(
+                        await http.MultipartFile.fromPath(
+                          "images[]",
+                          file.path,
+                        ),
+                      );
+                    }
+
+                    try {
+                      var response = await request.send();
+                      print("ddddddddddddddddddd${response}");
+
+                      if (response.statusCode == 200) {
+                        reportName.clear();
+                        print('Images uploaded successfully');
+                        Messages.snackBar(context, "Images uploaded successfully",
+                            backgroundColor: AppColors.greenColor);
+                        imageList.clear();
+                        selectedImages!.clear();
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyRecordView()),
+                                (route) => false);
+                      } else {
+                        print(
+                            'Failed to upload images. Status code: ${response.statusCode}');
+                      }
+                    } catch (error) {
+                      print('Error uploading images: $error');
+                    }
                   }
                 }
-                else {
-                  print('Camra');
-                  // if (imageList!.isEmpty) {
-                  //   print('No images selected camera');
-                  //   return;
-                  // }
-                  final token = prefs.getString(UserP.fcmToken) ?? "";
-                  Map<String, String> headers = {
-                    'Authorization': "Bearer $token",
-                    'Content-Type': 'multipart/form-data',
-                    'Accept': 'application/json',
-                    'databaseName': 'mhpdemocom',
-                  };
 
-                  final Uri apiUrl = Uri.parse(
-                      AppUrls.uploadMyReport); // Replace with your API endpoint
-
-                  var request = http.MultipartRequest('POST', apiUrl)
-                    ..fields.addAll(body)
-                    ..headers.addAll(headers);
-
-                  for (var image in imageList!) {
-                    final File file = File(image.path);
-                    request.files.add(
-                      await http.MultipartFile.fromPath(
-                        "images[]",
-                        file.path,
-                      ),
-                    );
-                  }
-
-                  try {
-                    var response = await request.send();
-                    print("ddddddddddddddddddd${response}");
-
-                    if (response.statusCode == 200) {
-                      reportName.clear();
-                      print('Images uploaded successfully');
-                      Messages.snackBar(context, "Images uploaded successfully",
-                          backgroundColor: AppColors.greenColor);
-                      imageList.clear();
-                      selectedImages!.clear();
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MyRecordView()),
-                          (route) => false);
-                    } else {
-                      print(
-                          'Failed to upload images. Status code: ${response.statusCode}');
-                    }
-                  } catch (error) {
-                    print('Error uploading images: $error');
-                  }
-                }
 
                 setState(() {});
               },

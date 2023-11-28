@@ -15,6 +15,7 @@ class Assets {
   static const String homeMyLab = 'assets/icons/home/my-lab.png';
   static const String homeMyMedicine = 'assets/icons/home/my-medicine.png';
   static const String homeMyRec = 'assets/icons/home/my-rec.png';
+  static const String res = 'assets/icons/resource_r.png';
   static const String homePayments = 'assets/icons/home/payments.png';
   static const String homeResources = 'assets/icons/home/resources.png';
   static const String homeServices = 'assets/icons/home/services.png';

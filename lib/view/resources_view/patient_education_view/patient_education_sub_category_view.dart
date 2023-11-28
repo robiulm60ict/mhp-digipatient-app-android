@@ -9,6 +9,7 @@ import '../../../resources/colors.dart';
 import '../../../resources/styles.dart';
 import '../../../view_model/resources_view_model/resources_view_model.dart';
 import '../../../widgets/shimmer.dart';
+import 'custom_search_sub_category_dialogue.dart';
 import 'patient_education_resoures_view.dart';
 
 class PatientEducationSubCatagoryView extends StatefulWidget {
@@ -69,6 +70,31 @@ class _PatientEducationSubCatagoryViewState extends State<PatientEducationSubCat
                   children: [
                     SizedBox(
                       height: 8.h,
+                    ),
+                    Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.circular(8.r),
+                          side: BorderSide(
+                              color: AppColors.primaryColor)),
+                      child: ListTile(
+                        onTap: () =>
+                            customSearchSubCategoryDialogue(
+                                context,
+                                register:
+                                provider.patientsubCatagoryList ?? []),
+                        leading: Icon(
+                          Icons.search_rounded,
+                          color: AppColors.primaryColor,
+                          size: 15.h,
+                        ),
+                        title: Text(
+                          "Search Patient",
+                          style: TextStyle(
+                              fontSize: 12.sp,
+                              color: Colors.grey),
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
