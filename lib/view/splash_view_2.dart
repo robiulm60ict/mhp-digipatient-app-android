@@ -21,7 +21,7 @@ class _Splash2ViewState extends State<Splash2View> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 1), () {
-      context.router.replace(const SplashRoute());
+      // context.router.replace(const SplashRoute());
     });
   }
   @override

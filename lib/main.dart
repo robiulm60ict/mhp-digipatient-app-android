@@ -39,7 +39,7 @@ import 'view_model/resources_view_model/resources_view_model.dart';
 // }
 
 final navigatorKey = GlobalKey<NavigatorState>();
-final appRoute = AppRouter(navigatorKey);
+// final appRoute = AppRouter(navigatorKey);
 // final navigatorKey = GlobalKey<NavigatorState>();
 // final _appRouter = AppRouter(
 //   navigatorKey: navigatorKey,
@@ -140,7 +140,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _appRouter = AppRouter();
+  // final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {

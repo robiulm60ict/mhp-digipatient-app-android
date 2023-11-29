@@ -71,7 +71,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double width = (size.width / 3);
+    double width = (size.width / 2);
     debugPrint(size.width.toString());
 
 
@@ -88,7 +88,7 @@ class _HomeViewState extends State<HomeView> {
           backgroundColor: AppColors.backgroundColor,
           extendBody: true,
           drawer: Drawer(
-            width: width,
+            width: MediaQuery.of(context).size.width*0.70,
             shape: OutlineInputBorder(
               borderRadius:
                   BorderRadius.only(bottomRight: Radius.circular(70.w)),

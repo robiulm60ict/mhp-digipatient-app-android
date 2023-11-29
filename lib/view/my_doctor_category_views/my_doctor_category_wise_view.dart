@@ -116,7 +116,7 @@ class _MyDoctorCategoryWiseViewState extends State<MyDoctorCategoryWiseView> {
 
                   return DocCard(
                     onTap: () {
-                      context.router.push(DocDetailsRoute(id: doc!.id!));
+                      // context.router.push(DocDetailsRoute(id: doc!.id!));
                     },
                     docImage: "${AppUrls.docImage}${doc?.drImages}",
                     docName: "${doc?.drGivenName}",

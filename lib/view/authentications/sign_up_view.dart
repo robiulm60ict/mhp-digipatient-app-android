@@ -69,10 +69,7 @@ class _SignUpViewState extends State<SignUpView> {
           ),
 
           SizedBox(height: 30.h,),
-          Visibility(
-            visible: !auth.isSendOtpLoading,
-            replacement: const Center(child: CircularProgressIndicator()),
-            child: Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
             child: CustomButton(text: "Continue", onTap: (){
               if(phnNumber.text.isNotEmpty){
@@ -81,7 +78,20 @@ class _SignUpViewState extends State<SignUpView> {
                 Messages.snackBar(context, "Enter Mobile Number");
               }
             },),
-          ),),
+          ),
+          // Visibility(
+          //   visible: !auth.isSendOtpLoading,
+          //   replacement: const Center(child: CircularProgressIndicator()),
+          //   child: Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
+          //   child: CustomButton(text: "Continue", onTap: (){
+          //     if(phnNumber.text.isNotEmpty){
+          //       auth.sendOtp(context, phnNumber: phnNumber.text);
+          //     }else{
+          //       Messages.snackBar(context, "Enter Mobile Number");
+          //     }
+          //   },),
+          // ),),
 
           SizedBox(height: 15.h,),
           // Text("Or", textAlign: TextAlign.center, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.grey),),

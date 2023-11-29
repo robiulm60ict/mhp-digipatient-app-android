@@ -169,13 +169,14 @@ class AuthViewModel with ChangeNotifier {
     setSendOtpLoading(true);
     otpList.clear();
     await _authRepo.sendOTP(body: body).then((value) {
-      otpList.add(value);
-      setSendOtpLoading(false);
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) =>
                   PinCodeVerificationView(phoneNumber: phnNumber)));
+      otpList.add(value);
+      setSendOtpLoading(false);
+
       // context.router.push(PinCodeVerificationRoute(phoneNumber: phnNumber));
     }).onError((error, stackTrace) {
       setSendOtpLoading(false);

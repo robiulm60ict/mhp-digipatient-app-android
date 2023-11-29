@@ -50,7 +50,7 @@ class _VitalsViewState extends State<VitalsView>
 
   @override
   Widget build(BuildContext context) {
-    final vital = Provider.of<MyRecordViewModel>(context,listen: true);
+    final vital = Provider.of<MyRecordViewModel>(context);
 
     List<Widget> getTabBar() {
       tabs.clear();

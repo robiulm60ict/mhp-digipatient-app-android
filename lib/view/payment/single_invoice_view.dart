@@ -108,7 +108,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
           children: [
             PaymentUserDetail(
               name:
-                  "${widget.doctor.doctors!.title!.titleName} ${widget.doctor.doctors!.drGivenName} ${widget.doctor.doctors!.drMiddleName??""} ${widget.doctor.doctors!.drLastName}",
+                  "${widget.doctor.doctors!.fullName!}",
               designation:
                   "${widget.doctor.doctors!.department?.departmentsName}",
               visitingTime: getTime(widget.appointmentDate),

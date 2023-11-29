@@ -26,7 +26,7 @@ class DoctorScreenViewModel extends ChangeNotifier{
       allPatientList.clear();
       allPatientList.add(value);
       setAllPatientLoading(false);
-      context.router.replace(const DoctorHomeRoute());
+      // context.router.replace(const DoctorHomeRoute());
 
     }).onError((error, stackTrace) {
       setAllPatientLoading(true);

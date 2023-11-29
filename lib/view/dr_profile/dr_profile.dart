@@ -220,7 +220,7 @@ class DrProfileView extends StatelessWidget {
                       color: AppColors.greenColor,
                       minWidth: double.infinity,
                       onPressed: () {
-                        context.router.push(const DashboardRoute());
+                        // context.router.push(const DashboardRoute());
                       },
                       child: Text(
                         "Doctor Request",

@@ -129,7 +129,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
         padding: EdgeInsets.all(20.r),
         children: [
           PaymentUserDetail(
-            name: " ${widget.doctor.doctors?.drGivenName}",
+            name: " ${widget.doctor.doctors?.fullName}",
             designation:
                 "${widget.doctor.doctors!.department!.departmentsName}",
             visitingTime: getTime(widget.appointmentDate),

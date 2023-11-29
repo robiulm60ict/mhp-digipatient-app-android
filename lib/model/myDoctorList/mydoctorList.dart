@@ -87,7 +87,7 @@ class Doctors {
   String? drBmdcRegNo;
   String? drEmail;
   dynamic drIsReferred;
-  DateTime? drDob;
+  String? drDob;
   String? drBirthSexId;
   String? drCityId;
   String? drPostalCode;
@@ -104,6 +104,7 @@ class Doctors {
   dynamic updatedBy;
   DateTime? createdAt;
   DateTime? updatedAt;
+  String? fullName;
   Specialist? specialist;
   Department? department;
   UsualProvider? usualProvider;
@@ -145,6 +146,7 @@ class Doctors {
     this.updatedBy,
     this.createdAt,
     this.updatedAt,
+    this.fullName,
     this.specialist,
     this.department,
     this.usualProvider,
@@ -170,7 +172,7 @@ class Doctors {
     drBmdcRegNo: json["dr_bmdc_reg_no"],
     drEmail: json["dr_email"],
     drIsReferred: json["dr_is_referred"],
-    drDob: json["dr_dob"] == null ? null : DateTime.parse(json["dr_dob"]),
+    drDob: json["dr_dob"],
     drBirthSexId: json["dr_birth_sex_id"],
     drCityId: json["dr_city_id"],
     drPostalCode: json["dr_postal_code"],
@@ -187,6 +189,7 @@ class Doctors {
     updatedBy: json["updated_by"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    fullName: json["fullName"],
     specialist: json["specialist"] == null ? null : Specialist.fromJson(json["specialist"]),
     department: json["department"] == null ? null : Department.fromJson(json["department"]),
     usualProvider: json["usual_provider"] == null ? null : UsualProvider.fromJson(json["usual_provider"]),
@@ -212,7 +215,7 @@ class Doctors {
     "dr_bmdc_reg_no": drBmdcRegNo,
     "dr_email": drEmail,
     "dr_is_referred": drIsReferred,
-    "dr_dob": "${drDob!.year.toString().padLeft(4, '0')}-${drDob!.month.toString().padLeft(2, '0')}-${drDob!.day.toString().padLeft(2, '0')}",
+    "dr_dob": drDob,
     "dr_birth_sex_id": drBirthSexId,
     "dr_city_id": drCityId,
     "dr_postal_code": drPostalCode,
@@ -229,6 +232,7 @@ class Doctors {
     "updated_by": updatedBy,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
+    "fullName": fullName,
     "specialist": specialist?.toJson(),
     "department": department?.toJson(),
     "usual_provider": usualProvider?.toJson(),

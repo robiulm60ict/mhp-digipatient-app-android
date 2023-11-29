@@ -39,10 +39,10 @@ class _DashboardViewState extends State<DashboardView> {
     Color iconColor = Colors.grey;
     return AutoTabsRouter(
       routes: const [
-        HomeRoute(),
-        SetAppointmentRoute(),
-        FavouritesRoute(),
-        BasketRoute(),
+        // HomeRoute(),
+        // SetAppointmentRoute(),
+        // FavouritesRoute(),
+        // BasketRoute(),
       ],
       builder: (context, child, animation) {
         final tabsRouter = AutoTabsRouter.of(context);

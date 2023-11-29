@@ -2,7 +2,6 @@ import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
 import '../../utils/utils.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/doc_card.dart';
@@ -35,10 +34,10 @@ class DailyAndUpcommingDetailView extends StatelessWidget {
               docName: docName,
 
             ),
-            SizedBox(height: 20.h,),
+            SizedBox(height: 10.h,),
             Text("Appointment Type: ${appType ? "Online" : "Chamber"}", style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
             SizedBox(height: 50.h,),
-            Expanded(child: Lottie.asset(appType ? Assets.animationOnlineAppointment : Assets.animationMaleWalking)),
+         //   Expanded(child: Lottie.asset(appType ? Assets.animationOnlineAppointment : Assets.animationMaleWalking)),
           ],
         ),
       ),

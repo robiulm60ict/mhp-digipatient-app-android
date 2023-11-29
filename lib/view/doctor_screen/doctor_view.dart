@@ -51,7 +51,7 @@ class _DoctorHomeViewState extends State<DoctorHomeView> {
 
             await prefs.setBool(UserP.isLoggedIn, false);
 
-            context.router.replace(const SignInRoute());
+            // context.router.replace(const SignInRoute());
           }, child: const Text("Log-Out"))
         ],
       ),

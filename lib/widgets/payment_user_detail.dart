@@ -67,11 +67,11 @@ class PaymentUserDetail extends StatelessWidget {
                           style: Style.alltext_default_balck,
                         ),
                         const Spacer(),
-                        Icon(
+                        hospitalName !="" ?Icon(
                           Icons.home,
                           size: 12.h,
                           color: const Color(0xFF8A8A8A),
-                        ),
+                        ):Container(),
                         SizedBox(
                           width: 4.w,
                         ),
