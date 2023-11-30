@@ -8,16 +8,38 @@ import 'package:intl/intl.dart';
 
 import '../../model/department_model/department_model.dart';
 import '../../model/doctor_model/doctors_model.dart';
+import '../../model/social/social_model.dart';
 import '../../repository/doctor_repository/doctor_repository.dart';
+import '../../repository/social_repo/social_repo.dart';
 import '../../utils/message.dart';
 
 class MyDoctorViewModel with ChangeNotifier {
   List<DoctorsModels> allDoctorList = [];
 
   DoctorRepository docRepo = DoctorRepository();
+  final social = SocialRepo();
 
   bool isDoctorLoading = true;
+  bool issocialLoading = true;
+  List<SocialListModel> sociallist = [];
 
+  getSocialMediea(id) async {
+    issocialLoading = true;
+    sociallist.clear();
+    notifyListeners();
+    social.getsocialmediea(id).then((value) {
+      sociallist = value;
+      // registerList.addAll(value.data as Iterable<Datum>);
+
+      //  registerListfull.add(value as PaymentinboxRequestModel);
+
+      issocialLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      issocialLoading = true;
+      notifyListeners();
+    });
+  }
   getAllDoctors(BuildContext context) async {
     allDoctorList.clear();
 
@@ -50,6 +72,7 @@ class MyDoctorViewModel with ChangeNotifier {
   bool isDocChamberTimeLoading = true;
 
   getDocChamberTime(BuildContext context, {required dynamic docId}) async {
+    print("fffffffff${docId}");
     doctorTimeSlotList.clear();
     isDocChamberTimeLoading = true;
     notifyListeners();

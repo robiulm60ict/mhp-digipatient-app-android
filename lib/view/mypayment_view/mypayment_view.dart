@@ -142,7 +142,7 @@ class _MyPatientViewState extends State<MyPatientView> {
                                                   .start,
                                               children: [
                                                 Text(
-                                                    "${item.doctor!.drGivenName ?? ""} ${item.doctor!.drMiddleName ?? ""} ${item.doctor!.drLastName ?? ""}",
+                                                    "${item.doctor!.drGivenName ?? ""} ${item.doctor!.drGivenName ?? ""} ${item.doctor!.drMiddleName ?? ""} ${item.doctor!.drLastName ?? ""}",
                                                     style: Style
                                                         .alltext_default_balck_blod),
                                                 Style

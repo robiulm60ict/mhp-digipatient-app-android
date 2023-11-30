@@ -16,6 +16,10 @@ class Assets {
   static const String homeMyMedicine = 'assets/icons/home/my-medicine.png';
   static const String homeMyRec = 'assets/icons/home/my-rec.png';
   static const String res = 'assets/icons/resource_r.png';
+  static const String facebook = 'assets/icons/home/facebook.png';
+  static const String linkedin = 'assets/icons/home/linkedin.png';
+  static const String twitter = 'assets/icons/home/twitter.png';
+  static const String youtube = 'assets/icons/home/youtube.png';
   static const String homePayments = 'assets/icons/home/payments.png';
   static const String homeResources = 'assets/icons/home/resources.png';
   static const String homeServices = 'assets/icons/home/services.png';

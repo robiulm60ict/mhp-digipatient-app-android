@@ -104,7 +104,6 @@ class AuthViewModel with ChangeNotifier {
 
         Navigator.pushNamed(context, RoutesName.dashbord);
         onUserLogin();
-
       });
     }).onError((error, stackTrace) {
       debugPrint(error.toString());
@@ -167,6 +166,8 @@ class AuthViewModel with ChangeNotifier {
       {required String phnNumber}) async {
     Map<String, dynamic> body = {"phone_number": phnNumber};
     setSendOtpLoading(true);
+    isSendOtpLoading = true;
+    notifyListeners();
     otpList.clear();
     await _authRepo.sendOTP(body: body).then((value) {
       Navigator.push(
@@ -175,10 +176,15 @@ class AuthViewModel with ChangeNotifier {
               builder: (context) =>
                   PinCodeVerificationView(phoneNumber: phnNumber)));
       otpList.add(value);
-      setSendOtpLoading(false);
 
+      setSendOtpLoading(false);
+      isSendOtpLoading = false;
+
+      notifyListeners();
       // context.router.push(PinCodeVerificationRoute(phoneNumber: phnNumber));
     }).onError((error, stackTrace) {
+      isSendOtpLoading = false;
+      notifyListeners();
       setSendOtpLoading(false);
       debugPrint(error.toString());
       Messages.snackBar(context, error.toString());
@@ -235,7 +241,6 @@ class AuthViewModel with ChangeNotifier {
     });
   }
 
-
   signUpOriginal(BuildContext context, body) async {
     // registrationList.clear();
     // setRegistrationLoading(true);
@@ -257,11 +262,11 @@ class AuthViewModel with ChangeNotifier {
     isRegistrationLoading = true;
     notifyListeners();
     auth.signUpApi(body: body, imageBytes: imageBytes).then((value) {
-
       if (value['message'] == "User Registration Completed") {
         Messages.snackBar(context, value['message'].toString(),
             backgroundColor: AppColors.greenColor);
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInView()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SignInView()));
       } else if (value['status'] == 400) {
         Messages.snackBar(context, value['msg'].toString(),
             backgroundColor: AppColors.redColor);
@@ -269,7 +274,6 @@ class AuthViewModel with ChangeNotifier {
         Messages.snackBar(context, value.toString(),
             backgroundColor: AppColors.redColor);
       }
-
 
       isRegistrationLoading = false;
 
@@ -291,7 +295,6 @@ class AuthViewModel with ChangeNotifier {
   }
 
   AuthRepository auth = AuthRepository();
-
 
   saveUser(
       {required bool isLoggedIn,
