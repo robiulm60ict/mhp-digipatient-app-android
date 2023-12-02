@@ -28,7 +28,7 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
      print(value);
       controllerRequest.clear();
       if (value['success'].toString() == "Successfully store data") {
-        Messages.snackBar(context, value['success'].toString(),
+        Messages.snackBar(context, value['message'].toString(),
             backgroundColor: Colors.green);
         getmyAllDoctors(context);
       } else {

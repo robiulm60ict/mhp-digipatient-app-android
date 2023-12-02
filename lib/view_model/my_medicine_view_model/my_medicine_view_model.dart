@@ -45,6 +45,7 @@ class MyMedicineViewModel with ChangeNotifier {
     notifyListeners();
     medicineRepo.getprescriptionImage().then((value) {
       imageRxList = value;
+      print(value);
 
       isPrescriptionRxLoading = false;
       notifyListeners();

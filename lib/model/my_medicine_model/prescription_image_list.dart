@@ -236,28 +236,28 @@ class Patient {
   int? id;
   String? patientHnNumber;
   dynamic patientTitleId;
-  String? patientNid;
+  dynamic patientNid;
   dynamic patientBcid;
   String? ptnBloodGroupId;
   String? patientFirstName;
-  dynamic patientMiddleName;
+  String? patientMiddleName;
   String? patientLastName;
-  String? patientPreferredName;
+  dynamic patientPreferredName;
   dynamic patientContactVia;
   dynamic patientHomePhone;
   dynamic patientWorkPhone;
   String? patientMobilePhone;
   dynamic patientHeadOfFamily;
   dynamic patientEmergencyContact;
-  DateTime? patientDob;
+  String? patientDob;
   dynamic patientPassport;
   String? patientStatus;
   String? patientEmail;
   String? patientBirthSexId;
   dynamic patientIndividualHealthIdentifierNo;
-  String? patientReligionId;
+  dynamic patientReligionId;
   dynamic patientUsualProviderId;
-  String? patientEthnicityId;
+  dynamic patientEthnicityId;
   dynamic patientParentId;
   String? patientAddress1;
   dynamic patientAddress2;
@@ -358,7 +358,7 @@ class Patient {
     patientMobilePhone: json["patient_mobile_phone"],
     patientHeadOfFamily: json["patient_head_of_family"],
     patientEmergencyContact: json["patient_emergency_contact"],
-    patientDob: json["patient_dob"] == null ? null : DateTime.parse(json["patient_dob"]),
+    patientDob: json["patient_dob"],
     patientPassport: json["patient_passport"],
     patientStatus: json["patient_status"],
     patientEmail: json["patient_email"],
@@ -413,7 +413,7 @@ class Patient {
     "patient_mobile_phone": patientMobilePhone,
     "patient_head_of_family": patientHeadOfFamily,
     "patient_emergency_contact": patientEmergencyContact,
-    "patient_dob": "${patientDob!.year.toString().padLeft(4, '0')}-${patientDob!.month.toString().padLeft(2, '0')}-${patientDob!.day.toString().padLeft(2, '0')}",
+    "patient_dob": patientDob,
     "patient_passport": patientPassport,
     "patient_status": patientStatus,
     "patient_email": patientEmail,
