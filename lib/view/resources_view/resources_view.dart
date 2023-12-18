@@ -15,7 +15,7 @@ class ResourcesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ResourcesViewModel>(context);
-
+//rfffffff
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
