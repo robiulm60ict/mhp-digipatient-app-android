@@ -40,7 +40,7 @@ class Assets {
   static const String imagesHeart = 'assets/images/heart.png';
   static const String imagesHospitalLogo = 'assets/images/hospital-logo.png';
   static const String imagesLogo = 'assets/images/logo.png';
-  static const String imagesLogoGreen = 'assets/images/playstore.png';
+  static const String imagesLogoGreen = 'assets/images/logo-green.png';
   static const String imagesLogoWhite = 'assets/images/logo-white.png';
   static const String imagesMacroHealthPlus = 'assets/images/macro-health-plus.png';
   static const String imagesMastercard = 'assets/images/mastercard.png';

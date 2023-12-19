@@ -26,24 +26,6 @@ class ResourcesView extends StatelessWidget {
           "Resources",
           style: Style.alltext_ExtraLarge_white,
         ),
-        actions: [
-          badges.Badge(
-              position: BadgePosition.topEnd(top: 4, end: 0),
-              badgeContent: const Text(
-                "6",
-                style: TextStyle(color: Colors.white),
-              ),
-              child: IconButton(
-                  onPressed: () {
-                    // context.router.push(const NotificationsRoute());
-                  },
-                  icon: Icon(
-                    Icons.notification_important,
-                    color: AppColors.whiteColor,
-                    size: 45,
-                  ))),
-          Style.widthdistan_size10
-        ],
       ),
       body: Container(
         width: double.infinity,
