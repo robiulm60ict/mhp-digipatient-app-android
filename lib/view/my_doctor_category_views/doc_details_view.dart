@@ -45,11 +45,13 @@ class _DocDetailsViewState extends State<DocDetailsView> {
   @override
   void initState() {
     super.initState();
+    print(widget.id);
     getDoctor(widget.id);
-    context
-        .read<MyDoctorViewModel>()
-        .getDocChamberTime(context, docId: widget.id);
-    context.read<MyDoctorViewModel>().getSocialMediea(widget.id);
+    context.read<MyDoctorViewModel>().getSocialMediea(widget.id.toString());
+
+    // context
+    //     .read<MyDoctorViewModel>()
+    //     .getDocChamberTime(context, docId: widget.id.toString());
   }
 
   getDoctor(id) async {
@@ -142,7 +144,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "${doc?.doctors!.title!.titleName.toString()} ${doc?.doctors?.drGivenName} ${doc?.doctors?.drMiddleName.toString() ?? ""}  ${doc?.doctors?.drLastName ?? ""}",
+                          "${doc?.doctors!.title!.titleName.toString()} ${doc?.doctors?.fullName}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: Style.alltext_default_balck_blod,
@@ -498,78 +500,78 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 //             );
                 //           }),
                 // ),
-                SizedBox(
-                    height: 80.h,
-                    child: Consumer<MyDoctorViewModel>(
-                        builder: (context, data, child) {
-                      if (data.doctorTimeSlotList.isEmpty) {
-                        return data.isDocChamberTimeLoading == true
-                            ? ListView.builder(
-                                itemCount: 6,
-                                // scrollDirection: Axis.vertical,
-                                physics: const ScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: bannerShimmereffect(
-                                        90.toDouble(), 385.toDouble()),
-                                  );
-                                },
-                              )
-                            : noDataFounForList("No History");
-                      } else {
-                        return CarouselSlider.builder(
-                          // scrollDirection: Axis.horizontal,
-                          itemCount: mdVM.doctorTimeSlotList.length,
-                          itemBuilder: (BuildContext context, int index,
-                              int pageViewIndex) {
-                            DocTimeSlot docTime =
-                                mdVM.doctorTimeSlotList[index];
-                            return Center(
-                              child: Card(
-                                  child: ListTile(
-                                      title: Text(
-                                        //{docTime.day}-
-                                        "${docTime.month}-${docTime.year}",
-                                        style: Style.alltext_default_balck,
-                                      ),
-                                      subtitle: Text(
-                                        "${mdVM.getTime(docTime.slotFrom.toString())} To ${mdVM.getTime(docTime.slotTo.toString())}",
-                                        style: Style.alltext_default_balck,
-                                      ),
-                                      trailing: Text(
-                                        "${docTime.type}",
-                                        style: Style.alltext_default_balck,
-                                      ))),
-                            );
-                          },
-                          options: CarouselOptions(
-                            // height: 400,
-                            // aspectRatio: 16/9,
-                            viewportFraction: 0.8,
-                            initialPage: 0,
-                            enableInfiniteScroll: true,
-                            reverse: false,
-                            autoPlay: true,
-                            autoPlayInterval: const Duration(seconds: 3),
-                            autoPlayAnimationDuration:
-                                const Duration(milliseconds: 1600),
-                            autoPlayCurve: Curves.fastOutSlowIn,
-                            enlargeCenterPage: true,
-                            // enlargeFactor: 0.3,
-                            scrollDirection: Axis.horizontal,
-                          ),
-                          // itemBuilder: (context, index) => Card(
-                          //   color: index == 1 ? AppColors.primaryColor : Colors.white,
-                          //   child: Padding(
-                          //     padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
-                          //     child: Text("9.30AM", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: index == 1 ? Colors.white : const Color(0xFF646464)),),
-                          //   ),
-                          // ),
-                        );
-                      }
-                    })),
+                // SizedBox(
+                //     height: 80.h,
+                //     child: Consumer<MyDoctorViewModel>(
+                //         builder: (context, data, child) {
+                //           if (data.doctorTimeSlotList.isEmpty) {
+                //             return data.isDocChamberTimeLoading == true
+                //                 ? ListView.builder(
+                //               itemCount: 6,
+                //               // scrollDirection: Axis.vertical,
+                //               physics: const ScrollPhysics(),
+                //               shrinkWrap: true,
+                //               itemBuilder: (context, index) {
+                //                 return Padding(
+                //                   padding: const EdgeInsets.all(5.0),
+                //                   child: bannerShimmereffect(
+                //                       90.toDouble(), 385.toDouble()),
+                //                 );
+                //               },
+                //             )
+                //                 : noDataFounForList("No History");
+                //           } else {
+                //             return CarouselSlider.builder(
+                //               // scrollDirection: Axis.horizontal,
+                //               itemCount: mdVM.doctorTimeSlotList.length,
+                //               itemBuilder: (BuildContext context, int index,
+                //                   int pageViewIndex) {
+                //                 DocTimeSlot docTime =
+                //                 mdVM.doctorTimeSlotList[index];
+                //                 return Center(
+                //                   child: Card(
+                //                       child: ListTile(
+                //                           title: Text(
+                //                             //{docTime.day}-
+                //                             "${docTime.month}-${docTime.year}",
+                //                             style: Style.alltext_default_balck,
+                //                           ),
+                //                           subtitle: Text(
+                //                             "${mdVM.getTime(docTime.slotFrom.toString())} To ${mdVM.getTime(docTime.slotTo.toString())}",
+                //                             style: Style.alltext_default_balck,
+                //                           ),
+                //                           trailing: Text(
+                //                             "${docTime.type}",
+                //                             style: Style.alltext_default_balck,
+                //                           ))),
+                //                 );
+                //               },
+                //               options: CarouselOptions(
+                //                 // height: 400,
+                //                 // aspectRatio: 16/9,
+                //                 viewportFraction: 0.8,
+                //                 initialPage: 0,
+                //                 enableInfiniteScroll: true,
+                //                 reverse: false,
+                //                 autoPlay: true,
+                //                 autoPlayInterval: const Duration(seconds: 3),
+                //                 autoPlayAnimationDuration:
+                //                 const Duration(milliseconds: 1600),
+                //                 autoPlayCurve: Curves.fastOutSlowIn,
+                //                 enlargeCenterPage: true,
+                //                 // enlargeFactor: 0.3,
+                //                 scrollDirection: Axis.horizontal,
+                //               ),
+                //               // itemBuilder: (context, index) => Card(
+                //               //   color: index == 1 ? AppColors.primaryColor : Colors.white,
+                //               //   child: Padding(
+                //               //     padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
+                //               //     child: Text("9.30AM", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: index == 1 ? Colors.white : const Color(0xFF646464)),),
+                //               //   ),
+                //               // ),
+                //             );
+                //           }
+                //         })),
                 SizedBox(
                   height: 20.h,
                 ),

@@ -303,7 +303,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                     DateTime? date = await PickDateTime()
                         .pickDateregister(context, initialDate: DateTime.now());
                     dateOfBirthController.text =
-                        "${date?.day}-${date?.month}-${date?.year}";
+                        "${date?.year}-${date?.month}-${date?.day}";
                   },
                 ),
                 Style.distan_size5,
@@ -471,16 +471,23 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                           } else if (dateOfBirthController.text.isEmpty) {
                             Messages.snackBar(
                                 context, "Date of Birth con not be empty !");
-                          } else if (bloodGroup == null) {
-                            Messages.snackBar(
-                                context, "Blood Group con not be empty !");
-                          } else if (birthSex == null) {
+                          }
+
+                          // else if (bloodGroup == null) {
+                          //   Messages.snackBar(
+                          //       context, "Blood Group con not be empty !");
+                          // }
+                          else if (birthSex == null) {
                             Messages.snackBar(
                                 context, "Gender con not be empty !");
-                          } else if (email.text.isEmpty) {
-                            Messages.snackBar(
-                                context, "Email con not be empty !");
-                          } else if (address.text.isEmpty) {
+                          }
+
+                          // else if (email.text.isEmpty) {
+                          //   Messages.snackBar(
+                          //       context, "Email con not be empty !");
+                          // }
+
+                          else if (address.text.isEmpty) {
                             Messages.snackBar(
                                 context, "Address con not be empty !");
                           } else if (password.text.length < 7) {

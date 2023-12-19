@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../generated/assets.dart';
 import '../utils/route/routes_name.dart';
 import '/resources/colors.dart';
-//fffffffffffff
+
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -60,7 +60,7 @@ class _SplashViewState extends State<SplashView> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: AppColors.page_background_color,
+    //    color: AppColors.page_background_color,
         // decoration: BoxDecoration(
         //     gradient: LinearGradient(
         //         begin: Alignment.topCenter,
@@ -76,7 +76,7 @@ class _SplashViewState extends State<SplashView> {
             // PageTransition(child: Image.asset(Assets.logoWhite), type: PageTransitionType.bottomToTop)
             TweenAnimationBuilder(
                 curve: Curves.bounceInOut,
-                tween: Tween<double>(begin: 70, end: 300), duration: const Duration(seconds: 4),
+                tween: Tween<double>(begin: 70, end: 300), duration: const Duration(seconds: 2),
                 builder: (BuildContext context, double value, Widget? child){
               return Image.asset(Assets.imagesLogoGreen, height: value, width: value,);
 

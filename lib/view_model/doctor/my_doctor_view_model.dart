@@ -26,7 +26,6 @@ class MyDoctorViewModel with ChangeNotifier {
   getSocialMediea(id) async {
     issocialLoading = true;
     sociallist.clear();
-    notifyListeners();
     social.getsocialmediea(id).then((value) {
       sociallist = value;
       // registerList.addAll(value.data as Iterable<Datum>);
@@ -71,18 +70,15 @@ class MyDoctorViewModel with ChangeNotifier {
 
   bool isDocChamberTimeLoading = true;
 
-  getDocChamberTime(BuildContext context, {required dynamic docId}) async {
+  getDocChamberTime(BuildContext context, {required docId}) async {
     print("fffffffff${docId}");
     doctorTimeSlotList.clear();
-    isDocChamberTimeLoading = true;
-    notifyListeners();
     DoctorRepository().getDocChamberTime(docId).then((value) {
       doctorTimeSlotList.addAll(value.docTimeSlots!);
-      isDocChamberTimeLoading = false;
 
       notifyListeners();
     }).onError((error, stackTrace) {
-      isDocChamberTimeLoading = true;
+      isDocChamberTimeLoading = false;
       notifyListeners();
       Messages.snackBar(context, error.toString());
     });

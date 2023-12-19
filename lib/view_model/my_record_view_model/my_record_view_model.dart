@@ -13,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/my_record_model/medical_history_from_great_doc_model.dart';
 import '../../repository/my_record_repo/my_record_repo.dart';
 import '../../utils/user.dart';
+import '../../view/my_record/add_medical_history_view.dart';
 import '../../view/my_record/my_medical_history_view.dart';
 
 class MyRecordViewModel with ChangeNotifier {
@@ -243,13 +244,18 @@ class MyRecordViewModel with ChangeNotifier {
   addMedicalHistory(BuildContext context, dynamic body) async {
     addMedicalHistoryList.clear();
     setAddMedicalHistoryLoading(true);
+    medicalHistoryFromGreatDocPastList.clear();
+
+    notifyListeners();
+
     myRecordRepo.addMedicalHistory(body).then((value) {
       addMedicalHistoryList.add(value);
       Messages.snackBar(context, "Medical History Added Successfully",
           backgroundColor: Colors.green);
+      medicalHistoryFromGreatDocPastList.clear();
       setAddMedicalHistoryLoading(false);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => MyMedicalHistoryView()));
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => AddMedicalHistoryView()));
       getMedicalHistoryFromGreatDoc(context);
       notifyListeners();
     }).onError((error, stackTrace) {

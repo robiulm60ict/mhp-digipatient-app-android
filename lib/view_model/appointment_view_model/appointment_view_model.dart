@@ -14,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/myDoctorList/mydoctorList.dart';
 import '../../model/online_model/online_model.dart';
 import '../../utils/user.dart';
+import '../../view/payment/ivoice/pdf_invoice_api.dart';
 import '../anatomy/anatomy_view_model.dart';
 
 class AppointmentViewModel with ChangeNotifier {
@@ -146,11 +147,13 @@ class AppointmentViewModel with ChangeNotifier {
     isBookAppointmentLoading = true;
     appointmentList.clear();
     notifyListeners();
-    await bookAppointmentRepo.bookAppointment(body: body).then((value) {
+    await bookAppointmentRepo.bookAppointment(body: body).then((value)async {
       appointmentList.add(value);
       //Messages.snackBar(context, "Appointment Successful", backgroundColor: Colors.green);
       isBookAppointmentLoading = false;
       notifyListeners();
+
+
       invoiceSuccessPopUp(
         context,
         appointmentDate: body["date"],
@@ -160,6 +163,7 @@ class AppointmentViewModel with ChangeNotifier {
         doctor: doctor,
         patientId: body["patient_id"],
         paymentMethod: body["payment_type"],
+        trinscationNo: body["transaction_no"], bookAppointmentModel: appointmentList.first, paymentnumber:body["transaction_phone_number"] ,
       );
 
       anatomy.symptomsList.clear();
@@ -264,7 +268,7 @@ class AppointmentViewModel with ChangeNotifier {
     setInvoiceLoading(true);
     final id = await getPatientId();
     await invoiceRepo.getInvoiceList(id.toString()).then((value) {
-      invoiceList.add(value);
+      invoiceList=value;
       setInvoiceLoading(false);
     }).onError((error, stackTrace) {
       setInvoiceLoading(true);

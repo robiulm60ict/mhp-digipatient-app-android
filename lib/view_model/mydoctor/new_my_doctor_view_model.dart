@@ -27,7 +27,7 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
     await DoctorRepository().postdoctorRequest(body).then((value) {
      print(value);
       controllerRequest.clear();
-      if (value['success'].toString() == "Successfully store data") {
+      if (value['message'].toString() == "Successfully store data") {
         Messages.snackBar(context, value['message'].toString(),
             backgroundColor: Colors.green);
         getmyAllDoctors(context);

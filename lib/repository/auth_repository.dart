@@ -21,12 +21,12 @@ import '../data/network/base_api_service.dart';
 class AuthRepository {
   BaseApiService apiService = NetworkApiService();
 
-  Future<LoginModel> loginApi(dynamic body) async {
+  Future loginApi(dynamic body) async {
     try {
       dynamic response =
           await apiService.getPostApiResponse(AppUrls.login, body);
       print(response);
-      return LoginModel.fromJson(response);
+      return response;
     } catch (e) {
       rethrow;
     }

@@ -3,12 +3,14 @@ import 'package:badges/badges.dart' as badges;
 import 'package:badges/badges.dart';
 import 'package:digi_patient/view/authentications/user_detail_view.dart';
 import 'package:digi_patient/view/daily_upcomming_appointment/daily_and_upcomming_appointments_view.dart';
+import 'package:digi_patient/view/notifications_view.dart';
 import 'package:digi_patient/view/payment/invoice_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 import '../../generated/assets.dart';
 import '../../resources/app_url.dart';
@@ -18,6 +20,7 @@ import '../../utils/message.dart';
 import '../../utils/route/routes_name.dart';
 import '../../utils/user.dart';
 import '../../view_model/auth_view_model.dart';
+import '../../view_model/daily_appointments_view_model/daily_appointments_view_model.dart';
 import '../../view_model/home_view_model.dart';
 import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
 import '../../view_model/user_view_model/user_view_model.dart';
@@ -44,6 +47,12 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
     getUserData();
     context.read<UserViewModel>().getUserDetails();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<DailyAndUpcommingViewModel>().getTodayAppointments(context);
+      context
+          .read<DailyAndUpcommingViewModel>()
+          .getUpcommingAppointments(context);
+    });
   }
 
   getUserData() async {
@@ -74,12 +83,22 @@ class _HomeViewState extends State<HomeView> {
     double width = (size.width / 2);
     debugPrint(size.width.toString());
 
-
+    final user = Provider.of<UserViewModel>(context).user;
     final auth = Provider.of<AuthViewModel>(context, listen: false);
     final dvm = Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
+    final appointments = Provider.of<DailyAndUpcommingViewModel>(context);
+
     return WillPopScope(
-      onWillPop: () {
-        return exit(0);
+      onWillPop: () async {
+        // Show exit confirmation dialog
+        bool exit = await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MyExitConfirmationDialog();
+          },
+        );
+
+        return exit ?? false;
       },
       child: SafeArea(
         top: true,
@@ -122,9 +141,10 @@ class _HomeViewState extends State<HomeView> {
                   iconData: Icons.person,
                   title: "Profile",
                   onTap: () {
-                    // Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDetailView(user: userprovide)));
 
-                    // context.router.push(UserDetailRoute(user: user));
+
+                    // Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDetailView(user: user)));
+
                   },
                 ),
                 SizedBox(
@@ -145,14 +165,14 @@ class _HomeViewState extends State<HomeView> {
                 SizedBox(
                   height: 6.h,
                 ),
-                DrawerListTile(
-                  iconData: Icons.favorite_border,
-                  title: "Favourite",
-                  onTap: () {},
-                ),
-                SizedBox(
-                  height: 6.h,
-                ),
+                // DrawerListTile(
+                //   iconData: Icons.favorite_border,
+                //   title: "Favourite",
+                //   onTap: () {},
+                // ),
+                // SizedBox(
+                //   height: 6.h,
+                // ),
                 DrawerListTile(
                   iconData: Icons.payment,
                   title: "Payment & Invoice",
@@ -162,14 +182,14 @@ class _HomeViewState extends State<HomeView> {
                     //  context.router.push(const InvoiceRoute());
                   },
                 ),
-                SizedBox(
-                  height: 6.h,
-                ),
-                DrawerListTile(
-                  iconData: Icons.fact_check_outlined,
-                  title: "FAQ",
-                  onTap: () {},
-                ),
+                // SizedBox(
+                //   height: 6.h,
+                // ),
+                // DrawerListTile(
+                //   iconData: Icons.fact_check_outlined,
+                //   title: "FAQ",
+                //   onTap: () {},
+                // ),
                 SizedBox(
                   height: 6.h,
                 ),
@@ -253,7 +273,7 @@ class _HomeViewState extends State<HomeView> {
               );
             }),
             title: Container(
-              height: 30.h,
+              height: 45.h,
               // width: double.infinity,
               decoration: const BoxDecoration(
                   image: DecorationImage(
@@ -262,12 +282,13 @@ class _HomeViewState extends State<HomeView> {
             actions: [
               badges.Badge(
                   position: BadgePosition.topEnd(top: 3, end: 6),
-                  badgeContent: const Text(
-                    "6",
+                  badgeContent:  Text("${int.parse( appointments.todayAppointmentList.length.toString())+int.parse(appointments.upcommingAppointmentList.length.toString())}"
+                   ,
                     style: TextStyle(color: Colors.white),
                   ),
                   child: IconButton(
                       onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>NotificationsView()));
                         //  context.router.push(const NotificationsRoute());
                       },
                       icon: Icon(
@@ -351,12 +372,17 @@ class _HomeViewState extends State<HomeView> {
                                     color: const Color(0xFF7A7A7A),
                                   ),
                                 ),
+
+
                               ],
                             ),
-                            CircleAvatar(
-                                radius: 40,
-                                backgroundImage: NetworkImage(
-                                    "${AppUrls.image}${userprovider.user?.patientImages}"))
+                            userprovider.user?.patientImages!='null'?   Image.network("${AppUrls.image}${userprovider.user?.patientImages}",height: 110,):Container()
+
+                            // CircleAvatar(
+                            //     radius: 40,
+                            //     backgroundImage: NetworkImage(
+                            //         "${AppUrls.image}${userprovider.user?.patientImages}")),
+
                           ],
                         );
                       }
@@ -368,17 +394,17 @@ class _HomeViewState extends State<HomeView> {
                 height: 6.h,
               ),
 
-              // ZegoSendCallInvitationButton(
-              //   isVideoCall: true,
-              //   resourceID: "digi_project",
-              //   //You need to use the resourceID that you created in the subsequent steps. Please continue reading this document.
-              //   invitees: [
-              //     ZegoUIKitUser(
-              //       id: "2",
-              //       name: "Mhp",
-              //     ),
-              //   ],
-              // ),
+              ZegoSendCallInvitationButton(
+                isVideoCall: true,
+                resourceID: "digidoctor-resource",
+                //You need to use the resourceID that you created in the subsequent steps. Please continue reading this document.
+                invitees: [
+                  ZegoUIKitUser(
+                    id: "123",
+                    name: "zabir123",
+                  ),
+                ],
+              ),
               // Card(
               //   shape: RoundedRectangleBorder(
               //       borderRadius: BorderRadius.circular(12.h)),
@@ -559,12 +585,38 @@ class _HomeViewState extends State<HomeView> {
               }),
 
               SizedBox(
-                height: 100.h,
+                height: 50.h,
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+}
+class MyExitConfirmationDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Exit App?'),
+      content: Text('Are you sure you want to exit the app?'),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(false); // Dismiss the dialog
+          },
+          child: Text('No'),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(true);
+            exit(0);
+           // Dismiss the dialog and return true
+          },
+          child: Text('Yes'),
+        ),
+      ],
     );
   }
 }

@@ -28,7 +28,9 @@ class SingleInvoiceView extends StatefulWidget {
       required this.amount,
       required this.appointmentType,
       required this.doctor,
-      required this.paymentMethod})
+      required this.paymentMethod,
+      required this.trinscationNo,
+      })
       : super(key: key);
   final String appointmentDate;
   final String doctorId;
@@ -37,6 +39,7 @@ class SingleInvoiceView extends StatefulWidget {
   final String appointmentType;
   final Datum doctor;
   final String paymentMethod;
+  final String trinscationNo;
 
   @override
   State<SingleInvoiceView> createState() => _SingleInvoiceViewState();
@@ -145,7 +148,15 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                           height: 8.h,
                         ),
                         SingleInvoiceRow(
-                          lTitle: "Invoice",
+                          lTitle: "transaction Number",
+                          rTitle:
+                          "${invoice.appointmentList.isNotEmpty ? invoice.appointmentList.first.transactionNo : ""}",
+                        ),
+                        SizedBox(
+                          height: 8.h,
+                        ),
+                        SingleInvoiceRow(
+                          lTitle: "Invoice Number",
                           rTitle:
                               "${invoice.appointmentList.isNotEmpty ? invoice.appointmentList.first.inoviceNumber : ""}",
                         ),
@@ -153,7 +164,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                           height: 3.h,
                         ),
                         SingleInvoiceRow(
-                          lTitle: "Invoice Number",
+                          lTitle: "Patient HnNumber",
                           rTitle:
                           "${userVM.user?.patientHnNumber}",
                         ),
@@ -223,11 +234,11 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                       children: [
                         SingleInvoiceRow(
                             lTitle: "Total Charge", rTitle: widget.amount),
-                        const SingleInvoiceRow(
-                            lTitle: "Discount", rTitle: "0.00"),
-                        const SingleInvoiceRow(lTitle: "Due ", rTitle: "0.00"),
-                        const SingleInvoiceRow(
-                            lTitle: "VAT/TAX", rTitle: "0.00"),
+                        // const SingleInvoiceRow(
+                        //     lTitle: "Discount", rTitle: "0.00"),
+                        // const SingleInvoiceRow(lTitle: "Due ", rTitle: "0.00"),
+                        // const SingleInvoiceRow(
+                        //     lTitle: "VAT/TAX", rTitle: "0.00"),
                         SizedBox(
                           height: 12.h,
                         ),

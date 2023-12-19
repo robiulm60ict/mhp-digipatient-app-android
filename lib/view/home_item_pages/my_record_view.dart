@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:search_page/search_page.dart';
 
 import '../../resources/app_url.dart';
+import '../authentications/user_detail_view.dart';
 import '../my_record/my_medical_history_view.dart';
 import '../my_record/my_report_view.dart';
 import '../my_record/reason_for_visit_view.dart';
@@ -38,6 +39,7 @@ class _MyRecordViewState extends State<MyRecordView> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserViewModel>(context).user;
+    final userr = Provider.of<UserViewModel>(context);
     // final vital = Provider.of<MyRecordViewModel>(context);
 
     return Scaffold(
@@ -48,9 +50,15 @@ class _MyRecordViewState extends State<MyRecordView> {
         centerTitle: true,
 
         title: Text(
-          "My Record",
+          "My Records",
           style: Style.alltext_appbar,
         ),
+        // actions: [
+        //   IconButton(onPressed: (){
+        //        // Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDetailView()));
+        //
+        //   }, icon: Icon(Icons.edit))
+        // ],
       ),
       body: ListView(
         padding: EdgeInsets.all(15.r),
@@ -100,7 +108,7 @@ class _MyRecordViewState extends State<MyRecordView> {
                             style: Style.alltext_default_balck,
                           ),
                           SizedBox(
-                            height: 5.h,
+                            height: 3.h,
                           ),
                           Wrap(
                             children: [
@@ -133,6 +141,29 @@ class _MyRecordViewState extends State<MyRecordView> {
                                 "${user!.bloodGroup!.bloodGroupName}",
                                 style: Style.alltext_default_balck,
                               ),
+                            ],
+                          ), SizedBox(
+                            height: 3.h,
+                          ),
+                          Wrap(
+                            children: [
+                              Icon(
+                                Icons.date_range,
+                                size: 13.h,
+                                color: const Color(0xFF8A8A8A),
+                              ),
+                              Text(
+                                "Dob:",
+                                style:Style.alltext_default_balck,
+                              ),
+                              Text(
+                                "${user?.patientDob.toString()}",
+                                style:Style.alltext_default_balck,
+                              ),
+                              SizedBox(
+                                width: 8.w,
+                              ),
+
                             ],
                           )
                         ],

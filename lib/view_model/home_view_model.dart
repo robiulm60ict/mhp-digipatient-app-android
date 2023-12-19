@@ -17,7 +17,7 @@ import 'doctor/my_doctor_view_model.dart';
 class HomeViewModel with ChangeNotifier {
   List<HomeItemsModel> homeItemsList = [
     HomeItemsModel(title: "My Doctor", image: Assets.homeMyDoc),
-    HomeItemsModel(title: "My Record", image: Assets.homeMyRec),
+    HomeItemsModel(title: "My Records", image: Assets.homeMyRec),
     HomeItemsModel(title: "My Appointments", image: Assets.homeAppointments),
 
     HomeItemsModel(title: "My Medicine", image: Assets.homeMyMedicine),

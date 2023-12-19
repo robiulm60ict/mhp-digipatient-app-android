@@ -31,14 +31,13 @@ class AuthViewModel with ChangeNotifier {
 
   bool get loginLoading => _loginLoading;
 
-  bool get signupLoading => _signupLoading;
 
   // UserViewModel userViewModel = UserViewModel();
   //TODO: Add user view model
 
-  setLoginLoading(bool value, LoginModel? val) {
+  setLoginLoading(bool value) {
     _loginLoading = value;
-    user = val;
+   // user = val;
     notifyListeners();
   }
 
@@ -85,30 +84,41 @@ class AuthViewModel with ChangeNotifier {
 
   Future<void> loginApi(BuildContext context, dynamic body,
       {bool keepMeSignIn = true}) async {
-    setLoginLoading(true, null);
+    setLoginLoading(true);
     _authRepo.loginApi(body).then((value) async {
-      Messages.flushBarMessage(context, '${value.message}',
-          backgroundColor: AppColors.primaryColor);
+      if(value['message']=='User Logged in sucessfully'){
+        Messages.flushBarMessage(context, '${value['message']}',
+            backgroundColor: AppColors.primaryColor);
+        await saveUser(
+            isLoggedIn: keepMeSignIn,
+            email: body['email'],
+            password: body['password'],
+            name: value["user"]['name'],
+            id: int.parse(value["user"]['user_id']),
+            userid: int.parse(value["user"]['id'].toString()),
+            role: value["user"]['user_type'] ?? "",
+            token: value['token'].toString());
 
-      await saveUser(
-          isLoggedIn: keepMeSignIn,
-          email: body['email'],
-          password: body['password'],
-          name: value.user!.name!,
-          id: int.parse(value.user!.userId!),
-          userid: int.parse(value.user!.id!.toString()),
-          role: value.user!.userType ?? "",
-          token: value.token.toString());
-      Future.delayed(const Duration(seconds: 1)).then((v) {
-        setLoginLoading(false, value);
+        Future.delayed(const Duration(seconds: 1)).then((v) {
+          setLoginLoading(false);
 
-        Navigator.pushNamed(context, RoutesName.dashbord);
-        onUserLogin();
-      });
+          Navigator.pushNamed(context, RoutesName.dashbord);
+          onUserLogin();
+        });
+      }else{
+        Messages.flushBarMessage(context, '${value['message']}',
+            backgroundColor: AppColors.redColor);
+        setLoginLoading(false);
+
+      }
+
+
+
+
     }).onError((error, stackTrace) {
       debugPrint(error.toString());
       Messages.flushBarMessage(context, error.toString());
-      setLoginLoading(false, null);
+      setLoginLoading(false);
     });
   }
 
@@ -170,11 +180,15 @@ class AuthViewModel with ChangeNotifier {
     notifyListeners();
     otpList.clear();
     await _authRepo.sendOTP(body: body).then((value) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  PinCodeVerificationView(phoneNumber: phnNumber)));
+
+      if(value.message.toString()=="Verification code sent successfully"){
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    PinCodeVerificationView(phoneNumber: phnNumber)));
+      }
+
       otpList.add(value);
 
       setSendOtpLoading(false);

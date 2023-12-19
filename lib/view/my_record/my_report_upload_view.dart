@@ -441,11 +441,12 @@ class _UploadReportViewState extends State<UploadReportView> {
                         reportName.clear();
                         imageList.clear();
                         selectedImages!.clear();
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyRecordView()),
-                                (route) => false);
+                        Navigator.pushReplacement(context,  MaterialPageRoute(builder: (context) => MyRecordView()));
+                        // Navigator.pushAndRemoveUntil(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => MyRecordView()),
+                        //         (route) => false);
                         // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>ConsultationAppoinmentView()),(route) => DashbordView(),);
                       } else {
                         print(
@@ -497,11 +498,11 @@ class _UploadReportViewState extends State<UploadReportView> {
                             backgroundColor: AppColors.greenColor);
                         imageList.clear();
                         selectedImages!.clear();
-                        Navigator.pushAndRemoveUntil(
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MyRecordView()),
-                                (route) => false);
+                                );
                       } else {
                         print(
                             'Failed to upload images. Status code: ${response.statusCode}');

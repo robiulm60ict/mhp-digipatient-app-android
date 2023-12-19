@@ -119,7 +119,7 @@ class MyDoctorView extends StatelessWidget {
                         docImage:
                             "${AppUrls.drprofile}${doc?.doctors?.drImages.toString()}",
                         docName:
-                            "${doc!.doctors!.fullName}",
+                            "${doc!.doctors!.title!.titleName} ${doc!.doctors!.fullName}",
                         docSpeciality:
                             doc?.doctors?.specialist?.specialistsName.toString()??"",
                         docHospital:

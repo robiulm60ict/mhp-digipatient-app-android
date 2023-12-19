@@ -46,7 +46,7 @@ class _SignInViewState extends State<SignInView> {
           SizedBox(height: 100.h,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
-            child: Text("Email", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+            child: Text("Mobile or Email", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
           ),
           SizedBox(height: 5.h,),
           Padding(
@@ -54,7 +54,7 @@ class _SignInViewState extends State<SignInView> {
             child: CustomTextField(
               textEditingController: emailController,
               keyboardType: TextInputType.emailAddress,
-              prefix: Icon(Icons.person_pin, color: AppColors.primaryColor,), hintText: "Email",),
+              prefix: Icon(Icons.person_pin, color: AppColors.primaryColor,), hintText: "Email or Mobile",),
           ),
           SizedBox(height: 15.h,),
           Padding(
@@ -82,7 +82,7 @@ class _SignInViewState extends State<SignInView> {
               alignment: Alignment.centerRight,
               child: TextButton(
 
-                  onPressed: (){}, child: Text("Forget Passwords?", style: TextStyle(fontSize: 12.sp, color: AppColors.primaryColor),)),
+                  onPressed: (){}, child: Text("Forgot Password?", style: TextStyle(fontSize: 12.sp, color: AppColors.primaryColor),)),
             ),
           ),
           // SizedBox(height: 10.h,),
@@ -101,7 +101,7 @@ class _SignInViewState extends State<SignInView> {
           SizedBox(height: 24.h,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
-            child: authVm.loginLoading ? const Center(child: CircularProgressIndicator(),) : CustomButton(text: "Sign in", onTap: (){
+            child: authVm.loginLoading ? const Center(child: CircularProgressIndicator(),) : CustomButton(text: "Login", onTap: (){
               if(emailController.text.isNotEmpty || passwordController.text.isNotEmpty){
                 Map<String, String> body = {
                   'email' : emailController.text,

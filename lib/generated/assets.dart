@@ -18,7 +18,7 @@ class Assets {
   static const String res = 'assets/icons/resource_r.png';
   static const String facebook = 'assets/icons/home/facebook.png';
   static const String linkedin = 'assets/icons/home/linkedin.png';
-  static const String twitter = 'assets/icons/home/twitter.png';
+  static const String twitter = 'assets/icons/home/twitter.jpg';
   static const String youtube = 'assets/icons/home/youtube.png';
   static const String homePayments = 'assets/icons/home/payments.png';
   static const String homeResources = 'assets/icons/home/resources.png';
@@ -40,7 +40,7 @@ class Assets {
   static const String imagesHeart = 'assets/images/heart.png';
   static const String imagesHospitalLogo = 'assets/images/hospital-logo.png';
   static const String imagesLogo = 'assets/images/logo.png';
-  static const String imagesLogoGreen = 'assets/images/logo-green.png';
+  static const String imagesLogoGreen = 'assets/images/playstore.png';
   static const String imagesLogoWhite = 'assets/images/logo-white.png';
   static const String imagesMacroHealthPlus = 'assets/images/macro-health-plus.png';
   static const String imagesMastercard = 'assets/images/mastercard.png';

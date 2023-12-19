@@ -516,38 +516,38 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                               ),
                             ],
                           ),
-                          SizedBox(
-                            height: 6.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Discount",
-                                style: Style.alltext_default_balck,
-                              ),
-                              Text(
-                                "00.00",
-                                style: Style.alltext_default_balck,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 6.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Vat/Tax",
-                                style: Style.alltext_default_balck,
-                              ),
-                              Text(
-                                "00.00",
-                                style: Style.alltext_default_balck,
-                              ),
-                            ],
-                          ),
+                          // SizedBox(
+                          //   height: 6.h,
+                          // ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Text(
+                          //       "Discount",
+                          //       style: Style.alltext_default_balck,
+                          //     ),
+                          //     Text(
+                          //       "00.00",
+                          //       style: Style.alltext_default_balck,
+                          //     ),
+                          //   ],
+                          // ),
+                          // SizedBox(
+                          //   height: 6.h,
+                          // ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Text(
+                          //       "Vat/Tax",
+                          //       style: Style.alltext_default_balck,
+                          //     ),
+                          //     Text(
+                          //       "00.00",
+                          //       style: Style.alltext_default_balck,
+                          //     ),
+                          //   ],
+                          // ),
                           SizedBox(
                             height: 12.h,
                           ),
@@ -598,7 +598,11 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                           Messages.snackBar(context, "Select Digital Payment");
                         } else if (transactionphone.text.isEmpty) {
                           Messages.snackBar(context, "Enter Payment Number");
-                        } else if (transaction.text.isEmpty) {
+                        } else if (transactionphone.text.length !=11) {
+                          Messages.snackBar(context, "Enter Payment Number must be 11 digit");
+                        }
+
+                        else if (transaction.text.isEmpty) {
                           Messages.snackBar(context, "Enter Transaction Id");
                         } else if (transactionrefer.text.isEmpty) {
                           Messages.snackBar(context, "Enter reference name");

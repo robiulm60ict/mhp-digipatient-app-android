@@ -64,12 +64,13 @@ class _AnatomyViewState extends State<AnatomyView> {
               "${active?.title} ${active?.id} ${active?.painLevel} ${active?.transformedPath} ${active?.props} ${active?.stringify}");
         },
         onLevelChanged: (bodyPart) {
-          for (var i in bodyPart) {
-            debugPrint(
-                "${i.title} ${i.path} ${i.id} ${i.painLevel} ${i.stringify}");
-          }
+          print("bodyPart$bodyPart");
+          // for (var i in bodyPart) {
+          //   debugPrint(
+          //       "${i.title} ${i.path} ${i.id} ${i.painLevel} ${i.stringify}");
+          // }
         },
-        // multiSelect: true,
+        multiSelect: true,
         toggle: true,
         // scale: 5.5,
         // height: MediaQuery.of(context).size.height - MediaQuery.of(context).a,
@@ -95,7 +96,7 @@ class _AnatomyViewState extends State<AnatomyView> {
                 "${i.title} ${i.path} ${i.id} ${i.painLevel} ${i.stringify}");
           }
         },
-        // multiSelect: true,
+         multiSelect: true,
         toggle: true,
 
         height: MediaQuery.of(context).size.height,
@@ -112,12 +113,12 @@ class _AnatomyViewState extends State<AnatomyView> {
               "${active?.title} ${active?.id} ${active?.painLevel} ${active?.transformedPath} ${active?.props} ${active?.stringify}");
         },
         onLevelChanged: (bodyPart) {
-          for (var i in bodyPart) {
-            debugPrint(
-                "${i.title} ${i.path} ${i.id} ${i.painLevel} ${i.stringify}");
-          }
+          // for (var i in bodyPart) {
+          //   debugPrint(
+          //       "${i.title} ${i.path} ${i.id} ${i.painLevel} ${i.stringify}");
+          // }
         },
-        // multiSelect: true,
+         multiSelect: true,
         toggle: true,
 
         height: MediaQuery.of(context).size.height,
@@ -128,6 +129,7 @@ class _AnatomyViewState extends State<AnatomyView> {
         key: const ValueKey(maleFront),
         map: Maps.MALE,
         dotColor: Colors.red,
+        multiSelect: true,
 
         onChanged: (bodyPart, active) {
           Messages.flushBarMessage(context,
@@ -139,7 +141,6 @@ class _AnatomyViewState extends State<AnatomyView> {
                 "${i.title} ${i.path} ${i.id} ${i.painLevel} ${i.stringify}");
           }
         },
-        // multiSelect: true,
         toggle: true,
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width - 150,
@@ -152,14 +153,13 @@ class _AnatomyViewState extends State<AnatomyView> {
 
     double width = MediaQuery.of(context).size.width;
 
-    debugPrint("Width: $width}");
 
     return   Consumer<AnatomyModelView>(
         builder: (context,anatomy,child) {
 
           return  WillPopScope(
             onWillPop: () {
-              anatomy.getSelectedSymptomsList();
+             // anatomy.getSelectedSymptomsList();
               return Future.delayed(const Duration(milliseconds: 1000)).then((value) => true);
 
             },
@@ -167,7 +167,7 @@ class _AnatomyViewState extends State<AnatomyView> {
               appBar: AppBar(
                 leadingWidth: leadingWidth,
                 leading: const CustomBackButton(),
-                title: Text("Select Diseases", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400,  fontFamily: 'Roboto',color: AppColors.primaryColor),),
+                title: Text("Select Symptoms", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400,  fontFamily: 'Roboto',color: AppColors.primaryColor),),
 
                 actions: [
                   DropdownButton(
@@ -233,11 +233,12 @@ class _AnatomyViewState extends State<AnatomyView> {
                     strokeColor: Colors.greenAccent,
                     selectedColor: Colors.greenAccent.shade100,
                     onChanged: (bodyPart, active) {
+
                       // Messages.flushBarMessage(context,
                       //     "${active?.title} ${active?.id} ${active?.painLevel} ${active?.transformedPath} ${active?.props} ${active?.stringify}",
                       //   flushBarPosition: FlushbarPosition.BOTTOM
                       // );
-                      debugPrint("\n title ${bodyPart.first.title} id ${bodyPart.first.id} pain Level: ${bodyPart.first.painLevel} obj: ${bodyPart.first.props} active part ${active?.title}");
+                      debugPrint("${bodyPart.reversed.first.title} title ${bodyPart.reversed.first.title} id ${bodyPart.first.id} pain Level: ${bodyPart.first.painLevel} obj: ${bodyPart.first.props} active part ${active?.title}");
 
                       getDiseaseModalSheet(context, name: bodyPart.first.title,);
                       // debugPrint(provider.flushBarState.toString());

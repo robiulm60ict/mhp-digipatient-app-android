@@ -98,10 +98,18 @@ class _SignUpViewState extends State<SignUpView> {
                 child: CustomButton(
                   text: "Continue",
                   onTap: () {
-                    if (phnNumber.text.isNotEmpty) {
-                      auth.sendOtp(context, phnNumber: phnNumber.text);
-                    } else {
+
+                    if (phnNumber.text.isEmpty) {
                       Messages.snackBar(context, "Enter Mobile Number");
+
+                    }
+
+                    else if (phnNumber.text.length !=11) {
+                      Messages.snackBar(context, "Mobile Number must be 11 digit");
+                    }
+                    else {
+                      auth.sendOtp(context, phnNumber: phnNumber.text);
+
                     }
                   },
                 ),
