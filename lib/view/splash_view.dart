@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../generated/assets.dart';
 import '../utils/route/routes_name.dart';
 import '/resources/colors.dart';
-
+//fffffffffffff
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
