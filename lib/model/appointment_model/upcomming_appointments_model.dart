@@ -138,8 +138,10 @@ class Doctors {
   String? drGivenName;
   String? drMiddleName;
   String? drPreferredName;
+  String? drLastName;
   String? drImages;
   Title? title;
+  String? fullName;
 
   Doctors({
     this.id,
@@ -147,8 +149,10 @@ class Doctors {
     this.drGivenName,
     this.drMiddleName,
     this.drPreferredName,
+    this.drLastName,
     this.drImages,
     this.title,
+    this.fullName,
   });
 
   factory Doctors.fromJson(Map<String, dynamic> json) => Doctors(
@@ -157,8 +161,10 @@ class Doctors {
     drGivenName: json["dr_given_name"],
     drMiddleName: json["dr_middle_name"],
     drPreferredName: json["dr_preferred_name"],
+    drLastName: json["dr_last_name"],
     drImages: json["dr_images"],
     title: json["title"] == null ? null : Title.fromJson(json["title"]),
+    fullName: json["fullName"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -167,8 +173,10 @@ class Doctors {
     "dr_given_name": drGivenName,
     "dr_middle_name": drMiddleName,
     "dr_preferred_name": drPreferredName,
+    "dr_last_name": drLastName,
     "dr_images": drImages,
     "title": title?.toJson(),
+    "fullName": fullName,
   };
 }
 
@@ -199,17 +207,18 @@ class PatientAppionment {
   String? patientLastName;
   String? patientPreferredName;
   String? patientImages;
-  dynamic patientCityId;
-  dynamic patientAddress2;
+  String? patientCityId;
+  String? patientAddress2;
   String? patientAddress1;
-  dynamic patientBcid;
+  String? patientBcid;
   String? ptnBloodGroupId;
-  dynamic patientContactVia;
-  String? patientDob;
+  String? patientContactVia;
+  DateTime? patientDob;
   String? patientBirthSexId;
+  String? fullName;
   PatientBirthSex? patientBirthSex;
-  dynamic contactVia;
-  dynamic city;
+  ContactVia? contactVia;
+  City? city;
   BloodGroup? bloodGroup;
 
   PatientAppionment({
@@ -227,6 +236,7 @@ class PatientAppionment {
     this.patientContactVia,
     this.patientDob,
     this.patientBirthSexId,
+    this.fullName,
     this.patientBirthSex,
     this.contactVia,
     this.city,
@@ -246,11 +256,12 @@ class PatientAppionment {
     patientBcid: json["patient_bcid"],
     ptnBloodGroupId: json["ptn_blood_group_id"],
     patientContactVia: json["patient_contact_via"],
-    patientDob: json["patient_dob"],
+    patientDob: json["patient_dob"] == null ? null : DateTime.parse(json["patient_dob"]),
     patientBirthSexId: json["patient_birth_sex_id"],
+    fullName: json["fullName"],
     patientBirthSex: json["patient_birth_sex"] == null ? null : PatientBirthSex.fromJson(json["patient_birth_sex"]),
-    contactVia: json["contact_via"],
-    city: json["city"],
+    contactVia: json["contact_via"] == null ? null : ContactVia.fromJson(json["contact_via"]),
+    city: json["city"] == null ? null : City.fromJson(json["city"]),
     bloodGroup: json["blood_group"] == null ? null : BloodGroup.fromJson(json["blood_group"]),
   );
 
@@ -267,11 +278,12 @@ class PatientAppionment {
     "patient_bcid": patientBcid,
     "ptn_blood_group_id": ptnBloodGroupId,
     "patient_contact_via": patientContactVia,
-    "patient_dob": patientDob,
+    "patient_dob": "${patientDob!.year.toString().padLeft(4, '0')}-${patientDob!.month.toString().padLeft(2, '0')}-${patientDob!.day.toString().padLeft(2, '0')}",
     "patient_birth_sex_id": patientBirthSexId,
+    "fullName": fullName,
     "patient_birth_sex": patientBirthSex?.toJson(),
-    "contact_via": contactVia,
-    "city": city,
+    "contact_via": contactVia?.toJson(),
+    "city": city?.toJson(),
     "blood_group": bloodGroup?.toJson(),
   };
 }
@@ -293,6 +305,46 @@ class BloodGroup {
   Map<String, dynamic> toJson() => {
     "id": id,
     "blood_group_name": bloodGroupName,
+  };
+}
+
+class City {
+  int? id;
+  String? cityName;
+
+  City({
+    this.id,
+    this.cityName,
+  });
+
+  factory City.fromJson(Map<String, dynamic> json) => City(
+    id: json["id"],
+    cityName: json["city_name"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "city_name": cityName,
+  };
+}
+
+class ContactVia {
+  int? id;
+  String? contactViaName;
+
+  ContactVia({
+    this.id,
+    this.contactViaName,
+  });
+
+  factory ContactVia.fromJson(Map<String, dynamic> json) => ContactVia(
+    id: json["id"],
+    contactViaName: json["contact_via_name"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "contact_via_name": contactViaName,
   };
 }
 

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/model/anatomy/anatomy_symptoms_model.dart';
 import 'package:digi_patient/model/doctor_model/doctor_chember_time_model.dart';
@@ -20,6 +21,7 @@ import 'package:weekly_date_picker/weekly_date_picker.dart';
 import '../../model/myDoctorList/mydoctorList.dart';
 import '../../resources/styles.dart';
 import '../../utils/utils.dart';
+import '../../view_model/doctor/my_doctor_view_model.dart';
 import '../../widgets/back_button.dart';
 
 
@@ -333,132 +335,90 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
             SizedBox(
               height: 10.h,
             ),
-            // SizedBox(
-            //   height: 80.h,
-            //   child: myDocVM.isDocChamberTimeLoading ||
-            //           myDocVM.doctorTimeSlotList.isEmpty
-            //       ? const Center(
-            //           child: Text("No  Data"),
-            //         )
-            //       : CarouselSlider.builder(
-            //           // scrollDirection: Axis.horizontal,
-            //           itemCount: myDocVM.doctorTimeSlotList.length,
-            //           itemBuilder:
-            //               (BuildContext context, int index, int pageViewIndex) {
-            //             DocTimeSlot docTime = myDocVM.doctorTimeSlotList[index];
-            //             return Center(
-            //               child: Card(
-            //                   child: ListTile(
-            //                       title: Text(
-            //                         "${docTime.day}-${docTime.month}-${docTime.year}",
-            //                         style: Style.alltext_default_balck,
-            //                       ),
-            //                       subtitle: Text(
-            //                         "${myDocVM.getTime(docTime.slotFrom.toString())} To ${myDocVM.getTime(docTime.slotTo.toString())}",
-            //                         style: Style.alltext_default_balck,
-            //                       ),
-            //                       trailing: Text(
-            //                         "${docTime.type}",
-            //                         style: Style.alltext_default_balck,
-            //                       ))),
-            //             );
-            //           },
-            //           options: CarouselOptions(
-            //             // height: 400,
-            //             // aspectRatio: 16/9,
-            //             viewportFraction: 0.8,
-            //             initialPage: 0,
-            //             enableInfiniteScroll: true,
-            //             reverse: false,
-            //             autoPlay: true,
-            //             autoPlayInterval: const Duration(seconds: 3),
-            //             autoPlayAnimationDuration:
-            //                 const Duration(milliseconds: 1600),
-            //             autoPlayCurve: Curves.fastOutSlowIn,
-            //             enlargeCenterPage: true,
-            //             // enlargeFactor: 0.3,
-            //             scrollDirection: Axis.horizontal,
-            //           ),
-            //           // itemBuilder: (context, index) => Card(
-            //           //   color: index == 1 ? AppColors.primaryColor : Colors.white,
-            //           //   child: Padding(
-            //           //     padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
-            //           //     child: Text("9.30AM", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: index == 1 ? Colors.white : const Color(0xFF646464)),),
-            //           //   ),
-            //           // ),
-            //         ),
-            // ),
-            // SizedBox(
-            //     height: 80.h,
-            //     child: Consumer<MyDoctorViewModel>(
-            //         builder: (context, myDocVM, child) {
-            //       if (myDocVM.doctorTimeSlotList.isEmpty) {
-            //         return myDocVM.isDocChamberTimeLoading == true
-            //             ? ListView.builder(
-            //                 itemCount: 6,
-            //                 // scrollDirection: Axis.vertical,
-            //                 physics: const ScrollPhysics(),
-            //                 shrinkWrap: true,
-            //                 itemBuilder: (context, index) {
-            //                   return Padding(
-            //                     padding: const EdgeInsets.all(5.0),
-            //                     child: bannerShimmereffect(
-            //                         90.toDouble(), 385.toDouble()),
-            //                   );
-            //                 },
-            //               )
-            //             : noDataFounForList("No History");
-            //       } else {
-            //         return CarouselSlider.builder(
-            //           // scrollDirection: Axis.horizontal,
-            //           itemCount: myDocVM.doctorTimeSlotList.length,
-            //           itemBuilder:
-            //               (BuildContext context, int index, int pageViewIndex) {
-            //             DocTimeSlot docTime = myDocVM.doctorTimeSlotList[index];
-            //             return Center(
-            //               child: Card(
-            //                   child: ListTile(
-            //                       title: Text(
-            //                         //{docTime.day}-
-            //                         "${docTime.month}-${docTime.year}",
-            //                         style: Style.alltext_default_balck,
-            //                       ),
-            //                       subtitle: Text(
-            //                         "${myDocVM.getTime(docTime.slotFrom.toString())} To ${myDocVM.getTime(docTime.slotTo.toString())}",
-            //                         style: Style.alltext_default_balck,
-            //                       ),
-            //                       trailing: Text(
-            //                         "${docTime.type}",
-            //                         style: Style.alltext_default_balck,
-            //                       ))),
-            //             );
-            //           },
-            //           options: CarouselOptions(
-            //             // height: 400,
-            //             // aspectRatio: 16/9,
-            //             viewportFraction: 0.8,
-            //             initialPage: 0,
-            //             enableInfiniteScroll: true,
-            //             reverse: false,
-            //             autoPlay: true,
-            //             autoPlayInterval: const Duration(seconds: 3),
-            //             autoPlayAnimationDuration:
-            //                 const Duration(milliseconds: 1600),
-            //             autoPlayCurve: Curves.fastOutSlowIn,
-            //             enlargeCenterPage: true,
-            //             // enlargeFactor: 0.3,
-            //             scrollDirection: Axis.horizontal,
-            //           ),
-            //           // itemBuilder: (context, index) => Card(
-            //           //   color: index == 1 ? AppColors.primaryColor : Colors.white,
-            //           //   child: Padding(
-            //           //     padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
-            //           //     child: Text("9.30AM", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: index == 1 ? Colors.white : const Color(0xFF646464)),),
-            //           //   ),
-            //           // ),
-            //         );
-            //       }
-            //     })),
+            SizedBox(
+                height: 80.h,
+                child: Consumer<MyDoctorViewModel>(
+                    builder: (context, data, child) {
+                      if (data.doctorTimeSlotList.isEmpty) {
+                        return data.isDocChamberTimeLoading == true
+                            ? ListView.builder(
+                          itemCount: 6,
+                          // scrollDirection: Axis.vertical,
+                          physics: const ScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: bannerShimmereffect(
+                                  90.toDouble(), 385.toDouble()),
+                            );
+                          },
+                        )
+                            : noDataFounForList("No History");
+                      } else {
+                        return CarouselSlider.builder(
+                          // scrollDirection: Axis.horizontal,
+                          itemCount: data.doctorTimeSlotList.length,
+                          itemBuilder: (BuildContext context, int index,
+                              int pageViewIndex) {
+                            DocTimeSlot docTime =
+                            data .doctorTimeSlotList[index];
+                            return Center(
+                              child: Card(
+                                  child: ListTile(
+                                    title: Text(
+                                      //{docTime.day}-
+                                      "${docTime.month}-${docTime.year}",
+                                      style: Style.alltext_default_balck,
+                                    ),
+                                    subtitle: Text(
+                                      "${docTime.slotFrom.toString()} To ${docTime.slotTo.toString()}",
+                                      style: Style.alltext_default_balck,
+                                    ),
+                                    trailing: Column(
+                                      children: [
+                                        Text(
+                                          "${docTime.type.toString().toUpperCase()}",
+                                          style: Style.alltext_default_balck,
+                                        ),
+                                        Style.distan_size2,
+                                        Text(
+                                          docTime.status.toString()=="off_duty"?"Off Day" :"",
+                                          style: Style.alltext_default_balck,
+                                        ),
+                                      ],
+                                    ),
+
+                                  )
+                              ),
+                            );
+                          },
+                          options: CarouselOptions(
+                            // height: 400,
+                            // aspectRatio: 16/9,
+                            viewportFraction: 0.8,
+                            initialPage: 0,
+                            enableInfiniteScroll: true,
+                            reverse: false,
+                            autoPlay: true,
+                            autoPlayInterval: const Duration(seconds: 3),
+                            autoPlayAnimationDuration:
+                            const Duration(milliseconds: 1600),
+                            autoPlayCurve: Curves.fastOutSlowIn,
+                            enlargeCenterPage: true,
+                            // enlargeFactor: 0.3,
+                            scrollDirection: Axis.horizontal,
+                          ),
+                          // itemBuilder: (context, index) => Card(
+                          //   color: index == 1 ? AppColors.primaryColor : Colors.white,
+                          //   child: Padding(
+                          //     padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
+                          //     child: Text("9.30AM", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: index == 1 ? Colors.white : const Color(0xFF646464)),),
+                          //   ),
+                          // ),
+                        );
+                      }
+                    })),
             SizedBox(
               height: 10.h,
             ),

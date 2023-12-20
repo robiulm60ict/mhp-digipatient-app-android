@@ -71,7 +71,6 @@ class MyDoctorViewModel with ChangeNotifier {
   bool isDocChamberTimeLoading = true;
 
   getDocChamberTime(BuildContext context, {required docId}) async {
-    print("fffffffff${docId}");
     doctorTimeSlotList.clear();
     DoctorRepository().getDocChamberTime(docId).then((value) {
       doctorTimeSlotList.addAll(value.docTimeSlots!);

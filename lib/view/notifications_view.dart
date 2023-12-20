@@ -138,7 +138,7 @@ class _NotificationsViewState extends State<NotificationsView> {
                             appointments.upcommingAppointmentList[index];
 
                         return NotificationListTile(
-                          doctorName: "${app.doctors!.title!.titleName.toString()} ${app.doctors!.drGivenName!.toString()} ${app.doctors!.drMiddleName!.toString()}",
+                          doctorName: "${app.doctors!.title!.titleName.toString()} ${app.doctors!.fullName!.toString()}",
                           appointmentTime:
                               "${getTime(app.startTime.toString())}- ${getTime(app.endTime.toString())}",
                           onTap: () {

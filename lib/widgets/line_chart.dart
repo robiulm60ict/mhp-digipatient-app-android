@@ -121,18 +121,33 @@ class _CustomLineChartAllState extends State<CustomLineChartAll> {
           ),
           lineBarsData: [
             LineChartBarData(
-              spots: widget.patientVsList
-                  .asMap()
-                  .entries
-                  .map((entry) {
-                return FlSpot(entry.key.toDouble(), double.tryParse(entry.value.value.toString() ?? "0") ?? 0);
+              spots: widget.patientVsList.reversed.first.name.toString() ==
+                  "Blood Pressure"
+                  ? widget.patientVsList.asMap().entries.map((entry) {
+                return FlSpot(
+                    double.tryParse(entry.value.value.toString().split("/").first ?? "0") ??
+                        0
+                    ,
+                    double.tryParse(entry.value.value.toString().split("/").last ?? "0") ??
+                        0);
+              }).toList()
+                  : widget.patientVsList.asMap().entries.map((entry) {
+                return FlSpot(
+                    entry.key.toDouble(),
+                    double.tryParse(entry.value.value.toString() ?? "0") ??
+                        0);
               }).toList(),
               isCurved: true,
               color: AppColors.primaryColor,
               barWidth: 4,
-
-              dotData: FlDotData(show: true,
-                getDotPainter: (p0, p1, p2, p3) => p0.x == 5 ? FlDotCirclePainter(strokeWidth: 6, color: AppColors.primaryColor, strokeColor: AppColors.primaryColor) : FlDotCirclePainter(),
+              dotData: FlDotData(
+                show: true,
+                getDotPainter: (p0, p1, p2, p3) => p0.x == 5
+                    ? FlDotCirclePainter(
+                    strokeWidth: 6,
+                    color: AppColors.primaryColor,
+                    strokeColor: AppColors.primaryColor)
+                    : FlDotCirclePainter(),
               ),
             ),
           ],

@@ -34,10 +34,10 @@ class DocTimeSlot {
   String? chamberId;
   String? year;
   String? month;
-  String? allMonth;
+  String? status;
   String? day;
-  DateTime? slotFrom;
-  DateTime? slotTo;
+  String? slotFrom;
+  String? slotTo;
   String? type;
   int? deleteStatus;
   DateTime? createdAt;
@@ -51,7 +51,7 @@ class DocTimeSlot {
     this.chamberId,
     this.year,
     this.month,
-    this.allMonth,
+    this.status,
     this.day,
     this.slotFrom,
     this.slotTo,
@@ -69,10 +69,10 @@ class DocTimeSlot {
     chamberId: json["chamber_id"],
     year: json["year"],
     month: json["month"],
-    allMonth: json["all_month"],
+    status: json["status"],
     day: json["day"],
-    slotFrom: json["slot_from"] == null ? null : DateTime.parse(json["slot_from"]),
-    slotTo: json["slot_to"] == null ? null : DateTime.parse(json["slot_to"]),
+    slotFrom: json["slot_from"],
+    slotTo: json["slot_to"],
     type: json["type"],
     deleteStatus: json["delete_status"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
@@ -87,10 +87,10 @@ class DocTimeSlot {
     "chamber_id": chamberId,
     "year": year,
     "month": month,
-    "all_month": allMonth,
+    "status": status,
     "day": day,
-    "slot_from": slotFrom?.toIso8601String(),
-    "slot_to": slotTo?.toIso8601String(),
+    "slot_from": slotFrom,
+    "slot_to": slotTo,
     "type": type,
     "delete_status": deleteStatus,
     "created_at": createdAt?.toIso8601String(),

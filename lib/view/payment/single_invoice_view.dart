@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../model/book_appointment_model/book_appointment_model.dart';
 import '../../model/doctor_model/doctors_model.dart';
 import '../../model/myDoctorList/mydoctorList.dart';
 import '../../resources/app_url.dart';
@@ -18,6 +19,7 @@ import '../../utils/utils.dart';
 import '../../view_model/user_view_model/user_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/payment_user_detail.dart';
+import 'ivoice/pdf_invoice_api.dart';
 
 class SingleInvoiceView extends StatefulWidget {
   const SingleInvoiceView(
@@ -30,7 +32,8 @@ class SingleInvoiceView extends StatefulWidget {
       required this.doctor,
       required this.paymentMethod,
       required this.trinscationNo,
-      })
+      required this.paymentnumber,
+      required this.bookAppointmentModel})
       : super(key: key);
   final String appointmentDate;
   final String doctorId;
@@ -40,6 +43,8 @@ class SingleInvoiceView extends StatefulWidget {
   final Datum doctor;
   final String paymentMethod;
   final String trinscationNo;
+  final String paymentnumber;
+  final BookAppointmentModel bookAppointmentModel;
 
   @override
   State<SingleInvoiceView> createState() => _SingleInvoiceViewState();
@@ -72,8 +77,8 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
 
   @override
   Widget build(BuildContext context) {
-    final userVM = Provider.of<UserViewModel>(context,listen: false);
-    final invoice = Provider.of<AppointmentViewModel>(context,listen: false);
+    final userVM = Provider.of<UserViewModel>(context, listen: false);
+    final invoice = Provider.of<AppointmentViewModel>(context, listen: false);
 
     return WillPopScope(
       onWillPop: () {
@@ -110,13 +115,12 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
           padding: EdgeInsets.all(20.r),
           children: [
             PaymentUserDetail(
-              name:
-                  "${widget.doctor.doctors!.fullName!}",
+              name: "${widget.doctor.doctors!.fullName!}",
               designation:
                   "${widget.doctor.doctors!.department?.departmentsName}",
               visitingTime: getTime(widget.appointmentDate),
               hospitalName:
-                  "${widget.doctor.doctors?.usualProvider !=null? widget.doctor.doctors?.usualProvider?.usualProviderName.toString():""}",
+                  "${widget.doctor.doctors?.usualProvider != null ? widget.doctor.doctors?.usualProvider?.usualProviderName.toString() : ""}",
               date: widget.appointmentDate,
               location: "${widget.doctor.doctors?.drWorkPhone}",
               image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',
@@ -150,7 +154,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                         SingleInvoiceRow(
                           lTitle: "transaction Number",
                           rTitle:
-                          "${invoice.appointmentList.isNotEmpty ? invoice.appointmentList.first.transactionNo : ""}",
+                              "${invoice.appointmentList.isNotEmpty ? invoice.appointmentList.first.transactionNo : ""}",
                         ),
                         SizedBox(
                           height: 8.h,
@@ -165,22 +169,15 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                         ),
                         SingleInvoiceRow(
                           lTitle: "Patient HnNumber",
-                          rTitle:
-                          "${userVM.user?.patientHnNumber}",
+                          rTitle: "${userVM.user?.patientHnNumber}",
                         ),
-
                         SizedBox(
                           height: 3.h,
                         ),
-
-
-
                         SingleInvoiceRow(
                           lTitle: "Date",
-                          rTitle:
-                          getDate(widget.appointmentDate),
+                          rTitle: getDate(widget.appointmentDate),
                         ),
-
                       ],
                     ),
                   ),
@@ -260,6 +257,29 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                         ),
                         SingleInvoiceRow(
                             lTitle: "Total Amount ", rTitle: widget.amount),
+
+                        Style.distan_size5,
+                        MaterialButton(
+                          color: Colors.green,
+                          minWidth: double.infinity,
+                          onPressed: () async {
+                            await PdfInvoiceApi.pdfsingle(
+                              appointmentDate: widget.appointmentDate,
+                              doctorId: widget.doctorId,
+                              patientId: widget.patientId,
+                              amount: widget.amount,
+                              appointmentType: widget.appointmentType,
+                              doctor: widget.doctor,
+                              paymentMethod: widget.paymentMethod,
+                              trinscationNo: widget.trinscationNo,
+                              appointmentList: widget.bookAppointmentModel,
+                              paymentnumber: widget.paymentnumber,
+                            );
+
+                            //  Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeView()));
+                          },
+                          child: Text("Save Invoice"),
+                        )
                       ],
                     ),
                   ),

@@ -141,18 +141,30 @@ class PdfInvoiceApi {
         SizedBox(height: 2),
 
         Center(child: Text("Vat Reg No : 534565")),
-        SizedBox(height: 2),
+        SizedBox(height: 8),
 
-        Center(child: Text("Invoice")),
-
+        // Center(child: Text("Invoice")),
+        Center(
+            child: Text("${appointmentList.appointmentType.toString()} Invoice",
+                style: TextStyle(fontSize: 14))),
+        SizedBox(height: 12),
         Column(children: [
-          Row(children: [
+          Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
             SizedBox(width: 100.w, child: Text("Dr Name")),
             Text(": "),
             SizedBox(
-                width: 150.w, child: Text(doctor.doctors!.fullName.toString()))
+                width: 150.w,
+                child: Text(
+                    "${doctor.doctors!.title!.titleName.toString()} ${doctor.doctors!.fullName.toString()}"))
           ]),
-          Row(children: [
+          SizedBox(height: 2),
+          Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
             SizedBox(width: 100.w, child: Text("Designation")),
             Text(": "),
             SizedBox(
@@ -160,24 +172,20 @@ class PdfInvoiceApi {
                 child: Text(
                     doctor.doctors!.department!.departmentsName.toString())),
           ]),
-          Row(children: [
-            SizedBox(width: 100.w, child: Text("HospitalName")),
-            Text(": "),
-            SizedBox(
-                width: 150.w,
-                child: Text(
-                  "${doctor.doctors?.usualProvider != null ? doctor.doctors?.usualProvider?.usualProviderName.toString() : ""}",
-                )),
-          ]),
-          // Row(children: [
-          //   SizedBox(width: 100.w, child: Text("Date")),
-          //   Text(": "),
-          //   SizedBox(
-          //       width: 150.w,
-          //       child: Text(
-          //         appointmentDate,
-          //       )),
-          // ]),
+          SizedBox(height: 2),
+          Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(width: 100.w, child: Text("HospitalName")),
+                Text(": "),
+                SizedBox(
+                    width: 150.w,
+                    child: Text(
+                      "${doctor.doctors?.usualProvider != null ? doctor.doctors?.usualProvider?.usualProviderName.toString() : ""}",
+                    )),
+              ]),
+          SizedBox(height: 2),
         ]),
 
         Column(
@@ -188,10 +196,36 @@ class PdfInvoiceApi {
                       topLeft: Radius.circular(5.r),
                       topRight: Radius.circular(5.r))),
               child: Padding(
-                padding: EdgeInsets.all(15.r),
+                padding: EdgeInsets.all(0.r),
                 child: Column(
                   // mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    SizedBox(
+                      height: 8.h,
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Invoice Number",
+                          ),
+                          Text(
+                            appointmentList.inoviceNumber.toString(),
+                          ),
+                        ]),
+                    SizedBox(
+                      height: 8.h,
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Date",
+                          ),
+                          Text(
+                            appointmentDate.toString(),
+                          ),
+                        ]),
                     SizedBox(
                       height: 8.h,
                     ),
@@ -208,21 +242,6 @@ class PdfInvoiceApi {
                     SizedBox(
                       height: 8.h,
                     ),
-
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Transaction Number",
-                          ),
-                          Text(
-                            appointmentList.transactionNo.toString(),
-                          ),
-                        ]),
-
-                    SizedBox(
-                      height: 8.h,
-                    ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -233,140 +252,61 @@ class PdfInvoiceApi {
                             paymentMethod,
                           ),
                         ]),
-
                     SizedBox(
                       height: 8.h,
                     ),
-
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Invoice Number",
-                          ),
-                          Text(
-                            appointmentList.inoviceNumber.toString(),
-                          ),
-                        ]),
-
-                    SizedBox(
-                      height: 3.h,
-                    ), Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Appointment Type",
-                          ),
-                          Text(
-                            appointmentType,
-                          ),
-                        ]),
-
-                    SizedBox(
-                      height: 3.h,
-                    ),
-
-                    // Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children:
-                    //     [
-                    //       Text("Invoice Number", ),
-                    //       Text(appointmentList.inoviceNumber.toString(),),
-                    //     ]
-                    // ),
-                    // SingleInvoiceRow(
-                    //   lTitle: "Patient HnNumber",
-                    //   rTitle:
-                    //   "${userVM.user?.patientHnNumber}",
-                    // ),
-
-                    SizedBox(
-                      height: 3.h,
-                    ),
-
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Date",
-                          ),
-                          Text(
-                            appointmentDate.toString(),
-                          ),
-                        ]),
                   ],
                 ),
               ),
             ),
-            // Container(
-            //   color: Colors.white,
-            //   child: Padding(
-            //     padding: EdgeInsets.all(15.r),
-            //     child: Column(
-            //       children: [
-            //         SingleInvoiceRow(
-            //             lTitle: "Patient Name :",
-            //             rTitle:
-            //             "${userVM.user?.patientFirstName} ${userVM.user?.patientLastName}"),
-            //         SingleInvoiceRow(
-            //             lTitle: "Mobile Number :",
-            //             rTitle: "${userVM.user?.patientMobilePhone}"),
-            //         SingleInvoiceRow(
-            //             lTitle: "Address :",
-            //             rTitle: "${userVM.user?.patientAddress1}"),
-            //         SingleInvoiceRow(
-            //             lTitle: "Payment Method :",
-            //             rTitle: "${widget.paymentMethod}"),
-            //       ],
-            //     ),
-            //   ),
-            // ),
           ],
         ),
-        Divider(),
 
+        pw.Table.fromTextArray(
+          context: context,
+          cellAlignment: Alignment.center,
+          data: <List<String>>[
+            <String>['SL', 'Description ', 'Amount'],
+            <String>['1', ' Consultancy Fees', ' $amount'],
+          ],
+        ),
+        // Container(
+        //   //   height: 40.h,
+        //   padding: EdgeInsets.symmetric(horizontal: 10.w),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //     children: [
+        //       Text(
+        //         "Consultancy Fees",
+        //       ),
+        //       Text(
+        //         amount,
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        // Divider(),
         Container(
           height: 40.h,
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              Text(""),
               Text(
-                "COST",
+                "Total Fees",
               ),
               Text(
-                "Charge",
-              ),
-            ],
-          ),
-        ),
-        // SingleInvoiceRow(
-        //     lTitle: "Total Charge", rTitle: widget.amount),
-        // const SingleInvoiceRow(
-        //     lTitle: "Discount", rTitle: "0.00"),
-        // const SingleInvoiceRow(lTitle: "Due ", rTitle: "0.00"),
-        // const SingleInvoiceRow(
-        //     l
-        //     Title: "VAT/TAX", rTitle: "0.00"),
+                "              $amount",
 
-        Container(
-          height: 40.h,
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Total Charge",
-              ),
-              Text(
-                amount,
               ),
             ],
           ),
         ),
         Divider(),
 
-        Text("Provided By : Online"),
+        //  Text("Provided By : Online"),
         SizedBox(height: 10),
         // Text("Terms & Condition"),
         // Text("১. ক্যাশ মেমো ছাড়া ওষুধ ফেরত নেওয়া হয় না ।"),

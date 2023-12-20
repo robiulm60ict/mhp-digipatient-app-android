@@ -200,8 +200,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                         title:
                         "You have an appointments with  ${app.doctors!.title!
                             .titleName} ${app.doctors!
-                            .drGivenName} ${app.doctors!
-                            .drMiddleName}at ${getDate(app.startTime
+                            .fullName} at ${getDate(app.startTime
                             .toString())}",
                         subTitle:
                         "Starts: ${getTime(app.startTime
@@ -250,8 +249,8 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                           //             : false));
                         },
                         title:
-                        "You have an appointments with ${app.titleName} ${app
-                            .drGivenName} ${app.drLastName}",
+                        "You have an appointments with ${app.titleName??""} ${app
+                            .drGivenName??""} ${app.drMiddleName??""} ${app.drLastName??""}",
                         subTitle:
                         "Starts: ${DateFormat("hh:mm a").format(DateTime.parse(
                             app.startTime.toString()))} Ends: ${DateFormat(
