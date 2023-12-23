@@ -18,6 +18,9 @@ class MyPaymentModel {
   dynamic details;
   DateTime? createdAt;
   DateTime? updatedAt;
+  String? transcitionNumber;
+  String? phoneNumber;
+  String? paymentMethod;
   Doctor? doctor;
 
   MyPaymentModel({
@@ -30,6 +33,9 @@ class MyPaymentModel {
     this.details,
     this.createdAt,
     this.updatedAt,
+    this.transcitionNumber,
+    this.phoneNumber,
+    this.paymentMethod,
     this.doctor,
   });
 
@@ -43,6 +49,9 @@ class MyPaymentModel {
     details: json["details"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    transcitionNumber: json["transcition_number"],
+    phoneNumber: json["phone_number"],
+    paymentMethod: json["payment_method"],
     doctor: json["doctor"] == null ? null : Doctor.fromJson(json["doctor"]),
   );
 
@@ -52,10 +61,13 @@ class MyPaymentModel {
     "patient_id": patientId,
     "payment_type": paymentType,
     "amount": amount,
-    "date": "${date!.year.toString().padLeft(4, '0')}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}",
+    "date": date?.toIso8601String(),
     "details": details,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
+    "transcition_number": transcitionNumber,
+    "phone_number": phoneNumber,
+    "payment_method": paymentMethod,
     "doctor": doctor?.toJson(),
   };
 }
@@ -89,13 +101,14 @@ class Doctor {
   String? drContactViaId;
   String? drProviderId;
   String? drImages;
-  dynamic doctorFee;
+  String? doctorFee;
   dynamic appToken;
   String? deleteStatus;
   dynamic createdBy;
   dynamic updatedBy;
   DateTime? createdAt;
   DateTime? updatedAt;
+  String? fullName;
 
   Doctor({
     this.id,
@@ -133,6 +146,7 @@ class Doctor {
     this.updatedBy,
     this.createdAt,
     this.updatedAt,
+    this.fullName,
   });
 
   factory Doctor.fromJson(Map<String, dynamic> json) => Doctor(
@@ -171,6 +185,7 @@ class Doctor {
     updatedBy: json["updated_by"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    fullName: json["fullName"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -209,5 +224,6 @@ class Doctor {
     "updated_by": updatedBy,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
+    "fullName": fullName,
   };
 }

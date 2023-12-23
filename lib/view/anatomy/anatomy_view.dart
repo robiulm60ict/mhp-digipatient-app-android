@@ -240,7 +240,8 @@ class _AnatomyViewState extends State<AnatomyView> {
                       // );
                       debugPrint("${bodyPart.reversed.first.title} title ${bodyPart.reversed.first.title} id ${bodyPart.first.id} pain Level: ${bodyPart.first.painLevel} obj: ${bodyPart.first.props} active part ${active?.title}");
 
-                      getDiseaseModalSheet(context, name: bodyPart.first.title,);
+                      getDiseaseModalSheet(context, name: bodyPart.first.title,gender: _selectedValue.split(" ").first.toString(),);
+                      print(_selectedValue.split(" ").first.toString());
                       // debugPrint(provider.flushBarState.toString());
 
                       // if (provider.flushBarState == 0) {

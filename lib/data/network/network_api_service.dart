@@ -84,6 +84,24 @@ class NetworkApiService extends BaseApiService {
       throw FetchDataException("No Internet Connection");
     }
     return responseJson;
+  }  @override
+  Future getPostApiResponseUrl(String url) async {
+    dynamic responseJson;
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'databaseName': 'mhpdemocom',
+          'Accept': 'application/json',
+        },
+      ).timeout(
+        const Duration(seconds: 10),
+      );
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw FetchDataException("No Internet Connection");
+    }
+    return responseJson;
   }
 
   @override

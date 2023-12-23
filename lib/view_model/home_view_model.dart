@@ -52,7 +52,7 @@ class HomeViewModel with ChangeNotifier {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => MyPatientView()));
     } else if (index == 9) {
-      //  Navigator.push(context, MaterialPageRoute(builder: (context)=>QRCodeScanner()));
+        // Navigator.push(context, MaterialPageRoute(builder: (context)=>QRCodeScanner()));
     }
   }
 }

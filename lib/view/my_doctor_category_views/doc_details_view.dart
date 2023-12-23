@@ -477,7 +477,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       if (data.doctorTimeSlotList.isEmpty) {
                         return data.isDocChamberTimeLoading == true
                             ? ListView.builder(
-                                itemCount: 6,
+                                itemCount: 1,
                                 // scrollDirection: Axis.vertical,
                                 physics: const ScrollPhysics(),
                                 shrinkWrap: true,

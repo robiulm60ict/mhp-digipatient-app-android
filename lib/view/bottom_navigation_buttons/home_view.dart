@@ -107,7 +107,7 @@ class _HomeViewState extends State<HomeView> {
           backgroundColor: AppColors.backgroundColor,
           extendBody: true,
           drawer: Drawer(
-            width: MediaQuery.of(context).size.width*0.70,
+            width: MediaQuery.of(context).size.width * 0.70,
             shape: OutlineInputBorder(
               borderRadius:
                   BorderRadius.only(bottomRight: Radius.circular(70.w)),
@@ -141,10 +141,7 @@ class _HomeViewState extends State<HomeView> {
                   iconData: Icons.person,
                   title: "Profile",
                   onTap: () {
-
-
                     // Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDetailView(user: user)));
-
                   },
                 ),
                 SizedBox(
@@ -282,13 +279,16 @@ class _HomeViewState extends State<HomeView> {
             actions: [
               badges.Badge(
                   position: BadgePosition.topEnd(top: 3, end: 6),
-                  badgeContent:  Text("${int.parse( appointments.todayAppointmentList.length.toString())+int.parse(appointments.upcommingAppointmentList.length.toString())}"
-                   ,
+                  badgeContent: Text(
+                    "${int.parse(appointments.todayAppointmentList.length.toString()) + int.parse(appointments.upcommingAppointmentList.length.toString())}",
                     style: TextStyle(color: Colors.white),
                   ),
                   child: IconButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>NotificationsView()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NotificationsView()));
                         //  context.router.push(const NotificationsRoute());
                       },
                       icon: Icon(
@@ -372,17 +372,25 @@ class _HomeViewState extends State<HomeView> {
                                     color: const Color(0xFF7A7A7A),
                                   ),
                                 ),
-
-
                               ],
                             ),
-                            userprovider.user?.patientImages!='null'?   Image.network("${AppUrls.image}${userprovider.user?.patientImages}",height: 110,):Container()
+                            userprovider.user?.patientImages != 'null'
+                                ? SizedBox(
+                              height: 110,
+                              width: 90.w,
+                                  child: Image.network(
+                                      "${AppUrls.image}${userprovider.user?.patientImages}",
+                                      height: 110,
+                                      width: 90.w,
+                                      fit: BoxFit.fill,
+                                    ),
+                                )
+                                : Container()
 
                             // CircleAvatar(
                             //     radius: 40,
                             //     backgroundImage: NetworkImage(
                             //         "${AppUrls.image}${userprovider.user?.patientImages}")),
-
                           ],
                         );
                       }
@@ -394,17 +402,17 @@ class _HomeViewState extends State<HomeView> {
                 height: 6.h,
               ),
 
-              ZegoSendCallInvitationButton(
-                isVideoCall: true,
-                resourceID: "digidoctor-resource",
-                //You need to use the resourceID that you created in the subsequent steps. Please continue reading this document.
-                invitees: [
-                  ZegoUIKitUser(
-                    id: "123",
-                    name: "zabir123",
-                  ),
-                ],
-              ),
+              // ZegoSendCallInvitationButton(
+              //   isVideoCall: true,
+              //   resourceID: "digidoctor-resource",
+              //   //You need to use the resourceID that you created in the subsequent steps. Please continue reading this document.
+              //   invitees: [
+              //     ZegoUIKitUser(
+              //       id: "123",
+              //       name: "zabir123",
+              //     ),
+              //   ],
+              // ),
               // Card(
               //   shape: RoundedRectangleBorder(
               //       borderRadius: BorderRadius.circular(12.h)),
@@ -593,8 +601,8 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
-
 }
+
 class MyExitConfirmationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -612,7 +620,7 @@ class MyExitConfirmationDialog extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop(true);
             exit(0);
-           // Dismiss the dialog and return true
+            // Dismiss the dialog and return true
           },
           child: Text('Yes'),
         ),

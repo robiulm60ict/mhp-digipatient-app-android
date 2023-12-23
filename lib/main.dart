@@ -39,11 +39,7 @@ import 'view_model/resources_view_model/resources_view_model.dart';
 // }
 
 final navigatorKey = GlobalKey<NavigatorState>();
-// final appRoute = AppRouter(navigatorKey);
-// final navigatorKey = GlobalKey<NavigatorState>();
-// final _appRouter = AppRouter(
-//   navigatorKey: navigatorKey,
-// );
+
 // final navigationService = NavigationService(appRouter.navigatorKey);
 
 Future<void> main() async {
@@ -140,11 +136,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
-    // final provider = Provider.of<AppLocaleViewModel>(context);
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,
@@ -152,10 +146,6 @@ class _MyAppState extends State<MyApp> {
       builder: (context, child) {
         return MaterialApp(
           navigatorKey: widget.navigatorKey,
-          // routerConfig: appRouter.config(),
-          // supportedLocales: localization.supportedLocales,
-          // localizationsDelegates: localization.localizationsDelegates,
-          // locale: provider.locale,
           theme: ThemeData(
             // useMaterial3: true,
 
@@ -183,46 +173,9 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           initialRoute: RoutesName.splash,
           onGenerateRoute: Routes.generateRoute,
-          // routerDelegate: AutoRouterDelegate(appRoute),
-          // routeInformationParser: appRoute.defaultRouteParser(),
-          // routerDelegate: _appRouter.delegate(),
-          // routeInformationParser: _appRouter.defaultRouteParser(),
+
         );
-        // MaterialApp.router(
-        //   // routerConfig: appRouter.config(),
-        //   // supportedLocales: localization.supportedLocales,
-        //   // localizationsDelegates: localization.localizationsDelegates,
-        //   // locale: provider.locale,
-        //   theme: ThemeData(
-        //     // useMaterial3: true,
-        //
-        //     fontFamily: 'RobotoMono',
-        //     primaryColor: AppColors.primaryColor,
-        //     colorScheme: ColorScheme.fromSwatch(
-        //       primarySwatch: Colors.green,
-        //     ),
-        //
-        //     appBarTheme: AppBarTheme(
-        //       elevation: 0,
-        //       toolbarHeight: 50.h,
-        //
-        //       backgroundColor: const Color(0xFFe6e6e6),
-        //       // backgroundColor: const Color(0xFFf2f2f2),
-        //       titleTextStyle: TextStyle(
-        //         fontSize: 16.sp,
-        //         fontWeight: FontWeight.w700,
-        //         color: const Color(0xFF646464),
-        //       ),
-        //     ),
-        //     scaffoldBackgroundColor: const Color(0xFFe6e6e6),
-        //     iconTheme: IconThemeData(size: 25.h, color: Colors.grey),
-        //   ),
-        //   debugShowCheckedModeBanner: false,
-        //   routerDelegate: AutoRouterDelegate(appRoute),
-        //   routeInformationParser: appRoute.defaultRouteParser(),
-        //   // routerDelegate: _appRouter.delegate(),
-        //   // routeInformationParser: _appRouter.defaultRouteParser(),
-        // );
+
       },
     );
   }

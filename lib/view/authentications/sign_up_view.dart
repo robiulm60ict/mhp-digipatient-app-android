@@ -67,7 +67,7 @@ class _SignUpViewState extends State<SignUpView> {
                 child: Row(
                   children: [
                     Text(
-                      "  +880  ",
+                      "  +88  ",
                       style:
                       TextStyle(fontSize: 16.sp, color: AppColors.blackColor),
                     ),

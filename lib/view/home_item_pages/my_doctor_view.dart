@@ -19,7 +19,8 @@ class MyDoctorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<MyDoctorDelaisViewModel>(context,listen: false);
+    final provider =
+        Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -97,6 +98,7 @@ class MyDoctorView extends StatelessWidget {
                   GridView.builder(
                     itemCount: provider.myDoctorList.length,
                     shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
                     gridDelegate: FlutterzillaFixedGridView(
                         crossAxisCount: 2,
                         mainAxisSpacing: 12,
@@ -120,10 +122,11 @@ class MyDoctorView extends StatelessWidget {
                             "${AppUrls.drprofile}${doc?.doctors?.drImages.toString()}",
                         docName:
                             "${doc!.doctors!.title!.titleName} ${doc!.doctors!.fullName}",
-                        docSpeciality:
-                            doc?.doctors?.specialist?.specialistsName.toString()??"",
+                        docSpeciality: doc?.doctors?.specialist?.specialistsName
+                                .toString() ??
+                            "",
                         docHospital:
-                            "${doc?.doctors!.usualProvider!= null ? doc?.doctors!.usualProvider!.usualProviderName.toString() : ""}",
+                            "${doc?.doctors!.usualProvider != null ? doc?.doctors!.usualProvider!.usualProviderName.toString() : ""}",
                         doctortitle: doc.doctors!.academic,
                       );
                     },

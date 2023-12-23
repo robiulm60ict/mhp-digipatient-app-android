@@ -9,11 +9,11 @@ import 'package:provider/provider.dart';
 
 import '../view_model/anatomy/anatomy_view_model.dart';
 
-getDiseaseModalSheet(BuildContext context, {String name = "", String subName = ""}){
+getDiseaseModalSheet(BuildContext context, {String name = "", String subName = "",String gender="" }){
   return showModalBottomSheet(context: context,
       builder: (context) {
     final anatomy = Provider.of<AnatomyModelView>(context);
-    bool val = anatomy.getSymptomsByBodyPart(name: name);
+   bool val = anatomy.getSymptomsByBodyPart(name: name, gender: gender);
     if(!val && anatomy.getSymptomsList.isNotEmpty){
       return StatefulBuilder(
         builder: (context, setState) => SizedBox(

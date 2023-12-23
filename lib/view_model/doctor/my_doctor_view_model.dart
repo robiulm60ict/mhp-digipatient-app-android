@@ -74,7 +74,7 @@ class MyDoctorViewModel with ChangeNotifier {
     doctorTimeSlotList.clear();
     DoctorRepository().getDocChamberTime(docId).then((value) {
       doctorTimeSlotList.addAll(value.docTimeSlots!);
-
+      isDocChamberTimeLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
       isDocChamberTimeLoading = false;

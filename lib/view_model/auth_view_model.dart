@@ -182,7 +182,7 @@ class AuthViewModel with ChangeNotifier {
     await _authRepo.sendOTP(body: body).then((value) {
 
       if(value.message.toString()=="Verification code sent successfully"){
-        Navigator.push(
+        Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) =>
@@ -232,7 +232,7 @@ class AuthViewModel with ChangeNotifier {
             backgroundColor: AppColors.greenColor);
         // Future.delayed(Duration(microseconds: 200));
         Future.delayed(Duration.zero);
-        Navigator.push(
+        Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) => CreateAccountView(

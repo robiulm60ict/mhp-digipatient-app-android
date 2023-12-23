@@ -53,7 +53,7 @@ class _SignInViewState extends State<SignInView> {
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
             child: CustomTextField(
               textEditingController: emailController,
-              keyboardType: TextInputType.emailAddress,
+              keyboardType: TextInputType.text,
               prefix: Icon(Icons.person_pin, color: AppColors.primaryColor,), hintText: "Email or Mobile",),
           ),
           SizedBox(height: 15.h,),

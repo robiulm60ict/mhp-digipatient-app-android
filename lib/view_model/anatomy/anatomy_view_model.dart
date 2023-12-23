@@ -79,12 +79,10 @@ class AnatomyModelView with ChangeNotifier {
   }
 
   getAnatomySymptoms(BuildContext context) async {
-
-
     setAnatomyLoading(true, "Loading......");
     //anatomySymptomsList.clear();
     symptomsList.clear();
-notifyListeners();
+    notifyListeners();
     await anatomyRepo.getAnatomySymptoms().then((value) {
       //  anatomySymptomsList.add(value);
       symptomsList.addAll(value.symptomsAnatomy!);
@@ -98,6 +96,7 @@ notifyListeners();
       Messages.snackBar(context, error.toString());
     });
   }
+
   List<SymptomsAnatomy> favourite = [];
 
   bool getSymptomsByBodyPartLoading = true;
@@ -105,12 +104,17 @@ notifyListeners();
 
   // List<SymptomsAnatomy> selectedAnatomyList = [];
 
-  bool getSymptomsByBodyPart({required String name}) {
+  bool getSymptomsByBodyPart({required String name,required gender}) {
+    print("ggggggggggggggg$gender");
 // symptomsList = symptomsList.where((e) => e.subBodyPartName?.contains(name) ?? false || e.mainBodyPartName?.contains(name) ?? false).toList();
     getSymptomsList = symptomsList
         .where((element) =>
-            element.subBodyPartName?.toLowerCase() == name.toLowerCase() ||
-            element.mainBodyPartName?.toLowerCase() == name.toLowerCase())
+    (element.subBodyPartName?.toLowerCase() == name.toLowerCase() ||
+        element.mainBodyPartName?.toLowerCase() == name.toLowerCase())
+         &&(element.sideSelectionName?.toLowerCase() == gender.toLowerCase()||element.sideSelectionName?.toLowerCase() == "all")
+
+
+    )
         .toList();
     // notifyListeners();
     return false;
@@ -119,7 +123,6 @@ notifyListeners();
   List<SymptomsAnatomy> selecteddata = [];
 
   List<SymptomsAnatomy> getSelectedSymptomsList() {
-
     List<SymptomsAnatomy> selected = [];
     // if (setEmpty) {
     //   return <SymptomsAnatomy>[];
@@ -128,10 +131,10 @@ notifyListeners();
       // debugPrint("\nSelected: ${i.symptomName} ${i.isSelected}");
       if (i.isSelected != null && i.isSelected == true) {
         selected.add(i);
-       // selecteddata.add(i.symptomName);
+        // selecteddata.add(i.symptomName);
 
         // selecteddata.add(i);
-         print(selecteddata.length);
+        print(selecteddata.length);
         // print("object ${selecteddata.length}");
 
         // debugPrint("Added --");
@@ -141,7 +144,7 @@ notifyListeners();
     }
     print(selecteddata.length);
 
-  //  selecteddata.addAll(selected);
+    //  selecteddata.addAll(selected);
     // notifyListeners();
     return selected;
   }
@@ -152,20 +155,18 @@ notifyListeners();
   }) {
     getSymptomsList[index].isSelected = value;
     notifyListeners();
-     if(value){
-       selectedAnatomyList.add(getSymptomsList[index]);
-     }else{
-       selectedAnatomyList.remove(getSymptomsList[index]);
-     }
-    bool contain =  selectedAnatomyList.contains(getSymptomsList[index]);
-     if(contain){
-       selectedAnatomyList.remove(getSymptomsList[index]);
-       for(var i in selectedAnatomyList){
-         debugPrint(i.symptomName);
-       }
-     }else{
-
-     }
+    if (value) {
+      selectedAnatomyList.add(getSymptomsList[index]);
+    } else {
+      selectedAnatomyList.remove(getSymptomsList[index]);
+    }
+    bool contain = selectedAnatomyList.contains(getSymptomsList[index]);
+    if (contain) {
+      selectedAnatomyList.remove(getSymptomsList[index]);
+      for (var i in selectedAnatomyList) {
+        debugPrint(i.symptomName);
+      }
+    } else {}
     notifyListeners();
     // debugPrint("\n\n\n value is = $value ---Does contain? ${getSymptomsList[index].symptomName} =$contain");
   }

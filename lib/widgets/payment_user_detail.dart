@@ -6,7 +6,16 @@ import 'package:provider/provider.dart';
 import '../resources/styles.dart';
 
 class PaymentUserDetail extends StatelessWidget {
-  const PaymentUserDetail({Key? key, required this.name, required this.designation, required this.visitingTime, required this.hospitalName, required this.date, required this.location, required this.image}) : super(key: key);
+  const PaymentUserDetail(
+      {Key? key,
+      required this.name,
+      required this.designation,
+      required this.visitingTime,
+      required this.hospitalName,
+      required this.date,
+      required this.location,
+      required this.image})
+      : super(key: key);
   final String name;
   final String designation;
   final String visitingTime;
@@ -19,21 +28,23 @@ class PaymentUserDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     final myRecord = Provider.of<MyRecordViewModel>(context);
     return Card(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.r)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
       child: Padding(
         padding: EdgeInsets.all(15.r),
         child: Column(
           children: [
             ListTile(
               leading: ClipOval(
-        child: Image.network(
-          image,
-          fit: BoxFit.cover,
-          width: 50.0,
-          height: 50.0,
-        )
-      ),
+                  child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: Image.network(
+                  image,
+                  fit: BoxFit.cover,
+                  width: 50.0,
+                  height: 50.0,
+                ),
+              )),
               title: Text(
                 name,
                 style: Style.alltext_default_balck_blod,
@@ -67,11 +78,13 @@ class PaymentUserDetail extends StatelessWidget {
                           style: Style.alltext_default_balck,
                         ),
                         const Spacer(),
-                        hospitalName !="" ?Icon(
-                          Icons.home,
-                          size: 12.h,
-                          color: const Color(0xFF8A8A8A),
-                        ):Container(),
+                        hospitalName != ""
+                            ? Icon(
+                                Icons.home,
+                                size: 12.h,
+                                color: const Color(0xFF8A8A8A),
+                              )
+                            : Container(),
                         SizedBox(
                           width: 4.w,
                         ),
@@ -87,7 +100,6 @@ class PaymentUserDetail extends StatelessWidget {
                       height: 8.h,
                     ),
                     Row(
-
                       children: [
                         Icon(
                           Icons.date_range,
@@ -99,7 +111,7 @@ class PaymentUserDetail extends StatelessWidget {
                         ),
                         Text(
                           myRecord.getDate(date),
-                          style:Style.alltext_default_balck,
+                          style: Style.alltext_default_balck,
                         ),
                         const Spacer(),
                         Icon(
@@ -112,7 +124,7 @@ class PaymentUserDetail extends StatelessWidget {
                         ),
                         Text(
                           location,
-                          style:Style.alltext_default_balck,
+                          style: Style.alltext_default_balck,
                         ),
                       ],
                     ),
