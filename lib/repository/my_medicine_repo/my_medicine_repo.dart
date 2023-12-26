@@ -21,7 +21,7 @@ class MyMedicineRepo{
 
     int? id = prefs.getInt(UserP.id);
     try {
-      dynamic response = await apiService.getPostApiResponseUrl(
+      dynamic response = await apiService.getGetApiResponse(
         "${AppUrls.getmyreportimage}$id"
       );
    //   print("data..................${response.toString()}");

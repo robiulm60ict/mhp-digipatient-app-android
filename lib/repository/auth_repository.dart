@@ -32,17 +32,28 @@ class AuthRepository {
     }
   }
 
-  Future<SendVerificationModel> sendOTP(
+  Future sendOTP(
       {required Map<String, dynamic> body}) async {
     try {
       dynamic response =
           await apiService.getPostApiResponse(AppUrls.sendVerification, body);
-      return SendVerificationModel.fromJson(response);
+      print(response);
+      return response;
     } catch (e) {
       rethrow;
     }
   }
-
+  Future sendOTPForget(
+      {required Map<String, dynamic> body}) async {
+    try {
+      dynamic response =
+      await apiService.getPostApiResponse(AppUrls.sendVerificationForget, body);
+      print(response);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
   Future<OtpCheckModel> checkOTP({required Map<String, dynamic> body}) async {
     try {
       dynamic response =

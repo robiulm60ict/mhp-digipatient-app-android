@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 
 import '../../resources/colors.dart';
 import '../../widgets/gradient_appBar.dart';
+import '../forget_password/otpsend_view.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({Key? key}) : super(key: key);
@@ -82,7 +83,13 @@ class _SignInViewState extends State<SignInView> {
               alignment: Alignment.centerRight,
               child: TextButton(
 
-                  onPressed: (){}, child: Text("Forgot Password?", style: TextStyle(fontSize: 12.sp, color: AppColors.primaryColor),)),
+                  onPressed: (){
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              OtpSendView()));
+                  }, child: Text("Forgot Password?", style: TextStyle(fontSize: 12.sp, color: AppColors.primaryColor),)),
             ),
           ),
           // SizedBox(height: 10.h,),

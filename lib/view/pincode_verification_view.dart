@@ -15,10 +15,12 @@ import '../resources/colors.dart';
 
 class PinCodeVerificationView extends StatefulWidget {
   final String? phoneNumber;
+  final String? token;
 
   const PinCodeVerificationView({
     Key? key,
    required this.phoneNumber,
+   required this.token,
   }) : super(key: key);
 
   @override
@@ -250,7 +252,7 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
                     onPressed: () async{
                       Map<String,dynamic> body = {
                         "phone_number" : widget.phoneNumber,
-                        "token" : auth.otpList.first.token,
+                        "token" : widget.token,
                         "verification_code" : currentText
                       };
 

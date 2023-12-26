@@ -112,6 +112,7 @@ class AppUrls{
   /// Registration
 
   static const String sendVerification = '$baseUrlPatient/send-verfication-code';
+  static const String sendVerificationForget = '$baseUrlPatient/send-verfication-code-forgot-password';
 
   static const String checkOtp = '$baseUrlPatient/verification-check';
 

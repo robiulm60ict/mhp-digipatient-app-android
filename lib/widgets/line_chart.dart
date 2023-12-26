@@ -120,36 +120,95 @@ class _CustomLineChartAllState extends State<CustomLineChartAll> {
             // getTouchedSpotIndicator: (barData, spotIndexes) => ,
           ),
           lineBarsData: [
-            LineChartBarData(
-              spots: widget.patientVsList.reversed.first.name.toString() ==
-                  "Blood Pressure"
-                  ? widget.patientVsList.asMap().entries.map((entry) {
-                return FlSpot(
-                    double.tryParse(entry.value.value.toString().split("/").first ?? "0") ??
-                        0
-                    ,
-                    double.tryParse(entry.value.value.toString().split("/").last ?? "0") ??
-                        0);
-              }).toList()
-                  : widget.patientVsList.asMap().entries.map((entry) {
-                return FlSpot(
-                    entry.key.toDouble(),
-                    double.tryParse(entry.value.value.toString() ?? "0") ??
-                        0);
-              }).toList(),
+            widget.patientVsList.reversed.first.name.toString() ==
+                "Blood Pressure"
+                ? LineChartBarData(
+              spots: List.generate(
+                  widget.patientVsList.length,
+                      (index) => FlSpot(
+                      index.toDouble(),
+                      double.parse(widget.patientVsList[index].value
+                          .toString()
+                          .split('/')
+                          .first))),
               isCurved: true,
-              color: AppColors.primaryColor,
+              belowBarData: BarAreaData(show: false),
+              dotData: FlDotData(show: false),
+              color: Colors.green,
               barWidth: 4,
-              dotData: FlDotData(
-                show: true,
-                getDotPainter: (p0, p1, p2, p3) => p0.x == 5
-                    ? FlDotCirclePainter(
-                    strokeWidth: 6,
-                    color: AppColors.primaryColor,
-                    strokeColor: AppColors.primaryColor)
-                    : FlDotCirclePainter(),
-              ),
+            )
+                : LineChartBarData(
+              // spots: List.generate(
+              //     widget.patientVsList.length,
+              //         (index) => FlSpot(
+              //         index.toDouble(),
+              //         double.parse(widget.patientVsList[index].value
+              //             .toString()
+              //             .split('/')
+              //             .first))),
+              spots: List.generate( widget.patientVsList.length,
+                      (index) => FlSpot(index.toDouble(), double.parse( widget.patientVsList.reversed.first.name.toString() ==
+                      "Blood Pressure"? widget.patientVsList[index].value.toString().split('/').first:widget.patientVsList[index].value.toString().split('').first))),
+              isCurved: true,
+              belowBarData: BarAreaData(show: false),
+              dotData: FlDotData(show: false),
+              color: Colors.yellow,
+              barWidth: 4,
             ),
+            widget.patientVsList.reversed.first.name.toString() ==
+                "Blood Pressure"
+                ? LineChartBarData(
+              spots: List.generate(
+                  widget.patientVsList.length,
+                      (index) => FlSpot(
+                      index.toDouble(),
+                      double.parse(widget.patientVsList[index].value
+                          .toString()
+                          .split('/')
+                          .last.toString()))),
+              isCurved: true,
+              belowBarData: BarAreaData(show: false),
+              dotData: FlDotData(show: false),
+              color: Colors.red,
+              barWidth: 4,
+            )
+                :  LineChartBarData(),
+
+            // _buildLineChartBar(systolicData, Colors.blue),
+            // _buildLineChartBar2(systolicData, Colors.red),
+            // LineChartBarData(
+            //   // spots: reverseSpots(spots2, minSpotY, double.tryParse(value.value.toString().split("/").last ?? "0") ??
+            //   //               0),
+            //   // spots: widget.patientVsList.reversed.first.name.toString() ==
+            //   //         "Blood Pressure"
+            //   //     ? widget.patientVsList.asMap().entries.map((entry) {
+            //   //         return reverseSpots()
+            //   //
+            //   //           // FlSpot(
+            //   //           //   entry.key.toDouble(),
+            //   //           //
+            //   //           //   double.tryParse(entry.value.value.toString().split("/").last ?? "0") ??
+            //   //           //       0);
+            //   //       }).toList()
+            //   //     : widget.patientVsList.asMap().entries.map((entry) {
+            //   //         return FlSpot(
+            //   //             entry.key.toDouble(),
+            //   //             double.tryParse(entry.value.value.toString() ?? "0") ??
+            //   //                 0);
+            //   //       }).toList(),
+            //   isCurved: true,
+            //   color: AppColors.primaryColor,
+            //   barWidth: 4,
+            //   dotData: FlDotData(
+            //     show: true,
+            //     getDotPainter: (p0, p1, p2, p3) => p0.x == 5
+            //         ? FlDotCirclePainter(
+            //             strokeWidth: 6,
+            //             color: AppColors.primaryColor,
+            //             strokeColor: AppColors.primaryColor)
+            //         : FlDotCirclePainter(),
+            //   ),
+            // ),
           ],
           // minY: 0,
           // maxY: 12,
@@ -162,15 +221,15 @@ class _CustomLineChartAllState extends State<CustomLineChartAll> {
               leftTitles: AxisTitles(
                 sideTitles: SideTitles(
                   showTitles: true,
-                  getTitlesWidget: (value, meta) => Text(value.toInt().toString()),
-                ),),
+                  getTitlesWidget: (value, meta) =>
+                      Text(value.toInt().toString()),
+                ),
+              ),
               bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
                     getTitlesWidget: (value, meta) => Text(value.toInt().toString()),
-                  )
-              )
-          ),
+                  ))),
         ),
       );
     }

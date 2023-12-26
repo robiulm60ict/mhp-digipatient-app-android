@@ -18,6 +18,9 @@ class InvoiceShowModel {
   dynamic details;
   DateTime? createdAt;
   DateTime? updatedAt;
+  String? transcitionNumber;
+  String? phoneNumber;
+  String? paymentMethod;
   Doctor? doctor;
 
   InvoiceShowModel({
@@ -30,6 +33,9 @@ class InvoiceShowModel {
     this.details,
     this.createdAt,
     this.updatedAt,
+    this.transcitionNumber,
+    this.phoneNumber,
+    this.paymentMethod,
     this.doctor,
   });
 
@@ -43,6 +49,9 @@ class InvoiceShowModel {
     details: json["details"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    transcitionNumber: json["transcition_number"],
+    phoneNumber: json["phone_number"],
+    paymentMethod: json["payment_method"],
     doctor: json["doctor"] == null ? null : Doctor.fromJson(json["doctor"]),
   );
 
@@ -52,10 +61,13 @@ class InvoiceShowModel {
     "patient_id": patientId,
     "payment_type": paymentType,
     "amount": amount,
-    "date": "${date!.year.toString().padLeft(4, '0')}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}",
+    "date": date?.toIso8601String(),
     "details": details,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
+    "transcition_number": transcitionNumber,
+    "phone_number": phoneNumber,
+    "payment_method": paymentMethod,
     "doctor": doctor?.toJson(),
   };
 }

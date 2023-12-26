@@ -17,6 +17,8 @@ import '../model/registration/send_verification_code_model.dart';
 import '../repository/doctor_screen_repo/patient_list_repo.dart';
 import '../utils/route/routes_name.dart';
 import '../view/authentications/sign_in_view.dart';
+import '../view/forget_password/forget_pincode_verification_view.dart';
+import '../view/forget_password/newpassword_view.dart';
 import '/repository/auth_repository.dart';
 import '/routes/routes.gr.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
@@ -180,21 +182,33 @@ class AuthViewModel with ChangeNotifier {
     notifyListeners();
     otpList.clear();
     await _authRepo.sendOTP(body: body).then((value) {
+print(value);
+      if(value['message'].toString()=="Verification code sent successfully"){
+        setSendOtpLoading(false);
+        isSendOtpLoading = false;
 
-      if(value.message.toString()=="Verification code sent successfully"){
+        notifyListeners();
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    PinCodeVerificationView(phoneNumber: phnNumber)));
+                    PinCodeVerificationView(phoneNumber: phnNumber, token: value['token'],)));
+      }else if(value['message'].toString()=="The given data was invalid."){
+        setSendOtpLoading(false);
+        isSendOtpLoading = false;
+
+        notifyListeners();
+        Messages.snackBar(context, value['errors']['phone_number'].toString());
+      }else{
+        setSendOtpLoading(false);
+        isSendOtpLoading = false;
+
+        notifyListeners();
       }
 
-      otpList.add(value);
+     // otpList.add(value);
 
-      setSendOtpLoading(false);
-      isSendOtpLoading = false;
 
-      notifyListeners();
       // context.router.push(PinCodeVerificationRoute(phoneNumber: phnNumber));
     }).onError((error, stackTrace) {
       isSendOtpLoading = false;
@@ -205,6 +219,52 @@ class AuthViewModel with ChangeNotifier {
     });
   }
 
+
+  Future<void> sendOtpForget(BuildContext context,
+      {required String phnNumber}) async {
+    Map<String, dynamic> body = {"phone_number": phnNumber};
+    setSendOtpLoading(true);
+    isSendOtpLoading = true;
+    notifyListeners();
+    otpList.clear();
+    await _authRepo.sendOTPForget(body: body).then((value) {
+      print(value);
+      if(value['message'].toString()=="Verification code sent successfully"){
+        setSendOtpLoading(false);
+        isSendOtpLoading = false;
+
+        notifyListeners();
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    ForgetPinCodeVerificationView(phoneNumber: phnNumber, token: value['token'],)));
+      }else if(value['message'].toString()=="The given data was invalid."){
+        setSendOtpLoading(false);
+        isSendOtpLoading = false;
+
+        notifyListeners();
+        Messages.snackBar(context, value['errors']['phone_number'].toString());
+      }else{
+        Messages.snackBar(context, value['message'].toString());
+        setSendOtpLoading(false);
+        isSendOtpLoading = false;
+
+        notifyListeners();
+      }
+
+      // otpList.add(value);
+
+
+      // context.router.push(PinCodeVerificationRoute(phoneNumber: phnNumber));
+    }).onError((error, stackTrace) {
+      isSendOtpLoading = false;
+      notifyListeners();
+      setSendOtpLoading(false);
+      debugPrint(error.toString());
+      Messages.snackBar(context, error.toString());
+    });
+  }
   bool isOtpCheckLoading = false;
 
   setOtpCheckLoading(bool val) {
@@ -254,6 +314,41 @@ class AuthViewModel with ChangeNotifier {
       Messages.snackBar(context, error.toString());
     });
   }
+  Future<void> otpCheckForget(BuildContext context, Map<String, dynamic> body) async {
+    setOtpCheckLoading(true);
+    setOtpCheckError(false);
+    otpCheckList.clear();
+    _authRepo.checkOTP(body: body).then((value) {
+      otpCheckList.add(value);
+      if (otpCheckList.first.verify!) {
+        setOtpCheckError(false);
+        Messages.snackBar(context, otpCheckList.first.message.toString(),
+            backgroundColor: AppColors.greenColor);
+        // Future.delayed(Duration(microseconds: 200));
+        Future.delayed(Duration.zero);
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    NewPasswordSendView(phoneNumber: body['phone_number'],)));
+
+
+        // context.router
+        //     .push(CreateAccountRoute(phoneNumber: body['phone_number']));
+      } else {
+        setOtpCheckError(true);
+        setOtpCheckLoading(false);
+        Messages.snackBar(context, otpCheckList.first.message.toString());
+      }
+      // notifyListeners();
+      // setOtpCheckLoading(false);
+    }).onError((error, stackTrace) {
+      setOtpCheckError(true);
+      setOtpCheckLoading(false);
+      Messages.snackBar(context, error.toString());
+    });
+  }
+
 
   signUpOriginal(BuildContext context, body) async {
     // registrationList.clear();
@@ -352,7 +447,8 @@ class AuthViewModel with ChangeNotifier {
     birthSexList.clear();
     birthSexListItems.clear();
     await _authRepo.getBirthSex().then((value) {
-      print(value);
+      print('dddddddddddddddddddddd${value}');
+      setBirthSexLoading(false);
 
       birthSexList.add(value);
       birthSexList.first.birthSex!.forEach((element) {

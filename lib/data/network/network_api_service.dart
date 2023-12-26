@@ -8,7 +8,6 @@ import '/data/network/base_api_service.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkApiService extends BaseApiService {
-
   @override
   Future getGetApiResponse(String url) async {
     dynamic responseJson;
@@ -26,14 +25,15 @@ class NetworkApiService extends BaseApiService {
       throw FetchDataException("No Internet Connection");
     }
     return responseJson;
-  }  @override
+  }
+
+  @override
   Future getGetApiResponseNoHader(String url) async {
     dynamic responseJson;
     try {
       final response = await http.get(
         Uri.parse(url),
         headers: {
-
           'Accept': 'application/json',
         },
       ).timeout(const Duration(seconds: 10));
@@ -84,7 +84,9 @@ class NetworkApiService extends BaseApiService {
       throw FetchDataException("No Internet Connection");
     }
     return responseJson;
-  }  @override
+  }
+
+  @override
   Future getPostApiResponseUrl(String url) async {
     dynamic responseJson;
     try {
@@ -143,12 +145,15 @@ class NetworkApiService extends BaseApiService {
       case 401:
         dynamic responseJson = jsonDecode(response.body.toString());
         return responseJson;
+      case 422:
+        dynamic responseJson = jsonDecode(response.body.toString());
+        return responseJson;
       case 400:
         throw BadRequestException(response.body.toString());
       case 404:
         dynamic responseJson = jsonDecode(response.body.toString());
         return responseJson;
-        case 413:
+      case 413:
         throw LargeRequestException();
       case 500:
         throw InternalServerException("Internal Server Error ");

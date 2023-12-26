@@ -28,6 +28,7 @@ import '../../widgets/back_button.dart';
 import '../../widgets/drawer_list_tile.dart';
 import '../../widgets/shimmer.dart';
 import '../privacy_policy/privacypolicy.dart';
+import '../profile/patient_profile.dart';
 import '../support/support_page.dart';
 
 class HomeView extends StatefulWidget {
@@ -141,6 +142,7 @@ class _HomeViewState extends State<HomeView> {
                   iconData: Icons.person,
                   title: "Profile",
                   onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileData()));
                     // Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDetailView(user: user)));
                   },
                 ),

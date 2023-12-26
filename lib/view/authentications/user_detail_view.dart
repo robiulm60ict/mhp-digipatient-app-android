@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:digi_patient/model/user_detail_model/user_model.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +9,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../enum/gender_enum.dart';
+import '../../model/appointment_model/upcomming_appointments_model.dart';
 import '../../model/auth_model/birth_sex_model.dart';
-import '../../model/auth_model/blood_group_model.dart';
+import '../../model/userprofile/userprofile_model.dart';
 import '../../resources/app_url.dart';
 import '../../resources/constants.dart';
 import '../../utils/message.dart';
@@ -22,7 +22,7 @@ import '../../widgets/custom_elivated_button.dart';
 
 class UserDetailView extends StatefulWidget {
   const UserDetailView({Key? key, required this.user}) : super(key: key);
-  final Patient user;
+  final PatientsDetails user;
 
   @override
   State<UserDetailView> createState() => _UserDetailViewState();
@@ -73,13 +73,15 @@ class _UserDetailViewState extends State<UserDetailView> {
     // }
   }
   Gender _gender = Gender.male;
-  BloodGroup? bloodGroup;
+  // BloodGroup? bloodGroup;
 
   BirthSex? birthSex;
 
+  String birth='';
+
   selectBirthSexAndBloodGroup({required String birthSexId, required String bloodGroupId}){
-    birthSex = context.read<AuthViewModel>().birthSexList.first.birthSex?.where((element) => element.id.toString() == birthSexId).toList().first;
-    bloodGroup = context.read<AuthViewModel>().bloodGroupList.first.bloodGroup?.where((element) => element.id.toString() == bloodGroupId).toList().first;
+    birthSex = context.read<AuthViewModel>().birthSexList.first.birthSex?.where((element) => element.birthSexName.toString() == birthSexId).toList().first;
+    // bloodGroup = context.read<AuthViewModel>().bloodGroupList.first.bloodGroup?.where((element) => element.id.toString() == bloodGroupId).toList().first as BloodGroup?;
   setState(() {
 
   });
@@ -92,37 +94,38 @@ class _UserDetailViewState extends State<UserDetailView> {
       // Add Your Code here.
       context.read<AuthViewModel>().getBirthSex(context);
       context.read<AuthViewModel>().getBloodGroup(context);
-      // selectBirthSexAndBloodGroup(birthSexId: "${widget.user.patientBirthSex?.id.toString()}", bloodGroupId: widget.user.ptnBloodGroupId.toString());
-      // setBirthSexAndBloodGroup();
+       selectBirthSexAndBloodGroup(birthSexId: "${widget.user.patientBirthSex?.birthSexName.toString()}", bloodGroupId: widget.user.ptnBloodGroupId.toString());
+       setBirthSexAndBloodGroup();
     });
     nameController = TextEditingController(text: "${widget.user.patientFirstName} ${widget.user.patientMiddleName} ${widget.user.patientLastName}");
     emailController = TextEditingController(text: "${widget.user.patientEmail}");
     dateOfBirthController = TextEditingController(text: "${widget.user.patientDob}");
-    // setGender(widget.user.patientBirthSex?.birthSexName ?? "");
+     setGender(widget.user.patientBirthSex?.birthSexName ?? "");
   }
-  // setBirthSexAndBloodGroup() {
-  //   if (!context
-  //       .read<AuthViewModel>()
-  //       .isBloodGroupLoading && !context
-  //       .read<AuthViewModel>()
-  //       .isBirthSexLoading) {
-  //     bloodGroup = context
-  //         .read<AuthViewModel>()
-  //         .bloodGroupList
-  //         .first
-  //         .bloodGroup!
-  //         .first;
-  //     birthSex = context
-  //         .read<AuthViewModel>()
-  //         .birthSexList
-  //         .first
-  //         .birthSex!
-  //         .first;
-  //     setState(() {
-  //
-  //     });
-  //   }
-  // }
+  setBirthSexAndBloodGroup() {
+    if (!context
+        .read<AuthViewModel>()
+        .isBloodGroupLoading && !context
+        .read<AuthViewModel>()
+        .isBirthSexLoading) {
+
+      // bloodGroup = context
+      //     .read<AuthViewModel>()
+      //     .bloodGroupList
+      //     .first
+      //     .bloodGroup!
+      //     .first;
+      birthSex = context
+          .read<AuthViewModel>()
+          .birthSexList
+          .first
+          .birthSex!
+          .first;
+      setState(() {
+
+      });
+    }
+  }
   setGender(String gender){
     if( widget.user.patientBirthSex?.birthSexName.toString().toLowerCase() == "male"){
       setState(() {
@@ -230,25 +233,25 @@ class _UserDetailViewState extends State<UserDetailView> {
                   SizedBox(height: 10.h,),
                   auth.isBloodGroupLoading ? const Center(child: CircularProgressIndicator(),) :
 
-                  SizedBox(
-                    height: 55.h,
-                    width: double.infinity,
-                    child: DropdownButton<BloodGroup>(
-
-                      hint: Text("Select Blood Group", style: TextStyle(fontSize: 14.sp,),),
-                      items: auth.bloodGroupList.first.bloodGroup?.map((e) => DropdownMenuItem<BloodGroup>(value: e,child: Text("${e.bloodGroupName}", style: TextStyle(fontSize: 14.sp, ),),)).toList(),
-                      isExpanded: true,
-                      value: bloodGroup,
-                      onChanged: (value) {
-                        if(value != null){
-                          setState(() {
-                            // bloodGroupId = "${value.id}";
-                            bloodGroup = value;
-                          });
-                        }
-
-                      },),
-                  ),
+                  // SizedBox(
+                  //   height: 55.h,
+                  //   width: double.infinity,
+                  //   child: DropdownButton<BloodGroup>(
+                  //
+                  //     hint: Text("Select Blood Group", style: TextStyle(fontSize: 14.sp,),),
+                  //     items: auth.bloodGroupList.first.bloodGroup?.map((e) => DropdownMenuItem<BloodGroup>(value: e,child: Text("${e.bloodGroupName}", style: TextStyle(fontSize: 14.sp, ),),)).toList(),
+                  //     isExpanded: true,
+                  //     value: bloodGroup,
+                  //     onChanged: (value) {
+                  //       if(value != null){
+                  //         setState(() {
+                  //           // bloodGroupId = "${value.id}";
+                  //           bloodGroup = value;
+                  //         });
+                  //       }
+                  //
+                  //     },),
+                  // ),
 
                   SizedBox(
                     height: 10.h,
@@ -305,7 +308,7 @@ class _UserDetailViewState extends State<UserDetailView> {
                   //     ),
                   //   ],
                   // ),
-                  auth.isBirthSexLoading ? const Center(child: CircularProgressIndicator(),) :
+               //  auth.isBirthSexLoading ? const Center(child: CircularProgressIndicator(),) :
 
                   SizedBox(
                     height: 55.h,
@@ -318,7 +321,7 @@ class _UserDetailViewState extends State<UserDetailView> {
                       onChanged: (value) {
                         if(value != null){
                           setState(() {
-                            // bloodGroupId = "${value.id}";
+                            birth = "${value.birthSexName}";
                             birthSex = value;
                           });
                         }
@@ -326,65 +329,65 @@ class _UserDetailViewState extends State<UserDetailView> {
                       },),
                   ),
 
-                  // CustomTextField(
-                  //   prefix: Icon(Icons.bloodtype, color: AppColors.primaryColor,),
-                  //   hintText: "Blood Group",
-                  // ),
-                  // SizedBox(
-                  //   height: 10.h,
-                  // ),
-                  // Row(
-                  //   children: [
-                  //     Expanded(
-                  //       child: RadioListTile<Gender>(
-                  //         activeColor: AppColors.primaryColor,
-                  //         title: Text(
-                  //           'Male',
-                  //           style: genderTextStyle(context),
-                  //         ),
-                  //         value: Gender.male,
-                  //         groupValue: _gender,
-                  //         onChanged: (Gender? value) {
-                  //           setState(() {
-                  //             _gender = value!;
-                  //           });
-                  //         },
-                  //       ),
-                  //     ),
-                  //     Expanded(
-                  //       child: RadioListTile<Gender>(
-                  //         activeColor: AppColors.primaryColor,
-                  //         title: Text(
-                  //           'Female',
-                  //           style: genderTextStyle(context),
-                  //         ),
-                  //         value: Gender.female,
-                  //         groupValue: _gender,
-                  //         onChanged: (Gender? value) {
-                  //           setState(() {
-                  //             _gender = value!;
-                  //           });
-                  //         },
-                  //       ),
-                  //     ),
-                  //     Expanded(
-                  //       child: RadioListTile<Gender>(
-                  //         activeColor: AppColors.primaryColor,
-                  //         title: Text(
-                  //           'Others',
-                  //           style: genderTextStyle(context),
-                  //         ),
-                  //         value: Gender.others,
-                  //         groupValue: _gender,
-                  //         onChanged: (Gender? value) {
-                  //           setState(() {
-                  //             _gender = value!;
-                  //           });
-                  //         },
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
+                  CustomTextField(
+                    prefix: Icon(Icons.bloodtype, color: AppColors.primaryColor,),
+                    hintText: "Blood Group",
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: RadioListTile<Gender>(
+                          activeColor: AppColors.primaryColor,
+                          title: Text(
+                            'Male',
+                            style: genderTextStyle(context),
+                          ),
+                          value: Gender.male,
+                          groupValue: _gender,
+                          onChanged: (Gender? value) {
+                            setState(() {
+                              _gender = value!;
+                            });
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: RadioListTile<Gender>(
+                          activeColor: AppColors.primaryColor,
+                          title: Text(
+                            'Female',
+                            style: genderTextStyle(context),
+                          ),
+                          value: Gender.female,
+                          groupValue: _gender,
+                          onChanged: (Gender? value) {
+                            setState(() {
+                              _gender = value!;
+                            });
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: RadioListTile<Gender>(
+                          activeColor: AppColors.primaryColor,
+                          title: Text(
+                            'Others',
+                            style: genderTextStyle(context),
+                          ),
+                          value: Gender.others,
+                          groupValue: _gender,
+                          onChanged: (Gender? value) {
+                            setState(() {
+                              _gender = value!;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                   // CustomTextField(
                   //   prefix: Icon(Icons.lock, color: AppColors.primaryColor,),
                   //   hintText: "Password",
