@@ -52,7 +52,7 @@ customSearchDialogue(BuildContext context,
           docDegree: "",
           docDepartment: doctor.doctors?.department?.departmentsName ?? "",
           docHospitalImage:  "${doctor?.doctors!.usualProvider!= null ? doctor?.doctors!.usualProvider!.usualProviderName.toString() : ""}",
-           docName: "${doctor.doctors!.title!.titleName} ${doctor.doctors?.drGivenName} ${doctor.doctors?.drMiddleName} ${doctor.doctors?.drLastName}",
+           docName: "${doctor.doctors!.title!.titleName} ${doctor.doctors?.fullName}",
           //docName: doctor.drFullName ?? "",
           docRating: 5,
           docUrl:

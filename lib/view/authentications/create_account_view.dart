@@ -449,11 +449,12 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       )),
                 ),
                 Style.distan_size15,
-                auth.isRegistrationLoading == true
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : CustomElevatedButton(
+                // auth.isRegistrationLoading == true
+                //     ? Center(
+                //         child: CircularProgressIndicator(),
+                //       )
+                //     :
+                CustomElevatedButton(
                         isExpanded: false,
                         title: "Save",
                         onPressed: () async {

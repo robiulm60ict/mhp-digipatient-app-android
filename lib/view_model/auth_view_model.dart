@@ -228,6 +228,7 @@ print(value);
     notifyListeners();
     otpList.clear();
     await _authRepo.sendOTPForget(body: body).then((value) {
+      print("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
       print(value);
       if(value['message'].toString()=="Verification code sent successfully"){
         setSendOtpLoading(false);
@@ -314,7 +315,11 @@ print(value);
       Messages.snackBar(context, error.toString());
     });
   }
+
+
+
   Future<void> otpCheckForget(BuildContext context, Map<String, dynamic> body) async {
+    print("dddddddddddddddddddddddddddddddd");
     setOtpCheckLoading(true);
     setOtpCheckError(false);
     otpCheckList.clear();
@@ -349,6 +354,40 @@ print(value);
     });
   }
 
+  Future<void> newpasswordForget(BuildContext context, Map<String, dynamic> body) async {
+    setOtpCheckLoading(true);
+    setOtpCheckError(false);
+    _authRepo.newPassword(body: body).then((value) {
+      print(value);
+      // if (otpCheckList.first.verify!) {
+      //   setOtpCheckError(false);
+      //   Messages.snackBar(context, otpCheckList.first.message.toString(),
+      //       backgroundColor: AppColors.greenColor);
+      //   // Future.delayed(Duration(microseconds: 200));
+      //   Future.delayed(Duration.zero);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignInView()));
+      //   Navigator.pushReplacement(
+      //       context,
+      //       MaterialPageRoute(
+      //           builder: (context) =>
+      //               NewPasswordSendView(phoneNumber: body['phone_number'],)));
+      //
+      //
+      //   // context.router
+      //   //     .push(CreateAccountRoute(phoneNumber: body['phone_number']));
+      // } else {
+      //   setOtpCheckError(true);
+      //   setOtpCheckLoading(false);
+      //   Messages.snackBar(context, otpCheckList.first.message.toString());
+      // }
+      // notifyListeners();
+      // setOtpCheckLoading(false);
+    }).onError((error, stackTrace) {
+      setOtpCheckError(true);
+      setOtpCheckLoading(false);
+      Messages.snackBar(context, error.toString());
+    });
+  }
 
   signUpOriginal(BuildContext context, body) async {
     // registrationList.clear();
@@ -388,6 +427,7 @@ print(value);
 
       notifyListeners();
     }).onError((error, stackTrace) {
+      print(error.toString());
       Messages.snackBar(context, error.toString());
       setRegistrationLoading(false);
       isRegistrationLoading = false;

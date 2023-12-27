@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 
 import '../../resources/colors.dart';
 import '../../widgets/gradient_appBar.dart';
+import '../forget_password/forget_pincode_verification_view.dart';
 import '../forget_password/otpsend_view.dart';
 
 class SignInView extends StatefulWidget {
@@ -84,6 +85,11 @@ class _SignInViewState extends State<SignInView> {
               child: TextButton(
 
                   onPressed: (){
+                  // Navigator.pushReplacement(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) =>
+                  //             ForgetPinCodeVerificationView(phoneNumber: '', token: '',)));
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

@@ -114,8 +114,10 @@ class AppUrls{
   static const String sendVerification = '$baseUrlPatient/send-verfication-code';
   static const String sendVerificationForget = '$baseUrlPatient/send-verfication-code-forgot-password';
 
-  static const String checkOtp = '$baseUrlPatient/verification-check';
 
+  static const String checkOtp = '$baseUrlPatient/verification-check';
+  static const String newPassword = '$baseUrlPatient/patient-password-update';
+  static const String checkOtpforget = '$baseUrlPatient/verification-check';
   static const String registration = '$baseUrlPatient/patient-registration';
 
   static const String loginAfterRegistration = '$baseUrl/api/login-patient';

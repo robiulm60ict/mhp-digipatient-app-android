@@ -64,6 +64,16 @@ class AuthRepository {
     }
   }
 
+  Future<OtpCheckModel> newPassword({required Map<String, dynamic> body}) async {
+    try {
+      dynamic response =
+      await apiService.getPostApiResponse(AppUrls.newPassword, body);
+      return OtpCheckModel.fromJson(response);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   NetworkApiService api = NetworkApiService();
   Future<RegistrationModel> signUpOriginal(BuildContext context, Map<String,dynamic> body)async{
 

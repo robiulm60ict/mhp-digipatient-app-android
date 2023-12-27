@@ -77,7 +77,7 @@ class _ForgetPinCodeVerificationViewState extends State<ForgetPinCodeVerificatio
           width: MediaQuery.of(context).size.width,
           child: ListView(
             children: <Widget>[
-               const GradientAppBar(text: "Verification"),
+               const GradientAppBar(text: "Forget Verification"),
 
               SizedBox(height: 50.h),
 
@@ -193,9 +193,41 @@ class _ForgetPinCodeVerificationViewState extends State<ForgetPinCodeVerificatio
                   ),
                   TextButton(
                     onPressed: () {
-                      auth.sendOtp(context, phnNumber: widget.phoneNumber!).then((value) {
-                        snackBar("OTP resend!!");
-                      });
+                      print("dddddddddddddd");
+                      Map<String,dynamic> body = {
+                        "phone_number" : widget.phoneNumber,
+                        "token" : widget.token,
+                        "verification_code" : currentText
+                      };
+                      print("dddddddddddddd");
+                      // snackBar(" Enter The house ");
+                     formKey.currentState!.validate();
+                      // conditions for validating
+                      if (currentText.length != 4) {
+                        // snackBar(" Wrong Place ");
+                        errorController!.add(ErrorAnimationType
+                            .shake); // Triggering error shake animation
+                        setState(() => hasError = true);
+                      } else {
+                        print("dddddddddddddd");
+                        setState(
+                              () {
+                            hasError = false;
+                            auth.otpCheckForget(context, body).then((value) {
+                              // if(auth.otpCheckError){
+                              //   errorController!.add(ErrorAnimationType
+                              //       .shake);
+                              //   setState(() {
+                              //     hasError = true;
+                              //   });
+                              // }
+                            });
+
+                          },
+                        );
+                      }
+
+
 
                     },
                     child:  Text(
@@ -266,7 +298,7 @@ class _ForgetPinCodeVerificationViewState extends State<ForgetPinCodeVerificatio
                         setState(
                               () {
                             hasError = false;
-                             auth.otpCheck(context, body).then((value) {
+                             auth.otpCheckForget(context, body).then((value) {
                               if(auth.otpCheckError){
                                 errorController!.add(ErrorAnimationType
                                     .shake);

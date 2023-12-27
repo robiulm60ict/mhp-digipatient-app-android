@@ -13,6 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../routes/routes.gr.dart';
+import '../../widgets/custom_textfield.dart';
 import 'forget_pincode_verification_view.dart';
 
 class NewPasswordSendView extends StatefulWidget {
@@ -24,13 +25,16 @@ class NewPasswordSendView extends StatefulWidget {
 }
 
 class _NewPasswordSendViewState extends State<NewPasswordSendView> {
-  TextEditingController phnNumber = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    phnNumber.dispose();
+    password.dispose();
+    confirmPassword.dispose();
   }
+  bool obSecureText = false;
 
   @override
   Widget build(BuildContext context) {
@@ -53,41 +57,27 @@ class _NewPasswordSendViewState extends State<NewPasswordSendView> {
                     color: AppColors.primaryColor),
               ),
             ),
-
-
-            Card(
-              margin: EdgeInsets.only(left: 22,right: 22,top: 8,bottom: 8),
-              // color: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.r),
-                  side: BorderSide(
-                    color: AppColors.primaryColor,
-                  )),
-              child: Row(
-                children: [
-                  // Text(
-                  //   "  +88  ",
-                  //   style:
-                  //       TextStyle(fontSize: 16.sp, color: AppColors.blackColor),
-                  // ),
-                  Expanded(
-                    child: TextField(
-                      controller: phnNumber,
-                      keyboardType: TextInputType.number,
-                      enabled: true,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
+              child: CustomTextField(
+                textEditingController: password,
+                obscureText: !obSecureText,
+                prefix:  Icon(Icons.lock, color: AppColors.primaryColor,), hintText: "Password",
+                suffix: IconButton(onPressed: (){
+                  setState(() {
+                    obSecureText = !obSecureText;
+                  });
+                }, icon: Icon(obSecureText ? Icons.visibility : Icons.visibility_off, color: obSecureText? AppColors.primaryColor : Colors.grey,)),),),
+            SizedBox(
+              height: 5.h,
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
               child: Text(
-                "Conform Password",
+                "Confirm Password",
                 style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
@@ -95,36 +85,21 @@ class _NewPasswordSendViewState extends State<NewPasswordSendView> {
               ),
             ),
 
-
-            Card(
-              margin: EdgeInsets.only(left: 22,right: 22,top: 8),
-              // color: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.r),
-                  side: BorderSide(
-                    color: AppColors.primaryColor,
-                  )),
-              child: Row(
-                children: [
-                  // Text(
-                  //   "  +88  ",
-                  //   style:
-                  //       TextStyle(fontSize: 16.sp, color: AppColors.blackColor),
-                  // ),
-                  Expanded(
-                    child: TextField(
-                      controller: phnNumber,
-                      keyboardType: TextInputType.number,
-                      enabled: true,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            SizedBox(
+              height: 5.h,
             ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
+              child: CustomTextField(
+                textEditingController: confirmPassword,
+                obscureText: !obSecureText,
+                prefix:  Icon(Icons.lock, color: AppColors.primaryColor,), hintText: "confirmPassword",
+                suffix: IconButton(onPressed: (){
+                  setState(() {
+                    obSecureText = !obSecureText;
+                  });
+                }, icon: Icon(obSecureText ? Icons.visibility : Icons.visibility_off, color: obSecureText? AppColors.primaryColor : Colors.grey,)),),),
+
             SizedBox(
               height: 30.h,
             ),
@@ -137,23 +112,27 @@ class _NewPasswordSendViewState extends State<NewPasswordSendView> {
                     child: CustomButton(
                       text: "Continue",
                       onTap: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ForgetPinCodeVerificationView(phoneNumber: '', token: '',)));
-                        // if (phnNumber.text.isEmpty) {
-                        //   Messages.snackBar(context, "Enter Mobile Number");
-                        //
-                        // }
-                        //
-                        // else if (phnNumber.text.length !=11) {
-                        //   Messages.snackBar(context, "Mobile Number must be 11 digit");
-                        // }
-                        // else {
-                        //   auth.sendOtp(context, phnNumber: phnNumber.text);
-                        //
-                        // }
+
+                        if (password.text.isEmpty) {
+                          Messages.snackBar(context, "Enter New Password");
+
+                        }else if (confirmPassword.text.isEmpty) {
+                          Messages.snackBar(context, "Enter Confirm Password");
+
+                        }else if (password.text != confirmPassword.text) {
+                          // Passwords match
+                          Messages.snackBar(context, "Passwords Do Not Match");
+                        }
+
+
+                        else {
+                          Map<String,dynamic> body = {
+                            "phone_number":widget.phoneNumber,
+                            "password":password.text
+                          };
+                         auth.newpasswordForget(context,body );
+
+                        }
                       },
                     ),
                   ),
