@@ -31,7 +31,6 @@ class MyRecordViewModel with ChangeNotifier {
   procedure(){
     notifyListeners();
     showPastHistory=false;
-    print(showPastHistory);
 
     notifyListeners();
   }
@@ -46,13 +45,11 @@ class MyRecordViewModel with ChangeNotifier {
 
     if (weight > 0 && height > 0) {
       double bmi = weight / ((height / 100) * (height / 100));
-      bmiResult = bmi;
+      bmiResult = double.parse(bmi.toStringAsFixed(2));
       print(bmiResult);
 
 
       print("bmiResultvvvvvvvvvvvvvvvvvvvvv${bmiResult}");
-      print("bmivvvvvvvvvvvvvvvvvvvvv${bmi}");
-      print(bmi);
       notifyListeners();
     } else {
       // Handle invalid input

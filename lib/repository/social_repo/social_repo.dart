@@ -25,12 +25,26 @@ class SocialRepo {
       for (var i in response['data']) {
         datalist.add(SocialListModel.fromJson(i));
       }
-      print("fffffffffffffffff$response");
       return datalist;
     } catch (e) {
       print("fffffffffffffffff$e");
 
       print(e.toString());
+      rethrow;
+    }
+  }
+  Future getdoctorpacatientcount(doctorid) async {
+
+    try {
+      dynamic response =
+      await apiService.getGetApiResponse("${AppUrls.doctorcountpatient}$doctorid");
+
+
+      print("eeeeeeeeeee$response");
+      return response;
+    } catch (e) {
+      print("fffffffffffffffff$e");
+
       rethrow;
     }
   }

@@ -59,23 +59,28 @@ class DocCard extends StatelessWidget {
                       height: 4,
                     ),
                     doctortitle!.isNotEmpty
-                        ? Padding(
+                        ? Container(
+                      //width: 100,
                             padding: const EdgeInsets.only(left: 12),
                             child: Center(
                                 child: Row( mainAxisAlignment: MainAxisAlignment.center,
-                                    children: List.generate(doctortitle!.length,
+                                    children: List.generate(doctortitle!.length<5?doctortitle!.length:5,
                                         (index) {
                               var data = doctortitle![index];
                               return Center(
                                 //  width: Get.size.width*0.26,
-                                child: Text(
-                                    "${data.degreeId}${doctortitle!.last == data ? "" : ", "}",
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.center,
-                                    style: Style.alltext_ExtraSmall_black),
+                                child: SizedBox(
+                                //  width: 2,
+                                  child: Text(
+                                      "${data.degreeId}${doctortitle!.last == data ? "" : ","}",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                      style: Style.alltext_ExtraSmall_black),
+                                ),
                               );
-                            }))),
+                            }))
+                            ),
                           )
                         : Container(),
                     const SizedBox(

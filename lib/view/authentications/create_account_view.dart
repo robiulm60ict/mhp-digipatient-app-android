@@ -303,7 +303,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                     DateTime? date = await PickDateTime()
                         .pickDateregister(context, initialDate: DateTime.now());
                     dateOfBirthController.text =
-                        "${date?.day}-${date?.month}-${date?.year}";
+                        "${date?.month}-${date?.day}-${date?.year}";
                   },
                 ),
                 Style.distan_size5,

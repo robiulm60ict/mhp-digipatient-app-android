@@ -41,9 +41,9 @@ class _DocDetailsViewState extends State<DocDetailsView> {
   @override
   void initState() {
     super.initState();
-    print(widget.id);
     getDoctor(widget.id);
     context.read<MyDoctorViewModel>().getSocialMediea(widget.id.toString());
+    context.read<MyDoctorViewModel>().getdoctorcountpatient(widget.id.toString());
 
     context
         .read<MyDoctorViewModel>()
@@ -67,7 +67,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
 
   @override
   Widget build(BuildContext context) {
-    final mdVM = Provider.of<MyDoctorViewModel>(context, listen: false);
+    final mdVM = Provider.of<MyDoctorViewModel>(context);
     // final appointmentViewModel = Provider.of<AppointmentViewModel>(context);
 
     return Scaffold(
@@ -304,7 +304,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                             color: AppColors.primaryColor,
                           ),
                           title: Text(
-                            "1000+",
+                            "${mdVM.data.toString()}+",
                             style: Style.alltext_default_balck,
                           ),
                           subtitle: Text(
@@ -503,7 +503,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                   child: ListTile(
                                       title: Text(
                                         //{docTime.day}-
-                                        "${docTime.month}-${docTime.year}",
+                                        "${docTime.day}",
                                         style: Style.alltext_default_balck,
                                       ),
                                       subtitle: Text(

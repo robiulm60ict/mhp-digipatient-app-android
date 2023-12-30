@@ -36,7 +36,6 @@ class DoctorRepository {
       int? id = prefs.getInt(UserP.id);
       dynamic response =
           await apiService.getGetApiResponse("${AppUrls.myDoctorslist}$id");
-      print(response);
 
       return MyDoctorList.fromJson(response);
     } catch (e) {
@@ -48,7 +47,6 @@ class DoctorRepository {
     try {
       dynamic response = await apiService.getGetApiResponse(AppUrls.allDoctors);
 
-      print(response);
 
       return doctorsModelsFromJson(response);
     } catch (e) {
@@ -70,7 +68,6 @@ class DoctorRepository {
     try {
       dynamic response =
           await apiService.getGetApiResponse("${AppUrls.docChamberTime}$docId");
-      print(response);
       return DoctorChamberTimeModel.fromJson(response);
     } catch (e) {
       print(e.toString());

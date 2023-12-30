@@ -367,8 +367,8 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                               child: Card(
                                   child: ListTile(
                                     title: Text(
-                                      //{docTime.day}-
-                                      "${docTime.month}-${docTime.year}",
+                                      "${docTime.day}",
+                                     // "${docTime.month}-${docTime.year}",
                                       style: Style.alltext_default_balck,
                                     ),
                                     subtitle: Text(

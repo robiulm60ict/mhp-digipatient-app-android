@@ -39,6 +39,24 @@ class MyDoctorViewModel with ChangeNotifier {
       notifyListeners();
     });
   }
+  var data ;
+  getdoctorcountpatient(id) async {
+    //issocialLoading = true;
+    social.getdoctorpacatientcount(id).then((value) {
+      data = value['data'];
+
+
+       print("ddddddddddddddd${value['data']}");
+      // print(value['data']);
+
+
+     // issocialLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      issocialLoading = true;
+      notifyListeners();
+    });
+  }
   getAllDoctors(BuildContext context) async {
     allDoctorList.clear();
 
