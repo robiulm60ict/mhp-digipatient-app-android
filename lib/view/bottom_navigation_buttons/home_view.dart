@@ -142,7 +142,8 @@ class _HomeViewState extends State<HomeView> {
                   iconData: Icons.person,
                   title: "Profile",
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileData()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfileData()));
                     // Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDetailView(user: user)));
                   },
                 ),
@@ -224,7 +225,11 @@ class _HomeViewState extends State<HomeView> {
 
                       await prefs.setBool(UserP.isLoggedIn, false);
                       auth.onUserLogout();
-                      Navigator.pushNamed(context, RoutesName.login);
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        RoutesName.login,
+                        (route) => false,
+                      );
                       //  context.router.replace(const SignInRoute());
                     },
                     leading: CircleAvatar(
@@ -354,7 +359,8 @@ class _HomeViewState extends State<HomeView> {
                                   height: 4.h,
                                 ),
                                 Text(
-                                  "$name",
+                                  "${user?.patientFirstName} ${user?.patientLastName}"
+                                      .toString(),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
@@ -378,15 +384,15 @@ class _HomeViewState extends State<HomeView> {
                             ),
                             userprovider.user?.patientImages != 'null'
                                 ? SizedBox(
-                              height: 110,
-                              width: 90.w,
-                                  child: Image.network(
+                                    height: 110,
+                                    width: 90.w,
+                                    child: Image.network(
                                       "${AppUrls.image}${userprovider.user?.patientImages}",
                                       height: 110,
                                       width: 90.w,
                                       fit: BoxFit.fill,
                                     ),
-                                )
+                                  )
                                 : Container()
 
                             // CircleAvatar(

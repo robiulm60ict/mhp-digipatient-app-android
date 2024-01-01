@@ -146,11 +146,11 @@ class ResourcesViewModel with ChangeNotifier {
     // ResourcesImageItemsModel(
     //     title: "Medical Education", image: Assets.homeMyRec),
     ResourcesImageItemsModel(
-        title: "Patient Education ", image: Assets.res),
+        title: "Patient Education ", image: Assets.patienteducation),
     ResourcesImageItemsModel(
-        title: "Webinars ", image: Assets.res),
+        title: "Webinars ", image: Assets.resource),
     ResourcesImageItemsModel(
-        title: "News", image: Assets.res),
+        title: "News", image: Assets.news),
   ];
 }
 

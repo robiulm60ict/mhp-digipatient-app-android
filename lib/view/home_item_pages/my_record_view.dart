@@ -178,7 +178,7 @@ class _MyRecordViewState extends State<MyRecordView> {
             height: 30.h,
           ),
           MyRecordListTile(
-              title: 'Vital',
+              title: 'Vitals',
               iconData: Icons.heart_broken,
               iconColor: Colors.red,
               onTap: () {

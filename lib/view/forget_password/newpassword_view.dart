@@ -116,7 +116,13 @@ class _NewPasswordSendViewState extends State<NewPasswordSendView> {
                         if (password.text.isEmpty) {
                           Messages.snackBar(context, "Enter New Password");
 
-                        }else if (confirmPassword.text.isEmpty) {
+                        } else if (password.text.length <=7) {
+                          Messages.snackBar(context, "Minimum password length of 8 digits");
+
+                        }
+
+
+                        else if (confirmPassword.text.isEmpty) {
                           Messages.snackBar(context, "Enter Confirm Password");
 
                         }else if (password.text != confirmPassword.text) {

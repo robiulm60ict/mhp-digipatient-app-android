@@ -118,7 +118,7 @@ class _PatientEducationViewState extends State<PatientEducationView> {
                                               borderRadius: BorderRadius.circular(8.0),
 
                                               child:  Image.asset(
-                                                Assets.res,
+                                                Assets.patienteducation,
                                                 height: 65.h,
                                                 width: double.infinity,
                                                 fit: BoxFit.fill,

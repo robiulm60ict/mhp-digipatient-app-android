@@ -15,7 +15,9 @@ class Assets {
   static const String homeMyLab = 'assets/icons/home/my-lab.png';
   static const String homeMyMedicine = 'assets/icons/home/my-medicine.png';
   static const String homeMyRec = 'assets/icons/home/my-rec.png';
-  static const String res = 'assets/icons/resource_r.png';
+  static const String news = 'assets/icons/home/news.png';
+  static const String resource = 'assets/icons/home/resource.png';
+  static const String patienteducation = 'assets/icons/home/patienteducation.png';
   static const String facebook = 'assets/icons/home/facebook.png';
   static const String linkedin = 'assets/icons/home/linkedin.png';
   static const String twitter = 'assets/icons/home/twitter.jpg';

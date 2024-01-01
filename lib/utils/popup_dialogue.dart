@@ -284,6 +284,7 @@ invoiceSuccessPopUp(BuildContext context,
     required String appointmentType,
     required Datum doctor,
     required String trinscationNo,
+    required String Shift,
     required BookAppointmentModel bookAppointmentModel}) {
   return showDialog(
     context: context,
@@ -320,7 +321,7 @@ invoiceSuccessPopUp(BuildContext context,
                             paymentMethod: paymentMethod,
                             trinscationNo: trinscationNo,
                             paymentnumber: paymentnumber,
-                            bookAppointmentModel: bookAppointmentModel,
+                            bookAppointmentModel: bookAppointmentModel, shift: Shift,
                           )));
 
               // context.router.push(SingleInvoiceRoute(appointmentDate: appointmentDate, doctorId: doctorId, patientId: patientId, amount: amount, appointmentType: appointmentType, doctor: doctor, paymentMethod: paymentMethod));

@@ -200,6 +200,7 @@ print(value);
         notifyListeners();
         Messages.snackBar(context, value['errors']['phone_number'].toString());
       }else{
+        Messages.snackBar(context, value['message'].toString());
         setSendOtpLoading(false);
         isSendOtpLoading = false;
 
@@ -361,8 +362,9 @@ print(value);
       print(value);
       // if (otpCheckList.first.verify!) {
       //   setOtpCheckError(false);
-      //   Messages.snackBar(context, otpCheckList.first.message.toString(),
-      //       backgroundColor: AppColors.greenColor);
+
+        Messages.snackBar(context, "${value['message'].toString()}",
+            backgroundColor: AppColors.greenColor);
       //   // Future.delayed(Duration(microseconds: 200));
       //   Future.delayed(Duration.zero);
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignInView()));

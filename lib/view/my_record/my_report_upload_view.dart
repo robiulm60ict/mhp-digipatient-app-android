@@ -138,7 +138,7 @@ class _UploadReportViewState extends State<UploadReportView> {
                               Style.distan_size5,
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
-                                child: Text("JPG,JPEG,PNG,PDF",
+                                child: Text("JPG,JPEG,PNG",
                                     style: Style.alltext_default_balck),
                               ),
                             ],

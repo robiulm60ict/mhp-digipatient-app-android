@@ -125,6 +125,7 @@ class PdfInvoiceApi {
       required paymentMethod,
       required paymentnumber,
       required trinscationNo,
+      required Shift,
       required BookAppointmentModel appointmentList,
       D}) async {
     final Document pdf = Document(deflate: zlib.encode);
@@ -223,7 +224,7 @@ class PdfInvoiceApi {
                             "Date",
                           ),
                           Text(
-                            appointmentDate.toString(),
+                            appointmentDate.toString().split(" ").first,
                           ),
                         ]),
                     SizedBox(
@@ -250,6 +251,19 @@ class PdfInvoiceApi {
                           ),
                           Text(
                             paymentMethod,
+                          ),
+                        ]),
+                    SizedBox(
+                      height: 8.h,
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Appointment Shift",
+                          ),
+                          Text(
+                            Shift,
                           ),
                         ]),
                     SizedBox(
@@ -335,99 +349,7 @@ class PdfInvoiceApi {
     return total - special;
   }
 
-  // static Widget buildTotal(Invoice invoice, coupon, totalprice) {
-  //   final netTotal = invoice.items
-  //       .map((item) => item.unitPrice * item.quantity)
-  //       .reduce((item1, item2) => item1 + item2);
-  //   // final vatPercent = invoice.items.first.vat;
-  //   // final vat = netTotal * vatPercent;
-  //   // final total = netTotal + vat;
-  //   return Container(
-  //     alignment: Alignment.centerRight,
-  //     child: Row(
-  //       children: [
-  //         Spacer(flex: 6),
-  //         Expanded(
-  //           flex: 4,
-  //           child: Column(
-  //             crossAxisAlignment: CrossAxisAlignment.start,
-  //             children: [
-  //               //coupon discount
-  //               buildText(
-  //                 title: 'Coupon discount',
-  //                 titleStyle: const TextStyle(
-  //                   fontSize: 11,
-  //                 ),
-  //                 value: coupon.toString(),
-  //                 unite: true,
-  //               ),
-  //               pw.SizedBox(height: 5),
-  //
-  //               //delivery charge
-  //               totalprice >= 500
-  //                   ? buildText(
-  //                       title: 'Delivery charge',
-  //                       titleStyle: const TextStyle(
-  //                         fontSize: 11,
-  //                       ),
-  //                       value: '0',
-  //                       unite: true,
-  //                     )
-  //                   : buildText(
-  //                       title: 'Delivery charge',
-  //                       titleStyle: const TextStyle(
-  //                         fontSize: 11,
-  //                       ),
-  //                       value: OthersHelper().deliveryCharge.toString(),
-  //                       unite: true,
-  //                     ),
-  //
-  //               //net total
-  //               pw.SizedBox(height: 5),
-  //               totalprice >= 500
-  //                   ? buildText(
-  //                       title: 'Net total',
-  //                       // value: netTotal.toStringAsFixed(0),
-  //                       value: (totalprice).toStringAsFixed(0),
-  //                       unite: true,
-  //                     )
-  //                   : buildText(
-  //                       //if delivery charge is less than 500 then add delivery charge 60 tk
-  //                       title: 'Net total',
-  //                       // value: netTotal.toStringAsFixed(0),
-  //                       value: (totalprice + OthersHelper().deliveryCharge)
-  //                           .toStringAsFixed(0),
-  //                       unite: true,
-  //                     ),
-  //               // buildText(
-  //               //   title: 'Vat ${vatPercent * 100} %',
-  //               //   value: Utils.formatPrice(vat),
-  //               //   unite: true,
-  //               // ),
-  //               // Divider(),
-  //
-  //               SizedBox(height: 2 * PdfPageFormat.mm),
-  //               // Container(height: 1, color: PdfColors.grey400),  //border
-  //               // SizedBox(height: 0.5 * PdfPageFormat.mm),
-  //               // Container(height: 1, color: PdfColors.grey400), //border
-  //             ],
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
-  // static Widget buildFooter(Invoice invoice) => Column(
-  //       crossAxisAlignment: CrossAxisAlignment.center,
-  //       children: [
-  //         Divider(),
-  //         SizedBox(height: 2 * PdfPageFormat.mm),
-  //         buildSimpleText(title: 'Address', value: invoice.supplier.address),
-  //         SizedBox(height: 1 * PdfPageFormat.mm),
-  //         buildSimpleText(title: 'Paypal', value: invoice.supplier.paymentInfo),
-  //       ],
-  //     );
 
   static buildSimpleText({
     required String title,

@@ -64,11 +64,11 @@ class AuthRepository {
     }
   }
 
-  Future<OtpCheckModel> newPassword({required Map<String, dynamic> body}) async {
+  Future newPassword({required Map<String, dynamic> body}) async {
     try {
       dynamic response =
       await apiService.getPostApiResponse(AppUrls.newPassword, body);
-      return OtpCheckModel.fromJson(response);
+      return response;
     } catch (e) {
       rethrow;
     }

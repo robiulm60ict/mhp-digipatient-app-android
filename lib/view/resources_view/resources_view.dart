@@ -75,7 +75,7 @@ class ResourcesView extends StatelessWidget {
                                     height: 65.h,
                                     width: double.infinity,
                                     child: Padding(
-                                      padding: EdgeInsets.all(20.0),
+                                      padding: EdgeInsets.all(0.0),
                                       child: Image.asset(
                                         provider.resourseImageItemsList[index].image,
                                         fit: BoxFit.fill,

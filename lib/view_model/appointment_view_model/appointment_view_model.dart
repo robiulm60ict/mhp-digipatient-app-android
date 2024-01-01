@@ -163,7 +163,7 @@ class AppointmentViewModel with ChangeNotifier {
         doctor: doctor,
         patientId: body["patient_id"],
         paymentMethod: body["payment_type"],
-        trinscationNo: body["transaction_no"], bookAppointmentModel: appointmentList.first, paymentnumber:body["transaction_phone_number"] ,
+        trinscationNo: body["transaction_no"], bookAppointmentModel: appointmentList.first, paymentnumber:body["transaction_phone_number"], Shift: body["shift"] ,
       );
 
       anatomy.symptomsList.clear();

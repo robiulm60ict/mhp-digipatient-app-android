@@ -64,11 +64,16 @@ class DoctorRepository {
     }
   }
 
-  Future<DoctorChamberTimeModel> getDocChamberTime( docId) async {
+  Future<List<DoctorChamberTimeModel>> getDocChamberTime( docId) async {
     try {
       dynamic response =
           await apiService.getGetApiResponse("${AppUrls.docChamberTime}$docId");
-      return DoctorChamberTimeModel.fromJson(response);
+      print(response);
+      List<DoctorChamberTimeModel> alldata=[];
+      for(var i in response['data']){
+        alldata.add(DoctorChamberTimeModel.fromJson(i));
+      }
+      return alldata;
     } catch (e) {
       print(e.toString());
       rethrow;

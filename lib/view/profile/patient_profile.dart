@@ -42,7 +42,7 @@ class _ProfileDataState extends State<ProfileData> {
           children: [
             InkWell(
               onTap: () {
-               //  Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDetailView(user: user)));
+               Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDetailView(user: user)));
 
                 if (user == null) {
                   debugPrint("Reload page ");

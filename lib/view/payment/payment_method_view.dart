@@ -137,7 +137,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                 "${widget.doctor.doctors!.usualProvider !=null?widget.doctor.doctors!.usualProvider?.usualProviderName.toString():""}",
             date: widget.appointmentDate,
             location: "${widget.doctor.doctors?.drWorkPhone}",
-            image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',
+            image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}', shift:widget.shiftType,
           ),
           SizedBox(
             height: 20.h,
@@ -408,6 +408,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                                   controller: transactionphone,
                                   keyboardType: TextInputType.number,
 
+                                  maxLength: 11,
                                   decoration: InputDecoration(
                                       filled: true,
                                       fillColor: Colors.grey.shade200,

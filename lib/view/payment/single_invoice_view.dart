@@ -33,6 +33,7 @@ class SingleInvoiceView extends StatefulWidget {
       required this.paymentMethod,
       required this.trinscationNo,
       required this.paymentnumber,
+      required this.shift,
       required this.bookAppointmentModel})
       : super(key: key);
   final String appointmentDate;
@@ -44,6 +45,7 @@ class SingleInvoiceView extends StatefulWidget {
   final String paymentMethod;
   final String trinscationNo;
   final String paymentnumber;
+  final String shift;
   final BookAppointmentModel bookAppointmentModel;
 
   @override
@@ -123,7 +125,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                   "${widget.doctor.doctors?.usualProvider != null ? widget.doctor.doctors?.usualProvider?.usualProviderName.toString() : ""}",
               date: widget.appointmentDate,
               location: "${widget.doctor.doctors?.drWorkPhone}",
-              image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',
+              image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}', shift:widget.shift,
             ),
             SizedBox(
               height: 20.h,
@@ -273,7 +275,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                               paymentMethod: widget.paymentMethod,
                               trinscationNo: widget.trinscationNo,
                               appointmentList: widget.bookAppointmentModel,
-                              paymentnumber: widget.paymentnumber,
+                              paymentnumber: widget.paymentnumber, Shift:widget.shift,
                             );
 
                             //  Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeView()));

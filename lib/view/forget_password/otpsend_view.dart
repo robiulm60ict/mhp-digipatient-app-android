@@ -64,25 +64,31 @@ class _OtpSendViewState extends State<OtpSendView> {
                   side: BorderSide(
                     color: AppColors.primaryColor,
                   )),
-              child: Row(
-                children: [
-                  Text(
-                    "  +88  ",
-                    style:
-                        TextStyle(fontSize: 16.sp, color: AppColors.blackColor),
-                  ),
-                  Expanded(
-                    child: TextField(
-                      controller: phnNumber,
-                      keyboardType: TextInputType.number,
-                      enabled: true,
-                      // decoration: InputDecoration(
-                      //   border: InputBorder.none,
-                      //
-                      // ),
+              child: SizedBox(
+                height: 60,
+                child: Row(
+                  children: [
+                    Text(
+                      "  +88  ",
+                      style:
+                          TextStyle(fontSize: 16.sp, color: AppColors.blackColor),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: TextField(
+                        controller: phnNumber,
+                        maxLength: 11,
+
+
+                        keyboardType: TextInputType.number,
+                        enabled: true,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
 

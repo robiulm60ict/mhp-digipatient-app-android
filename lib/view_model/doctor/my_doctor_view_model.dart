@@ -84,14 +84,14 @@ class MyDoctorViewModel with ChangeNotifier {
 
   }
 
-  List<DocTimeSlot> doctorTimeSlotList = [];
+  List<DoctorChamberTimeModel> doctorTimeSlotList = [];
 
   bool isDocChamberTimeLoading = true;
 
   getDocChamberTime(BuildContext context, {required docId}) async {
     doctorTimeSlotList.clear();
     DoctorRepository().getDocChamberTime(docId).then((value) {
-      doctorTimeSlotList.addAll(value.docTimeSlots!);
+      doctorTimeSlotList.addAll(value! as Iterable<DoctorChamberTimeModel>);
       isDocChamberTimeLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {

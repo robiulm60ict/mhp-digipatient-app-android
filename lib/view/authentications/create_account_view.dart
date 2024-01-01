@@ -278,7 +278,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                     Icons.person,
                     color: AppColors.primaryColor,
                   ),
-                  hintText: "Fast Name",
+                  hintText: "First Name",
                 ),
                 Style.distan_size5,
                 CustomTextField(
@@ -466,19 +466,19 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                           }
                           if (namefast.text.isEmpty) {
                             Messages.snackBar(
-                                context, "FastName con not be empty !");
+                                context, "First Name con not be empty !");
                           } else if (namelast.text.isEmpty) {
                             Messages.snackBar(
-                                context, "LastName con not be empty !");
+                                context, "Last Name con not be empty !");
                           } else if (dateOfBirthController.text.isEmpty) {
                             Messages.snackBar(
                                 context, "Date of Birth con not be empty !");
                           }
 
-                          // else if (bloodGroup == null) {
-                          //   Messages.snackBar(
-                          //       context, "Blood Group con not be empty !");
-                          // }
+                          else if (bloodGroup == null) {
+                            Messages.snackBar(
+                                context, "Blood Group con not be empty !");
+                          }
                           else if (birthSex == null) {
                             Messages.snackBar(
                                 context, "Gender con not be empty !");

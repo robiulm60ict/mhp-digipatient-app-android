@@ -12,10 +12,12 @@ import '../../resources/app_url.dart';
 import '../../utils/utils.dart';
 import '../../view_model/my_medicine_view_model/my_medicine_view_model.dart';
 import '../my_medicine/image_view.dart';
+import '../resources_view/patient_education_view/pdfview.dart';
 
 class UploadMyReport extends StatefulWidget {
-  UploadMyReport({super.key, });
-
+  UploadMyReport({
+    super.key,
+  });
 
   @override
   State<UploadMyReport> createState() => _UploadMyReportState();
@@ -87,12 +89,21 @@ class _UploadMyReportState extends State<UploadMyReport> {
                                         //width: 420.w,
                                         child: InkWell(
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => ImageView(
-                                                        image:"https://gdbackend.macrohealthplus.org/images/patients_reports/${info
-                                                            .file}")));
+                                            info.file!.split(".").last != "pdf"
+                                                ? Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ImageView(
+                                                                image:
+                                                                    "https://gdbackend.macrohealthplus.org/images/patients_reports/${info.file}")))
+                                                : Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            PdfViewerPage(
+                                                                pdfUrl:
+                                                                    "https://gdbackend.macrohealthplus.org/images/patients_reports/${info.file}")));
                                           },
                                           child: Card(
                                             color: Colors.white,
@@ -134,7 +145,7 @@ class _UploadMyReportState extends State<UploadMyReport> {
                                                           SizedBox(
                                                             width: 180.w,
                                                             child: Text(
-                                                                "${info.name ??""} ",
+                                                                "${info.name ?? ""} ",
                                                                 style: Style
                                                                     .alltext_default_balck),
                                                           ),
@@ -143,11 +154,11 @@ class _UploadMyReportState extends State<UploadMyReport> {
                                                       Style.distan_size2,
                                                       Row(
                                                         mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
+                                                            MainAxisAlignment
+                                                                .center,
                                                         crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
                                                           SizedBox(
                                                             width: 40.w,
@@ -165,7 +176,11 @@ class _UploadMyReportState extends State<UploadMyReport> {
                                                           SizedBox(
                                                             width: 180.w,
                                                             child: Text(
-                                                                DateFormat("yyyy-MM-dd").format(DateTime.parse(info.createdAt.toString())),
+                                                                DateFormat(
+                                                                        "yyyy-MM-dd")
+                                                                    .format(DateTime.parse(info
+                                                                        .createdAt
+                                                                        .toString())),
                                                                 style: Style
                                                                     .alltext_default_balck),
                                                           ),
@@ -174,11 +189,11 @@ class _UploadMyReportState extends State<UploadMyReport> {
                                                       Style.distan_size2,
                                                       Row(
                                                         mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
+                                                            MainAxisAlignment
+                                                                .center,
                                                         crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
                                                           SizedBox(
                                                             width: 40.w,
@@ -207,16 +222,22 @@ class _UploadMyReportState extends State<UploadMyReport> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsets.all(8.0),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
                                                   child: SizedBox(
                                                     height: 70.h,
                                                     width: 50.w,
-                                                    child: Image.network(
-                                                      "${AppUrls.report_image}${info.file}",
-                                                      height: 75.h,
-                                                      width: 50.w,
-                                                      fit: BoxFit.fill,
-                                                    ),
+                                                    child: info.file!
+                                                                .split(".")
+                                                                .last ==
+                                                            "pdf"
+                                                        ? Icon(Icons.picture_as_pdf)
+                                                        : Image.network(
+                                                            "${AppUrls.report_image}${info.file}",
+                                                            height: 75.h,
+                                                            width: 50.w,
+                                                            fit: BoxFit.fill,
+                                                          ),
                                                   ),
                                                 )
                                               ],

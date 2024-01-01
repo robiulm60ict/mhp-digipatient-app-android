@@ -14,6 +14,7 @@ class PaymentUserDetail extends StatelessWidget {
       required this.hospitalName,
       required this.date,
       required this.location,
+      required this.shift,
       required this.image})
       : super(key: key);
   final String name;
@@ -23,6 +24,7 @@ class PaymentUserDetail extends StatelessWidget {
   final String date;
   final String location;
   final String image;
+  final String shift;
 
   @override
   Widget build(BuildContext context) {

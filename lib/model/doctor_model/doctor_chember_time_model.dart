@@ -4,31 +4,11 @@
 
 import 'dart:convert';
 
-DoctorChamberTimeModel doctorChamberTimeModelFromJson(String str) => DoctorChamberTimeModel.fromJson(json.decode(str));
+List<DoctorChamberTimeModel> doctorChamberTimeModelFromJson(String str) => List<DoctorChamberTimeModel>.from(json.decode(str).map((x) => DoctorChamberTimeModel.fromJson(x)));
 
-String doctorChamberTimeModelToJson(DoctorChamberTimeModel data) => json.encode(data.toJson());
+String doctorChamberTimeModelToJson(List<DoctorChamberTimeModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class DoctorChamberTimeModel {
-  int? status;
-  List<DocTimeSlot>? docTimeSlots;
-
-  DoctorChamberTimeModel({
-    this.status,
-    this.docTimeSlots,
-  });
-
-  factory DoctorChamberTimeModel.fromJson(Map<String, dynamic> json) => DoctorChamberTimeModel(
-    status: json["status"],
-    docTimeSlots: json["docTimeSlots"] == null ? [] : List<DocTimeSlot>.from(json["docTimeSlots"]!.map((x) => DocTimeSlot.fromJson(x))),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "status": status,
-    "docTimeSlots": docTimeSlots == null ? [] : List<dynamic>.from(docTimeSlots!.map((x) => x.toJson())),
-  };
-}
-
-class DocTimeSlot {
   int? id;
   String? doctorId;
   String? chamberId;
@@ -42,10 +22,8 @@ class DocTimeSlot {
   int? deleteStatus;
   DateTime? createdAt;
   DateTime? updatedAt;
-  String? drGivenName;
-  String? usualProviderName;
 
-  DocTimeSlot({
+  DoctorChamberTimeModel({
     this.id,
     this.doctorId,
     this.chamberId,
@@ -59,11 +37,9 @@ class DocTimeSlot {
     this.deleteStatus,
     this.createdAt,
     this.updatedAt,
-    this.drGivenName,
-    this.usualProviderName,
   });
 
-  factory DocTimeSlot.fromJson(Map<String, dynamic> json) => DocTimeSlot(
+  factory DoctorChamberTimeModel.fromJson(Map<String, dynamic> json) => DoctorChamberTimeModel(
     id: json["id"],
     doctorId: json["doctor_id"],
     chamberId: json["chamber_id"],
@@ -77,8 +53,6 @@ class DocTimeSlot {
     deleteStatus: json["delete_status"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    drGivenName: json["dr_given_name"],
-    usualProviderName: json["usual_provider_name"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -95,7 +69,5 @@ class DocTimeSlot {
     "delete_status": deleteStatus,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
-    "dr_given_name": drGivenName,
-    "usual_provider_name": usualProviderName,
   };
 }
