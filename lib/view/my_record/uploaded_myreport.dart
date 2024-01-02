@@ -177,7 +177,7 @@ class _UploadMyReportState extends State<UploadMyReport> {
                                                             width: 180.w,
                                                             child: Text(
                                                                 DateFormat(
-                                                                        "yyyy-MM-dd")
+                                                                        "dd-MM-yyyy")
                                                                     .format(DateTime.parse(info
                                                                         .createdAt
                                                                         .toString())),

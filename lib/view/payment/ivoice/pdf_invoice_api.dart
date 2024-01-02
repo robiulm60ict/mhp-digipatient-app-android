@@ -224,7 +224,10 @@ class PdfInvoiceApi {
                             "Date",
                           ),
                           Text(
-                            appointmentDate.toString().split(" ").first,
+                            DateFormat(
+                                "dd-MM-yyyy")
+                                .format(DateTime.parse(appointmentDate
+                                .toString())),
                           ),
                         ]),
                     SizedBox(

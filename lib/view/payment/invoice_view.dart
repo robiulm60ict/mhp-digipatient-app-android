@@ -126,36 +126,7 @@ class _InvoiceViewState extends State<InvoiceView> {
                                         style: Style
                                             .alltext_default_balck_blod),
                                     Style.distan_size2,
-                                    // Row(
-                                    //   crossAxisAlignment:
-                                    //   CrossAxisAlignment
-                                    //       .start,
-                                    //   children: [
-                                    //     SizedBox(
-                                    //       width:
-                                    //       70.w,
-                                    //       child:
-                                    //       Text(
-                                    //         "ID ",
-                                    //         style:
-                                    //         Style.alltext_default_balck,
-                                    //       ),
-                                    //     ),
-                                    //     Text(
-                                    //         ": "),
-                                    //     SizedBox(
-                                    //       width:
-                                    //       130.w,
-                                    //       child: Text(
-                                    //           item.id
-                                    //               .toString(),
-                                    //           style:
-                                    //           Style.alltext_default_balck),
-                                    //     ),
-                                    //   ],
-                                    // ),
-                                    // Style
-                                    //     .distan_size2,
+
                                     Row(
                                       crossAxisAlignment:
                                       CrossAxisAlignment.start,
@@ -271,7 +242,10 @@ class _InvoiceViewState extends State<InvoiceView> {
                                         SizedBox(
                                           width: 120.w,
                                           child: Text(
-                                              "${DateFormat.yMMMEd().format(DateTime.parse(item.date.toString()))}",
+                                              DateFormat(
+                                                  "dd-MM-yyyy")
+                                                  .format(DateTime.parse(item.date.toString())),
+
                                               style: Style
                                                   .alltext_default_balck),
                                         ),

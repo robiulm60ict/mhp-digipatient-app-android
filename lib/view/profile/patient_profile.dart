@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../resources/app_url.dart';
@@ -132,7 +133,9 @@ class _ProfileDataState extends State<ProfileData> {
                                     style: Style.alltext_default_balck,
                                   ),
                                   Text(
-                                    "${user?.patientDob.toString()}",
+                                    DateFormat(
+                                        "dd-MM-yyyy")
+                                        .format(DateTime.parse(user!.patientDob.toString())),
                                     style: Style.alltext_default_balck,
                                   ),
                                   SizedBox(

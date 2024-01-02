@@ -166,43 +166,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
             // const SizedBox(
             //   height: 10,
             // ),
-            // Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //     children: List.generate(appointmentViewModel.weekDayList.length,
-            //         (index) {
-            //       WeekDayModel avm = appointmentViewModel.weekDayList[index];
-            //       return Expanded(
-            //         child: InkWell(
-            //           onTap: () {
-            //             appointmentViewModel.selectButton(index);
-            //           },
-            //           child: Card(
-            //             shape: RoundedRectangleBorder(
-            //                 borderRadius: BorderRadius.circular(6.r)),
-            //             color: avm.isSelected
-            //                 ? AppColors.primaryColor
-            //                 : Colors.white,
-            //             child: Padding(
-            //               padding: EdgeInsets.symmetric(vertical: 6.0.h),
-            //               child: Column(
-            //                 mainAxisSize: MainAxisSize.min,
-            //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //                 children: [
-            //                   Text(
-            //                     avm.weekName,
-            //                     style: Style.alltext_default_balck,
-            //                   ),
-            //                   Text(
-            //                     avm.day.toString(),
-            //                     style: Style.alltext_default_balck,
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //       );
-            //     })),
+
             SizedBox(
               height: 10.h,
             ),
@@ -612,10 +576,13 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                             children: [
                               Text("Appointment Date "),
                               Text(": "),
-                              Text(appointmentViewModel.date
-                                  .toString()
-                                  .split(" ")
-                                  .first),
+                              Text(
+                                DateFormat(
+                                    "dd-MM-yyyy")
+                                    .format(DateTime.parse(appointmentViewModel.date
+                                    .toString())),
+                              ),
+
                             ],
                           ),
                         ],

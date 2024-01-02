@@ -11,6 +11,7 @@ import 'package:digi_patient/widgets/back_button.dart';
 import 'package:digi_patient/widgets/my_record_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:search_page/search_page.dart';
 
@@ -157,7 +158,7 @@ class _MyRecordViewState extends State<MyRecordView> {
                                 style:Style.alltext_default_balck,
                               ),
                               Text(
-                                "${user?.patientDob.toString()}",
+                                DateFormat("dd-MM-yyyy").format(DateTime.parse(user!.patientDob.toString())),
                                 style:Style.alltext_default_balck,
                               ),
                               SizedBox(

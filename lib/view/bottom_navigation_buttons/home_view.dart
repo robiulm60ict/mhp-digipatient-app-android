@@ -42,6 +42,7 @@ class _HomeViewState extends State<HomeView> {
   TextEditingController userName = TextEditingController();
   TextEditingController password = TextEditingController();
   String? name = "";
+  String? gender = "";
 
   @override
   void initState() {
@@ -59,7 +60,8 @@ class _HomeViewState extends State<HomeView> {
   getUserData() async {
     final prefs = await SharedPreferences.getInstance();
     name = prefs.getString(UserP.name) ?? "";
-
+    gender = prefs.getString(UserP.gender) ?? "";
+print(gender);
     bool isLoggedIn = prefs.getBool(UserP.isLoggedIn) ?? false;
 
     String role = prefs.getString(UserP.role) ?? "";

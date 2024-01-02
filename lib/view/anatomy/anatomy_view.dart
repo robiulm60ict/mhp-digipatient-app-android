@@ -1,4 +1,3 @@
-
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/resources/styles.dart';
@@ -8,15 +7,17 @@ import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:human_body_selector/human_body_selector.dart';
 import 'package:human_body_selector/svg_painter/maps.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zoom_widget/zoom_widget.dart';
 
 import '../../resources/constants.dart';
 import '../../utils/message.dart';
 import '../../utils/modal_sheet.dart';
+import '../../utils/user.dart';
 import '../../utils/utils.dart';
 import '../../view_model/anatomy/anatomy_view_model.dart';
+import '../../view_model/user_view_model/user_view_model.dart';
 import '../../widgets/back_button.dart';
-
 
 class AnatomyView extends StatefulWidget {
   const AnatomyView({Key? key}) : super(key: key);
@@ -26,20 +27,34 @@ class AnatomyView extends StatefulWidget {
 }
 
 class _AnatomyViewState extends State<AnatomyView> {
-  String _selectedValue = maleFront;
   bool isFlushBarShowing = false;
   final GlobalKey flushBarKey = GlobalKey();
+
+  String? _selectedValue;
+
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_){
-
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AnatomyModelView>().getAnatomySymptoms(context);
-
+      // context.read<UserViewModel>().getUserDetails();
+      getUserData();
     });
   }
 
-  String returnHumanBodyFacing(String selectedValue) {
+  var gender = '';
+
+  getUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    gender = prefs.getString(UserP.gender) ?? "";
+    gender == "Male"
+        ? _selectedValue = maleFront
+        : _selectedValue = femaleFront;
+  }
+
+  returnHumanBodyFacing(selectedValue) {
+    print("Male");
     if (selectedValue == maleBack) {
       return Maps.MALE1;
     } else if (selectedValue == femaleFront) {
@@ -83,7 +98,6 @@ class _AnatomyViewState extends State<AnatomyView> {
         key: const ValueKey(femaleFront),
         map: Maps.HUMAN,
         dotColor: Colors.red,
-
         onChanged: (bodyPart, active) {
           debugPrint("\n\n\n\n\n\n ${bodyPart.first.title}");
 
@@ -96,9 +110,8 @@ class _AnatomyViewState extends State<AnatomyView> {
                 "${i.title} ${i.path} ${i.id} ${i.painLevel} ${i.stringify}");
           }
         },
-         multiSelect: true,
+        multiSelect: true,
         toggle: true,
-
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width - 150,
       );
@@ -107,7 +120,6 @@ class _AnatomyViewState extends State<AnatomyView> {
         key: const ValueKey(femaleBack),
         map: Maps.HUMAN1,
         dotColor: Colors.red,
-
         onChanged: (bodyPart, active) {
           Messages.flushBarMessage(context,
               "${active?.title} ${active?.id} ${active?.painLevel} ${active?.transformedPath} ${active?.props} ${active?.stringify}");
@@ -118,9 +130,8 @@ class _AnatomyViewState extends State<AnatomyView> {
           //       "${i.title} ${i.path} ${i.id} ${i.painLevel} ${i.stringify}");
           // }
         },
-         multiSelect: true,
+        multiSelect: true,
         toggle: true,
-
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width - 150,
       );
@@ -130,7 +141,6 @@ class _AnatomyViewState extends State<AnatomyView> {
         map: Maps.MALE,
         dotColor: Colors.red,
         multiSelect: true,
-
         onChanged: (bodyPart, active) {
           Messages.flushBarMessage(context,
               "${active?.title} ${active?.id} ${active?.painLevel} ${active?.transformedPath} ${active?.props} ${active?.stringify}");
@@ -150,209 +160,220 @@ class _AnatomyViewState extends State<AnatomyView> {
 
   @override
   Widget build(BuildContext context) {
-
     double width = MediaQuery.of(context).size.width;
 
-
-    return   Consumer<AnatomyModelView>(
-        builder: (context,anatomy,child) {
-
-          return  WillPopScope(
-            onWillPop: () {
-             // anatomy.getSelectedSymptomsList();
-              return Future.delayed(const Duration(milliseconds: 1000)).then((value) => true);
-
-            },
-            child: Scaffold(
-              appBar: AppBar(
-                leadingWidth: leadingWidth,
-                leading: const CustomBackButton(),
-                title: Text("Select Symptoms", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400,  fontFamily: 'Roboto',color: AppColors.primaryColor),),
-
-                actions: [
-                  DropdownButton(
-                    value: _selectedValue,
-                    items:   [
-                      DropdownMenuItem(
-                        value: maleFront,
-                        child: Text(
-                          maleFront,style: Style.alltext_default_balck,
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: maleBack,
-                        child: Text(
-                          maleBack,style: Style.alltext_default_balck,
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: femaleFront,
-                        child: Text(
-                          femaleFront,style: Style.alltext_default_balck,
-                        ),
-                      ),
-                      DropdownMenuItem(
-                        value: femaleBack,
-                        child: Text(
-                          femaleBack,style: Style.alltext_default_balck,
-                        ),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      if (value is String) {
-                        // provider.setSelectedValue(value);
-                        setState(() {
-                          _selectedValue = value;
-                        });
-                      }
-                    },
+    return Consumer<AnatomyModelView>(builder: (context, anatomy, child) {
+      return WillPopScope(
+        onWillPop: () {
+          // anatomy.getSelectedSymptomsList();
+          return Future.delayed(const Duration(milliseconds: 1000))
+              .then((value) => true);
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            leadingWidth: leadingWidth,
+            leading: const CustomBackButton(),
+            title: Text(
+              "Select Symptoms",
+              style: TextStyle(
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Roboto',
+                  color: AppColors.primaryColor),
+            ),
+            actions: [
+              DropdownButton(
+                value: _selectedValue,
+                items: [
+                  DropdownMenuItem(
+                    value: maleFront,
+                    child: Text(
+                      maleFront,
+                      style: Style.alltext_default_balck,
+                    ),
                   ),
-                  SizedBox(
-                    width: kPadding.w,
+                  DropdownMenuItem(
+                    value: maleBack,
+                    child: Text(
+                      maleBack,
+                      style: Style.alltext_default_balck,
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value: femaleFront,
+                    child: Text(
+                      femaleFront,
+                      style: Style.alltext_default_balck,
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value: femaleBack,
+                    child: Text(
+                      femaleBack,
+                      style: Style.alltext_default_balck,
+                    ),
                   ),
                 ],
+                onChanged: (value) {
+                  if (value is String) {
+                    // provider.setSelectedValue(value);
+                    setState(() {
+                      _selectedValue = value;
+                    });
+                  }
+                },
               ),
-
-              body: anatomy.isAnatomyLoading ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Center(child: CircularProgressIndicator(),),
-                  Text(anatomy.anatomyStatus, ),
-                ],
-              ) : Zoom(
-                initTotalZoomOut: true,
-                backgroundColor: Colors.transparent,
-                canvasColor: Colors.transparent,
-                child: AnimatedSwitcher(
-                  duration: const Duration(seconds: 2),
-                  child: HumanBodySelector(
-                    key: ValueKey(_selectedValue),
-                    map: returnHumanBodyFacing(_selectedValue),
-                    dotColor: Colors.transparent,
-                    strokeColor: Colors.greenAccent,
-                    selectedColor: Colors.greenAccent.shade100,
-                    onChanged: (bodyPart, active) {
-
-                      // Messages.flushBarMessage(context,
-                      //     "${active?.title} ${active?.id} ${active?.painLevel} ${active?.transformedPath} ${active?.props} ${active?.stringify}",
-                      //   flushBarPosition: FlushbarPosition.BOTTOM
-                      // );
-                      debugPrint("${bodyPart.reversed.first.title} title ${bodyPart.reversed.first.title} id ${bodyPart.first.id} pain Level: ${bodyPart.first.painLevel} obj: ${bodyPart.first.props} active part ${active?.title}");
-
-                      getDiseaseModalSheet(context, name: bodyPart.first.title,gender: _selectedValue.split(" ").first.toString(),);
-                      print(_selectedValue.split(" ").first.toString());
-                      // debugPrint(provider.flushBarState.toString());
-
-                      // if (provider.flushBarState == 0) {
-                      //   context.router.pop().then((value) => Future.delayed(
-                      //           const Duration(milliseconds: 1500))
-                      //       .then((value) => Messages.flushBarWithOption(
-                      //             context,
-                      //             child: SizedBox(
-                      //               height: 300.h,
-                      //               width: double.infinity,
-                      //               child: StatefulBuilder(
-                      //                 builder: (context, setState) => GridView.builder(
-                      //                   itemCount: diseasesList.length,
-                      //                   itemBuilder: (context, index) {
-                      //                     return Card(
-                      //                       // child: RadioListTile(
-                      //                       //     title: Text("Diseases ${index + 1}"),
-                      //                       //     value: index, groupValue: value, onChanged: (ind) => setState(() => value = ind!)),
-                      //                       child: CheckboxListTile(
-                      //                         controlAffinity:
-                      //                             ListTileControlAffinity.leading,
-                      //                         title: Text(
-                      //                           diseasesList[index].title,
-                      //                           style: const TextStyle(),
-                      //                         ),
-                      //                         value: diseasesList[index].selected,
-                      //                         onChanged: (bool? value) {
-                      //                           if (value != null) {
-                      //                             diseasesList[index].selected = value;
-                      //                             setState(
-                      //                               () {},
-                      //                             );
-                      //                           }
-                      //                         },
-                      //                       ),
-                      //                     );
-                      //                   },
-                      //                   gridDelegate: FlutterzillaFixedGridView(
-                      //                       crossAxisCount: 2,
-                      //                       height: 50.h,
-                      //                       mainAxisSpacing: 10.w,
-                      //                       crossAxisSpacing: 10.h),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ),),);
-                      // } else {
-                      //   Future.delayed(const Duration(milliseconds: 500)).then(
-                      //     (value) => Messages.flushBarWithOption(
-                      //       context,
-                      //       child: SizedBox(
-                      //         height: 300.h,
-                      //         width: double.infinity,
-                      //         child: StatefulBuilder(
-                      //           builder: (context, setState) => GridView.builder(
-                      //             itemCount: diseasesList.length,
-                      //             itemBuilder: (context, index) {
-                      //               return Card(
-                      //                 // child: RadioListTile(
-                      //                 //     title: Text("Diseases ${index + 1}"),
-                      //                 //     value: index, groupValue: value, onChanged: (ind) => setState(() => value = ind!)),
-                      //                 child: CheckboxListTile(
-                      //                   controlAffinity:
-                      //                       ListTileControlAffinity.leading,
-                      //                   title: Text(
-                      //                     diseasesList[index].title,
-                      //                     style: const TextStyle(),
-                      //                   ),
-                      //                   value: diseasesList[index].selected,
-                      //                   onChanged: (bool? value) {
-                      //                     if (value != null) {
-                      //                       diseasesList[index].selected = value;
-                      //                       setState(
-                      //                         () {},
-                      //                       );
-                      //                     }
-                      //                   },
-                      //                 ),
-                      //               );
-                      //             },
-                      //             gridDelegate: FlutterzillaFixedGridView(
-                      //                 crossAxisCount: 2,
-                      //                 height: 50.h,
-                      //                 mainAxisSpacing: 10.w,
-                      //                 crossAxisSpacing: 10.h),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   );
-                      // }
-                    },
-                    onLevelChanged: (bodyPart) {
-                      for (var i in bodyPart) {
+              SizedBox(
+                width: kPadding.w,
+              ),
+            ],
+          ),
+          body: anatomy.isAnatomyLoading
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    Text(
+                      anatomy.anatomyStatus,
+                    ),
+                  ],
+                )
+              : Zoom(
+                  initTotalZoomOut: true,
+                  backgroundColor: Colors.transparent,
+                  canvasColor: Colors.transparent,
+                  child: AnimatedSwitcher(
+                    duration: const Duration(seconds: 2),
+                    child: HumanBodySelector(
+                      key: ValueKey(_selectedValue),
+                      map: returnHumanBodyFacing(_selectedValue),
+                      dotColor: Colors.transparent,
+                      strokeColor: Colors.greenAccent,
+                      selectedColor: Colors.greenAccent.shade100,
+                      onChanged: (bodyPart, active) {
+                        // Messages.flushBarMessage(context,
+                        //     "${active?.title} ${active?.id} ${active?.painLevel} ${active?.transformedPath} ${active?.props} ${active?.stringify}",
+                        //   flushBarPosition: FlushbarPosition.BOTTOM
+                        // );
                         debugPrint(
-                            "${i.title} ${i.path} ${i.id} ${i.painLevel} ${i.stringify}");
-                      }
-                    },
-                    // multiSelect: true,
-                    toggle: true,
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width - 150,
+                            "${bodyPart.reversed.first.title} title ${bodyPart.reversed.first.title} id ${bodyPart.first.id} pain Level: ${bodyPart.first.painLevel} obj: ${bodyPart.first.props} active part ${active?.title}");
+
+                        getDiseaseModalSheet(
+                          context,
+                          name: bodyPart.first.title,
+                          gender: _selectedValue!.split(" ").first.toString(),
+                        );
+                        // print(_selectedValue.split(" ").first.toString());
+                        // debugPrint(provider.flushBarState.toString());
+
+                        // if (provider.flushBarState == 0) {
+                        //   context.router.pop().then((value) => Future.delayed(
+                        //           const Duration(milliseconds: 1500))
+                        //       .then((value) => Messages.flushBarWithOption(
+                        //             context,
+                        //             child: SizedBox(
+                        //               height: 300.h,
+                        //               width: double.infinity,
+                        //               child: StatefulBuilder(
+                        //                 builder: (context, setState) => GridView.builder(
+                        //                   itemCount: diseasesList.length,
+                        //                   itemBuilder: (context, index) {
+                        //                     return Card(
+                        //                       // child: RadioListTile(
+                        //                       //     title: Text("Diseases ${index + 1}"),
+                        //                       //     value: index, groupValue: value, onChanged: (ind) => setState(() => value = ind!)),
+                        //                       child: CheckboxListTile(
+                        //                         controlAffinity:
+                        //                             ListTileControlAffinity.leading,
+                        //                         title: Text(
+                        //                           diseasesList[index].title,
+                        //                           style: const TextStyle(),
+                        //                         ),
+                        //                         value: diseasesList[index].selected,
+                        //                         onChanged: (bool? value) {
+                        //                           if (value != null) {
+                        //                             diseasesList[index].selected = value;
+                        //                             setState(
+                        //                               () {},
+                        //                             );
+                        //                           }
+                        //                         },
+                        //                       ),
+                        //                     );
+                        //                   },
+                        //                   gridDelegate: FlutterzillaFixedGridView(
+                        //                       crossAxisCount: 2,
+                        //                       height: 50.h,
+                        //                       mainAxisSpacing: 10.w,
+                        //                       crossAxisSpacing: 10.h),
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           ),),);
+                        // } else {
+                        //   Future.delayed(const Duration(milliseconds: 500)).then(
+                        //     (value) => Messages.flushBarWithOption(
+                        //       context,
+                        //       child: SizedBox(
+                        //         height: 300.h,
+                        //         width: double.infinity,
+                        //         child: StatefulBuilder(
+                        //           builder: (context, setState) => GridView.builder(
+                        //             itemCount: diseasesList.length,
+                        //             itemBuilder: (context, index) {
+                        //               return Card(
+                        //                 // child: RadioListTile(
+                        //                 //     title: Text("Diseases ${index + 1}"),
+                        //                 //     value: index, groupValue: value, onChanged: (ind) => setState(() => value = ind!)),
+                        //                 child: CheckboxListTile(
+                        //                   controlAffinity:
+                        //                       ListTileControlAffinity.leading,
+                        //                   title: Text(
+                        //                     diseasesList[index].title,
+                        //                     style: const TextStyle(),
+                        //                   ),
+                        //                   value: diseasesList[index].selected,
+                        //                   onChanged: (bool? value) {
+                        //                     if (value != null) {
+                        //                       diseasesList[index].selected = value;
+                        //                       setState(
+                        //                         () {},
+                        //                       );
+                        //                     }
+                        //                   },
+                        //                 ),
+                        //               );
+                        //             },
+                        //             gridDelegate: FlutterzillaFixedGridView(
+                        //                 crossAxisCount: 2,
+                        //                 height: 50.h,
+                        //                 mainAxisSpacing: 10.w,
+                        //                 crossAxisSpacing: 10.h),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   );
+                        // }
+                      },
+                      onLevelChanged: (bodyPart) {
+                        for (var i in bodyPart) {
+                          debugPrint(
+                              "${i.title} ${i.path} ${i.id} ${i.painLevel} ${i.stringify}");
+                        }
+                      },
+                      // multiSelect: true,
+                      toggle: true,
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width - 150,
+                    ),
                   ),
                 ),
-              ),
-            ),
-          );
-        });
-
-
+        ),
+      );
+    });
   }
 }
-
-

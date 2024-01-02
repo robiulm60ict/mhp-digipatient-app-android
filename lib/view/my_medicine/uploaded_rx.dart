@@ -197,7 +197,7 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                                                           SizedBox(
                                                             width: 180.w,
                                                             child: Text(
-                                                                DateFormat("yyyy-MM-dd").format(DateTime.parse(info.createdAt.toString())),
+                                                                DateFormat("dd-MM-yyyy").format(DateTime.parse(info.createdAt.toString())),
                                                                 style: Style
                                                                     .alltext_default_balck),
                                                           ),
