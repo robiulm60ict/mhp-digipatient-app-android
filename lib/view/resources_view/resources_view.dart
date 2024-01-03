@@ -68,14 +68,14 @@ class ResourcesView extends StatelessWidget {
                                   Container(
                                     padding: EdgeInsets.all(1.0),
                                     decoration: BoxDecoration(
-                                        color: Colors.green.shade50,
+                                      //  color: Colors.green.shade50,
                                         // border: Border.all(
                                         //     color: Colors.redAccent),
                                         shape: BoxShape.circle),
                                     height: 65.h,
                                     width: double.infinity,
                                     child: Padding(
-                                      padding: EdgeInsets.all(0.0),
+                                      padding: EdgeInsets.all(6.0),
                                       child: Image.asset(
                                         provider.resourseImageItemsList[index].image,
                                         fit: BoxFit.fill,

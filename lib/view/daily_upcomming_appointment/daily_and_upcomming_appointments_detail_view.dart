@@ -18,8 +18,7 @@ class DailyAndUpcommingDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const CustomBackButton(),
-        leadingWidth: leadingWidth,
+
         centerTitle: true,
         title: Text("Doctor Meeting", style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
       ),

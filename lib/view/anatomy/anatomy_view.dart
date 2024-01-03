@@ -54,7 +54,7 @@ class _AnatomyViewState extends State<AnatomyView> {
   }
 
   returnHumanBodyFacing(selectedValue) {
-    print("Male");
+
     if (selectedValue == maleBack) {
       return Maps.MALE1;
     } else if (selectedValue == femaleFront) {
@@ -170,49 +170,66 @@ class _AnatomyViewState extends State<AnatomyView> {
               .then((value) => true);
         },
         child: Scaffold(
+          bottomNavigationBar: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: BottomAppBar(
+              color: AppColors.primary_color,
+              child: MaterialButton(
+                elevation: 0,
+                color: AppColors.primary_color,
+                child: Text("Back"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+          ),
           appBar: AppBar(
-            leadingWidth: leadingWidth,
-            leading: const CustomBackButton(),
+            backgroundColor:  AppColors.primary_color,
             title: Text(
               "Select Symptoms",
               style: TextStyle(
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                   fontFamily: 'Roboto',
-                  color: AppColors.primaryColor),
+                  color: AppColors.text_primary_color),
             ),
             actions: [
               DropdownButton(
                 value: _selectedValue,
                 items: [
-                  DropdownMenuItem(
-                    value: maleFront,
-                    child: Text(
-                      maleFront,
-                      style: Style.alltext_default_balck,
+                  if (gender == "Male")
+                    DropdownMenuItem(
+                      value: maleFront,
+                      child: Text(
+                        maleFront,
+                        style: Style.alltext_default_balck,
+                      ),
                     ),
-                  ),
-                  DropdownMenuItem(
-                    value: maleBack,
-                    child: Text(
-                      maleBack,
-                      style: Style.alltext_default_balck,
+                  if (gender == "Male")
+                    DropdownMenuItem(
+                      value: maleBack,
+                      child: Text(
+                        maleBack,
+                        style: Style.alltext_default_balck,
+                      ),
                     ),
-                  ),
-                  DropdownMenuItem(
-                    value: femaleFront,
-                    child: Text(
-                      femaleFront,
-                      style: Style.alltext_default_balck,
+                  if (gender != "Male")
+                    DropdownMenuItem(
+                      value: femaleFront,
+                      child: Text(
+                        femaleFront,
+                        style: Style.alltext_default_balck,
+                      ),
                     ),
-                  ),
-                  DropdownMenuItem(
-                    value: femaleBack,
-                    child: Text(
-                      femaleBack,
-                      style: Style.alltext_default_balck,
+                  if (gender != "Male")
+                    DropdownMenuItem(
+                      value: femaleBack,
+                      child: Text(
+                        femaleBack,
+                        style: Style.alltext_default_balck,
+                      ),
                     ),
-                  ),
                 ],
                 onChanged: (value) {
                   if (value is String) {

@@ -72,8 +72,7 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,
-        leadingWidth: leadingWidth,
-        leading: const CustomBackButton(),
+
         title: Text(
           "Add Medical History",
           style:Style.alltext_appbar

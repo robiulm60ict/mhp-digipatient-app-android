@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
+import 'package:digi_patient/resources/styles.dart';
 import 'package:digi_patient/utils/message.dart';
 import 'package:digi_patient/utils/utils.dart';
 import 'package:digi_patient/view/authentications/sign_in_view.dart';
@@ -58,40 +59,57 @@ class _SignUpViewState extends State<SignUpView> {
 
               Card(
                 margin: EdgeInsets.all(defaultPadding.r),
+
                 // color: Colors.transparent,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.r),
                     side: BorderSide(
                       color: AppColors.primaryColor,
                     )),
-                child: SizedBox(
-                  height: 60,
-                  child: Row(
-                    children: [
-                      Text(
-                        "  +88  ",
-                        style:
-                        TextStyle(fontSize: 16.sp, color: AppColors.blackColor),
-                      ),
-                      Expanded(
-                        child: TextField(
-                          controller: phnNumber,
-                          keyboardType: TextInputType.number,
-                          enabled: true,
-                          maxLength: 11,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: 55,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
 
-
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-
-                          ),
-                          // decoration: InputDecoration(
-                          //   border: InputBorder.none,
-                          //
-                          // ),
+                            Text(
+                              "  +88  ",
+                              style:
+                              TextStyle(fontSize: 16.sp, color: AppColors.blackColor,),
+                            ),
+                            Style.distan_size2,
+                            Style.distan_size2,
+                            Style.distan_size2,
+                          ],
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          flex: 8,
+                          child: TextField(
+                            controller: phnNumber,
+                            keyboardType: TextInputType.number,
+                            enabled: true,
+                            maxLength: 11,
+
+
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+
+                            ),
+                            // decoration: InputDecoration(
+                            //   border: InputBorder.none,
+                            //
+                            // ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

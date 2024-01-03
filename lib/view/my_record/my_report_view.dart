@@ -17,9 +17,8 @@ class MyReportView extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
-        leadingWidth: leadingWidth,
-        leading: const CustomBackButton(),
-        title: Text("My Report", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
+        backgroundColor: AppColors.primary_color,
+        title: Text("My Report",  style: Style.alltext_appbar),
         centerTitle: true,
       ),
       body: Padding(

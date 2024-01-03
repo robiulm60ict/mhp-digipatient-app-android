@@ -171,27 +171,8 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           overflow: TextOverflow.ellipsis,
                           style: Style.alltext_default_balck,
                         ),
-                        SizedBox(
-                          height: 8.h,
-                        ),
-                        Row(
-                          children: [
-                            CustomRating.ratingBar(
-                                itemSize: 20,
-                                ignoreGestures: false,
-                                onRatingUpdate: (rati) {
-                                  rating = rati;
 
-                                }),
-                            SizedBox(
-                              width: 8.w,
-                            ),
-                            Text(
-                              "$rating",
-                              style: Style.alltext_default_balck,
-                            )
-                          ],
-                        ),
+
                         SizedBox(
                           height: 12.h,
                         ),
@@ -234,7 +215,12 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                   text: TextSpan(
                                       text:
                                           "${doc?.doctors?.doctorFee ?? "0"} ",
-                                      style: Style.alltext_default_balck,
+                                      style:TextStyle(
+                                        fontFamily: 'Roboto',
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.text_primary_color,
+                                        fontSize: 16.sp,
+                                      ),
                                       children: [
                                         TextSpan(
                                           text: "BDT",
@@ -457,164 +443,8 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 SizedBox(
                   height: 10.h,
                 ),
-                Text(
-                  "Schedule",
-                  style: Style.alltext_default_balck_blod,
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
 
 
-                SizedBox(
-                  //  height: 80.h,
-                    child: Consumer<MyDoctorViewModel>(
-                        builder: (context, data, child) {
-                      if (data.doctorTimeSlotList.isEmpty) {
-                        return data.isDocChamberTimeLoading == true
-                            ? ListView.builder(
-                                itemCount: 1,
-                                // scrollDirection: Axis.vertical,
-                                physics: const ScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: bannerShimmereffect(
-                                        90.toDouble(), 385.toDouble()),
-                                  );
-                                },
-                              )
-                            : noDataFounForList("No History");
-                      } else {
-                        return ListView.builder(
-                          itemCount:mdVM.doctorTimeSlotList.length,
-                          // scrollDirection: Axis.vertical,
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                                 var docTime =
-                                    mdVM.doctorTimeSlotList[index];
-                            return  Center(
-                              child: Card(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          "${docTime.day}",
-                                          style: Style.alltext_default_balck,
-                                        ),
-                                        Text(
-                                          "${docTime.slotFrom.toString()} To ${docTime.slotTo.toString()}",
-                                          style: Style.alltext_default_balck,
-                                        ),
-
-                                        Text(
-                                          "${docTime.type.toString().toUpperCase()}",
-                                          style: Style.alltext_default_balck,
-                                        ),
-                                      ],
-                                    ),
-                                  )
-
-                                // ListTile(
-                                //   title: Text(
-                                //     //{docTime.day}-
-                                //     "${docTime.day}",
-                                //     style: Style.alltext_default_balck,
-                                //   ),
-                                //   subtitle: Text(
-                                //     "${docTime.slotFrom.toString()} To ${docTime.slotTo.toString()}",
-                                //     style: Style.alltext_default_balck,
-                                //   ),
-                                //   trailing: Column(
-                                //     children: [
-                                //       Text(
-                                //         "${docTime.type.toString().toUpperCase()}",
-                                //         style: Style.alltext_default_balck,
-                                //       ),
-                                //       Style.distan_size2,
-                                //       Text(
-                                //         docTime.status.toString()=="off_duty"?"Off Day" :"",
-                                //         style: Style.alltext_default_balck,
-                                //       ),
-                                //     ],
-                                //   ),
-                                //
-                                // )
-                              ),
-                            );
-                          },
-                        );
-
-                        //   CarouselSlider.builder(
-                        //   // scrollDirection: Axis.horizontal,
-                        //   itemCount: mdVM.doctorTimeSlotList.length,
-                        //   itemBuilder: (BuildContext context, int index,
-                        //       int pageViewIndex) {
-                        //     var docTime =
-                        //         mdVM.doctorTimeSlotList[index];
-                        //     return Center(
-                        //       child: Card(
-                        //           child: ListTile(
-                        //               title: Text(
-                        //                 //{docTime.day}-
-                        //                 "${docTime.day}",
-                        //                 style: Style.alltext_default_balck,
-                        //               ),
-                        //               subtitle: Text(
-                        //                 "${docTime.slotFrom.toString()} To ${docTime.slotTo.toString()}",
-                        //                 style: Style.alltext_default_balck,
-                        //               ),
-                        //               trailing: Column(
-                        //                 children: [
-                        //                   Text(
-                        //                     "${docTime.type.toString().toUpperCase()}",
-                        //                     style: Style.alltext_default_balck,
-                        //                   ),
-                        //                   Style.distan_size2,
-                        //                   Text(
-                        //                     docTime.status.toString()=="off_duty"?"Off Day" :"",
-                        //                     style: Style.alltext_default_balck,
-                        //                   ),
-                        //                 ],
-                        //               ),
-                        //
-                        //           )
-                        //       ),
-                        //     );
-                        //   },
-                        //   options: CarouselOptions(
-                        //     // height: 400,
-                        //     // aspectRatio: 16/9,
-                        //     viewportFraction: 0.8,
-                        //     initialPage: 0,
-                        //     enableInfiniteScroll: true,
-                        //     reverse: false,
-                        //     autoPlay: true,
-                        //     autoPlayInterval: const Duration(seconds: 3),
-                        //     autoPlayAnimationDuration:
-                        //         const Duration(milliseconds: 1600),
-                        //     autoPlayCurve: Curves.fastOutSlowIn,
-                        //     enlargeCenterPage: true,
-                        //     // enlargeFactor: 0.3,
-                        //     scrollDirection: Axis.horizontal,
-                        //   ),
-                        //   // itemBuilder: (context, index) => Card(
-                        //   //   color: index == 1 ? AppColors.primaryColor : Colors.white,
-                        //   //   child: Padding(
-                        //   //     padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 8.h),
-                        //   //     child: Text("9.30AM", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: index == 1 ? Colors.white : const Color(0xFF646464)),),
-                        //   //   ),
-                        //   // ),
-                        // );
-                      }
-                    })),
-                SizedBox(
-                  height: 20.h,
-                ),
               ],
             ),
           ),

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:date_format_field/date_format_field.dart';
 import 'package:digi_patient/model/auth_model/birth_sex_model.dart';
 import 'package:digi_patient/model/auth_model/blood_group_model.dart';
 import 'package:digi_patient/utils/datetime.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/assets.dart';
@@ -83,7 +85,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
 
   BirthSex? birthSex;
   bool obSecureText = false;
-
+  DateTime? date;
   @override
   void initState() {
     super.initState();
@@ -106,6 +108,8 @@ class _CreateAccountViewState extends State<CreateAccountView> {
     }
   }
 
+  DateTime? _date;
+
   @override
   void dispose() {
     super.dispose();
@@ -118,7 +122,6 @@ class _CreateAccountViewState extends State<CreateAccountView> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SafeArea(
         child: Consumer<AuthViewModel>(builder: (context, auth, child) {
@@ -278,7 +281,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                     Icons.person,
                     color: AppColors.primaryColor,
                   ),
-                  hintText: "First Name",
+                  hintText: "Patient First Name",
                 ),
                 Style.distan_size5,
                 CustomTextField(
@@ -287,9 +290,50 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                     Icons.person,
                     color: AppColors.primaryColor,
                   ),
-                  hintText: "Last Name",
+                  hintText: "Patient Last Name",
                 ),
                 Style.distan_size5,
+                // Container(
+                //   // decoration: ShapeDecoration(
+                //   //   shape: RoundedRectangleBorder(
+                //   //     side: BorderSide(
+                //   //         width: 1.0,
+                //   //         style: BorderStyle.solid,
+                //   //         color: AppColors.primary_color),
+                //   //     borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                //   //   ),
+                //   // ),
+                //   child: DateFormatField(
+                //
+                //       addCalendar: false,
+                //
+                //       decoration: InputDecoration(
+                //
+                //         label: Text("Date of birthday"),
+                //         fillColor: Colors.green,
+                //         border:  OutlineInputBorder(
+                //             borderSide: BorderSide(
+                //                 color: Colors.red
+                //             )
+                //         ),
+                //         hintText: "23/10/2022",
+                //         errorBorder: OutlineInputBorder(
+                //           borderSide: BorderSide(
+                //             color: Colors.red
+                //           )
+                //         )
+                //       ),
+                //       type: DateFormatType.type2,
+                //       onComplete: (date) {
+                //         if (date != null) {
+                //           print(date);
+                //           setState(() {
+                //             _date = date!;
+                //             print(_date);
+                //           });
+                //         }
+                //       }),
+                // ),
                 CustomTextField(
                   // enable: false,
                   textEditingController: dateOfBirthController,
@@ -300,10 +344,10 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   hintText: "Date of Birth",
                   onTap: () async {
                     // final date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now(), lastDate: DateTime(3033));
-                    DateTime? date = await PickDateTime()
+                    date = await PickDateTime()
                         .pickDateregister(context, initialDate: DateTime.now());
                     dateOfBirthController.text =
-                        "${date?.month}-${date?.day}-${date?.year}";
+                        "${date?.day}-${date?.month}-${date?.year}";
                   },
                 ),
                 Style.distan_size5,
@@ -312,7 +356,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                         child: CircularProgressIndicator(),
                       )
                     : Container(
-                        height: 55.h,
+                        height: 47.h,
                         width: double.infinity,
                         decoration: ShapeDecoration(
                           shape: RoundedRectangleBorder(
@@ -455,93 +499,96 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                 //       )
                 //     :
                 CustomElevatedButton(
-                        isExpanded: false,
-                        title: "Save",
-                        onPressed: () async {
-                          // debugPrint("------------------------------------------------\n\n\n\n\n\n");
+                  isExpanded: false,
+                  title: "Save",
+                  onPressed: () async {
+                    // debugPrint("------------------------------------------------\n\n\n\n\n\n");
+                    String dateString = '${dateOfBirthController.text.toString()}';
+                    DateTime dateTime = DateFormat('dd-MM-yyyy').parse(dateString);
+                    String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
+                    print("ddd${formattedDate}");
+                    if (xFileList.isEmpty) {
+                      Messages.snackBar(
+                          context, "Image con not be empty !");
+                    }
+                    if (namefast.text.isEmpty) {
+                      Messages.snackBar(
+                          context, "First Name con not be empty !");
+                    } else if (namelast.text.isEmpty) {
+                      Messages.snackBar(
+                          context, "Last Name con not be empty !");
+                    } else if (dateOfBirthController.text.isEmpty) {
+                      Messages.snackBar(
+                          context, "Date of Birth con not be empty !");
+                    }
 
-                          if (xFileList.isEmpty) {
-                            Messages.snackBar(
-                                context, "Image con not be empty !");
-                          }
-                          if (namefast.text.isEmpty) {
-                            Messages.snackBar(
-                                context, "First Name con not be empty !");
-                          } else if (namelast.text.isEmpty) {
-                            Messages.snackBar(
-                                context, "Last Name con not be empty !");
-                          } else if (dateOfBirthController.text.isEmpty) {
-                            Messages.snackBar(
-                                context, "Date of Birth con not be empty !");
-                          }
+                    else if (bloodGroup == null) {
+                      Messages.snackBar(
+                          context, "Blood Group con not be empty !");
+                    }
+                    else if (birthSex == null) {
+                      Messages.snackBar(
+                          context, "Gender con not be empty !");
+                    }
 
-                          else if (bloodGroup == null) {
-                            Messages.snackBar(
-                                context, "Blood Group con not be empty !");
-                          }
-                          else if (birthSex == null) {
-                            Messages.snackBar(
-                                context, "Gender con not be empty !");
-                          }
+                    // else if (email.text.isEmpty) {
+                    //   Messages.snackBar(
+                    //       context, "Email con not be empty !");
+                    // }
 
-                          // else if (email.text.isEmpty) {
-                          //   Messages.snackBar(
-                          //       context, "Email con not be empty !");
-                          // }
-
-                          else if (address.text.isEmpty) {
-                            Messages.snackBar(
-                                context, "Address con not be empty !");
-                          } else if (password.text.length < 7) {
-                            Messages.snackBar(
-                                context, "Enter At least 8 Digit Password");
-                          } else {
-                            Map<String, String> body = {
-                              'patient_mobile_phone': widget.phoneNumber,
-                              "app_token":
-                                  "6WXtdlLMiJqi8m8Z0LBqQKVhc7VwOLYv7VoGZ6pFOuaFW3ptWFjRDyLBdQ5QBLNO",
-                              'patient_first_name': namefast.text,
-                              'patient_birth_sex_id': "${birthSex?.id}",
-                              'ptn_blood_group_id': "${bloodGroup?.id}",
-                              'patient_dob': dateOfBirthController.text,
-                              //'image': MultipartFile(File(xFileList.first!.path).toString(), filename: ""),
-                              'password': password.text,
-                              'patient_email': email.text,
-                              "patient_last_name": namelast.text,
-                              "patient_address1": address.text,
-                            };
-                            print(body);
-                            //  await auth.signUpOriginal(context, body);
-                            await auth.signUp(context, body,
-                                File(xFileList.first!.path).path);
-                            widget.phoneNumber = "";
-                            // await auth.registration(context, imageFile: File(xFileList.first!.path), phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode, name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}", dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
-                            // auth.signUpOriginal(context, body, widget.token);
-                            ///
-                            // final imageBytes = File(xFileList.first!.name).length() as List<int>;
-                            // auth.signUp(context, body, File(xFileList.first!.name).toString());
-                            ///
-                            // final res = SendImage();
-                            // await res.addImage(body, File(xFileList.first!.name).path).onError((error, stackTrace) {
-                            //   debugPrint(error.toString());
-                            //   return false;
-                            // });
-                            ///
-                            // await auth.registration(context, imageFile: File(xFileList.first!.path),
-                            //     phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode,
-                            //     name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}",
-                            //     dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
-                            // await UserRegistration().sendImageAndData(imageFile: File(xFileList.first!.path),
-                            //     phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode,
-                            //     name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}",
-                            //     dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
-                            // auth.signUpApi(context, body);
-                            // auth.signUpAndSendImage(context, body: body, filePath: xFileList.first!.path);
-                          }
-                        },
-                        backgroundColor: AppColors.primaryColor,
-                        textColor: Colors.white,
-                      ),
+                    else if (address.text.isEmpty) {
+                      Messages.snackBar(
+                          context, "Address con not be empty !");
+                    } else if (password.text.length < 7) {
+                      Messages.snackBar(
+                          context, "Enter At least 8 Digit Password");
+                    } else {
+                      Map<String, String> body = {
+                        'patient_mobile_phone': widget.phoneNumber,
+                        "app_token":
+                            "6WXtdlLMiJqi8m8Z0LBqQKVhc7VwOLYv7VoGZ6pFOuaFW3ptWFjRDyLBdQ5QBLNO",
+                        'patient_first_name': namefast.text,
+                        'patient_birth_sex_id': "${birthSex?.id}",
+                        'ptn_blood_group_id': "${bloodGroup?.id}",
+                        'patient_dob': formattedDate,
+                        //'image': MultipartFile(File(xFileList.first!.path).toString(), filename: ""),
+                        'password': password.text,
+                        'patient_email': email.text,
+                        "patient_last_name": namelast.text,
+                        "patient_address1": address.text,
+                      };
+                      print(body);
+                      //  await auth.signUpOriginal(context, body);
+                      // await auth.signUp(context, body,
+                      //     File(xFileList.first!.path).path);
+                      //  widget.phoneNumber = "";
+                    // await auth.registration(context, imageFile: File(xFileList.first!.path), phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode, name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}", dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
+                    // auth.signUpOriginal(context, body, widget.token);
+                    ///
+                    // final imageBytes = File(xFileList.first!.name).length() as List<int>;
+                    // auth.signUp(context, body, File(xFileList.first!.name).toString());
+                    ///
+                    // final res = SendImage();
+                    // await res.addImage(body, File(xFileList.first!.name).path).onError((error, stackTrace) {
+                    //   debugPrint(error.toString());
+                    //   return false;
+                    // });
+                    ///
+                    // await auth.registration(context, imageFile: File(xFileList.first!.path),
+                    //     phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode,
+                    //     name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}",
+                    //     dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
+                    // await UserRegistration().sendImageAndData(imageFile: File(xFileList.first!.path),
+                    //     phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode,
+                    //     name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}",
+                    //     dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
+                    // auth.signUpApi(context, body);
+                    // auth.signUpAndSendImage(context, body: body, filePath: xFileList.first!.path);
+                     }
+                  },
+                  backgroundColor: AppColors.primaryColor,
+                  textColor: Colors.white,
+                ),
               ],
             );
           }

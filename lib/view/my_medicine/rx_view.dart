@@ -40,8 +40,7 @@ class _RXViewState extends State<RXView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,
-        leadingWidth: leadingWidth,
-        leading: const CustomBackButton(),
+
         title: Text(
           "My Medicine",
           style: Style.alltext_appbar,
@@ -70,7 +69,7 @@ class _RXViewState extends State<RXView> {
                     width: 36.w,
                   ),
                   title: Text(
-                    "Current RX",
+                    "Current RX From Great doc",
                     style: Style.alltext_default_balck,
                   ),
                 ),
@@ -88,7 +87,7 @@ class _RXViewState extends State<RXView> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                PastRXDetailView(title: "Past RX")));
+                                PastRXDetailView(title: "Past RX ")));
 
                     // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
                   },
@@ -98,7 +97,7 @@ class _RXViewState extends State<RXView> {
                     width: 36.w,
                   ),
                   title: Text(
-                    "Past RX",
+                    "Past RX From Great doc",
                     style: Style.alltext_default_balck,
                   ),
                 ),

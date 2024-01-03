@@ -18,8 +18,7 @@ class MyMedicineView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,
-        leadingWidth: leadingWidth,
-        leading: const CustomBackButton(),
+
         title: Text("My Medicine", style: Style.alltext_appbar,),
         centerTitle: true,
       ),

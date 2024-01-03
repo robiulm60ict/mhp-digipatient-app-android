@@ -115,25 +115,7 @@ class _VitalsViewState extends State<VitalsView>
             backgroundColor: AppColors.page_background_color,
             appBar: AppBar(
               backgroundColor: AppColors.primary_color,
-              leadingWidth: leadingWidth,
-              leading: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                  // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>MyRecordView(),),(route) => false);
-                },
-                child: Card(
-                  margin: EdgeInsets.all(8.r),
-                  elevation: 5,
-                  child: Padding(
-                    padding: EdgeInsets.all(6.r),
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: AppColors.primaryColor,
-                      size: 20.h,
-                    ),
-                  ),
-                ),
-              ),
+
               title: Text("Vitals", style: Style.alltext_appbar),
               centerTitle: true,
             ),

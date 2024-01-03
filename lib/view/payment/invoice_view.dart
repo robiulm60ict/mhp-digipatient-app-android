@@ -53,8 +53,7 @@ class _InvoiceViewState extends State<InvoiceView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,
-        leading: const CustomBackButton(),
-        leadingWidth: leadingWidth,
+
         centerTitle: true,
         title: Text(
           "Invoice and Payments",

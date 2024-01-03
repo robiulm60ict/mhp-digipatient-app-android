@@ -188,7 +188,7 @@ class _ProfileDataState extends State<ProfileData> {
                 Text(  "${user!.patientMobilePhone}", style: Style.alltext_default_balck,)
               ],),
             ),
-            Container(
+            user!.patientEmail=='null' ? Container(
               margin: const EdgeInsets.only(left: 8.0),
               padding: const EdgeInsets.all(8.0),
               child: Row(children: [
@@ -199,7 +199,7 @@ class _ProfileDataState extends State<ProfileData> {
                 Text(': '),
                 Text(  "${user!.patientEmail}", style: Style.alltext_default_balck,)
               ],),
-            ),
+            ):Container(),
             Container(
               margin: const EdgeInsets.only(left: 8.0),
               padding: const EdgeInsets.all(8.0),

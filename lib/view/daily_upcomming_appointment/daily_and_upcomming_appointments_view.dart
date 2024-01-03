@@ -64,8 +64,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
       backgroundColor: AppColors.page_background_color,
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,
-        leading: const CustomBackButton(),
-        leadingWidth: leadingWidth,
+
         centerTitle: true,
         title: Text(
           "Appointments",

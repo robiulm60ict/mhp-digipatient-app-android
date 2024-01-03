@@ -45,20 +45,21 @@ class _SignInViewState extends State<SignInView> {
 
         children: [
           const GradientAppBar(text: 'User Login',),
-          SizedBox(height: 100.h,),
+          SizedBox(height: 70.h,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
-            child: Text("Mobile or Email", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+            child: Text("Mobile", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
           ),
           SizedBox(height: 5.h,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
             child: CustomTextField(
+              maxLength:11,
               textEditingController: emailController,
-              keyboardType: TextInputType.text,
-              prefix: Icon(Icons.person_pin, color: AppColors.primaryColor,), hintText: "Email or Mobile",),
+              keyboardType: TextInputType.number,
+              prefix: Icon(Icons.person_pin, color: AppColors.primaryColor,), hintText: "Mobile",),
           ),
-          SizedBox(height: 15.h,),
+          SizedBox(height: 5.h,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
             child: Text("Password", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
@@ -136,11 +137,10 @@ class _SignInViewState extends State<SignInView> {
               text: TextSpan(
               children: [
                 TextSpan(text: "Don't have account yet?", style: TextStyle(fontSize: 14.sp, color: Colors.black)),
-                TextSpan(text: "  Register Here", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor), recognizer: TapGestureRecognizer()..onTap = ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpView())))
+                TextSpan(text: "  Register Here", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor), recognizer: TapGestureRecognizer()..onTap = ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpView())))
               ]
             ),),
           ),
-          SizedBox(height: 100.h,),
         ],
       ),
     );

@@ -44,8 +44,7 @@ class _MyMedicalHistoryViewState extends State<MyMedicalHistoryView> {
         backgroundColor: AppColors.page_background_color,
         appBar: AppBar(
           backgroundColor: AppColors.primary_color,
-          leadingWidth: leadingWidth,
-          leading: const CustomBackButton(),
+
           title: Text(
             "My Medical History",
             style: Style.alltext_appbar

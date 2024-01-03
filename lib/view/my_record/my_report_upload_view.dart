@@ -83,7 +83,6 @@ class _UploadReportViewState extends State<UploadReportView> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.primaryColor,
-        //automaticallyImplyLeading: false,
 
         centerTitle: true,
         title: Text(

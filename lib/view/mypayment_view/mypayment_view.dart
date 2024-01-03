@@ -48,7 +48,7 @@ class _MyPatientViewState extends State<MyPatientView> {
 
           centerTitle: true,
           title: Text(
-            "My Payment",
+            "My Payments",
             style: Style.alltext_default_white,
           ),
         ),

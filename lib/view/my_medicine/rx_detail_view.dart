@@ -45,8 +45,7 @@ class _RXDetailViewState extends State<RXDetailView> {
       backgroundColor: AppColors.page_background_color,
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,
-        leadingWidth: leadingWidth,
-        leading: const CustomBackButton(),
+
         title: Text(
           widget.title,
           style: Style.alltext_appbar,

@@ -106,8 +106,7 @@ class DocCard extends StatelessWidget {
                     const SizedBox(
                       height: 2,
                     ),
-                    CustomRating.ratingBar(onRatingUpdate: (val) {}),
-                    SizedBox(height: 2.h),
+
                   ],
                 ),
               ),

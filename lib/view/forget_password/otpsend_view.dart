@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../resources/styles.dart';
 import '../../routes/routes.gr.dart';
 import 'forget_pincode_verification_view.dart';
 
@@ -64,30 +65,43 @@ class _OtpSendViewState extends State<OtpSendView> {
                   side: BorderSide(
                     color: AppColors.primaryColor,
                   )),
-              child: SizedBox(
-                height: 60,
-                child: Row(
-                  children: [
-                    Text(
-                      "  +88  ",
-                      style:
-                          TextStyle(fontSize: 16.sp, color: AppColors.blackColor),
-                    ),
-                    Expanded(
-                      child: TextField(
-                        controller: phnNumber,
-                        maxLength: 11,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 55,
+                  child: Row(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+
+                          Text(
+                            "  +88  ",
+                            style:
+                            TextStyle(fontSize: 16.sp, color: AppColors.blackColor,),
+                          ),
+                          Style.distan_size2,
+                          Style.distan_size2,
+                          Style.distan_size2,
+                        ],
+                      ),
+                      Expanded(
+                        child: TextField(
+                          controller: phnNumber,
+                          maxLength: 11,
 
 
-                        keyboardType: TextInputType.number,
-                        enabled: true,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
+                          keyboardType: TextInputType.number,
+                          enabled: true,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
 
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
