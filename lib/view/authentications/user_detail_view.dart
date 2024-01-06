@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
@@ -9,8 +10,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../enum/gender_enum.dart';
-import '../../model/appointment_model/upcomming_appointments_model.dart';
 import '../../model/auth_model/birth_sex_model.dart';
+import '../../model/auth_model/blood_group_model.dart';
 import '../../model/userprofile/userprofile_model.dart';
 import '../../resources/app_url.dart';
 import '../../resources/constants.dart';
@@ -37,13 +38,12 @@ class _UserDetailViewState extends State<UserDetailView> {
 
   List<XFile?> xFileList = [];
 
-
   pickImage({required bool fromGallery}) async {
-    try{
+    try {
       final XFile? image = await _picker.pickImage(
           source: fromGallery ? ImageSource.gallery : ImageSource.camera);
       if (image != null) {
-        // saveImage(image);
+         // saveImage(image);
         xFileList.clear();
         xFileList.add(image);
         setState(() {});
@@ -53,11 +53,10 @@ class _UserDetailViewState extends State<UserDetailView> {
         Messages.flushBarMessage(
             context, fromGallery ? "Select an Image" : "Take a Photo");
       }
-    }catch (e){
+    } catch (e) {
       debugPrint(e.toString());
       Messages.flushBarMessage(context, e.toString());
     }
-
 
     // Capture a photo
     // final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
@@ -72,19 +71,33 @@ class _UserDetailViewState extends State<UserDetailView> {
     // Message.flushBarMessage(context, "Something Went wrong Try Again");
     // }
   }
+
   Gender _gender = Gender.male;
-  // BloodGroup? bloodGroup;
+
+  BloodGroups? bloodGroup;
 
   BirthSex? birthSex;
 
-  String birth='';
+  String birth = '';
 
-  selectBirthSexAndBloodGroup({required String birthSexId, required String bloodGroupId}){
-    birthSex = context.read<AuthViewModel>().birthSexList.first.birthSex?.where((element) => element.birthSexName.toString() == birthSexId).toList().first;
-    // bloodGroup = context.read<AuthViewModel>().bloodGroupList.first.bloodGroup?.where((element) => element.id.toString() == bloodGroupId).toList().first as BloodGroup?;
-  setState(() {
+  selectBirthSexAndBloodGroup(
+      {required String birthSexId, required String bloodGroupId}) {
+    print("selectBirthSexAndBloodGroup $birthSexId");
 
-  });
+    birthSex = context
+        .read<AuthViewModel>()
+        .birthSexListsingle
+        .firstWhere((element) => element.birthSexName.toString() == birthSexId);
+
+    print(
+        "ssssssssssssssssssssssssssssssssssssssssss${birthSex!.birthSexName!.toString()}");
+    bloodGroup = context
+            .read<AuthViewModel>()
+            .bloodGroupListsoingle
+            ?.firstWhere(
+                (element) => element.bloodGroupName.toString() == bloodGroupId)
+        ;
+    setState(() {});
   }
 
   @override
@@ -94,55 +107,21 @@ class _UserDetailViewState extends State<UserDetailView> {
       // Add Your Code here.
       context.read<AuthViewModel>().getBirthSex(context);
       context.read<AuthViewModel>().getBloodGroup(context);
-       selectBirthSexAndBloodGroup(birthSexId: "${widget.user.patientBirthSex?.birthSexName.toString()}", bloodGroupId: widget.user.ptnBloodGroupId.toString());
-       setBirthSexAndBloodGroup();
     });
-    nameController = TextEditingController(text: "${widget.user.patientFirstName} ${widget.user.patientMiddleName} ${widget.user.patientLastName}");
-    emailController = TextEditingController(text: "${widget.user.patientEmail}");
-    dateOfBirthController = TextEditingController(text: "${widget.user.patientDob}");
-     setGender(widget.user.patientBirthSex?.birthSexName ?? "");
+    nameController = TextEditingController(
+        text:
+            "${widget.user.patientFirstName} ${widget.user.patientLastName}");
+    emailController =
+        TextEditingController(text: "${widget.user.patientEmail}");
+    dateOfBirthController =
+        TextEditingController(text: "${widget.user.patientDob}");
+
+    Timer(const Duration(seconds: 3), () {
+      selectBirthSexAndBloodGroup(
+          birthSexId: "${widget.user.patientBirthSex?.birthSexName.toString()}",
+          bloodGroupId: "${widget.user.bloodGroup?.bloodGroupName.toString()}");
+    });
   }
-  setBirthSexAndBloodGroup() {
-    if (!context
-        .read<AuthViewModel>()
-        .isBloodGroupLoading && !context
-        .read<AuthViewModel>()
-        .isBirthSexLoading) {
-
-      // bloodGroup = context
-      //     .read<AuthViewModel>()
-      //     .bloodGroupList
-      //     .first
-      //     .bloodGroup!
-      //     .first;
-      birthSex = context
-          .read<AuthViewModel>()
-          .birthSexList
-          .first
-          .birthSex!
-          .first;
-      setState(() {
-
-      });
-    }
-  }
-  setGender(String gender){
-    if( widget.user.patientBirthSex?.birthSexName.toString().toLowerCase() == "male"){
-      setState(() {
-        _gender = Gender.male;
-      });
-    }else if( widget.user.patientBirthSex?.birthSexName.toString().toLowerCase() == "female"){
-      setState(() {
-        _gender = Gender.female;
-      });
-    }else{
-      _gender = Gender.others;
-      setState(() {
-
-      });
-    }
-  }
-
 
   @override
   void dispose() {
@@ -153,16 +132,20 @@ class _UserDetailViewState extends State<UserDetailView> {
     emailController.dispose();
     dateOfBirthController.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthViewModel>(context,listen: false);
+    final auth = Provider.of<AuthViewModel>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
         leadingWidth: leadingWidth,
         leading: const CustomBackButton(),
         centerTitle: true,
-        title: Text("Profile", style: TextStyle(fontSize: 18.sp, color: Colors.white),),
+        title: Text(
+          "Profile",
+          style: TextStyle(fontSize: 18.sp, color: Colors.white),
+        ),
         elevation: 0,
         backgroundColor: AppColors.primaryColor,
       ),
@@ -171,223 +154,164 @@ class _UserDetailViewState extends State<UserDetailView> {
           Column(
             children: [
               Container(
-                height: 60.h,
-                alignment: Alignment.centerRight,
-                color: AppColors.primaryColor,
-                child: SizedBox(
-                  width: 200.w,
-                  child: TextField(
-                    controller: nameController,
-                    focusNode: nameFocusNode,
-                    style: TextStyle(
-                      fontSize: 10.sp,
-                      color: Colors.white
+                  height: 60.h,
+                  alignment: Alignment.centerRight,
+                  color: AppColors.primaryColor,
+                  child: SizedBox(
+                    width: 200.w,
+                    child: TextField(
+                      controller: nameController,
+                      focusNode: nameFocusNode,
+                      style: TextStyle(fontSize: 10.sp, color: Colors.white),
+                      cursorColor: Colors.blue,
+                      decoration: InputDecoration(
+                          enabled: true,
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.r),
+                              borderSide:
+                                  const BorderSide(color: Colors.white)),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.r),
+                              borderSide:
+                                  const BorderSide(color: Colors.white)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.r),
+                              borderSide:
+                                  const BorderSide(color: Colors.white)),
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                nameFocusNode.requestFocus();
+                              },
+                              icon: Icon(
+                                Icons.edit,
+                                size: 13.h,
+                                color: Colors.white,
+                              ))),
                     ),
-                    cursorColor: Colors.blue,
-
-                    decoration: InputDecoration(
-                      enabled: true,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.r),
-                        borderSide: const BorderSide(color: Colors.white)
-                      ),
-                      border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.r),
-                      borderSide: const BorderSide(color: Colors.white)
-                  ),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.r),
-                          borderSide: const BorderSide(color: Colors.white)
-                      ),
-                      suffixIcon: IconButton(onPressed: (){
-                        nameFocusNode.requestFocus();
-                      }, icon: Icon(Icons.edit, size: 13.h, color: Colors.white,))
-                    ),
-                  ),
-                )
+                  )),
+              SizedBox(
+                height: 20.h,
               ),
-              SizedBox(height: 20.h,),
-              Expanded(child: ListView(
+              Expanded(
+                  child: ListView(
                 padding: EdgeInsets.all(20.r),
                 children: [
-                  SizedBox(height: 15.h,),
-                  Text("Email ID", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
-                  SizedBox(height: 10.h,),
-                  CustomTextField(
-                    textEditingController: emailController,
-
+                  SizedBox(
+                    height: 15.h,
                   ),
-                  SizedBox(height: 15.h,),
-                  Text("Date of Birth", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),),
-                  SizedBox(height: 10.h,),
-                  CustomTextField(
-                    // enable: false,
-                    textEditingController: dateOfBirthController,
-                    prefix: Icon(Icons.date_range, color: AppColors.primaryColor,),
-                    hintText: "Date of Birth",
-                    onTap: ()async{
-                      final date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now(), lastDate: DateTime(3033));
-                      dateOfBirthController.text = "${date?.day}-${date?.month}-${date?.year}";
-                    },
+                  Text(
+                    "Email ID",
+                    style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryColor),
                   ),
-                  SizedBox(height: 10.h,),
-                  auth.isBloodGroupLoading ? const Center(child: CircularProgressIndicator(),) :
-
-                  // SizedBox(
-                  //   height: 55.h,
-                  //   width: double.infinity,
-                  //   child: DropdownButton<BloodGroup>(
-                  //
-                  //     hint: Text("Select Blood Group", style: TextStyle(fontSize: 14.sp,),),
-                  //     items: auth.bloodGroupList.first.bloodGroup?.map((e) => DropdownMenuItem<BloodGroup>(value: e,child: Text("${e.bloodGroupName}", style: TextStyle(fontSize: 14.sp, ),),)).toList(),
-                  //     isExpanded: true,
-                  //     value: bloodGroup,
-                  //     onChanged: (value) {
-                  //       if(value != null){
-                  //         setState(() {
-                  //           // bloodGroupId = "${value.id}";
-                  //           bloodGroup = value;
-                  //         });
-                  //       }
-                  //
-                  //     },),
-                  // ),
-
                   SizedBox(
                     height: 10.h,
                   ),
-                  // Row(
-                  //   children: [
-                  //     Expanded(
-                  //       child: RadioListTile<Gender>(
-                  //         activeColor: AppColors.primaryColor,
-                  //         title: Text(
-                  //           'Male',
-                  //           style: genderTextStyle(context),
-                  //         ),
-                  //         value: Gender.male,
-                  //         groupValue: _gender,
-                  //         onChanged: (Gender? value) {
-                  //           setState(() {
-                  //             _gender = value!;
-                  //           });
-                  //         },
-                  //       ),
-                  //     ),
-                  //     Expanded(
-                  //       child: RadioListTile<Gender>(
-                  //         activeColor: AppColors.primaryColor,
-                  //         title: Text(
-                  //           'Female',
-                  //           style: genderTextStyle(context),
-                  //         ),
-                  //         value: Gender.female,
-                  //         groupValue: _gender,
-                  //         onChanged: (Gender? value) {
-                  //           setState(() {
-                  //             _gender = value!;
-                  //           });
-                  //         },
-                  //       ),
-                  //     ),
-                  //     Expanded(
-                  //       child: RadioListTile<Gender>(
-                  //         activeColor: AppColors.primaryColor,
-                  //         title: Text(
-                  //           'Others',
-                  //           style: genderTextStyle(context),
-                  //         ),
-                  //         value: Gender.others,
-                  //         groupValue: _gender,
-                  //         onChanged: (Gender? value) {
-                  //           setState(() {
-                  //             _gender = value!;
-                  //           });
-                  //         },
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-               //  auth.isBirthSexLoading ? const Center(child: CircularProgressIndicator(),) :
+                  CustomTextField(
+                    textEditingController: emailController,
+                  ),
+                  SizedBox(
+                    height: 15.h,
+                  ),
+                  Text(
+                    "Date of Birth",
+                    style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryColor),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  CustomTextField(
+                    // enable: false,
+                    textEditingController: dateOfBirthController,
+                    prefix: Icon(
+                      Icons.date_range,
+                      color: AppColors.primaryColor,
+                    ),
+                    hintText: "Date of Birth",
+                    onTap: () async {
+                      final date = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(3033));
+                      dateOfBirthController.text =
+                          "${date?.day}-${date?.month}-${date?.year}";
+                    },
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  auth.isBloodGroupLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      :
 
                   SizedBox(
                     height: 55.h,
                     width: double.infinity,
-                    child: DropdownButton<BirthSex>(
-                      hint: Text("Select Gender", style: TextStyle(fontSize: 14.sp,),),
-                      items: auth.birthSexList.first.birthSex?.map((e) => DropdownMenuItem<BirthSex>(value: e,child: Text("${e.birthSexName}", style: TextStyle(fontSize: 14.sp,),),)).toList(),
+                    child: DropdownButton<BloodGroups>(
+
+                      hint: Text("Select Blood Group", style: TextStyle(fontSize: 14.sp,),),
+                      items: auth.bloodGroupListsoingle!.map((e) => DropdownMenuItem<BloodGroups>(value: e,child: Text("${e.bloodGroupName}", style: TextStyle(fontSize: 14.sp, ),),)).toList(),
                       isExpanded: true,
-                      value: birthSex,
+                      value: bloodGroup,
                       onChanged: (value) {
                         if(value != null){
                           setState(() {
-                            birth = "${value.birthSexName}";
-                            birthSex = value;
+                            // bloodGroupId = "${value.id}";
+                            bloodGroup = value;
                           });
                         }
 
                       },),
                   ),
 
-                  CustomTextField(
-                    prefix: Icon(Icons.bloodtype, color: AppColors.primaryColor,),
-                    hintText: "Blood Group",
-                  ),
                   SizedBox(
                     height: 10.h,
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: RadioListTile<Gender>(
-                          activeColor: AppColors.primaryColor,
-                          title: Text(
-                            'Male',
-                            style: genderTextStyle(context),
-                          ),
-                          value: Gender.male,
-                          groupValue: _gender,
-                          onChanged: (Gender? value) {
-                            setState(() {
-                              _gender = value!;
-                            });
-                          },
+                    auth.isBirthSexLoading ? const Center(child: CircularProgressIndicator(),) :
+
+                  SizedBox(
+                    height: 55.h,
+                    width: double.infinity,
+                    child: DropdownButton<BirthSex>(
+                      hint: Text(
+                        "Select Gender",
+                        style: TextStyle(
+                          fontSize: 14.sp,
                         ),
                       ),
-                      Expanded(
-                        child: RadioListTile<Gender>(
-                          activeColor: AppColors.primaryColor,
-                          title: Text(
-                            'Female',
-                            style: genderTextStyle(context),
-                          ),
-                          value: Gender.female,
-                          groupValue: _gender,
-                          onChanged: (Gender? value) {
-                            setState(() {
-                              _gender = value!;
-                            });
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        child: RadioListTile<Gender>(
-                          activeColor: AppColors.primaryColor,
-                          title: Text(
-                            'Others',
-                            style: genderTextStyle(context),
-                          ),
-                          value: Gender.others,
-                          groupValue: _gender,
-                          onChanged: (Gender? value) {
-                            setState(() {
-                              _gender = value!;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
+                      items: auth.birthSexListsingle
+                          ?.map((e) => DropdownMenuItem<BirthSex>(
+                                value: e,
+                                child: Text(
+                                  "${e.birthSexName}",
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                              ))
+                          .toList(),
+                      isExpanded: true,
+                      value: birthSex,
+                      onChanged: (value) {
+                        if (value != null) {
+                          setState(() {
+                            birth = "${value.birthSexName}";
+                            birthSex = value;
+                          });
+                        }
+                      },
+                    ),
                   ),
+
+
                   // CustomTextField(
                   //   prefix: Icon(Icons.lock, color: AppColors.primaryColor,),
                   //   hintText: "Password",
@@ -425,14 +349,12 @@ class _UserDetailViewState extends State<UserDetailView> {
                   CustomElevatedButton(
                     isExpanded: false,
                     title: "Save",
-
                     onPressed: () {
                       debugPrint(_gender.name);
                       if (xFileList.isNotEmpty) {
                         // congratsDialogue(context, onTap: (){
                         // context.router.replace(const DashboardRoute());
                         // });
-
                       } else {
                         Messages.flushBarMessage(
                             context, "Please Upload your image");
@@ -446,86 +368,101 @@ class _UserDetailViewState extends State<UserDetailView> {
             ],
           ),
           Positioned(
-              top: 25,
-              left: 50,
-              child: InkWell(
-                onTap: () async{
-                  final res = await showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                        shape: OutlineInputBorder(borderRadius: BorderRadius.circular(kPadding.r),),
-                        actionsPadding: EdgeInsets.only(left: kPadding.w, right: kPadding.w, top: kPadding.h, bottom: kPadding * 2.h),
-                        alignment: Alignment.center,
-                        title: Text(
-                          "Chose Option",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.primaryColor),
-                        ),
-                        actionsAlignment: MainAxisAlignment.center,
-
-                        content:
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          // mainAxisAlignment: MainAxisAlignment.center
-                          mainAxisSize: MainAxisSize.min,
-                          children:  [
-                            SizedBox(
-                              height: kPadding.h,
-                            ),
-                            ElevatedButton(
-                                child: const Text("From Gallery"),
-                                onPressed: () {
-                                  // pickImage(fromGallery: true);
-                                  context.router.pop(true);
-                                }),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            ElevatedButton(
-                                child: const Text("Take Photo"),
-                                onPressed: () {
-                                  // pickImage(fromGallery: false);
-                                  context.router.pop(false);
-                                }),
-                          ],
-                        )
-                    ),
-                  );
-                  debugPrint(res.toString());
-                  if (res != null) {
-                    await pickImage(fromGallery: res);
-                  } else {
-                    // Messages.flushBarMessage(
-                    //     context, "Select an option to continue");
-                  }
-                },
-                child: Stack(
-                  children: [
-                    Column(
-                      children: [
-                        xFileList.isNotEmpty ? CircleAvatar(
-                          radius: 50,
-                          backgroundImage: FileImage(
-                            File(xFileList[0]!.path),
+            top: 25,
+            left: 50,
+            child: InkWell(
+              onTap: () async {
+                final res = await showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                      shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(kPadding.r),
+                      ),
+                      actionsPadding: EdgeInsets.only(
+                          left: kPadding.w,
+                          right: kPadding.w,
+                          top: kPadding.h,
+                          bottom: kPadding * 2.h),
+                      alignment: Alignment.center,
+                      title: Text(
+                        "Chose Option",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.primaryColor),
+                      ),
+                      actionsAlignment: MainAxisAlignment.center,
+                      content: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        // mainAxisAlignment: MainAxisAlignment.center
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            height: kPadding.h,
                           ),
-                        ) : CircleAvatar(
-                          radius: 50,
-                          backgroundImage: NetworkImage("${AppUrls.image}images/files/${widget.user.patientImages}"),
-                        ),
-                        SizedBox(height: 13.h,),
-                      ],
+                          ElevatedButton(
+                              child: const Text("From Gallery"),
+                              onPressed: () {
+                                 pickImage(fromGallery: true);
+                                 Navigator.pop(context);
+                              }),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          ElevatedButton(
+                              child: const Text("Take Photo"),
+                              onPressed: () {
+                                 pickImage(fromGallery: false);
+                                 Navigator.pop(context);
+                              }),
+                        ],
+                      )),
+                );
+                debugPrint(res.toString());
+                if (res != null) {
+                  await pickImage(fromGallery: res);
+                } else {
+                  // Messages.flushBarMessage(
+                  //     context, "Select an option to continue");
+                }
+              },
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      xFileList.isNotEmpty
+                          ? CircleAvatar(
+                              radius: 50,
+                              backgroundImage: FileImage(
+                                File(xFileList[0]!.path),
+                              ),
+                            )
+                          : CircleAvatar(
+                              radius: 50,
+                              backgroundImage: NetworkImage(
+                                  "${AppUrls.image}${widget.user.patientImages}"),
+                            ),
+                      SizedBox(
+                        height: 13.h,
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    top: 8,
+                    right: 1,
+                    bottom: -13,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: Icon(
+                        Icons.edit,
+                        size: 15.h,
+                      ),
                     ),
-                    Positioned(
-                        top: 8,
-                        right: 1,
-                        bottom: -13,
-                        child: CircleAvatar(backgroundColor: Colors.white, child: Icon(Icons.edit, size: 15.h,),),),
-                  ],
-                ),
+                  ),
+                ],
               ),
+            ),
           ),
         ],
       ),

@@ -81,7 +81,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
   TextEditingController address = TextEditingController();
   TextEditingController namefast = TextEditingController();
   TextEditingController namelast = TextEditingController();
-  BloodGroup? bloodGroup;
+  BloodGroups? bloodGroup;
 
   BirthSex? birthSex;
   bool obSecureText = false;
@@ -346,6 +346,9 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                     // final date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now(), lastDate: DateTime(3033));
                     date = await PickDateTime()
                         .pickDateregister(context, initialDate: DateTime.now());
+
+                     print("ddddddddddddddd$date");
+                    date==null?dateOfBirthController.text:
                     dateOfBirthController.text =
                         "${date?.day}-${date?.month}-${date?.year}";
                   },
@@ -368,7 +371,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                                 BorderRadius.all(Radius.circular(5.0)),
                           ),
                         ),
-                        child: DropdownButtonFormField<BloodGroup>(
+                        child: DropdownButtonFormField<BloodGroups>(
                           elevation: 0,
                           decoration: InputDecoration(border: InputBorder.none),
                           padding: EdgeInsets.only(left: 8),
@@ -379,7 +382,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                             ),
                           ),
                           items: auth.bloodGroupList.first.bloodGroup
-                              ?.map((e) => DropdownMenuItem<BloodGroup>(
+                              ?.map((e) => DropdownMenuItem<BloodGroups>(
                                     value: e,
                                     child: Text(
                                       "${e.bloodGroupName}",
@@ -558,9 +561,9 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                         "patient_address1": address.text,
                       };
                       print(body);
-                      //  await auth.signUpOriginal(context, body);
-                      // await auth.signUp(context, body,
-                      //     File(xFileList.first!.path).path);
+
+                      await auth.signUp(context, body,
+                          File(xFileList.first!.path).path);
                       //  widget.phoneNumber = "";
                     // await auth.registration(context, imageFile: File(xFileList.first!.path), phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode, name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}", dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
                     // auth.signUpOriginal(context, body, widget.token);

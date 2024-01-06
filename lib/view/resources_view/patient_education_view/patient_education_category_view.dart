@@ -117,12 +117,21 @@ class _PatientEducationViewState extends State<PatientEducationView> {
                                             child: ClipRRect(
                                               borderRadius: BorderRadius.circular(8.0),
 
-                                              child:  Image.asset(
+                                              child:
+                                              // Image.network(
+                                              //   resoures.categoryImage.toString(),
+                                              //   height: 65.h,
+                                              //   width: double.infinity,
+                                              //   fit: BoxFit.fill,
+                                              // )
+
+                                              Image.asset(
                                                 Assets.patienteducation,
                                                 height: 65.h,
                                                 width: double.infinity,
                                                 fit: BoxFit.fill,
-                                              ),),
+                                              ),
+                                            ),
                                           ),
                                         ],
                                       ),

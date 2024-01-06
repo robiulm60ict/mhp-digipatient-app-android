@@ -82,7 +82,7 @@ class UserRegistration {
       'patient_dob': dateOfBirth,
       'image': base64Image,
       'password': password,
-      'patient_email': email,
+      'pa tient_email': email,
     };
 
     // Convert the data to JSON

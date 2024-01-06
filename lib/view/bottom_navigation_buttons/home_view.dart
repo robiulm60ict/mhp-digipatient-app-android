@@ -523,7 +523,7 @@ print(gender);
                                 border: OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.grey)),
                                 hintText: 'Enter 6 Digit Code',
-                                labelText: 'Add Doctor / Clinic',
+                                labelText: 'Add Doctor ID here',
                                 suffixStyle: TextStyle(color: Colors.green)),
                           ),
                         ),

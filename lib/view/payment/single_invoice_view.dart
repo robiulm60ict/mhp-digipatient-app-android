@@ -261,6 +261,8 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                             lTitle: "Total Amount ", rTitle: widget.amount),
 
                         Style.distan_size5,
+                        Text("Note : Save Invoice Doctor Appointment Confirmation After confirmation you will be informed about the consultation time and all the details through SMS.",  style: Style.alltext_ExtraSmall_red,),
+                        Style.distan_size5,
                         MaterialButton(
                           color: Colors.green,
                           minWidth: double.infinity,

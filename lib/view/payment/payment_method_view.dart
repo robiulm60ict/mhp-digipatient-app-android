@@ -157,6 +157,11 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                   SizedBox(
                     height: 8.h,
                   ),
+
+                  Text("Note : While developing save the number and reference and transaction id from which the development is done and input for making appointment in next step",  style: Style.alltext_ExtraSmall_red,),
+                  SizedBox(
+                    height: 8.h,
+                  ),
                   // ListTile(
                   //   onTap: () {
                   //     payment = Payment.cash;

@@ -10,7 +10,7 @@ String bloodGroupModelToJson(BloodGroupModel data) => json.encode(data.toJson())
 
 class BloodGroupModel {
   int? status;
-  List<BloodGroup>? bloodGroup;
+  List<BloodGroups>? bloodGroup;
 
   BloodGroupModel({
     this.status,
@@ -19,7 +19,7 @@ class BloodGroupModel {
 
   factory BloodGroupModel.fromJson(Map<String, dynamic> json) => BloodGroupModel(
     status: json["status"],
-    bloodGroup: json["blood_group"] == null ? [] : List<BloodGroup>.from(json["blood_group"]!.map((x) => BloodGroup.fromJson(x))),
+    bloodGroup: json["blood_group"] == null ? [] : List<BloodGroups>.from(json["blood_group"]!.map((x) => BloodGroups.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -28,7 +28,7 @@ class BloodGroupModel {
   };
 }
 
-class BloodGroup {
+class BloodGroups {
   int? id;
   String? bloodGroupName;
   int? deleteStatus;
@@ -37,7 +37,7 @@ class BloodGroup {
   DateTime? createdAt;
   DateTime? updatedAt;
 
-  BloodGroup({
+  BloodGroups({
     this.id,
     this.bloodGroupName,
     this.deleteStatus,
@@ -47,7 +47,7 @@ class BloodGroup {
     this.updatedAt,
   });
 
-  factory BloodGroup.fromJson(Map<String, dynamic> json) => BloodGroup(
+  factory BloodGroups.fromJson(Map<String, dynamic> json) => BloodGroups(
     id: json["id"],
     bloodGroupName: json["blood_group_name"],
     deleteStatus: json["delete_status"],

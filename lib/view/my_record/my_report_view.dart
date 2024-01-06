@@ -78,7 +78,16 @@ class MyReportView extends StatelessWidget {
                 ),
               ),
             ),
-
+            SizedBox(
+              height: 10.h,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Upload your prescription and report here",
+                style: Style.alltext_ExtraSmall_red,
+              ),
+            )
           ],
         ),
       ),

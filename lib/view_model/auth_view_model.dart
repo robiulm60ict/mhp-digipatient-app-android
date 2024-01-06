@@ -33,13 +33,12 @@ class AuthViewModel with ChangeNotifier {
 
   bool get loginLoading => _loginLoading;
 
-
   // UserViewModel userViewModel = UserViewModel();
   //TODO: Add user view model
 
   setLoginLoading(bool value) {
     _loginLoading = value;
-   // user = val;
+    // user = val;
     notifyListeners();
   }
 
@@ -88,7 +87,7 @@ class AuthViewModel with ChangeNotifier {
       {bool keepMeSignIn = true}) async {
     setLoginLoading(true);
     _authRepo.loginApi(body).then((value) async {
-      if(value['message']=='User Logged in sucessfully'){
+      if (value['message'] == 'User Logged in sucessfully') {
         Messages.flushBarMessage(context, '${value['message']}',
             backgroundColor: AppColors.primaryColor);
         await saveUser(
@@ -107,16 +106,11 @@ class AuthViewModel with ChangeNotifier {
           Navigator.pushNamed(context, RoutesName.dashbord);
           onUserLogin();
         });
-      }else{
+      } else {
         Messages.flushBarMessage(context, '${value['message']}',
             backgroundColor: AppColors.redColor);
         setLoginLoading(false);
-
       }
-
-
-
-
     }).onError((error, stackTrace) {
       debugPrint(error.toString());
       Messages.flushBarMessage(context, error.toString());
@@ -135,26 +129,72 @@ class AuthViewModel with ChangeNotifier {
     /// 1.2.1. initialized ZegoUIKitPrebuiltCallInvitationService
     /// when app's user is logged in or re-logged in
     /// We recommend calling this method as soon as the user logs in to your app.
-    final callController = ZegoUIKitPrebuiltCallController();
 
     ZegoUIKitPrebuiltCallInvitationService().init(
+      ringtoneConfig: ZegoRingtoneConfig(),
+      uiConfig: ZegoCallInvitationUIConfig(
+        callingBackgroundBuilder: (
+            BuildContext context,
+            Size size,
+            ZegoCallingBackgroundBuilderInfo info,
+            ) {
+          return Container(
+            width: size.width,
+            height: size.height,
+            decoration: BoxDecoration(color: Colors.blue.withOpacity(0.5)),
+            child: Center(
+              child: Text(
+                'inviter:${info.inviter.name}, invitees:${info.invitees.map((e) => '${e.name},')}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  decoration: TextDecoration.none,
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+      notificationConfig: ZegoCallInvitationNotificationConfig(
+        androidNotificationConfig: ZegoAndroidNotificationConfig(
+            callIDVisibility: true
+        ),
+        iOSNotificationConfig: ZegoIOSNotificationConfig(
+          appName: '',
+          certificateIndex:
+          ZegoSignalingPluginMultiCertificate.firstCertificate,
+        ),
+      ),
       appID: 1293432009 /*input your AppID*/,
       appSign:
           "ce9d090d86cd6d51344033934af611515fdb0fc5760cfd02df1f99c06b0b94cf" /*input your AppSign*/,
       userID: userid.toString(),
       userName: name.toString(),
-      notifyWhenAppRunningInBackgroundOrQuit: true,
-      androidNotificationConfig: ZegoAndroidNotificationConfig(
-        channelID: "ZegoUIKit",
-        channelName: "Call Notifications",
-        sound: "notification",
-      ),
-      controller: callController,
-      showCancelInvitationButton: true,
-      showDeclineButton: true,
-      appName: "Digi Patient",
-      ringtoneConfig: ZegoRingtoneConfig(),
       plugins: [ZegoUIKitSignalingPlugin()],
+      requireConfig: (ZegoCallInvitationData data) {
+        var config = (data.invitees.length > 1)
+            ? ZegoCallType.videoCall == data.type
+            ? ZegoUIKitPrebuiltCallConfig.groupVideoCall()
+            : ZegoUIKitPrebuiltCallConfig.groupVoiceCall()
+            : ZegoCallType.videoCall == data.type
+            ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+            : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
+
+        /// show minimizing button
+        config.topMenuBarConfig.isVisible = true;
+        // config.layout=ZegoLayout.gallery(
+        //   showNewScreenSharingViewInFullscreenMode: true,
+        //       // showScreenSharingFullscreenModeToggleButtonRules: ZegoShowFullscreenModeToggleButtonRules.showWhenScreenPressed,
+        // );
+
+
+        config.bottomMenuBarConfig.buttons
+            .insert(3, ZegoMenuBarButtonName.minimizingButton);
+        // config.topMenuBarConfig.buttons
+        //     .insert(0, ZegoMenuBarButtonName.toggleCameraButton);
+
+        return config;
+      },
     );
   }
 
@@ -182,8 +222,9 @@ class AuthViewModel with ChangeNotifier {
     notifyListeners();
     otpList.clear();
     await _authRepo.sendOTP(body: body).then((value) {
-print(value);
-      if(value['message'].toString()=="Verification code sent successfully"){
+      print(value);
+      if (value['message'].toString() ==
+          "Verification code sent successfully") {
         setSendOtpLoading(false);
         isSendOtpLoading = false;
 
@@ -191,15 +232,17 @@ print(value);
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    PinCodeVerificationView(phoneNumber: phnNumber, token: value['token'],)));
-      }else if(value['message'].toString()=="The given data was invalid."){
+                builder: (context) => PinCodeVerificationView(
+                      phoneNumber: phnNumber,
+                      token: value['token'],
+                    )));
+      } else if (value['message'].toString() == "The given data was invalid.") {
         setSendOtpLoading(false);
         isSendOtpLoading = false;
 
         notifyListeners();
         Messages.snackBar(context, value['errors']['phone_number'].toString());
-      }else{
+      } else {
         Messages.snackBar(context, value['message'].toString());
         setSendOtpLoading(false);
         isSendOtpLoading = false;
@@ -207,8 +250,7 @@ print(value);
         notifyListeners();
       }
 
-     // otpList.add(value);
-
+      // otpList.add(value);
 
       // context.router.push(PinCodeVerificationRoute(phoneNumber: phnNumber));
     }).onError((error, stackTrace) {
@@ -219,7 +261,6 @@ print(value);
       Messages.snackBar(context, error.toString());
     });
   }
-
 
   Future<void> sendOtpForget(BuildContext context,
       {required String phnNumber}) async {
@@ -231,7 +272,8 @@ print(value);
     await _authRepo.sendOTPForget(body: body).then((value) {
       print("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
       print(value);
-      if(value['message'].toString()=="Verification code sent successfully"){
+      if (value['message'].toString() ==
+          "Verification code sent successfully") {
         setSendOtpLoading(false);
         isSendOtpLoading = false;
 
@@ -239,15 +281,17 @@ print(value);
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    ForgetPinCodeVerificationView(phoneNumber: phnNumber, token: value['token'],)));
-      }else if(value['message'].toString()=="The given data was invalid."){
+                builder: (context) => ForgetPinCodeVerificationView(
+                      phoneNumber: phnNumber,
+                      token: value['token'],
+                    )));
+      } else if (value['message'].toString() == "The given data was invalid.") {
         setSendOtpLoading(false);
         isSendOtpLoading = false;
 
         notifyListeners();
         Messages.snackBar(context, value['errors']['phone_number'].toString());
-      }else{
+      } else {
         Messages.snackBar(context, value['message'].toString());
         setSendOtpLoading(false);
         isSendOtpLoading = false;
@@ -256,7 +300,6 @@ print(value);
       }
 
       // otpList.add(value);
-
 
       // context.router.push(PinCodeVerificationRoute(phoneNumber: phnNumber));
     }).onError((error, stackTrace) {
@@ -267,6 +310,7 @@ print(value);
       Messages.snackBar(context, error.toString());
     });
   }
+
   bool isOtpCheckLoading = false;
 
   setOtpCheckLoading(bool val) {
@@ -317,9 +361,8 @@ print(value);
     });
   }
 
-
-
-  Future<void> otpCheckForget(BuildContext context, Map<String, dynamic> body) async {
+  Future<void> otpCheckForget(
+      BuildContext context, Map<String, dynamic> body) async {
     print("dddddddddddddddddddddddddddddddd");
     setOtpCheckLoading(true);
     setOtpCheckError(false);
@@ -335,9 +378,9 @@ print(value);
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    NewPasswordSendView(phoneNumber: body['phone_number'],)));
-
+                builder: (context) => NewPasswordSendView(
+                      phoneNumber: body['phone_number'],
+                    )));
 
         // context.router
         //     .push(CreateAccountRoute(phoneNumber: body['phone_number']));
@@ -355,7 +398,8 @@ print(value);
     });
   }
 
-  Future<void> newpasswordForget(BuildContext context, Map<String, dynamic> body) async {
+  Future<void> newpasswordForget(
+      BuildContext context, Map<String, dynamic> body) async {
     setOtpCheckLoading(true);
     setOtpCheckError(false);
     _authRepo.newPassword(body: body).then((value) {
@@ -363,11 +407,12 @@ print(value);
       // if (otpCheckList.first.verify!) {
       //   setOtpCheckError(false);
 
-        Messages.snackBar(context, "${value['message'].toString()}",
-            backgroundColor: AppColors.greenColor);
+      Messages.snackBar(context, "${value['message'].toString()}",
+          backgroundColor: AppColors.greenColor);
       //   // Future.delayed(Duration(microseconds: 200));
       //   Future.delayed(Duration.zero);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignInView()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => SignInView()));
       //   Navigator.pushReplacement(
       //       context,
       //       MaterialPageRoute(
@@ -475,6 +520,7 @@ print(value);
   }
 
   List<BirthSexModel> birthSexList = [];
+  List<BirthSex> birthSexListsingle = [];
   bool isBirthSexLoading = true;
 
   setBirthSexLoading(bool val) {
@@ -488,11 +534,15 @@ print(value);
     setBirthSexLoading(true);
     birthSexList.clear();
     birthSexListItems.clear();
+    birthSexListsingle.clear();
+    // notifyListeners();
     await _authRepo.getBirthSex().then((value) {
       print('dddddddddddddddddddddd${value}');
       setBirthSexLoading(false);
 
       birthSexList.add(value);
+      birthSexListsingle.addAll(value.birthSex as Iterable<BirthSex>);
+
       birthSexList.first.birthSex!.forEach((element) {
         birthSexListItems.add(DropdownMenuItem(
             child: Text(
@@ -508,6 +558,7 @@ print(value);
   }
 
   List<BloodGroupModel> bloodGroupList = [];
+  List<BloodGroups> bloodGroupListsoingle = [];
   bool isBloodGroupLoading = true;
 
   setBloodGroupLoading(bool val) {
@@ -515,7 +566,7 @@ print(value);
     notifyListeners();
   }
 
-  List<DropdownMenuItem<BloodGroup>> bloodGroupListItems = [];
+  List<DropdownMenuItem<BloodGroups>> bloodGroupListItems = [];
 
   getBloodGroup(BuildContext context) async {
     setBloodGroupLoading(true);
@@ -524,6 +575,7 @@ print(value);
     await _authRepo.getBloodGroup().then((value) {
       print(value);
       bloodGroupList.add(value);
+      bloodGroupListsoingle.addAll(value.bloodGroup as Iterable<BloodGroups>);
       bloodGroupList.first.bloodGroup!.forEach((element) {
         bloodGroupListItems.add(DropdownMenuItem(
             child: Text(

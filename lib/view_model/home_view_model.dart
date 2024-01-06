@@ -12,6 +12,7 @@ import '../view/home_item_pages/my_record_view.dart';
 import '../view/mypayment_view/mypayment_view.dart';
 import '../view/qrcode/qrcode_scnner.dart';
 import '../view/resources_view/resources_view.dart';
+import '../view/tutrials/tutrials.dart';
 import 'doctor/my_doctor_view_model.dart';
 
 class HomeViewModel with ChangeNotifier {
@@ -51,8 +52,8 @@ class HomeViewModel with ChangeNotifier {
     } else if (index == 7) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => MyPatientView()));
-    } else if (index == 9) {
-        // Navigator.push(context, MaterialPageRoute(builder: (context)=>QRCodeScanner()));
+    } else if (index == 8) {
+         Navigator.push(context, MaterialPageRoute(builder: (context)=>const TutrialsView()));
     }
   }
 }

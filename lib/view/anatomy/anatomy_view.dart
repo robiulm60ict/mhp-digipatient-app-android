@@ -54,7 +54,6 @@ class _AnatomyViewState extends State<AnatomyView> {
   }
 
   returnHumanBodyFacing(selectedValue) {
-
     if (selectedValue == maleBack) {
       return Maps.MALE1;
     } else if (selectedValue == femaleFront) {
@@ -171,21 +170,36 @@ class _AnatomyViewState extends State<AnatomyView> {
         },
         child: Scaffold(
           bottomNavigationBar: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(4.0),
             child: BottomAppBar(
-              color: AppColors.primary_color,
-              child: MaterialButton(
-                elevation: 0,
-                color: AppColors.primary_color,
-                child: Text("Back"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+              elevation: 0,
+              height: 100,
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Note : Point out the problems by selecting the part of the body where the problem is",
+                        style: Style.alltext_ExtraSmall_red,
+                      ),
+                    ),
+                    MaterialButton(
+                      minWidth: double.infinity,
+                      color: AppColors.primary_color,
+                      child: Text("Back"),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
           appBar: AppBar(
-            backgroundColor:  AppColors.primary_color,
+            backgroundColor: AppColors.primary_color,
             title: Text(
               "Select Symptoms",
               style: TextStyle(

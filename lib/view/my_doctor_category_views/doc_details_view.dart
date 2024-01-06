@@ -100,8 +100,9 @@ class _DocDetailsViewState extends State<DocDetailsView> {
         ),
       ),
       appBar: AppBar(
-        leadingWidth: leadingWidth,
-        leading: const CustomBackButton(),
+        elevation: 0,
+        // leadingWidth: leadingWidth,
+        // leading: const CustomBackButton(),
         backgroundColor: AppColors.linearGradient2,
       ),
       backgroundColor: Colors.white,
