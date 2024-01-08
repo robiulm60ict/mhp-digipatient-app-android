@@ -87,6 +87,7 @@ class AuthViewModel with ChangeNotifier {
       {bool keepMeSignIn = true}) async {
     setLoginLoading(true);
     _authRepo.loginApi(body).then((value) async {
+      print(value);
       if (value['message'] == 'User Logged in sucessfully') {
         Messages.flushBarMessage(context, '${value['message']}',
             backgroundColor: AppColors.primaryColor);

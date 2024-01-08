@@ -25,7 +25,7 @@ class AuthRepository {
     try {
       dynamic response =
           await apiService.getPostApiResponse(AppUrls.login, body);
-      print(response);
+      // print(response);
       return response;
     } catch (e) {
       rethrow;

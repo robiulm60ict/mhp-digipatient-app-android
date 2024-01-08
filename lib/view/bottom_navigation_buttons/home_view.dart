@@ -23,6 +23,7 @@ import '../../view_model/auth_view_model.dart';
 import '../../view_model/daily_appointments_view_model/daily_appointments_view_model.dart';
 import '../../view_model/home_view_model.dart';
 import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
+import '../../view_model/push_notification/notification_service.dart';
 import '../../view_model/user_view_model/user_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/drawer_list_tile.dart';
@@ -43,6 +44,7 @@ class _HomeViewState extends State<HomeView> {
   TextEditingController password = TextEditingController();
   String? name = "";
   String? gender = "";
+  NotificationService notificationService = NotificationService();
 
   @override
   void initState() {
@@ -55,7 +57,20 @@ class _HomeViewState extends State<HomeView> {
           .read<DailyAndUpcommingViewModel>()
           .getUpcommingAppointments(context);
     });
-  }
+
+    notificationService.requestPermission();
+    notificationService.getToken();
+    notificationService.getDeviceToken();
+    notificationService.isTokenrefresh();
+
+    notificationService.firbaseInit(context);
+    //notificationService.getToken();
+    notificationService.messaging.getToken().then((value) {
+
+    });
+
+
+}
 
   getUserData() async {
     final prefs = await SharedPreferences.getInstance();

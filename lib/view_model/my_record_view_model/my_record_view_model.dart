@@ -252,9 +252,9 @@ class MyRecordViewModel with ChangeNotifier {
       medicalHistoryFromGreatDocPastList.clear();
       setAddMedicalHistoryLoading(false);
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => AddMedicalHistoryView()));
-      getMedicalHistoryFromGreatDoc(context);
-      notifyListeners();
+          MaterialPageRoute(builder: (context) => MyMedicalHistoryView()));
+      // getMedicalHistoryFromGreatDoc(context);
+      // notifyListeners();
     }).onError((error, stackTrace) {
       Messages.snackBar(context, error.toString());
       setAddMedicalHistoryLoading(false);

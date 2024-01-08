@@ -18,6 +18,7 @@ import 'package:digi_patient/view_model/real_communication/video_call_view_model
 import 'package:digi_patient/view_model/signup_model.dart';
 import 'package:digi_patient/view_model/user_view_model/user_view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
@@ -29,6 +30,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'firebase_options.dart';
 import 'view_model/mydoctor/new_my_doctor_view_model.dart';
+import 'view_model/push_notification/notification_service.dart';
 import 'view_model/qr_code_dr_profile_view_model/profile_view_model.dart';
 import 'view_model/resources_view_model/resources_view_model.dart';
 
@@ -38,6 +40,11 @@ import 'view_model/resources_view_model/resources_view_model.dart';
 //   await Firebase.initializeApp();
 // }
 
+@pragma('vm:entry-point')
+Future<void> firbaseMessageBackgroundHandeler(RemoteMessage message) async {
+  print('Handler a background messahe${message.messageId}');
+}
+
 final navigatorKey = GlobalKey<NavigatorState>();
 
 // final navigationService = NavigationService(appRouter.navigatorKey);
@@ -45,20 +52,20 @@ final navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   await ScreenUtil.ensureScreenSize();
   WidgetsFlutterBinding.ensureInitialized();
-  final navigatorKey = GlobalKey<NavigatorState>();
-
-  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
-
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await Firebase.initializeApp(
     name: "digi",
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // await FirebaseMessaging.instance.getInitialMessage();
-  //  FirebaseMessaging.onBackgroundMessage(backgroundMessageHandler);
+  // await initializeNotifications();
+  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+  await FirebaseMessaging.instance.getInitialMessage();
+  FirebaseMessaging.onBackgroundMessage(firbaseMessageBackgroundHandeler);
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
+
   //  await NotificationService().getToken();
-  // await FirebaseApi().initNotifications();
+   await FirebaseApi().initNotifications();
   runApp(
     MultiProvider(
       providers: [

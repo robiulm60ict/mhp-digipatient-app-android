@@ -54,7 +54,7 @@ class _MyMedicalHistoryViewState extends State<MyMedicalHistoryView> {
         floatingActionButton: FloatingActionButton(
             backgroundColor: AppColors.primaryColor,
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>AddMedicalHistoryView()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>AddMedicalHistoryView()));
 
               //  context.router.push(const AddMedicalHistoryRoute());
             },

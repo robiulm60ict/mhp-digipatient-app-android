@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../resources/colors.dart';
+import '../../view_model/push_notification/notification_service.dart';
 import '../../widgets/gradient_appBar.dart';
 import '../forget_password/forget_pincode_verification_view.dart';
 import '../forget_password/otpsend_view.dart';
@@ -29,7 +30,26 @@ class _SignInViewState extends State<SignInView> {
 
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  NotificationService notificationService = NotificationService();
 
+  String token = "";
+  @override
+  void initState() {
+    notificationService.requestPermission();
+    notificationService.getToken();
+    notificationService.getDeviceToken();
+    notificationService.isTokenrefresh();
+
+    notificationService.firbaseInit(context);
+    //notificationService.getToken();
+    notificationService.messaging.getToken().then((value) {
+      token = value!;
+    });
+
+    print("ff${token}");
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   void dispose() {
     super.dispose();
