@@ -10,72 +10,108 @@ String invoiceShowModelToJson(List<InvoiceShowModel> data) => json.encode(List<d
 
 class InvoiceShowModel {
   int? id;
-  String? doctorId;
-  String? patientId;
-  String? paymentType;
-  int? amount;
+  int? patientId;
+  int? doctorId;
+  String? inoviceNumber;
   DateTime? date;
-  dynamic details;
+  dynamic time;
+  String? appointmentType;
+  dynamic callingType;
+  dynamic chamberId;
+  String? disease;
+  String? paymentType;
+  String? amount;
+  String? transactionNo;
+  String? transactionPhoneNumber;
+  String? shift;
+  String? referredName;
+  int? paymentConfirmation;
+  int? isConfirmed;
+  dynamic rescheduleId;
   DateTime? createdAt;
   DateTime? updatedAt;
-  String? transcitionNumber;
-  String? phoneNumber;
-  String? paymentMethod;
-  Doctor? doctor;
+  Doctors? doctors;
 
   InvoiceShowModel({
     this.id,
-    this.doctorId,
     this.patientId,
+    this.doctorId,
+    this.inoviceNumber,
+    this.date,
+    this.time,
+    this.appointmentType,
+    this.callingType,
+    this.chamberId,
+    this.disease,
     this.paymentType,
     this.amount,
-    this.date,
-    this.details,
+    this.transactionNo,
+    this.transactionPhoneNumber,
+    this.shift,
+    this.referredName,
+    this.paymentConfirmation,
+    this.isConfirmed,
+    this.rescheduleId,
     this.createdAt,
     this.updatedAt,
-    this.transcitionNumber,
-    this.phoneNumber,
-    this.paymentMethod,
-    this.doctor,
+    this.doctors,
   });
 
   factory InvoiceShowModel.fromJson(Map<String, dynamic> json) => InvoiceShowModel(
     id: json["id"],
-    doctorId: json["doctor_id"],
     patientId: json["patient_id"],
+    doctorId: json["doctor_id"],
+    inoviceNumber: json["inovice_number"],
+    date: json["date"] == null ? null : DateTime.parse(json["date"]),
+    time: json["time"],
+    appointmentType: json["appointment_type"],
+    callingType: json["calling_type"],
+    chamberId: json["chamber_id"],
+    disease: json["disease"],
     paymentType: json["payment_type"],
     amount: json["amount"],
-    date: json["date"] == null ? null : DateTime.parse(json["date"]),
-    details: json["details"],
+    transactionNo: json["transaction_no"],
+    transactionPhoneNumber: json["transaction_phone_number"],
+    shift: json["shift"],
+    referredName: json["referred_name"],
+    paymentConfirmation: json["payment_confirmation"],
+    isConfirmed: json["is_confirmed"],
+    rescheduleId: json["reschedule_id"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    transcitionNumber: json["transcition_number"],
-    phoneNumber: json["phone_number"],
-    paymentMethod: json["payment_method"],
-    doctor: json["doctor"] == null ? null : Doctor.fromJson(json["doctor"]),
+    doctors: json["doctors"] == null ? null : Doctors.fromJson(json["doctors"]),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "doctor_id": doctorId,
     "patient_id": patientId,
+    "doctor_id": doctorId,
+    "inovice_number": inoviceNumber,
+    "date": date?.toIso8601String(),
+    "time": time,
+    "appointment_type": appointmentType,
+    "calling_type": callingType,
+    "chamber_id": chamberId,
+    "disease": disease,
     "payment_type": paymentType,
     "amount": amount,
-    "date": date?.toIso8601String(),
-    "details": details,
+    "transaction_no": transactionNo,
+    "transaction_phone_number": transactionPhoneNumber,
+    "shift": shift,
+    "referred_name": referredName,
+    "payment_confirmation": paymentConfirmation,
+    "is_confirmed": isConfirmed,
+    "reschedule_id": rescheduleId,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
-    "transcition_number": transcitionNumber,
-    "phone_number": phoneNumber,
-    "payment_method": paymentMethod,
-    "doctor": doctor?.toJson(),
+    "doctors": doctors?.toJson(),
   };
 }
 
-class Doctor {
+class Doctors {
   int? id;
   String? drIdentityNo;
-  String? title;
+  Title? title;
   String? departmentId;
   String? specialistsId;
   dynamic departmentName;
@@ -110,7 +146,7 @@ class Doctor {
   DateTime? updatedAt;
   String? fullName;
 
-  Doctor({
+  Doctors({
     this.id,
     this.drIdentityNo,
     this.title,
@@ -149,10 +185,10 @@ class Doctor {
     this.fullName,
   });
 
-  factory Doctor.fromJson(Map<String, dynamic> json) => Doctor(
+  factory Doctors.fromJson(Map<String, dynamic> json) => Doctors(
     id: json["id"],
     drIdentityNo: json["dr_identity_no"],
-    title: json["title"],
+    title: json["title"] == null ? null : Title.fromJson(json["title"]),
     departmentId: json["department_id"],
     specialistsId: json["specialists_id"],
     departmentName: json["department_name"],
@@ -191,7 +227,7 @@ class Doctor {
   Map<String, dynamic> toJson() => {
     "id": id,
     "dr_identity_no": drIdentityNo,
-    "title": title,
+    "title": title?.toJson(),
     "department_id": departmentId,
     "specialists_id": specialistsId,
     "department_name": departmentName,
@@ -225,5 +261,25 @@ class Doctor {
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
     "fullName": fullName,
+  };
+}
+
+class Title {
+  int? id;
+  String? titleName;
+
+  Title({
+    this.id,
+    this.titleName,
+  });
+
+  factory Title.fromJson(Map<String, dynamic> json) => Title(
+    id: json["id"],
+    titleName: json["title_name"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "title_name": titleName,
   };
 }

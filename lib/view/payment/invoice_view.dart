@@ -27,9 +27,6 @@ class InvoiceView extends StatefulWidget {
 class _InvoiceViewState extends State<InvoiceView> {
   List<InvoiceShowModel> invoiceList = [];
 
-
-
-
   @override
   void initState() {
     super.initState();
@@ -53,7 +50,6 @@ class _InvoiceViewState extends State<InvoiceView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,
-
         centerTitle: true,
         title: Text(
           "Invoice and Payments",
@@ -70,197 +66,156 @@ class _InvoiceViewState extends State<InvoiceView> {
               itemBuilder: (context, index) {
                 final item = invoice.invoiceList[index];
                 return InkWell(
-                  onTap: ()async {
-
+                    onTap: () async {
                       // await PdfInvoiceApi.pdf(
                       //   item,
                       //   "1-invoice",
                       // );
-
-
-
-
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 6),
-                    child: Card(
-                      elevation: 2,
-                      color: Colors.white,
-                      //shadowColor: Colors.black,
-                      child: Container(
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 6),
+                      child: Card(
+                        elevation: 2,
                         color: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceAround,
-                            children: [
-                              SizedBox(
-                                height: 75.h,
-                                width: 70.w,
-                                child: ClipRRect(
-                                  borderRadius:
-                                  BorderRadius.circular(8),
-                                  child:
-                                  item.doctor!.drImages != null
-                                      ? Image.network(
-                                    "${AppUrls.drprofile}${item.doctor!.drImages.toString()}",
-                                    fit: BoxFit.fill,
-                                  )
-                                      : Image.asset(
-                                      Assets.nodatafound),
+                        //shadowColor: Colors.black,
+                        child: Container(
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                SizedBox(
+                                  height: 75.h,
+                                  width: 70.w,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: item.doctors!.drImages != null
+                                        ? Image.network(
+                                            "${AppUrls.drprofile}${item.doctors!.drImages.toString()}",
+                                            fit: BoxFit.fill,
+                                          )
+                                        : Image.asset(Assets.nodatafound),
+                                  ),
                                 ),
-                              ),
-                              Style.widthdistan_size2,
-                              SizedBox(
-                                width: 210.w,
-                                child: Column(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.start,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                        "${item.doctor!.fullName ?? ""}",
-                                        style: Style
-                                            .alltext_default_balck_blod),
-                                    Style.distan_size2,
-
-                                    Row(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          width: 70.w,
-                                          child: Text(
-                                            "Amount",
-                                            style: Style
-                                                .alltext_default_balck,
+                                Style.widthdistan_size2,
+                                SizedBox(
+                                  width: 210.w,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text("${item.doctors!.fullName ?? ""}",
+                                          style:
+                                              Style.alltext_default_balck_blod),
+                                      Style.distan_size2,
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            width: 70.w,
+                                            child: Text(
+                                              "Amount",
+                                              style:
+                                                  Style.alltext_default_balck,
+                                            ),
                                           ),
-                                        ),
-                                        Text(": "),
-                                        SizedBox(
-                                          width: 130.w,
-                                          child: Text(
-                                              item.amount
-                                                  .toString(),
-                                              style: Style
-                                                  .alltext_default_balck),
-                                        ),
-                                      ],
-                                    ),
-                                    Style.distan_size2,
-                                    Row(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          width: 70.w,
-                                          child: Text(
-                                            "Type ",
-                                            style: Style
-                                                .alltext_default_balck,
+                                          Text(": "),
+                                          SizedBox(
+                                            width: 130.w,
+                                            child: Text(item.amount.toString(),
+                                                style: Style
+                                                    .alltext_default_balck),
                                           ),
-                                        ),
-                                        Text(": "),
-                                        SizedBox(
-                                          width: 130.w,
-                                          child: Text(
-                                              item.paymentType
-                                                  .toString(),
-                                              style: Style
-                                                  .alltext_default_balck),
-                                        ),
-                                      ],
-                                    ),
-                                    Style.distan_size2,
-                                    item.paymentMethod.toString() !=
-                                        null
-                                        ? Row(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment
-                                          .start,
-                                      children: [
-                                        SizedBox(
-                                          width: 70.w,
-                                          child: Text(
-                                            "Pay Method ",
-                                            style: Style
-                                                .alltext_default_balck,
+                                        ],
+                                      ),
+                                      Style.distan_size2,
+                                      Style.distan_size2,
+                                      item.paymentType.toString() != null
+                                          ? Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  width: 70.w,
+                                                  child: Text(
+                                                    "Pay Method ",
+                                                    style: Style
+                                                        .alltext_default_balck,
+                                                  ),
+                                                ),
+                                                Text(": "),
+                                                SizedBox(
+                                                  width: 130.w,
+                                                  child: Text(
+                                                      item.paymentType
+                                                          .toString(),
+                                                      style: Style
+                                                          .alltext_default_balck),
+                                                ),
+                                              ],
+                                            )
+                                          : Container(),
+                                      Style.distan_size2,
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            width: 70.w,
+                                            child: Text(
+                                              "Time",
+                                              style:
+                                                  Style.alltext_default_balck,
+                                            ),
                                           ),
-                                        ),
-                                        Text(": "),
-                                        SizedBox(
-                                          width: 130.w,
-                                          child: Text(
-                                              item.paymentMethod
-                                                  .toString(),
-                                              style: Style
-                                                  .alltext_default_balck),
-                                        ),
-                                      ],
-                                    )
-                                        : Container(),
-                                    Style.distan_size2,
-                                    Row(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          width: 70.w,
-                                          child: Text(
-                                            "Time",
-                                            style: Style
-                                                .alltext_default_balck,
+                                          Text(": "),
+                                          SizedBox(
+                                            width: 120.w,
+                                            child: Text(
+                                                "${DateFormat("hh:mm a").format(DateTime.parse(item.date.toString()))}",
+                                                style: Style
+                                                    .alltext_default_balck),
                                           ),
-                                        ),
-                                        Text(": "),
-                                        SizedBox(
-                                          width: 120.w,
-                                          child: Text(
-                                              "${DateFormat("hh:mm a").format(DateTime.parse(item.date.toString()))}",
-                                              style: Style
-                                                  .alltext_default_balck),
-                                        ),
-                                      ],
-                                    ),
-                                    Style.distan_size2,
-                                    Row(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          width: 70.w,
-                                          child: Text(
-                                            "Date",
-                                            style: Style
-                                                .alltext_default_balck,
+                                        ],
+                                      ),
+                                      Style.distan_size2,
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            width: 70.w,
+                                            child: Text(
+                                              "Date",
+                                              style:
+                                                  Style.alltext_default_balck,
+                                            ),
                                           ),
-                                        ),
-                                        Text(": "),
-                                        SizedBox(
-                                          width: 120.w,
-                                          child: Text(
-                                              DateFormat(
-                                                  "dd-MM-yyyy")
-                                                  .format(DateTime.parse(item.date.toString())),
-
-                                              style: Style
-                                                  .alltext_default_balck),
-                                        ),
-                                      ],
-                                    ),
-                                    Style.distan_size2,
-                                  ],
+                                          Text(": "),
+                                          SizedBox(
+                                            width: 120.w,
+                                            child: Text(
+                                                DateFormat("dd-MM-yyyy").format(
+                                                    DateTime.parse(
+                                                        item.date.toString())),
+                                                style: Style
+                                                    .alltext_default_balck),
+                                          ),
+                                        ],
+                                      ),
+                                      Style.distan_size2,
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  )
-                );
+                    ));
               },
             ),
       // body: FutureBuilder(

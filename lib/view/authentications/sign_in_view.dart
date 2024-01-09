@@ -139,7 +139,8 @@ class _SignInViewState extends State<SignInView> {
               if(emailController.text.isNotEmpty || passwordController.text.isNotEmpty){
                 Map<String, String> body = {
                   'email' : emailController.text,
-                  'password' : passwordController.text
+                  'password' : passwordController.text,
+                  'deviceToke': token
                 };
                 authVm.loginApi(context, body, keepMeSignIn: keepMeSignedIn);
               }else{

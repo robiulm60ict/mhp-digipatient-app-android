@@ -129,7 +129,7 @@ class AppUrls{
 
   static const String bloodGroup = '$baseUrlPatient/blood-group';
 
-  static const String invoiceView = '$baseUrlPatient/online-booking-app-payment-details/';
+  static const String invoiceView = '$baseUrlPatient/payement-request-for-patient/';
 
 /// video call
   static const String videoCall = 'http://35.240.201.91:8010/api/generate-agora-token';

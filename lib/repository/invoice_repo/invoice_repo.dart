@@ -14,7 +14,7 @@ class InvoiceRepo{
       dynamic response = await apiService.getGetApiResponse(AppUrls.invoiceView + id);
       List<InvoiceShowModel> invoiceList = [];
 
-      for (var i in response){
+      for (var i in response['data']){
         invoiceList.add(InvoiceShowModel.fromJson(i));
       }
       return invoiceList;
