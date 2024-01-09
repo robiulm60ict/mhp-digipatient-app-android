@@ -6,14 +6,13 @@ import '../generated/assets.dart';
 import '../resources/colors.dart';
 
 class DoctorListTileOurDoc extends StatelessWidget {
-  const DoctorListTileOurDoc({Key? key, this.onTap, required this.docUrl, required this.docName, required this.docDegree, required this.docDepartment, required this.docHospitalImage, required this.docRating, required this.docHospitalName}) : super(key: key);
+  const DoctorListTileOurDoc({Key? key, this.onTap, required this.docUrl, required this.docName, required this.docDegree, required this.docDepartment, required this.docHospitalImage, required this.docHospitalName}) : super(key: key);
   final VoidCallback? onTap;
   final String docUrl;
   final String docName;
   final String docDegree;
   final String docDepartment;
   final String docHospitalImage;
-  final double docRating;
   final String docHospitalName;
 
   @override
@@ -69,7 +68,7 @@ class DoctorListTileOurDoc extends StatelessWidget {
                         //     fit: BoxFit.fill,
                         //     Assets.imagesHospitalLogo),
                         Expanded(child: Text(docHospitalName, style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w500, color: Colors.black),)),
-                        CustomRating.ratingBar(onRatingUpdate: (r){}),
+
                       ],
                     ),
                   ],

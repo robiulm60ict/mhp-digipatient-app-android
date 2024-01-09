@@ -7,6 +7,7 @@ import 'package:digi_patient/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../enum/gender_enum.dart';
@@ -31,7 +32,10 @@ class UserDetailView extends StatefulWidget {
 
 class _UserDetailViewState extends State<UserDetailView> {
   TextEditingController nameController = TextEditingController();
+  TextEditingController fastnameController = TextEditingController();
+  TextEditingController lastnameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
   TextEditingController dateOfBirthController = TextEditingController();
   FocusNode nameFocusNode = FocusNode();
   final ImagePicker _picker = ImagePicker();
@@ -43,7 +47,7 @@ class _UserDetailViewState extends State<UserDetailView> {
       final XFile? image = await _picker.pickImage(
           source: fromGallery ? ImageSource.gallery : ImageSource.camera);
       if (image != null) {
-         // saveImage(image);
+        // saveImage(image);
         xFileList.clear();
         xFileList.add(image);
         setState(() {});
@@ -92,11 +96,10 @@ class _UserDetailViewState extends State<UserDetailView> {
     print(
         "ssssssssssssssssssssssssssssssssssssssssss${birthSex!.birthSexName!.toString()}");
     bloodGroup = context
-            .read<AuthViewModel>()
-            .bloodGroupListsoingle
-            ?.firstWhere(
-                (element) => element.bloodGroupName.toString() == bloodGroupId)
-        ;
+        .read<AuthViewModel>()
+        .bloodGroupListsoingle
+        ?.firstWhere(
+            (element) => element.bloodGroupName.toString() == bloodGroupId);
     setState(() {});
   }
 
@@ -108,9 +111,12 @@ class _UserDetailViewState extends State<UserDetailView> {
       context.read<AuthViewModel>().getBirthSex(context);
       context.read<AuthViewModel>().getBloodGroup(context);
     });
-    nameController = TextEditingController(
-        text:
-            "${widget.user.patientFirstName} ${widget.user.patientLastName}");
+    addressController =
+        TextEditingController(text: "${widget.user.patientAddress1}");
+    fastnameController =
+        TextEditingController(text: "${widget.user.patientFirstName}");
+    lastnameController =
+        TextEditingController(text: " ${widget.user.patientLastName}");
     emailController =
         TextEditingController(text: "${widget.user.patientEmail}");
     dateOfBirthController =
@@ -159,35 +165,7 @@ class _UserDetailViewState extends State<UserDetailView> {
                   color: AppColors.primaryColor,
                   child: SizedBox(
                     width: 200.w,
-                    child: TextField(
-                      controller: nameController,
-                      focusNode: nameFocusNode,
-                      style: TextStyle(fontSize: 10.sp, color: Colors.white),
-                      cursorColor: Colors.blue,
-                      decoration: InputDecoration(
-                          enabled: true,
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.r),
-                              borderSide:
-                                  const BorderSide(color: Colors.white)),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.r),
-                              borderSide:
-                                  const BorderSide(color: Colors.white)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.r),
-                              borderSide:
-                                  const BorderSide(color: Colors.white)),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                nameFocusNode.requestFocus();
-                              },
-                              icon: Icon(
-                                Icons.edit,
-                                size: 13.h,
-                                color: Colors.white,
-                              ))),
-                    ),
+                    child: Text(""),
                   )),
               SizedBox(
                 height: 20.h,
@@ -200,6 +178,32 @@ class _UserDetailViewState extends State<UserDetailView> {
                     height: 15.h,
                   ),
                   Text(
+                    "First Name",
+                    style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryColor),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  CustomTextField(
+                    textEditingController: fastnameController,
+                  ),
+                  Text(
+                    "Last Name",
+                    style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryColor),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  CustomTextField(
+                    textEditingController: lastnameController,
+                  ),
+                  Text(
                     "Email ID",
                     style: TextStyle(
                         fontSize: 16.sp,
@@ -207,13 +211,26 @@ class _UserDetailViewState extends State<UserDetailView> {
                         color: AppColors.primaryColor),
                   ),
                   SizedBox(
-                    height: 10.h,
+                    height: 5.h,
                   ),
                   CustomTextField(
                     textEditingController: emailController,
                   ),
+                  Text(
+                    "Address ",
+                    style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryColor),
+                  ),
                   SizedBox(
-                    height: 15.h,
+                    height: 5.h,
+                  ),
+                  CustomTextField(
+                    textEditingController: addressController,
+                  ),
+                  SizedBox(
+                    height: 5.h,
                   ),
                   Text(
                     "Date of Birth",
@@ -250,67 +267,90 @@ class _UserDetailViewState extends State<UserDetailView> {
                       ? const Center(
                           child: CircularProgressIndicator(),
                         )
-                      :
-
-                  SizedBox(
-                    height: 55.h,
-                    width: double.infinity,
-                    child: DropdownButton<BloodGroups>(
-
-                      hint: Text("Select Blood Group", style: TextStyle(fontSize: 14.sp,),),
-                      items: auth.bloodGroupListsoingle!.map((e) => DropdownMenuItem<BloodGroups>(value: e,child: Text("${e.bloodGroupName}", style: TextStyle(fontSize: 14.sp, ),),)).toList(),
-                      isExpanded: true,
-                      value: bloodGroup,
-                      onChanged: (value) {
-                        if(value != null){
-                          setState(() {
-                            // bloodGroupId = "${value.id}";
-                            bloodGroup = value;
-                          });
-                        }
-
-                      },),
-                  ),
+                      : Container(
+                          height: 50.h,
+                          width: double.infinity,
+                          padding: EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black)),
+                          child: DropdownButtonFormField<BloodGroups>(
+                            decoration:
+                                InputDecoration(border: InputBorder.none),
+                            hint: Text(
+                              "Select Blood Group",
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                            items: auth.bloodGroupListsoingle!
+                                .map((e) => DropdownMenuItem<BloodGroups>(
+                                      value: e,
+                                      child: Text(
+                                        "${e.bloodGroupName}",
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                            isExpanded: true,
+                            value: bloodGroup,
+                            onChanged: (value) {
+                              if (value != null) {
+                                setState(() {
+                                  // bloodGroupId = "${value.id}";
+                                  bloodGroup = value;
+                                });
+                              }
+                            },
+                          ),
+                        ),
 
                   SizedBox(
                     height: 10.h,
                   ),
-                    auth.isBirthSexLoading ? const Center(child: CircularProgressIndicator(),) :
-
-                  SizedBox(
-                    height: 55.h,
-                    width: double.infinity,
-                    child: DropdownButton<BirthSex>(
-                      hint: Text(
-                        "Select Gender",
-                        style: TextStyle(
-                          fontSize: 14.sp,
+                  auth.isBirthSexLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Container(
+                          height: 50.h,
+                          width: double.infinity,
+                          padding: EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black)),
+                          child: DropdownButtonFormField<BirthSex>(
+                            hint: Text(
+                              "Select Gender",
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                            decoration:
+                                InputDecoration(border: InputBorder.none),
+                            items: auth.birthSexListsingle
+                                ?.map((e) => DropdownMenuItem<BirthSex>(
+                                      value: e,
+                                      child: Text(
+                                        "${e.birthSexName}",
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                            isExpanded: true,
+                            value: birthSex,
+                            onChanged: (value) {
+                              if (value != null) {
+                                setState(() {
+                                  birth = "${value.birthSexName}";
+                                  birthSex = value;
+                                });
+                              }
+                            },
+                          ),
                         ),
-                      ),
-                      items: auth.birthSexListsingle
-                          ?.map((e) => DropdownMenuItem<BirthSex>(
-                                value: e,
-                                child: Text(
-                                  "${e.birthSexName}",
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                  ),
-                                ),
-                              ))
-                          .toList(),
-                      isExpanded: true,
-                      value: birthSex,
-                      onChanged: (value) {
-                        if (value != null) {
-                          setState(() {
-                            birth = "${value.birthSexName}";
-                            birthSex = value;
-                          });
-                        }
-                      },
-                    ),
-                  ),
-
 
                   // CustomTextField(
                   //   prefix: Icon(Icons.lock, color: AppColors.primaryColor,),
@@ -350,7 +390,26 @@ class _UserDetailViewState extends State<UserDetailView> {
                     isExpanded: false,
                     title: "Save",
                     onPressed: () {
+                      String dateString = '${dateOfBirthController.text.toString()}';
+                      DateTime dateTime = DateFormat('dd-MM-yyyy').parse(dateString);
+                      String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
+                      print("ddd${formattedDate}");
                       debugPrint(_gender.name);
+                      Map<String, String> body = {
+                        'patient_hn_number': widget.user.patientHnNumber.toString(),
+                        'patient_mobile_phone': widget.user.patientMobilePhone.toString(),
+                        "app_token":
+                        "6WXtdlLMiJqi8m8Z0LBqQKVhc7VwOLYv7VoGZ6pFOuaFW3ptWFjRDyLBdQ5QBLNO",
+                        'patient_first_name': fastnameController.text,
+                        'patient_birth_sex_id': "${birthSex?.id}",
+                        'ptn_blood_group_id': "${bloodGroup?.id}",
+                        'patient_dob': formattedDate,
+                        //'image': MultipartFile(File(xFileList.first!.path).toString(), filename: ""),
+                        'patient_email': emailController.text,
+                        "patient_last_name": fastnameController.text,
+                        "patient_address1": addressController.text,
+                      };
+                      print(body);
                       if (xFileList.isNotEmpty) {
                         // congratsDialogue(context, onTap: (){
                         // context.router.replace(const DashboardRoute());
@@ -404,8 +463,8 @@ class _UserDetailViewState extends State<UserDetailView> {
                           ElevatedButton(
                               child: const Text("From Gallery"),
                               onPressed: () {
-                                 pickImage(fromGallery: true);
-                                 Navigator.pop(context);
+                                pickImage(fromGallery: true);
+                                Navigator.pop(context);
                               }),
                           SizedBox(
                             height: 10.h,
@@ -413,8 +472,8 @@ class _UserDetailViewState extends State<UserDetailView> {
                           ElevatedButton(
                               child: const Text("Take Photo"),
                               onPressed: () {
-                                 pickImage(fromGallery: false);
-                                 Navigator.pop(context);
+                                pickImage(fromGallery: false);
+                                Navigator.pop(context);
                               }),
                         ],
                       )),

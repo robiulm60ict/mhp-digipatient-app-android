@@ -177,6 +177,8 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
             selectedItem: selectedCondition,
             dropdownDecoratorProps: DropDownDecoratorProps(
               dropdownSearchDecoration: InputDecoration(
+                hintText: "Search",
+                helperText: "Search",
                 labelText: "Condition",
                 labelStyle: TextStyle(color: AppColors.primaryColor),
                 border: OutlineInputBorder(

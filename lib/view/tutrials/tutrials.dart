@@ -28,7 +28,7 @@ class TutrialsView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "Follow the FAQ guide line to use the app",
+                  "Follow the FAQ guideline to use the app",
                   style: Style.alltext_default_balck_blod,
                 ),
               ),

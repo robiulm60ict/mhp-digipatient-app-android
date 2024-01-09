@@ -25,6 +25,7 @@ class SupportPage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
                 "We’re here to help",
@@ -46,7 +47,7 @@ class SupportPage extends StatelessWidget {
               ),
               Style.distan_size5,
               Padding(
-                padding: EdgeInsets.only(left: 8),
+                padding: EdgeInsets.only(left: 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -148,9 +149,9 @@ class SupportPage extends StatelessWidget {
               Style.distan_size5,
               Text(
                 "Ans. For support, you can contact us via "
-                "\n ⦁	Phone- +880-1855-777766"
-                "\n ⦁	LiveChat"
-                "\n ⦁	Email- info@macrohealthplus.org"
+                "\n⦁	Phone- +880-1855-777766"
+                "\n⦁	LiveChat"
+                "\n⦁ Email- info@macrohealthplus.org"
                 "\n ⦁ Or Visit Our Office- House # 35, Road # East Rampura, Dhaka, Bangladesh",
                 style: Style.alltext_default_balck,
                 textAlign: TextAlign.justify,

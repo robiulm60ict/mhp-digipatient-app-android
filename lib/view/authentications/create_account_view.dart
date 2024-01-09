@@ -512,14 +512,14 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                     print("ddd${formattedDate}");
                     if (xFileList.isEmpty) {
                       Messages.snackBar(
-                          context, "Image con not be empty !");
+                          context, "Patient Image con not be empty !");
                     }
                     if (namefast.text.isEmpty) {
                       Messages.snackBar(
-                          context, "First Name con not be empty !");
+                          context, "Patient First Name con not be empty !");
                     } else if (namelast.text.isEmpty) {
                       Messages.snackBar(
-                          context, "Last Name con not be empty !");
+                          context, "Patient Last Name con not be empty !");
                     } else if (dateOfBirthController.text.isEmpty) {
                       Messages.snackBar(
                           context, "Date of Birth con not be empty !");
