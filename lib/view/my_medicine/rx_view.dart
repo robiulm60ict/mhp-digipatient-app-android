@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';

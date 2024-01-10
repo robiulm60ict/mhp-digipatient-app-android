@@ -1,6 +1,4 @@
 
-import 'package:auto_route/auto_route.dart';
-import 'package:digi_patient/model/anatomy/anatomy_symptoms_model.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/widgets/custom_button.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/app_url.dart';

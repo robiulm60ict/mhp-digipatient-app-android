@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/data/firebase/firebase_api.dart';
 import 'package:digi_patient/data/firebase/notification_fcm.dart';
 import 'package:digi_patient/utils/route/routes.dart';
@@ -52,20 +51,25 @@ final navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   await ScreenUtil.ensureScreenSize();
   WidgetsFlutterBinding.ensureInitialized();
+
+  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await Firebase.initializeApp(
-    name: "digi",
+    name: "digi_patient",
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // await initializeNotifications();
-  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  String? token = await messaging.getToken();
+  print("FCM Token: $token");
   await FirebaseMessaging.instance.getInitialMessage();
   FirebaseMessaging.onBackgroundMessage(firbaseMessageBackgroundHandeler);
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
+  await FirebaseApi().initNotifications();
 
-  //  await NotificationService().getToken();
-   await FirebaseApi().initNotifications();
   runApp(
     MultiProvider(
       providers: [
@@ -119,7 +123,8 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => MyPaymentViewModel(),
-        ), ChangeNotifierProvider(
+        ),
+        ChangeNotifierProvider(
           create: (context) => ResourcesViewModel(),
         ),
       ],
@@ -143,7 +148,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -156,6 +160,7 @@ class _MyAppState extends State<MyApp> {
             return Stack(
               children: [
                 child!,
+
                 ///  Step 3/3: Insert ZegoUIKitPrebuiltCallMiniOverlayPage into Overlay, and return the context of NavigatorState in contextQuery.
                 ZegoUIKitPrebuiltCallMiniOverlayPage(
                   contextQuery: () {
@@ -167,14 +172,12 @@ class _MyAppState extends State<MyApp> {
           },
           navigatorKey: widget.navigatorKey,
           theme: ThemeData(
-             useMaterial3: false,
-
+            useMaterial3: false,
             fontFamily: 'RobotoMono',
             primaryColor: AppColors.primaryColor,
             colorScheme: ColorScheme.fromSwatch(
               primarySwatch: Colors.green,
             ),
-
             appBarTheme: AppBarTheme(
               elevation: 0,
               toolbarHeight: 50.h,
@@ -193,9 +196,7 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           initialRoute: RoutesName.splash,
           onGenerateRoute: Routes.generateRoute,
-
         );
-
       },
     );
   }

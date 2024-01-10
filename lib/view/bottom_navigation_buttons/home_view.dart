@@ -474,13 +474,50 @@ print(gender);
                           },
                           color: AppColors.primaryColor,
                           child: Text("Submit"),
-                        )
+                        ) ,
+
+
                       ],
                     ),
                   ),
                 );
               }),
-
+              // MaterialButton(
+              //   onPressed: () {
+              //     final Map<String,
+              //         dynamic>
+              //     dataa = {
+              //       'to':
+              //         "fv_xOprnQDG8tyWzWHZqJ9:APA91bHNK8hkj0QeCgHsxm0vjNK6rYOTYFOtEPHL34FqO_sIokX-z7XRgenwUO8_JZQkpiq086uwj69lYJbJHDwDOoAz9FgzXgCR1CLVvdiJtSQIk-1AYqq8ioxTUTEZbX7tvvC8fPOT",
+              //       'notification': {
+              //         'title':
+              //         'Your App Request',
+              //         'body':
+              //         "Cancel",
+              //         // "image":
+              //         //     "${visitorController.piketImagePath.value}",
+              //         "image":
+              //         "https://proshort.ai/static/img/ps_logo.png",
+              //         'sound':
+              //         'default',
+              //         'badge': '1',
+              //       },
+              //       'priority':
+              //       'high',
+              //       // 'data': {
+              //       //   'type': 'chat',
+              //       //   'id':
+              //       //   'Asif Taj ffffffffffffff'
+              //       // }
+              //     };
+              //     print(dataa);
+              //     notificationService
+              //         .sendPushNotification(
+              //         dataa);
+              //   },
+              //   color: AppColors.primaryColor,
+              //   child: Text("Sddddubmit"),
+              // ),
               SizedBox(
                 height: 4.h,
               ),

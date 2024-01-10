@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/utils/route/routes_name.dart';
 import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
 import 'package:digi_patient/widgets/single_invoice_row.dart';

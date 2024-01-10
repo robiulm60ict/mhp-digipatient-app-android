@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/model/my_record_model/procedure_mHFGD_model.dart';
 import 'package:digi_patient/view/home_item_pages/my_record_view.dart';
 import 'package:flutter/material.dart';

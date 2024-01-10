@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/view_model/auth_view_model.dart';
 import 'package:digi_patient/widgets/gradient_appBar.dart';

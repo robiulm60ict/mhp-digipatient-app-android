@@ -1,18 +1,13 @@
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
-import 'package:digi_patient/view/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
+
 
 import '../../generated/assets.dart';
 import '../../resources/colors.dart';
 import '../../resources/styles.dart';
-import '../../routes/routes.gr.dart';
-import '../../utils/utils.dart';
-import '../../widgets/back_button.dart';
+
 
 class DrProfileView extends StatelessWidget {
   DrProfileView({super.key, required this.result});

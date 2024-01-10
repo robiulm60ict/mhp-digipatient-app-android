@@ -10,7 +10,7 @@ class BookAppointmentRepo{
 
     try{
       dynamic response = await apiService.getPostApiResponsehader(AppUrls.bookAppointment, body);
-      print(response);
+      print("response$response");
 
       return BookAppointmentModel.fromJson(response);
 

@@ -1,9 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:search_page/search_page.dart';
 
-import '../model/doctor_model/doctors_model.dart';
 import '../model/myDoctorList/mydoctorList.dart';
 import '../resources/app_url.dart';
 import '../resources/colors.dart';

@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/model/appointment_model/upcomming_appointments_model.dart';
 import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/resources/colors.dart';

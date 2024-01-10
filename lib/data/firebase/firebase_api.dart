@@ -1,16 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'package:auto_route/auto_route.dart';
-import 'package:digi_patient/view/real_communication/video_call.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../main.dart';
-import '../../routes/routes.gr.dart';
 import '../../utils/user.dart';
-import '../../view/real_communication/data.dart';
 
 Future<void> handleBackgroundMessage(RemoteMessage message)async{
   debugPrint("Title: ${message.notification?.title}");
@@ -106,7 +101,7 @@ class FirebaseApi{
   Future<void> initNotifications()async{
     await firebaseMessaging.requestPermission();
     final fcmToken = await firebaseMessaging.getToken();
-    saveTokenLocally(fcmToken.toString());
+        (fcmToken.toString());
     debugPrint("Token: ${fcmToken.toString()}");
      FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
      initPushNotifications();

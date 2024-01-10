@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:date_format_field/date_format_field.dart';
 import 'package:digi_patient/model/auth_model/birth_sex_model.dart';
 import 'package:digi_patient/model/auth_model/blood_group_model.dart';

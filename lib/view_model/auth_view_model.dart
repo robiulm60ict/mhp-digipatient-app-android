@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/model/auth_model/blood_group_model.dart';
 import 'package:digi_patient/model/auth_model/login_model.dart';
 import 'package:digi_patient/resources/colors.dart';

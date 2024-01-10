@@ -1,8 +1,4 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/resources/colors.dart';
-import 'package:digi_patient/routes/routes.gr.dart';
-import 'package:digi_patient/view/bottom_navigation_buttons/home_view.dart';
 import 'package:digi_patient/view/payment/single_invoice_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -207,7 +203,7 @@ selectCategoryPopUp(
         children: [
           ElevatedButton(
               onPressed: () {
-                context.router.pop();
+               // context.router.pop();
               },
               child: Text(
                 "All",
@@ -215,7 +211,7 @@ selectCategoryPopUp(
               )),
           ElevatedButton(
               onPressed: () {
-                context.router.pop();
+              //  context.router.pop();
               },
               child: Text(
                 "Doctor",
@@ -223,7 +219,7 @@ selectCategoryPopUp(
               )),
           ElevatedButton(
               onPressed: () {
-                context.router.pop();
+              //  context.router.pop();
               },
               child: Text(
                 "Hospital",

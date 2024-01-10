@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

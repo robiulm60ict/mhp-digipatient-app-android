@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/view/home_item_pages/my_doctor_view.dart';
 import 'package:digi_patient/view/my_medicine/my_medicine_view.dart';

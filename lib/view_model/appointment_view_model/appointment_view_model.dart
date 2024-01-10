@@ -16,6 +16,7 @@ import '../../model/online_model/online_model.dart';
 import '../../utils/user.dart';
 import '../../view/payment/ivoice/pdf_invoice_api.dart';
 import '../anatomy/anatomy_view_model.dart';
+import '../push_notification/notification_service.dart';
 
 class AppointmentViewModel with ChangeNotifier {
   DateTime appointmentDate = DateTime.now();
@@ -27,33 +28,36 @@ class AppointmentViewModel with ChangeNotifier {
 
   List<WeekDayModel> weekDayList = [];
 
-
   var selected;
   bool morningButton = true;
   bool isChamber = true;
 
-  appoinmenttimemorning(){
-    morningButton=true;
+  appoinmenttimemorning() {
+    morningButton = true;
     print(morningButton);
 
     notifyListeners();
   }
-  appoinmenttimeeveing(){
-    morningButton=false;
+
+  appoinmenttimeeveing() {
+    morningButton = false;
     print(morningButton);
     notifyListeners();
   }
-  appoinmentchamber(){
-    isChamber=true;
+
+  appoinmentchamber() {
+    isChamber = true;
     print(isChamber);
 
     notifyListeners();
   }
-  appoinmentonline(){
-    isChamber=false;
+
+  appoinmentonline() {
+    isChamber = false;
     print(isChamber);
     notifyListeners();
   }
+
   setAppointmentDate(BuildContext context) async {
     DateTime? selectedDate =
         await PickDateTime().pickDate(context, initialDate: appointmentDate);
@@ -134,6 +138,7 @@ class AppointmentViewModel with ChangeNotifier {
   }
 
   /// book appointment
+  NotificationService notificationService = NotificationService();
 
   List<BookAppointmentModel> appointmentList = [];
   bool isBookAppointmentLoading = false;
@@ -142,16 +147,16 @@ class AppointmentViewModel with ChangeNotifier {
 
   bookAppointment(BuildContext context,
       {required Datum doctor, required Map body}) async {
-    final anatomy = Provider.of<AnatomyModelView>(context,listen: false);
+    final anatomy = Provider.of<AnatomyModelView>(context, listen: false);
 
     isBookAppointmentLoading = true;
     appointmentList.clear();
     notifyListeners();
-    await bookAppointmentRepo.bookAppointment(body: body).then((value)async {
+    await bookAppointmentRepo.bookAppointment(body: body).then((value) async {
       appointmentList.add(value);
       //Messages.snackBar(context, "Appointment Successful", backgroundColor: Colors.green);
       isBookAppointmentLoading = false;
-      notifyListeners();
+      // notifyListeners();
 
 
       invoiceSuccessPopUp(
@@ -163,9 +168,32 @@ class AppointmentViewModel with ChangeNotifier {
         doctor: doctor,
         patientId: body["patient_id"],
         paymentMethod: body["payment_type"],
-        trinscationNo: body["transaction_no"], bookAppointmentModel: appointmentList.first, paymentnumber:body["transaction_phone_number"], Shift: body["shift"] ,
+        trinscationNo: body["transaction_no"],
+        bookAppointmentModel: appointmentList.first,
+        paymentnumber: body["transaction_phone_number"],
+        Shift: body["shift"],
       );
-
+      print("${doctor.token!.deviceToke.toString()}");
+      final Map dataa = {
+        'to': "${doctor.token!.deviceToke.toString()}",
+        'notification': {
+          'title': 'Your Appointment Request',
+          'body': "Please Check your Payment Inbox",
+          // "image":
+          //     "${visitorController.piketImagePath.value}",
+          //"image": "https://proshort.ai/static/img/ps_logo.png",
+          'sound': 'default',
+          'badge': '1',
+        },
+        'priority': 'high',
+        // 'data': {
+        //   'type': 'chat',
+        //   'id':
+        //   'Asif Taj ffffffffffffff'
+        // }
+      };
+      print(dataa);
+      notificationService.sendPushNotification(dataa);
       anatomy.symptomsList.clear();
       // anatomy.symptomsList.removeLast();
       anatomy.getSymptomsList.clear();
@@ -268,7 +296,7 @@ class AppointmentViewModel with ChangeNotifier {
     setInvoiceLoading(true);
     final id = await getPatientId();
     await invoiceRepo.getInvoiceList(id.toString()).then((value) {
-      invoiceList=value;
+      invoiceList = value;
       setInvoiceLoading(false);
     }).onError((error, stackTrace) {
       setInvoiceLoading(true);

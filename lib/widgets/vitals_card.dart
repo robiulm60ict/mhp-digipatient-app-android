@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/enum/vitals_enum.dart';
 import 'package:digi_patient/model/my_record_model/vitals_model.dart';
 import 'package:digi_patient/resources/styles.dart';

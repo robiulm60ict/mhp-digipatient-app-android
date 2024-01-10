@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/model/my_record_model/medical_history_from_great_doc_model.dart';
 import 'package:digi_patient/model/my_record_model/procedure_mHFGD_model.dart';
 import 'package:digi_patient/resources/colors.dart';

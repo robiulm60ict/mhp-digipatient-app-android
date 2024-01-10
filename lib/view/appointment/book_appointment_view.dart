@@ -1,13 +1,7 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/model/anatomy/anatomy_symptoms_model.dart';
-import 'package:digi_patient/model/doctor_model/doctor_chember_time_model.dart';
-import 'package:digi_patient/model/doctor_model/doctors_model.dart';
-import 'package:digi_patient/model/online_model/online_model.dart';
-import 'package:digi_patient/resources/app_url.dart';
+
 import 'package:digi_patient/resources/colors.dart';
-import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/message.dart';
 import 'package:digi_patient/view/anatomy/anatomy_view.dart';
 import 'package:digi_patient/view/payment/payment_method_view.dart';
@@ -145,12 +139,13 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
               enableWeeknumberText: false,
               //  weekdayText: "data",
               selectedDay: appointmentViewModel.date,
+
               //weeknumberColor: const Color(0xFF57AF87),
               weeknumberTextColor: Colors.white,
               //  backgroundColor: const Color(0xFF1A1A1A),
               weekdayTextColor: const Color(0xFF8A8A8A),
               //  digitsColor: Colors.white,
-              selectedBackgroundColor: const Color(0xFF57AF87),
+              // selectedBackgroundColor: const Color(0xFF57AF87),
               // weekdays: const ["Mo", "Tu", "We", "Th", "Fr","Sa","Su"],
               // daysInWeek: 7,
               // DateTime

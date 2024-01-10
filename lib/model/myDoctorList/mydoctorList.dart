@@ -36,6 +36,7 @@ class Datum {
   DateTime? createdAt;
   DateTime? updatedAt;
   Doctors? doctors;
+  Token? token;
 
   Datum({
     this.id,
@@ -45,6 +46,7 @@ class Datum {
     this.createdAt,
     this.updatedAt,
     this.doctors,
+    this.token,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -55,6 +57,7 @@ class Datum {
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     doctors: json["doctors"] == null ? null : Doctors.fromJson(json["doctors"]),
+    token: json["token"] == null ? null : Token.fromJson(json["token"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -65,6 +68,7 @@ class Datum {
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
     "doctors": doctors?.toJson(),
+    "token": token?.toJson(),
   };
 }
 
@@ -87,7 +91,7 @@ class Doctors {
   String? drBmdcRegNo;
   String? drEmail;
   dynamic drIsReferred;
-  String? drDob;
+  DateTime? drDob;
   String? drBirthSexId;
   String? drCityId;
   String? drPostalCode;
@@ -172,7 +176,7 @@ class Doctors {
     drBmdcRegNo: json["dr_bmdc_reg_no"],
     drEmail: json["dr_email"],
     drIsReferred: json["dr_is_referred"],
-    drDob: json["dr_dob"],
+    drDob: json["dr_dob"] == null ? null : DateTime.parse(json["dr_dob"]),
     drBirthSexId: json["dr_birth_sex_id"],
     drCityId: json["dr_city_id"],
     drPostalCode: json["dr_postal_code"],
@@ -215,7 +219,7 @@ class Doctors {
     "dr_bmdc_reg_no": drBmdcRegNo,
     "dr_email": drEmail,
     "dr_is_referred": drIsReferred,
-    "dr_dob": drDob,
+    "dr_dob": "${drDob!.year.toString().padLeft(4, '0')}-${drDob!.month.toString().padLeft(2, '0')}-${drDob!.day.toString().padLeft(2, '0')}",
     "dr_birth_sex_id": drBirthSexId,
     "dr_city_id": drCityId,
     "dr_postal_code": drPostalCode,
@@ -244,18 +248,20 @@ class Academic {
   int? id;
   String? doctorsMasterId;
   String? degreeId;
-  dynamic passingYear;
-  dynamic result;
-  dynamic institutionId;
-  dynamic countryId;
-  dynamic cityId;
+  String? passingYear;
+  String? result;
+  String? institutionId;
+  String? countryId;
+  String? cityId;
   String? scanCopy;
-  dynamic scanCopyTitle;
+  String? scanCopyTitle;
   int? deleteStatus;
   dynamic createdBy;
   dynamic updatedBy;
   DateTime? createdAt;
   DateTime? updatedAt;
+  List<Inistitution>? inistitution;
+  List<Country>? country;
 
   Academic({
     this.id,
@@ -273,6 +279,8 @@ class Academic {
     this.updatedBy,
     this.createdAt,
     this.updatedAt,
+    this.inistitution,
+    this.country,
   });
 
   factory Academic.fromJson(Map<String, dynamic> json) => Academic(
@@ -291,6 +299,8 @@ class Academic {
     updatedBy: json["updated_by"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    inistitution: json["inistitution"] == null ? [] : List<Inistitution>.from(json["inistitution"]!.map((x) => Inistitution.fromJson(x))),
+    country: json["country"] == null ? [] : List<Country>.from(json["country"]!.map((x) => Country.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -309,6 +319,48 @@ class Academic {
     "updated_by": updatedBy,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
+    "inistitution": inistitution == null ? [] : List<dynamic>.from(inistitution!.map((x) => x.toJson())),
+    "country": country == null ? [] : List<dynamic>.from(country!.map((x) => x.toJson())),
+  };
+}
+
+class Country {
+  int? id;
+  String? countryName;
+
+  Country({
+    this.id,
+    this.countryName,
+  });
+
+  factory Country.fromJson(Map<String, dynamic> json) => Country(
+    id: json["id"],
+    countryName: json["country_name"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "country_name": countryName,
+  };
+}
+
+class Inistitution {
+  int? id;
+  String? name;
+
+  Inistitution({
+    this.id,
+    this.name,
+  });
+
+  factory Inistitution.fromJson(Map<String, dynamic> json) => Inistitution(
+    id: json["id"],
+    name: json["name"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
   };
 }
 
@@ -389,5 +441,33 @@ class UsualProvider {
   Map<String, dynamic> toJson() => {
     "id": id,
     "usual_provider_name": usualProviderName,
+  };
+}
+
+class Token {
+  String? userType;
+  String? userId;
+  String? deviceToke;
+  String? profilePhotoUrl;
+
+  Token({
+    this.userType,
+    this.userId,
+    this.deviceToke,
+    this.profilePhotoUrl,
+  });
+
+  factory Token.fromJson(Map<String, dynamic> json) => Token(
+    userType: json["user_type"],
+    userId: json["user_id"],
+    deviceToke: json["deviceToke"],
+    profilePhotoUrl: json["profile_photo_url"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "user_type": userType,
+    "user_id": userId,
+    "deviceToke": deviceToke,
+    "profile_photo_url": profilePhotoUrl,
   };
 }

@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/data/firebase/firebase_api.dart';
 import 'package:digi_patient/repository/real_communication_repo/video_call.dart';
 import 'package:digi_patient/view/real_communication/data.dart';

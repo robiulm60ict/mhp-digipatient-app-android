@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/enum/vitals_enum.dart';
 import 'package:digi_patient/model/my_record_model/vitals_model.dart';
 import 'package:digi_patient/utils/popup_dialogue.dart';
@@ -301,7 +300,7 @@ getPopUp(Vitals v, String title, BuildContext context,
                 unitId: unitId,
                 color: color,
                 value: "${sbp.text}/${dbp.text}");
-            context.router.pop();
+            Navigator.pop(context);
           } else {
             vital.setVitalStatus("Enter Both Field data");
             Messages.flushBarMessage(context, "Enter Both Field data");
@@ -333,7 +332,7 @@ getPopUp(Vitals v, String title, BuildContext context,
                 unitId: unitId,
                 color: color,
                 value: tC.text);
-            context.router.pop();
+            Navigator.pop(context);
           } else {
             vital.setVitalStatus("Enter data");
             Messages.flushBarMessage(context, "Enter data");
