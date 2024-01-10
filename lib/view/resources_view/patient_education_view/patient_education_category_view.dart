@@ -45,20 +45,20 @@ class _PatientEducationViewState extends State<PatientEducationView> {
           if (provider.patientCatagoryList.isEmpty) {
             return provider.isCatagoryLoading == true
                 ? Center(
-              child: ListView.builder(
-                itemCount: 6,
-                scrollDirection: Axis.vertical,
-                physics: const ScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: bannerShimmereffect(
-                        94.toDouble(), 385.toDouble()),
-                  );
-                },
-              ),
-            )
+                    child: ListView.builder(
+                      itemCount: 6,
+                      scrollDirection: Axis.vertical,
+                      physics: const ScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: bannerShimmereffect(
+                              94.toDouble(), 385.toDouble()),
+                        );
+                      },
+                    ),
+                  )
                 : noDataFounForList("No Data");
           } else {
             return Container(
@@ -71,9 +71,7 @@ class _PatientEducationViewState extends State<PatientEducationView> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child:
-
-                      GridView.builder(
+                      child: GridView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           gridDelegate: FlutterzillaFixedGridView(
@@ -92,15 +90,21 @@ class _PatientEducationViewState extends State<PatientEducationView> {
                                   shadowColor: Colors.black,
                                   shape: RoundedRectangleBorder(
 
-                                    // side: new BorderSide(
-                                    //     color: AppColors.primaryColor, width: 2.0),
+                                      // side: new BorderSide(
+                                      //     color: AppColors.primaryColor, width: 2.0),
                                       borderRadius: BorderRadius.circular(8.0)),
                                   child: Container(
                                     padding: EdgeInsets.all(6.0),
                                     color: AppColors.page_background_color,
                                     child: InkWell(
                                       onTap: () {
-                                       Navigator.push(context, MaterialPageRoute(builder: (context)=>PatientEducationSubCatagoryView(catagoryid: resoures.id,)));
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PatientEducationSubCatagoryView(
+                                                      catagoryid: resoures.id,
+                                                    )));
                                       },
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
@@ -115,21 +119,17 @@ class _PatientEducationViewState extends State<PatientEducationView> {
                                             height: 65.h,
                                             width: double.infinity,
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(8.0),
-
-                                              child:
-                                              // Image.network(
-                                              //   resoures.categoryImage.toString(),
-                                              //   height: 65.h,
-                                              //   width: double.infinity,
-                                              //   fit: BoxFit.fill,
-                                              // )
-
-                                              Image.asset(
-                                                Assets.patienteducation,
-                                                height: 65.h,
-                                                width: double.infinity,
-                                                fit: BoxFit.fill,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: Image.network(
+                                                  "${AppUrls.baseUrlResoures}/uploads/${resoures.categoryImage.toString()}",
+                                                  height: 65.h,
+                                                  width: 65.h,
+                                                  fit: BoxFit.fill,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -147,7 +147,6 @@ class _PatientEducationViewState extends State<PatientEducationView> {
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.center,
                                     style: Style.alltext_default_balck,
-
                                   ),
                                 )
                               ],

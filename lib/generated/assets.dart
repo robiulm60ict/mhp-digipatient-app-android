@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
   static const String shimmer = 'assets/images/banner_pic.png';
+  static const String dummy_image = 'assets/images/dummy_image.jpg';
   static const String nodatafound = 'assets/images/nodata.jpg';
   static const String animationFemaleWalking = 'assets/animation/female-walking.json';
   static const String animationMaleWalking = 'assets/animation/male-walking.json';

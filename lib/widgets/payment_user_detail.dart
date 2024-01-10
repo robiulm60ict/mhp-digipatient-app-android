@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../generated/assets.dart';
 import '../resources/styles.dart';
 
 class PaymentUserDetail extends StatelessWidget {
@@ -40,12 +41,12 @@ class PaymentUserDetail extends StatelessWidget {
                   child: SizedBox(
                 width: 50.0,
                 height: 50.0,
-                child: Image.network(
+                child:image.toString().split("/").last!="null"? Image.network(
                   image,
                   fit: BoxFit.cover,
                   width: 50.0,
                   height: 50.0,
-                ),
+                ):Image.asset(  Assets.dummy_image),
               )),
               title: Text(
                 name,

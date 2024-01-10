@@ -95,7 +95,7 @@ class _InvoiceViewState extends State<InvoiceView> {
                                             "${AppUrls.drprofile}${item.doctors!.drImages.toString()}",
                                             fit: BoxFit.fill,
                                           )
-                                        : Image.asset(Assets.nodatafound),
+                                        : Image.asset(Assets.dummy_image),
                                   ),
                                 ),
                                 Style.widthdistan_size2,

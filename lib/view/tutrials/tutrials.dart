@@ -16,7 +16,7 @@ class TutrialsView extends StatelessWidget {
 
         centerTitle: true,
         title: Text(
-          "Tutorial",
+          "FAQ",
           style: Style.alltext_default_white,
         ),
       ),

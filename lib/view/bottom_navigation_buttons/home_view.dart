@@ -65,18 +65,14 @@ class _HomeViewState extends State<HomeView> {
 
     notificationService.firbaseInit(context);
     //notificationService.getToken();
-    notificationService.messaging.getToken().then((value) {
-
-    });
-
-
-}
+    notificationService.messaging.getToken().then((value) {});
+  }
 
   getUserData() async {
     final prefs = await SharedPreferences.getInstance();
     name = prefs.getString(UserP.name) ?? "";
     gender = prefs.getString(UserP.gender) ?? "";
-print(gender);
+    print(gender);
     bool isLoggedIn = prefs.getBool(UserP.isLoggedIn) ?? false;
 
     String role = prefs.getString(UserP.role) ?? "";
@@ -399,8 +395,12 @@ print(gender);
                                 ),
                               ],
                             ),
-                            userprovider.user?.patientImages != 'null'
+                            userprovider.user?.patientImages.toString() == "null"
                                 ? SizedBox(
+                                height: 110,
+                                width: 90.w,
+                                child: Image.asset(Assets.dummy_image))
+                                : SizedBox(
                                     height: 110,
                                     width: 90.w,
                                     child: Image.network(
@@ -410,12 +410,8 @@ print(gender);
                                       fit: BoxFit.fill,
                                     ),
                                   )
-                                : Container()
 
-                            // CircleAvatar(
-                            //     radius: 40,
-                            //     backgroundImage: NetworkImage(
-                            //         "${AppUrls.image}${userprovider.user?.patientImages}")),
+
                           ],
                         );
                       }
@@ -426,7 +422,6 @@ print(gender);
               SizedBox(
                 height: 6.h,
               ),
-
 
               Text(
                 "What do you need?",
@@ -474,50 +469,13 @@ print(gender);
                           },
                           color: AppColors.primaryColor,
                           child: Text("Submit"),
-                        ) ,
-
-
+                        ),
                       ],
                     ),
                   ),
                 );
               }),
-              // MaterialButton(
-              //   onPressed: () {
-              //     final Map<String,
-              //         dynamic>
-              //     dataa = {
-              //       'to':
-              //         "fv_xOprnQDG8tyWzWHZqJ9:APA91bHNK8hkj0QeCgHsxm0vjNK6rYOTYFOtEPHL34FqO_sIokX-z7XRgenwUO8_JZQkpiq086uwj69lYJbJHDwDOoAz9FgzXgCR1CLVvdiJtSQIk-1AYqq8ioxTUTEZbX7tvvC8fPOT",
-              //       'notification': {
-              //         'title':
-              //         'Your App Request',
-              //         'body':
-              //         "Cancel",
-              //         // "image":
-              //         //     "${visitorController.piketImagePath.value}",
-              //         "image":
-              //         "https://proshort.ai/static/img/ps_logo.png",
-              //         'sound':
-              //         'default',
-              //         'badge': '1',
-              //       },
-              //       'priority':
-              //       'high',
-              //       // 'data': {
-              //       //   'type': 'chat',
-              //       //   'id':
-              //       //   'Asif Taj ffffffffffffff'
-              //       // }
-              //     };
-              //     print(dataa);
-              //     notificationService
-              //         .sendPushNotification(
-              //         dataa);
-              //   },
-              //   color: AppColors.primaryColor,
-              //   child: Text("Sddddubmit"),
-              // ),
+
               SizedBox(
                 height: 4.h,
               ),

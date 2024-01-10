@@ -19,6 +19,7 @@ import '../../resources/colors.dart';
 import '../../resources/styles.dart';
 import '../../utils/utils.dart';
 import '../../view_model/anatomy/anatomy_view_model.dart';
+import '../../view_model/user_view_model/user_view_model.dart';
 import '../../widgets/back_button.dart';
 
 class PaymentMethodView extends StatefulWidget {
@@ -68,6 +69,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
   TextEditingController transactionphone = TextEditingController();
   TextEditingController transactionrefer = TextEditingController();
   FocusNode transactionFocusNode = FocusNode();
+
 @override
   void initState() {
   data();
@@ -112,6 +114,8 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
   }
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserViewModel>(context).user;
+
     final apVM = Provider.of<AppointmentViewModel>(context,listen: false);
     final anatomy = Provider.of<AnatomyModelView>(context,listen: false);
     return Scaffold(
@@ -625,6 +629,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                             "referred_name": transactionrefer.text,
                             "transaction_phone_number": transactionphone.text,
                             "shift": widget.shiftType,
+                            "registration_phone_no": user!.patientMobilePhone.toString(),
                           };
                           print(body);
 

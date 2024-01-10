@@ -14,6 +14,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:search_page/search_page.dart';
 
+import '../../generated/assets.dart';
 import '../../resources/app_url.dart';
 import '../authentications/user_detail_view.dart';
 import '../my_record/my_medical_history_view.dart';
@@ -78,11 +79,16 @@ class _MyRecordViewState extends State<MyRecordView> {
                 padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      radius: 25.h,
-                      backgroundImage: NetworkImage(
-                          "${AppUrls.image}${user?.patientImages}"),
-                    ),
+                    user?.patientImages.toString() != "null"
+                        ? CircleAvatar(
+                            radius: 25.h,
+                            backgroundImage: NetworkImage(
+                                "${AppUrls.image}${user?.patientImages}"),
+                          )
+                        : CircleAvatar(
+                            radius: 25,
+                            backgroundImage: AssetImage(Assets.dummy_image),
+                          ),
                     SizedBox(
                       width: 8.w,
                     ),
@@ -92,7 +98,8 @@ class _MyRecordViewState extends State<MyRecordView> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "${user?.patientFirstName} ${user?.patientLastName}".toString(),
+                            "${user?.patientFirstName} ${user?.patientLastName}"
+                                .toString(),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: Style.alltext_default_balck_blod,
@@ -118,11 +125,11 @@ class _MyRecordViewState extends State<MyRecordView> {
                               ),
                               Text(
                                 "Gender:",
-                                style:Style.alltext_default_balck,
+                                style: Style.alltext_default_balck,
                               ),
                               Text(
                                 "${user?.patientBirthSex?.birthSexName}",
-                                style:Style.alltext_default_balck,
+                                style: Style.alltext_default_balck,
                               ),
                               SizedBox(
                                 width: 8.w,
@@ -134,14 +141,15 @@ class _MyRecordViewState extends State<MyRecordView> {
                               ),
                               Text(
                                 "Blood:",
-                                style:Style.alltext_default_balck,
+                                style: Style.alltext_default_balck,
                               ),
                               Text(
                                 "${user!.bloodGroup!.bloodGroupName}",
                                 style: Style.alltext_default_balck,
                               ),
                             ],
-                          ), SizedBox(
+                          ),
+                          SizedBox(
                             height: 3.h,
                           ),
                           Wrap(
@@ -153,16 +161,16 @@ class _MyRecordViewState extends State<MyRecordView> {
                               ),
                               Text(
                                 "Dob:",
-                                style:Style.alltext_default_balck,
+                                style: Style.alltext_default_balck,
                               ),
                               Text(
-                                DateFormat("dd-MM-yyyy").format(DateTime.parse(user!.patientDob.toString())),
-                                style:Style.alltext_default_balck,
+                                DateFormat("dd-MM-yyyy").format(DateTime.parse(
+                                    user!.patientDob.toString())),
+                                style: Style.alltext_default_balck,
                               ),
                               SizedBox(
                                 width: 8.w,
                               ),
-
                             ],
                           )
                         ],
@@ -181,7 +189,8 @@ class _MyRecordViewState extends State<MyRecordView> {
               iconData: Icons.heart_broken,
               iconColor: Colors.red,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>VitalsView()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => VitalsView()));
 
                 //   context.router.push(const VitalsRoute());
               }),
@@ -192,7 +201,10 @@ class _MyRecordViewState extends State<MyRecordView> {
             title: 'My Medical History',
             iconData: Icons.medical_information,
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>MyMedicalHistoryView()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyMedicalHistoryView()));
               //context.router.push(const MyMedicalHistoryRoute());
             },
           ),
@@ -203,8 +215,11 @@ class _MyRecordViewState extends State<MyRecordView> {
             title: 'Medical History from Great Doc',
             iconData: Icons.medication_liquid_sharp,
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>SelfMedicalHistoryFGDView()));
-             // context.router.push(const SelfMedicalHistoryFGDRoute());
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SelfMedicalHistoryFGDView()));
+              // context.router.push(const SelfMedicalHistoryFGDRoute());
               // TODO: If searching is needed then uncomment this
               //  showMedicalHistoryFromGreatDocSearchView(context);
             },
@@ -216,19 +231,23 @@ class _MyRecordViewState extends State<MyRecordView> {
             title: 'Reason For Visit',
             iconData: Icons.read_more,
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>ReasonForVisitView()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ReasonForVisitView()));
               // context.router.push(const ReasonForVisitRoute());
             },
           ),
           SizedBox(
             height: 5.h,
           ),
-           MyRecordListTile(
+          MyRecordListTile(
             title: 'My Report',
             iconData: Icons.report,
             iconColor: Colors.blue,
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>MyReportView()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyReportView()));
               // context.router.push(const ReasonForVisitRoute());
             },
           ),
@@ -289,15 +308,17 @@ showMedicalHistoryFromGreatDocSearchView(BuildContext context,
           failure: const Center(
             child: Text('No Procedure found :('),
           ),
-          filter: (procedure) => [procedure.procedureName, procedure.createdAt.toString()],
+          filter: (procedure) =>
+              [procedure.procedureName, procedure.createdAt.toString()],
           builder: (procedure) => Padding(
             padding: EdgeInsets.all(4.0.r),
             child: Card(
               child: ListTile(
                   title: Text("${procedure.procedureName}"),
-                  subtitle: Text(mHFgdVM.getDate(procedure.createdAt.toString())),
-                  trailing:
-                      Text(mHFgdVM.getTime(procedure.createdAt.toString(), context))),
+                  subtitle:
+                      Text(mHFgdVM.getDate(procedure.createdAt.toString())),
+                  trailing: Text(mHFgdVM.getTime(
+                      procedure.createdAt.toString(), context))),
             ),
           ),
         ),

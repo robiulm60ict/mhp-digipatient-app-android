@@ -116,7 +116,7 @@ class _MyPatientViewState extends State<MyPatientView> {
                                                           fit: BoxFit.fill,
                                                         )
                                                       : Image.asset(
-                                                          Assets.nodatafound),
+                                                          Assets.dummy_image),
                                             ),
                                           ),
                                           Style.widthdistan_size2,

@@ -128,7 +128,7 @@ class DocCard extends StatelessWidget {
                 imageErrorBuilder: (context, error, stackTrace) =>
                     const CircleAvatar(
                   radius: 35,
-                  child: Text("Error"),
+                backgroundImage: AssetImage(Assets.dummy_image),
                 ),
                 placeholder: const AssetImage(Assets.imagesAvatar),
               ),

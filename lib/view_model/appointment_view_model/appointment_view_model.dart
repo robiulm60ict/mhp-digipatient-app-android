@@ -158,7 +158,6 @@ class AppointmentViewModel with ChangeNotifier {
       isBookAppointmentLoading = false;
       // notifyListeners();
 
-
       invoiceSuccessPopUp(
         context,
         appointmentDate: body["date"],

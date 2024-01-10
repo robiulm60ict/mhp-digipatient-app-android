@@ -42,7 +42,9 @@ class _DocDetailsViewState extends State<DocDetailsView> {
     super.initState();
     getDoctor(widget.id);
     context.read<MyDoctorViewModel>().getSocialMediea(widget.id.toString());
-    context.read<MyDoctorViewModel>().getdoctorcountpatient(widget.id.toString());
+    context
+        .read<MyDoctorViewModel>()
+        .getdoctorcountpatient(widget.id.toString());
 
     context
         .read<MyDoctorViewModel>()
@@ -54,8 +56,6 @@ class _DocDetailsViewState extends State<DocDetailsView> {
         .read<MyDoctorDelaisViewModel>()
         .myDoctorList
         .firstWhere((element) => element.doctorsMasterId == id) as Datum?;
-
-
   }
 
   double rating = 3;
@@ -136,7 +136,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "${doc?.doctors!.title!.titleName.toString()} ${doc?.doctors?.fullName}",
+                          "${doc!.doctors!.title == null ? '' : doc!.doctors!.title!.titleName} ${doc?.doctors?.fullName}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: Style.alltext_default_balck_blod,
@@ -171,8 +171,6 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           overflow: TextOverflow.ellipsis,
                           style: Style.alltext_default_balck,
                         ),
-
-
                         SizedBox(
                           height: 12.h,
                         ),
@@ -215,7 +213,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                   text: TextSpan(
                                       text:
                                           "${doc?.doctors?.doctorFee ?? "0"} ",
-                                      style:TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'Roboto',
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.text_primary_color,
@@ -243,15 +241,22 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                     children: [
                       Align(
                         alignment: Alignment.center,
-                        child: CircleAvatar(
+                        child: doc?.doctors?.drImages.toString() != "null"
+                            ? CircleAvatar(
+                                radius: 50.r,
+                                backgroundColor: AppColors.linearGradient1,
+                                backgroundImage: NetworkImage(
+                                    "${AppUrls.docImage}${doc?.doctors?.drImages}"),
+                              )
+                            : CircleAvatar(
                           radius: 50.r,
                           backgroundColor: AppColors.linearGradient1,
-                          backgroundImage: NetworkImage(
-                              "${AppUrls.docImage}${doc?.doctors?.drImages}"),
+                          backgroundImage: AssetImage(
+                              Assets.dummy_image),
                         ),
                       ),
                       // Image.network(
-                      //   "${AppUrls.docImage}${doc?.doctors?.drImages}",
+                      //   "${AppUrls.docImage}${doc?.doctors?.drImages}", backgroundImage: AssetImage(Assets.dummy_image),
                       //   height:70.h,
                       //   width: 70.w,
                       //   fit: BoxFit.fill,
@@ -443,8 +448,6 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 SizedBox(
                   height: 10.h,
                 ),
-
-
               ],
             ),
           ),
