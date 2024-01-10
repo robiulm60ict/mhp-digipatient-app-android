@@ -67,7 +67,7 @@ class AppUrls{
   static const String doctorcountpatient = "$baseUrlPatient/doctor-list-for-patient-end/";
   /// user
   static const String userProfileUrl = "$baseUrlPatient/patients-profile/";
-  static const String userUrl = "$baseUrl/api/edit-patients/";
+  static const String userUrlUpdate = "$baseUrlPatient/patient-info-update/";
 
   //TODO: set Edit user url
   static const String editUserUrl = "$baseUrl/api/edit-patients/";

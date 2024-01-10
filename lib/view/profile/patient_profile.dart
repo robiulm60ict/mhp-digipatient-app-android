@@ -26,7 +26,7 @@ class _ProfileDataState extends State<ProfileData> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserViewModel>(context).user;
-    final usr = Provider.of<UserViewModel>(context);
+    final userr = Provider.of<UserViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -41,177 +41,254 @@ class _ProfileDataState extends State<ProfileData> {
       body: Container(
         child: Column(
           children: [
-            InkWell(
-              onTap: () {
-               Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDetailView(user: user)));
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: 35.h,
+                            backgroundImage: NetworkImage(
+                                "${AppUrls.image}${user?.patientImages}"),
+                          ),
+                          Positioned(
+                              top: 40,
+                              left: 50,
+                              bottom: 0,
+                              right: 0,
+                              child: InkWell(
+                                  onTap: () {
+                                    if (user != null) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              UserDetailView(user: user),
+                                        ),
+                                      );
+                                    } else {
+                                      // Handle the case when user is null
+                                    }
+                                  },
+                                  child: Image.asset(
+                                    "assets/icons/editing.png",
+                                    color: Colors.green,
+                                  ))
 
-                if (user == null) {
-                  debugPrint("Reload page ");
-                } else {
-                  //context.router.push(UserDetailRoute(user: user!));
-                }
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.r),
-                  ),
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 45.h,
-                          backgroundImage: NetworkImage(
-                              "${AppUrls.image}${user?.patientImages}"),
-                        ),
-                        SizedBox(
-                          width: 8.w,
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                              // IconButton(
+                              //     onPressed: () {
+                              //       if (user != null) {
+                              //         Navigator.push(
+                              //           context,
+                              //           MaterialPageRoute(
+                              //             builder: (context) =>
+                              //                 UserDetailView(user: user),
+                              //           ),
+                              //         );
+                              //       } else {
+                              //         // Handle the case when user is null
+                              //       }
+                              //       // Navigator.push(
+                              //       //     context,
+                              //       //     MaterialPageRoute(
+                              //       //         builder: (context) =>
+                              //       //             UserDetailView(user: user)));
+                              //     },
+                              //     icon: Icon(Icons.edit_outlined,color: Colors.green,))
+                              )
+                        ],
+                      ),
+                      SizedBox(
+                        width: 8.w,
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "${user?.patientFirstName} ${user?.patientLastName}"
+                                .toString(),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Style.alltext_default_balck_blod,
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          Text(
+                            "${user?.patientHnNumber}",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Style.alltext_default_balck,
+                          ),
+                          SizedBox(
+                            height: 3.h,
+                          ),
+                          Wrap(
                             children: [
-                              Text(
-                                "${user?.patientFirstName} ${user?.patientLastName}"
-                                    .toString(),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: Style.alltext_default_balck_blod,
-                              ),
-                              SizedBox(
-                                height: 2.h,
+                              Icon(
+                                Icons.date_range,
+                                size: 13.h,
+                                color: const Color(0xFF8A8A8A),
                               ),
                               Text(
-                                "${user?.patientHnNumber}",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                                " Dob:",
+                                style: Style.alltext_default_balck,
+                              ),
+                              Text(
+                                DateFormat("dd-MM-yyyy").format(DateTime.parse(
+                                    user!.patientDob.toString())),
                                 style: Style.alltext_default_balck,
                               ),
                               SizedBox(
-                                height: 3.h,
+                                width: 8.w,
                               ),
-                              Wrap(
-                                children: [
-                                  Icon(
-                                    Icons.male,
-                                    size: 13.h,
-                                    color: const Color(0xFF8A8A8A),
-                                  ),
-                                  Text(
-                                    "Gender:",
-                                    style: Style.alltext_default_balck,
-                                  ),
-                                  Text(
-                                    "${user?.patientBirthSex?.birthSexName}",
-                                    style: Style.alltext_default_balck,
-                                  ),
-                                  // SizedBox(
-                                  //   width: 8.w,
-                                  // ),
-                                  // Text(
-                                  //   "${user!.bloodGroup!.bloodGroupName}",
-                                  //   style: Style.alltext_default_balck,
-                                  // ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 3.h,
-                              ),
-                              Wrap(
-                                children: [
-                                  Icon(
-                                    Icons.date_range,
-                                    size: 13.h,
-                                    color: const Color(0xFF8A8A8A),
-                                  ),
-                                  Text(
-                                    " Dob:",
-                                    style: Style.alltext_default_balck,
-                                  ),
-                                  Text(
-                                    DateFormat(
-                                        "dd-MM-yyyy")
-                                        .format(DateTime.parse(user!.patientDob.toString())),
-                                    style: Style.alltext_default_balck,
-                                  ),
-                                  SizedBox(
-                                    width: 8.w,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 3.h,
-                              ),
-                              Wrap(
-                                children: [
-                                  Icon(
-                                    Icons.bloodtype,
-                                    size: 13.h,
-                                    color: const Color(0xFF8A8A8A),
-                                  ),
-                                  Text(
-                                    "Blood:",
-                                    style: Style.alltext_default_balck,
-                                  ),
-                                  SizedBox(
-                                    width: 8.w,
-                                  ),
-                                  Text(
-                                    "${user!.bloodGroup!.bloodGroupName}",
-                                    style: Style.alltext_default_balck,
-                                  ),
-                                ],
-                              )
                             ],
                           ),
-                        ),
-                      ],
-                    ),
+                          SizedBox(
+                            height: 3.h,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
-
             Container(
               margin: const EdgeInsets.only(left: 8.0),
               padding: const EdgeInsets.all(8.0),
-              child: Row(children: [
-                SizedBox(
-                  width: 100.w,
-                  child: Text('Phone', style: Style.alltext_default_balck,),
-                ),
-                Text(': '),
-                Text(  "${user!.patientMobilePhone}", style: Style.alltext_default_balck,)
-              ],),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 100.w,
+                    child: Text(
+                      'Dob',
+                      style: Style.alltext_default_balck,
+                    ),
+                  ),
+                  Text(': '),
+                  Text(
+                    "${user!.patientDob}",
+                    style: Style.alltext_default_balck,
+                  )
+                ],
+              ),
             ),
-            user!.patientEmail=='null' ? Container(
-              margin: const EdgeInsets.only(left: 8.0),
-              padding: const EdgeInsets.all(8.0),
-              child: Row(children: [
-                SizedBox(
-                  width: 100.w,
-                  child: Text('Email', style: Style.alltext_default_balck,),
-                ),
-                Text(': '),
-                Text(  "${user!.patientEmail}", style: Style.alltext_default_balck,)
-              ],),
-            ):Container(),
             Container(
               margin: const EdgeInsets.only(left: 8.0),
               padding: const EdgeInsets.all(8.0),
-              child: Row(children: [
-                SizedBox(
-                  width: 100.w,
-                  child: Text('Address', style: Style.alltext_default_balck,),
-                ),
-                Text(': '),
-                Text(  "${user!.patientAddress1}", style: Style.alltext_default_balck,)
-              ],),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 100.w,
+                    child: Text(
+                      'Blood',
+                      style: Style.alltext_default_balck,
+                    ),
+                  ),
+                  Text(': '),
+                  Text(
+                    "${user!.bloodGroup!.bloodGroupName}",
+                    style: Style.alltext_default_balck,
+                  )
+                ],
+              ),
             ),
+            Container(
+              margin: const EdgeInsets.only(left: 8.0),
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 100.w,
+                    child: Text(
+                      'Gender',
+                      style: Style.alltext_default_balck,
+                    ),
+                  ),
+                  Text(': '),
+                  Text(
+                    "${user!.patientBirthSex!.birthSexName}",
+                    style: Style.alltext_default_balck,
+                  )
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 8.0),
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 100.w,
+                    child: Text(
+                      'Phone',
+                      style: Style.alltext_default_balck,
+                    ),
+                  ),
+                  Text(': '),
+                  Text(
+                    "${user!.patientMobilePhone}",
+                    style: Style.alltext_default_balck,
+                  )
+                ],
+              ),
+            ),
+            user!.patientEmail != 'null'
+                ? Container(
+                    margin: const EdgeInsets.only(left: 8.0),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 100.w,
+                          child: Text(
+                            'Email',
+                            style: Style.alltext_default_balck,
+                          ),
+                        ),
+                        Text(': '),
+                        Text(
+                          "${user!.patientEmail}",
+                          style: Style.alltext_default_balck,
+                        )
+                      ],
+                    ),
+                  )
+                : Container(),
+            user!.patientAddress1 != 'null'
+                ? Container(
+                    margin: const EdgeInsets.only(left: 8.0),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 100.w,
+                          child: Text(
+                            'Address',
+                            style: Style.alltext_default_balck,
+                          ),
+                        ),
+                        Text(': '),
+                        Text(
+                          "${user!.patientAddress1}",
+                          style: Style.alltext_default_balck,
+                        )
+                      ],
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),

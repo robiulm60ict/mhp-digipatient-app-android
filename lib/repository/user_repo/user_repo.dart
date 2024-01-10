@@ -6,6 +6,7 @@ import '../../data/network/base_api_service.dart';
 import '../../data/network/network_api_service.dart';
 import '../../model/userprofile/userprofile_model.dart';
 import '../../resources/app_url.dart';
+import '../../resources/send_image.dart';
 import '../../utils/user.dart';
 
 class UserRepo {
@@ -27,19 +28,30 @@ class UserRepo {
       rethrow;
     }
   }
-
-  Future<UserModel> editUserData() async {
+  signUpApiUpdate(
+      {required Map<String, String> body, required imageBytes}) async {
+    SendImage sendImage = SendImage();
+    try {
+      dynamic response =
+      await sendImage.update(body, imageBytes);
+      //   await apiService.getPostApiResponse(AppUrls.registration, body);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+  Future editUserData(body) async {
     final prefs = await SharedPreferences.getInstance();
 
     int? id = prefs.getInt(UserP.id);
     print(id);
-
     try {
-      dynamic response = await apiService.getGetApiResponse(
-        "${AppUrls.userUrl}$id",
+      dynamic response = await apiService.getPostApiResponse(
+        "${AppUrls.userUrlUpdate}$id",body
       );
 
-      return UserModel.fromJson(response);
+      print(response);
+      return response;
     } catch (e) {
       rethrow;
     }

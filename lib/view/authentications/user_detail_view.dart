@@ -6,6 +6,7 @@ import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -16,22 +17,23 @@ import '../../model/auth_model/blood_group_model.dart';
 import '../../model/userprofile/userprofile_model.dart';
 import '../../resources/app_url.dart';
 import '../../resources/constants.dart';
+import '../../utils/datetime.dart';
 import '../../utils/message.dart';
 import '../../utils/utils.dart';
 import '../../view_model/auth_view_model.dart';
+import '../../view_model/user_view_model/user_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/custom_elivated_button.dart';
 
 class UserDetailView extends StatefulWidget {
-  const UserDetailView({Key? key, required this.user}) : super(key: key);
-  final PatientsDetails user;
+   UserDetailView({Key? key, required this.user}) : super(key: key);
+   PatientsDetails user;
 
   @override
   State<UserDetailView> createState() => _UserDetailViewState();
 }
 
 class _UserDetailViewState extends State<UserDetailView> {
-  TextEditingController nameController = TextEditingController();
   TextEditingController fastnameController = TextEditingController();
   TextEditingController lastnameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -132,15 +134,18 @@ class _UserDetailViewState extends State<UserDetailView> {
   @override
   void dispose() {
     super.dispose();
-    nameController.dispose();
     nameFocusNode.dispose();
 
     emailController.dispose();
     dateOfBirthController.dispose();
   }
 
+  DateTime? date;
+
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserViewModel>(context);
+
     final auth = Provider.of<AuthViewModel>(context, listen: false);
 
     return Scaffold(
@@ -155,7 +160,11 @@ class _UserDetailViewState extends State<UserDetailView> {
         elevation: 0,
         backgroundColor: AppColors.primaryColor,
       ),
-      body: Stack(
+      body: auth.isBirthSexLoading
+          ? const Center(
+        child: CircularProgressIndicator(),
+      )
+          : Stack(
         children: [
           Column(
             children: [
@@ -251,11 +260,14 @@ class _UserDetailViewState extends State<UserDetailView> {
                     ),
                     hintText: "Date of Birth",
                     onTap: () async {
-                      final date = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime(3033));
+                      date = (await PickDateTime().pickDateregister(context,
+                          initialDate: DateTime.now()))!;
+
+                      print("ddddddddddddddd$date");
+                      date == null
+                          ? dateOfBirthController.text
+                          : dateOfBirthController.text =
+                              "${date?.day}-${date?.month}-${date?.year}";
                       dateOfBirthController.text =
                           "${date?.day}-${date?.month}-${date?.year}";
                     },
@@ -390,34 +402,39 @@ class _UserDetailViewState extends State<UserDetailView> {
                     isExpanded: false,
                     title: "Save",
                     onPressed: () {
-                      String dateString = '${dateOfBirthController.text.toString()}';
-                      DateTime dateTime = DateFormat('dd-MM-yyyy').parse(dateString);
-                      String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
+                      print(date);
+                      String dateString =
+                          '${dateOfBirthController.text.toString()}';
+                      DateTime dateTime =
+                          DateFormat('dd-MM-yyyy').parse(dateString);
+                      String formattedDate =
+                          DateFormat('yyyy-MM-dd').format(dateTime);
                       print("ddd${formattedDate}");
                       debugPrint(_gender.name);
                       Map<String, String> body = {
-                        'patient_hn_number': widget.user.patientHnNumber.toString(),
-                        'patient_mobile_phone': widget.user.patientMobilePhone.toString(),
+                        // 'patient_hn_number': widget.user.patientHnNumber.toString(),
+                        'patient_mobile_phone':
+                            widget.user.patientMobilePhone.toString(),
                         "app_token":
-                        "6WXtdlLMiJqi8m8Z0LBqQKVhc7VwOLYv7VoGZ6pFOuaFW3ptWFjRDyLBdQ5QBLNO",
+                            "6WXtdlLMiJqi8m8Z0LBqQKVhc7VwOLYv7VoGZ6pFOuaFW3ptWFjRDyLBdQ5QBLNO",
                         'patient_first_name': fastnameController.text,
                         'patient_birth_sex_id': "${birthSex?.id}",
                         'ptn_blood_group_id': "${bloodGroup?.id}",
-                        'patient_dob': formattedDate,
-                        //'image': MultipartFile(File(xFileList.first!.path).toString(), filename: ""),
+                        'patient_dob': date == null
+                            ? dateOfBirthController.text
+                            : formattedDate,
+                        // 'image':xFileList.first!.path.toString(),
+                        // MultipartFile.fromPath('image', File(xFileList.first!.path).toString()),
+
                         'patient_email': emailController.text,
-                        "patient_last_name": fastnameController.text,
+                        "patient_last_name": lastnameController.text,
                         "patient_address1": addressController.text,
                       };
                       print(body);
-                      if (xFileList.isNotEmpty) {
-                        // congratsDialogue(context, onTap: (){
-                        // context.router.replace(const DashboardRoute());
-                        // });
-                      } else {
-                        Messages.flushBarMessage(
-                            context, "Please Upload your image");
-                      }
+                      xFileList.isNotEmpty
+                          ? user.editUserData(
+                              body, xFileList.first!.path.toString(), context)
+                          : user.editUserDataNoImage(body, context);
                     },
                     backgroundColor: AppColors.primaryColor,
                     textColor: Colors.white,
