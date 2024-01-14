@@ -82,7 +82,7 @@ class _ProfileDataState extends State<ProfileData> {
                                   },
                                   child: Image.asset(
                                     "assets/icons/editing.png",
-                                    color: Colors.green,
+                                    color: Colors.green,height: 30,
                                   ))
 
                               // IconButton(
@@ -142,7 +142,7 @@ class _ProfileDataState extends State<ProfileData> {
                                 color: const Color(0xFF8A8A8A),
                               ),
                               Text(
-                                " Dob:",
+                                " DOB:",
                                 style: Style.alltext_default_balck,
                               ),
                               Text(
@@ -163,26 +163,6 @@ class _ProfileDataState extends State<ProfileData> {
                     ],
                   ),
                 ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 8.0),
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 100.w,
-                    child: Text(
-                      'Dob',
-                      style: Style.alltext_default_balck,
-                    ),
-                  ),
-                  Text(': '),
-                  Text(
-                    "${user!.patientDob}",
-                    style: Style.alltext_default_balck,
-                  )
-                ],
               ),
             ),
             Container(

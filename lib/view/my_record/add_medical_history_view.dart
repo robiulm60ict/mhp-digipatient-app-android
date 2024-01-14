@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:digi_patient/model/my_record_model/diagnosis_procedure_model.dart';
 import 'package:digi_patient/utils/datetime.dart';
 import 'package:digi_patient/utils/message.dart';
@@ -43,14 +45,17 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
     setState(() {});
   }
 
-  // getDiagnosis() {
-  //   context.read<MyRecordViewModel>().getDiagnosis();
-  // }
+  getDiagnosis() {
+    context.read<MyRecordViewModel>().getDiagnosis();
+  }
 
   @override
   void initState() {
     super.initState();
-    // getDiagnosis();
+    Timer(const Duration(seconds: 1), () {
+      getDiagnosis();
+
+    });
     getUserID();
   }
 

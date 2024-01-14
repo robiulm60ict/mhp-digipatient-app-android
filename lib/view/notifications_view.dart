@@ -73,30 +73,32 @@ class _NotificationsViewState extends State<NotificationsView> {
         padding: EdgeInsets.all(10.r),
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Today",
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 17.sp,
-                  color: const Color(0xFF646464),
-                ),
-              ),
-            ),
+            // Align(
+            //   alignment: Alignment.centerLeft,
+            //   child: Text(
+            //     "Today",
+            //     style: TextStyle(
+            //       fontWeight: FontWeight.w700,
+            //       fontSize: 17.sp,
+            //       color: const Color(0xFF646464),
+            //     ),
+            //   ),
+            // ),
             SizedBox(
-              height: 10.h,
+              height: 5.h,
             ),
             appointments.isTodayAppointmentLoading
                 ? const Center(child: CircularProgressIndicator())
-                : Expanded(
-                    child: ListView.separated(
+                :
+                     ListView.separated(
+                       shrinkWrap: true,
                         itemBuilder: (context, index) {
                           TodaysPatientAppointment app =
                               appointments.todayAppointmentList[index];
 
-                          return NotificationListTile(
-                            doctorName: "${app.titleName} ${app.drGivenName} ${app.drMiddleName} ${app.drLastName}",
+                          return appointments.todayAppointmentList.isNotEmpty?NotificationListTile(
+                            doctorName: "${app.titleName} ${app.drGivenName} ${app.drMiddleName} ${app.drLastName} at ${DateFormat("dd-MM-yyyy").format(DateTime.parse(
+                                app.startTime.toString()))}",
                             appointmentTime:
                                 "${getTime(app.startTime.toString())}- ${getTime(app.endTime.toString())}",
                             onTap: () {
@@ -107,38 +109,39 @@ class _NotificationsViewState extends State<NotificationsView> {
                             },
                             docImage: "${AppUrls.docImage}${app.drImages}",
                             beforeText: 'Today, You have an appointment with ',
-                          );
+                          ):Container();
                         },
                         separatorBuilder: (context, index) => SizedBox(
                               height: 10.h,
                             ),
                         itemCount: appointments.todayAppointmentList.length),
-                  ),
 
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Up Coming",
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 17.sp,
-                  color: const Color(0xFF646464),
-                ),
-              ),
-            ),
+            //
+            // Align(
+            //   alignment: Alignment.centerLeft,
+            //   child: Text(
+            //     "Up Coming",
+            //     style: TextStyle(
+            //       fontWeight: FontWeight.w700,
+            //       fontSize: 17.sp,
+            //       color: const Color(0xFF646464),
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: 10.h,
             ),
             appointments.isUpcommingAppointmentLoading
                 ? const Center(child: CircularProgressIndicator())
-                : Expanded(
-                    child: ListView.separated(
+                :  ListView.separated(
+              shrinkWrap: true,
                       itemBuilder: (context, index) {
                         UpcomingAppointment app =
                             appointments.upcommingAppointmentList[index];
 
-                        return NotificationListTile(
-                          doctorName: "${app.doctors!.title!.titleName.toString()} ${app.doctors!.fullName!.toString()}",
+                        return appointments.upcommingAppointmentList.isNotEmpty? NotificationListTile(
+                          doctorName: "${app.doctors!.title!.titleName.toString()} ${app.doctors!.fullName!.toString()} at ${DateFormat("dd-MM-yyyy").format(DateTime.parse(
+                              app.startTime.toString()))}",
                           appointmentTime:
                               "${getTime(app.startTime.toString())}- ${getTime(app.endTime.toString())}",
                           onTap: () {
@@ -148,14 +151,14 @@ class _NotificationsViewState extends State<NotificationsView> {
                           },
                           docImage: "${AppUrls.docImage}${app.doctors!.drImages.toString()}",
                           beforeText: 'You have an appointment with ',
-                        );
+                        ):Container();
                       },
                       separatorBuilder: (context, index) => SizedBox(
                         height: 10.h,
                       ),
                       itemCount: appointments.upcommingAppointmentList.length,
                     ),
-                  ),
+
             SizedBox(
               height: kPadding.h,
             ),

@@ -232,6 +232,7 @@ class MyRecordViewModel with ChangeNotifier {
     await myRecordRepo.getDiagnosisProcedure().then((value) {
       // diagnosisList.add(value.data);
       diagnosisList = value.data!;
+      print(diagnosisList.length);
       setDiagnosisLoadingAndStatus(false, "Successful");
     }).onError((error, stackTrace) {
       setDiagnosisLoadingAndStatus(true, error.toString());

@@ -64,6 +64,7 @@ class _HomeViewState extends State<HomeView> {
     notificationService.isTokenrefresh();
 
     notificationService.firbaseInit(context);
+    notificationService.setupInteractMessage(context);
     //notificationService.getToken();
     notificationService.messaging.getToken().then((value) {});
   }
@@ -298,10 +299,10 @@ class _HomeViewState extends State<HomeView> {
             ),
             actions: [
               badges.Badge(
-                  position: BadgePosition.topEnd(top: 3, end: 6),
+                  position: BadgePosition.topEnd(top: 4, end: 0),
                   badgeContent: Text(
                     "${int.parse(appointments.todayAppointmentList.length.toString()) + int.parse(appointments.upcommingAppointmentList.length.toString())}",
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
                   child: IconButton(
                       onPressed: () {
@@ -313,10 +314,10 @@ class _HomeViewState extends State<HomeView> {
                       },
                       icon: Icon(
                         Icons.notification_important,
-                        color: AppColors.primaryColor,
+                        color: AppColors.primaryColor,size: 44,
                       ))),
               SizedBox(
-                width: 8.w,
+                width: 18.w,
               ),
             ],
           ),

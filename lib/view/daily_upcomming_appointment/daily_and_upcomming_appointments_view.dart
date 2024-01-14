@@ -170,6 +170,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                       appointments.upcommingAppointmentList[index];
                       return AppointmentNotificationCard(
                         onTap: () {
+
                           // debugPrint("--------------------${app.appType}");
                           // Navigator.push(context, MaterialPageRoute(
                           //     builder: (context) =>
@@ -198,8 +199,8 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                         title:
                         "You have an appointments with  ${app.doctors!.title!
                             .titleName} ${app.doctors!
-                            .fullName} at ${getDate(app.startTime
-                            .toString())}",
+                            .fullName} at ${DateFormat("dd-MM-yyyy").format(DateTime.parse(
+                            app.startTime.toString()))}",
                         subTitle:
                         "Starts: ${getTime(app.startTime
                             .toString())} Ends: ${getTime(app.endTime

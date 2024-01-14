@@ -8,15 +8,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-
+import '../../utils/user.dart';
+import '../../view/daily_upcomming_appointment/daily_and_upcomming_appointments_view.dart';
+import '../../view/my_medicine/uploaded_rx.dart';
 
 Future<void> initializeNotifications() async {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
 
   const AndroidInitializationSettings initializationSettingsAndroid =
-  AndroidInitializationSettings('app_icon');
+      AndroidInitializationSettings('app_icon');
 
   final InitializationSettings initializationSettings = InitializationSettings(
     android: initializationSettingsAndroid,
@@ -26,10 +29,8 @@ Future<void> initializeNotifications() async {
     initializationSettings,
   );
 }
+
 class NotificationService {
-
-
-
   String token = "";
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -83,9 +84,11 @@ class NotificationService {
   // }
 
   initLocalNotification(BuildContext context, RemoteMessage message) async {
-    var androidInitialize = AndroidInitializationSettings('@mipmap/ic_launcher');
+    var androidInitialize =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    var initializationSettings = InitializationSettings(android: androidInitialize);
+    var initializationSettings =
+        InitializationSettings(android: androidInitialize);
 
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
@@ -114,7 +117,7 @@ class NotificationService {
       print(
           "onMessage: ${message.notification!.title} / ${message.notification!.body}  / ${message.notification}");
 
-     // print(message.data["id"]);
+      // print(message.data["id"]);
       if (Platform.isIOS) {
         forgroundMessage();
       }
@@ -146,9 +149,9 @@ class NotificationService {
     final notificationData = message.data;
     final title = notificationData['title'] ?? 'Default Title';
     final body = notificationData['body'] ?? 'Default Body';
-    final imageUrl = notificationData['image']??"https://proshort.ai/static/img/ps_logo.png";
-     BigPictureStyleInformation bigPictureStyle =
-    BigPictureStyleInformation(
+    final imageUrl = notificationData['image'] ??
+        "https://proshort.ai/static/img/ps_logo.png";
+    BigPictureStyleInformation bigPictureStyle = BigPictureStyleInformation(
       FilePathAndroidBitmap(imageUrl.toString()),
       contentTitle: title,
       summaryText: body,
@@ -179,14 +182,24 @@ class NotificationService {
     });
   }
 
-  void handleMessage(BuildContext context, RemoteMessage message) {
-    if (message.data['type'] == 'chat') {
-      // Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (context) => MessageScreen(
-      //               id: message.data['id'],
-      //             )));
+  void handleMessage(BuildContext context, RemoteMessage message) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    int? id = prefs.getInt(UserP.id);
+    if (message.notification!.title.toString() ==
+        'Your Appointment Request Accepted') {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const DailyAndUpcommingView()));
+    } else if (message.notification!.title.toString() ==
+        "Your Appointment Completed") {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => UploadPrescription(
+                    id: id.toString(),
+                  )));
     }
   }
 
@@ -201,10 +214,9 @@ class NotificationService {
 
     //when app ins background
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
-      // handleMessage(context, event);
+      handleMessage(context, event);
     });
   }
-
 
   Future forgroundMessage() async {
     await FirebaseMessaging.instance
@@ -215,16 +227,14 @@ class NotificationService {
     );
   }
 
-
   Future<void> sendPushNotification(data) async {
-    final String serverKey = 'AAAAUtHfsDo:APA91bFEesZ9FMbqyk2dnmac6oJQ78Npv2whZkEIuZATSpTLytvwpeGxzft9YU5evLB7jUuxrbjOUcMepozU__8zHu6oNuP_Ej-AtEm1rTK4dnuhpz7jUDUaEIob-zVHSGXm909qmCMf';
+    final String serverKey =
+        'AAAAUtHfsDo:APA91bFEesZ9FMbqyk2dnmac6oJQ78Npv2whZkEIuZATSpTLytvwpeGxzft9YU5evLB7jUuxrbjOUcMepozU__8zHu6oNuP_Ej-AtEm1rTK4dnuhpz7jUDUaEIob-zVHSGXm909qmCMf';
     final String apiUrl = 'https://fcm.googleapis.com/fcm/send';
-
 
     try {
       final response = await http.post(
-        Uri.parse(
-            apiUrl),
+        Uri.parse(apiUrl),
         body: json.encode(data),
         headers: {
           'Content-Type': 'application/json',
@@ -243,5 +253,4 @@ class NotificationService {
       print('Error: $e');
     }
   }
-
 }
