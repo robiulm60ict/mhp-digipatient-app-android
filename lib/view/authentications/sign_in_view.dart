@@ -8,8 +8,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../resources/colors.dart';
+import '../../utils/user.dart';
 import '../../view_model/push_notification/notification_service.dart';
 import '../../widgets/gradient_appBar.dart';
 import '../forget_password/forget_pincode_verification_view.dart';
@@ -26,13 +28,14 @@ class _SignInViewState extends State<SignInView> {
   bool keepMeSignedIn = true;
   bool obSecureText = false;
 
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
+   TextEditingController? passwordController;
+   TextEditingController? emailController ;
   NotificationService notificationService = NotificationService();
 
   String token = "";
   @override
   void initState() {
+
     notificationService.requestPermission();
     notificationService.getToken();
     notificationService.getDeviceToken();
@@ -43,16 +46,32 @@ class _SignInViewState extends State<SignInView> {
     notificationService.messaging.getToken().then((value) {
       token = value!;
     });
+    Future.delayed(const Duration(seconds: 1)).then((v) {
+      getUserData();
+
+    });
+
 
     print("ff${token}");
     // TODO: implement initState
     super.initState();
   }
+
+
+  getUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String? phone = prefs.getString(UserP.email);
+    print(phone);
+    String? password = prefs.getString(UserP.password);
+    emailController=TextEditingController(text: phone);
+    passwordController=TextEditingController(text: password);
+  }
   @override
   void dispose() {
     super.dispose();
-    passwordController.dispose();
-    emailController.dispose();
+    passwordController!.dispose();
+    emailController!.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -134,10 +153,10 @@ class _SignInViewState extends State<SignInView> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
             child: authVm.loginLoading ? const Center(child: CircularProgressIndicator(),) : CustomButton(text: "Login", onTap: (){
-              if(emailController.text.isNotEmpty || passwordController.text.isNotEmpty){
+              if(emailController!.text.isNotEmpty || passwordController!.text.isNotEmpty){
                 Map<String, String> body = {
-                  'email' : emailController.text,
-                  'password' : passwordController.text,
+                  'email' : emailController!.text,
+                  'password' : passwordController!.text,
                   'deviceToke': token
                 };
                 authVm.loginApi(context, body, keepMeSignIn: keepMeSignedIn);

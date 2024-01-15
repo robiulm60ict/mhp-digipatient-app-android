@@ -67,9 +67,11 @@ class PaymentUserDetail extends StatelessWidget {
                 child: Column(
                   children: [
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Icon(
-                          Icons.watch_later_outlined,
+                          Icons.call,
                           size: 12.h,
                           color: const Color(0xFF8A8A8A),
                         ),
@@ -77,7 +79,7 @@ class PaymentUserDetail extends StatelessWidget {
                           width: 4.w,
                         ),
                         Text(
-                          visitingTime,
+                          location,
                           style: Style.alltext_default_balck,
                         ),
                         const Spacer(),
@@ -91,46 +93,47 @@ class PaymentUserDetail extends StatelessWidget {
                         SizedBox(
                           width: 4.w,
                         ),
-                        Expanded(
+                        hospitalName != ""
+                            ? Expanded(
                           child: Text(
                             hospitalName,
                             style: Style.alltext_default_balck,
                           ),
-                        ),
+                        ):Container(),
                       ],
                     ),
                     SizedBox(
                       height: 8.h,
                     ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.date_range,
-                          size: 12.h,
-                          color: const Color(0xFF8A8A8A),
-                        ),
-                        SizedBox(
-                          width: 4.w,
-                        ),
-                        Text(
-                          myRecord.getDate(date),
-                          style: Style.alltext_default_balck,
-                        ),
-                        const Spacer(),
-                        Icon(
-                          Icons.call,
-                          size: 12.h,
-                          color: const Color(0xFF8A8A8A),
-                        ),
-                        SizedBox(
-                          width: 4.w,
-                        ),
-                        Text(
-                          location,
-                          style: Style.alltext_default_balck,
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   children: [
+                    //     Icon(
+                    //       Icons.date_range,
+                    //       size: 12.h,
+                    //       color: const Color(0xFF8A8A8A),
+                    //     ),
+                    //     SizedBox(
+                    //       width: 4.w,
+                    //     ),
+                    //     Text(
+                    //       myRecord.getDate(date),
+                    //       style: Style.alltext_default_balck,
+                    //     ),
+                    //     const Spacer(),
+                    //     Icon(
+                    //       Icons.call,
+                    //       size: 12.h,
+                    //       color: const Color(0xFF8A8A8A),
+                    //     ),
+                    //     SizedBox(
+                    //       width: 4.w,
+                    //     ),
+                    //     Text(
+                    //       location,
+                    //       style: Style.alltext_default_balck,
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),

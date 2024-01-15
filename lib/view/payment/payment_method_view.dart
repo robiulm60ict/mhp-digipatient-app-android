@@ -507,6 +507,11 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                   SizedBox(
                     height: 8.h,
                   ),
+                   Text("Support Number : 0100000000",style: Style.alltext_ExtraSmall_red,),
+
+                  SizedBox(
+                    height: 8.h,
+                  ),
                   Card(
                     color: Colors.green.shade200,
                     child: Padding(

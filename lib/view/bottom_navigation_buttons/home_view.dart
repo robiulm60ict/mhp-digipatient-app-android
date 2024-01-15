@@ -78,11 +78,11 @@ class _HomeViewState extends State<HomeView> {
 
     String role = prefs.getString(UserP.role) ?? "";
 
-    if (isLoggedIn) {
+    // if (isLoggedIn) {
       context.read<AuthViewModel>().onUserLogin();
-    } else {
-      context.read<AuthViewModel>().onUserLogout();
-    }
+    // } else {
+    //   context.read<AuthViewModel>().onUserLogout();
+    // }
   }
 
   @override

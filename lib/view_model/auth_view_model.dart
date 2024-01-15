@@ -572,6 +572,7 @@ class AuthViewModel with ChangeNotifier {
     setBloodGroupLoading(true);
     bloodGroupList.clear();
     bloodGroupListItems.clear();
+    bloodGroupListsoingle.clear();
     await _authRepo.getBloodGroup().then((value) {
       print(value);
       bloodGroupList.add(value);

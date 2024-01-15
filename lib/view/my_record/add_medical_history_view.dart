@@ -143,7 +143,7 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
                   initialDate:
                       selectedDate == null ? DateTime.now() : selectedDate!,
                   firstDate: DateTime(1900, 1, 1),
-                  lastDate: DateTime(DateTime.now().year + 500, 10, 1),
+                  lastDate: DateTime.now(),
                 ).then((value) => selectedDate = value);
                 setState(() {});
               },

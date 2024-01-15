@@ -211,7 +211,7 @@ class _AnatomyViewState extends State<AnatomyView> {
               DropdownButton(
                 value: _selectedValue,
                 items: [
-                  if (gender == "Male")
+                  if (gender == "Male"||gender=="Other"||gender=="Transgender")
                     DropdownMenuItem(
                       value: maleFront,
                       child: Text(
@@ -219,7 +219,7 @@ class _AnatomyViewState extends State<AnatomyView> {
                         style: Style.alltext_default_balck,
                       ),
                     ),
-                  if (gender == "Male")
+                  if (gender == "Male"||gender=="Other"||gender=="Transgender")
                     DropdownMenuItem(
                       value: maleBack,
                       child: Text(
@@ -227,7 +227,7 @@ class _AnatomyViewState extends State<AnatomyView> {
                         style: Style.alltext_default_balck,
                       ),
                     ),
-                  if (gender != "Male")
+                  if (gender == "Female"||gender=="Other"||gender=="Transgender")
                     DropdownMenuItem(
                       value: femaleFront,
                       child: Text(
@@ -235,7 +235,7 @@ class _AnatomyViewState extends State<AnatomyView> {
                         style: Style.alltext_default_balck,
                       ),
                     ),
-                  if (gender != "Male")
+                  if (gender == "Female"||gender=="Other"||gender=="Transgender")
                     DropdownMenuItem(
                       value: femaleBack,
                       child: Text(
