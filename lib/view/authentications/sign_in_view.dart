@@ -46,8 +46,11 @@ class _SignInViewState extends State<SignInView> {
     notificationService.messaging.getToken().then((value) {
       token = value!;
     });
-    Future.delayed(const Duration(seconds: 1)).then((v) {
+    Future.delayed(const Duration(seconds: 0)).then((v) {
       getUserData();
+      setState(() {
+
+      });
 
     });
 
@@ -66,6 +69,9 @@ class _SignInViewState extends State<SignInView> {
     String? password = prefs.getString(UserP.password);
     emailController=TextEditingController(text: phone);
     passwordController=TextEditingController(text: password);
+    setState(() {
+
+    });
   }
   @override
   void dispose() {
