@@ -28,14 +28,15 @@ class _SignInViewState extends State<SignInView> {
   bool keepMeSignedIn = true;
   bool obSecureText = false;
 
-   TextEditingController? passwordController;
-   TextEditingController? emailController ;
+  TextEditingController? passwordController;
+  TextEditingController? emailController;
+
   NotificationService notificationService = NotificationService();
 
   String token = "";
+
   @override
   void initState() {
-
     notificationService.requestPermission();
     notificationService.getToken();
     notificationService.getDeviceToken();
@@ -48,18 +49,13 @@ class _SignInViewState extends State<SignInView> {
     });
     Future.delayed(const Duration(seconds: 0)).then((v) {
       getUserData();
-      setState(() {
-
-      });
-
+      setState(() {});
     });
-
 
     print("ff${token}");
     // TODO: implement initState
     super.initState();
   }
-
 
   getUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -67,85 +63,118 @@ class _SignInViewState extends State<SignInView> {
     String? phone = prefs.getString(UserP.email);
     print(phone);
     String? password = prefs.getString(UserP.password);
-    emailController=TextEditingController(text: phone);
-    passwordController=TextEditingController(text: password);
-    setState(() {
-
-    });
+    emailController = TextEditingController(text: phone);
+    passwordController = TextEditingController(text: password);
+    setState(() {});
   }
+
   @override
   void dispose() {
     super.dispose();
     passwordController!.dispose();
     emailController!.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    final authVm = Provider.of<AuthViewModel>(context,listen: false);
+    final authVm = Provider.of<AuthViewModel>(context, listen: false);
 
     return Scaffold(
       body: ListView(
-
         children: [
-          const GradientAppBar(text: 'User Login',),
-          SizedBox(height: 70.h,),
+          const GradientAppBar(
+            text: 'User Login',
+          ),
+          SizedBox(
+            height: 70.h,
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
-            child: Text("Mobile", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+            child: Text(
+              "Mobile",
+              style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.primaryColor),
+            ),
           ),
-          SizedBox(height: 5.h,),
+          SizedBox(
+            height: 5.h,
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
             child: CustomTextField(
-              maxLength:11,
+              maxLength: 11,
               textEditingController: emailController,
               keyboardType: TextInputType.number,
-              prefix: Icon(Icons.person_pin, color: AppColors.primaryColor,), hintText: "Mobile",),
+              prefix: Icon(
+                Icons.person_pin,
+                color: AppColors.primaryColor,
+              ),
+              hintText: "Mobile",
+            ),
           ),
-          SizedBox(height: 5.h,),
+          SizedBox(
+            height: 5.h,
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
-            child: Text("Password", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColors.primaryColor),),
+            child: Text(
+              "Password",
+              style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.primaryColor),
+            ),
           ),
-          SizedBox(height: 5.h,),
+          SizedBox(
+            height: 5.h,
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
             child: CustomTextField(
               textEditingController: passwordController,
               obscureText: !obSecureText,
-              prefix:  Icon(Icons.lock, color: AppColors.primaryColor,), hintText: "Password",
-                suffix: IconButton(onPressed: (){
-              setState(() {
-                obSecureText = !obSecureText;
-              });
-            }, icon: Icon(obSecureText ? Icons.visibility : Icons.visibility_off, color: obSecureText? AppColors.primaryColor : Colors.grey,)),),),
+              prefix: Icon(
+                Icons.lock,
+                color: AppColors.primaryColor,
+              ),
+              hintText: "Password",
+              suffix: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      obSecureText = !obSecureText;
+                    });
+                  },
+                  icon: Icon(
+                    obSecureText ? Icons.visibility : Icons.visibility_off,
+                    color: obSecureText ? AppColors.primaryColor : Colors.grey,
+                  )),
+            ),
+          ),
 
-            // ),
+          // ),
           // SizedBox(height: 5.h,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
             child: Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-
-                  onPressed: (){
-                  // Navigator.pushReplacement(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) =>
-                  //             ForgetPinCodeVerificationView(phoneNumber: '', token: '',)));
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              OtpSendView()));
-                  }, child: Text("Forgot Password?", style: TextStyle(fontSize: 12.sp, color: AppColors.primaryColor),)),
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => OtpSendView()));
+                  },
+                  child: Text(
+                    "Forgot Password?",
+                    style: TextStyle(
+                        fontSize: 12.sp, color: AppColors.primaryColor),
+                  )),
             ),
           ),
           // SizedBox(height: 10.h,),
           CheckboxListTile(
             value: keepMeSignedIn,
-            onChanged: (val){
+            onChanged: (val) {
               setState(() {
                 keepMeSignedIn = val!;
               });
@@ -154,36 +183,68 @@ class _SignInViewState extends State<SignInView> {
             activeColor: AppColors.primaryColor,
             controlAffinity: ListTileControlAffinity.leading,
             contentPadding: EdgeInsets.only(left: 20.w),
-            title: Text("Keep me signed in", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: keepMeSignedIn ? AppColors.primaryColor : Colors.grey),),),
-          SizedBox(height: 24.h,),
+            title: Text(
+              "Keep me signed in",
+              style: TextStyle(
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                  color: keepMeSignedIn ? AppColors.primaryColor : Colors.grey),
+            ),
+          ),
+          SizedBox(
+            height: 24.h,
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
-            child: authVm.loginLoading ? const Center(child: CircularProgressIndicator(),) : CustomButton(text: "Login", onTap: (){
-              if(emailController!.text.isNotEmpty || passwordController!.text.isNotEmpty){
-                Map<String, String> body = {
-                  'email' : emailController!.text,
-                  'password' : passwordController!.text,
-                  'deviceToke': token
-                };
-                authVm.loginApi(context, body, keepMeSignIn: keepMeSignedIn);
-              }else{
-                Messages.snackBar(context, "Fill Up All of the field!", backgroundColor: Colors.red);
-              }
+            child: authVm.isLoginLoading == true
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : CustomButton(
+                    text: "Login",
+                    onTap: () {
+                      if (emailController!.text.isNotEmpty ||
+                          passwordController!.text.isNotEmpty) {
+                        Map<String, String> body = {
+                          'email': emailController!.text,
+                          'password': passwordController!.text,
+                          'deviceToke': token
+                        };
+                        authVm.loginApi(context, body,
+                            keepMeSignIn: keepMeSignedIn);
+                      } else {
+                        Messages.snackBar(context, "Fill Up All of the field!",
+                            backgroundColor: Colors.red);
+                      }
 
-              // context.router.replace(const DashboardRoute());
-            },),
+                      // context.router.replace(const DashboardRoute());
+                    },
+                  ),
           ),
-          SizedBox(height: 15.h,),
+          SizedBox(
+            height: 15.h,
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
             child: RichText(
               textAlign: TextAlign.center,
-              text: TextSpan(
-              children: [
-                TextSpan(text: "Don't have account yet?", style: TextStyle(fontSize: 14.sp, color: Colors.black)),
-                TextSpan(text: "  Register Here", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor), recognizer: TapGestureRecognizer()..onTap = ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpView())))
-              ]
-            ),),
+              text: TextSpan(children: [
+                TextSpan(
+                    text: "Don't have account yet?",
+                    style: TextStyle(fontSize: 14.sp, color: Colors.black)),
+                TextSpan(
+                    text: "  Register Here",
+                    style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryColor),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignUpView())))
+              ]),
+            ),
           ),
         ],
       ),

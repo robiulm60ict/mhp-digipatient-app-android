@@ -37,10 +37,9 @@ class AuthViewModel with ChangeNotifier {
 
   setLoginLoading(bool value) {
     _loginLoading = value;
-    // user = val;
     notifyListeners();
   }
-
+ bool isLoginLoading=false;
   setSignupLoading(
     bool value,
   ) {
@@ -48,43 +47,15 @@ class AuthViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  LoginModel? user;
 
-  saveDocFcm() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String token = prefs.getString(UserP.fcmToken).toString();
 
-    Map<String, String> body = {'token': token};
 
-    final String docId = prefs.getInt(UserP.id).toString();
-    patientListRepo
-        .saveDocFCMToken(docId: docId, body: body)
-        .then((value) => null)
-        .onError((e, stackTrace) {
-      debugPrint("fcm error $e");
-    });
-  }
-
-  PatientListRepo patientListRepo = PatientListRepo();
-
-  savePtnFcm() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String token = prefs.getString(UserP.fcmToken).toString();
-    Map<String, String> body = {'token': token};
-
-    final String ptnId = prefs.getInt(UserP.id).toString();
-    patientListRepo
-        .savePtnFCMToken(ptnId: ptnId, body: body)
-        .then((value) =>
-            debugPrint("\n\n\n\n Fcm token saved ${value.patient?.appToken}"))
-        .onError((e, stackTrace) {
-      debugPrint("\n\n\n\n\nfcm error $e");
-    });
-  }
 
   Future<void> loginApi(BuildContext context, dynamic body,
       {bool keepMeSignIn = true}) async {
     setLoginLoading(true);
+    isLoginLoading=true;
+    notifyListeners();
     _authRepo.loginApi(body).then((value) async {
       print(value);
       if (value['message'] == 'User Logged in sucessfully') {
@@ -102,6 +73,8 @@ class AuthViewModel with ChangeNotifier {
 
         Future.delayed(const Duration(seconds: 1)).then((v) {
           setLoginLoading(false);
+          isLoginLoading=false;
+          // notifyListeners();
 
           Navigator.pushNamed(context, RoutesName.dashbord);
           onUserLogin();
@@ -110,11 +83,13 @@ class AuthViewModel with ChangeNotifier {
         Messages.flushBarMessage(context, '${value['message']}',
             backgroundColor: AppColors.redColor);
         setLoginLoading(false);
+        isLoginLoading=false;
       }
     }).onError((error, stackTrace) {
       debugPrint(error.toString());
       Messages.flushBarMessage(context, error.toString());
       setLoginLoading(false);
+      isLoginLoading=false;
     });
   }
 

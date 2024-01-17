@@ -187,7 +187,7 @@ class _AnatomyViewState extends State<AnatomyView> {
                     MaterialButton(
                       minWidth: double.infinity,
                       color: AppColors.primary_color,
-                      child: Text("Back"),
+                      child: const Text("Next"),
                       onPressed: () {
                         Navigator.pop(context);
                       },

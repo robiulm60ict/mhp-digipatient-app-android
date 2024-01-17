@@ -144,7 +144,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
             image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}', shift:widget.shiftType,
           ),
           SizedBox(
-            height: 20.h,
+            height: 6.h,
           ),
           Card(
             color: Colors.white,
@@ -333,7 +333,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                           )),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
                             Assets.imagesBkash,
@@ -341,24 +341,24 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                             width: 30.w,
                             fit: BoxFit.fill,
                           ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          Image.asset(
-                            Assets.imagesRocket,
-                            height: 15.h,
-                            width: 30.w,
-                            fit: BoxFit.fill,
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          Image.asset(
-                            Assets.imagesNagad,
-                            height: 15.h,
-                            width: 30.w,
-                            fit: BoxFit.fill,
-                          ),
+                          // SizedBox(
+                          //   width: 5.w,
+                          // ),
+                          // Image.asset(
+                          //   Assets.imagesRocket,
+                          //   height: 15.h,
+                          //   width: 30.w,
+                          //   fit: BoxFit.fill,
+                          // ),
+                          // SizedBox(
+                          //   width: 5.w,
+                          // ),
+                          // Image.asset(
+                          //   Assets.imagesNagad,
+                          //   height: 15.h,
+                          //   width: 30.w,
+                          //   fit: BoxFit.fill,
+                          // ),
                         ],
                       ),
                       onExpansionChanged: (value) {
@@ -371,31 +371,31 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                         style: Style.alltext_default_balck_blod,
                       ),
                       children: [
-                        Row(
-                          children: digitalPayValue.map((value) {
-                            return Expanded(
-                              child: RadioListTile(
-                                title: Image.asset(
-                                  value,
-                                  height: 15.h,
-                                  width: 30.w,
-                                  fit: BoxFit.fill,
-                                ),
-                                value: digitalPayValue.indexOf(value) + 1,
-                                groupValue: _selectedDigitalValue,
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    _selectedDigitalValue = newValue!;
-                                  });
-                                },
-                              ),
-                            );
-                          }).toList(),
-                        ),
+                        // Row(
+                        //   children: digitalPayValue.map((value) {
+                        //     return Expanded(
+                        //       child: RadioListTile(
+                        //         title: Image.asset(
+                        //           value,
+                        //           height: 15.h,
+                        //           width: 30.w,
+                        //           fit: BoxFit.fill,
+                        //         ),
+                        //         value: digitalPayValue.indexOf(value) + 1,
+                        //         groupValue: _selectedDigitalValue,
+                        //         onChanged: (newValue) {
+                        //           setState(() {
+                        //             _selectedDigitalValue = newValue!;
+                        //           });
+                        //         },
+                        //       ),
+                        //     );
+                        //   }).toList(),
+                        // ),
                         Center(
                           child: Text(
-                            "Send Money To 01774142172",
-                            style: Style.alltext_default_balck,
+                            "Send Money To ${widget.doctor.doctors!.drHomePhone.toString()}",
+                            style: Style.alltext_default_balck_blod,
                           ),
                         ),
                         Padding(

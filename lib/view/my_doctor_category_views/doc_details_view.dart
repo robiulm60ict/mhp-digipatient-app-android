@@ -230,6 +230,13 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                             ),
                           ],
                         ),
+                        SizedBox(
+                          height: 8.h,
+                        ),
+                        Text(
+                          "Payment For Bikes : ${doc!.doctors!.drHomePhone.toString()}",
+                          style: Style.alltext_default_balck_blod,
+                        ),
                       ],
                     ),
                   ),
@@ -429,7 +436,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 doc?.doctors!.drAbout.toString() != "null"
                     ? ReadMoreText(
                         "${doc?.doctors?.drAbout.toString() ?? ""}",
-                        trimLines: 3,
+                        trimLines: 10,
                         colorClickableText: Colors.pink,
                         trimMode: TrimMode.Line,
                         trimCollapsedText: 'See All',
@@ -447,6 +454,11 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                     : Text(""),
                 SizedBox(
                   height: 10.h,
+                ),
+
+                Text(
+                  "Appointment Number : ${doc!.doctors!.drWorkPhone.toString()}",
+                  style: Style.alltext_default_balck_blod,
                 ),
               ],
             ),

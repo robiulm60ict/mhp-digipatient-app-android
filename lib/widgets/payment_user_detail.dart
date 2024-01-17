@@ -58,7 +58,7 @@ class PaymentUserDetail extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 10.h,
+              height: 5.h,
             ),
             Card(
               color: const Color(0xFFF1F4F7),
@@ -66,9 +66,28 @@ class PaymentUserDetail extends StatelessWidget {
                 padding: EdgeInsets.all(10.r),
                 child: Column(
                   children: [
+                    Row(children: [
+                      hospitalName != ""
+                          ? Icon(
+                        Icons.home,
+                        size: 12.h,
+                        color: const Color(0xFF8A8A8A),
+                      )
+                          : Container(),
+                      SizedBox(
+                        width: 6.w,
+                      ),
+                      hospitalName != ""
+                          ? Expanded(
+                        child: Text(
+                          hospitalName,
+                          style: Style.alltext_default_balck,
+                        ),
+                      ):Container(),
+                    ],),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                       children: [
                         Icon(
                           Icons.call,
@@ -76,30 +95,14 @@ class PaymentUserDetail extends StatelessWidget {
                           color: const Color(0xFF8A8A8A),
                         ),
                         SizedBox(
-                          width: 4.w,
+                          width: 6.w,
                         ),
                         Text(
                           location,
                           style: Style.alltext_default_balck,
                         ),
-                        const Spacer(),
-                        hospitalName != ""
-                            ? Icon(
-                                Icons.home,
-                                size: 12.h,
-                                color: const Color(0xFF8A8A8A),
-                              )
-                            : Container(),
-                        SizedBox(
-                          width: 4.w,
-                        ),
-                        hospitalName != ""
-                            ? Expanded(
-                          child: Text(
-                            hospitalName,
-                            style: Style.alltext_default_balck,
-                          ),
-                        ):Container(),
+
+
                       ],
                     ),
                     SizedBox(
