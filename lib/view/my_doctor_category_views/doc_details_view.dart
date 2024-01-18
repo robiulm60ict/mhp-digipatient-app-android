@@ -1,9 +1,7 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/resources/styles.dart';
-import 'package:digi_patient/utils/custom_rating.dart';
 import 'package:digi_patient/view/appointment/book_appointment_view.dart';
 import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +10,6 @@ import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../model/doctor_model/doctor_chember_time_model.dart';
 import '../../model/myDoctorList/mydoctorList.dart';
 import '../../utils/utils.dart';
 import '../../view_model/mydoctor/new_my_doctor_view_model.dart';

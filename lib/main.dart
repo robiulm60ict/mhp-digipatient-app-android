@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:digi_patient/data/firebase/firebase_api.dart';
 import 'package:digi_patient/data/firebase/notification_fcm.dart';
 import 'package:digi_patient/utils/route/routes.dart';
@@ -18,9 +20,12 @@ import 'package:digi_patient/view_model/signup_model.dart';
 import 'package:digi_patient/view_model/user_view_model/user_view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
+import 'package:zego_zpns/zego_zpns.dart';
 import '/resources/colors.dart';
 import '/routes/routes.gr.dart';
 import '/view_model/auth_view_model.dart';
@@ -40,10 +45,20 @@ import 'view_model/resources_view_model/resources_view_model.dart';
 // }
 
 @pragma('vm:entry-point')
+Future<void> _zpnsMessagingBackgroundHandler(ZPNsMessage message) async{
+  print("good job");
+}
+@pragma('vm:entry-point')
 Future<void> firbaseMessageBackgroundHandeler(RemoteMessage message) async {
   print('Handler a background messahe${message.messageId}');
 }
-
+class ZPNsEventHandlerManager {
+  static loadingEventHandler() {
+    ZPNsEventHandler.onRegistered = (pushID) {
+      print(pushID.pushID.toString());
+    };
+  }
+}
 final navigatorKey = GlobalKey<NavigatorState>();
 
 // final navigationService = NavigationService(appRouter.navigatorKey);
@@ -62,14 +77,49 @@ Future<void> main() async {
 
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   String? token = await messaging.getToken();
-  print("FCM Token: $token");
+  // print("FCM Token: $token");
   await FirebaseMessaging.instance.getInitialMessage();
   FirebaseMessaging.onBackgroundMessage(firbaseMessageBackgroundHandeler);
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   await FirebaseApi().initNotifications();
+  ZPNsEventHandlerManager.loadingEventHandler();
 
+  if (kIsWeb) {
+    ZIMAppConfig appConfig = ZIMAppConfig();
+    appConfig.appID = 1293432009;
+    appConfig.appSign = "ce9d090d86cd6d51344033934af611515fdb0fc5760cfd02df1f99c06b0b94cf";
+
+    ZIM.create(appConfig);
+    return;
+  }
+
+  ZPNs.setBackgroundMessageHandler(_zpnsMessagingBackgroundHandler);
+  ZPNsConfig config = ZPNsConfig();
+  config.enableFCMPush = true;
+  ZPNs.setPushConfig(config);
+  // Request notification rights from the user when appropriate,iOS only
+  ZPNs.getInstance().applyNotificationPermission();
+  // Select an ZPNsIOSEnvironment value based on the iOS development/Distribution certificate.Change this enum when switching certificates
+  ZPNs.getInstance()
+      .registerPush(iOSEnvironment: ZPNsIOSEnvironment.Development,enableIOSVoIP: true)
+      .catchError((onError) {
+    if (onError is PlatformException) {
+      //Notice exception here
+      log(onError.message ?? "");
+    }
+  });
+  ZPNsEventHandler.onNotificationClicked = (ZPNsMessage zpnsMessage) {
+    if (zpnsMessage.pushSourceType == ZPNsPushSourceType.APNs) {
+      Map aps = Map.from(zpnsMessage.extras['aps'] as Map);
+      String payload = aps['payload'];
+      log("My payload is $payload");
+    } else if (zpnsMessage.pushSourceType == ZPNsPushSourceType.FCM) {
+      // FCM does not support this interface,please use Intent get payload at Android Activity.
+    }
+    log("user clicked the offline push notification,title is ${zpnsMessage.title},content is ${zpnsMessage.content}");
+  };
   runApp(
     MultiProvider(
       providers: [

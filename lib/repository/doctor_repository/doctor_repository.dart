@@ -36,23 +36,24 @@ class DoctorRepository {
       int? id = prefs.getInt(UserP.id);
       dynamic response =
           await apiService.getGetApiResponse("${AppUrls.myDoctorslist}$id");
-
+print(response);
       return MyDoctorList.fromJson(response);
     } catch (e) {
+      print(e);
       rethrow;
     }
   }
 
-  Future<DoctorsModels> getAllDoctors() async {
-    try {
-      dynamic response = await apiService.getGetApiResponse(AppUrls.allDoctors);
-
-
-      return doctorsModelsFromJson(response);
-    } catch (e) {
-      rethrow;
-    }
-  }
+  // Future<DoctorsModels> getAllDoctors() async {
+  //   try {
+  //     dynamic response = await apiService.getGetApiResponse(AppUrls.allDoctors);
+  //
+  //
+  //     return doctorsModelsFromJson(response);
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   Future<DoctorFeeModel> getDocFee(dynamic docId) async {
     try {

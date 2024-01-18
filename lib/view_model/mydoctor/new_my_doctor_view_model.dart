@@ -61,6 +61,7 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
     notifyListeners();
     await DoctorRepository().getmyAllDoctors().then((value) {
       myDoctorFullList.add(value);
+      print(value);
       myDoctorList.addAll(value.data!);
       print("lenth${myDoctorList.length}");
       isDoctorLoading = false;

@@ -57,32 +57,32 @@ class MyDoctorViewModel with ChangeNotifier {
       notifyListeners();
     });
   }
-  getAllDoctors(BuildContext context) async {
-    allDoctorList.clear();
-
-    isDoctorLoading = true;
-    notifyListeners();
-    await DoctorRepository().getAllDoctors().then((value) {
-
-      allDoctorList.add(value);
-
-
-      isDoctorLoading = false;
-      notifyListeners();
-    }).onError((error, stackTrace) {
-      isDoctorLoading = true;
-
-      debugPrint(error.toString());
-
-      Messages.snackBar(
-        context,
-        error.toString(),
-      );
-      notifyListeners();
-    });
-
-
-  }
+  // getAllDoctors(BuildContext context) async {
+  //   allDoctorList.clear();
+  //
+  //   isDoctorLoading = true;
+  //   notifyListeners();
+  //   await DoctorRepository().getAllDoctors().then((value) {
+  //
+  //     allDoctorList.add(value);
+  //
+  //
+  //     isDoctorLoading = false;
+  //     notifyListeners();
+  //   }).onError((error, stackTrace) {
+  //     isDoctorLoading = true;
+  //
+  //     debugPrint(error.toString());
+  //
+  //     Messages.snackBar(
+  //       context,
+  //       error.toString(),
+  //     );
+  //     notifyListeners();
+  //   });
+  //
+  //
+  // }
 
   List<DoctorChamberTimeModel> doctorTimeSlotList = [];
 

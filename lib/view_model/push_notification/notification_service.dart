@@ -114,8 +114,10 @@ class NotificationService {
   firbaseInit(BuildContext context) {
     FirebaseMessaging.onMessage.listen((message) async {
       print("...................onMessage.......................");
-      print(
-          "onMessage: ${message.notification!.title} / ${message.notification!.body}  / ${message.notification}");
+      print("onMessage: ${message.notification ?? 'No title'} }");
+
+      // print(
+      //     "onMessage: ${message.notification!.title.toString()} / ${message.notification!.body}  / ${message.notification}");
 
       // print(message.data["id"]);
       if (Platform.isIOS) {
@@ -174,7 +176,7 @@ class NotificationService {
     Future.delayed(Duration.zero, () async {
       await flutterLocalNotificationsPlugin.show(
         0,
-        message.notification!.title.toString(),
+        message.notification!.title,
         message.notification!.body,
         platformChannelSpecifiics,
         // payload: message.data['data'],

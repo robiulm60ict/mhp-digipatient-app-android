@@ -14,7 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_localization: ^0.2.0
+#  flutter_localization: ^0.2.0
   intl: ^0.18.1
 
   # The following adds the Cupertino Icons font to your application.
@@ -25,7 +25,7 @@ dependencies:
 
   #  another_flushbar: ^1.12.29
   another_flushbar: ^1.12.30
-  fluttertoast: ^8.2.1
+#  fluttertoast: ^8.2.1
   provider: ^6.0.5
 #  auto_route: ^5.0.1
   flutter_screenutil: ^5.9.0
@@ -34,8 +34,8 @@ dependencies:
   shimmer: ^3.0.0
   percent_indicator: ^4.2.3
   flutterzilla_fixed_grid: ^0.0.4
-  carousel_slider: ^4.2.1
-  curved_navigation_bar: ^1.0.3
+#  carousel_slider: ^4.2.1
+#  curved_navigation_bar: ^1.0.3
   pin_code_fields: ^8.0.1
   image_picker: ^1.0.7
   font_awesome_flutter: ^10.4.0
@@ -63,7 +63,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   readmore: ^2.2.0
   dotted_line: ^3.1.0
-  lottie: ^2.3.2
+  lottie: ^3.0.0
   search_page: ^2.3.0
   fl_chart: ^0.66.0
   dropdown_search: ^5.0.6
@@ -92,13 +92,14 @@ dependencies:
   open_file:
   textfield_datepicker: ^0.2.0
   date_format_field: ^0.0.4
+  zego_zpns: ^2.6.0+1
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 #  auto_route_generator: ^5.0.2
-  build_runner:
+#  build_runner:
 
   flutter_lints: ^3.0.1
 

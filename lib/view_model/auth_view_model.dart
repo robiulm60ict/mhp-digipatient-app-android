@@ -113,6 +113,7 @@ class AuthViewModel with ChangeNotifier {
             Size size,
             ZegoCallingBackgroundBuilderInfo info,
             ) {
+
           return Container(
             width: size.width,
             height: size.height,
@@ -132,10 +133,12 @@ class AuthViewModel with ChangeNotifier {
       ),
       notificationConfig: ZegoCallInvitationNotificationConfig(
         androidNotificationConfig: ZegoAndroidNotificationConfig(
-            callIDVisibility: true
+            callIDVisibility: true,
+          vibrate: true
         ),
         iOSNotificationConfig: ZegoIOSNotificationConfig(
           appName: '',
+
           certificateIndex:
           ZegoSignalingPluginMultiCertificate.firstCertificate,
         ),
@@ -147,6 +150,7 @@ class AuthViewModel with ChangeNotifier {
       userName: name.toString(),
       plugins: [ZegoUIKitSignalingPlugin()],
       requireConfig: (ZegoCallInvitationData data) {
+
         var config = (data.invitees.length > 1)
             ? ZegoCallType.videoCall == data.type
             ? ZegoUIKitPrebuiltCallConfig.groupVideoCall()

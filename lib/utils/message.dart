@@ -1,5 +1,4 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import '../view_model/anatomy/anatomy_view_model.dart';
 import '/resources/colors.dart';
@@ -7,18 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:another_flushbar/flushbar.dart';
 
 class Messages {
-  static toastMessage({
-    required String msg,
-    Color backgroundColor = Colors.red,
-    double fontSize = 16,
-    ToastGravity gravity = ToastGravity.CENTER,
-  }) {
-    Fluttertoast.showToast(
-        msg: msg,
-        backgroundColor: backgroundColor,
-        fontSize: fontSize,
-        gravity: gravity);
-  }
+  // static toastMessage({
+  //   required String msg,
+  //   Color backgroundColor = Colors.red,
+  //   double fontSize = 16,
+  //   ToastGravity gravity = ToastGravity.CENTER,
+  // }) {
+  //   Fluttertoast.showToast(
+  //       msg: msg,
+  //       backgroundColor: backgroundColor,
+  //       fontSize: fontSize,
+  //       gravity: gravity);
+  // }
 
   static flushBarMessage(BuildContext context, String msg,
       {backgroundColor = Colors.red,
