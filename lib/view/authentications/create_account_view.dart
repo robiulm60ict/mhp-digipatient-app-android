@@ -59,7 +59,48 @@ class _CreateAccountViewState extends State<CreateAccountView> {
     } catch (e) {
       Messages.flushBarMessage(context, e.toString());
     }
-
+  // Future<void> pickImage({required bool fromGallery}) async {
+  //   try {
+  //     final XFile? image = await _picker.pickImage(
+  //
+  //       source: fromGallery ? ImageSource.gallery : ImageSource.camera,
+  //     );
+  //     if (image != null) {
+  //       // Resize the image
+  //       Uint8List? compressedImage = await FlutterImageCompress.compressWithFile(
+  //         image.path,
+  //         minWidth: 800, // Set the desired width
+  //         minHeight: 600, // Set the desired height
+  //         quality: 85, // Adjust the quality as needed (0 to 100)
+  //       );
+  //
+  //       // Display the resized image
+  //       if (compressedImage != null) {
+  //         // You can use compressedImage to display or save the resized image
+  //         // For example, you can use Image.memory to display it in a widget
+  //         // Image.memory(compressedImage);
+  //
+  //         // If you want to save the resized image, you can write it to a new file
+  //         // File resizedImageFile = File('path/to/save/resized_image.jpg');
+  //         // await resizedImageFile.writeAsBytes(compressedImage);
+  //
+  //         xFileList.clear();
+  //         xFileList.add(XFile.fromData(compressedImage, name: 'resized_image.jpg'));
+  //       //  setState(() {});
+  //       } else {
+  //         // Handle the case where image compression failed
+  //         Messages.flushBarMessage(context, 'Image compression failed');
+  //       }
+  //     } else {
+  //       xFileList.clear();
+  //     //  setState(() {});
+  //       Messages.flushBarMessage(
+  //           context, fromGallery ? "Select an Image" : "Take a Photo");
+  //     }
+  //   } catch (e) {
+  //     Messages.flushBarMessage(context, e.toString());
+  //   }
+  // }
     // Capture a photo
     // final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
     // if(photo != null){
