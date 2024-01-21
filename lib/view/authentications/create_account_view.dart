@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:date_format_field/date_format_field.dart';
 import 'package:digi_patient/model/auth_model/birth_sex_model.dart';
@@ -7,10 +8,12 @@ import 'package:digi_patient/utils/datetime.dart';
 import 'package:digi_patient/view_model/auth_view_model.dart';
 import 'package:digi_patient/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/assets.dart';
@@ -41,17 +44,72 @@ class _CreateAccountViewState extends State<CreateAccountView> {
 
 // Pick an image
 
-  pickImage({required bool fromGallery}) async {
+  // pickImage({required bool fromGallery}) async {
+  //   try {
+  //     final XFile? image = await _picker.pickImage(
+  //         source: fromGallery ? ImageSource.gallery : ImageSource.camera);
+  //     if (image != null) {
+  //       // saveImage(image);
+  //       xFileList.clear();
+  //       xFileList.add(image);
+  //       setState(() {});
+  //     } else {
+  //       xFileList.clear();
+  //       setState(() {});
+  //       Messages.flushBarMessage(
+  //           context, fromGallery ? "Select an Image" : "Take a Photo");
+  //     }
+  //   } catch (e) {
+  //     Messages.flushBarMessage(context, e.toString());
+  //   }
+
+  String originalImagePath = '';
+  String resizedImagePath = '';
+
+  Future<void> pickImage({required bool fromGallery}) async {
     try {
+      originalImagePath = '';
+      resizedImagePath = '';
       final XFile? image = await _picker.pickImage(
-          source: fromGallery ? ImageSource.gallery : ImageSource.camera);
+        source: fromGallery ? ImageSource.gallery : ImageSource.camera,
+      );
+
+      setState(() {});
       if (image != null) {
-        // saveImage(image);
-        xFileList.clear();
-        xFileList.add(image);
-        setState(() {});
+        // Get the path of the captured image
+        originalImagePath = image.path;
+
+        // Get the documents directory
+        Directory documentsDirectory = await getApplicationDocumentsDirectory();
+        String targetDirectoryPath = documentsDirectory.path;
+
+        // Resize the image
+        Uint8List? compressedImage =
+            await FlutterImageCompress.compressWithFile(
+          originalImagePath,
+          minWidth: 800, // Set the desired width
+          minHeight: 600, // Set the desired height
+          quality: 85, // Adjust the quality as needed (0 to 100)
+        );
+
+        // Check if compressedImage is not null before converting to List<int>
+        if (compressedImage != null) {
+          resizedImagePath = '';
+          // Save the resized image data to a new file
+          resizedImagePath = '$targetDirectoryPath/resized_image.jpg';
+          print(resizedImagePath);
+          File resizedImageFile = File(resizedImagePath);
+          await resizedImageFile.writeAsBytes(compressedImage);
+          setState(() {});
+          // Get the size of the resized image in megabytes
+          double sizeInMB = resizedImageFile.lengthSync() / (1024 * 1024);
+          print('Resized Image Size: ${sizeInMB.toStringAsFixed(2)} MB');
+        }
       } else {
         xFileList.clear();
+        originalImagePath = '';
+        resizedImagePath = '';
+
         setState(() {});
         Messages.flushBarMessage(
             context, fromGallery ? "Select an Image" : "Take a Photo");
@@ -59,61 +117,21 @@ class _CreateAccountViewState extends State<CreateAccountView> {
     } catch (e) {
       Messages.flushBarMessage(context, e.toString());
     }
-  // Future<void> pickImage({required bool fromGallery}) async {
-  //   try {
-  //     final XFile? image = await _picker.pickImage(
-  //
-  //       source: fromGallery ? ImageSource.gallery : ImageSource.camera,
-  //     );
-  //     if (image != null) {
-  //       // Resize the image
-  //       Uint8List? compressedImage = await FlutterImageCompress.compressWithFile(
-  //         image.path,
-  //         minWidth: 800, // Set the desired width
-  //         minHeight: 600, // Set the desired height
-  //         quality: 85, // Adjust the quality as needed (0 to 100)
-  //       );
-  //
-  //       // Display the resized image
-  //       if (compressedImage != null) {
-  //         // You can use compressedImage to display or save the resized image
-  //         // For example, you can use Image.memory to display it in a widget
-  //         // Image.memory(compressedImage);
-  //
-  //         // If you want to save the resized image, you can write it to a new file
-  //         // File resizedImageFile = File('path/to/save/resized_image.jpg');
-  //         // await resizedImageFile.writeAsBytes(compressedImage);
-  //
-  //         xFileList.clear();
-  //         xFileList.add(XFile.fromData(compressedImage, name: 'resized_image.jpg'));
-  //       //  setState(() {});
-  //       } else {
-  //         // Handle the case where image compression failed
-  //         Messages.flushBarMessage(context, 'Image compression failed');
-  //       }
-  //     } else {
-  //       xFileList.clear();
-  //     //  setState(() {});
-  //       Messages.flushBarMessage(
-  //           context, fromGallery ? "Select an Image" : "Take a Photo");
-  //     }
-  //   } catch (e) {
-  //     Messages.flushBarMessage(context, e.toString());
-  //   }
-  // }
-    // Capture a photo
-    // final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
-    // if(photo != null){
-    // // saveImage(photo);
-    // xFileList.clear();
-    // xFileList.add(photo);
-    // setState(() {
-    //
-    // });
-    // }else{
-    // Message.flushBarMessage(context, "Something Went wrong Try Again");
-    // }
   }
+
+  // Capture a photo
+  // final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
+  // if(photo != null){
+  // // saveImage(photo);
+  // xFileList.clear();
+  // xFileList.add(photo);
+  // setState(() {
+  //
+  // });
+  // }else{
+  // Message.flushBarMessage(context, "Something Went wrong Try Again");
+  // }
+  //}
 
   TextEditingController dateOfBirthController = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -126,6 +144,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
   BirthSex? birthSex;
   bool obSecureText = false;
   DateTime? date;
+
   @override
   void initState() {
     super.initState();
@@ -203,6 +222,10 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       fontWeight: FontWeight.w700,
                       color: AppColors.primaryColor),
                 ),
+
+                // SizedBox(height: 300, child: Image.file(File(originalImagePath))),
+                // SizedBox(
+                //     height: 300, child: Image.file(File(originalImagePath))),
                 Style.distan_size10,
                 Align(
                   alignment: Alignment.center,
@@ -277,16 +300,20 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       children: [
                         CircleAvatar(
                           radius: 35.h,
-                          backgroundImage: xFileList.isEmpty
+                          backgroundImage: resizedImagePath.isEmpty
+                              //xFileList.isEmpty
                               ? const AssetImage(Assets.imagesAvatar)
                               : null,
-                          child: xFileList.isNotEmpty
+                          child: resizedImagePath.isNotEmpty
                               ? Container(
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
                                         image: FileImage(
-                                          File(xFileList[0]!.path),
+                                          File(originalImagePath
+
+                                              // xFileList.reversed.first!.path
+                                              ),
                                         ),
                                         fit: BoxFit.fill),
                                   ),
@@ -307,7 +334,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                 ),
                 Style.distan_size10,
                 Text(
-                  xFileList.isEmpty ? "Upload your profile picture" : "",
+                  resizedImagePath.isEmpty ? "Upload your profile picture" : "",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 14.sp,
@@ -387,10 +414,11 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                     date = await PickDateTime()
                         .pickDateregister(context, initialDate: DateTime.now());
 
-                     print("ddddddddddddddd$date");
-                    date==null?dateOfBirthController.text:
-                    dateOfBirthController.text =
-                        "${date?.day}-${date?.month}-${date?.year}";
+                    print("ddddddddddddddd$date");
+                    date == null
+                        ? dateOfBirthController.text
+                        : dateOfBirthController.text =
+                            "${date?.day}-${date?.month}-${date?.year}";
                   },
                 ),
                 Style.distan_size5,
@@ -546,10 +574,12 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   title: "Save",
                   onPressed: () async {
                     // debugPrint("------------------------------------------------\n\n\n\n\n\n");
-                    String dateString = '${dateOfBirthController.text.toString()}';
-                    DateTime dateTime = DateFormat('dd-MM-yyyy').parse(dateString);
-                    String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
-                    print("ddd${formattedDate}");
+                    String dateString =
+                        '${dateOfBirthController.text.toString()}';
+                    DateTime dateTime =
+                    DateFormat('dd-MM-yyyy').parse(dateString);
+                    String formattedDate =
+                    DateFormat('yyyy-MM-dd').format(dateTime);
                     if (xFileList.isEmpty) {
                       Messages.snackBar(
                           context, "Patient Image con not be empty !");
@@ -561,17 +591,16 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       Messages.snackBar(
                           context, "Patient Last Name con not be empty !");
                     } else if (dateOfBirthController.text.isEmpty) {
+
+
+                      print("ddd${formattedDate}");
                       Messages.snackBar(
                           context, "Date of Birth con not be empty !");
-                    }
-
-                    else if (bloodGroup == null) {
+                    } else if (bloodGroup == null) {
                       Messages.snackBar(
                           context, "Blood Group con not be empty !");
-                    }
-                    else if (birthSex == null) {
-                      Messages.snackBar(
-                          context, "Gender con not be empty !");
+                    } else if (birthSex == null) {
+                      Messages.snackBar(context, "Gender con not be empty !");
                     }
 
                     // else if (email.text.isEmpty) {
@@ -580,8 +609,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                     // }
 
                     else if (address.text.isEmpty) {
-                      Messages.snackBar(
-                          context, "Address con not be empty !");
+                      Messages.snackBar(context, "Address con not be empty !");
                     } else if (password.text.length < 7) {
                       Messages.snackBar(
                           context, "Enter At least 8 Digit Password");
@@ -602,32 +630,32 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       };
                       print(body);
 
-                      await auth.signUp(context, body,
-                          File(xFileList.first!.path).path);
+                      await auth.signUp(
+                          context, body,resizedImagePath);
                       //  widget.phoneNumber = "";
-                    // await auth.registration(context, imageFile: File(xFileList.first!.path), phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode, name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}", dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
-                    // auth.signUpOriginal(context, body, widget.token);
-                    ///
-                    // final imageBytes = File(xFileList.first!.name).length() as List<int>;
-                    // auth.signUp(context, body, File(xFileList.first!.name).toString());
-                    ///
-                    // final res = SendImage();
-                    // await res.addImage(body, File(xFileList.first!.name).path).onError((error, stackTrace) {
-                    //   debugPrint(error.toString());
-                    //   return false;
-                    // });
-                    ///
-                    // await auth.registration(context, imageFile: File(xFileList.first!.path),
-                    //     phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode,
-                    //     name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}",
-                    //     dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
-                    // await UserRegistration().sendImageAndData(imageFile: File(xFileList.first!.path),
-                    //     phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode,
-                    //     name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}",
-                    //     dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
-                    // auth.signUpApi(context, body);
-                    // auth.signUpAndSendImage(context, body: body, filePath: xFileList.first!.path);
-                     }
+                      // await auth.registration(context, imageFile: File(xFileList.first!.path), phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode, name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}", dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
+                      // auth.signUpOriginal(context, body, widget.token);
+                      ///
+                      // final imageBytes = File(xFileList.first!.name).length() as List<int>;
+                      // auth.signUp(context, body, File(xFileList.first!.name).toString());
+                      ///
+                      // final res = SendImage();
+                      // await res.addImage(body, File(xFileList.first!.name).path).onError((error, stackTrace) {
+                      //   debugPrint(error.toString());
+                      //   return false;
+                      // });
+                      ///
+                      // await auth.registration(context, imageFile: File(xFileList.first!.path),
+                      //     phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode,
+                      //     name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}",
+                      //     dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
+                      // await UserRegistration().sendImageAndData(imageFile: File(xFileList.first!.path),
+                      //     phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode,
+                      //     name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}",
+                      //     dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
+                      // auth.signUpApi(context, body);
+                      // auth.signUpAndSendImage(context, body: body, filePath: xFileList.first!.path);
+                    }
                   },
                   backgroundColor: AppColors.primaryColor,
                   textColor: Colors.white,

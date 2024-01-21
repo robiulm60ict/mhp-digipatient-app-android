@@ -192,7 +192,7 @@ class _HomeViewState extends State<HomeView> {
                   title: "Payment & Invoice",
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => InvoiceView()));
+                        MaterialPageRoute(builder: (context) => const InvoiceView()));
                     //  context.router.push(const InvoiceRoute());
                   },
                 ),

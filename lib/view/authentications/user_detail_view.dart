@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../enum/gender_enum.dart';
@@ -43,38 +46,93 @@ class _UserDetailViewState extends State<UserDetailView> {
 
   List<XFile?> xFileList = [];
 
-  pickImage({required bool fromGallery}) async {
+  // pickImage({required bool fromGallery}) async {
+  //   try {
+  //     final XFile? image = await _picker.pickImage(
+  //         source: fromGallery ? ImageSource.gallery : ImageSource.camera);
+  //     if (image != null) {
+  //       // saveImage(image);
+  //       xFileList.clear();
+  //       xFileList.add(image);
+  //       setState(() {});
+  //     } else {
+  //       xFileList.clear();
+  //       setState(() {});
+  //       Messages.flushBarMessage(
+  //           context, fromGallery ? "Select an Image" : "Take a Photo");
+  //     }
+  //   } catch (e) {
+  //     debugPrint(e.toString());
+  //     Messages.flushBarMessage(context, e.toString());
+  //   }
+  //
+  //   // Capture a photo
+  //   // final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
+  //   // if(photo != null){
+  //   // // saveImage(photo);
+  //   // xFileList.clear();
+  //   // xFileList.add(photo);
+  //   // setState(() {
+  //   //
+  //   // });
+  //   // }else{
+  //   // Message.flushBarMessage(context, "Something Went wrong Try Again");
+  //   // }
+  // }
+  String originalImagePath = '';
+  String resizedImagePath = '';
+
+  Future<void> pickImage({required bool fromGallery}) async {
     try {
+      originalImagePath = '';
+      resizedImagePath = '';
       final XFile? image = await _picker.pickImage(
-          source: fromGallery ? ImageSource.gallery : ImageSource.camera);
+        source: fromGallery ? ImageSource.gallery : ImageSource.camera,
+      );
+
+      setState(() {});
       if (image != null) {
-        // saveImage(image);
-        xFileList.clear();
-        xFileList.add(image);
-        setState(() {});
+        // Get the path of the captured image
+        originalImagePath = image.path;
+
+        // Get the documents directory
+        Directory documentsDirectory = await getApplicationDocumentsDirectory();
+        String targetDirectoryPath = documentsDirectory.path;
+
+        // Resize the image
+        Uint8List? compressedImage =
+        await FlutterImageCompress.compressWithFile(
+          originalImagePath,
+          minWidth: 800, // Set the desired width
+          minHeight: 600, // Set the desired height
+          quality: 85, // Adjust the quality as needed (0 to 100)
+        );
+
+        // Check if compressedImage is not null before converting to List<int>
+        if (compressedImage != null) {
+          resizedImagePath = '';
+          // Save the resized image data to a new file
+          resizedImagePath = '$targetDirectoryPath/resized_image.jpg';
+          print(resizedImagePath);
+          File resizedImageFile = File(resizedImagePath);
+          await resizedImageFile.writeAsBytes(compressedImage);
+          setState(() {});
+          // Get the size of the resized image in megabytes
+          double sizeInMB = resizedImageFile.lengthSync() / (1024 * 1024);
+          print('Resized Image Size: ${sizeInMB.toStringAsFixed(2)} MB');
+        }
       } else {
         xFileList.clear();
+        originalImagePath = '';
+        resizedImagePath = '';
+
         setState(() {});
         Messages.flushBarMessage(
             context, fromGallery ? "Select an Image" : "Take a Photo");
       }
     } catch (e) {
-      debugPrint(e.toString());
       Messages.flushBarMessage(context, e.toString());
     }
-
-    // Capture a photo
-    // final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
-    // if(photo != null){
-    // // saveImage(photo);
-    // xFileList.clear();
-    // xFileList.add(photo);
-    // setState(() {
-    //
-    // });
-    // }else{
-    // Message.flushBarMessage(context, "Something Went wrong Try Again");
-    // }
   }
 
   Gender _gender = Gender.male;
@@ -430,9 +488,9 @@ class _UserDetailViewState extends State<UserDetailView> {
                         "patient_address1": addressController.text,
                       };
                       print(body);
-                      xFileList.isNotEmpty
+                      resizedImagePath.isNotEmpty
                           ? user.editUserData(
-                              body, xFileList.first!.path.toString(), context)
+                              body, resizedImagePath.toString(), context)
                           : user.editUserDataNoImage(body, context);
                     },
                     backgroundColor: AppColors.primaryColor,
@@ -506,11 +564,11 @@ class _UserDetailViewState extends State<UserDetailView> {
                 children: [
                   Column(
                     children: [
-                      xFileList.isNotEmpty
+                      resizedImagePath.isNotEmpty
                           ? CircleAvatar(
                               radius: 50,
                               backgroundImage: FileImage(
-                                File(xFileList[0]!.path),
+                                File(originalImagePath),
                               ),
                             )
                           : CircleAvatar(
