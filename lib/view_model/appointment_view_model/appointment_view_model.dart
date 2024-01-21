@@ -11,8 +11,10 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../model/doctor_model/doctor_chember_time_model.dart';
 import '../../model/myDoctorList/mydoctorList.dart';
 import '../../model/online_model/online_model.dart';
+import '../../repository/doctor_repository/doctor_repository.dart';
 import '../../utils/user.dart';
 import '../../view/payment/ivoice/pdf_invoice_api.dart';
 import '../anatomy/anatomy_view_model.dart';
@@ -45,7 +47,25 @@ class AppointmentViewModel with ChangeNotifier {
 
     notifyListeners();
   }
+  setAppointmentDatee(BuildContext context,docid) async {
+    selectedDate = await PickDateTime().pickDate(context,
+        initialDate: appointmentDate);
+    notifyListeners();
 
+    if (selectedDate != null) {
+      print("selectedDate$selectedDate");
+      appointmentDate = selectedDate!;
+      print("selectedDate$appointmentDate");
+
+    getDocChamberTime(
+        context,
+        appointmentDate.toString().split(" ").first, docId: docid,
+      );
+
+      print(appointmentDate.toString().split(" ").first);
+      notifyListeners();
+    }
+  }
   //
   // appoinmentonline() {
   //   isChamber = false;
@@ -62,30 +82,27 @@ class AppointmentViewModel with ChangeNotifier {
       appointmentDate = selectedDate!;
       print(selectedDate);
 
-      // DateTime startWeekDay = getDate(
-      //     appointmentDate.subtract(Duration(days: appointmentDate.weekday)));
 
-      // startWeekDay = startWeekDay.subtract(const Duration(days: 2));
-
-      // weekDayList.clear();
-      //
-      // for (var i = 0; i < 7; i++) {
-      //   DateTime date = startWeekDay.add(Duration(days: i));
-      //   weekDayList.add(WeekDayModel(
-      //       weekName: DateFormat("EEEE").format(date).substring(0, 2),
-      //       isSelected: isSameDate(date1: date, date2: selectedDate),
-      //       dateTime: date,
-      //       day: date.day));
-      // }
-
-      // monthName = DateFormat('MMMM').format(appointmentDate);
-      //
-      // year = appointmentDate.year.toString();
 
       notifyListeners();
     }
   }
+  List<DoctorChamberTimeModel> doctorTimeSlotList = [];
 
+  bool isDocChamberTimeLoading = true;
+
+  getDocChamberTime(BuildContext context,date, {required docId}) async {
+    doctorTimeSlotList.clear();
+    DoctorRepository().getDocChamberTime(docId,date).then((value) {
+      doctorTimeSlotList.addAll(value! as Iterable<DoctorChamberTimeModel>);
+      isDocChamberTimeLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      isDocChamberTimeLoading = false;
+      notifyListeners();
+      Messages.snackBar(context, error.toString());
+    });
+  }
   bool isSameDate({required DateTime date1, required DateTime date2}) {
     if (date1.year == date2.year &&
         date1.month == date2.month &&

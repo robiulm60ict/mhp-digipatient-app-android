@@ -43,9 +43,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
         .read<MyDoctorViewModel>()
         .getdoctorcountpatient(widget.id.toString());
 
-    context
-        .read<MyDoctorViewModel>()
-        .getDocChamberTime(context, docId: widget.id.toString());
+
   }
 
   getDoctor(id) async {

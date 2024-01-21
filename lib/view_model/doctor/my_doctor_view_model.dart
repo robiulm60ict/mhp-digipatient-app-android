@@ -57,49 +57,26 @@ class MyDoctorViewModel with ChangeNotifier {
       notifyListeners();
     });
   }
-  // getAllDoctors(BuildContext context) async {
-  //   allDoctorList.clear();
+
+
+
+
+  // List<DoctorChamberTimeModel> doctorTimeSlotList = [];
   //
-  //   isDoctorLoading = true;
-  //   notifyListeners();
-  //   await DoctorRepository().getAllDoctors().then((value) {
+  // bool isDocChamberTimeLoading = true;
   //
-  //     allDoctorList.add(value);
-  //
-  //
-  //     isDoctorLoading = false;
+  // getDocChamberTime(BuildContext context, {required docId}) async {
+  //   doctorTimeSlotList.clear();
+  //   DoctorRepository().getDocChamberTime(docId).then((value) {
+  //     doctorTimeSlotList.addAll(value! as Iterable<DoctorChamberTimeModel>);
+  //     isDocChamberTimeLoading = false;
   //     notifyListeners();
   //   }).onError((error, stackTrace) {
-  //     isDoctorLoading = true;
-  //
-  //     debugPrint(error.toString());
-  //
-  //     Messages.snackBar(
-  //       context,
-  //       error.toString(),
-  //     );
+  //     isDocChamberTimeLoading = false;
   //     notifyListeners();
+  //     Messages.snackBar(context, error.toString());
   //   });
-  //
-  //
   // }
-
-  List<DoctorChamberTimeModel> doctorTimeSlotList = [];
-
-  bool isDocChamberTimeLoading = true;
-
-  getDocChamberTime(BuildContext context, {required docId}) async {
-    doctorTimeSlotList.clear();
-    DoctorRepository().getDocChamberTime(docId).then((value) {
-      doctorTimeSlotList.addAll(value! as Iterable<DoctorChamberTimeModel>);
-      isDocChamberTimeLoading = false;
-      notifyListeners();
-    }).onError((error, stackTrace) {
-      isDocChamberTimeLoading = false;
-      notifyListeners();
-      Messages.snackBar(context, error.toString());
-    });
-  }
 
   String getTime(String? date) {
     DateTime? dateObject = DateTime.tryParse(date ?? "");

@@ -19,6 +19,7 @@ class DoctorChamberTimeModel {
   String? slotFrom;
   String? slotTo;
   String? type;
+  String? appointmentType;
   int? deleteStatus;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -34,6 +35,7 @@ class DoctorChamberTimeModel {
     this.slotFrom,
     this.slotTo,
     this.type,
+    this.appointmentType,
     this.deleteStatus,
     this.createdAt,
     this.updatedAt,
@@ -50,6 +52,7 @@ class DoctorChamberTimeModel {
     slotFrom: json["slot_from"],
     slotTo: json["slot_to"],
     type: json["type"],
+    appointmentType: json["appointment_type"],
     deleteStatus: json["delete_status"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
@@ -66,6 +69,7 @@ class DoctorChamberTimeModel {
     "slot_from": slotFrom,
     "slot_to": slotTo,
     "type": type,
+    "appointment_type": appointmentType,
     "delete_status": deleteStatus,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
