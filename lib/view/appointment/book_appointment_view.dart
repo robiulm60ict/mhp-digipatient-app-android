@@ -93,33 +93,33 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                   );
                   print(appointmentViewModel.date.toString());
 
-                  // await appointmentViewModel.getPatientId().then((value) =>
-                  //     Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //             builder: (context) => PaymentMethodView(
-                  //                 appointmentDate:
-                  //                 appointmentViewModel.date.toString(),
-                  //                 appointmentType: appointmentViewModel.isChamber
-                  //                     ? "Chamber"
-                  //                     : "Telehealth",
-                  //                 doctorId: "${widget.doctors.doctorsMasterId}",
-                  //                 patientId: "$value",
-                  //                 amount: widget.amount,
-                  //                 doctor: widget.doctors,
-                  //                 diseaseList: anatomy.favourite,
-                  //                 shiftType: appointmentViewModel.morningButton
-                  //                     ? "Morning"
-                  //                     : "Evening"))));
-                  //
-                  // setState(() {
-                  //   appointmentViewModel.date = DateTime.now();
-                  //   anatomy.favourite.clear();
-                  //
-                  //   anatomy.symptomsList.clear();
-                  //
-                  //   anatomy.getSymptomsList.clear();
-                  // });
+                  await appointmentViewModel.getPatientId().then((value) =>
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PaymentMethodView(
+                                  appointmentDate:
+                                  appointmentViewModel.date.toString(),
+                                  appointmentType: appointmentViewModel.isChamber=="CHAMBER"
+                                      ? "Chamber"
+                                      : "Telehealth",
+                                  doctorId: "${widget.doctors.doctorsMasterId}",
+                                  patientId: "$value",
+                                  amount: widget.amount,
+                                  doctor: widget.doctors,
+                                  diseaseList: anatomy.favourite,
+                                  shiftType: appointmentViewModel.morningeveingButton=="morning"
+                                      ? "Morning"
+                                      : "Evening"))));
+
+                  setState(() {
+                    appointmentViewModel.date = DateTime.now();
+                    anatomy.favourite.clear();
+
+                    anatomy.symptomsList.clear();
+
+                    anatomy.getSymptomsList.clear();
+                  });
                 }
               },
               child: Text(

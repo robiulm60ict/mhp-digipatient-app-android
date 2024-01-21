@@ -41,12 +41,14 @@ class PaymentUserDetail extends StatelessWidget {
                   child: SizedBox(
                 width: 50.0,
                 height: 50.0,
-                child:image.toString().split("/").last!="null"? Image.network(
-                  image,
-                  fit: BoxFit.cover,
-                  width: 50.0,
-                  height: 50.0,
-                ):Image.asset(  Assets.dummy_image),
+                child: image.toString().split("/").last != "null"
+                    ? Image.network(
+                        image,
+                        fit: BoxFit.cover,
+                        width: 50.0,
+                        height: 50.0,
+                      )
+                    : Image.asset(Assets.dummy_image),
               )),
               title: Text(
                 name,
@@ -66,33 +68,43 @@ class PaymentUserDetail extends StatelessWidget {
                 padding: EdgeInsets.all(10.r),
                 child: Column(
                   children: [
-                    Row(children: [
-                      hospitalName != ""
-                          ? Icon(
-                        Icons.home,
-                        size: 12.h,
-                        color: const Color(0xFF8A8A8A),
-                      )
-                          : Container(),
-                      SizedBox(
-                        width: 6.w,
-                      ),
-                      hospitalName != ""
-                          ? Expanded(
-                        child: Text(
-                          hospitalName,
-                          style: Style.alltext_default_balck,
+                    Row(
+                      children: [
+                        hospitalName != ""
+                            ? IconButton(
+                                color: const Color(0xFF8A8A8A),
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.local_hospital,
+                                  size: 18.h,
+                                ),
+                              )
+                            : Container(),
+                        SizedBox(
+                          width: 6.w,
                         ),
-                      ):Container(),
-                    ],),
+                        hospitalName != ""
+                            ? Expanded(
+                                child: Text(
+                                  hospitalName,
+                                  style: Style.alltext_default_balck,
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    ),
+
+
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
-
                       children: [
-                        Icon(
-                          Icons.call,
-                          size: 12.h,
+                        IconButton(
                           color: const Color(0xFF8A8A8A),
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.call,
+                            size: 18.h,
+                          ),
                         ),
                         SizedBox(
                           width: 6.w,
@@ -101,13 +113,9 @@ class PaymentUserDetail extends StatelessWidget {
                           location,
                           style: Style.alltext_default_balck,
                         ),
-
-
                       ],
                     ),
-                    SizedBox(
-                      height: 8.h,
-                    ),
+
                     // Row(
                     //   children: [
                     //     Icon(

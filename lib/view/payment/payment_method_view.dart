@@ -70,12 +70,13 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
   TextEditingController transactionrefer = TextEditingController();
   FocusNode transactionFocusNode = FocusNode();
 
-@override
+  @override
   void initState() {
-  data();
+    data();
     // TODO: implement initState
     super.initState();
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -102,28 +103,28 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
       return "null";
     }
   }
+
   List items = [];
 
-   data(){
-     for (var i in widget.diseaseList) {
-       items.add(i.symptomName
-
-       );
-     }
-     print("dfffffddddddddddddddddddddddddddddddfffff${items}");
+  data() {
+    for (var i in widget.diseaseList) {
+      items.add(i.symptomName);
+    }
+    print("dfffffddddddddddddddddddddddddddddddfffff${items}");
   }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserViewModel>(context).user;
 
-    final apVM = Provider.of<AppointmentViewModel>(context,listen: false);
-    final anatomy = Provider.of<AnatomyModelView>(context,listen: false);
+    final apVM = Provider.of<AppointmentViewModel>(context, listen: false);
+    final anatomy = Provider.of<AnatomyModelView>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,
         title: Text(
           "Payment Method ",
-          style:Style.alltext_appbar,
+          style: Style.alltext_appbar,
         ),
         centerTitle: true,
         leadingWidth: leadingWidth,
@@ -138,10 +139,11 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                 "${widget.doctor.doctors!.department!.departmentsName}",
             visitingTime: getTime(widget.appointmentDate),
             hospitalName:
-                "${widget.doctor.doctors!.usualProvider !=null?widget.doctor.doctors!.usualProvider?.usualProviderName.toString():""}",
+                "${widget.doctor.doctors!.usualProvider != null ? widget.doctor.doctors!.usualProvider?.usualProviderName.toString() : ""}",
             date: widget.appointmentDate,
             location: "${widget.doctor.doctors?.drWorkPhone}",
-            image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}', shift:widget.shiftType,
+            image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',
+            shift: widget.shiftType,
           ),
           SizedBox(
             height: 6.h,
@@ -162,10 +164,11 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                     height: 8.h,
                   ),
 
-                  Text("Note : While developing save the number and reference and transaction id from which the development is done and input for making appointment in next step",  style: Style.alltext_ExtraSmall_red,),
-                  SizedBox(
-                    height: 8.h,
+                  Text(
+                    "Note : While developing save the number and reference and transaction id from which the development is done and input for making appointment in next step",
+                    style: Style.alltext_ExtraSmall_red,
                   ),
+
                   // ListTile(
                   //   onTap: () {
                   //     payment = Payment.cash;
@@ -366,9 +369,22 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                           payment = Payment.digital;
                         });
                       },
-                      title: Text(
-                        "Digital Payment",
-                        style: Style.alltext_default_balck_blod,
+                      title: Column(
+                        children: [
+                          Text(
+                            "Digital Payment",
+                            style: Style.alltext_default_balck_blod,
+                          ),
+                          SizedBox(
+                            height: 4.h,
+                          ),
+                          Center(
+                            child: Text(
+                              "Send Money To ${widget.doctor.doctors!.drHomePhone.toString()}",
+                              style: Style.alltext_ExtraSmall_red,
+                            ),
+                          ),
+                        ],
                       ),
                       children: [
                         // Row(
@@ -406,7 +422,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                                 width: 70.w,
                                 child: Text(
                                   "Payment Number *",
-                                  style:Style.alltext_default_balck,
+                                  style: Style.alltext_default_balck,
                                 ),
                               ),
                               SizedBox(
@@ -416,17 +432,16 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                                 child: TextField(
                                   controller: transactionphone,
                                   keyboardType: TextInputType.number,
-
                                   maxLength: 11,
                                   decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: Colors.grey.shade200,
-                                      border: InputBorder.none,
-
-                                      focusedBorder: InputBorder.none,
-                                      enabledBorder: InputBorder.none,
-                                      hintText: "pay number",
-                                      hintStyle:Style.alltext_default_balck,),
+                                    filled: true,
+                                    fillColor: Colors.grey.shade200,
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    hintText: "pay number",
+                                    hintStyle: Style.alltext_default_balck,
+                                  ),
                                 ),
                               ),
                             ],
@@ -440,7 +455,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                                 width: 70.w,
                                 child: Text(
                                   "Transaction ID *",
-                                  style:Style.alltext_default_balck,
+                                  style: Style.alltext_default_balck,
                                 ),
                               ),
                               SizedBox(
@@ -450,14 +465,16 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                                 child: TextField(
                                   keyboardType: TextInputType.text,
                                   controller: transaction,
+                                  maxLength: 10,
                                   decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: Colors.grey.shade200,
-                                      border: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      enabledBorder: InputBorder.none,
-                                      hintText: "xxxxxxxxxxx",
-                                      hintStyle: Style.alltext_default_balck,),
+                                    filled: true,
+                                    fillColor: Colors.grey.shade200,
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    hintText: "xxxxxxxxxxx",
+                                    hintStyle: Style.alltext_default_balck,
+                                  ),
                                 ),
                               ),
                             ],
@@ -481,13 +498,14 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                                 child: TextField(
                                   controller: transactionrefer,
                                   decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: Colors.grey.shade200,
-                                      border: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                      enabledBorder: InputBorder.none,
-                                      hintText: "xxxxxxxxxxx",
-                                      hintStyle: Style.alltext_default_balck,),
+                                    filled: true,
+                                    fillColor: Colors.grey.shade200,
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    hintText: "xxxxxxxxxxx",
+                                    hintStyle: Style.alltext_default_balck,
+                                  ),
                                 ),
                               ),
                             ],
@@ -613,13 +631,20 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                           Messages.snackBar(context, "Select Digital Payment");
                         } else if (transactionphone.text.isEmpty) {
                           Messages.snackBar(context, "Enter Payment Number");
-                        } else if (transactionphone.text.length !=11) {
-                          Messages.snackBar(context, "Enter Payment Number must be 11 digit");
+                        } else if (transactionphone.text.length != 11) {
+                          Messages.snackBar(
+                              context, "Enter Payment Number must be 11 digit");
+                        } else if (transaction.text.isEmpty) {
+                          Messages.snackBar(context, "Enter Transaction Id");
+                        }
+                        else if (transaction.text.length != 10) {
+                          Messages.snackBar(
+                              context, "Enter Transaction Number must be 10 digit");
                         }
 
-                        else if (transaction.text.isEmpty) {
-                          Messages.snackBar(context, "Enter Transaction Id");
-                        } else if (transactionrefer.text.isEmpty) {
+
+
+                        else if (transactionrefer.text.isEmpty) {
                           Messages.snackBar(context, "Enter reference name");
                         } else {
                           Map body = {
@@ -627,14 +652,15 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                             "patient_id": widget.patientId,
                             "date": widget.appointmentDate,
                             "appointment_type": widget.appointmentType,
-                            "disease":jsonEncode(items),
+                            "disease": jsonEncode(items),
                             "payment_type": getPaymentMethod(),
                             "amount": widget.amount,
                             "transaction_no": transaction.text,
                             "referred_name": transactionrefer.text,
                             "transaction_phone_number": transactionphone.text,
                             "shift": widget.shiftType,
-                            "registration_phone_no": user!.patientMobilePhone.toString(),
+                            "registration_phone_no":
+                                user!.patientMobilePhone.toString(),
                           };
                           print(body);
 

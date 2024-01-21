@@ -258,150 +258,165 @@ class _AnatomyViewState extends State<AnatomyView> {
               ),
             ],
           ),
-          body: anatomy.isAnatomyLoading
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+          body:Container(
+            height: double.infinity,
+            width: double.infinity,
+            child: Zoom(
+                initTotalZoomOut: true,
+                backgroundColor: Colors.transparent,
+                canvasColor: Colors.transparent,
+                child: Column(
                   children: [
-                    const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    Text(
-                      anatomy.anatomyStatus,
+                    Style.distan_size20,
+                    Style.distan_size20,
+                    Style.distan_size20,
+                    Style.distan_size20,
+                    anatomy.isAnatomyLoading
+                        ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        Text(
+                          anatomy.anatomyStatus,
+                        ),
+                      ],
+                    )
+                        :
+                    Center(
+                      child: AnimatedSwitcher(
+                        duration: const Duration(seconds: 2),
+                        child: HumanBodySelector(
+                          key: ValueKey(_selectedValue),
+                          map: returnHumanBodyFacing(_selectedValue),
+                          dotColor: Colors.transparent,
+                          strokeColor: Colors.greenAccent,
+                          selectedColor: Colors.greenAccent.shade100,
+                          onChanged: (bodyPart, active) {
+                            // Messages.flushBarMessage(context,
+                            //     "${active?.title} ${active?.id} ${active?.painLevel} ${active?.transformedPath} ${active?.props} ${active?.stringify}",
+                            //   flushBarPosition: FlushbarPosition.BOTTOM
+                            // );
+                            debugPrint(
+                                "${bodyPart.reversed.first.title} title ${bodyPart.reversed.first.title} id ${bodyPart.first.id} pain Level: ${bodyPart.first.painLevel} obj: ${bodyPart.first.props} active part ${active?.title}");
+
+                            getDiseaseModalSheet(
+                              context,
+                              name: bodyPart.first.title,
+                              gender: _selectedValue!.split(" ").first.toString(),
+                            );
+                            // print(_selectedValue.split(" ").first.toString());
+                            // debugPrint(provider.flushBarState.toString());
+
+                            // if (provider.flushBarState == 0) {
+                            //   context.router.pop().then((value) => Future.delayed(
+                            //           const Duration(milliseconds: 1500))
+                            //       .then((value) => Messages.flushBarWithOption(
+                            //             context,
+                            //             child: SizedBox(
+                            //               height: 300.h,
+                            //               width: double.infinity,
+                            //               child: StatefulBuilder(
+                            //                 builder: (context, setState) => GridView.builder(
+                            //                   itemCount: diseasesList.length,
+                            //                   itemBuilder: (context, index) {
+                            //                     return Card(
+                            //                       // child: RadioListTile(
+                            //                       //     title: Text("Diseases ${index + 1}"),
+                            //                       //     value: index, groupValue: value, onChanged: (ind) => setState(() => value = ind!)),
+                            //                       child: CheckboxListTile(
+                            //                         controlAffinity:
+                            //                             ListTileControlAffinity.leading,
+                            //                         title: Text(
+                            //                           diseasesList[index].title,
+                            //                           style: const TextStyle(),
+                            //                         ),
+                            //                         value: diseasesList[index].selected,
+                            //                         onChanged: (bool? value) {
+                            //                           if (value != null) {
+                            //                             diseasesList[index].selected = value;
+                            //                             setState(
+                            //                               () {},
+                            //                             );
+                            //                           }
+                            //                         },
+                            //                       ),
+                            //                     );
+                            //                   },
+                            //                   gridDelegate: FlutterzillaFixedGridView(
+                            //                       crossAxisCount: 2,
+                            //                       height: 50.h,
+                            //                       mainAxisSpacing: 10.w,
+                            //                       crossAxisSpacing: 10.h),
+                            //                 ),
+                            //               ),
+                            //             ),
+                            //           ),),);
+                            // } else {
+                            //   Future.delayed(const Duration(milliseconds: 500)).then(
+                            //     (value) => Messages.flushBarWithOption(
+                            //       context,
+                            //       child: SizedBox(
+                            //         height: 300.h,
+                            //         width: double.infinity,
+                            //         child: StatefulBuilder(
+                            //           builder: (context, setState) => GridView.builder(
+                            //             itemCount: diseasesList.length,
+                            //             itemBuilder: (context, index) {
+                            //               return Card(
+                            //                 // child: RadioListTile(
+                            //                 //     title: Text("Diseases ${index + 1}"),
+                            //                 //     value: index, groupValue: value, onChanged: (ind) => setState(() => value = ind!)),
+                            //                 child: CheckboxListTile(
+                            //                   controlAffinity:
+                            //                       ListTileControlAffinity.leading,
+                            //                   title: Text(
+                            //                     diseasesList[index].title,
+                            //                     style: const TextStyle(),
+                            //                   ),
+                            //                   value: diseasesList[index].selected,
+                            //                   onChanged: (bool? value) {
+                            //                     if (value != null) {
+                            //                       diseasesList[index].selected = value;
+                            //                       setState(
+                            //                         () {},
+                            //                       );
+                            //                     }
+                            //                   },
+                            //                 ),
+                            //               );
+                            //             },
+                            //             gridDelegate: FlutterzillaFixedGridView(
+                            //                 crossAxisCount: 2,
+                            //                 height: 50.h,
+                            //                 mainAxisSpacing: 10.w,
+                            //                 crossAxisSpacing: 10.h),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   );
+                            // }
+                          },
+                          onLevelChanged: (bodyPart) {
+                            for (var i in bodyPart) {
+                              debugPrint(
+                                  "${i.title} ${i.path} ${i.id} ${i.painLevel} ${i.stringify}");
+                            }
+                          },
+                          // multiSelect: true,
+                          toggle: true,
+                          height: MediaQuery.of(context).size.height,
+                          width: MediaQuery.of(context).size.width - 150,
+                        ),
+                      ),
                     ),
                   ],
-                )
-              : Zoom(
-                  initTotalZoomOut: true,
-                  backgroundColor: Colors.transparent,
-                  canvasColor: Colors.transparent,
-                  child: AnimatedSwitcher(
-                    duration: const Duration(seconds: 2),
-                    child: HumanBodySelector(
-                      key: ValueKey(_selectedValue),
-                      map: returnHumanBodyFacing(_selectedValue),
-                      dotColor: Colors.transparent,
-                      strokeColor: Colors.greenAccent,
-                      selectedColor: Colors.greenAccent.shade100,
-                      onChanged: (bodyPart, active) {
-                        // Messages.flushBarMessage(context,
-                        //     "${active?.title} ${active?.id} ${active?.painLevel} ${active?.transformedPath} ${active?.props} ${active?.stringify}",
-                        //   flushBarPosition: FlushbarPosition.BOTTOM
-                        // );
-                        debugPrint(
-                            "${bodyPart.reversed.first.title} title ${bodyPart.reversed.first.title} id ${bodyPart.first.id} pain Level: ${bodyPart.first.painLevel} obj: ${bodyPart.first.props} active part ${active?.title}");
-
-                        getDiseaseModalSheet(
-                          context,
-                          name: bodyPart.first.title,
-                          gender: _selectedValue!.split(" ").first.toString(),
-                        );
-                        // print(_selectedValue.split(" ").first.toString());
-                        // debugPrint(provider.flushBarState.toString());
-
-                        // if (provider.flushBarState == 0) {
-                        //   context.router.pop().then((value) => Future.delayed(
-                        //           const Duration(milliseconds: 1500))
-                        //       .then((value) => Messages.flushBarWithOption(
-                        //             context,
-                        //             child: SizedBox(
-                        //               height: 300.h,
-                        //               width: double.infinity,
-                        //               child: StatefulBuilder(
-                        //                 builder: (context, setState) => GridView.builder(
-                        //                   itemCount: diseasesList.length,
-                        //                   itemBuilder: (context, index) {
-                        //                     return Card(
-                        //                       // child: RadioListTile(
-                        //                       //     title: Text("Diseases ${index + 1}"),
-                        //                       //     value: index, groupValue: value, onChanged: (ind) => setState(() => value = ind!)),
-                        //                       child: CheckboxListTile(
-                        //                         controlAffinity:
-                        //                             ListTileControlAffinity.leading,
-                        //                         title: Text(
-                        //                           diseasesList[index].title,
-                        //                           style: const TextStyle(),
-                        //                         ),
-                        //                         value: diseasesList[index].selected,
-                        //                         onChanged: (bool? value) {
-                        //                           if (value != null) {
-                        //                             diseasesList[index].selected = value;
-                        //                             setState(
-                        //                               () {},
-                        //                             );
-                        //                           }
-                        //                         },
-                        //                       ),
-                        //                     );
-                        //                   },
-                        //                   gridDelegate: FlutterzillaFixedGridView(
-                        //                       crossAxisCount: 2,
-                        //                       height: 50.h,
-                        //                       mainAxisSpacing: 10.w,
-                        //                       crossAxisSpacing: 10.h),
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ),),);
-                        // } else {
-                        //   Future.delayed(const Duration(milliseconds: 500)).then(
-                        //     (value) => Messages.flushBarWithOption(
-                        //       context,
-                        //       child: SizedBox(
-                        //         height: 300.h,
-                        //         width: double.infinity,
-                        //         child: StatefulBuilder(
-                        //           builder: (context, setState) => GridView.builder(
-                        //             itemCount: diseasesList.length,
-                        //             itemBuilder: (context, index) {
-                        //               return Card(
-                        //                 // child: RadioListTile(
-                        //                 //     title: Text("Diseases ${index + 1}"),
-                        //                 //     value: index, groupValue: value, onChanged: (ind) => setState(() => value = ind!)),
-                        //                 child: CheckboxListTile(
-                        //                   controlAffinity:
-                        //                       ListTileControlAffinity.leading,
-                        //                   title: Text(
-                        //                     diseasesList[index].title,
-                        //                     style: const TextStyle(),
-                        //                   ),
-                        //                   value: diseasesList[index].selected,
-                        //                   onChanged: (bool? value) {
-                        //                     if (value != null) {
-                        //                       diseasesList[index].selected = value;
-                        //                       setState(
-                        //                         () {},
-                        //                       );
-                        //                     }
-                        //                   },
-                        //                 ),
-                        //               );
-                        //             },
-                        //             gridDelegate: FlutterzillaFixedGridView(
-                        //                 crossAxisCount: 2,
-                        //                 height: 50.h,
-                        //                 mainAxisSpacing: 10.w,
-                        //                 crossAxisSpacing: 10.h),
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   );
-                        // }
-                      },
-                      onLevelChanged: (bodyPart) {
-                        for (var i in bodyPart) {
-                          debugPrint(
-                              "${i.title} ${i.path} ${i.id} ${i.painLevel} ${i.stringify}");
-                        }
-                      },
-                      // multiSelect: true,
-                      toggle: true,
-                      height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width - 150,
-                    ),
-                  ),
                 ),
+              ),
+          ),
         ),
       );
     });
