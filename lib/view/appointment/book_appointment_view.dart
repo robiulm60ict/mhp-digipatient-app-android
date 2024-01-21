@@ -77,20 +77,13 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(8.0),
           child: BottomAppBar(
-
-            elevation: 3,
+            elevation: 5,
             height: 50,
             color: AppColors.primary_color,
-
             child: MaterialButton(
-
               onPressed: () async {
-                // String date = appointmentViewModel.appointmentDate.toString();
-                // appointmentViewModel.setBody(docIcd: "${widget.doctors.id}", patientId: "$patientId", date: date, appointmentType: isChamber ? "Chamber" : "Online", disease: "[asd, asdf]", paymentType: "Bkash", amount: "1200", trNxNo: "tr1205");
-                // appointmentViewModel.bookAppointment(context, body: appointmentViewModel.body);
-                print(appointmentViewModel.isChamber ? widget.amount : "0");
                 List<SymptomsAnatomy> diseaseList =
-                anatomy.getSelectedSymptomsList();
+                    anatomy.getSelectedSymptomsList();
 
                 if (anatomy.favourite.isEmpty) {
                   Messages.snackBar(context, "Please Select Symptoms!");
@@ -100,36 +93,35 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                   );
                   print(appointmentViewModel.date.toString());
 
-                  await appointmentViewModel.getPatientId().then((value) =>
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PaymentMethodView(
-                                  appointmentDate:
-                                  appointmentViewModel.date.toString(),
-                                  appointmentType: appointmentViewModel.isChamber
-                                      ? "Chamber"
-                                      : "Telehealth",
-                                  doctorId: "${widget.doctors.doctorsMasterId}",
-                                  patientId: "$value",
-                                  amount: widget.amount,
-                                  doctor: widget.doctors,
-                                  diseaseList: anatomy.favourite,
-                                  shiftType: appointmentViewModel.morningButton
-                                      ? "Morning"
-                                      : "Evening"))));
-
-                  setState(() {
-                    appointmentViewModel.date = DateTime.now();
-                    anatomy.favourite.clear();
-
-                    anatomy.symptomsList.clear();
-
-                    anatomy.getSymptomsList.clear();
-                  });
+                  // await appointmentViewModel.getPatientId().then((value) =>
+                  //     Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //             builder: (context) => PaymentMethodView(
+                  //                 appointmentDate:
+                  //                 appointmentViewModel.date.toString(),
+                  //                 appointmentType: appointmentViewModel.isChamber
+                  //                     ? "Chamber"
+                  //                     : "Telehealth",
+                  //                 doctorId: "${widget.doctors.doctorsMasterId}",
+                  //                 patientId: "$value",
+                  //                 amount: widget.amount,
+                  //                 doctor: widget.doctors,
+                  //                 diseaseList: anatomy.favourite,
+                  //                 shiftType: appointmentViewModel.morningButton
+                  //                     ? "Morning"
+                  //                     : "Evening"))));
+                  //
+                  // setState(() {
+                  //   appointmentViewModel.date = DateTime.now();
+                  //   anatomy.favourite.clear();
+                  //
+                  //   anatomy.symptomsList.clear();
+                  //
+                  //   anatomy.getSymptomsList.clear();
+                  // });
                 }
               },
-
               child: Text(
                 "Confirm Appointment",
                 style: Style.alltext_appbar,
@@ -141,39 +133,50 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
         body: ListView(
           padding: EdgeInsets.all(10.r),
           children: [
-            TextButton(
+            MaterialButton(
+                height: 50,
+                color: AppColors.primary_color,
                 onPressed: () async {
-                  //   await appointmentViewModel.setAppointmentDate(context);
+                  await appointmentViewModel.setAppointmentDate(context);
                 },
-                child: Text(
-                  "${appointmentViewModel.date.day} -${appointmentViewModel.date.month}  -${appointmentViewModel.date.year}",
-                  style: Style.alltext_default_balck,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    appointmentViewModel.appointmentDate==null?Text(""):
+                    Text(
+                      "${appointmentViewModel.appointmentDate!.day} -${appointmentViewModel.appointmentDate!.month}  -${appointmentViewModel.appointmentDate!.year}",
+                      style: Style.alltext_appbar,
+                    ),
+                    Style.widthdistan_size20,
+                    Text(
+                      "Selected Date",
+                      style: Style.alltext_appbar,
+                    )
+                  ],
                 )),
-            WeeklyDatePicker(
-              enableWeeknumberText: false,
-              //  weekdayText: "data",
-              selectedDay: appointmentViewModel.date,
 
-              //weeknumberColor: const Color(0xFF57AF87),
-              weeknumberTextColor: Colors.white,
-              //  backgroundColor: const Color(0xFF1A1A1A),
-              weekdayTextColor: const Color(0xFF8A8A8A),
-              //  digitsColor: Colors.white,
-              // selectedBackgroundColor: const Color(0xFF57AF87),
-              // weekdays: const ["Mo", "Tu", "We", "Th", "Fr","Sa","Su"],
-              // daysInWeek: 7,
-              // DateTime
-              changeDay: (value) => setState(() {
-                print(value);
-
-                // setState(() {
-                appointmentViewModel.date = value;
-                // });// = value;
-              }),
-            ),
-
-            // const SizedBox(
-            //   height: 10,
+            // WeeklyDatePicker(
+            //   enableWeeknumberText: false,
+            //   //  weekdayText: "data",
+            //   selectedDay: appointmentViewModel.date,
+            //
+            //   //weeknumberColor: const Color(0xFF57AF87),
+            //   weeknumberTextColor: Colors.white,
+            //   //  backgroundColor: const Color(0xFF1A1A1A),
+            //   weekdayTextColor: const Color(0xFF8A8A8A),
+            //   //  digitsColor: Colors.white,
+            //   // selectedBackgroundColor: const Color(0xFF57AF87),
+            //   // weekdays: const ["Mo", "Tu", "We", "Th", "Fr","Sa","Su"],
+            //   // daysInWeek: 7,
+            //   // DateTime
+            //   changeDay: (value) => setState(() {
+            //     print(value);
+            //
+            //     // setState(() {
+            //     appointmentViewModel.date = value;
+            //     // });// = value;
+            //   }),
             // ),
 
             SizedBox(
@@ -183,12 +186,13 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
               children: [
                 Expanded(
                   child: Card(
-                    color: appointmentViewModel.isChamber
-                        ? AppColors.primaryColor
-                        : Colors.white,
+                    color:
+                        appointmentViewModel.isChamber.toString() == "CHAMBER"
+                            ? AppColors.primaryColor
+                            : Colors.white,
                     child: ListTile(
                       onTap: () {
-                        appointmentViewModel.appoinmentchamber();
+                        appointmentViewModel.appoinmentchamber("CHAMBER");
                       },
                       leading: Image.asset(
                         Assets.imagesChamber,
@@ -202,7 +206,8 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w400,
                             fontSize: 12.sp,
-                            color: appointmentViewModel.isChamber
+                            color: appointmentViewModel.isChamber.toString() ==
+                                    "CHAMBER"
                                 ? Colors.white
                                 : AppColors.primaryColor),
                       ),
@@ -211,28 +216,28 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                 ),
                 Expanded(
                   child: Card(
-                    color: appointmentViewModel.isChamber
-                        ? Colors.white
-                        : AppColors.primaryColor,
+                    color: appointmentViewModel.isChamber.toString() == "ONLINE"
+                        ? AppColors.primaryColor
+                        : Colors.white,
                     child: ListTile(
                       onTap: () {
-                        appointmentViewModel.appoinmentonline();
+                        appointmentViewModel.appoinmentchamber("ONLINE");
                       },
-                      leading: Image.asset(
-                        Assets.imagesMobile,
-                        height: 20.h,
-                        width: 10.w,
-                        fit: BoxFit.fill,
-                      ),
+                      leading: Image.asset(Assets.imagesMobile,
+                          height: 20.h,
+                          width: 10.w,
+                          fit: BoxFit.fill,
+                          color: AppColors.primaryColor),
                       title: Text(
                         "ONLINE",
                         style: TextStyle(
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w400,
                             fontSize: 12.sp,
-                            color: appointmentViewModel.isChamber
-                                ? AppColors.primaryColor
-                                : AppColors.whiteColor),
+                            color: appointmentViewModel.isChamber.toString() ==
+                                    "ONLINE"
+                                ? AppColors.whiteColor
+                                : AppColors.primary_color),
                       ),
                     ),
                   ),
@@ -246,7 +251,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
               children: [
                 Expanded(
                   child: Card(
-                    color: appointmentViewModel.morningButton
+                    color: appointmentViewModel.morningeveingButton == "morning"
                         ? AppColors.primaryColor
                         : Colors.white,
                     child: ListTile(
@@ -257,10 +262,10 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                         print(evenimg);
 
                         setState(() {});
-                        appointmentViewModel.appoinmenttimemorning();
+                        appointmentViewModel.appoinmentmorningeveing("morning");
                       },
                       leading: Image.asset(
-                        appointmentViewModel.morningButton
+                        appointmentViewModel.morningeveingButton == "morning"
                             ? Assets.imagesDayInActive
                             : Assets.imagesDayActive,
                         height: 20.h,
@@ -273,7 +278,8 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w400,
                             fontSize: 12.sp,
-                            color: appointmentViewModel.morningButton
+                            color: appointmentViewModel.morningeveingButton ==
+                                    "morning"
                                 ? Colors.white
                                 : AppColors.primaryColor),
                       ),
@@ -282,9 +288,9 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                 ),
                 Expanded(
                   child: Card(
-                    color: appointmentViewModel.morningButton
-                        ? Colors.white
-                        : AppColors.primaryColor,
+                    color: appointmentViewModel.morningeveingButton == "evening"
+                        ? AppColors.primaryColor
+                        : Colors.white,
                     child: ListTile(
                       onTap: () {
                         evenimg = "evening";
@@ -292,15 +298,16 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                         print(morning);
                         print(evenimg);
                         setState(() {});
-                        appointmentViewModel.appoinmenttimeeveing();
+                        appointmentViewModel.appoinmentmorningeveing("evening");
                       },
                       leading: Image.asset(
-                        appointmentViewModel.morningButton
+                        appointmentViewModel.morningeveingButton == "evening"
                             ? Assets.imagesNightActive
                             : Assets.imagesNightInActive,
                         height: 20.h,
                         width: 20.w,
                         fit: BoxFit.fill,
+                        color: AppColors.primaryColor,
                       ),
                       title: Text(
                         "EVENING",
@@ -308,9 +315,10 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w400,
                             fontSize: 12.sp,
-                            color: appointmentViewModel.morningButton
-                                ? AppColors.primaryColor
-                                : AppColors.whiteColor),
+                            color: appointmentViewModel.morningeveingButton ==
+                                    "evening"
+                                ? AppColors.whiteColor
+                                : AppColors.primaryColor),
                       ),
                     ),
                   ),
@@ -342,7 +350,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                         : noDataFounForList("No History");
                   } else {
                     return SizedBox(
-                  //    height: 150.h,
+                      //    height: 150.h,
                       child: ListView.builder(
                         itemCount: data.doctorTimeSlotList.length,
                         // scrollDirection: Axis.vertical,
@@ -351,7 +359,8 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                         itemBuilder: (context, index) {
                           var docTime = data.doctorTimeSlotList[index];
 
-                          if (docTime.type.toString() == evenimg.toString()||docTime.type.toString() == morning.toString()) {
+                          if (docTime.type.toString() == evenimg.toString() ||
+                              docTime.type.toString() == morning.toString()) {
                             return Center(
                               child: Card(
                                   child: Padding(
@@ -376,10 +385,10 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                 ),
                               )),
                             );
-                          }else{
+                          } else {
                             return Container();
                           }
-                       },
+                        },
                       ),
                     );
                   }
@@ -537,21 +546,23 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                   "${widget.doctors.doctors!.usualProvider!.usualProviderName.toString()}")
                               : Container(),
                           Style.distan_size2,
+                          appointmentViewModel.isChamber.toString()==""?Container():
                           Row(
                             children: [
                               Text("Appointment Type "),
                               Text(": "),
-                              Text(appointmentViewModel.isChamber
+                              Text(appointmentViewModel.isChamber.toString()=="CHAMBER"
                                   ? "Chamber"
                                   : "Online"),
                             ],
                           ),
                           Style.distan_size2,
+                          appointmentViewModel.morningeveingButton.toString()==""?Container():
                           Row(
                             children: [
                               Text("Appointment Time "),
                               Text(": "),
-                              Text(appointmentViewModel.morningButton
+                              Text(appointmentViewModel.morningeveingButton.toString()=="morning"
                                   ? "morning"
                                   : "evening"),
                             ],

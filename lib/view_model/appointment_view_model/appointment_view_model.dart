@@ -29,61 +29,58 @@ class AppointmentViewModel with ChangeNotifier {
   List<WeekDayModel> weekDayList = [];
 
   var selected;
-  bool morningButton = true;
-  bool isChamber = true;
+  String morningeveingButton = "";
+  String isChamber = '';
 
-  appoinmenttimemorning() {
-    morningButton = true;
-    print(morningButton);
+  appoinmentmorningeveing(String val) {
+    morningeveingButton = val;
+    print(morningeveingButton);
 
     notifyListeners();
   }
 
-  appoinmenttimeeveing() {
-    morningButton = false;
-    print(morningButton);
-    notifyListeners();
-  }
-
-  appoinmentchamber() {
-    isChamber = true;
+  appoinmentchamber(String val) {
+    isChamber = val;
     print(isChamber);
 
     notifyListeners();
   }
 
-  appoinmentonline() {
-    isChamber = false;
-    print(isChamber);
-    notifyListeners();
-  }
+  //
+  // appoinmentonline() {
+  //   isChamber = false;
+  //   print(isChamber);
+  //   notifyListeners();
+  // }
+  DateTime? selectedDate = DateTime.now();
 
   setAppointmentDate(BuildContext context) async {
-    DateTime? selectedDate =
+    selectedDate =
         await PickDateTime().pickDate(context, initialDate: appointmentDate);
     notifyListeners();
     if (selectedDate != null) {
-      appointmentDate = selectedDate;
+      appointmentDate = selectedDate!;
+      print(selectedDate);
 
-      DateTime startWeekDay = getDate(
-          appointmentDate.subtract(Duration(days: appointmentDate.weekday)));
+      // DateTime startWeekDay = getDate(
+      //     appointmentDate.subtract(Duration(days: appointmentDate.weekday)));
 
       // startWeekDay = startWeekDay.subtract(const Duration(days: 2));
 
-      weekDayList.clear();
+      // weekDayList.clear();
+      //
+      // for (var i = 0; i < 7; i++) {
+      //   DateTime date = startWeekDay.add(Duration(days: i));
+      //   weekDayList.add(WeekDayModel(
+      //       weekName: DateFormat("EEEE").format(date).substring(0, 2),
+      //       isSelected: isSameDate(date1: date, date2: selectedDate),
+      //       dateTime: date,
+      //       day: date.day));
+      // }
 
-      for (var i = 0; i < 7; i++) {
-        DateTime date = startWeekDay.add(Duration(days: i));
-        weekDayList.add(WeekDayModel(
-            weekName: DateFormat("EEEE").format(date).substring(0, 2),
-            isSelected: isSameDate(date1: date, date2: selectedDate),
-            dateTime: date,
-            day: date.day));
-      }
-
-      monthName = DateFormat('MMMM').format(appointmentDate);
-
-      year = appointmentDate.year.toString();
+      // monthName = DateFormat('MMMM').format(appointmentDate);
+      //
+      // year = appointmentDate.year.toString();
 
       notifyListeners();
     }

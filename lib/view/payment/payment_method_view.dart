@@ -504,10 +504,10 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                     textAlign: TextAlign.start,
                     style: Style.alltext_default_balck_blod,
                   ),
-                  SizedBox(
-                    height: 8.h,
-                  ),
-                   Text("Support Number : 0100000000",style: Style.alltext_ExtraSmall_red,),
+                  // SizedBox(
+                  //   height: 8.h,
+                  // ),
+                  //  Text("Support Number : 0100000000",style: Style.alltext_ExtraSmall_red,),
 
                   SizedBox(
                     height: 8.h,
