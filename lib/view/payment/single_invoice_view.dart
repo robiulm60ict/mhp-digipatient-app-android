@@ -33,7 +33,7 @@ class SingleInvoiceView extends StatefulWidget {
       required this.trinscationNo,
       required this.paymentnumber,
       required this.shift,
-      required this.bookAppointmentModel})
+      required this.invoicec})
       : super(key: key);
   final String appointmentDate;
   final String doctorId;
@@ -45,7 +45,7 @@ class SingleInvoiceView extends StatefulWidget {
   final String trinscationNo;
   final String paymentnumber;
   final String shift;
-  final BookAppointmentModel bookAppointmentModel;
+  final String invoicec;
 
   @override
   State<SingleInvoiceView> createState() => _SingleInvoiceViewState();
@@ -124,7 +124,8 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                   "${widget.doctor.doctors?.usualProvider != null ? widget.doctor.doctors?.usualProvider?.usualProviderName.toString() : ""}",
               date: widget.appointmentDate,
               location: "${widget.doctor.doctors?.drWorkPhone}",
-              image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}', shift:widget.shift,
+              image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',
+              shift: widget.shift,
             ),
             SizedBox(
               height: 20.h,
@@ -150,20 +151,18 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                               style: Style.alltext_default_balck_blod,
                             )),
                         SizedBox(
-                          height: 8.h,
+                          height: 3.h,
                         ),
                         SingleInvoiceRow(
                           lTitle: "transaction Number",
-                          rTitle:
-                              "${invoice.appointmentList.isNotEmpty ? invoice.appointmentList.first.transactionNo : ""}",
+                          rTitle: "${widget.trinscationNo.toString()}",
                         ),
                         SizedBox(
-                          height: 8.h,
+                          height: 3.h,
                         ),
                         SingleInvoiceRow(
                           lTitle: "Invoice Number",
-                          rTitle:
-                              "${invoice.appointmentList.isNotEmpty ? invoice.appointmentList.first.inoviceNumber : ""}",
+                          rTitle: widget.invoicec,
                         ),
                         SizedBox(
                           height: 3.h,
@@ -260,7 +259,10 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                             lTitle: "Total Amount ", rTitle: widget.amount),
 
                         Style.distan_size5,
-                        Text("Note : Save Invoice Doctor Appointment Confirmation After confirmation you will be informed about the consultation time and all the details through SMS.",  style: Style.alltext_ExtraSmall_red,),
+                        Text(
+                          "Note : Save Invoice Doctor Appointment Confirmation After confirmation you will be informed about the consultation time and all the details through SMS.",
+                          style: Style.alltext_default_balck,
+                        ),
                         Style.distan_size5,
                         MaterialButton(
                           color: Colors.green,
@@ -275,8 +277,9 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                               doctor: widget.doctor,
                               paymentMethod: widget.paymentMethod,
                               trinscationNo: widget.trinscationNo,
-                              appointmentList: widget.bookAppointmentModel,
-                              paymentnumber: widget.paymentnumber, Shift:widget.shift,
+                              invoice: widget.invoicec,
+                              paymentnumber: widget.paymentnumber,
+                              Shift: widget.shift,
                             );
 
                             //  Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeView()));

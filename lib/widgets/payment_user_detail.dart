@@ -1,9 +1,11 @@
 import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../generated/assets.dart';
+import '../resources/colors.dart';
 import '../resources/styles.dart';
 
 class PaymentUserDetail extends StatelessWidget {
@@ -71,14 +73,22 @@ class PaymentUserDetail extends StatelessWidget {
                     Row(
                       children: [
                         hospitalName != ""
-                            ? IconButton(
-                                color: const Color(0xFF8A8A8A),
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.local_hospital,
-                                  size: 18.h,
-                                ),
-                              )
+                            ?
+
+
+
+                        CircleAvatar(
+                          backgroundColor: Colors.green,
+                          child: IconButton(
+                              onPressed: () {
+
+                              },
+                              icon: Icon(
+                                Icons.local_hospital,
+                                size: 20,
+                                color: AppColors.backgroundColor,
+                              )),
+                        )
                             : Container(),
                         SizedBox(
                           width: 6.w,
@@ -95,16 +105,22 @@ class PaymentUserDetail extends StatelessWidget {
                     ),
 
 
+                    Style.distan_size5,
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        IconButton(
-                          color: const Color(0xFF8A8A8A),
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.call,
-                            size: 18.h,
-                          ),
+                        CircleAvatar(
+                          backgroundColor: Colors.green,
+                          child: IconButton(
+                              onPressed: () {
+                                FlutterPhoneDirectCaller.callNumber(
+                                    location);
+                              },
+                              icon: Icon(
+                                Icons.call,
+                                size: 20,
+                                color: AppColors.backgroundColor,
+                              )),
                         ),
                         SizedBox(
                           width: 6.w,

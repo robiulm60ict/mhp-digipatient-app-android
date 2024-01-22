@@ -162,57 +162,65 @@ class AppointmentViewModel with ChangeNotifier {
   bookAppointment(BuildContext context,
       {required Datum doctor, required Map body}) async {
     final anatomy = Provider.of<AnatomyModelView>(context, listen: false);
-
+    print("aaaa");
     isBookAppointmentLoading = true;
     appointmentList.clear();
     notifyListeners();
     await bookAppointmentRepo.bookAppointment(body: body).then((value) async {
-      appointmentList.add(value);
-      //Messages.snackBar(context, "Appointment Successful", backgroundColor: Colors.green);
-      isBookAppointmentLoading = false;
-      // notifyListeners();
 
-      invoiceSuccessPopUp(
-        context,
-        appointmentDate: body["date"],
-        amount: body["amount"],
-        doctorId: body["doctor_id"],
-        appointmentType: body["appointment_type"],
-        doctor: doctor,
-        patientId: body["patient_id"],
-        paymentMethod: body["payment_type"],
-        trinscationNo: body["transaction_no"],
-        bookAppointmentModel: appointmentList.first,
-        paymentnumber: body["transaction_phone_number"],
-        Shift: body["shift"],
-      );
-      print("${doctor.token!.deviceToke.toString()}");
-      final Map dataa = {
-        'to': "${doctor.token!.deviceToke.toString()}",
-        'notification': {
-          'title': 'Your Appointment Request',
-          'body': "Please Check your Payment Inbox",
-          // "image":
-          //     "${visitorController.piketImagePath.value}",
-          //"image": "https://proshort.ai/static/img/ps_logo.png",
-          'sound': 'default',
-          'badge': '1',
-        },
-        'priority': 'high',
-        // 'data': {
-        //   'type': 'chat',
-        //   'id':
-        //   'Asif Taj ffffffffffffff'
-        // }
-      };
-      print(dataa);
-      notificationService.sendPushNotification(dataa);
-      anatomy.symptomsList.clear();
-      // anatomy.symptomsList.removeLast();
-      anatomy.getSymptomsList.clear();
-      //  anatomy.getSymptomsList.removeLast();
-      // print(diseaseList.length);
+      // appointmentList.add(value);
+      if(value['transaction_no'].toString()=="[The transaction no has already been taken.]"){
+        // Messages.snackBar(context, value['transaction_no'].toString(), backgroundColor: Colors.red);
+        Messages.snackBar(context, "The transaction no has already been taken.", backgroundColor: Colors.red);
+
+      }else{
+        print("ddddd$value");
+        isBookAppointmentLoading = false;
+        notifyListeners();
+
+        invoiceSuccessPopUp(
+          context,
+          appointmentDate: body["date"],
+          amount: body["amount"],
+          doctorId: body["doctor_id"],
+          appointmentType: body["appointment_type"],
+          doctor: doctor,
+          patientId: body["patient_id"],
+          paymentMethod: body["payment_type"],
+          trinscationNo: body["transaction_no"],
+          invoice: value['inovice_number'].toString(),
+          paymentnumber: body["transaction_phone_number"],
+          Shift: body["shift"],
+         );
+        print("${doctor.token!.deviceToke.toString()}");
+        final Map dataa = {
+          'to': "${doctor.token!.deviceToke.toString()}",
+          'notification': {
+            'title': 'Your Appointment Request',
+            'body': "Please Check your Payment Inbox",
+            // "image":
+            //     "${visitorController.piketImagePath.value}",
+            //"image": "https://proshort.ai/static/img/ps_logo.png",
+            'sound': 'default',
+            'badge': '1',
+          },
+          'priority': 'high',
+          // 'data': {
+          //   'type': 'chat',
+          //   'id':
+          //   'Asif Taj ffffffffffffff'
+          // }
+        };
+        print(dataa);
+        notificationService.sendPushNotification(dataa);
+        anatomy.favourite.clear();
+        // anatomy.symptomsList.removeLast();
+        anatomy.getSymptomsList.clear();
+         // anatomy.getSymptomsList.removeLast();
+      }
+
     }).onError((error, stackTrace) {
+      print(error);
       Messages.snackBar(context, error.toString());
       isBookAppointmentLoading = true;
       notifyListeners();

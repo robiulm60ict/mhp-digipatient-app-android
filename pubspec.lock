@@ -1494,7 +1494,7 @@ packages:
     source: hosted
     version: "2.13.1"
   zego_zpns:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: zego_zpns
       sha256: aa36973378588a3bac860ca88bcbb77ecc5dde491d0cb72f599fa1c27850deb0

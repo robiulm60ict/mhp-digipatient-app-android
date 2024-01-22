@@ -166,7 +166,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
 
                   Text(
                     "Note : While developing save the number and reference and transaction id from which the development is done and input for making appointment in next step",
-                    style: Style.alltext_ExtraSmall_red,
+                    style: Style.alltext_default_balck,
                   ),
 
                   // ListTile(
@@ -334,42 +334,51 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                                 ? AppColors.primaryColor
                                 : Colors.white,
                           )),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            Assets.imagesBkash,
-                            height: 15.h,
-                            width: 30.w,
-                            fit: BoxFit.fill,
-                          ),
-                          // SizedBox(
-                          //   width: 5.w,
-                          // ),
-                          // Image.asset(
-                          //   Assets.imagesRocket,
-                          //   height: 15.h,
-                          //   width: 30.w,
-                          //   fit: BoxFit.fill,
-                          // ),
-                          // SizedBox(
-                          //   width: 5.w,
-                          // ),
-                          // Image.asset(
-                          //   Assets.imagesNagad,
-                          //   height: 15.h,
-                          //   width: 30.w,
-                          //   fit: BoxFit.fill,
-                          // ),
-                        ],
+                      trailing: Image.asset(
+                        Assets.imagesBkash,
+                        height: 45.h,
+                        width: 50.w,
+                        fit: BoxFit.fill,
                       ),
+
+                      // Row(
+                      //   mainAxisSize: MainAxisSize.min,
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     Image.asset(
+                      //       Assets.imagesBkash,
+                      //       height: 45.h,
+                      //       width: 50.w,
+                      //       fit: BoxFit.fill,
+                      //     ),
+                      //     // SizedBox(
+                      //     //   width: 5.w,
+                      //     // ),
+                      //     // Image.asset(
+                      //     //   Assets.imagesRocket,
+                      //     //   height: 15.h,
+                      //     //   width: 30.w,
+                      //     //   fit: BoxFit.fill,
+                      //     // ),
+                      //     // SizedBox(
+                      //     //   width: 5.w,
+                      //     // ),
+                      //     // Image.asset(
+                      //     //   Assets.imagesNagad,
+                      //     //   height: 15.h,
+                      //     //   width: 30.w,
+                      //     //   fit: BoxFit.fill,
+                      //     // ),
+                      //   ],
+                      // ),
                       onExpansionChanged: (value) {
                         setState(() {
                           payment = Payment.digital;
                         });
                       },
                       title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             "Digital Payment",
@@ -378,11 +387,9 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                           SizedBox(
                             height: 4.h,
                           ),
-                          Center(
-                            child: Text(
-                              "Send Money To ${widget.doctor.doctors!.drHomePhone.toString()}",
-                              style: Style.alltext_ExtraSmall_red,
-                            ),
+                          Text(
+                            "Send Money To \n ${widget.doctor.doctors!.drHomePhone.toString()}",
+                            style: Style.alltext_default_balck_blod,
                           ),
                         ],
                       ),
@@ -408,12 +415,12 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                         //     );
                         //   }).toList(),
                         // ),
-                        Center(
-                          child: Text(
-                            "Send Money To ${widget.doctor.doctors!.drHomePhone.toString()}",
-                            style: Style.alltext_default_balck_blod,
-                          ),
-                        ),
+                        // Center(
+                        //   child: Text(
+                        //     "Send Money To ${widget.doctor.doctors!.drHomePhone.toString()}",
+                        //     style: Style.alltext_default_balck_blod,
+                        //   ),
+                        // ),
                         Padding(
                           padding: EdgeInsets.all(8.0.r),
                           child: Row(
@@ -487,7 +494,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                               SizedBox(
                                 width: 70.w,
                                 child: Text(
-                                  "Reference name",
+                                  "Reference Name *",
                                   style: Style.alltext_default_balck,
                                 ),
                               ),
@@ -636,15 +643,10 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                               context, "Enter Payment Number must be 11 digit");
                         } else if (transaction.text.isEmpty) {
                           Messages.snackBar(context, "Enter Transaction Id");
-                        }
-                        else if (transaction.text.length != 10) {
-                          Messages.snackBar(
-                              context, "Enter Transaction Number must be 10 digit");
-                        }
-
-
-
-                        else if (transactionrefer.text.isEmpty) {
+                        } else if (transaction.text.length != 10) {
+                          Messages.snackBar(context,
+                              "Enter Transaction Number must be 10 digit");
+                        } else if (transactionrefer.text.isEmpty) {
                           Messages.snackBar(context, "Enter reference name");
                         } else {
                           Map body = {

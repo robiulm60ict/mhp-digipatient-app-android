@@ -92,7 +92,7 @@ dependencies:
   open_file:
   textfield_datepicker: ^0.2.0
   date_format_field: ^0.0.4
-  zego_zpns: ^2.6.0+1
+#  zego_zpns: ^2.6.0+1
   flutter_image_compress: ^2.1.0
   path_provider: ^2.1.2
   flutter_phone_direct_caller: ^2.1.1

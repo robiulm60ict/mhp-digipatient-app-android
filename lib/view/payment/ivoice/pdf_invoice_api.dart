@@ -126,7 +126,7 @@ class PdfInvoiceApi {
       required paymentnumber,
       required trinscationNo,
       required Shift,
-      required BookAppointmentModel appointmentList,
+      required invoice,
       D}) async {
     final Document pdf = Document(deflate: zlib.encode);
     print('cliked');
@@ -146,7 +146,7 @@ class PdfInvoiceApi {
 
         // Center(child: Text("Invoice")),
         Center(
-            child: Text("${appointmentList.appointmentType.toString()} Invoice",
+            child: Text("${invoice} Invoice",
                 style: TextStyle(fontSize: 14))),
         SizedBox(height: 12),
         Column(children: [
@@ -154,25 +154,25 @@ class PdfInvoiceApi {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-            SizedBox(width: 100.w, child: Text("Dr Name")),
-            Text(": "),
-            SizedBox(
-                width: 150.w,
-                child: Text(
-                    "${doctor.doctors!.title!.titleName.toString()} ${doctor.doctors!.fullName.toString()}"))
-          ]),
+                SizedBox(width: 100.w, child: Text("Dr Name")),
+                Text(": "),
+                SizedBox(
+                    width: 150.w,
+                    child: Text(
+                        "${doctor.doctors!.title!.titleName.toString()} ${doctor.doctors!.fullName.toString()}"))
+              ]),
           SizedBox(height: 2),
           Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-            SizedBox(width: 100.w, child: Text("Designation")),
-            Text(": "),
-            SizedBox(
-                width: 150.w,
-                child: Text(
-                    doctor.doctors!.department!.departmentsName.toString())),
-          ]),
+                SizedBox(width: 100.w, child: Text("Designation")),
+                Text(": "),
+                SizedBox(
+                    width: 150.w,
+                    child: Text(doctor.doctors!.department!.departmentsName
+                        .toString())),
+              ]),
           SizedBox(height: 2),
           Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,73 +202,83 @@ class PdfInvoiceApi {
                   // mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 8.h,
+                      height: 4.h,
                     ),
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            "Invoice Number",
-                          ),
-                          Text(
-                            appointmentList.inoviceNumber.toString(),
-                          ),
+                          SizedBox(width: 100.w, child: Text("Invoice Number")),
+                          Text(": "),
+                          SizedBox(
+                              width: 150.w,
+                              child: Text(
+                               invoice.toString(),
+                              )),
                         ]),
                     SizedBox(
-                      height: 8.h,
+                      height: 4.h,
                     ),
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            "Date",
-                          ),
-                          Text(
-                            DateFormat(
-                                "dd-MM-yyyy")
-                                .format(DateTime.parse(appointmentDate
-                                .toString())),
-                          ),
+                          SizedBox(width: 100.w, child: Text("Date")),
+                          Text(": "),
+                          SizedBox(
+                              width: 150.w,
+                              child: Text(
+                                DateFormat("dd-MM-yyyy").format(
+                                    DateTime.parse(appointmentDate.toString())),
+                              )),
                         ]),
                     SizedBox(
-                      height: 8.h,
+                      height: 4.h,
                     ),
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            "Payment Number",
-                          ),
-                          Text(
-                            paymentnumber,
-                          ),
+                          SizedBox(
+                              width: 100.w,
+                              child: Text(
+                                "Payment Number",
+                              )),
+                          Text(": "),
+                          SizedBox(width: 150.w, child: Text(paymentnumber)),
                         ]),
                     SizedBox(
-                      height: 8.h,
+                      height: 4.h,
                     ),
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            "Payment Method",
-                          ),
-                          Text(
-                            paymentMethod,
-                          ),
+                          SizedBox(
+                              width: 100.w,
+                              child: Text(
+                                "Payment Method",
+                              )),
+                          Text(": "),
+                          SizedBox(width: 150.w, child: Text(paymentMethod)),
                         ]),
+
                     SizedBox(
-                      height: 8.h,
+                      height: 4.h,
                     ),
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            "Appointment Shift",
-                          ),
-                          Text(
-                            Shift,
-                          ),
+                          SizedBox(
+                              width: 100.w,
+                              child: Text(
+                                "Appointment Shift",
+                              )),
+                          Text(": "),
+                          SizedBox(width: 150.w, child: Text(Shift)),
                         ]),
+
                     SizedBox(
                       height: 8.h,
                     ),
@@ -316,7 +326,6 @@ class PdfInvoiceApi {
               ),
               Text(
                 "              $amount",
-
               ),
             ],
           ),
@@ -345,14 +354,12 @@ class PdfInvoiceApi {
       // footer: (context) => buildFooter(invoice),
     ));
     List<int> bytes = await pdf.save();
-    return saveAndLaunchFile(bytes, appointmentList.id.toString());
+    return saveAndLaunchFile(bytes, invoice.toString());
   }
 
   static double totalamount(double total, double special) {
     return total - special;
   }
-
-
 
   static buildSimpleText({
     required String title,

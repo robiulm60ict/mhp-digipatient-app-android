@@ -5,6 +5,7 @@ import 'package:digi_patient/resources/styles.dart';
 import 'package:digi_patient/view/appointment/book_appointment_view.dart';
 import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
@@ -226,10 +227,10 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           ],
                         ),
                         SizedBox(
-                          height: 8.h,
+                          height: 12.h,
                         ),
                         Text(
-                          "Payment For Bikes : ${doc!.doctors!.drHomePhone.toString()}",
+                          "Payment For Bkash : ${doc!.doctors!.drHomePhone.toString()}",
                           style: Style.alltext_default_balck_blod,
                         ),
                       ],
@@ -257,17 +258,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                               Assets.dummy_image),
                         ),
                       ),
-                      // Image.network(
-                      //   "${AppUrls.docImage}${doc?.doctors?.drImages}", backgroundImage: AssetImage(Assets.dummy_image),
-                      //   height:70.h,
-                      //   width: 70.w,
-                      //   fit: BoxFit.fill,
-                      //   errorBuilder: (context, error, stackTrace) =>
-                      //       const CircleAvatar(
-                      //     backgroundColor: Colors.red,
-                      //     radius: 40,
-                      //   ),
-                      // ),
+
                     ],
                   ),
                 )
@@ -351,75 +342,115 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                   ],
                 ),
                 SizedBox(
-                  height: 5.h,
+                  height: 10.h,
                 ),
-                Container(
-                  height: 40.h,
-                  child: Consumer<MyDoctorViewModel>(
-                      builder: (context, data, child) {
-                    if (data.sociallist.isEmpty) {
-                      return Center(
-                        child: Text(
-                          "No Social Media",
-                          style: Style.alltext_default_balck,
-                        ),
-                      );
-                    } else {
-                      return ListView.builder(
-                          itemCount: data.sociallist.length,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          physics: ScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            var info = data.sociallist[index];
-                            return Container(
-                              height: 40.h,
-                              width: 40.w,
-                              padding: const EdgeInsets.only(top: 4),
-                              child: Container(
-                                height: 80.h,
-                                width: 70,
-                                color: Colors.white,
-                                padding: const EdgeInsets.all(4.0),
-                                child: SizedBox(
-                                    width: 80.w,
-                                    child: InkWell(
-                                      onTap: () async {
-                                        await launch(info.url.toString());
+                Row(
+                  children: [
+                    Expanded(
+                      child: Card(
+                        elevation: 5,
+                        child:  Container(
+                          height: 55.h,
+                          child: Consumer<MyDoctorViewModel>(
+                              builder: (context, data, child) {
+                                if (data.sociallist.isEmpty) {
+                                  return Center(
+                                    child: Text(
+                                      "No Social Media",
+                                      style: Style.alltext_default_balck,
+                                    ),
+                                  );
+                                } else {
+                                  return ListView.builder(
+                                      itemCount: data.sociallist.length>4?4:data.sociallist.length,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      physics: ScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                        var info = data.sociallist[index];
+                                        return Container(
+                                          height: 40.h,
+                                          width: 40.w,
+                                          padding: const EdgeInsets.only(top: 4),
+                                          child: Container(
+                                            height: 40.h,
+                                            width: 40.w,
+                                            color: Colors.white,
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: SizedBox(
+                                                width: 80.w,
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    await launch(info.url.toString());
 
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (context) =>
-                                        //             SocialWebviewView(
-                                        //               url: info.url,
-                                        //             )));
-                                      },
-                                      child: CircleAvatar(
-                                        maxRadius: 10,
-                                        backgroundImage: AssetImage(info.name
-                                                    .toString() ==
-                                                "FaceBook"
-                                            ? Assets.facebook
-                                            : (info.name.toString() == "Youtube"
-                                                ? Assets.youtube
-                                                : (info.name.toString() ==
+                                                    // Navigator.push(
+                                                    //     context,
+                                                    //     MaterialPageRoute(
+                                                    //         builder: (context) =>
+                                                    //             SocialWebviewView(
+                                                    //               url: info.url,
+                                                    //             )));
+                                                  },
+                                                  child: CircleAvatar(
+                                                    maxRadius: 10,
+                                                    backgroundImage: AssetImage(info.name
+                                                        .toString() ==
+                                                        "FaceBook"
+                                                        ? Assets.facebook
+                                                        : (info.name.toString() == "Youtube"
+                                                        ? Assets.youtube
+                                                        : (info.name.toString() ==
                                                         "LinkedIn"
-                                                    ? Assets.linkedin
-                                                    : ((info.name.toString() ==
-                                                            "Twitter"
+                                                        ? Assets.linkedin
+                                                        : ((info.name.toString() ==
+                                                        "Twitter"
                                                         ? Assets.twitter
                                                         : Assets.homeMyRec))))),
-                                      ),
-                                    )),
+                                                  ),
+                                                )),
+                                          ),
+                                        );
+                                      });
+                                }
+                              }),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Card(
+                        elevation: 5,
+                        child: SizedBox(
+                          height: 55.h,
+                          child: ListTile(
+
+                            leading: CircleAvatar(
+                              backgroundColor:  Colors.green,
+                              child: IconButton(
+                                onPressed: (){
+                                  FlutterPhoneDirectCaller.callNumber("${doc!.doctors!.drWorkPhone.toString()}");
+                                },
+                               icon: Icon( Icons.call,size: 25,
+                                   color:AppColors.backgroundColor,)
+
                               ),
-                            );
-                          });
-                    }
-                  }),
+                            ),
+                            title: Text(
+                              "Support No",
+                              style: Style.alltext_default_balck,
+                            ),
+                            subtitle: Text(
+                              "${doc!.doctors!.drWorkPhone.toString()}",
+                              style: Style.alltext_default_balck,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
+
                 SizedBox(
-                  height: 5.h,
+                  height: 10.h,
                 ),
                 Text(
                   "About Doctor",
@@ -448,13 +479,10 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       )
                     : Text(""),
                 SizedBox(
-                  height: 10.h,
+                  height: 10.w,
                 ),
 
-                Text(
-                  "Appointment Number : ${doc!.doctors!.drWorkPhone.toString()}",
-                  style: Style.alltext_default_balck_blod,
-                ),
+
               ],
             ),
           ),

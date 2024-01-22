@@ -575,8 +575,8 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                                 .morningeveingButton
                                                 .toString() ==
                                             "morning"
-                                        ? "morning"
-                                        : "evening"),
+                                        ? "Morning"
+                                        : "Evening"),
                                   ],
                                 ),
                           Style.distan_size2,
