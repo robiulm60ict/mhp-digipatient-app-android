@@ -6,12 +6,13 @@ import 'package:digi_patient/resources/app_url.dart';
 class BookAppointmentRepo{
   BaseApiService apiService = NetworkApiService();
 
-  Future<BookAppointmentModel> bookAppointment({required Map<String, dynamic> body}) async{
+   bookAppointment({required  body}) async{
 
     try{
-      dynamic response = await apiService.getPostApiResponse(AppUrls.bookAppointment, body);
+      dynamic response = await apiService.getPostApiResponsehader(AppUrls.bookAppointment, body);
+      print("response$response");
 
-      return BookAppointmentModel.fromJson(response);
+      return response;
 
     }catch (e){
       rethrow;

@@ -1,11 +1,11 @@
-import 'package:auto_route/annotations.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:onboarding/onboarding.dart';
+
+import '../utils/route/routes_name.dart';
 
 
 TextStyle pageTitleTextStyle = TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700, color: AppColors.primaryColor);
@@ -23,6 +23,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   late Material materialButton;
   late int index;
   final onBoardingPagesList = [
+
     PageModel(
       widget: DecoratedBox(
         decoration: BoxDecoration(
@@ -36,37 +37,34 @@ class _OnBoardingViewState extends State<OnBoardingView> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(child: Padding(
+            Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 45.0,
                 vertical: 90.0,
               ),
               child: Image.asset(Assets.imagesOb1,
-                fit: BoxFit.fill,
-              ),
-            ),),
+                  ),
+            ),
              Padding(
               padding: EdgeInsets.symmetric(horizontal: 45.0.w),
               child: Text(
-                'Find Your Doctor',
+                'Healthcare at a Click',
                 style: pageTitleTextStyle,
                 textAlign: TextAlign.center,
               ),
             ),
-             Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 45.0.w, vertical: 10.0.h),
               child: Text(
-                'If health is the greatest wealth then doctors are like bankers who keep your wealth in check for you. ',
+                'Smart Scheduling Solutions',
                 style: pageBodyTextStyle,
                 textAlign: TextAlign.center,
               ),
             ),
-
           ],
         ),
       ),
-    ),
-    PageModel(
+    ), PageModel(
       widget: DecoratedBox(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -90,7 +88,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
              Padding(
               padding: EdgeInsets.symmetric(horizontal: 45.0.w),
               child: Text(
-                'Find Trusted Doctor',
+                'Unified Health Management',
                 style: pageTitleTextStyle,
                 textAlign: TextAlign.center,
               ),
@@ -98,7 +96,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 45.0.w, vertical: 10.0.h),
               child: Text(
-                'If health is the greatest wealth then doctors are like bankers who keep your wealth in check for you. ',
+                'Vital Signs to Vital Decisions ',
                 style: pageBodyTextStyle,
                 textAlign: TextAlign.center,
               ),
@@ -131,7 +129,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 45.0.w),
               child: Text(
-                'Smart Booking System',
+                'Health in Harmony',
                 style: pageTitleTextStyle,
                 textAlign: TextAlign.center,
               ),
@@ -139,7 +137,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 45.0.w, vertical: 10.0.h),
               child: Text(
-                'If health is the greatest wealth then doctors are like bankers who keep your wealth in check for you. ',
+                'Monitor, Record, Learn, Schedule',
                 style: pageBodyTextStyle,
                 textAlign: TextAlign.center,
               ),
@@ -187,7 +185,8 @@ class _OnBoardingViewState extends State<OnBoardingView> {
       child: InkWell(
         borderRadius: defaultProceedButtonBorderRadius,
         onTap: () {
-          AutoRouter.of(context).replace(const SignInRoute());
+          Navigator.pushNamed(context, RoutesName.login);
+        //  AutoRouter.of(context).replace(const SignInRoute());
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 10.h),

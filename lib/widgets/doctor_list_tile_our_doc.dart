@@ -6,14 +6,13 @@ import '../generated/assets.dart';
 import '../resources/colors.dart';
 
 class DoctorListTileOurDoc extends StatelessWidget {
-  const DoctorListTileOurDoc({Key? key, this.onTap, required this.docUrl, required this.docName, required this.docDegree, required this.docDepartment, required this.docHospitalImage, required this.docRating, required this.docHospitalName}) : super(key: key);
+  const DoctorListTileOurDoc({Key? key, this.onTap, required this.docUrl, required this.docName, required this.docDegree, required this.docDepartment, required this.docHospitalImage, required this.docHospitalName}) : super(key: key);
   final VoidCallback? onTap;
   final String docUrl;
   final String docName;
   final String docDegree;
   final String docDepartment;
   final String docHospitalImage;
-  final double docRating;
   final String docHospitalName;
 
   @override
@@ -51,15 +50,15 @@ class DoctorListTileOurDoc extends StatelessWidget {
                     SizedBox(height: 5.h,),
                     Text(docDepartment, style: TextStyle(fontSize: 12.sp, color: const Color(0xFF8A8A8A)),)
                     ,SizedBox(height: 5.h,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Degree:", textAlign: TextAlign.left, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: const Color(0xFF8A8A8A)),),
-                        Text("MBBS, DA, FCPS", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),)
-                      ],
-                    ),
-                    SizedBox(height: 5.h,),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.start,
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     Text("Degree:", textAlign: TextAlign.left, style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: const Color(0xFF8A8A8A)),),
+                    //     Text("MBBS, DA, FCPS", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500, color: const Color(0xFF8A8A8A)),)
+                    //   ],
+                    // ),
+                    // SizedBox(height: 5.h,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +68,7 @@ class DoctorListTileOurDoc extends StatelessWidget {
                         //     fit: BoxFit.fill,
                         //     Assets.imagesHospitalLogo),
                         Expanded(child: Text(docHospitalName, style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w500, color: Colors.black),)),
-                        CustomRating.ratingBar(onRatingUpdate: (r){}),
+
                       ],
                     ),
                   ],

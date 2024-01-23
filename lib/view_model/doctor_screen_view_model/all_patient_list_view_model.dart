@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/repository/doctor_screen_repo/patient_list_repo.dart';
 import 'package:digi_patient/utils/message.dart';
 import 'package:digi_patient/utils/user.dart';
@@ -26,7 +25,7 @@ class DoctorScreenViewModel extends ChangeNotifier{
       allPatientList.clear();
       allPatientList.add(value);
       setAllPatientLoading(false);
-      context.router.replace(const DoctorHomeRoute());
+      // context.router.replace(const DoctorHomeRoute());
 
     }).onError((error, stackTrace) {
       setAllPatientLoading(true);

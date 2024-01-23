@@ -1,4 +1,4 @@
-package com.example.digi_patient
+package com.micro.digi_patient
 
 import io.flutter.embedding.android.FlutterActivity
 

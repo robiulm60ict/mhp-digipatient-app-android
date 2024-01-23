@@ -15,21 +15,22 @@ class GradientAppBar extends StatelessWidget {
       width: double.infinity,
       height: 170.h,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          end: Alignment.topCenter,
-          begin: Alignment.bottomCenter,
-          colors: [
-            AppColors.linearGradient1,
-            AppColors.linearGradient2,
-          ],),
+        color: AppColors.page_background_color,
+        // gradient: LinearGradient(
+        //   end: Alignment.topCenter,
+        //   begin: Alignment.bottomCenter,
+        //   colors: [
+        //     AppColors.linearGradient1,
+        //     AppColors.linearGradient2,
+        //   ],),
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(22.r), bottomRight: Radius.circular(22.r)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(height: 74.h, width: 136.w, Assets.imagesLogo),
-          SizedBox(height: defaultPadding.h,),
+          Image.asset(height: 74.h, width: 136.w, Assets.imagesLogoGreen),
+          SizedBox(height: 15,),
           Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 26.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor ),),
 
         ],

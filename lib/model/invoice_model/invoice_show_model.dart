@@ -1,11 +1,42 @@
+// To parse this JSON data, do
+//
+//     final invoiceShowModel = invoiceShowModelFromJson(jsonString);
+
 import 'dart:convert';
-InvoiceShowModel invoiceShowModelFromJson(String str) => InvoiceShowModel.fromJson(json.decode(str));
-String invoiceShowModelToJson(InvoiceShowModel data) => json.encode(data.toJson());
+
+List<InvoiceShowModel> invoiceShowModelFromJson(String str) => List<InvoiceShowModel>.from(json.decode(str).map((x) => InvoiceShowModel.fromJson(x)));
+
+String invoiceShowModelToJson(List<InvoiceShowModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 class InvoiceShowModel {
+  int? id;
+  int? patientId;
+  int? doctorId;
+  String? inoviceNumber;
+  DateTime? date;
+  dynamic time;
+  String? appointmentType;
+  dynamic callingType;
+  dynamic chamberId;
+  String? disease;
+  String? paymentType;
+  String? amount;
+  String? transactionNo;
+  String? transactionPhoneNumber;
+  String? shift;
+  String? referredName;
+  int? paymentConfirmation;
+  int? isConfirmed;
+  dynamic rescheduleId;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  Doctors? doctors;
+
   InvoiceShowModel({
     this.id,
     this.patientId,
     this.doctorId,
+    this.inoviceNumber,
     this.date,
     this.time,
     this.appointmentType,
@@ -15,61 +46,240 @@ class InvoiceShowModel {
     this.paymentType,
     this.amount,
     this.transactionNo,
+    this.transactionPhoneNumber,
+    this.shift,
+    this.referredName,
+    this.paymentConfirmation,
     this.isConfirmed,
+    this.rescheduleId,
     this.createdAt,
-    this.updatedAt,});
+    this.updatedAt,
+    this.doctors,
+  });
 
-  InvoiceShowModel.fromJson(dynamic json) {
-    id = json['id'];
-    patientId = json['patient_id'];
-    doctorId = json['doctor_id'];
-    date = json['date'];
-    time = json['time'];
-    appointmentType = json['appointment_type'];
-    callingType = json['calling_type'];
-    chamberId = json['chamber_id'];
-    disease = json['disease'];
-    paymentType = json['payment_type'];
-    amount = json['amount'];
-    transactionNo = json['transaction_no'];
-    isConfirmed = json['is_confirmed'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-  }
-  num? id;
-  String? patientId;
-  String? doctorId;
-  String? date;
-  String? time;
-  String? appointmentType;
-  String? callingType;
-  String? chamberId;
-  String? disease;
-  String? paymentType;
-  String? amount;
-  String? transactionNo;
-  String? isConfirmed;
-  String? createdAt;
-  String? updatedAt;
+  factory InvoiceShowModel.fromJson(Map<String, dynamic> json) => InvoiceShowModel(
+    id: json["id"],
+    patientId: json["patient_id"],
+    doctorId: json["doctor_id"],
+    inoviceNumber: json["inovice_number"],
+    date: json["date"] == null ? null : DateTime.parse(json["date"]),
+    time: json["time"],
+    appointmentType: json["appointment_type"],
+    callingType: json["calling_type"],
+    chamberId: json["chamber_id"],
+    disease: json["disease"],
+    paymentType: json["payment_type"],
+    amount: json["amount"],
+    transactionNo: json["transaction_no"],
+    transactionPhoneNumber: json["transaction_phone_number"],
+    shift: json["shift"],
+    referredName: json["referred_name"],
+    paymentConfirmation: json["payment_confirmation"],
+    isConfirmed: json["is_confirmed"],
+    rescheduleId: json["reschedule_id"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    doctors: json["doctors"] == null ? null : Doctors.fromJson(json["doctors"]),
+  );
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['patient_id'] = patientId;
-    map['doctor_id'] = doctorId;
-    map['date'] = date;
-    map['time'] = time;
-    map['appointment_type'] = appointmentType;
-    map['calling_type'] = callingType;
-    map['chamber_id'] = chamberId;
-    map['disease'] = disease;
-    map['payment_type'] = paymentType;
-    map['amount'] = amount;
-    map['transaction_no'] = transactionNo;
-    map['is_confirmed'] = isConfirmed;
-    map['created_at'] = createdAt;
-    map['updated_at'] = updatedAt;
-    return map;
-  }
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "patient_id": patientId,
+    "doctor_id": doctorId,
+    "inovice_number": inoviceNumber,
+    "date": date?.toIso8601String(),
+    "time": time,
+    "appointment_type": appointmentType,
+    "calling_type": callingType,
+    "chamber_id": chamberId,
+    "disease": disease,
+    "payment_type": paymentType,
+    "amount": amount,
+    "transaction_no": transactionNo,
+    "transaction_phone_number": transactionPhoneNumber,
+    "shift": shift,
+    "referred_name": referredName,
+    "payment_confirmation": paymentConfirmation,
+    "is_confirmed": isConfirmed,
+    "reschedule_id": rescheduleId,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "doctors": doctors?.toJson(),
+  };
+}
 
+class Doctors {
+  int? id;
+  String? drIdentityNo;
+  Title? title;
+  String? departmentId;
+  String? specialistsId;
+  dynamic departmentName;
+  String? drFamilyName;
+  String? drGivenName;
+  String? drMiddleName;
+  String? drLastName;
+  String? drPreferredName;
+  String? drAbout;
+  String? workExperienceYears;
+  String? drAddressLine1;
+  String? drAddressLine2;
+  String? drBmdcRegNo;
+  String? drEmail;
+  dynamic drIsReferred;
+  DateTime? drDob;
+  String? drBirthSexId;
+  String? drCityId;
+  String? drPostalCode;
+  String? drHomePhone;
+  String? drWorkPhone;
+  String? drMobilePhone;
+  String? drContactViaId;
+  String? drProviderId;
+  String? drImages;
+  String? doctorFee;
+  dynamic appToken;
+  String? deleteStatus;
+  dynamic createdBy;
+  dynamic updatedBy;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? fullName;
+
+  Doctors({
+    this.id,
+    this.drIdentityNo,
+    this.title,
+    this.departmentId,
+    this.specialistsId,
+    this.departmentName,
+    this.drFamilyName,
+    this.drGivenName,
+    this.drMiddleName,
+    this.drLastName,
+    this.drPreferredName,
+    this.drAbout,
+    this.workExperienceYears,
+    this.drAddressLine1,
+    this.drAddressLine2,
+    this.drBmdcRegNo,
+    this.drEmail,
+    this.drIsReferred,
+    this.drDob,
+    this.drBirthSexId,
+    this.drCityId,
+    this.drPostalCode,
+    this.drHomePhone,
+    this.drWorkPhone,
+    this.drMobilePhone,
+    this.drContactViaId,
+    this.drProviderId,
+    this.drImages,
+    this.doctorFee,
+    this.appToken,
+    this.deleteStatus,
+    this.createdBy,
+    this.updatedBy,
+    this.createdAt,
+    this.updatedAt,
+    this.fullName,
+  });
+
+  factory Doctors.fromJson(Map<String, dynamic> json) => Doctors(
+    id: json["id"],
+    drIdentityNo: json["dr_identity_no"],
+    title: json["title"] == null ? null : Title.fromJson(json["title"]),
+    departmentId: json["department_id"],
+    specialistsId: json["specialists_id"],
+    departmentName: json["department_name"],
+    drFamilyName: json["dr_family_name"],
+    drGivenName: json["dr_given_name"],
+    drMiddleName: json["dr_middle_name"],
+    drLastName: json["dr_last_name"],
+    drPreferredName: json["dr_preferred_name"],
+    drAbout: json["dr_about"],
+    workExperienceYears: json["work_experience_years"],
+    drAddressLine1: json["dr_address_line_1"],
+    drAddressLine2: json["dr_address_line_2"],
+    drBmdcRegNo: json["dr_bmdc_reg_no"],
+    drEmail: json["dr_email"],
+    drIsReferred: json["dr_is_referred"],
+    drDob: json["dr_dob"] == null ? null : DateTime.parse(json["dr_dob"]),
+    drBirthSexId: json["dr_birth_sex_id"],
+    drCityId: json["dr_city_id"],
+    drPostalCode: json["dr_postal_code"],
+    drHomePhone: json["dr_home_phone"],
+    drWorkPhone: json["dr_work_phone"],
+    drMobilePhone: json["dr_mobile_phone"],
+    drContactViaId: json["dr_contact_via_id"],
+    drProviderId: json["dr_provider_id"],
+    drImages: json["dr_images"],
+    doctorFee: json["doctor_fee"],
+    appToken: json["app_token"],
+    deleteStatus: json["delete_status"],
+    createdBy: json["created_by"],
+    updatedBy: json["updated_by"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    fullName: json["fullName"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "dr_identity_no": drIdentityNo,
+    "title": title?.toJson(),
+    "department_id": departmentId,
+    "specialists_id": specialistsId,
+    "department_name": departmentName,
+    "dr_family_name": drFamilyName,
+    "dr_given_name": drGivenName,
+    "dr_middle_name": drMiddleName,
+    "dr_last_name": drLastName,
+    "dr_preferred_name": drPreferredName,
+    "dr_about": drAbout,
+    "work_experience_years": workExperienceYears,
+    "dr_address_line_1": drAddressLine1,
+    "dr_address_line_2": drAddressLine2,
+    "dr_bmdc_reg_no": drBmdcRegNo,
+    "dr_email": drEmail,
+    "dr_is_referred": drIsReferred,
+    "dr_dob": "${drDob!.year.toString().padLeft(4, '0')}-${drDob!.month.toString().padLeft(2, '0')}-${drDob!.day.toString().padLeft(2, '0')}",
+    "dr_birth_sex_id": drBirthSexId,
+    "dr_city_id": drCityId,
+    "dr_postal_code": drPostalCode,
+    "dr_home_phone": drHomePhone,
+    "dr_work_phone": drWorkPhone,
+    "dr_mobile_phone": drMobilePhone,
+    "dr_contact_via_id": drContactViaId,
+    "dr_provider_id": drProviderId,
+    "dr_images": drImages,
+    "doctor_fee": doctorFee,
+    "app_token": appToken,
+    "delete_status": deleteStatus,
+    "created_by": createdBy,
+    "updated_by": updatedBy,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "fullName": fullName,
+  };
+}
+
+class Title {
+  int? id;
+  String? titleName;
+
+  Title({
+    this.id,
+    this.titleName,
+  });
+
+  factory Title.fromJson(Map<String, dynamic> json) => Title(
+    id: json["id"],
+    titleName: json["title_name"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "title_name": titleName,
+  };
 }

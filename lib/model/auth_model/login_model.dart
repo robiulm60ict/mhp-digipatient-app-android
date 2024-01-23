@@ -1,84 +1,93 @@
-import 'dart:convert';
-LoginModel loginModelFromJson(String str) => LoginModel.fromJson(json.decode(str));
-String loginModelToJson(LoginModel data) => json.encode(data.toJson());
-class LoginModel {
-  LoginModel({
-    this.message,
-    this.user,});
+// To parse this JSON data, do
+//
+//     final loginModel = loginModelFromJson(jsonString);
 
-  LoginModel.fromJson(dynamic json) {
-    message = json['message'];
-    user = json['user'] != null ? User.fromJson(json['user']) : null;
-  }
+import 'dart:convert';
+
+LoginModel loginModelFromJson(String str) => LoginModel.fromJson(json.decode(str));
+
+String loginModelToJson(LoginModel data) => json.encode(data.toJson());
+
+class LoginModel {
   String? message;
+  String? token;
   User? user;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['message'] = message;
-    if (user != null) {
-      map['user'] = user?.toJson();
-    }
-    return map;
-  }
+  LoginModel({
+    this.message,
+    this.token,
+    this.user,
+  });
 
+  factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
+    message: json["message"],
+    token: json["token"],
+    user: json["user"] == null ? null : User.fromJson(json["user"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "message": message,
+    "token": token,
+    "user": user?.toJson(),
+  };
 }
 
-User userFromJson(String str) => User.fromJson(json.decode(str));
-String userToJson(User data) => json.encode(data.toJson());
 class User {
+  int? id;
+  String? name;
+  String? email;
+  String? userType;
+  String? userId;
+  dynamic userEmail;
+  String? dbName;
+  dynamic saasUserId;
+  dynamic mobile;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? profilePhotoUrl;
+
   User({
     this.id,
     this.name,
     this.email,
-    this.emailVerifiedAt,
     this.userType,
     this.userId,
-    this.currentTeamId,
-    this.profilePhotoPath,
+    this.userEmail,
+    this.dbName,
+    this.saasUserId,
+    this.mobile,
     this.createdAt,
     this.updatedAt,
-    this.profilePhotoUrl,});
+    this.profilePhotoUrl,
+  });
 
-  User.fromJson(dynamic json) {
-    id = json['id'];
-    name = json['name'];
-    email = json['email'];
-    emailVerifiedAt = json['email_verified_at'];
-    userType = json['user_type'];
-    userId = json['user_id'];
-    currentTeamId = json['current_team_id'];
-    profilePhotoPath = json['profile_photo_path'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    profilePhotoUrl = json['profile_photo_url'];
-  }
-  num? id;
-  String? name;
-  String? email;
-  dynamic emailVerifiedAt;
-  String? userType;
-  String? userId;
-  dynamic currentTeamId;
-  dynamic profilePhotoPath;
-  String? createdAt;
-  String? updatedAt;
-  String? profilePhotoUrl;
+  factory User.fromJson(Map<String, dynamic> json) => User(
+    id: json["id"],
+    name: json["name"],
+    email: json["email"],
+    userType: json["user_type"],
+    userId: json["user_id"],
+    userEmail: json["user_email"],
+    dbName: json["db_name"],
+    saasUserId: json["saas_user_id"],
+    mobile: json["mobile"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    profilePhotoUrl: json["profile_photo_url"],
+  );
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['name'] = name;
-    map['email'] = email;
-    map['email_verified_at'] = emailVerifiedAt;
-    map['user_type'] = userType;
-    map['user_id'] = userId;
-    map['current_team_id'] = currentTeamId;
-    map['profile_photo_path'] = profilePhotoPath;
-    map['created_at'] = createdAt;
-    map['updated_at'] = updatedAt;
-    map['profile_photo_url'] = profilePhotoUrl;
-    return map;
-  }
-
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "email": email,
+    "user_type": userType,
+    "user_id": userId,
+    "user_email": userEmail,
+    "db_name": dbName,
+    "saas_user_id": saasUserId,
+    "mobile": mobile,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "profile_photo_url": profilePhotoUrl,
+  };
 }

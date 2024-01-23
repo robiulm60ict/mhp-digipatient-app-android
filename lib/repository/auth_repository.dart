@@ -21,27 +21,39 @@ import '../data/network/base_api_service.dart';
 class AuthRepository {
   BaseApiService apiService = NetworkApiService();
 
-  Future<LoginModel> loginApi(dynamic body) async {
+  Future loginApi(dynamic body) async {
     try {
       dynamic response =
           await apiService.getPostApiResponse(AppUrls.login, body);
-      return LoginModel.fromJson(response);
+      // print(response);
+      return response;
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<SendVerificationModel> sendOTP(
+  Future sendOTP(
       {required Map<String, dynamic> body}) async {
     try {
       dynamic response =
           await apiService.getPostApiResponse(AppUrls.sendVerification, body);
-      return SendVerificationModel.fromJson(response);
+      print(response);
+      return response;
     } catch (e) {
       rethrow;
     }
   }
-
+  Future sendOTPForget(
+      {required Map<String, dynamic> body}) async {
+    try {
+      dynamic response =
+      await apiService.getPostApiResponse(AppUrls.sendVerificationForget, body);
+      print(response);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
   Future<OtpCheckModel> checkOTP({required Map<String, dynamic> body}) async {
     try {
       dynamic response =
@@ -52,23 +64,28 @@ class AuthRepository {
     }
   }
 
+  Future newPassword({required Map<String, dynamic> body}) async {
+    try {
+      dynamic response =
+      await apiService.getPostApiResponse(AppUrls.newPassword, body);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   NetworkApiService api = NetworkApiService();
-  Future<RegistrationModel> signUpOriginal(BuildContext context, Map<String,dynamic> body, String token)async{
-    // try{
-    //   final json = await apiService.getPostApiResponse(AppUrls.registration, body);
-    //   // debugPrint("Json: \n\n\n\n\n\n $json");
-    //   return RegistrationModel.fromJson(json);
-    // }catch (e){
-    //   rethrow;
-    // }
+  Future<RegistrationModel> signUpOriginal(BuildContext context, Map<String,dynamic> body)async{
+
     dynamic responseJson;
     try{
       final response = await http.post(
           body: jsonEncode(body),
           headers: {
+            'databaseName': 'mhpgmailcom',
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'Authorization': 'Bearer $token',
+
           },
           Uri.parse(AppUrls.registration)).timeout(const Duration(seconds: 10),
       );
@@ -82,13 +99,14 @@ class AuthRepository {
     }
   }
 
-  Future<RegistrationModel> signUpApi(
+ signUpApi(
       {required Map<String, String> body, required imageBytes}) async {
     SendImage sendImage = SendImage();
     try {
-      dynamic response = await sendImage.addImage(body, imageBytes);
-          // await apiService.getPostApiResponse(AppUrls.registration, body);
-      return RegistrationModel.fromJson(response);
+      dynamic response =
+      await sendImage.addImage(body, imageBytes);
+        //   await apiService.getPostApiResponse(AppUrls.registration, body);
+      return response;
     } catch (e) {
       rethrow;
     }
@@ -127,6 +145,7 @@ class AuthRepository {
   Future<BloodGroupModel> getBloodGroup() async {
     try {
       dynamic response = await apiService.getGetApiResponse(AppUrls.bloodGroup);
+      print(response);
       return BloodGroupModel.fromJson(response);
     } catch (e) {
       rethrow;
@@ -136,6 +155,8 @@ class AuthRepository {
   Future<BirthSexModel> getBirthSex() async {
     try {
       dynamic response = await apiService.getGetApiResponse(AppUrls.birthSex);
+      print(response);
+
       return BirthSexModel.fromJson(response);
     } catch (e) {
       rethrow;

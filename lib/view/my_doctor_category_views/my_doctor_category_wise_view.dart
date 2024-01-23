@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/resources/colors.dart';
@@ -16,25 +15,33 @@ import '../../routes/routes.gr.dart';
 import '../../widgets/doc_card.dart';
 
 class MyDoctorCategoryWiseView extends StatefulWidget {
-  const MyDoctorCategoryWiseView({Key? key, required this.categoryName, required this.departmentId, required this.departmentImage}) : super(key: key);
+  const MyDoctorCategoryWiseView(
+      {Key? key,
+      required this.categoryName,
+      required this.departmentId,
+      required this.departmentImage})
+      : super(key: key);
   final String categoryName;
   final num departmentId;
   final String departmentImage;
 
   @override
-  State<MyDoctorCategoryWiseView> createState() => _MyDoctorCategoryWiseViewState();
+  State<MyDoctorCategoryWiseView> createState() =>
+      _MyDoctorCategoryWiseViewState();
 }
 
 class _MyDoctorCategoryWiseViewState extends State<MyDoctorCategoryWiseView> {
-
-  late List<Doctors>? doctors;
+  late List<Doctor>? doctors;
 
   @override
   void initState() {
     super.initState();
-    doctors = context.read<MyDoctorViewModel>().getDoctorsByType(departmentId: widget.departmentId);
-    debugPrint(doctors?.length.toString() );
+    doctors = context
+        .read<MyDoctorViewModel>()
+        .getDoctorsByType(departmentId: widget.departmentId);
+    debugPrint(doctors?.length.toString());
   }
+
   @override
   Widget build(BuildContext context) {
     final myDocVM = Provider.of<MyDoctorViewModel>(context);
@@ -42,7 +49,10 @@ class _MyDoctorCategoryWiseViewState extends State<MyDoctorCategoryWiseView> {
       appBar: AppBar(
         leadingWidth: leadingWidth,
         leading: const CustomBackButton(),
-        title: Text("My Doctor", style: TextStyle(fontSize: 18.sp, color: AppColors.primaryColor),),
+        title: Text(
+          "My Doctor",
+          style: TextStyle(fontSize: 18.sp, color: AppColors.primaryColor),
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -68,42 +78,52 @@ class _MyDoctorCategoryWiseViewState extends State<MyDoctorCategoryWiseView> {
                       image: NetworkImage(
                         widget.departmentImage,
                       ),
-                      imageErrorBuilder: (context, error, stackTrace) => const CircleAvatar(radius: 35, child: Text("Error"),),
+                      imageErrorBuilder: (context, error, stackTrace) =>
+                          const CircleAvatar(
+                        radius: 35,
+                        child: Text("Error"),
+                      ),
                       placeholder: const AssetImage(Assets.imagesCardiology),
-
                     ),
                     // Image.asset(Assets.imagesCardiology, height: 117.h, width: 134.w,),
-                    SizedBox(width: 12.w,),
-                    Expanded(child: Text(widget.categoryName, textAlign: TextAlign.start, style: TextStyle(fontSize: 26.sp, color: Colors.white),))
+                    SizedBox(
+                      width: 12.w,
+                    ),
+                    Expanded(
+                        child: Text(
+                      widget.categoryName,
+                      textAlign: TextAlign.start,
+                      style: TextStyle(fontSize: 26.sp, color: Colors.white),
+                    ))
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 25.h,),
-            Expanded(child: GridView.builder(
-              itemCount: doctors?.length,
+            SizedBox(
+              height: 25.h,
+            ),
+            Expanded(
+              child: GridView.builder(
+                itemCount: doctors?.length,
                 gridDelegate: FlutterzillaFixedGridView(
                     crossAxisCount: 2,
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 16,
-                  height: 175.h
+                    mainAxisSpacing: 12,
+                    crossAxisSpacing: 16,
+                    height: 175.h),
+                itemBuilder: (context, index) {
+                  Doctor? doc = doctors?[index];
 
-                ), itemBuilder: (context, index) {
-
-                Doctors? doc = doctors?[index];
-
-                return DocCard(
-                  onTap: (){
-                    context.router.push( DocDetailsRoute(id: doc!.id!));
-                  },
-                  docImage: "${AppUrls.docImage}${doc?.drImages}",
-                  docName: "${doc?.drFullName}",
-                  docSpeciality: "${doc?.department?.departmentsName }",
-                  docHospital: "${doc?.usualProvider?.usualProviderName}",
-                );
-
+                  return DocCard(
+                    onTap: () {
+                      // context.router.push(DocDetailsRoute(id: doc!.id!));
+                    },
+                    docImage: "${AppUrls.docImage}${doc?.drImages}",
+                    docName: "${doc?.drGivenName}",
+                    docSpeciality: "${doc?.department?.departmentsName}",
+                    docHospital: "${doc?.usualProvider?.usualProviderName}",
+                  );
                 },
-            ),
+              ),
             ),
             // SizedBox(height: 50.h,),
           ],

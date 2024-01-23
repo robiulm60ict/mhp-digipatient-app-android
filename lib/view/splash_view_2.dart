@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,7 +20,7 @@ class _Splash2ViewState extends State<Splash2View> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 1), () {
-      context.router.replace(const SplashRoute());
+      // context.router.replace(const SplashRoute());
     });
   }
   @override

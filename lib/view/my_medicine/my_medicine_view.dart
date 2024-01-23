@@ -1,11 +1,12 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/utils.dart';
+import 'package:digi_patient/view/my_medicine/rx_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../resources/styles.dart';
 import '../../widgets/back_button.dart';
 
 class MyMedicineView extends StatelessWidget {
@@ -15,9 +16,9 @@ class MyMedicineView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: leadingWidth,
-        leading: const CustomBackButton(),
-        title: Text("My Medicine", style: TextStyle(fontSize: 18.sp, color: AppColors.primaryColor),),
+        backgroundColor: AppColors.primary_color,
+
+        title: Text("My Medicine", style: Style.alltext_appbar,),
         centerTitle: true,
       ),
       body: Padding(
@@ -43,7 +44,8 @@ class MyMedicineView extends StatelessWidget {
                 Expanded(
                   child: InkWell(
                     onTap: (){
-                      context.router.push(const RXRoute());
+                      // context.router.push(const RXRoute());
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>RXView()));
                     },
                     child: Card(child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -54,7 +56,7 @@ class MyMedicineView extends StatelessWidget {
                           backgroundImage: AssetImage(Assets.myMedicineMedicineCircle),
                         ),
                         SizedBox(height: 8.r,),
-                        Text("Medication", style: TextStyle(fontSize: 14.sp, color: AppColors.primaryColor),),
+                        Text("Medication", style: Style.alltext_default_balck,),
                         SizedBox(height: 10.h,),
                       ],
                     ),),
@@ -70,7 +72,7 @@ class MyMedicineView extends StatelessWidget {
                         backgroundImage: AssetImage(Assets.myMedicineBuyMedicineCircle),
                       ),
                       SizedBox(height: 8.r,),
-                      Text("Buy Medicine ", style: TextStyle(fontSize: 14.sp, color: AppColors.primaryColor),),
+                      Text("Buy Medicine ", style: Style.alltext_default_balck,),
                       SizedBox(height: 10.h,),
                     ],
                   ),),

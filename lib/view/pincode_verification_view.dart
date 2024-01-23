@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/view_model/auth_view_model.dart';
 import 'package:digi_patient/widgets/gradient_appBar.dart';
@@ -15,10 +14,12 @@ import '../resources/colors.dart';
 
 class PinCodeVerificationView extends StatefulWidget {
   final String? phoneNumber;
+  final String? token;
 
   const PinCodeVerificationView({
     Key? key,
-    this.phoneNumber,
+   required this.phoneNumber,
+   required this.token,
   }) : super(key: key);
 
   @override
@@ -68,7 +69,7 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthViewModel>(context);
+    final auth = Provider.of<AuthViewModel>(context,listen: false);
     return Scaffold(
       body: GestureDetector(
         onTap: () {},
@@ -250,7 +251,7 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
                     onPressed: () async{
                       Map<String,dynamic> body = {
                         "phone_number" : widget.phoneNumber,
-                        "token" : auth.otpList.first.token,
+                        "token" : widget.token,
                         "verification_code" : currentText
                       };
 

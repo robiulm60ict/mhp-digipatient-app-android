@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:digi_patient/model/my_record_model/diagnosis_procedure_model.dart';
 import 'package:digi_patient/utils/datetime.dart';
 import 'package:digi_patient/utils/message.dart';
@@ -10,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../resources/colors.dart';
+import '../../resources/styles.dart';
 import '../../utils/user.dart';
 import '../../utils/utils.dart';
 import '../../widgets/back_button.dart';
@@ -42,14 +45,17 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
     setState(() {});
   }
 
-  // getDiagnosis() {
-  //   context.read<MyRecordViewModel>().getDiagnosis();
-  // }
+  getDiagnosis() {
+    context.read<MyRecordViewModel>().getDiagnosis();
+  }
 
   @override
   void initState() {
     super.initState();
-    // getDiagnosis();
+    Timer(const Duration(seconds: 1), () {
+      getDiagnosis();
+
+    });
     getUserID();
   }
 
@@ -67,17 +73,14 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
 
   @override
   Widget build(BuildContext context) {
-    final myRecord = Provider.of<MyRecordViewModel>(context);
+    final myRecord = Provider.of<MyRecordViewModel>(context,listen: false);
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: leadingWidth,
-        leading: const CustomBackButton(),
+        backgroundColor: AppColors.primary_color,
+
         title: Text(
           "Add Medical History",
-          style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primaryColor),
+          style:Style.alltext_appbar
         ),
         centerTitle: true,
         // backgroundColor: AppColors.primaryColor,
@@ -103,12 +106,14 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
                 };
 
                 if (selectedDate != null &&
-                    selectedCondition != null &&
-                    saverty.text.isNotEmpty &&
-                    description.text.isNotEmpty &&
-                    summary.text.isNotEmpty &&
-                    myHealthRecord.text.isNotEmpty &&
-                    details.text.isNotEmpty) {
+                    selectedCondition != null
+                //&&
+                  //  saverty.text.isNotEmpty &&
+                   // description.text.isNotEmpty
+                 //  summary.text.isNotEmpty &&
+                  //  myHealthRecord.text.isNotEmpty &&
+                   // details.text.isNotEmpty
+                ) {
                   myRecord.addMedicalHistory(context, body);
                 } else {
                   Messages.snackBar(context, "Enter All of the Field");
@@ -116,7 +121,7 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
               },
               label: Text(
                 "Save",
-                style: TextStyle(fontSize: 15.sp, color: Colors.white),
+                style: Style.alltext_appbar,
               ),
             ),
       body: ListView(
@@ -130,7 +135,7 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
               ),
               title: Text(selectedDate == null
                   ? "Select Date"
-                  : myRecord.getDate(selectedDate.toString())),
+                  : myRecord.getDate(selectedDate.toString()),style: Style.alltext_default_balck,),
               onTap: () async {
                 // selectedDate = await PickDateTime().pickDate(context, initialDate: DateTime.now());
                 await showDatePicker(
@@ -138,7 +143,7 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
                   initialDate:
                       selectedDate == null ? DateTime.now() : selectedDate!,
                   firstDate: DateTime(1900, 1, 1),
-                  lastDate: DateTime(DateTime.now().year + 500, 10, 1),
+                  lastDate: DateTime.now(),
                 ).then((value) => selectedDate = value);
                 setState(() {});
               },
@@ -167,18 +172,18 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
                       child: ListTile(
                         title: Text(
                           "${item.diagnosisProcedureName}",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                          ),
+                          style: Style.alltext_default_balck,
                         ),
                         subtitle: Text(
-                          "${item.diagnosisProcedureCode}",
+                          "${item.diagnosisProcedureCode}",style: Style.alltext_default_balck,
                         ),
                       ),
                     )),
             selectedItem: selectedCondition,
             dropdownDecoratorProps: DropDownDecoratorProps(
               dropdownSearchDecoration: InputDecoration(
+                hintText: "Search",
+                helperText: "Search",
                 labelText: "Condition",
                 labelStyle: TextStyle(color: AppColors.primaryColor),
                 border: OutlineInputBorder(
@@ -197,13 +202,13 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
           SizedBox(
             height: 10.h,
           ),
-          CustomTextField(
-            textEditingController: saverty,
-            hintText: "severty",
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
+          // CustomTextField(
+          //   textEditingController: saverty,
+          //   hintText: "severty",
+          // ),
+          // SizedBox(
+          //   height: 10.h,
+          // ),
           CustomTextField(
             textEditingController: description,
             hintText: "description",
@@ -211,28 +216,28 @@ class _AddMedicalHistoryViewState extends State<AddMedicalHistoryView> {
           SizedBox(
             height: 10.h,
           ),
-          CustomTextField(
-            textEditingController: summary,
-            hintText: "summary",
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          CustomTextField(
-            textEditingController: myHealthRecord,
-            hintText: "my health record",
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          CustomTextField(
-            textEditingController: details,
-            hintText: "details",
-          ),
-
-          SizedBox(
-            height: 200.h,
-          )
+          // CustomTextField(
+          //   textEditingController: summary,
+          //   hintText: "summary",
+          // ),
+          // SizedBox(
+          //   height: 10.h,
+          // ),
+          // CustomTextField(
+          //   textEditingController: myHealthRecord,
+          //   hintText: "my health record",
+          // ),
+          // SizedBox(
+          //   height: 10.h,
+          // ),
+          // CustomTextField(
+          //   textEditingController: details,
+          //   hintText: "details",
+          // ),
+          //
+          // SizedBox(
+          //   height: 200.h,
+          // )
         ],
       ),
     );

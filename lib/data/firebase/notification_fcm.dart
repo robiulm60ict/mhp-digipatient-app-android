@@ -34,7 +34,7 @@
 //       htmlFormatTitle: true,
 //     );
 //     final androidDetails = AndroidNotificationDetails(
-//       "com.example.digi_patient.urgent",
+//       "com.micro.digi_patient.urgent",
 //       "mychannelid",
 //       importance: Importance.max,
 //       styleInformation: styleInformation,

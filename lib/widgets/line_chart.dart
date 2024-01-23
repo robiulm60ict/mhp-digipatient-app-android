@@ -14,168 +14,7 @@ class CustomLineChart extends StatefulWidget {
 
 class _MyHomePageState extends State<CustomLineChart> {
 
-//   List<double> systolicBpList = [];
-//   List<double> diastolicBpList = [];
-//   DateTime currentDate = DateTime.now();
-//   List<num> oneS = [];
-//   List<num> twoS = [];
-//   List<num> threeS = [];
-//   List<num> fourS = [];
-//   List<num> fiveS = [];
-//   List<num> sixS = [];
-//   List<num> sevenS = [];
-//   List<num> eightS = [];
-//   List<num> nineS = [];
-//   List<num> tenS = [];
-//   List<num> elevenS = [];
-//   List<num> twelveS = [];
-//
-//   /// Diastolic BP
-//
-//   List<num> oneD = [];
-//   List<num> twoD = [];
-//   List<num> threeD = [];
-//   List<num> fourD = [];
-//   List<num> fiveD = [];
-//   List<num> sixD = [];
-//   List<num> sevenD = [];
-//   List<num> eightD = [];
-//   List<num> nineD = [];
-//   List<num> tenD = [];
-//   List<num> elevenD = [];
-//   List<num> twelveD = [];
-//
-//   @override
-//   void initState() {
-//     super.initState();
-// getVitals();
-//   }
-//
-//   getVitals(){
-//     oneS.clear();
-//     oneD.clear();
-//     twoD.clear();
-//     twoS.clear();
-//     threeS.clear();
-//     threeD.clear();
-//     fourS.clear();
-//     fourD.clear();
-//     fiveS.clear();
-//     fiveD.clear();
-//     sixD.clear();
-//     sixS.clear();
-//     sevenD.clear();
-//     sevenS.clear();
-//     eightD.clear();
-//     eightS.clear();
-//     nineD.clear();
-//     nineS.clear();
-//     tenD.clear();
-//     tenS.clear();
-//     elevenD.clear();
-//     elevenS.clear();
-//     twelveS.clear();
-//     twelveD.clear();
-//
-//     context.read<MyRecordViewModel>().vitalsList.first.bpArray?.forEach((element) {
-//       separateData(element);
-//       systolicBpList.clear();
-//       diastolicBpList.clear();
-//       addDataToList();
-//     });
-//   }
-//
-//   addDataToList(){
-//
-//     systolicBpList.add(getAverage(oneS));
-//     systolicBpList.add(getAverage(twoS));
-//     systolicBpList.add(getAverage(threeS));
-//     systolicBpList.add(getAverage(fourS));
-//     systolicBpList.add(getAverage(fiveS));
-//     systolicBpList.add(getAverage(sixS));
-//     systolicBpList.add(getAverage(sevenS));
-//     systolicBpList.add(getAverage(eightS));
-//     systolicBpList.add(getAverage(nineS));
-//     systolicBpList.add(getAverage(tenS));
-//     systolicBpList.add(getAverage(elevenS));
-//     systolicBpList.add(getAverage(twelveS));
-//
-//     /// D
-//     diastolicBpList.add(getAverage(oneD));
-//     diastolicBpList.add(getAverage(twoD));
-//     diastolicBpList.add(getAverage(threeD));
-//     diastolicBpList.add(getAverage(fourD));
-//     diastolicBpList.add(getAverage(fiveD));
-//     diastolicBpList.add(getAverage(sixD));
-//     diastolicBpList.add(getAverage(sevenD));
-//     diastolicBpList.add(getAverage(eightD));
-//     diastolicBpList.add(getAverage(nineD));
-//     diastolicBpList.add(getAverage(tenD));
-//     diastolicBpList.add(getAverage(elevenD));
-//     diastolicBpList.add(getAverage(twelveD));
-//
-//   }
-//   double getAverage(List<num> numbers){
-//     double sum = numbers.fold(0, (previousValue, element) => previousValue + element);
-//     if(sum != 0){
-//       double average = sum / numbers.length;
-// return average;
-//     }else{
-//       return 0;
-//
-//     }
-//   }
-//   separateData(BpArray el){
-//
-//     DateTime date = getDateTime(el.createdAt.toString());
-//     if(date.year == currentDate.year && date.month == 1){
-//       oneS.add(el.systolic!);
-//       oneD.add(el.diastolic!);
-//     }else if(date.year == currentDate.year && date.month == 2){
-//       twoS.add(el.systolic!);
-//       twoD.add(el.diastolic!);
-//     }else if(date.year == currentDate.year && date.month == 3){
-//       threeS.add(el.systolic!);
-//       threeD.add(el.diastolic!);
-//     }else if(date.year == currentDate.year && date.month == 4){
-//       fourS.add(el.systolic!);
-//       fourD.add(el.diastolic!);
-//     }else if(date.year == currentDate.year && date.month == 5){
-//       fiveS.add(el.systolic!);
-//       fiveD.add(el.diastolic!);
-//     }else if(date.year == currentDate.year && date.month == 6){
-//       sixS.add(el.systolic!);
-//       sixD.add(el.diastolic!);
-//     }else if(date.year == currentDate.year && date.month == 7){
-//       sevenS.add(el.systolic!);
-//       sevenD.add(el.diastolic!);
-//     }else if(date.year == currentDate.year && date.month == 8){
-//       eightS.add(el.systolic!);
-//       eightD.add(el.diastolic!);
-//     }else if(date.year == currentDate.year && date.month == 9){
-//       nineS.add(el.systolic!);
-//       nineD.add(el.diastolic!);
-//     }else if(date.year == currentDate.year && date.month == 10){
-//       tenS.add(el.systolic!);
-//       tenD.add(el.diastolic!);
-//     }else if(date.year == currentDate.year && date.month == 11){
-//       elevenS.add(el.systolic!);
-//       elevenD.add(el.diastolic!);
-//     }else if(date.year == currentDate.year && date.month == 12){
-//       twelveS.add(el.systolic!);
-//       twelveD.add(el.diastolic!);
-//     }
-//
-//   }
-//
-//
-//   DateTime getDateTime(String? date){
-//     DateTime? dateObject = DateTime.tryParse(date ?? "");
-//     if (dateObject != null) {
-//       return dateObject;
-//     } else {
-//       return DateTime.now();
-//     }}
+
   @override
   Widget build(BuildContext context) {
     final vitals = Provider.of<MyRecordViewModel>(context);
@@ -189,7 +28,7 @@ class _MyHomePageState extends State<CustomLineChart> {
         lineBarsData: [
           LineChartBarData(
             spots: vitals.vitalsList.first.bpArray
-                ?.asMap()
+                !.asMap()
                 .entries
                 .map((entry) {
               return FlSpot(entry.key.toDouble(), entry.value.systolic!.toDouble());
@@ -204,7 +43,7 @@ class _MyHomePageState extends State<CustomLineChart> {
           ),
           LineChartBarData(
             spots: vitals.vitalsList.first.bpArray
-                ?.asMap()
+                !.asMap()
                 .entries
                 .map((entry) {
               return FlSpot(entry.key.toDouble(), entry.value.diastolic!.toDouble());
@@ -216,10 +55,7 @@ class _MyHomePageState extends State<CustomLineChart> {
             ),
           ),
         ],
-        // minY: 0,
-        // maxY: 12,
-        // minX: 0,
-        // maxX: 12,
+
         gridData: FlGridData(
           show: true,
         ),
@@ -284,21 +120,95 @@ class _CustomLineChartAllState extends State<CustomLineChartAll> {
             // getTouchedSpotIndicator: (barData, spotIndexes) => ,
           ),
           lineBarsData: [
-            LineChartBarData(
-              spots: widget.patientVsList
-                  .asMap()
-                  .entries
-                  .map((entry) {
-                return FlSpot(entry.key.toDouble(), double.tryParse(entry.value.value.toString() ?? "0") ?? 0);
-              }).toList(),
+            widget.patientVsList.reversed.first.name.toString() ==
+                "Blood Pressure"
+                ? LineChartBarData(
+              spots: List.generate(
+                  widget.patientVsList.length,
+                      (index) => FlSpot(
+                      index.toDouble(),
+                      double.parse(widget.patientVsList[index].value
+                          .toString()
+                          .split('/')
+                          .first))),
               isCurved: true,
-              color: AppColors.primaryColor,
+              belowBarData: BarAreaData(show: false),
+              dotData: FlDotData(show: false),
+              color: Colors.green,
               barWidth: 4,
-
-              dotData: FlDotData(show: true,
-                getDotPainter: (p0, p1, p2, p3) => p0.x == 5 ? FlDotCirclePainter(strokeWidth: 6, color: AppColors.primaryColor, strokeColor: AppColors.primaryColor) : FlDotCirclePainter(),
-              ),
+            )
+                : LineChartBarData(
+              // spots: List.generate(
+              //     widget.patientVsList.length,
+              //         (index) => FlSpot(
+              //         index.toDouble(),
+              //         double.parse(widget.patientVsList[index].value
+              //             .toString()
+              //             .split('/')
+              //             .first))),
+              spots: List.generate( widget.patientVsList.length,
+                      (index) => FlSpot(index.toDouble(), double.parse( widget.patientVsList.reversed.first.name.toString() ==
+                      "Blood Pressure"? widget.patientVsList[index].value.toString().split('/').first:widget.patientVsList[index].value.toString().split('').first))),
+              isCurved: true,
+              belowBarData: BarAreaData(show: false),
+              dotData: FlDotData(show: false),
+              color: Colors.yellow,
+              barWidth: 4,
             ),
+            widget.patientVsList.reversed.first.name.toString() ==
+                "Blood Pressure"
+                ? LineChartBarData(
+              spots: List.generate(
+                  widget.patientVsList.length,
+                      (index) => FlSpot(
+                      index.toDouble(),
+                      double.parse(widget.patientVsList[index].value
+                          .toString()
+                          .split('/')
+                          .last.toString()))),
+              isCurved: true,
+              belowBarData: BarAreaData(show: false),
+              dotData: FlDotData(show: false),
+              color: Colors.red,
+              barWidth: 4,
+            )
+                :  LineChartBarData(),
+
+            // _buildLineChartBar(systolicData, Colors.blue),
+            // _buildLineChartBar2(systolicData, Colors.red),
+            // LineChartBarData(
+            //   // spots: reverseSpots(spots2, minSpotY, double.tryParse(value.value.toString().split("/").last ?? "0") ??
+            //   //               0),
+            //   // spots: widget.patientVsList.reversed.first.name.toString() ==
+            //   //         "Blood Pressure"
+            //   //     ? widget.patientVsList.asMap().entries.map((entry) {
+            //   //         return reverseSpots()
+            //   //
+            //   //           // FlSpot(
+            //   //           //   entry.key.toDouble(),
+            //   //           //
+            //   //           //   double.tryParse(entry.value.value.toString().split("/").last ?? "0") ??
+            //   //           //       0);
+            //   //       }).toList()
+            //   //     : widget.patientVsList.asMap().entries.map((entry) {
+            //   //         return FlSpot(
+            //   //             entry.key.toDouble(),
+            //   //             double.tryParse(entry.value.value.toString() ?? "0") ??
+            //   //                 0);
+            //   //       }).toList(),
+            //   isCurved: true,
+            //   color: AppColors.primaryColor,
+            //   barWidth: 4,
+            //   dotData: FlDotData(
+            //     show: true,
+            //     getDotPainter: (p0, p1, p2, p3) => p0.x == 5
+            //         ? FlDotCirclePainter(
+            //             strokeWidth: 6,
+            //             color: AppColors.primaryColor,
+            //             strokeColor: AppColors.primaryColor)
+            //         : FlDotCirclePainter(),
+            //   ),
+            // ),
           ],
           // minY: 0,
           // maxY: 12,
@@ -311,15 +221,15 @@ class _CustomLineChartAllState extends State<CustomLineChartAll> {
               leftTitles: AxisTitles(
                 sideTitles: SideTitles(
                   showTitles: true,
-                  getTitlesWidget: (value, meta) => Text(value.toInt().toString()),
-                ),),
+                  getTitlesWidget: (value, meta) =>
+                      Text(value.toInt().toString()),
+                ),
+              ),
               bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
                     getTitlesWidget: (value, meta) => Text(value.toInt().toString()),
-                  )
-              )
-          ),
+                  ))),
         ),
       );
     }

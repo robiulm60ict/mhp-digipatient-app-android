@@ -3,9 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../resources/colors.dart';
+import '../../resources/styles.dart';
 import '../../utils/utils.dart';
 import '../../view_model/my_medicine_view_model/my_medicine_view_model.dart';
 import '../../widgets/back_button.dart';
+import '../../widgets/shimmer.dart';
 
 class RXDetailView extends StatefulWidget {
   const RXDetailView(
@@ -32,45 +34,62 @@ class _RXDetailViewState extends State<RXDetailView> {
     if (widget.isCurrentRxView) {
       context.read<MyMedicineViewModel>().getCurrentRx(context);
     } else {
-      context.read<MyMedicineViewModel>().getPastRx(context);
+      // context.read<MyMedicineViewModel>().getPastRx(context);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final mmVm = Provider.of<MyMedicineViewModel>(context);
+    final mmVm = Provider.of<MyMedicineViewModel>(context,listen: false);
     return Scaffold(
+      backgroundColor: AppColors.page_background_color,
       appBar: AppBar(
-        leadingWidth: leadingWidth,
-        leading: const CustomBackButton(),
+        backgroundColor: AppColors.primary_color,
+
         title: Text(
           widget.title,
-          style: TextStyle(fontSize: 18.sp, color: AppColors.primaryColor),
+          style: Style.alltext_appbar,
         ),
         centerTitle: true,
       ),
-      body: mmVm.isCurrentRxLoading
-          ? const Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              padding: EdgeInsets.all(15.r),
-              itemCount: mmVm.drugList.length,
+      body:Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: Consumer<MyMedicineViewModel>(builder: (context, data, child) {
+          if (data.currentRxList.isEmpty) {
+            return data.isCurrentRxLoading == true
+                ? ListView.builder(
+              itemCount: 6,
+              // scrollDirection: Axis.vertical,
+              physics: const ScrollPhysics(),
+              shrinkWrap: true,
               itemBuilder: (context, index) {
-                final drugs = mmVm.drugList[index];
                 return Padding(
-                  padding: EdgeInsets.only(bottom: 15.0.h),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            " Medicine ${index + 1}",
-                            style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.bold,
-                                color: const Color(0xFF606060)),
-                          )),
-                      Card(
+                  padding: const EdgeInsets.all(5.0),
+                  child: bannerShimmereffect(
+                      90.toDouble(), 385.toDouble()),
+                );
+              },
+            )
+                : noDataFounForList("No Current Rx History");
+          } else {
+            return ListView.builder(
+                padding: EdgeInsets.all(15.r),
+                itemCount: mmVm.currentRxList.length,
+                itemBuilder: (context, index) {
+                  final drugs = mmVm.currentRxList[index];
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: 15.0.h),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Medicine ${index + 1}",
+                              style: Style.alltext_default_balck_blod,
+                            )),
+                        Card(
                           color: Colors.white,
                           child: Table(
                             border: TableBorder.all(color: Colors.grey),
@@ -83,11 +102,9 @@ class _RXDetailViewState extends State<RXDetailView> {
                                       children: [
                                         Expanded(
                                             child: Text(
-                                          "Drugs Name",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: const Color(0xFF8A8A8A)),
-                                        )),
+                                              "Drugs Name",
+                                              style:Style.alltext_default_balck,
+                                            )),
                                         SizedBox(
                                           width: 5.w,
                                         ),
@@ -101,9 +118,7 @@ class _RXDetailViewState extends State<RXDetailView> {
                                             flex: 3,
                                             child: Text(
                                               "${drugs.drugName}",
-                                              style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  color: const Color(0xFF3D3D3D)),
+                                              style: Style.alltext_default_balck,
                                             )),
                                       ],
                                     ),
@@ -118,11 +133,9 @@ class _RXDetailViewState extends State<RXDetailView> {
                                       children: [
                                         Expanded(
                                             child: Text(
-                                          "Dose",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Color(0xFF8A8A8A)),
-                                        )),
+                                              "Dose",
+                                              style:Style.alltext_default_balck,
+                                            )),
                                         SizedBox(
                                           width: 5.w,
                                         ),
@@ -136,9 +149,7 @@ class _RXDetailViewState extends State<RXDetailView> {
                                             flex: 3,
                                             child: Text(
                                               "${drugs.dose}",
-                                              style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  color: Color(0xFF3D3D3D)),
+                                              style: Style.alltext_default_balck,
                                             )),
                                       ],
                                     ),
@@ -153,11 +164,9 @@ class _RXDetailViewState extends State<RXDetailView> {
                                       children: [
                                         Expanded(
                                             child: Text(
-                                          "Frequency",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Color(0xFF8A8A8A)),
-                                        )),
+                                              "Frequency",
+                                              style: Style.alltext_default_balck,
+                                            )),
                                         SizedBox(
                                           width: 5.w,
                                         ),
@@ -171,9 +180,7 @@ class _RXDetailViewState extends State<RXDetailView> {
                                             flex: 3,
                                             child: Text(
                                               "${drugs.frequency}",
-                                              style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  color: Color(0xFF3D3D3D)),
+                                              style:Style.alltext_default_balck,
                                             )),
                                       ],
                                     ),
@@ -188,11 +195,9 @@ class _RXDetailViewState extends State<RXDetailView> {
                                       children: [
                                         Expanded(
                                             child: Text(
-                                          "Food",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Color(0xFF8A8A8A)),
-                                        )),
+                                              "Food",
+                                              style: Style.alltext_default_balck,
+                                            )),
                                         SizedBox(
                                           width: 5.w,
                                         ),
@@ -206,9 +211,7 @@ class _RXDetailViewState extends State<RXDetailView> {
                                             flex: 3,
                                             child: Text(
                                               "${drugs.food}",
-                                              style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  color: const Color(0xFF3D3D3D)),
+                                              style: Style.alltext_default_balck,
                                             )),
                                       ],
                                     ),
@@ -223,11 +226,9 @@ class _RXDetailViewState extends State<RXDetailView> {
                                       children: [
                                         Expanded(
                                             child: Text(
-                                          "Quantity",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Color(0xFF8A8A8A)),
-                                        )),
+                                              "Quantity",
+                                              style: Style.alltext_default_balck,
+                                            )),
                                         SizedBox(
                                           width: 5.w,
                                         ),
@@ -241,9 +242,7 @@ class _RXDetailViewState extends State<RXDetailView> {
                                             flex: 3,
                                             child: Text(
                                               "${drugs.quantity}",
-                                              style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  color: Color(0xFF3D3D3D)),
+                                              style: Style.alltext_default_balck,
                                             )),
                                       ],
                                     ),
@@ -288,11 +287,17 @@ class _RXDetailViewState extends State<RXDetailView> {
                               // ]),
                             ],
                           ),
-                      ),
-                    ],
-                  ),
-                );
-              }),
+                        ),
+                      ],
+                    ),
+                  );
+                });
+          }
+        }),
+      ),
+
+
+
     );
   }
 }

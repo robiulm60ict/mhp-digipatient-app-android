@@ -8,11 +8,16 @@ class InvoiceRepo{
 
   BaseApiService apiService = NetworkApiService();
 
-  Future<InvoiceShowModel> getInvoiceList(String id) async{
+  Future<List<InvoiceShowModel>> getInvoiceList(String id) async{
 
     try{
-      dynamic response = await apiService.getGetApiResponse(AppUrls.invoiceView + id,);
-      return InvoiceShowModel.fromJson(response);
+      dynamic response = await apiService.getGetApiResponse(AppUrls.invoiceView + id);
+      List<InvoiceShowModel> invoiceList = [];
+
+      for (var i in response['data']){
+        invoiceList.add(InvoiceShowModel.fromJson(i));
+      }
+      return invoiceList;
     }catch(e){
       rethrow;
     }

@@ -1,97 +1,93 @@
-import 'dart:convert';
-AnatomyModel anatomyModelFromJson(String str) => AnatomyModel.fromJson(json.decode(str));
-String anatomyModelToJson(AnatomyModel data) => json.encode(data.toJson());
-class AnatomyModel {
-  AnatomyModel({
-      this.status, 
-      this.symptomsAnatomy,});
+// To parse this JSON data, do
+//
+//     final anatomyModel = anatomyModelFromJson(jsonString);
 
-  AnatomyModel.fromJson(dynamic json) {
-    status = json['status'];
-    if (json['symptoms_anatomy'] != null) {
-      symptomsAnatomy = [];
-      json['symptoms_anatomy'].forEach((v) {
-        symptomsAnatomy?.add(SymptomsAnatomy.fromJson(v));
-      });
-    }
-  }
-  num? status;
+import 'dart:convert';
+
+AnatomyModel anatomyModelFromJson(String str) => AnatomyModel.fromJson(json.decode(str));
+
+String anatomyModelToJson(AnatomyModel data) => json.encode(data.toJson());
+
+class AnatomyModel {
+  int? status;
   List<SymptomsAnatomy>? symptomsAnatomy;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['status'] = status;
-    if (symptomsAnatomy != null) {
-      map['symptoms_anatomy'] = symptomsAnatomy?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
+  AnatomyModel({
+    this.status,
+    this.symptomsAnatomy,
+  });
 
+  factory AnatomyModel.fromJson(Map<String, dynamic> json) => AnatomyModel(
+    status: json["status"],
+    symptomsAnatomy: json["symptoms_anatomy"] == null ? [] : List<SymptomsAnatomy>.from(json["symptoms_anatomy"]!.map((x) => SymptomsAnatomy.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "status": status,
+    "symptoms_anatomy": symptomsAnatomy == null ? [] : List<dynamic>.from(symptomsAnatomy!.map((x) => x.toJson())),
+  };
 }
 
-SymptomsAnatomy symptomsAnatomyFromJson(String str) => SymptomsAnatomy.fromJson(json.decode(str));
-String symptomsAnatomyToJson(SymptomsAnatomy data) => json.encode(data.toJson());
 class SymptomsAnatomy {
-  SymptomsAnatomy({
-      this.id, 
-      this.mainBodyPartId, 
-      this.subBodyPartId, 
-      this.sideSelectionName, 
-      this.genderId, 
-      this.symptomName, 
-      this.deleteStatus, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.mainBodyPartName, 
-      this.subBodyPartName, 
-      this.birthSexName, 
-      this.isSelected = false,});
-
-  SymptomsAnatomy.fromJson(dynamic json) {
-    id = json['id'];
-    mainBodyPartId = json['main_body_part_id'];
-    subBodyPartId = json['sub_body_part_id'];
-    sideSelectionName = json['side_selection_name'];
-    genderId = json['gender_id'];
-    symptomName = json['symptom_name'];
-    deleteStatus = json['delete_status'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    mainBodyPartName = json['MainBodyPart_name'];
-    subBodyPartName = json['SubBodyPart_name'];
-    birthSexName = json['birth_sex_name'];
-    isSelected = false;
-  }
-  String? id;
+  int? id;
   String? mainBodyPartId;
   String? subBodyPartId;
   String? sideSelectionName;
   String? genderId;
   String? symptomName;
-  String? deleteStatus;
-  String? createdAt;
-  String? updatedAt;
+  int? deleteStatus;
+  DateTime? createdAt;
+  DateTime? updatedAt;
   String? mainBodyPartName;
   String? subBodyPartName;
-  String? birthSexName;
+  dynamic birthSexName;
   bool? isSelected;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['main_body_part_id'] = mainBodyPartId;
-    map['sub_body_part_id'] = subBodyPartId;
-    map['side_selection_name'] = sideSelectionName;
-    map['gender_id'] = genderId;
-    map['symptom_name'] = symptomName;
-    map['delete_status'] = deleteStatus;
-    map['created_at'] = createdAt;
-    map['updated_at'] = updatedAt;
-    map['MainBodyPart_name'] = mainBodyPartName;
-    map['SubBodyPart_name'] = subBodyPartName;
-    map['birth_sex_name'] = birthSexName;
-    // map['is_selected'] = isSelected;
-    return map;
-  }
+  SymptomsAnatomy({
+    this.id,
+    this.mainBodyPartId,
+    this.subBodyPartId,
+    this.sideSelectionName,
+    this.genderId,
+    this.symptomName,
+    this.deleteStatus,
+    this.createdAt,
+    this.updatedAt,
+    this.mainBodyPartName,
+    this.subBodyPartName,
+    this.birthSexName,
+    this.isSelected,
+  });
 
+  factory SymptomsAnatomy.fromJson(Map<String, dynamic> json) => SymptomsAnatomy(
+    id: json["id"],
+    mainBodyPartId: json["main_body_part_id"],
+    subBodyPartId: json["sub_body_part_id"],
+    sideSelectionName: json["side_selection_name"],
+    genderId: json["gender_id"],
+    symptomName: json["symptom_name"],
+    deleteStatus: json["delete_status"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    mainBodyPartName: json["MainBodyPart_name"],
+    subBodyPartName: json["SubBodyPart_name"],
+    birthSexName: json["birth_sex_name"],
+    isSelected: json["isSelected"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "main_body_part_id": mainBodyPartId,
+    "sub_body_part_id": subBodyPartId,
+    "side_selection_name": sideSelectionName,
+    "gender_id": genderId,
+    "symptom_name": symptomName,
+    "delete_status": deleteStatus,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "MainBodyPart_name": mainBodyPartName,
+    "SubBodyPart_name": subBodyPartName,
+    "birth_sex_name": birthSexName,
+    //"isSelected": isSelected,
+  };
 }
