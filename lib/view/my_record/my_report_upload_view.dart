@@ -75,6 +75,7 @@ class _UploadReportViewState extends State<UploadReportView> {
 
 
   TextEditingController reportName =TextEditingController();
+  TextEditingController typereportName =TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +104,7 @@ class _UploadReportViewState extends State<UploadReportView> {
                     setState(() {});
                   },
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.25,
+                    height: MediaQuery.of(context).size.height * 0.20,
                     padding: EdgeInsets.all(8),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
@@ -209,6 +210,18 @@ class _UploadReportViewState extends State<UploadReportView> {
                 ),
               ),
               Style.distan_size10,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                Text("Note : Upload and save your prescription and report here."),
+                Style.distan_size2,
+                Text("For Prescription: doctor name_ date"),
+                Style.distan_size2,
+                Text("For Report: lab name_ test name_ date"),
+              ],),
+
+              Style.distan_size10,
               Padding(
                 padding: const EdgeInsets.only(left: 16,right: 16),
                 child: CustomTextField(
@@ -217,7 +230,19 @@ class _UploadReportViewState extends State<UploadReportView> {
                     Icons.document_scanner_outlined,
                     color: AppColors.primaryColor,
                   ),
-                  hintText: "Report Name",
+                  hintText: "Name_Date",
+                ),
+              ),
+              Style.distan_size10,
+              Padding(
+                padding: const EdgeInsets.only(left: 16,right: 16),
+                child: CustomTextField(
+                  textEditingController: typereportName,
+                  prefix: Icon(
+                    Icons.dashboard_sharp,
+                    color: AppColors.primaryColor,
+                  ),
+                  hintText: "Type Of Report",
                 ),
               ),
               Style.distan_size10,
@@ -388,13 +413,20 @@ class _UploadReportViewState extends State<UploadReportView> {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
 
                 if(reportName.text.isEmpty){
-                  Messages.snackBar(context, "Report con not be empty !",
-                     );
-                }else{
+                  Messages.snackBar(context, "DoctorName / TabName con not be empty !",
+                  );
+                }
+               else if(typereportName.text.isEmpty){
+                  Messages.snackBar(context, "Type of report con not be empty !",
+                  );
+                }
+
+                else{
                   int? id = prefs.getInt(UserP.id);
                   Map<String, String> body = {
                     'patient_id': id.toString(),
                     'name':reportName.text,
+                    'type_of_report':typereportName.text,
                   };
 
                   print(body);
@@ -431,7 +463,7 @@ class _UploadReportViewState extends State<UploadReportView> {
 
                     try {
                       var response = await request.send();
-                      print("ddddddddddddddddddd${response}");
+                      print("ddddddddddddddddddd${response.request}");
 
                       if (response.statusCode == 200) {
                         Messages.snackBar(context, "Images uploaded successfully",

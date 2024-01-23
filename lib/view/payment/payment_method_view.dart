@@ -165,8 +165,8 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                   ),
 
                   Text(
-                    "Note : While developing save the number and reference and transaction id from which the development is done and input for making appointment in next step",
-                    style: Style.alltext_default_balck,
+                    "Note : Pay the doctor’s consultation fee in bkash. Please remember bkash number and 10-digit transaction ID to confirm doctor’s follow-up appointment ",
+                    style: Style.alltext_default_balck,textAlign: TextAlign.justify,
                   ),
 
                   // ListTile(
@@ -649,10 +649,12 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                         } else if (transactionrefer.text.isEmpty) {
                           Messages.snackBar(context, "Enter reference name");
                         } else {
+                          // DateTime dateTime = DateFormat('yyyy-MM-dd').parseStrict( widget.appointmentDate);
+
                           Map body = {
                             "doctor_id": widget.doctorId,
                             "patient_id": widget.patientId,
-                            "date": widget.appointmentDate,
+                            "date": widget.appointmentDate.split(" ").first,
                             "appointment_type": widget.appointmentType,
                             "disease": jsonEncode(items),
                             "payment_type": getPaymentMethod(),

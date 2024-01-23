@@ -340,10 +340,10 @@ class PdfInvoiceApi {
         // Text("৩. ইনসুলিন ও বিদেশী ওষুধ ফেরত নেওয়া হয় না ।"),
         // Text("৪. বিক্রিত ওষুধ এর টাকা ফেরত দেওয়া হয় না ।"),
         // Text("৫. কাটা ছেড়া ও ফ্রিজের বিক্রিত ওষুধ ফেরত নেওয়া হয় না ।"),
-        Center(
-          child: Text("Technology Partner Zaimah Technologies Ltd",
-              textAlign: TextAlign.center),
-        ),
+        // Center(
+        //   child: Text("Technology Partner Zaimah Technologies Ltd",
+        //       textAlign: TextAlign.center),
+        // ),
         SizedBox(height: 10),
         Center(
           child: Text("Thank You", textAlign: TextAlign.center),

@@ -180,7 +180,7 @@ class _AnatomyViewState extends State<AnatomyView> {
                     Padding(
                       padding: const EdgeInsets.all(2.0),
                       child: Text(
-                        "Note : Point out the problems by selecting the part of the body where the problem is",
+                        "Note : Select the body part and identify the symptoms where you are facing problem",
                         style: Style.alltext_default_balck,textAlign: TextAlign.center,
                       ),
                     ),

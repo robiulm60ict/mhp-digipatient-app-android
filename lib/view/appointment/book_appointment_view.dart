@@ -105,7 +105,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                           MaterialPageRoute(
                               builder: (context) => PaymentMethodView(
                                   appointmentDate:
-                                      appointmentViewModel.date.toString(),
+                                     "${appointmentViewModel.appointmentDate!}",
                                   appointmentType:
                                       appointmentViewModel.isChamber ==
                                               "Chamber"
@@ -158,7 +158,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                     appointmentViewModel.appointmentDate == null
                         ? Text("")
                         : Text(
-                            "${appointmentViewModel.appointmentDate!.day} -${appointmentViewModel.appointmentDate!.month}  -${appointmentViewModel.appointmentDate!.year}",
+                            "${appointmentViewModel.appointmentDate.day}-${appointmentViewModel.appointmentDate.month}-${appointmentViewModel.appointmentDate.year}",
                             style: Style.alltext_appbar,
                           ),
                     Style.widthdistan_size20,
@@ -319,84 +319,88 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
             SizedBox(
               height: 10.h,
             ),
-            SizedBox(
-                height: 150.h,
-                child: Consumer<AppointmentViewModel>(
-                    builder: (context, data, child) {
-                  if (data.doctorTimeSlotList.isEmpty) {
-                    return data.isDocChamberTimeLoading == true
-                        ? ListView.builder(
-                            itemCount: 6,
-                            // scrollDirection: Axis.vertical,
-                            physics: const ScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: bannerShimmereffect(
-                                    90.toDouble(), 385.toDouble()),
-                              );
-                            },
-                          )
-                        : noDataFounForList("No History");
-                  } else {
-                    return SizedBox(
-                        //    height: 150.h,
-                        child: ListView.builder(
-                      itemCount: data.doctorTimeSlotList.length,
-                      physics: const ScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        var docTime = data.doctorTimeSlotList[index];
+            appointmentViewModel.doctorTimeSlotList.isEmpty
+                ? SizedBox()
+                : SizedBox(
+                    height: 150.h,
+                    child: Consumer<AppointmentViewModel>(
+                        builder: (context, data, child) {
+                      if (data.doctorTimeSlotList.isEmpty) {
+                        return data.isDocChamberTimeLoading == true
+                            ? ListView.builder(
+                                itemCount: 6,
+                                // scrollDirection: Axis.vertical,
+                                physics: const ScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: bannerShimmereffect(
+                                        90.toDouble(), 385.toDouble()),
+                                  );
+                                },
+                              )
+                            : noDataFounForList("No History");
+                      } else {
+                        return SizedBox(
+                            //    height: 150.h,
+                            child: ListView.builder(
+                          itemCount: data.doctorTimeSlotList.length,
+                          physics: const ScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            var docTime = data.doctorTimeSlotList[index];
 
-                        if ((docTime.type ==
-                                appointmentViewModel.morningeveingButton
-                                    .toString()) &&
-                            (docTime.appointmentType ==
-                                appointmentViewModel.isChamber.toString())) {
-                          return Center(
-                            child: Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text(
-                                      "${docTime.day}",
-                                      style: Style.alltext_default_balck,
+                            if ((docTime.type ==
+                                    appointmentViewModel.morningeveingButton
+                                        .toString()) &&
+                                (docTime.appointmentType ==
+                                    appointmentViewModel.isChamber
+                                        .toString())) {
+                              return Center(
+                                child: Card(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          "${docTime.day}",
+                                          style: Style.alltext_default_balck,
+                                        ),
+                                        Text(
+                                          "${docTime.slotFrom.toString()} To ${docTime.slotTo.toString()}",
+                                          style: Style.alltext_default_balck,
+                                        ),
+                                        Text(
+                                          "${docTime.type.toString().toUpperCase()}",
+                                          style: Style.alltext_default_balck,
+                                        ),
+                                        Text(
+                                          "${docTime.appointmentType.toString().toUpperCase()}",
+                                          style: Style.alltext_default_balck,
+                                        ),
+                                        Text(
+                                          docTime.status.toString() ==
+                                                  "off_duty"
+                                              ? "Off Day"
+                                              : "",
+                                          style: Style.alltext_default_balck,
+                                        ),
+                                      ],
                                     ),
-                                    Text(
-                                      "${docTime.slotFrom.toString()} To ${docTime.slotTo.toString()}",
-                                      style: Style.alltext_default_balck,
-                                    ),
-                                    Text(
-                                      "${docTime.type.toString().toUpperCase()}",
-                                      style: Style.alltext_default_balck,
-                                    ),
-                                    Text(
-                                      "${docTime.appointmentType.toString().toUpperCase()}",
-                                      style: Style.alltext_default_balck,
-                                    ),
-                                    Text(
-                                      docTime.status.toString() == "off_duty"
-                                          ? "Off Day"
-                                          : "",
-                                      style: Style.alltext_default_balck,
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                          );
-                        } else {
-                          // Return an empty container for items that don't match the filter criteria
-                          return Container();
-                        }
-                      },
-                    ));
-                  }
-                })),
+                              );
+                            } else {
+                              // Return an empty container for items that don't match the filter criteria
+                              return Container();
+                            }
+                          },
+                        ));
+                      }
+                    })),
             SizedBox(
               height: 10.h,
             ),
@@ -560,7 +564,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                                 .toString() ==
                                             "Chamber"
                                         ? "Chamber"
-                                        : "Online"),
+                                        : "Telehealth"),
                                   ],
                                 ),
                           Style.distan_size2,
@@ -599,9 +603,9 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                             children: [
                               Text("Appointment Date "),
                               Text(": "),
-                              Text(
-                                DateFormat("dd-MM-yyyy").format(DateTime.parse(
-                                    appointmentViewModel.date.toString())),
+                              Text("${appointmentViewModel.appointmentDate!.day}-${appointmentViewModel.appointmentDate!.month}-${appointmentViewModel.appointmentDate!.year}"
+                                // DateFormat("dd-MM-yyyy").format(DateTime.parse(
+                                //     appointmentViewModel.date.toString())),
                               ),
                             ],
                           ),

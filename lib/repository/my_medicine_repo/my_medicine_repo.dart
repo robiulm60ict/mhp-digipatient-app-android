@@ -24,7 +24,7 @@ class MyMedicineRepo{
       dynamic response = await apiService.getGetApiResponse(
         "${AppUrls.getmyreportimage}$id"
       );
-   //   print("data..................${response.toString()}");
+      print("data..................${response.toString()}");
       List<MyReportImageModel> datalist = [];
       for (var i in response['data']) {
         datalist.add(MyReportImageModel.fromJson(i));

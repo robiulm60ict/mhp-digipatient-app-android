@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,17 +14,16 @@ class MyReportView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,
-        title: Text("My Report",  style: Style.alltext_appbar),
+        title: Text("My Report", style: Style.alltext_appbar),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
-
             Card(
               child: Padding(
                 padding: EdgeInsets.all(4.0.r),
@@ -34,9 +32,7 @@ class MyReportView extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                UploadReportView()));
-
+                            builder: (context) => UploadReportView()));
                   },
                   leading: Image.asset(
                     Assets.myMedicineRx,
@@ -61,8 +57,7 @@ class MyReportView extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                UploadMyReport()));
+                            builder: (context) => UploadMyReport()));
 
                     // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
                   },

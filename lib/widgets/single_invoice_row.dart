@@ -11,11 +11,17 @@ class SingleInvoiceRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children:
         [
-         Text(lTitle, style: Style.alltext_default_balck,),
-         Text(rTitle, style: Style.alltext_default_balck,),
+          SizedBox(
+              width: 130,
+              child: Text(lTitle, style: Style.alltext_default_balck,)),
+          Text(" :  "),
+
+          SizedBox(
+             // width: 100,
+              child: Text(rTitle, style: Style.alltext_default_balck,)),
         ]
     );
   }

@@ -226,13 +226,29 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
-                        Text(
-                          "Payment For Bkash : ${doc!.doctors!.drHomePhone.toString()}",
-                          style: Style.alltext_default_balck_blod,
-                        ),
+                        // SizedBox(
+                        //   height: 12.h,
+                        // ),
+                        
+                       
+                        Row(children: [
+                          Image.asset(
+                            Assets.imagesBkash,
+                            height: 35.h,
+                            width: 35.w,
+                            fit: BoxFit.contain,
+                          ),
+                          // CircleAvatar(
+                          //   maxRadius: 24,
+                          //   backgroundImage: AssetImage(Assets.imagesBkash),
+                          // ),
+                          Text(
+                            " Bkash Payment : ${doc!.doctors!.drHomePhone.toString()}",
+                            style: Style.alltext_default_balck_blod,
+                          ),
+
+
+                        ],)
                       ],
                     ),
                   ),
@@ -373,10 +389,10 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                           width: 40.w,
                                           padding: const EdgeInsets.only(top: 4),
                                           child: Container(
-                                            height: 40.h,
-                                            width: 40.w,
+                                            // height: 40.h,
+                                            // width: 40.w,
                                             color: Colors.white,
-                                            padding: const EdgeInsets.all(4.0),
+                                            padding: const EdgeInsets.all(5.0),
                                             child: SizedBox(
                                                 width: 80.w,
                                                 child: InkWell(
@@ -392,8 +408,8 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                                     //             )));
                                                   },
                                                   child: CircleAvatar(
-                                                    maxRadius: 10,
-                                                    backgroundImage: AssetImage(info.name
+                                                    maxRadius: 8,
+                                                    child: Image.asset(info.name
                                                         .toString() ==
                                                         "FaceBook"
                                                         ? Assets.facebook
@@ -435,7 +451,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                               ),
                             ),
                             title: Text(
-                              "Support No",
+                              "Support : ",
                               style: Style.alltext_default_balck,
                             ),
                             subtitle: Text(
@@ -462,7 +478,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 doc?.doctors!.drAbout.toString() != "null"
                     ? ReadMoreText(
                         "${doc?.doctors?.drAbout.toString() ?? ""}",
-                        trimLines: 10,
+                        trimLines: 8,
                         colorClickableText: Colors.pink,
                         trimMode: TrimMode.Line,
                         trimCollapsedText: 'See All',
@@ -479,8 +495,17 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       )
                     : Text(""),
                 SizedBox(
-                  height: 10.w,
+                  height: 12.w,
                 ),
+                Card(
+                  elevation: 7,
+                  child: Container(
+                  //color: AppColors.linearGradient2,
+                  padding: const EdgeInsets.all(4.0),
+                  child: Text("Note : Pay the doctor’s consultation fee in bkash. Please remember bkash number and 10-digit transaction ID to confirm doctor’s follow-up appointment ",style: TextStyle(
+
+                  ),),
+                ),)
 
 
               ],

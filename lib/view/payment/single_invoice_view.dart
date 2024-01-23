@@ -154,7 +154,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                           height: 3.h,
                         ),
                         SingleInvoiceRow(
-                          lTitle: "transaction Number",
+                          lTitle: "Transaction Number",
                           rTitle: "${widget.trinscationNo.toString()}",
                         ),
                         SizedBox(
@@ -168,7 +168,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                           height: 3.h,
                         ),
                         SingleInvoiceRow(
-                          lTitle: "Patient HnNumber",
+                          lTitle: "Patient Number",
                           rTitle: "${userVM.user?.patientHnNumber}",
                         ),
                         SizedBox(
@@ -176,7 +176,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                         ),
                         SingleInvoiceRow(
                           lTitle: "Date",
-                          rTitle: getDate(widget.appointmentDate),
+                          rTitle:getDate( widget.appointmentDate),
                         ),
                       ],
                     ),
@@ -189,17 +189,17 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                     child: Column(
                       children: [
                         SingleInvoiceRow(
-                            lTitle: "Patient Name :",
+                            lTitle: "Patient Name ",
                             rTitle:
                                 "${userVM.user?.patientFirstName} ${userVM.user?.patientLastName}"),
                         SingleInvoiceRow(
-                            lTitle: "Mobile Number :",
+                            lTitle: "Mobile Number ",
                             rTitle: "${userVM.user?.patientMobilePhone}"),
                         SingleInvoiceRow(
-                            lTitle: "Address :",
+                            lTitle: "Address ",
                             rTitle: "${userVM.user?.patientAddress1}"),
                         SingleInvoiceRow(
-                            lTitle: "Payment Method :",
+                            lTitle: "Payment Method ",
                             rTitle: "${widget.paymentMethod}"),
                       ],
                     ),
@@ -213,13 +213,14 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "COST",
+                        "AMOUNT",
                         style: Style.alltext_default_balck_blod,
                       ),
-                      Text(
-                        "PRICE",
-                        style: Style.alltext_default_balck_blod,
-                      ),
+                      Text("")
+                      // Text(
+                      //   "PRICE",
+                      //   style: Style.alltext_default_balck_blod,
+                      // ),
                     ],
                   ),
                 ),
@@ -260,8 +261,9 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
 
                         Style.distan_size5,
                         Text(
-                          "Note : Save Invoice Doctor Appointment Confirmation After confirmation you will be informed about the consultation time and all the details through SMS.",
+                          "Note : Save Invoice for Appointment Confirmation.  After confirmation you will be informed about the consultation time and the details through SMS.",
                           style: Style.alltext_default_balck,
+                          textAlign: TextAlign.justify,
                         ),
                         Style.distan_size5,
                         MaterialButton(
