@@ -190,7 +190,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                           fit: BoxFit.fill,
                           color: AppColors.primaryColor),
                       title: Text(
-                        "Telehealth",
+                        "Follow-up".toUpperCase(),
                         style: TextStyle(
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w400,
@@ -220,7 +220,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                         fit: BoxFit.fill,
                       ),
                       title: Text(
-                        "Chamber",
+                        "Chamber".toUpperCase(),
                         style: TextStyle(
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w400,
@@ -370,17 +370,17 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                           style: Style.alltext_default_balck,
                                         ),
                                         Text(
-                                          "${docTime.slotFrom.toString()} To ${docTime.slotTo.toString()}",
+                                          "${formatSpecificTime(docTime.slotFrom.toString())} To ${formatSpecificTime(docTime.slotTo.toString())}",
                                           style: Style.alltext_default_balck,
                                         ),
-                                        Text(
-                                          "${docTime.type.toString().toUpperCase()}",
-                                          style: Style.alltext_default_balck,
-                                        ),
-                                        Text(
-                                          "${docTime.appointmentType.toString().toUpperCase()}",
-                                          style: Style.alltext_default_balck,
-                                        ),
+                                        // Text(
+                                        //   "${docTime.type.toString().toUpperCase()}",
+                                        //   style: Style.alltext_default_balck,
+                                        // ),
+                                        // Text(
+                                        //   "${docTime.appointmentType.toString().toUpperCase()}",
+                                        //   style: Style.alltext_default_balck,
+                                        // ),
                                         Text(
                                           docTime.status.toString() ==
                                                   "off_duty"
@@ -564,7 +564,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                                 .toString() ==
                                             "Chamber"
                                         ? "Chamber"
-                                        : "Telehealth"),
+                                        : "Follow-Up"),
                                   ],
                                 ),
                           Style.distan_size2,
@@ -623,5 +623,11 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
         ),
       );
     });
+  }
+  String formatSpecificTime(String inputTime) {
+    // Assuming the inputTime is in the "HH:mm" format
+    DateTime dateTime = DateFormat('HH:mm').parse(inputTime);
+    String formattedTime = DateFormat('hh:mm a').format(dateTime);
+    return formattedTime;
   }
 }

@@ -151,7 +151,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
           Card(
             color: Colors.white,
             child: Padding(
-              padding: EdgeInsets.all(10.r),
+              padding: EdgeInsets.all(6.r),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -165,8 +165,8 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                   ),
 
                   Text(
-                    "Note : Pay the doctor’s consultation fee in bkash. Please remember bkash number and 10-digit transaction ID to confirm doctor’s follow-up appointment ",
-                    style: Style.alltext_default_balck,textAlign: TextAlign.justify,
+                    "Pay the doctor’s consultation fee in bkash. Please remember bkash number and 10-digit transaction ID to confirm doctor’s follow-up appointment ",
+                    style: Style.alltext_default_balck_blod,textAlign: TextAlign.start,
                   ),
 
                   // ListTile(
@@ -338,7 +338,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                         Assets.imagesBkash,
                         height: 45.h,
                         width: 50.w,
-                        fit: BoxFit.fill,
+                        //fit: BoxFit.fill,
                       ),
 
                       // Row(
@@ -461,7 +461,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                               SizedBox(
                                 width: 70.w,
                                 child: Text(
-                                  "Transaction ID *",
+                                  "Trans ID *",
                                   style: Style.alltext_default_balck,
                                 ),
                               ),
@@ -645,7 +645,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                           Messages.snackBar(context, "Enter Transaction Id");
                         } else if (transaction.text.length != 10) {
                           Messages.snackBar(context,
-                              "Enter Transaction Number must be 10 digit");
+                              "Enter Trans ID must be 10 digit");
                         } else if (transactionrefer.text.isEmpty) {
                           Messages.snackBar(context, "Enter reference name");
                         } else {
@@ -695,7 +695,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
       return "Cash";
     } else {
       if (_selectedDigitalValue == 1) {
-        return "Bkash";
+        return "bKash";
       } else if (_selectedDigitalValue == 2) {
         return "Rocket";
       } else {

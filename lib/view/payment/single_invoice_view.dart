@@ -154,7 +154,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                           height: 3.h,
                         ),
                         SingleInvoiceRow(
-                          lTitle: "Transaction Number",
+                          lTitle: "Trans ID",
                           rTitle: "${widget.trinscationNo.toString()}",
                         ),
                         SizedBox(
@@ -260,9 +260,10 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
                             lTitle: "Total Amount ", rTitle: widget.amount),
 
                         Style.distan_size5,
+                        Style.distan_size5,
                         Text(
-                          "Note : Save Invoice for Appointment Confirmation.  After confirmation you will be informed about the consultation time and the details through SMS.",
-                          style: Style.alltext_default_balck,
+                          "Save Invoice for Appointment Confirmation.  After confirmation you will be informed about the consultation time and the details through SMS.",
+                          style: Style.alltext_default_balck_blod,
                           textAlign: TextAlign.justify,
                         ),
                         Style.distan_size5,

@@ -265,7 +265,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 SizedBox(height: 5.h),
                 Text(
-                  "V 2.0.0(200)",
+                  "V 1.1.1(4)",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 12.sp, color: const Color(0xFFAAAAAA)),

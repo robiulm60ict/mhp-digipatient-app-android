@@ -122,7 +122,7 @@ class _InvoiceViewState extends State<InvoiceView> {
                                                   Style.alltext_default_balck,
                                             ),
                                           ),
-                                          Text(": "),
+                                          Text(":  "),
                                           SizedBox(
                                             width: 130.w,
                                             child: Text(item.amount.toString(),
@@ -146,7 +146,7 @@ class _InvoiceViewState extends State<InvoiceView> {
                                                         .alltext_default_balck,
                                                   ),
                                                 ),
-                                                Text(": "),
+                                                Text(":  "),
                                                 SizedBox(
                                                   width: 130.w,
                                                   child: Text(
@@ -171,7 +171,7 @@ class _InvoiceViewState extends State<InvoiceView> {
                                                   Style.alltext_default_balck,
                                             ),
                                           ),
-                                          Text(": "),
+                                          Text(":  "),
                                           SizedBox(
                                             width: 120.w,
                                             child: Text(
@@ -194,7 +194,7 @@ class _InvoiceViewState extends State<InvoiceView> {
                                                   Style.alltext_default_balck,
                                             ),
                                           ),
-                                          Text(": "),
+                                          Text(":  "),
                                           SizedBox(
                                             width: 120.w,
                                             child: Text(

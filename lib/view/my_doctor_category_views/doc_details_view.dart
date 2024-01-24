@@ -243,7 +243,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           //   backgroundImage: AssetImage(Assets.imagesBkash),
                           // ),
                           Text(
-                            " Bkash Payment : ${doc!.doctors!.drHomePhone.toString()}",
+                            " bKash Payment : ${doc!.doctors!.drHomePhone.toString()}",
                             style: Style.alltext_default_balck_blod,
                           ),
 
@@ -502,9 +502,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                   child: Container(
                   //color: AppColors.linearGradient2,
                   padding: const EdgeInsets.all(4.0),
-                  child: Text("Note : Pay the doctor’s consultation fee in bkash. Please remember bkash number and 10-digit transaction ID to confirm doctor’s follow-up appointment ",style: TextStyle(
-
-                  ),),
+                  child: Text("Pay the doctor’s consultation fee in bkash. Please remember bkash number and 10-digit transaction ID to confirm doctor’s follow-up appointment. ",style: Style.alltext_default_balck_blod,textAlign: TextAlign.start,),
                 ),)
 
 

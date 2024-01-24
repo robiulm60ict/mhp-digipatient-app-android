@@ -146,7 +146,7 @@ class _MyPatientViewState extends State<MyPatientView> {
                                                             .alltext_default_balck,
                                                       ),
                                                     ),
-                                                    Text(": "),
+                                                    Text(":  "),
                                                     SizedBox(
                                                       width: 130.w,
                                                       child: Text(
@@ -170,7 +170,7 @@ class _MyPatientViewState extends State<MyPatientView> {
                                                             .alltext_default_balck,
                                                       ),
                                                     ),
-                                                    Text(": "),
+                                                    Text(":  "),
                                                     SizedBox(
                                                       width: 130.w,
                                                       child: Text(
@@ -197,7 +197,7 @@ class _MyPatientViewState extends State<MyPatientView> {
                                                                   .alltext_default_balck,
                                                             ),
                                                           ),
-                                                          Text(": "),
+                                                          Text(":  "),
                                                           SizedBox(
                                                             width: 130.w,
                                                             child: Text(
@@ -222,7 +222,7 @@ class _MyPatientViewState extends State<MyPatientView> {
                                                             .alltext_default_balck,
                                                       ),
                                                     ),
-                                                    Text(": "),
+                                                    Text(":  "),
                                                     SizedBox(
                                                       width: 120.w,
                                                       child: Text(
@@ -245,7 +245,7 @@ class _MyPatientViewState extends State<MyPatientView> {
                                                             .alltext_default_balck,
                                                       ),
                                                     ),
-                                                    Text(": "),
+                                                    Text(":  "),
                                                     SizedBox(
                                                       width: 120.w,
                                                       child: Text(

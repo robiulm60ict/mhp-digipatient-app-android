@@ -9,19 +9,13 @@
       "client_info": {
         "mobilesdk_app_id": "1:355708416058:android:9cde02f22b5da1a688c503",
         "android_client_info": {
-<<<<<<< HEAD
           "package_name": "com.micro.digi_patient"
-=======
-          "package_name": "com.example.mhp_digidoctor_app"
->>>>>>> 708fbdf0bdadbaac24b2192b668b00807c65b42f
         }
       },
       "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyAhYi9dQ8Lh09FlAJuH2PJRXuIzko3hEs8"
-<<<<<<< HEAD
-=======
         }
       ],
       "services": {
@@ -41,7 +35,6 @@
       "api_key": [
         {
           "current_key": "AIzaSyAhYi9dQ8Lh09FlAJuH2PJRXuIzko3hEs8"
->>>>>>> 708fbdf0bdadbaac24b2192b668b00807c65b42f
         }
       ],
       "services": {
