@@ -13,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 import '../../generated/assets.dart';
+import '../../login_service.dart';
 import '../../resources/app_url.dart';
 import '../../resources/colors.dart';
 import '../../resources/styles.dart';
@@ -49,7 +50,8 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    getUserData();
+  //  getUserData();
+    onUserLogin();
     context.read<UserViewModel>().getUserDetails();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<DailyAndUpcommingViewModel>().getTodayAppointments(context);
@@ -79,7 +81,7 @@ class _HomeViewState extends State<HomeView> {
     String role = prefs.getString(UserP.role) ?? "";
 
     // if (isLoggedIn) {
-      context.read<AuthViewModel>().onUserLogin();
+    //   context.read<AuthViewModel>().onUserLogin();
     // } else {
     //   context.read<AuthViewModel>().onUserLogout();
     // }
@@ -239,6 +241,7 @@ class _HomeViewState extends State<HomeView> {
 
                       await prefs.setBool(UserP.isLoggedIn, false);
                       auth.onUserLogout();
+                      logout();
                       Navigator.pushNamedAndRemoveUntil(
                         context,
                         RoutesName.login,

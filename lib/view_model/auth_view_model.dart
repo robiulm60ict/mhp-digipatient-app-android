@@ -9,6 +9,8 @@ import 'package:digi_patient/view/pincode_verification_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../constants.dart';
+import '../login_service.dart';
 import '../model/auth_model/RegistrationModel.dart';
 import '../model/auth_model/birth_sex_model.dart';
 import '../model/registration/otp_check_model.dart';
@@ -39,7 +41,9 @@ class AuthViewModel with ChangeNotifier {
     _loginLoading = value;
     notifyListeners();
   }
- bool isLoginLoading=false;
+
+  bool isLoginLoading = false;
+
   setSignupLoading(
     bool value,
   ) {
@@ -47,20 +51,18 @@ class AuthViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-
-
-
-
   Future<void> loginApi(BuildContext context, dynamic body,
       {bool keepMeSignIn = true}) async {
     setLoginLoading(true);
-    isLoginLoading=true;
+    isLoginLoading = true;
     notifyListeners();
     _authRepo.loginApi(body).then((value) async {
       print(value);
       if (value['message'] == 'User Logged in sucessfully') {
         Messages.flushBarMessage(context, '${value['message']}',
             backgroundColor: AppColors.primaryColor);
+
+
         await saveUser(
             isLoggedIn: keepMeSignIn,
             email: body['email'],
@@ -70,112 +72,128 @@ class AuthViewModel with ChangeNotifier {
             userid: int.parse(value["user"]['id'].toString()),
             role: value["user"]['user_type'] ?? "",
             token: value['token'].toString());
+        login(
+                userID: int.parse(value["user"]['user_id']).toString(),
+                userName:  value["user"]['name'].toString(),
+              ).then((value) {
+                onUserLogin();
+                setLoginLoading(false);
+            isLoginLoading = false;
+            // notifyListeners();
 
-        Future.delayed(const Duration(seconds: 1)).then((v) {
-          setLoginLoading(false);
-          isLoginLoading=false;
-          // notifyListeners();
+            Navigator.pushNamed(context, RoutesName.dashbord);
+            // onUserLogin();
 
-          Navigator.pushNamed(context, RoutesName.dashbord);
-          onUserLogin();
-        });
+              });
+        // currentUser.id =  int.parse(value["user"]['user_id']).toString();
+        // currentUser.name = value["user"]['name'].toString();
+
+
+        // Future.delayed(const Duration(seconds: 0)).then((v) {
+        //   setLoginLoading(false);
+        //   isLoginLoading = false;
+        //   // notifyListeners();
+        //   // Navigator.pushNamed(
+        //   //   context,
+        //   //   PageRouteNames.home,
+        //   // );
+        //   Navigator.pushNamed(context, RoutesName.dashbord);
+        //   onUserLogin();
+        // });
       } else {
         Messages.flushBarMessage(context, '${value['message']}',
             backgroundColor: AppColors.redColor);
         setLoginLoading(false);
-        isLoginLoading=false;
+        isLoginLoading = false;
       }
     }).onError((error, stackTrace) {
       debugPrint(error.toString());
       Messages.flushBarMessage(context, error.toString());
       setLoginLoading(false);
-      isLoginLoading=false;
+      isLoginLoading = false;
     });
   }
 
   /// on App's user login
-  void onUserLogin() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    int? userid = prefs.getInt(UserP.id);
-    String? name = prefs.getString(UserP.name);
-
-    print(userid);
-
-    /// 1.2.1. initialized ZegoUIKitPrebuiltCallInvitationService
-    /// when app's user is logged in or re-logged in
-    /// We recommend calling this method as soon as the user logs in to your app.
-
-    ZegoUIKitPrebuiltCallInvitationService().init(
-      ringtoneConfig: ZegoRingtoneConfig(),
-      uiConfig: ZegoCallInvitationUIConfig(
-        callingBackgroundBuilder: (
-            BuildContext context,
-            Size size,
-            ZegoCallingBackgroundBuilderInfo info,
-            ) {
-
-          return Container(
-            width: size.width,
-            height: size.height,
-            decoration: BoxDecoration(color: Colors.blue.withOpacity(0.5)),
-            child: Center(
-              child: Text(
-                'inviter:${info.inviter.name}, invitees:${info.invitees.map((e) => '${e.name},')}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  decoration: TextDecoration.none,
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-      notificationConfig: ZegoCallInvitationNotificationConfig(
-        androidNotificationConfig: ZegoAndroidNotificationConfig(
-            callIDVisibility: true,
-          vibrate: true
-        ),
-        iOSNotificationConfig: ZegoIOSNotificationConfig(
-          appName: '',
-
-          certificateIndex:
-          ZegoSignalingPluginMultiCertificate.firstCertificate,
-        ),
-      ),
-      appID: 1293432009 /*input your AppID*/,
-      appSign:
-          "ce9d090d86cd6d51344033934af611515fdb0fc5760cfd02df1f99c06b0b94cf" /*input your AppSign*/,
-      userID: userid.toString(),
-      userName: name.toString(),
-      plugins: [ZegoUIKitSignalingPlugin()],
-      requireConfig: (ZegoCallInvitationData data) {
-
-        var config = (data.invitees.length > 1)
-            ? ZegoCallType.videoCall == data.type
-            ? ZegoUIKitPrebuiltCallConfig.groupVideoCall()
-            : ZegoUIKitPrebuiltCallConfig.groupVoiceCall()
-            : ZegoCallType.videoCall == data.type
-            ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
-            : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
-
-        /// show minimizing button
-        config.topMenuBarConfig.isVisible = true;
-        // config.layout=ZegoLayout.gallery(
-        //   showNewScreenSharingViewInFullscreenMode: true,
-        //       // showScreenSharingFullscreenModeToggleButtonRules: ZegoShowFullscreenModeToggleButtonRules.showWhenScreenPressed,
-        // );
-
-
-        config.bottomMenuBarConfig.buttons
-            .insert(3, ZegoMenuBarButtonName.minimizingButton);
-        // config.topMenuBarConfig.buttons
-        //     .insert(0, ZegoMenuBarButtonName.toggleCameraButton);
-
-        return config;
-      },
-    );
-  }
+  // void onUserLogin() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   int? userid = prefs.getInt(UserP.id);
+  //   String? name = prefs.getString(UserP.name);
+  //
+  //   print(userid);
+  //
+  //   /// 1.2.1. initialized ZegoUIKitPrebuiltCallInvitationService
+  //   /// when app's user is logged in or re-logged in
+  //   /// We recommend calling this method as soon as the user logs in to your app.
+  //
+  //   ZegoUIKitPrebuiltCallInvitationService().init(
+  //     ringtoneConfig: ZegoRingtoneConfig(),
+  //     uiConfig: ZegoCallInvitationUIConfig(
+  //       callingBackgroundBuilder: (
+  //         BuildContext context,
+  //         Size size,
+  //         ZegoCallingBackgroundBuilderInfo info,
+  //       ) {
+  //         return Container(
+  //           width: size.width,
+  //           height: size.height,
+  //           decoration: BoxDecoration(color: Colors.blue.withOpacity(0.5)),
+  //           child: Center(
+  //             child: Text(
+  //               'inviter:${info.inviter.name}, invitees:${info.invitees.map((e) => '${e.name},')}',
+  //               style: const TextStyle(
+  //                 color: Colors.white,
+  //                 fontSize: 12,
+  //                 decoration: TextDecoration.none,
+  //               ),
+  //             ),
+  //           ),
+  //         );
+  //       },
+  //     ),
+  //     // notificationConfig: ZegoCallInvitationNotificationConfig(
+  //     //   androidNotificationConfig: ZegoAndroidNotificationConfig(
+  //     //       callIDVisibility: true,
+  //     //     vibrate: true
+  //     //   ),
+  //     //   iOSNotificationConfig: ZegoIOSNotificationConfig(
+  //     //     appName: '',
+  //     //
+  //     //     certificateIndex:
+  //     //     ZegoSignalingPluginMultiCertificate.firstCertificate,
+  //     //   ),
+  //     // ),
+  //     appID: 1293432009 /*input your AppID*/,
+  //     appSign:
+  //         "ce9d090d86cd6d51344033934af611515fdb0fc5760cfd02df1f99c06b0b94cf" /*input your AppSign*/,
+  //     userID: userid.toString(),
+  //     userName: name.toString(),
+  //     plugins: [ZegoUIKitSignalingPlugin()],
+  //     requireConfig: (ZegoCallInvitationData data) {
+  //       var config = (data.invitees.length > 1)
+  //           ? ZegoCallType.videoCall == data.type
+  //               ? ZegoUIKitPrebuiltCallConfig.groupVideoCall()
+  //               : ZegoUIKitPrebuiltCallConfig.groupVoiceCall()
+  //           : ZegoCallType.videoCall == data.type
+  //               ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+  //               : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
+  //
+  //       /// show minimizing button
+  //       config.topMenuBarConfig.isVisible = true;
+  //       // config.layout=ZegoLayout.gallery(
+  //       //   showNewScreenSharingViewInFullscreenMode: true,
+  //       //       // showScreenSharingFullscreenModeToggleButtonRules: ZegoShowFullscreenModeToggleButtonRules.showWhenScreenPressed,
+  //       // );
+  //
+  //       config.bottomMenuBarConfig.buttons
+  //           .insert(3, ZegoMenuBarButtonName.minimizingButton);
+  //       // config.topMenuBarConfig.buttons
+  //       //     .insert(0, ZegoMenuBarButtonName.toggleCameraButton);
+  //
+  //       return config;
+  //     },
+  //   );
+  // }
 
   /// on App's user logout
   void onUserLogout() {

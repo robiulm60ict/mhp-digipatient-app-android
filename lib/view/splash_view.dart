@@ -25,7 +25,7 @@ class _SplashViewState extends State<SplashView> {
     super.initState();
 
     Timer(
-      const Duration(seconds: 6),
+      const Duration(seconds: 3),
         (){
           navigateUser();
         }
