@@ -50,7 +50,7 @@ void main() async {
   final cacheUserID = prefs.get(cacheUserIDKey) as String? ?? '';
   if (cacheUserID.isNotEmpty) {
     currentUser.id = cacheUserID;
-    currentUser.name = 'user_$cacheUserID';
+    currentUser.name = '$cacheUserID';
   }
 
   /// 1/5: define a navigator key
@@ -180,7 +180,8 @@ class MyAppState extends State<MyApp> {
         // initialRoute:
         //     currentUser.id.isEmpty ? PageRouteNames.login : PageRouteNames.home,
 
-        initialRoute: currentUser.id.isEmpty? RoutesName.login:RoutesName.dashbord,
+        initialRoute:
+            currentUser.id.isEmpty ? RoutesName.login : RoutesName.splash,
         onGenerateRoute: Routes.generateRoute,
         color: AppColors.primaryColor,
 

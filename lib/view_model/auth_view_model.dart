@@ -62,7 +62,6 @@ class AuthViewModel with ChangeNotifier {
         Messages.flushBarMessage(context, '${value['message']}',
             backgroundColor: AppColors.primaryColor);
 
-
         await saveUser(
             isLoggedIn: keepMeSignIn,
             email: body['email'],
@@ -72,21 +71,20 @@ class AuthViewModel with ChangeNotifier {
             userid: int.parse(value["user"]['id'].toString()),
             role: value["user"]['user_type'] ?? "",
             token: value['token'].toString());
+        currentUser.name = value["user"]['name'].toString();
         login(
-                userID: int.parse(value["user"]['user_id']).toString(),
-                userName:  value["user"]['name'].toString(),
-              ).then((value) {
-                onUserLogin();
-                setLoginLoading(false);
-            isLoginLoading = false;
-            // notifyListeners();
+          userID: int.parse(value["user"]['user_id']).toString(),
+          userName: value["user"]['name'].toString(),
+        ).then((value) {
+          onUserLogin();
+          setLoginLoading(false);
+          isLoginLoading = false;
+          // notifyListeners();
 
-            Navigator.pushNamed(context, RoutesName.dashbord);
-            // onUserLogin();
-
-              });
+          Navigator.pushNamed(context, RoutesName.dashbord);
+          // onUserLogin();
+        });
         // currentUser.id =  int.parse(value["user"]['user_id']).toString();
-        // currentUser.name = value["user"]['name'].toString();
 
 
         // Future.delayed(const Duration(seconds: 0)).then((v) {

@@ -1,5 +1,3 @@
-
-
 class UserInfo {
   String id = '';
   String name = '';
@@ -15,4 +13,5 @@ class UserInfo {
 }
 
 UserInfo currentUser = UserInfo.empty();
+
 const String cacheUserIDKey = 'cache_user_id_key';
