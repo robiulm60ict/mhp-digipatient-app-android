@@ -84,8 +84,10 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
               onPressed: () async {
                 List<SymptomsAnatomy> diseaseList =
                     anatomy.getSelectedSymptomsList();
-
-                if (appointmentViewModel.isChamber.toString() == "") {
+print(appointmentViewModel.selectedDatee.toString());
+                if (appointmentViewModel.selectedDatee == null) {
+                  Messages.snackBar(context, "Please Select Date!");
+                } else if (appointmentViewModel.isChamber.toString() == "") {
                   Messages.snackBar(context, "Please Select Appointment Type!");
                 } else if (appointmentViewModel.morningeveingButton
                         .toString() ==
@@ -95,9 +97,9 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                   Messages.snackBar(context, "Please Select Symptoms!");
                 } else {
                   print(
-                    "${DateFormat("dd-MM-yyyy H:m").format(DateTime.parse("${appointmentViewModel.date.toString()}"))}",
+                    "${DateFormat("dd-MM-yyyy H:m").format(DateTime.parse("${appointmentViewModel.selectedDatee.toString()}"))}",
                   );
-                  print(appointmentViewModel.date.toString());
+                  print(appointmentViewModel.selectedDatee.toString());
 
                   await appointmentViewModel.getPatientId().then((value) =>
                       Navigator.push(
@@ -105,7 +107,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                           MaterialPageRoute(
                               builder: (context) => PaymentMethodView(
                                   appointmentDate:
-                                     "${appointmentViewModel.appointmentDate!}",
+                                      "${appointmentViewModel.appointmentDate!}",
                                   appointmentType:
                                       appointmentViewModel.isChamber ==
                                               "Chamber"
@@ -148,17 +150,18 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                 color: AppColors.primary_color,
                 onPressed: () async {
                   // await appointmentViewModel.setAppointmentDate(context);
-                  await appointmentViewModel.setAppointmentDatee(
-                      context, widget.doctors.doctors!.id.toString());
+                  await appointmentViewModel.selectDate(context);
+                  // await appointmentViewModel.setAppointmentDatee(
+                  //     context, widget.doctors.doctors!.id.toString());
                 },
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    appointmentViewModel.appointmentDate == null
+                    appointmentViewModel.selectedDatee == null
                         ? Text("")
                         : Text(
-                            "${appointmentViewModel.appointmentDate.day}-${appointmentViewModel.appointmentDate.month}-${appointmentViewModel.appointmentDate.year}",
+                            "${appointmentViewModel.selectedDatee!.day}-${appointmentViewModel.selectedDatee!.month}-${appointmentViewModel.selectedDatee!.year}",
                             style: Style.alltext_appbar,
                           ),
                     Style.widthdistan_size20,
@@ -395,7 +398,10 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                               );
                             } else {
                               // Return an empty container for items that don't match the filter criteria
-                              return Container();
+                              return Container(
+                                child: const Text(
+                                    "No Schedule Please Selected Shift & Appointment type"),
+                              );
                             }
                           },
                         ));
@@ -599,16 +605,19 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                             ],
                           ),
                           Style.distan_size2,
-                          Row(
-                            children: [
-                              Text("Appointment Date "),
-                              Text(": "),
-                              Text("${appointmentViewModel.appointmentDate!.day}-${appointmentViewModel.appointmentDate!.month}-${appointmentViewModel.appointmentDate!.year}"
-                                // DateFormat("dd-MM-yyyy").format(DateTime.parse(
-                                //     appointmentViewModel.date.toString())),
-                              ),
-                            ],
-                          ),
+                          appointmentViewModel.selectedDatee != null
+                              ? Row(
+                                  children: [
+                                    Text("Appointment Date"),
+                                    Text(": "),
+                                    Text(
+                                        "${appointmentViewModel.selectedDatee!.day}-${appointmentViewModel.selectedDatee!.month}-${appointmentViewModel.selectedDatee!.year}"
+                                        // DateFormat("dd-MM-yyyy").format(DateTime.parse(
+                                        //     appointmentViewModel.date.toString())),
+                                        ),
+                                  ],
+                                )
+                              : Container(),
                         ],
                       ),
                     )
@@ -624,6 +633,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
       );
     });
   }
+
   String formatSpecificTime(String inputTime) {
     // Assuming the inputTime is in the "HH:mm" format
     DateTime dateTime = DateFormat('HH:mm').parse(inputTime);

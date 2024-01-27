@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weekly_date_picker/datetime_apis.dart';
 
 import '../../model/doctor_model/doctor_chember_time_model.dart';
 import '../../model/myDoctorList/mydoctorList.dart';
@@ -90,11 +91,17 @@ class AppointmentViewModel with ChangeNotifier {
   List<DoctorChamberTimeModel> doctorTimeSlotList = [];
 
   bool isDocChamberTimeLoading = true;
-
+  List<DateTime> availableDates = [];
   getDocChamberTime(BuildContext context,date, {required docId}) async {
     doctorTimeSlotList.clear();
+    availableDates.clear();
     DoctorRepository().getDocChamberTime(docId,date).then((value) {
       doctorTimeSlotList.addAll(value! as Iterable<DoctorChamberTimeModel>);
+      for (var i in value) {
+        print(i.day);
+        availableDates.add(DateTime(int.parse(i.year.toString()), int.parse(i.month.toString()), int.parse(i.day.toString().split("/").first))); // Use the day value from 'value'
+      }
+      print(appointmentDate);
       isDocChamberTimeLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
@@ -103,6 +110,40 @@ class AppointmentViewModel with ChangeNotifier {
       Messages.snackBar(context, error.toString());
     });
   }
+
+  DateTime? selectedDatee;
+
+  Future<void> selectDate(BuildContext context) async {
+    if (availableDates.isEmpty) {
+      Messages.snackBar(context, "Doctor seduce not available!");
+      // Handle the case when availableDates is empty.
+      print("No available dates");
+      return;
+    }
+
+    // DateTime initialDate = selectedDatee ?? DateTime.now();
+    // print("Initial Date: $initialDate");
+
+    DateTime? picked = await showDatePicker(
+      context: context,
+      firstDate: availableDates.first,
+      lastDate: availableDates.last.add(Duration(days: 1)),
+      selectableDayPredicate: (DateTime date) {
+        return availableDates.any((availableDate) =>
+        date.year == availableDate.year &&
+            date.month == availableDate.month &&
+            date.day == availableDate.day);
+      },
+    );
+
+    print("Picked Date: $picked");
+
+    if (picked != null && picked != selectedDatee) {
+      selectedDatee = picked;
+      notifyListeners();
+    }
+  }
+
   bool isSameDate({required DateTime date1, required DateTime date2}) {
     if (date1.year == date2.year &&
         date1.month == date2.month &&

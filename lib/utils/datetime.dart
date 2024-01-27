@@ -16,7 +16,9 @@ class PickDateTime{
       lastDate: DateTime(DateTime.now().year + 50, 10, 1),
     );
     return picked;
-  }  Future<DateTime?> pickDateregister(BuildContext context,{required DateTime initialDate}) async {
+  }
+
+  Future<DateTime?> pickDateregister(BuildContext context,{required DateTime initialDate}) async {
     DateTime? picked = await showDatePicker(
       context: context,
       initialDate:initialDate,
