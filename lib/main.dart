@@ -181,7 +181,7 @@ class MyAppState extends State<MyApp> {
         //     currentUser.id.isEmpty ? PageRouteNames.login : PageRouteNames.home,
 
         initialRoute:
-            currentUser.id.isEmpty ? RoutesName.login : RoutesName.splash,
+            currentUser.id.isEmpty ? RoutesName.splash : RoutesName.dashbord,
         onGenerateRoute: Routes.generateRoute,
         color: AppColors.primaryColor,
 
