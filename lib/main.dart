@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:digi_patient/resources/colors.dart';
+import 'package:digi_patient/utils/user.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -48,9 +49,10 @@ void main() async {
   await ScreenUtil.ensureScreenSize();
   final prefs = await SharedPreferences.getInstance();
   final cacheUserID = prefs.get(cacheUserIDKey) as String? ?? '';
+  final name = prefs.getString(UserP.name) ?? "";
   if (cacheUserID.isNotEmpty) {
     currentUser.id = cacheUserID;
-    currentUser.name = '$cacheUserID';
+    currentUser.name = '$name';
   }
 
   /// 1/5: define a navigator key

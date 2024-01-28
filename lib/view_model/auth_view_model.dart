@@ -72,6 +72,7 @@ class AuthViewModel with ChangeNotifier {
             role: value["user"]['user_type'] ?? "",
             token: value['token'].toString());
         currentUser.name = value["user"]['name'].toString();
+        print("cccccccccccccccccccccc${value["user"]['name'].toString()}");
         login(
           userID: int.parse(value["user"]['user_id']).toString(),
           userName: value["user"]['name'].toString(),

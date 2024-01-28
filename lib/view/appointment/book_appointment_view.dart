@@ -47,6 +47,9 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
     context
         .read<AppointmentViewModel>()
         .getDocChamberTime(context, "", docId: widget.doctors.doctorsMasterId);
+    context
+        .read<AppointmentViewModel>()
+        .getDocChamberTimeCalender(context, "", docId: widget.doctors.doctorsMasterId);
     // context.read<AnatomyModelView>().getSelectedSymptomsList();
   }
 
@@ -84,7 +87,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
               onPressed: () async {
                 List<SymptomsAnatomy> diseaseList =
                     anatomy.getSelectedSymptomsList();
-print(appointmentViewModel.selectedDatee.toString());
+                print(appointmentViewModel.selectedDatee.toString());
                 if (appointmentViewModel.selectedDatee == null) {
                   Messages.snackBar(context, "Please Select Date!");
                 } else if (appointmentViewModel.isChamber.toString() == "") {
@@ -149,10 +152,9 @@ print(appointmentViewModel.selectedDatee.toString());
                 height: 50,
                 color: AppColors.primary_color,
                 onPressed: () async {
-                  // await appointmentViewModel.setAppointmentDate(context);
-                  await appointmentViewModel.selectDate(context);
-                  // await appointmentViewModel.setAppointmentDatee(
-                  //     context, widget.doctors.doctors!.id.toString());
+                  await appointmentViewModel.selectDate(
+                      context, widget.doctors.doctorsMasterId);
+                  // await appointmentViewModel.selectDate();
                 },
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -193,7 +195,7 @@ print(appointmentViewModel.selectedDatee.toString());
                           fit: BoxFit.fill,
                           color: AppColors.primaryColor),
                       title: Text(
-                        "Follow-up".toUpperCase(),
+                        "Online".toUpperCase(),
                         style: TextStyle(
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w400,
@@ -398,10 +400,7 @@ print(appointmentViewModel.selectedDatee.toString());
                               );
                             } else {
                               // Return an empty container for items that don't match the filter criteria
-                              return Container(
-                                child: const Text(
-                                    "No Schedule Please Selected Shift & Appointment type"),
-                              );
+                              return Container();
                             }
                           },
                         ));
@@ -570,7 +569,7 @@ print(appointmentViewModel.selectedDatee.toString());
                                                 .toString() ==
                                             "Chamber"
                                         ? "Chamber"
-                                        : "Follow-Up"),
+                                        : "Online"),
                                   ],
                                 ),
                           Style.distan_size2,
@@ -625,9 +624,15 @@ print(appointmentViewModel.selectedDatee.toString());
                 ),
               ),
             ),
-            SizedBox(
-              height: 100,
-            ),
+
+            appointmentViewModel.doctorTimeSlotList.isEmpty
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 6.0, top: 8, right: 6),
+                    child: SizedBox(
+                      child: Image.asset(Assets.noappoinment),
+                    ),
+                  )
+                : SizedBox(),
           ],
         ),
       );

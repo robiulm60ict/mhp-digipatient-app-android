@@ -65,11 +65,13 @@ print(response);
     }
   }
 
-  Future<List<DoctorChamberTimeModel>> getDocChamberTime( docId,date) async {
+  Future<List<DoctorChamberTimeModel>> getDocChamberTime(docId,date) async {
     try {
       dynamic response =
           await apiService.getGetApiResponse("${AppUrls.docChamberTime}$docId/$date");
-      print(response);
+      print("response${response}");
+      print("docId${docId}");
+      print("date${date}");
       List<DoctorChamberTimeModel> alldata=[];
       for(var i in response['data']){
         alldata.add(DoctorChamberTimeModel.fromJson(i));

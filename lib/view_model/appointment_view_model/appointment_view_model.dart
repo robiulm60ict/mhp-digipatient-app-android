@@ -1,3 +1,4 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:digi_patient/model/book_appointment_model/book_appointment_model.dart';
 import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/model/invoice_model/invoice_show_model.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:weekly_date_picker/datetime_apis.dart';
 
 import '../../model/doctor_model/doctor_chember_time_model.dart';
@@ -48,25 +50,28 @@ class AppointmentViewModel with ChangeNotifier {
 
     notifyListeners();
   }
-  setAppointmentDatee(BuildContext context,docid) async {
-    selectedDate = await PickDateTime().pickDate(context,
-        initialDate: appointmentDate);
-    notifyListeners();
 
-    if (selectedDate != null) {
-      print("selectedDate$selectedDate");
-      appointmentDate = selectedDate!;
-      print("selectedDate$appointmentDate");
+  // setAppointmentDatee(BuildContext context, docid) async {
+  //   selectedDate =
+  //       await PickDateTime().pickDate(context, initialDate: appointmentDate);
+  //   notifyListeners();
+  //
+  //   if (selectedDate != null) {
+  //     print("selectedDate$selectedDate");
+  //     appointmentDate = selectedDate!;
+  //     print("selectedDate$appointmentDate");
+  //
+  //     getDocChamberTime(
+  //       context,
+  //       appointmentDate.toString().split(" ").first,
+  //       docId: docid,
+  //     );
+  //
+  //     print(appointmentDate.toString().split(" ").first);
+  //     notifyListeners();
+  //   }
+  // }
 
-    getDocChamberTime(
-        context,
-        appointmentDate.toString().split(" ").first, docId: docid,
-      );
-
-      print(appointmentDate.toString().split(" ").first);
-      notifyListeners();
-    }
-  }
   //
   // appoinmentonline() {
   //   isChamber = false;
@@ -83,25 +88,60 @@ class AppointmentViewModel with ChangeNotifier {
       appointmentDate = selectedDate!;
       print(selectedDate);
 
-
-
       notifyListeners();
     }
   }
+
   List<DoctorChamberTimeModel> doctorTimeSlotList = [];
+  List<DoctorChamberTimeModel> doctorTimeclnder = [];
 
   bool isDocChamberTimeLoading = true;
   List<DateTime> availableDates = [];
-  getDocChamberTime(BuildContext context,date, {required docId}) async {
+
+  getDocChamberTime(BuildContext context, date, {required docId}) async {
     doctorTimeSlotList.clear();
-    availableDates.clear();
-    DoctorRepository().getDocChamberTime(docId,date).then((value) {
+    // availableDates.clear();
+    notifyListeners();
+    print(date);
+    DoctorRepository().getDocChamberTime(docId, date).then((value) {
       doctorTimeSlotList.addAll(value! as Iterable<DoctorChamberTimeModel>);
+      // for (var i in value) {
+      //   print(i.day);
+      //   availableDates.add(DateTime(
+      //       int.parse(i.year.toString()),
+      //       int.parse(i.month.toString()),
+      //       int.parse(i.day
+      //           .toString()
+      //           .split("/")
+      //           .first))); // Use the day value from 'value'
+      // }
+      print(appointmentDate);
+      isDocChamberTimeLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      isDocChamberTimeLoading = false;
+      notifyListeners();
+      Messages.snackBar(context, error.toString());
+    });
+  }
+  getDocChamberTimeCalender(BuildContext context, date, {required docId}) async {
+    // doctorTimeclnder.clear();
+    availableDates.clear();
+    notifyListeners();
+    print(date);
+    DoctorRepository().getDocChamberTime(docId, date).then((value) {
+      // doctorTimeclnder.addAll(value! as Iterable<DoctorChamberTimeModel>);
       for (var i in value) {
         print(i.day);
-        availableDates.add(DateTime(int.parse(i.year.toString()), int.parse(i.month.toString()), int.parse(i.day.toString().split("/").first))); // Use the day value from 'value'
+        availableDates.add(DateTime(
+            int.parse(i.year.toString()),
+            int.parse(i.month.toString()),
+            int.parse(i.day
+                .toString()
+                .split("/")
+                .first))); // Use the day value from 'value'
       }
-      print(appointmentDate);
+      // print(appointmentDate);
       isDocChamberTimeLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
@@ -113,7 +153,56 @@ class AppointmentViewModel with ChangeNotifier {
 
   DateTime? selectedDatee;
 
-  Future<void> selectDate(BuildContext context) async {
+  // Future<void> selectDate(BuildContext context) async {
+  //   final DateTime picked = await showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return Dialog(
+  //         child: Container(
+  //           height: 400,
+  //           child: TableCalendar(
+  //             focusedDay: DateTime.now(),
+  //             calendarFormat: CalendarFormat.month,
+  //             calendarStyle: const CalendarStyle(
+  //                 selectedTextStyle: TextStyle(color: Colors.green)),
+  //             onDayLongPressed: (selected, focusedDay) {
+  //               print("selectedDate$selected");
+  //               print("selectedDate$focusedDay");
+  //               if (selected != null && selected != selectedDate) {
+  //                 notifyListeners();
+  //                 print("selectedDate${selectedDate}");
+  //                 print("picked${selectedDate}");
+  //                 selectedDate = selectedDate;
+  //                 notifyListeners();
+  //               }
+  //             },
+  //             firstDay: availableDates.first,
+  //             lastDay: availableDates.last,
+  //             selectedDayPredicate: (DateTime date) {
+  //               return availableDates.any((availableDate) =>
+  //                   date.year == availableDate.year &&
+  //                   date.month == availableDate.month &&
+  //                   date.day == availableDate.day);
+  //             },
+  //             onDaySelected: (selectedDay, focusedDay) {
+  //               Navigator.of(context).pop(selectedDay);
+  //             },
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  //
+  //   if (picked != null && picked != selectedDate) {
+  //     notifyListeners();
+  //     print("selectedDate${selectedDate}");
+  //     print("picked${picked}");
+  //     selectedDate = picked;
+  //     notifyListeners();
+  //   }
+  // }
+
+  Future<void> selectDate(BuildContext context,docId) async {
     if (availableDates.isEmpty) {
       Messages.snackBar(context, "Doctor seduce not available!");
       // Handle the case when availableDates is empty.
@@ -128,9 +217,14 @@ class AppointmentViewModel with ChangeNotifier {
       context: context,
       firstDate: availableDates.first,
       lastDate: availableDates.last.add(Duration(days: 1)),
+      keyboardType: TextInputType.datetime,
+
+      //barrierColor: Colors.green,
+      anchorPoint: Offset(50.0, 100.0),
+
       selectableDayPredicate: (DateTime date) {
         return availableDates.any((availableDate) =>
-        date.year == availableDate.year &&
+            date.year == availableDate.year &&
             date.month == availableDate.month &&
             date.day == availableDate.day);
       },
@@ -138,8 +232,17 @@ class AppointmentViewModel with ChangeNotifier {
 
     print("Picked Date: $picked");
 
+    notifyListeners();
     if (picked != null && picked != selectedDatee) {
       selectedDatee = picked;
+
+      getDocChamberTime(
+        context,
+        selectedDatee.toString().split(" ").first,
+        docId: docId,
+      );
+
+      print(appointmentDate.toString().split(" ").first);
       notifyListeners();
     }
   }
@@ -208,13 +311,13 @@ class AppointmentViewModel with ChangeNotifier {
     appointmentList.clear();
     notifyListeners();
     await bookAppointmentRepo.bookAppointment(body: body).then((value) async {
-
       // appointmentList.add(value);
-      if(value['transaction_no'].toString()=="[The transaction no has already been taken.]"){
+      if (value['transaction_no'].toString() ==
+          "[The transaction no has already been taken.]") {
         // Messages.snackBar(context, value['transaction_no'].toString(), backgroundColor: Colors.red);
-        Messages.snackBar(context, "The transaction no has already been taken.", backgroundColor: Colors.red);
-
-      }else{
+        Messages.snackBar(context, "The transaction no has already been taken.",
+            backgroundColor: Colors.red);
+      } else {
         print("ddddd$value");
         isBookAppointmentLoading = false;
         notifyListeners();
@@ -232,7 +335,7 @@ class AppointmentViewModel with ChangeNotifier {
           invoice: value['inovice_number'].toString(),
           paymentnumber: body["transaction_phone_number"],
           Shift: body["shift"],
-         );
+        );
         print("${doctor.token!.deviceToke.toString()}");
         final Map dataa = {
           'to': "${doctor.token!.deviceToke.toString()}",
@@ -257,9 +360,8 @@ class AppointmentViewModel with ChangeNotifier {
         anatomy.favourite.clear();
         // anatomy.symptomsList.removeLast();
         anatomy.getSymptomsList.clear();
-         // anatomy.getSymptomsList.removeLast();
+        // anatomy.getSymptomsList.removeLast();
       }
-
     }).onError((error, stackTrace) {
       print(error);
       Messages.snackBar(context, error.toString());

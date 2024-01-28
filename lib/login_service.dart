@@ -19,7 +19,7 @@ Future<void> login({
   prefs.setString(cacheUserIDKey, userID);
 
   currentUser.id = userID;
-  currentUser.name = '$userName';
+  currentUser.name = userName;
 }
 
 /// local virtual logout
@@ -32,6 +32,7 @@ Future<void> logout() async {
 void onUserLogin() {
   callController ??= ZegoUIKitPrebuiltCallController();
 
+  print("fffffffffffffffffffffffffffffffffffff${currentUser.id}");
   print("fffffffffffffffffffffffffffffffffffff${currentUser.name}");
   /// 4/5. initialized ZegoUIKitPrebuiltCallInvitationService when account is logged in or re-logged in
   ZegoUIKitPrebuiltCallInvitationService().init(
@@ -50,7 +51,6 @@ void onUserLogin() {
       systemCallingIconName: 'CallKitIcon',
     ),
     plugins: [ZegoUIKitSignalingPlugin()],
-    controller: callController,
     requireConfig: (ZegoCallInvitationData data) {
       final config = (data.invitees.length > 1)
           ? ZegoCallType.videoCall == data.type
