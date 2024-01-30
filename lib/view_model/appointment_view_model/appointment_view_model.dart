@@ -219,7 +219,7 @@ class AppointmentViewModel with ChangeNotifier {
 
     DateTime? picked = await showDatePicker(
       context: context,
-      firstDate:  DateTime.now(),
+      firstDate: DateTime.now(),
       lastDate: availableDates.last.add(Duration(days: 0)),
       keyboardType: TextInputType.datetime,
 
@@ -237,14 +237,13 @@ class AppointmentViewModel with ChangeNotifier {
 
             textTheme: TextTheme(
                 bodyText1: Style.alltext_default_balck_blodCalender,
-                // bodyText2: Style.alltext_default_balck_blod
-            ),
-            colorScheme:  ColorScheme.light(
+                bodyText2: Style.alltext_default_balck_blodCalender),
+            colorScheme: ColorScheme.light(
               primary: AppColors.primary_color,
               // header background color
-              onPrimary: Colors.black,
+              // onPrimary: Colors.black,
               // header text color
-              onSurface: Colors.black,
+              //onSurface: Colors.black,
               inversePrimary: Colors.white,
               onSecondary: Colors.red,
               background: Colors.white,
@@ -253,11 +252,10 @@ class AppointmentViewModel with ChangeNotifier {
             ),
             highlightColor: Colors.red,
             textSelectionTheme: TextSelectionThemeData(
-              selectionHandleColor: Colors.yellow,
-              selectionColor: Colors.red,
-              cursorColor: Colors.grey
-            ),
-            backgroundColor:  AppColors.primary_color,
+                selectionHandleColor: Colors.yellow,
+                selectionColor: Colors.red,
+                cursorColor: Colors.grey),
+            backgroundColor: AppColors.primary_color,
 
             buttonTheme:
                 const ButtonThemeData(textTheme: ButtonTextTheme.primary),

@@ -133,7 +133,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                   child: Padding(
                     padding: EdgeInsets.only(left: 10.0.r, top: 10.r),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -236,28 +236,31 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                         ),
                         
                        
-                        Row(
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0,top: 4),
+                          child: Row(
 
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                          Image.asset(
-                            Assets.imagesBkash,
-                            height: 35.h,
-                            width: 35.w,
-                            fit: BoxFit.contain,
-                          ),
-                          // CircleAvatar(
-                          //   maxRadius: 24,
-                          //   backgroundImage: AssetImage(Assets.imagesBkash),
-                          // ),
-                          Text(
-                            " bKash Payment : ${doc!.doctors!.drHomePhone.toString()}",
-                            style: Style.alltext_default_balck_blod,
-                          ),
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                            Image.asset(
+                              Assets.imagesBkash,
+                              height: 35.h,
+                              width: 35.w,
+                              fit: BoxFit.contain,
+                            ),
+                            // CircleAvatar(
+                            //   maxRadius: 24,
+                            //   backgroundImage: AssetImage(Assets.imagesBkash),
+                            // ),
+                            Text(
+                              " bKash Payment : ${doc!.doctors!.drHomePhone.toString()=="null"?"":doc!.doctors!.drHomePhone.toString()}",
+                              style: Style.alltext_default_balck_blod,
+                            ),
 
 
-                        ],)
+                          ],),
+                        )
                       ],
                     ),
                   ),
@@ -464,7 +467,10 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                               style: Style.alltext_default_balck,
                             ),
                             subtitle: Text(
-                              "${doc!.doctors!.drWorkPhone.toString()}",
+                              "${doc!.doctors!.drWorkPhone.toString()=="null"?"":doc!.doctors!.drWorkPhone.toString()
+                              // "${doc!.doctors!.drWorkPhone.toString()
+                              }",
+
                               style: Style.alltext_default_balck,
                             ),
                           ),

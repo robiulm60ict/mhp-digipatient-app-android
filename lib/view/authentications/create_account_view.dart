@@ -573,13 +573,11 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   isExpanded: false,
                   title: "Save",
                   onPressed: () async {
+
                     // debugPrint("------------------------------------------------\n\n\n\n\n\n");
                     String dateString =
                         '${dateOfBirthController.text.toString()}';
-                    DateTime dateTime =
-                        DateFormat('dd-MM-yyyy').parse(dateString);
-                    String formattedDate =
-                        DateFormat('yyyy-MM-dd').format(dateTime);
+
                     if (originalImagePath.isEmpty) {
                       Messages.snackBar(
                           context, "Patient Image con not be empty !");
@@ -589,10 +587,12 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                     } else if (namelast.text.isEmpty) {
                       Messages.snackBar(
                           context, "Patient Last Name con not be empty !");
-                    } else if (dateOfBirthController.text.isEmpty) {
-                      print("ddd${formattedDate}");
+                    } else if (dateOfBirthController.text.isEmpty &&
+                        dateString == "") {
                       Messages.snackBar(
                           context, "Date of Birth con not be empty !");
+
+
                     } else if (bloodGroup == null) {
                       Messages.snackBar(
                           context, "Blood Group con not be empty !");
@@ -611,6 +611,12 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       Messages.snackBar(
                           context, "Enter At least 8 Digit Password");
                     } else {
+                      DateTime  dateTime = DateFormat('dd-MM-yyyy')
+                          .parse(dateString.toString()!);
+                      String  formattedDate =
+                      DateFormat('yyyy-MM-dd').format(dateTime!);
+                      print("ddd${formattedDate}");
+                      print("ddd${formattedDate}");
                       Map<String, String> body = {
                         'patient_mobile_phone': widget.phoneNumber,
                         "app_token":
@@ -618,17 +624,18 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                         'patient_first_name': namefast.text,
                         'patient_birth_sex_id': "${birthSex?.id}",
                         'ptn_blood_group_id': "${bloodGroup?.id}",
-                        'patient_dob': formattedDate,
+                        'patient_dob': formattedDate.toString(),
                         //'image': MultipartFile(File(xFileList.first!.path).toString(), filename: ""),
                         'password': password.text,
                         'patient_email': email.text,
                         "patient_last_name": namelast.text,
                         "patient_address1": address.text,
                       };
+
                       print(body);
 
                       await auth.signUp(context, body, resizedImagePath);
-                      //  widget.phoneNumber = "";
+                       widget.phoneNumber = "";
                       // await auth.registration(context, imageFile: File(xFileList.first!.path), phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode, name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}", dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
                       // auth.signUpOriginal(context, body, widget.token);
                       ///

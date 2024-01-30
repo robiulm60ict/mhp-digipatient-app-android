@@ -50,7 +50,7 @@ class Style {
   static TextStyle alltext_default_balck_blodCalender = TextStyle(
     fontFamily: 'Roboto',
     fontWeight: FontWeight.bold,
-    color: AppColors.primary_color,
+    color: Color(0xff128041),
     fontSize: 16.sp,
   );
 
