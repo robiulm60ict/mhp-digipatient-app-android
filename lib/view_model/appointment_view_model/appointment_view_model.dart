@@ -219,7 +219,7 @@ class AppointmentViewModel with ChangeNotifier {
 
     DateTime? picked = await showDatePicker(
       context: context,
-      firstDate: availableDates.first,
+      firstDate:  DateTime.now(),
       lastDate: availableDates.last.add(Duration(days: 0)),
       keyboardType: TextInputType.datetime,
 
