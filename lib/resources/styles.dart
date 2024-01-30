@@ -47,6 +47,12 @@ class Style {
     color: AppColors.text_primary_color,
     fontSize: 12.sp,
   );
+  static TextStyle alltext_default_balck_blodCalender = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.bold,
+    color: AppColors.primary_color,
+    fontSize: 16.sp,
+  );
 
   static TextStyle alltext_ExtraSmall_black = TextStyle(
     fontFamily: 'Roboto',

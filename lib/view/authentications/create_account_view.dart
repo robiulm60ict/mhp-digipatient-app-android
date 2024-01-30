@@ -577,22 +577,19 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                     String dateString =
                         '${dateOfBirthController.text.toString()}';
                     DateTime dateTime =
-                    DateFormat('dd-MM-yyyy').parse(dateString);
+                        DateFormat('dd-MM-yyyy').parse(dateString);
                     String formattedDate =
-                    DateFormat('yyyy-MM-dd').format(dateTime);
-                    if (xFileList.isEmpty) {
+                        DateFormat('yyyy-MM-dd').format(dateTime);
+                    if (originalImagePath.isEmpty) {
                       Messages.snackBar(
                           context, "Patient Image con not be empty !");
-                    }
-                    if (namefast.text.isEmpty) {
+                    } else if (namefast.text.isEmpty) {
                       Messages.snackBar(
                           context, "Patient First Name con not be empty !");
                     } else if (namelast.text.isEmpty) {
                       Messages.snackBar(
                           context, "Patient Last Name con not be empty !");
                     } else if (dateOfBirthController.text.isEmpty) {
-
-
                       print("ddd${formattedDate}");
                       Messages.snackBar(
                           context, "Date of Birth con not be empty !");
@@ -630,8 +627,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       };
                       print(body);
 
-                      await auth.signUp(
-                          context, body,resizedImagePath);
+                      await auth.signUp(context, body, resizedImagePath);
                       //  widget.phoneNumber = "";
                       // await auth.registration(context, imageFile: File(xFileList.first!.path), phoneNumber: widget.phoneNumber, token: widget.token, verificationCode: widget.vCode, name: name.text, genderId: "${birthSex?.id}", bloodGroupId: "${bloodGroup?.id}", dateOfBirth: dateOfBirthController.text, password: password.text, email: email.text);
                       // auth.signUpOriginal(context, body, widget.token);

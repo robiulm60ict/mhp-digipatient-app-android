@@ -24,7 +24,7 @@ class LargeRequestException extends AppException {
 
 class UnauthorisedException extends AppException {
   UnauthorisedException([String? message])
-      : super(message, 'Unauthorised Request');
+      : super(message, '');
 }
 
 class InvalidInputException extends AppException {

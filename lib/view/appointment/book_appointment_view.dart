@@ -47,9 +47,8 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
     context
         .read<AppointmentViewModel>()
         .getDocChamberTime(context, "", docId: widget.doctors.doctorsMasterId);
-    context
-        .read<AppointmentViewModel>()
-        .getDocChamberTimeCalender(context, "", docId: widget.doctors.doctorsMasterId);
+    context.read<AppointmentViewModel>().getDocChamberTimeCalender(context, "",
+        docId: widget.doctors.doctorsMasterId);
     // context.read<AnatomyModelView>().getSelectedSymptomsList();
   }
 
@@ -110,7 +109,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                           MaterialPageRoute(
                               builder: (context) => PaymentMethodView(
                                   appointmentDate:
-                                      "${appointmentViewModel.appointmentDate!}",
+                                      "${appointmentViewModel.selectedDatee!}",
                                   appointmentType:
                                       appointmentViewModel.isChamber ==
                                               "Chamber"
@@ -128,6 +127,10 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                       : "Evening"))));
 
                   setState(() {
+                    appointmentViewModel.selectedDatee = null;
+                    appointmentViewModel.isChamber = "";
+                    appointmentViewModel.morningeveingButton = "";
+
                     appointmentViewModel.date = DateTime.now();
                     anatomy.favourite.clear();
 

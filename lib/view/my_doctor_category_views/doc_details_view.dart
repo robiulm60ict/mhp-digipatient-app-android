@@ -2,7 +2,6 @@ import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/resources/styles.dart';
-import 'package:digi_patient/view/appointment/book_appointment_view.dart';
 import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
@@ -13,9 +12,11 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../model/myDoctorList/mydoctorList.dart';
 import '../../utils/utils.dart';
+import '../../view_model/appointment_view_model/appointment_view_model.dart';
 import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/shimmer.dart';
+import '../appointment/book_appointment_view.dart';
 
 class DocDetailsView extends StatefulWidget {
   const DocDetailsView({Key? key, required this.id}) : super(key: key);
@@ -59,7 +60,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
   @override
   Widget build(BuildContext context) {
     final mdVM = Provider.of<MyDoctorViewModel>(context);
-    // final appointmentViewModel = Provider.of<AppointmentViewModel>(context);
+     final appointmentViewModel = Provider.of<AppointmentViewModel>(context);
 
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
@@ -78,6 +79,10 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           doctors: doc!,
                           amount:
                               "${doc?.doctors?.doctorFee == null ? "0" : doc?.doctors?.doctorFee} ")));
+
+              appointmentViewModel.selectedDatee=null;
+              appointmentViewModel.isChamber="";
+              appointmentViewModel.morningeveingButton="";
 
               // context.router.push(BookAppointmentRoute(
               //     doctors: doc!,
@@ -126,7 +131,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 Expanded(
                   flex: 2,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 15.0.w, top: 15.h),
+                    padding: EdgeInsets.only(left: 10.0.r, top: 10.r),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -226,12 +231,16 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                             ),
                           ],
                         ),
-                        // SizedBox(
-                        //   height: 12.h,
-                        // ),
+                        SizedBox(
+                          height: 4.h,
+                        ),
                         
                        
-                        Row(children: [
+                        Row(
+
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
                           Image.asset(
                             Assets.imagesBkash,
                             height: 35.h,
@@ -286,7 +295,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
               // controller: listViewController,
               // shrinkWrap: true,
               //   physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.all(12.r),
+              padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 10.r),
               children: [
                 // SizedBox(height: 10,)
                 Row(

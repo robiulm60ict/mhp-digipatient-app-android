@@ -21,6 +21,7 @@ class DailyAndUpcommingViewModel with ChangeNotifier{
 
   getTodayAppointments(BuildContext context)async{
     isTodayAppointmentLoading = true;
+    todayAppointmentFullList.clear();
     todayAppointmentList.clear();
     notifyListeners();
     todayAppointmentFullList.clear();

@@ -50,7 +50,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-  //  getUserData();
+    //  getUserData();
     onUserLogin();
     context.read<UserViewModel>().getUserDetails();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -193,8 +193,10 @@ class _HomeViewState extends State<HomeView> {
                   iconData: Icons.payment,
                   title: "Payment & Invoice",
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const InvoiceView()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const InvoiceView()));
                     //  context.router.push(const InvoiceRoute());
                   },
                 ),
@@ -268,7 +270,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 SizedBox(height: 5.h),
                 Text(
-                  "V 1.1.1(4)",
+                  "V 1.1.2(7)",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 12.sp, color: const Color(0xFFAAAAAA)),
@@ -317,7 +319,8 @@ class _HomeViewState extends State<HomeView> {
                       },
                       icon: Icon(
                         Icons.notification_important,
-                        color: AppColors.primaryColor,size: 44,
+                        color: AppColors.primaryColor,
+                        size: 44,
                       ))),
               SizedBox(
                 width: 18.w,
@@ -399,11 +402,12 @@ class _HomeViewState extends State<HomeView> {
                                 ),
                               ],
                             ),
-                            userprovider.user?.patientImages.toString() == "null"
+                            userprovider.user?.patientImages.toString() ==
+                                    "null"
                                 ? SizedBox(
-                                height: 110,
-                                width: 90.w,
-                                child: Image.asset(Assets.dummy_image))
+                                    height: 110,
+                                    width: 90.w,
+                                    child: Image.asset(Assets.dummy_image))
                                 : SizedBox(
                                     height: 110,
                                     width: 90.w,
@@ -414,8 +418,6 @@ class _HomeViewState extends State<HomeView> {
                                       fit: BoxFit.fill,
                                     ),
                                   )
-
-
                           ],
                         );
                       }
@@ -426,7 +428,6 @@ class _HomeViewState extends State<HomeView> {
               SizedBox(
                 height: 6.h,
               ),
-
               Text(
                 "What do you need?",
                 style: TextStyle(
@@ -441,45 +442,102 @@ class _HomeViewState extends State<HomeView> {
                 return Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.h)),
-                  child: Padding(
+                  child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 0, vertical: 6.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(
-                          width: 200.w,
-                          height: 40.h,
-                          child: TextField(
-                            controller: dvm.controllerRequest,
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey)),
-                                hintText: 'Enter 6 Digit Code',
-                                labelText: 'Add Doctor ID here',
-                                suffixStyle: TextStyle(color: Colors.green)),
+                    child: Container(
+                      //   width: 100.w,
+                      decoration: BoxDecoration(
+                          // border: Border.all(
+                          //   color: Colors.grey
+                          // )
                           ),
-                        ),
-                        MaterialButton(
-                          onPressed: () {
-                            if (dvm.controllerRequest.text.isNotEmpty) {
-                              dvm.docotrRequest(
-                                  context, dvm.controllerRequest.text);
-                            } else {
-                              Messages.snackBar(
-                                context,
-                                "Enter Doctor identity number",
-                              );
-                            }
-                          },
-                          color: AppColors.primaryColor,
-                          child: Text("Submit"),
-                        ),
-                      ],
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                         mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: Text(
+                              "DC - ",
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                color: AppColors.blackColor,
+                              ),
+                            ),
+                            height: 60,
+                            width: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                border: Border(
+                              left: BorderSide(color: Colors.grey),
+                              top: BorderSide(color: Colors.grey),
+                              bottom: BorderSide(color: Colors.grey),
+                              right: BorderSide(color: Colors.grey),
+                            )),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                              // left: BorderSide(color: Colors.grey),
+                              top: BorderSide(color: Colors.grey),
+                              bottom: BorderSide(color: Colors.grey),
+                              right: BorderSide(color: Colors.grey),
+                            )),
+                            height: 60,
+                            width: 180,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: TextField(
+                                //   maxLength: 4,
+                                textAlign: TextAlign.start,
+
+                                controller: dvm.controllerRequest,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  // border:OutlineInputBorder(
+                                  //    borderSide: BorderSide(color: Colors.grey)),
+                                  hintText: 'Enter 4 Digit Code',
+                                  labelText: 'Add Doctor ID here',
+                                  border: InputBorder.none,
+                                  // suffixStyle: TextStyle(color: Colors.green)
+                                ),
+                              ),
+                            ),
+                          ),
+                          Style.widthdistan_size20,
+                          MaterialButton(
+                            onPressed: () {
+                              if (dvm.controllerRequest.text.isNotEmpty) {
+                                dvm.docotrRequest(
+                                    context, dvm.controllerRequest.text);
+                              } else {
+                                Messages.snackBar(
+                                  context,
+                                  "Enter Doctor identity number",
+                                );
+                              }
+                            },
+                            color: AppColors.primaryColor,
+                            child: Text("Submit"),
+                          )
+                          // SizedBox(
+                          //   width: 200.w,
+                          //   height: 40.h,
+                          //   child: TextField(
+                          //     controller: dvm.controllerRequest,
+                          //     decoration: const InputDecoration(
+                          //         border: OutlineInputBorder(
+                          //             borderSide: BorderSide(color: Colors.grey)),
+                          //         hintText: 'Enter 4 Digit Code',
+                          //         labelText: 'Add Doctor ID here',
+                          //         suffixStyle: TextStyle(color: Colors.green)),
+                          //   ),
+                          // ),
+                        ],
+                      ),
                     ),
                   ),
                 );
               }),
-
               SizedBox(
                 height: 4.h,
               ),
@@ -533,7 +591,6 @@ class _HomeViewState extends State<HomeView> {
                       );
                     });
               }),
-
               SizedBox(
                 height: 50.h,
               ),

@@ -22,7 +22,7 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
 
   docotrRequest(BuildContext context, drId) async {
     isDoctorLoading = true;
-    Map body = {"dr_identity_no": "${drId.toString()}"};
+    Map body = {"dr_identity_no": "DC-${drId.toString()}"};
 
     await DoctorRepository().postdoctorRequest(body).then((value) {
      print(value);

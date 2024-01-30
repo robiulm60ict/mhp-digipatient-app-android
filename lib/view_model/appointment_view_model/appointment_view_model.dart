@@ -4,6 +4,7 @@ import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/model/invoice_model/invoice_show_model.dart';
 import 'package:digi_patient/repository/book_appointment/book_appointment_repo.dart';
 import 'package:digi_patient/repository/invoice_repo/invoice_repo.dart';
+import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/utils/datetime.dart';
 import 'package:digi_patient/utils/message.dart';
 import 'package:digi_patient/utils/popup_dialogue.dart';
@@ -18,6 +19,7 @@ import '../../model/doctor_model/doctor_chember_time_model.dart';
 import '../../model/myDoctorList/mydoctorList.dart';
 import '../../model/online_model/online_model.dart';
 import '../../repository/doctor_repository/doctor_repository.dart';
+import '../../resources/styles.dart';
 import '../../utils/user.dart';
 import '../../view/payment/ivoice/pdf_invoice_api.dart';
 import '../anatomy/anatomy_view_model.dart';
@@ -124,7 +126,9 @@ class AppointmentViewModel with ChangeNotifier {
       Messages.snackBar(context, error.toString());
     });
   }
-  getDocChamberTimeCalender(BuildContext context, date, {required docId}) async {
+
+  getDocChamberTimeCalender(BuildContext context, date,
+      {required docId}) async {
     // doctorTimeclnder.clear();
     availableDates.clear();
     notifyListeners();
@@ -202,7 +206,7 @@ class AppointmentViewModel with ChangeNotifier {
   //   }
   // }
 
-  Future<void> selectDate(BuildContext context,docId) async {
+  Future<void> selectDate(BuildContext context, docId) async {
     if (availableDates.isEmpty) {
       Messages.snackBar(context, "Doctor seduce not available!");
       // Handle the case when availableDates is empty.
@@ -216,11 +220,51 @@ class AppointmentViewModel with ChangeNotifier {
     DateTime? picked = await showDatePicker(
       context: context,
       firstDate: availableDates.first,
-      lastDate: availableDates.last.add(Duration(days: 1)),
+      lastDate: availableDates.last.add(Duration(days: 0)),
       keyboardType: TextInputType.datetime,
 
       //barrierColor: Colors.green,
       anchorPoint: Offset(50.0, 100.0),
+
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: const Color(0xff128041),
+            // useMaterial3: false,
+
+            // ignore: deprecated_member_use
+            hintColor: const Color(0xff128041),
+
+            textTheme: TextTheme(
+                bodyText1: Style.alltext_default_balck_blodCalender,
+                // bodyText2: Style.alltext_default_balck_blod
+            ),
+            colorScheme:  ColorScheme.light(
+              primary: AppColors.primary_color,
+              // header background color
+              onPrimary: Colors.black,
+              // header text color
+              onSurface: Colors.black,
+              inversePrimary: Colors.white,
+              onSecondary: Colors.red,
+              background: Colors.white,
+              onPrimaryContainer: Colors.yellow,
+              // primary: Color(0xff128041)
+            ),
+            highlightColor: Colors.red,
+            textSelectionTheme: TextSelectionThemeData(
+              selectionHandleColor: Colors.yellow,
+              selectionColor: Colors.red,
+              cursorColor: Colors.grey
+            ),
+            backgroundColor:  AppColors.primary_color,
+
+            buttonTheme:
+                const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child!,
+        );
+      },
 
       selectableDayPredicate: (DateTime date) {
         return availableDates.any((availableDate) =>
