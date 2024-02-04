@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/doctor_screen_model/patient_list_model.dart';
-import '../../routes/routes.gr.dart';
 
 class DoctorScreenViewModel extends ChangeNotifier{
 

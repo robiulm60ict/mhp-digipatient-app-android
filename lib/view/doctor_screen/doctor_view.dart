@@ -1,4 +1,3 @@
-import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/view_model/doctor_screen_view_model/all_patient_list_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -1,19 +1,14 @@
-import 'package:digi_patient/generated/assets.dart';
-import 'package:digi_patient/resources/colors.dart';
-import 'package:digi_patient/routes/routes.gr.dart';
-import 'package:digi_patient/utils/message.dart';
-import 'package:digi_patient/view/my_medicine/rx_detail_view.dart';
-import 'package:digi_patient/view/my_medicine/uploaded_rx.dart';
-import 'package:digi_patient/view_model/my_medicine_view_model/my_medicine_view_model.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
-import '../../model/my_medicine_model/current_rx_model.dart';
+import '../../generated/assets.dart';
+import '../../resources/colors.dart';
 import '../../resources/styles.dart';
 import '../../utils/utils.dart';
-import '../../widgets/back_button.dart';
 import 'pastrx_detail_view.dart';
+import 'rx_detail_view.dart';
+import 'uploaded_rx.dart';
 
 class RXView extends StatefulWidget {
   const RXView({Key? key}) : super(key: key);

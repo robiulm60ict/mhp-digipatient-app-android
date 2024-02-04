@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../../routes/routes.gr.dart';
 import '../../widgets/custom_textfield.dart';
 import 'forget_pincode_verification_view.dart';
 

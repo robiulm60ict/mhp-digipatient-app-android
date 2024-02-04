@@ -20,7 +20,6 @@ import '../../generated/assets.dart';
 import '../../resources/colors.dart';
 import '../../resources/constants.dart';
 import '../../resources/styles.dart';
-import '../../routes/routes.gr.dart';
 import '../../utils/message.dart';
 import '../../widgets/custom_elivated_button.dart';
 import '../../widgets/shimmer.dart';

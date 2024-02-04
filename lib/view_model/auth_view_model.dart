@@ -1,11 +1,6 @@
 import 'dart:io';
 
-import 'package:digi_patient/model/auth_model/blood_group_model.dart';
-import 'package:digi_patient/model/auth_model/login_model.dart';
-import 'package:digi_patient/resources/colors.dart';
-import 'package:digi_patient/utils/user.dart';
-import 'package:digi_patient/view/authentications/create_account_view.dart';
-import 'package:digi_patient/view/pincode_verification_view.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,17 +8,20 @@ import '../constants.dart';
 import '../login_service.dart';
 import '../model/auth_model/RegistrationModel.dart';
 import '../model/auth_model/birth_sex_model.dart';
+import '../model/auth_model/blood_group_model.dart';
 import '../model/registration/otp_check_model.dart';
 import '../model/registration/send_verification_code_model.dart';
 import '../repository/doctor_screen_repo/patient_list_repo.dart';
+import '../resources/colors.dart';
 import '../utils/route/routes_name.dart';
+import '../utils/user.dart';
+import '../view/authentications/create_account_view.dart';
 import '../view/authentications/sign_in_view.dart';
 import '../view/forget_password/forget_pincode_verification_view.dart';
 import '../view/forget_password/newpassword_view.dart';
+import '../view/pincode_verification_view.dart';
 import '/repository/auth_repository.dart';
-import '/routes/routes.gr.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
-import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
 import '/utils/message.dart';
 

@@ -5,7 +5,6 @@ import 'package:search_page/search_page.dart';
 import '../model/myDoctorList/mydoctorList.dart';
 import '../resources/app_url.dart';
 import '../resources/colors.dart';
-import '../routes/routes.gr.dart';
 import '../view/my_doctor_category_views/doc_details_view.dart';
 import '../widgets/doctor_list_tile_our_doc.dart';
 

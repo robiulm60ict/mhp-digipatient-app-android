@@ -3,7 +3,6 @@ import 'package:digi_patient/repository/real_communication_repo/video_call.dart'
 import 'package:digi_patient/view/real_communication/data.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../routes/routes.gr.dart';
 import '../../utils/message.dart';
 
 class VideoCallViewModel with ChangeNotifier {

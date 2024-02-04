@@ -1,6 +1,5 @@
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
-import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:onboarding/onboarding.dart';

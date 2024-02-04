@@ -7,16 +7,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../model/book_appointment_model/book_appointment_model.dart';
-import '../../model/doctor_model/doctors_model.dart';
 import '../../model/myDoctorList/mydoctorList.dart';
 import '../../resources/app_url.dart';
 import '../../resources/colors.dart';
 import '../../resources/styles.dart';
-import '../../routes/routes.gr.dart';
 import '../../utils/utils.dart';
 import '../../view_model/user_view_model/user_view_model.dart';
-import '../../widgets/back_button.dart';
 import '../../widgets/payment_user_detail.dart';
 import 'ivoice/pdf_invoice_api.dart';
 

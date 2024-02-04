@@ -2,7 +2,6 @@ import 'package:digi_patient/model/my_record_model/medical_history_from_great_do
 import 'package:digi_patient/model/my_record_model/procedure_mHFGD_model.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/resources/styles.dart';
-import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/utils/utils.dart';
 import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
 import 'package:digi_patient/view_model/user_view_model/user_view_model.dart';

@@ -11,7 +11,6 @@ import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/doctor_model/doctors_model.dart';
-import '../../routes/routes.gr.dart';
 import '../../widgets/doc_card.dart';
 
 class MyDoctorCategoryWiseView extends StatefulWidget {

@@ -5,6 +5,7 @@ class Assets {
   static const String dummy_image = 'assets/images/dummy_image.jpg';
   static const String nodatafound = 'assets/images/nodata.jpg';
   static const String noappoinment = 'assets/images/noappoinment.jpg';
+  static const String upcamming = 'assets/images/upcamming.jpg';
   static const String animationFemaleWalking = 'assets/animation/female-walking.json';
   static const String animationMaleWalking = 'assets/animation/male-walking.json';
   static const String animationOnlineAppointment = 'assets/animation/online-appointment.json';

@@ -5,8 +5,6 @@ import 'package:digi_patient/view/my_record/vitals/vitals_item_details_view.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../resources/colors.dart';
-import '../routes/routes.gr.dart';
 
 class VitalsCard extends StatelessWidget {
   const VitalsCard({Key? key, required this.title, required this.subtitle, required this.image, this.onTap, required this.v, required this.allData, required this.index, required this.icon, required this.unitId, required this.color}) : super(key: key);

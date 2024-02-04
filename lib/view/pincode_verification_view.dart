@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/view_model/auth_view_model.dart';
 import 'package:digi_patient/widgets/gradient_appBar.dart';
 import 'package:flutter/gestures.dart';

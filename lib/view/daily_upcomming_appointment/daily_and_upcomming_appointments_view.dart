@@ -1,20 +1,16 @@
-import 'package:digi_patient/model/appointment_model/upcomming_appointments_model.dart';
-import 'package:digi_patient/resources/app_url.dart';
-import 'package:digi_patient/resources/colors.dart';
-import 'package:digi_patient/routes/routes.gr.dart';
-import 'package:digi_patient/view/daily_upcomming_appointment/daily_and_upcomming_appointments_detail_view.dart';
-import 'package:digi_patient/view_model/daily_appointments_view_model/daily_appointments_view_model.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../model/appointment_model/UpcommingAppointmentModel.dart';
 import '../../model/appointment_model/todays_appointment_model.dart';
+import '../../model/appointment_model/upcomming_appointments_model.dart';
+import '../../resources/app_url.dart';
+import '../../resources/colors.dart';
 import '../../resources/styles.dart';
-import '../../utils/utils.dart';
+import '../../view_model/daily_appointments_view_model/daily_appointments_view_model.dart';
 import '../../widgets/appointment_notification_card.dart';
-import '../../widgets/back_button.dart';
 import '../../widgets/shimmer.dart';
 
 class DailyAndUpcommingView extends StatefulWidget {

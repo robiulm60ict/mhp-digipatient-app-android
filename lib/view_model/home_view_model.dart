@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../routes/routes.gr.dart';
 import '../view/daily_upcomming_appointment/daily_and_upcomming_appointments_view.dart';
 import '../view/home_item_pages/my_record_view.dart';
 import '../view/mypayment_view/mypayment_view.dart';

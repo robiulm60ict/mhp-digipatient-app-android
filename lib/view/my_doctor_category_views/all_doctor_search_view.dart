@@ -1,5 +1,4 @@
 import 'package:digi_patient/resources/colors.dart';
-import 'package:digi_patient/routes/routes.gr.dart';
 import 'package:digi_patient/view_model/doctor/my_doctor_view_model.dart';
 import 'package:digi_patient/widgets/doctor_list_tile_our_doc.dart';
 import 'package:flutter/material.dart';

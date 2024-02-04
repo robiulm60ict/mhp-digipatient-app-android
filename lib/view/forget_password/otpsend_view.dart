@@ -12,7 +12,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../resources/styles.dart';
-import '../../routes/routes.gr.dart';
 import 'forget_pincode_verification_view.dart';
 
 class OtpSendView extends StatefulWidget {
