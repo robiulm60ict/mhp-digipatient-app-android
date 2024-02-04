@@ -200,7 +200,7 @@ class NotificationService {
           context,
           MaterialPageRoute(
               builder: (context) => UploadPrescription(
-                    id: id.toString(),
+
                   )));
     }
   }

@@ -47,199 +47,207 @@ class _InvoiceViewState extends State<InvoiceView> {
   @override
   Widget build(BuildContext context) {
     final invoice = Provider.of<AppointmentViewModel>(context);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.primary_color,
-        centerTitle: true,
-        title: Text(
-          "Invoice and Payments",
-          style: Style.alltext_appbar,
+    return RefreshIndicator(
+      onRefresh: () async {
+        context
+            .read<AppointmentViewModel>()
+            .getInvoiceList(context);
+
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.primary_color,
+          centerTitle: true,
+          title: Text(
+            "Invoice and Payments",
+            style: Style.alltext_appbar,
+          ),
         ),
-      ),
-      body: invoice.isInvoiceLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-              padding: EdgeInsets.all(20.r),
-              itemCount: invoice.invoiceList.length,
-              itemBuilder: (context, index) {
-                final item = invoice.invoiceList[index];
-                return InkWell(
-                    onTap: () async {
-                      // await PdfInvoiceApi.pdf(
-                      //   item,
-                      //   "1-invoice",
-                      // );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 6),
-                      child: Card(
-                        elevation: 2,
-                        color: Colors.white,
-                        //shadowColor: Colors.black,
-                        child: Container(
+        body: invoice.isInvoiceLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                padding: EdgeInsets.all(20.r),
+                itemCount: invoice.invoiceList.length,
+                itemBuilder: (context, index) {
+                  final item = invoice.invoiceList[index];
+                  return InkWell(
+                      onTap: () async {
+                        // await PdfInvoiceApi.pdf(
+                        //   item,
+                        //   "1-invoice",
+                        // );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 6),
+                        child: Card(
+                          elevation: 2,
                           color: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                SizedBox(
-                                  height: 75.h,
-                                  width: 70.w,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: item.doctors!.drImages != null
-                                        ? Image.network(
-                                            "${AppUrls.drprofile}${item.doctors!.drImages.toString()}",
-                                            fit: BoxFit.fill,
-                                          )
-                                        : Image.asset(Assets.dummy_image),
-                                  ),
-                                ),
-                                Style.widthdistan_size2,
-                                SizedBox(
-                                  width: 210.w,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("${item.doctors!.fullName ?? ""}",
-                                          style:
-                                              Style.alltext_default_balck_blod),
-                                      Style.distan_size2,
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: 70.w,
-                                            child: Text(
-                                              "Amount",
-                                              style:
-                                                  Style.alltext_default_balck,
-                                            ),
-                                          ),
-                                          Text(":  "),
-                                          SizedBox(
-                                            width: 130.w,
-                                            child: Text(item.amount.toString(),
-                                                style: Style
-                                                    .alltext_default_balck),
-                                          ),
-                                        ],
-                                      ),
-                                      Style.distan_size2,
-                                      Style.distan_size2,
-                                      item.paymentType.toString() != null
-                                          ? Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                  width: 70.w,
-                                                  child: Text(
-                                                    "Pay Method ",
-                                                    style: Style
-                                                        .alltext_default_balck,
-                                                  ),
-                                                ),
-                                                Text(":  "),
-                                                SizedBox(
-                                                  width: 130.w,
-                                                  child: Text(
-                                                      item.paymentType
-                                                          .toString(),
-                                                      style: Style
-                                                          .alltext_default_balck),
-                                                ),
-                                              ],
+                          //shadowColor: Colors.black,
+                          child: Container(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  SizedBox(
+                                    height: 75.h,
+                                    width: 70.w,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: item.doctors!.drImages != null
+                                          ? Image.network(
+                                              "${AppUrls.drprofile}${item.doctors!.drImages.toString()}",
+                                              fit: BoxFit.fill,
                                             )
-                                          : Container(),
-                                      Style.distan_size2,
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: 70.w,
-                                            child: Text(
-                                              "Time",
-                                              style:
-                                                  Style.alltext_default_balck,
-                                            ),
-                                          ),
-                                          Text(":  "),
-                                          SizedBox(
-                                            width: 120.w,
-                                            child: Text(
-                                                "${DateFormat("hh:mm a").format(DateTime.parse(item.date.toString()))}",
-                                                style: Style
-                                                    .alltext_default_balck),
-                                          ),
-                                        ],
-                                      ),
-                                      Style.distan_size2,
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: 70.w,
-                                            child: Text(
-                                              "Date",
-                                              style:
-                                                  Style.alltext_default_balck,
-                                            ),
-                                          ),
-                                          Text(":  "),
-                                          SizedBox(
-                                            width: 120.w,
-                                            child: Text(
-                                                DateFormat("dd-MM-yyyy").format(
-                                                    DateTime.parse(
-                                                        item.date.toString())),
-                                                style: Style
-                                                    .alltext_default_balck),
-                                          ),
-                                        ],
-                                      ),
-                                      Style.distan_size2,
-                                    ],
+                                          : Image.asset(Assets.dummy_image),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  Style.widthdistan_size2,
+                                  SizedBox(
+                                    width: 210.w,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text("${item.doctors!.fullName ?? ""}",
+                                            style:
+                                                Style.alltext_default_balck_blod),
+                                        Style.distan_size2,
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              width: 70.w,
+                                              child: Text(
+                                                "Amount",
+                                                style:
+                                                    Style.alltext_default_balck,
+                                              ),
+                                            ),
+                                            Text(":  "),
+                                            SizedBox(
+                                              width: 130.w,
+                                              child: Text(item.amount.toString(),
+                                                  style: Style
+                                                      .alltext_default_balck),
+                                            ),
+                                          ],
+                                        ),
+                                        Style.distan_size2,
+                                        Style.distan_size2,
+                                        item.paymentType.toString() != null
+                                            ? Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  SizedBox(
+                                                    width: 70.w,
+                                                    child: Text(
+                                                      "Pay Method ",
+                                                      style: Style
+                                                          .alltext_default_balck,
+                                                    ),
+                                                  ),
+                                                  Text(":  "),
+                                                  SizedBox(
+                                                    width: 130.w,
+                                                    child: Text(
+                                                        item.paymentType
+                                                            .toString(),
+                                                        style: Style
+                                                            .alltext_default_balck),
+                                                  ),
+                                                ],
+                                              )
+                                            : Container(),
+                                        Style.distan_size2,
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              width: 70.w,
+                                              child: Text(
+                                                "Time",
+                                                style:
+                                                    Style.alltext_default_balck,
+                                              ),
+                                            ),
+                                            Text(":  "),
+                                            SizedBox(
+                                              width: 120.w,
+                                              child: Text(
+                                                  "${DateFormat("hh:mm a").format(DateTime.parse(item.date.toString()))}",
+                                                  style: Style
+                                                      .alltext_default_balck),
+                                            ),
+                                          ],
+                                        ),
+                                        Style.distan_size2,
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              width: 70.w,
+                                              child: Text(
+                                                "Date",
+                                                style:
+                                                    Style.alltext_default_balck,
+                                              ),
+                                            ),
+                                            Text(":  "),
+                                            SizedBox(
+                                              width: 120.w,
+                                              child: Text(
+                                                  DateFormat("dd-MM-yyyy").format(
+                                                      DateTime.parse(
+                                                          item.date.toString())),
+                                                  style: Style
+                                                      .alltext_default_balck),
+                                            ),
+                                          ],
+                                        ),
+                                        Style.distan_size2,
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ));
-              },
-            ),
-      // body: FutureBuilder(
-      //   future: getInvoiceList(),
-      //   builder: (context, snapshot) {
-      //     if(snapshot.hasData){
-      //       return ListView.builder(
-      //               padding: EdgeInsets.all(20.r),
-      //               itemCount: invoiceList.length,
-      //               itemBuilder: (context, index) {
-      //                 final iv = invoiceList[index];
-      //                 return Card(
-      //                   child: ListTile(
-      //                     title: Text("${iv.amount}",),
-      //                     subtitle: Text(getDate(iv.date.toString())),
-      //                     trailing: Text("${iv.paymentType}"),
-      //                   ),
-      //                 );
-      //               },);
-      //     }else{
-      //       return const Center(child: CircularProgressIndicator());
-      //     }
-      //   },
-      // ),
+                      ));
+                },
+              ),
+        // body: FutureBuilder(
+        //   future: getInvoiceList(),
+        //   builder: (context, snapshot) {
+        //     if(snapshot.hasData){
+        //       return ListView.builder(
+        //               padding: EdgeInsets.all(20.r),
+        //               itemCount: invoiceList.length,
+        //               itemBuilder: (context, index) {
+        //                 final iv = invoiceList[index];
+        //                 return Card(
+        //                   child: ListTile(
+        //                     title: Text("${iv.amount}",),
+        //                     subtitle: Text(getDate(iv.date.toString())),
+        //                     trailing: Text("${iv.paymentType}"),
+        //                   ),
+        //                 );
+        //               },);
+        //     }else{
+        //       return const Center(child: CircularProgressIndicator());
+        //     }
+        //   },
+        // ),
+      ),
     );
   }
 }
