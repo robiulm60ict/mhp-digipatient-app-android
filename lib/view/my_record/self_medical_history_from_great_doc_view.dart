@@ -37,7 +37,8 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
         backgroundColor: AppColors.page_background_color,
         appBar: AppBar(
           backgroundColor: AppColors.primary_color,
-
+          leadingWidth: leadingWidth,
+          leading: const CustomBackButton(),
           title: Text("Medical History From Great Doc",
               style: Style.alltext_appbar),
           centerTitle: true,
@@ -54,164 +55,170 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
             ),
           ],
         ),
-        body: Column(
-          children: [
-            Card(
-              child: Row(
-                children: [
-                  Expanded(
-                      child: Card(
-                    elevation: sMhFGD.showPastHistory ? 5 : 0,
-                    child: InkWell(
-                      onTap: () {
-                        sMhFGD.past();
-                        setState(() {});
-                      },
-                      child: SizedBox(
-                          height: 60.h,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                              color: sMhFGD.showPastHistory
-                                  ? AppColors.primaryColor
-                                  : Colors.white,
+        body: RefreshIndicator(
+          onRefresh: ()async{
+            context.read<MyRecordViewModel>().getMedicalHistoryFromGreatDoc(context);
+            context.read<MyRecordViewModel>().getProcedureFromGreatDoc(context);
+          },
+          child: Column(
+            children: [
+              Card(
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Card(
+                      elevation: sMhFGD.showPastHistory ? 5 : 0,
+                      child: InkWell(
+                        onTap: () {
+                          sMhFGD.past();
+                          setState(() {});
+                        },
+                        child: SizedBox(
+                            height: 60.h,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                color: sMhFGD.showPastHistory
+                                    ? AppColors.primaryColor
+                                    : Colors.white,
+                              )),
+                              child: Center(
+                                  child: Text("Past History",
+                                      textAlign: TextAlign.center)),
                             )),
-                            child: Center(
-                                child: Text("Past History",
-                                    textAlign: TextAlign.center)),
-                          )),
-                    ),
-                  )),
-                  Expanded(
-                      child: Card(
-                    elevation: !sMhFGD.showPastHistory ? 5 : 0,
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {});
-                        sMhFGD.procedure();
-                      },
-                      child: SizedBox(
-                          height: 60.h,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                              color: !sMhFGD.showPastHistory
-                                  ? AppColors.primaryColor
-                                  : Colors.white,
+                      ),
+                    )),
+                    Expanded(
+                        child: Card(
+                      elevation: !sMhFGD.showPastHistory ? 5 : 0,
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {});
+                          sMhFGD.procedure();
+                        },
+                        child: SizedBox(
+                            height: 60.h,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                color: !sMhFGD.showPastHistory
+                                    ? AppColors.primaryColor
+                                    : Colors.white,
+                              )),
+                              child: const Center(
+                                  child: Text("Procedure",
+                                      textAlign: TextAlign.center)),
                             )),
-                            child: const Center(
-                                child: Text("Procedure",
-                                    textAlign: TextAlign.center)),
-                          )),
-                    ),
-                  )),
-                ],
+                      ),
+                    )),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            Expanded(
-              child: Visibility(
-                visible: sMhFGD.showPastHistory,
-                replacement:  Consumer<MyRecordViewModel>(builder: (context, data, child) {
-                  if (data.procedureList.isEmpty) {
-                    return data.isProcedureLoading == true
-                        ? ListView.builder(
-                      itemCount: 6,
-                      // scrollDirection: Axis.vertical,
-                      physics: const ScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: bannerShimmereffect(
-                              90.toDouble(), 385.toDouble()),
-                        );
-                      },
-                    )
-                        : noDataFounForList("No History");
-                  } else {
-                    return ListView.builder(
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        itemCount: sMhFGD.procedureList.length,
+              SizedBox(
+                height: 20.h,
+              ),
+              Expanded(
+                child: Visibility(
+                  visible: sMhFGD.showPastHistory,
+                  replacement:  Consumer<MyRecordViewModel>(builder: (context, data, child) {
+                    if (data.procedureList.isEmpty) {
+                      return data.isProcedureLoading == true
+                          ? ListView.builder(
+                        itemCount: 6,
+                        // scrollDirection: Axis.vertical,
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          AllProcedure procedure = sMhFGD.procedureList[index];
-                          final date = sMhFGD.getDate("${procedure.createdAt}");
-                          final time =
-                          sMhFGD.getTime("${procedure.createdAt}", context);
-                          return Card(
-                            child: ListTile(
-                              title: Text(
-                                "${procedure.procedureName}",
-                                style: Style.alltext_default_balck,
-                              ),
-                              subtitle: Text(
-                                date,
-                                style: Style.alltext_default_balck,
-                              ),
-                              trailing: Text(
-                                time,
-                                style: Style.alltext_default_balck,
-                              ),
-                            ),
+                          return Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: bannerShimmereffect(
+                                90.toDouble(), 385.toDouble()),
                           );
-                        });
-                  }
-                }),
-
-
-                child: Consumer<MyRecordViewModel>(builder: (context, data, child) {
-                  if (data.medicalHistoryFromGreatDocPastList.isEmpty) {
-                    return data.isMedicalHistoryFromGreatDocLoading == true
-                        ? ListView.builder(
-                      itemCount: 6,
-                      // scrollDirection: Axis.vertical,
-                      physics: const ScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: bannerShimmereffect(
-                              90.toDouble(), 385.toDouble()),
-                        );
-                      },
-                    )
-                        : noDataFounForList("No History");
-                  } else {
-                    return ListView.builder(
-                        itemCount:
-                        sMhFGD.medicalHistoryFromGreatDocPastList.length,
-                        padding: EdgeInsets.all(8.r),
-                        itemBuilder: (context, index) {
-                          final history =
-                          sMhFGD.medicalHistoryFromGreatDocPastList[index];
-                          final time =
-                          sMhFGD.getTime("${history.date}", context);
-                          final date = sMhFGD.getDate("${history.date}");
-                          return Card(
+                        },
+                      )
+                          : noDataFounForList("No History");
+                    } else {
+                      return ListView.builder(
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          itemCount: sMhFGD.procedureList.length,
+                          itemBuilder: (context, index) {
+                            AllProcedure procedure = sMhFGD.procedureList[index];
+                            final date = sMhFGD.getDate("${procedure.createdAt}");
+                            final time =
+                            sMhFGD.getTime("${procedure.createdAt}", context);
+                            return Card(
                               child: ListTile(
                                 title: Text(
-                                  "${history.condition}",
+                                  "${procedure.procedureName}",
                                   style: Style.alltext_default_balck,
                                 ),
                                 subtitle: Text(
                                   date,
                                   style: Style.alltext_default_balck,
                                 ),
-                                trailing:
-                                Text(time, style: Style.alltext_default_balck),
-                              ));
-                        });
-                  }
-                }),
+                                trailing: Text(
+                                  time,
+                                  style: Style.alltext_default_balck,
+                                ),
+                              ),
+                            );
+                          });
+                    }
+                  }),
+
+
+                  child: Consumer<MyRecordViewModel>(builder: (context, data, child) {
+                    if (data.medicalHistoryFromGreatDocPastList.isEmpty) {
+                      return data.isMedicalHistoryFromGreatDocLoading == true
+                          ? ListView.builder(
+                        itemCount: 6,
+                        // scrollDirection: Axis.vertical,
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: bannerShimmereffect(
+                                90.toDouble(), 385.toDouble()),
+                          );
+                        },
+                      )
+                          : noDataFounForList("No History");
+                    } else {
+                      return ListView.builder(
+                          itemCount:
+                          sMhFGD.medicalHistoryFromGreatDocPastList.length,
+                          padding: EdgeInsets.all(8.r),
+                          itemBuilder: (context, index) {
+                            final history =
+                            sMhFGD.medicalHistoryFromGreatDocPastList[index];
+                            final time =
+                            sMhFGD.getTime("${history.date}", context);
+                            final date = sMhFGD.getDate("${history.date}");
+                            return Card(
+                                child: ListTile(
+                                  title: Text(
+                                    "${history.condition}",
+                                    style: Style.alltext_default_balck,
+                                  ),
+                                  subtitle: Text(
+                                    date,
+                                    style: Style.alltext_default_balck,
+                                  ),
+                                  trailing:
+                                  Text(time, style: Style.alltext_default_balck),
+                                ));
+                          });
+                    }
+                  }),
 
 
 
 
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ));
   }
 }

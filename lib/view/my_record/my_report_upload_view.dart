@@ -13,6 +13,8 @@ import '../../../resources/styles.dart';
 import '../../resources/colors.dart';
 import '../../utils/message.dart';
 import '../../utils/user.dart';
+import '../../utils/utils.dart';
+import '../../widgets/back_button.dart';
 
 
 class UploadReportView extends StatefulWidget {
@@ -84,7 +86,8 @@ class _UploadReportViewState extends State<UploadReportView> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.primaryColor,
-
+        leadingWidth: leadingWidth,
+        leading: const CustomBackButton(),
         centerTitle: true,
         title: Text(
           "Upload Report",

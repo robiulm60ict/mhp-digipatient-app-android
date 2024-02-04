@@ -6,6 +6,7 @@ import '../../generated/assets.dart';
 import '../../resources/colors.dart';
 import '../../resources/styles.dart';
 import '../../utils/utils.dart';
+import '../../widgets/back_button.dart';
 import 'pastrx_detail_view.dart';
 import 'rx_detail_view.dart';
 import 'uploaded_rx.dart';
@@ -34,7 +35,8 @@ class _RXViewState extends State<RXView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,
-
+        leading: const CustomBackButton(),
+        leadingWidth: leadingWidth,
         title: Text(
           "My Medicine",
           style: Style.alltext_appbar,
@@ -58,7 +60,7 @@ class _RXViewState extends State<RXView> {
                     //context.router.push( RXDetailRoute(title: "Current RX", isCurrentRxView: true));
                   },
                   leading: Image.asset(
-                    Assets.myMedicineRx,
+                    "assets/icons/rx3.png",
                     height: 38.h,
                     width: 36.w,
                   ),
@@ -86,7 +88,7 @@ class _RXViewState extends State<RXView> {
                     // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
                   },
                   leading: Image.asset(
-                    Assets.myMedicineRx,
+                    "assets/icons/rx2.png",
                     height: 38.h,
                     width: 36.w,
                   ),
@@ -114,7 +116,7 @@ class _RXViewState extends State<RXView> {
                     // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
                   },
                   leading: Image.asset(
-                    Assets.myMedicineRx,
+                   "assets/icons/rx1.png",
                     height: 38.h,
                     width: 36.w,
                   ),

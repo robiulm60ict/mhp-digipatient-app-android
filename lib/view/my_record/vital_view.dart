@@ -113,7 +113,8 @@ class _VitalsViewState extends State<VitalsView>
               : 0,
           child: Scaffold(
             backgroundColor: AppColors.page_background_color,
-            appBar: AppBar(
+            appBar: AppBar(   leading: const CustomBackButton(),
+              leadingWidth: leadingWidth,
               backgroundColor: AppColors.primary_color,
 
               title: Text("Vitals", style: Style.alltext_appbar),

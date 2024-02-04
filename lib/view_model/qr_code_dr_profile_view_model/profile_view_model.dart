@@ -5,7 +5,6 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../model/profile_qrcode/doctor_profile_model.dart';
 import '../../repository/qrcode_profile_repository/doctor_profile.dart';
-import '../../view/dr_profile/dr_profile.dart';
 
 
 class DrProfileViewModel with ChangeNotifier {
@@ -30,7 +29,7 @@ class DrProfileViewModel with ChangeNotifier {
       print("rrrrrrrrrrrrrrrrrr");
       print(value);
       isProfileLoading = false;
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>DrProfileView(result: value.doctors)));
+        // Navigator.push(context, MaterialPageRoute(builder: (context)=>DrProfileView(result: value.doctors)));
       notifyListeners();
     }).onError((error, stackTrace) {
       isProfileLoading = true;

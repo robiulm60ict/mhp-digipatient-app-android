@@ -49,7 +49,8 @@ class _RXDetailViewState extends State<RXDetailView> {
       },
       child: Scaffold(
         backgroundColor: AppColors.page_background_color,
-        appBar: AppBar(
+        appBar: AppBar(leading: const CustomBackButton(),
+          leadingWidth: leadingWidth,
           backgroundColor: AppColors.primary_color,
 
           title: Text(

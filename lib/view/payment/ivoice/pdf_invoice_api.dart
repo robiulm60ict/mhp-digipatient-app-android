@@ -133,21 +133,21 @@ class PdfInvoiceApi {
 
     pdf.addPage(MultiPage(
       build: (context) => [
-        Center(child: Text("MHP ")),
+        Center(child: Text("Invoice Print Copy ",  style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold))),
         SizedBox(height: 5),
-        Center(child: Text("Location : House 35 East Rampura,Dhaka 1210")),
-        SizedBox(height: 2),
-
-        Center(child: Text("Tel :01681688541")),
-        SizedBox(height: 2),
-
-        Center(child: Text("Vat Reg No : 534565")),
-        SizedBox(height: 8),
+        // Center(child: Text("Location : House 35 East Rampura,Dhaka 1210")),
+        // SizedBox(height: 2),
+        //
+        // Center(child: Text("Tel :01681688541")),
+        // SizedBox(height: 2),
+        //
+        // Center(child: Text("Vat Reg No : 534565")),
+        // SizedBox(height: 8),
 
         // Center(child: Text("Invoice")),
         Center(
-            child: Text("${invoice} Invoice",
-                style: TextStyle(fontSize: 14))),
+            child: Text("${invoice} Invoice Number",
+                style: TextStyle(fontSize: 12))),
         SizedBox(height: 12),
         Column(children: [
           Row(

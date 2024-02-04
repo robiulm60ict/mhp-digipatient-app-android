@@ -101,8 +101,8 @@ class _DocDetailsViewState extends State<DocDetailsView> {
       ),
       appBar: AppBar(
         elevation: 0,
-        // leadingWidth: leadingWidth,
-        // leading: const CustomBackButton(),
+        leadingWidth: leadingWidth,
+        leading: const CustomBackButton(),
         backgroundColor: AppColors.linearGradient2,
       ),
       backgroundColor: Colors.white,
@@ -234,8 +234,8 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                         SizedBox(
                           height: 4.h,
                         ),
-                        
-                       
+
+
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0,top: 4),
                           child: Row(
@@ -298,216 +298,231 @@ class _DocDetailsViewState extends State<DocDetailsView> {
               // controller: listViewController,
               // shrinkWrap: true,
               //   physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 10.r),
+
               children: [
                 // SizedBox(height: 10,)
-                Row(
-                  children: [
-                    Expanded(
-                      child: Card(
-                        elevation: 5,
-                        child: ListTile(
-                          leading: Icon(
-                            Icons.people,
-                            color: AppColors.primaryColor,
-                          ),
-                          title: Text(
-                            "${mdVM.data.toString()}+",
-                            style: Style.alltext_default_balck,
-                          ),
-                          subtitle: Text(
-                            "Patients",
-                            style: Style.alltext_default_balck,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Card(
-                        elevation: 5,
-                        child: ListTile(
-                          leading: Icon(
-                            Icons.cases_outlined,
-                            color: AppColors.primaryColor,
-                          ),
-                          title: Text(
-                            "${doc?.doctors?.workExperienceYears.toString()} years",
-                            style: Style.alltext_default_balck,
-                          ),
-                          subtitle: Text(
-                            "Experience",
-                            style: Style.alltext_default_balck,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Specialities",
-                      style: Style.alltext_default_balck_blod,
-                    ),
-                    SizedBox(
-                      width: 8.w,
-                    ),
-                    Card(
-                      elevation: 0,
-                      child: Padding(
-                        padding: EdgeInsets.all(0.r),
-                        child: Text(
-                          "${doc?.doctors!.specialist?.specialistsName.toString()}",
-                          style: Style.alltext_default_balck,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Card(
-                        elevation: 5,
-                        child:  Container(
-                          height: 55.h,
-                          child: Consumer<MyDoctorViewModel>(
-                              builder: (context, data, child) {
-                                if (data.sociallist.isEmpty) {
-                                  return Center(
-                                    child: Text(
-                                      "No Social Media",
-                                      style: Style.alltext_default_balck,
-                                    ),
-                                  );
-                                } else {
-                                  return ListView.builder(
-                                      itemCount: data.sociallist.length>4?4:data.sociallist.length,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      physics: ScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        var info = data.sociallist[index];
-                                        return Container(
-                                          height: 40.h,
-                                          width: 40.w,
-                                          padding: const EdgeInsets.only(top: 4),
-                                          child: Container(
-                                            // height: 40.h,
-                                            // width: 40.w,
-                                            color: Colors.white,
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: SizedBox(
-                                                width: 80.w,
-                                                child: InkWell(
-                                                  onTap: () async {
-                                                    await launch(info.url.toString());
-
-                                                    // Navigator.push(
-                                                    //     context,
-                                                    //     MaterialPageRoute(
-                                                    //         builder: (context) =>
-                                                    //             SocialWebviewView(
-                                                    //               url: info.url,
-                                                    //             )));
-                                                  },
-                                                  child: CircleAvatar(
-                                                    maxRadius: 8,
-                                                    child: Image.asset(info.name
-                                                        .toString() ==
-                                                        "FaceBook"
-                                                        ? Assets.facebook
-                                                        : (info.name.toString() == "Youtube"
-                                                        ? Assets.youtube
-                                                        : (info.name.toString() ==
-                                                        "LinkedIn"
-                                                        ? Assets.linkedin
-                                                        : ((info.name.toString() ==
-                                                        "Twitter"
-                                                        ? Assets.twitter
-                                                        : Assets.homeMyRec))))),
-                                                  ),
-                                                )),
-                                          ),
-                                        );
-                                      });
-                                }
-                              }),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Card(
-                        elevation: 5,
-                        child: SizedBox(
-                          height: 55.h,
+                Padding(
+                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 10.r),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Card(
+                          elevation: 5,
                           child: ListTile(
-
-                            leading: CircleAvatar(
-                              backgroundColor:  Colors.green,
-                              child: IconButton(
-                                onPressed: (){
-                                  FlutterPhoneDirectCaller.callNumber("${doc!.doctors!.drWorkPhone.toString()}");
-                                },
-                               icon: Icon( Icons.call,size: 25,
-                                   color:AppColors.backgroundColor,)
-
-                              ),
+                            leading: Icon(
+                              Icons.people,
+                              color: AppColors.primaryColor,
                             ),
                             title: Text(
-                              "Support : ",
+                              "${mdVM.data.toString()}+",
                               style: Style.alltext_default_balck,
                             ),
                             subtitle: Text(
-                              "${doc!.doctors!.drWorkPhone.toString()=="null"?"":doc!.doctors!.drWorkPhone.toString()
-                              // "${doc!.doctors!.drWorkPhone.toString()
-                              }",
-
+                              "Patients",
                               style: Style.alltext_default_balck,
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        child: Card(
+                          elevation: 5,
+                          child: ListTile(
+                            leading: Icon(
+                              Icons.cases_outlined,
+                              color: AppColors.primaryColor,
+                            ),
+                            title: Text(
+                              "${doc?.doctors?.workExperienceYears.toString()} years",
+                              style: Style.alltext_default_balck,
+                            ),
+                            subtitle: Text(
+                              "Experience",
+                              style: Style.alltext_default_balck,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 0.r),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Specialities",
+                        style: Style.alltext_default_balck_blod,
+                      ),
+                      SizedBox(
+                        width: 8.w,
+                      ),
+                      Card(
+                        elevation: 0,
+                        child: Padding(
+                          padding: EdgeInsets.all(0.r),
+                          child: Text(
+                            "${doc?.doctors!.specialist?.specialistsName.toString()}",
+                            style: Style.alltext_default_balck,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 0.r),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Card(
+                          elevation: 5,
+                          child:  Container(
+                            height: 55.h,
+                            child: Consumer<MyDoctorViewModel>(
+                                builder: (context, data, child) {
+                                  if (data.sociallist.isEmpty) {
+                                    return Center(
+                                      child: Text(
+                                        "No Social Media",
+                                        style: Style.alltext_default_balck,
+                                      ),
+                                    );
+                                  } else {
+                                    return ListView.builder(
+                                        itemCount: data.sociallist.length>4?4:data.sociallist.length,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        physics: ScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          var info = data.sociallist[index];
+                                          return Container(
+                                            height: 40.h,
+                                            width: 40.w,
+                                            padding: const EdgeInsets.only(top: 4),
+                                            child: Container(
+                                              // height: 40.h,
+                                              // width: 40.w,
+                                              color: Colors.white,
+                                              padding: const EdgeInsets.all(5.0),
+                                              child: SizedBox(
+                                                  width: 80.w,
+                                                  child: InkWell(
+                                                    onTap: () async {
+                                                      await launch(info.url.toString());
+
+                                                      // Navigator.push(
+                                                      //     context,
+                                                      //     MaterialPageRoute(
+                                                      //         builder: (context) =>
+                                                      //             SocialWebviewView(
+                                                      //               url: info.url,
+                                                      //             )));
+                                                    },
+                                                    child: CircleAvatar(
+                                                      maxRadius: 8,
+                                                      child: Image.asset(info.name
+                                                          .toString() ==
+                                                          "FaceBook"
+                                                          ? Assets.facebook
+                                                          : (info.name.toString() == "Youtube"
+                                                          ? Assets.youtube
+                                                          : (info.name.toString() ==
+                                                          "LinkedIn"
+                                                          ? Assets.linkedin
+                                                          : ((info.name.toString() ==
+                                                          "Twitter"
+                                                          ? Assets.twitter
+                                                          : Assets.homeMyRec))))),
+                                                    ),
+                                                  )),
+                                            ),
+                                          );
+                                        });
+                                  }
+                                }),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Card(
+                          elevation: 5,
+                          child: SizedBox(
+                            height: 55.h,
+                            child: ListTile(
+
+                              leading: CircleAvatar(
+                                backgroundColor:  Colors.green,
+                                child: IconButton(
+                                  onPressed: (){
+                                    FlutterPhoneDirectCaller.callNumber("${doc!.doctors!.drWorkPhone.toString()}");
+                                  },
+                                 icon: Icon( Icons.call,size: 25,
+                                     color:AppColors.backgroundColor,)
+
+                                ),
+                              ),
+                              title: Text(
+                                "Support : ",
+                                style: Style.alltext_default_balck,
+                              ),
+                              subtitle: Text(
+                                "${doc!.doctors!.drWorkPhone.toString()=="null"?"":doc!.doctors!.drWorkPhone.toString()
+                                // "${doc!.doctors!.drWorkPhone.toString()
+                                }",
+
+                                style: Style.alltext_default_balck,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
 
                 SizedBox(
                   height: 10.h,
                 ),
-                Text(
-                  "About Doctor",
-                  style: Style.alltext_default_balck_blod,
+                Padding(
+                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 0.r),
+                  child: Text(
+                    "About Doctor",
+                    style: Style.alltext_default_balck_blod,
+                  ),
                 ),
                 SizedBox(
                   height: 10.h,
                 ),
                 doc?.doctors!.drAbout.toString() != "null"
-                    ? ReadMoreText(
-                        "${doc?.doctors?.drAbout.toString() ?? ""}",
-                        trimLines: 8,
-                        colorClickableText: Colors.pink,
-                        trimMode: TrimMode.Line,
-                        trimCollapsedText: 'See All',
-                        trimExpandedText: 'See less',
-                        moreStyle: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.primaryColor),
-                        lessStyle: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.primaryColor),
-                        style: Style.alltext_default_balck,
-                      )
+                    ? Padding(
+                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 0.r),
+                      child: ReadMoreText(
+                          "${doc?.doctors?.drAbout.toString() ?? ""}",
+                          trimLines: 8,
+                          colorClickableText: Colors.pink,
+                          trimMode: TrimMode.Line,
+                          trimCollapsedText: 'See All',
+                          trimExpandedText: 'See less',
+                          moreStyle: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.primaryColor),
+                          lessStyle: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.primaryColor),
+                          style: Style.alltext_default_balck,
+                        ),
+                    )
                     : Text(""),
                 SizedBox(
                   height: 12.w,
@@ -515,9 +530,18 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 Card(
                   elevation: 7,
                   child: Container(
-                  //color: AppColors.linearGradient2,
-                  padding: const EdgeInsets.all(4.0),
-                  child: Text("Pay the doctor’s consultation fee in bkash. Please remember bkash number and 10-digit transaction ID to confirm doctor’s follow-up appointment. ",style: Style.alltext_default_balck_blod,textAlign: TextAlign.start,),
+                  color: Colors.purple,
+                  padding: const EdgeInsets.only(left: 8.0,right: 8,top: 12,bottom: 12),
+                  child: Row(
+                    children: [
+                      // Icon(Icons.note_add_outlined , color: AppColors.text_primary_color,size: 50,),
+                      Image.asset("assets/icons/info.png",width: 40.w,color: Colors.white,),
+                      Style.widthdistan_size5,
+                      SizedBox(
+                          width: 280.w,
+                          child: Text("Pay the doctor’s consultation fee in bkash. Please remember bkash number and 10-digit transaction ID to confirm doctor’s follow-up appointment. ",style: Style.alltext_default_white,textAlign: TextAlign.start,)),
+                    ],
+                  ),
                 ),)
 
 

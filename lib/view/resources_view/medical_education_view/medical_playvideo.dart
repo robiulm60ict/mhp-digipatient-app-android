@@ -3,6 +3,8 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../resources/colors.dart';
 import '../../../resources/styles.dart';
+import '../../../utils/utils.dart';
+import '../../../widgets/back_button.dart';
 
 class MedicalVideoPlay extends StatefulWidget {
   MedicalVideoPlay({super.key, required this.datainfo});
@@ -27,7 +29,8 @@ class _MedicalVideoPlayState extends State<MedicalVideoPlay> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: AppColors.primaryColor,
-          centerTitle: true,
+          centerTitle: true, leading: const CustomBackButton(),
+          leadingWidth: leadingWidth,
           title: Text(
             "Details ",
             style: Style.alltext_ExtraLarge_white,

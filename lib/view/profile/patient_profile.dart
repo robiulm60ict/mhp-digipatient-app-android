@@ -6,7 +6,9 @@ import 'package:provider/provider.dart';
 import '../../resources/app_url.dart';
 import '../../resources/colors.dart';
 import '../../resources/styles.dart';
+import '../../utils/utils.dart';
 import '../../view_model/user_view_model/user_view_model.dart';
+import '../../widgets/back_button.dart';
 import '../authentications/user_detail_view.dart';
 
 class ProfileData extends StatefulWidget {
@@ -32,7 +34,8 @@ class _ProfileDataState extends State<ProfileData> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.primaryColor,
-        centerTitle: true,
+        centerTitle: true, leadingWidth: leadingWidth,
+        leading: const CustomBackButton(),
         title: Text(
           "Profile",
           style: Style.alltext_ExtraLarge_white,

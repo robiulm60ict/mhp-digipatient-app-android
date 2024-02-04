@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../resources/colors.dart';
 import '../../resources/styles.dart';
+import '../../utils/utils.dart';
+import '../../widgets/back_button.dart';
 import '../upcamming/upcamming_view.dart';
 import 'tutrials.dart';
 
@@ -16,7 +18,8 @@ class TutrialsCategory extends StatelessWidget {
         elevation: 0,
         backgroundColor: AppColors.primaryColor,
         //automaticallyImplyLeading: false,
-
+        leading: const CustomBackButton(),
+        leadingWidth: leadingWidth,
         centerTitle: true,
         title: Text(
           "Tutorial",
@@ -127,7 +130,7 @@ class TutrialsCategory extends StatelessWidget {
                                           child: Image.asset(
                                             "assets/icons/multimedia.png",
                                             //fit: BoxFit.fill,
-                                            //   color: Colors.green,
+                                               color: Colors.green,
                                           ),
                                         ),
                                       ),

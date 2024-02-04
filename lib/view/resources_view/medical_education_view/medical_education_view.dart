@@ -7,7 +7,9 @@ import '../../../generated/assets.dart';
 import '../../../resources/app_url.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/styles.dart';
+import '../../../utils/utils.dart';
 import '../../../view_model/resources_view_model/resources_view_model.dart';
+import '../../../widgets/back_button.dart';
 import '../../../widgets/shimmer.dart';
 import 'medical_playvideo.dart';
 
@@ -33,7 +35,8 @@ class _MedicalEducationViewState extends State<MedicalEducationView> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          elevation: 0,
+          elevation: 0, leading: const CustomBackButton(),
+          leadingWidth: leadingWidth,
           backgroundColor: AppColors.primaryColor,
           centerTitle: true,
           title: Text(

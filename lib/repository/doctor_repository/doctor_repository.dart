@@ -21,7 +21,7 @@ class DoctorRepository {
       dynamic response = await apiService.getPostApiResponse(
           "${AppUrls.doctorrequest}${id.toString()}", body);
 
-   //   print("$response");
+      //   print("$response");
 
       return response;
     } catch (e) {
@@ -30,13 +30,50 @@ class DoctorRepository {
     }
   }
 
-  Future<MyDoctorList> getmyAllDoctors() async {
+  Future<MyDoctorList> getmyAllActiveDoctors() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       int? id = prefs.getInt(UserP.id);
       dynamic response =
           await apiService.getGetApiResponse("${AppUrls.myDoctorslist}$id");
-print(response);
+      print(response);
+      return MyDoctorList.fromJson(response);
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }  Future<MyDoctorList> getmyAllDeactiveDoctors() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      int? id = prefs.getInt(UserP.id);
+      dynamic response =
+          await apiService.getGetApiResponse("${AppUrls.myDoctorsDeactivelist}$id");
+      print("rrrrrrrrrrrrrrrrrrr${response}");
+      return MyDoctorList.fromJson(response);
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+  Future activedoctor(doctorid) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      int? id = prefs.getInt(UserP.id);
+      dynamic response =
+          await apiService.getGetApiResponse("${AppUrls.activedoctor}$id/$doctorid");
+      print(response);
+      return MyDoctorList.fromJson(response);
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }  Future deactivedoctor(doctorid) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      int? id = prefs.getInt(UserP.id);
+      dynamic response =
+          await apiService.getGetApiResponse("${AppUrls.deactivedoctor}$id/$doctorid");
+      print(response);
       return MyDoctorList.fromJson(response);
     } catch (e) {
       print(e);
@@ -65,15 +102,15 @@ print(response);
     }
   }
 
-  Future<List<DoctorChamberTimeModel>> getDocChamberTime(docId,date) async {
+  Future<List<DoctorChamberTimeModel>> getDocChamberTime(docId, date) async {
     try {
-      dynamic response =
-          await apiService.getGetApiResponse("${AppUrls.docChamberTime}$docId/$date");
+      dynamic response = await apiService
+          .getGetApiResponse("${AppUrls.docChamberTime}$docId/$date");
       print("response${response}");
       print("docId${docId}");
       print("date${date}");
-      List<DoctorChamberTimeModel> alldata=[];
-      for(var i in response['data']){
+      List<DoctorChamberTimeModel> alldata = [];
+      for (var i in response['data']) {
         alldata.add(DoctorChamberTimeModel.fromJson(i));
       }
       return alldata;

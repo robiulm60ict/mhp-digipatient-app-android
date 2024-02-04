@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 
 import '../../../model/my_medicine_model/my_report_model.dart';
 import '../../../resources/colors.dart';
+import '../../../utils/utils.dart';
+import '../../../widgets/back_button.dart';
 import '../../my_medicine/image_view.dart';
 import '../../resources_view/patient_education_view/pdfview.dart';
 
@@ -22,7 +24,8 @@ class _ReportSliderImageState extends State<ReportSliderImage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(   leadingWidth: leadingWidth,
+        leading: const CustomBackButton(),
         backgroundColor: AppColors.primary_color,
         title: Text(
           "Report View",

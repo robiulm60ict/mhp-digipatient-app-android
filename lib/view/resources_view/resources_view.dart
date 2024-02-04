@@ -7,7 +7,9 @@ import 'package:provider/provider.dart';
 
 import '../../resources/colors.dart';
 import '../../resources/styles.dart';
+import '../../utils/utils.dart';
 import '../../view_model/resources_view_model/resources_view_model.dart';
+import '../../widgets/back_button.dart';
 
 class ResourcesView extends StatelessWidget {
   const ResourcesView({super.key});
@@ -22,6 +24,8 @@ class ResourcesView extends StatelessWidget {
         elevation: 0,
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
+        leading: const CustomBackButton(),
+        leadingWidth: leadingWidth,
         title: Text(
           "Resources",
           style: Style.alltext_ExtraLarge_white,
@@ -78,7 +82,7 @@ class ResourcesView extends StatelessWidget {
                                       padding: EdgeInsets.all(6.0),
                                       child: Image.asset(
                                         provider.resourseImageItemsList[index].image,
-                                        fit: BoxFit.fill,
+                                        // fit: BoxFit.fill,
                                      //   color: Colors.green,
                                       ),
                                     ),

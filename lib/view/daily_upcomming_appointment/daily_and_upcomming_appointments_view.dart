@@ -8,8 +8,10 @@ import '../../model/appointment_model/upcomming_appointments_model.dart';
 import '../../resources/app_url.dart';
 import '../../resources/colors.dart';
 import '../../resources/styles.dart';
+import '../../utils/utils.dart';
 import '../../view_model/daily_appointments_view_model/daily_appointments_view_model.dart';
 import '../../widgets/appointment_notification_card.dart';
+import '../../widgets/back_button.dart';
 import '../../widgets/shimmer.dart';
 
 class DailyAndUpcommingView extends StatefulWidget {
@@ -65,7 +67,8 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
       },
       child: Scaffold(
         backgroundColor: AppColors.page_background_color,
-        appBar: AppBar(
+        appBar: AppBar(   leading: const CustomBackButton(),
+          leadingWidth: leadingWidth,
           backgroundColor: AppColors.primary_color,
           centerTitle: true,
           title: Text(
@@ -144,6 +147,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                           ? ListView.builder(
                             itemCount: 6,
                             shrinkWrap: true,
+
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: const EdgeInsets.all(5.0),
@@ -162,30 +166,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                                 appointments.upcommingAppointmentList[index];
                             return AppointmentNotificationCard(
                               onTap: () {
-                                // debugPrint("--------------------${app.appType}");
-                                // Navigator.push(context, MaterialPageRoute(
-                                //     builder: (context) =>
-                                // DailyAndUpcommingDetailView(
-                                //       docImage:
-                                //           "${AppUrls.docImage}${app.doctors!.drImages}",
-                                //       docName: "${app.drGivenName}",
-                                //       docHospital: "${app.doctor}",
-                                //       docSpeciality: "${app.doctors.}",
-                                //       appType:
-                                //           "${app.appType}".toLowerCase() == "online"
-                                //               ? true
-                                //               : false
-                                //   )));
-                                // context.router.push(DailyAndUpcommingDetailRoute(
-                                //     docImage:
-                                //         "${AppUrls.docImage}${app.doctors!.drImages}",
-                                //     docName: "${app.drGivenName}",
-                                //     docHospital: "${app.drAbout}",
-                                //     docSpeciality: "${app.drProviderId}",
-                                //     appType:
-                                //         "${app.appType}".toLowerCase() == "online"
-                                //             ? true
-                                //             : false));
+
                               },
                               title:
                                   "You have an appointment with  ${app.doctors!.title!.titleName}. ${app.doctors!.fullName} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
@@ -219,16 +200,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                               onTap: () {
                                 debugPrint(
                                     "--------------------${app.appType}");
-                                // context.router.push(DailyAndUpcommingDetailRoute(
-                                //     docImage:
-                                //         "${AppUrls.docImage}${app.drImages}",
-                                //     docName: "${app.drGivenName}",
-                                //     docHospital: "${app.drAbout}",
-                                //     docSpeciality: "${app.drProviderId}",
-                                //     appType:
-                                //         "${app.appType}".toLowerCase() == "online"
-                                //             ? true
-                                //             : false));
+
                               },
                               title:
                                   "You have an appointment with ${app.titleName ?? ""}. ${app.drGivenName ?? ""} ${app.drMiddleName ?? ""} ${app.drLastName ?? ""} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",

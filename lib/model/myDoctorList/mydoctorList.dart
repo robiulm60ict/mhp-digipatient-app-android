@@ -427,20 +427,36 @@ class Title {
 class UsualProvider {
   int? id;
   String? usualProviderName;
+  dynamic address;
+  dynamic mobile;
+  dynamic phone;
+  dynamic email;
 
   UsualProvider({
     this.id,
     this.usualProviderName,
+    this.address,
+    this.mobile,
+    this.phone,
+    this.email,
   });
 
   factory UsualProvider.fromJson(Map<String, dynamic> json) => UsualProvider(
     id: json["id"],
     usualProviderName: json["usual_provider_name"],
+    address: json["address"],
+    mobile: json["mobile"],
+    phone: json["phone"],
+    email: json["email"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "usual_provider_name": usualProviderName,
+    "address": address,
+    "mobile": mobile,
+    "phone": phone,
+    "email": email,
   };
 }
 

@@ -11,23 +11,30 @@ import 'package:provider/provider.dart';
 
 import '../../resources/styles.dart';
 import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
+import '../../widgets/back_button.dart';
 import '../../widgets/doc_card.dart';
 import '../../widgets/shimmer.dart';
 
-class MyDoctorView extends StatelessWidget {
-  const MyDoctorView({Key? key}) : super(key: key);
+class MyDoctorView extends StatefulWidget {
+  MyDoctorView({Key? key}) : super(key: key);
+
+  @override
+  State<MyDoctorView> createState() => _MyDoctorViewState();
+}
+
+class _MyDoctorViewState extends State<MyDoctorView> {
+  bool showTodayAppointments = true;
 
   @override
   Widget build(BuildContext context) {
-    final provider =
-        Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
-    double width = MediaQuery.of(context).size.width;
+    final provider = Provider.of<MyDoctorDelaisViewModel>(context);
 
     return Scaffold(
       backgroundColor: AppColors.page_background_color,
       appBar: AppBar(
         leadingWidth: leadingWidth,
         toolbarHeight: 60.h,
+        leading: const CustomBackButton(),
         backgroundColor: Colors.transparent,
         centerTitle: true,
         title: Text(
@@ -45,97 +52,257 @@ class MyDoctorView extends StatelessWidget {
           fit: BoxFit.fill,
         ),
       ),
-      body: ListView(
-        padding: EdgeInsets.all(12.r),
-        children: [
-          Consumer<MyDoctorDelaisViewModel>(builder: (context, data, child) {
-            if (data.myDoctorList.isEmpty) {
-              return data.isDoctorLoading == true
-                  ? Center(
-                      child: GridView.builder(
-                      itemCount: 12,
-                      shrinkWrap: true,
-                      gridDelegate: FlutterzillaFixedGridView(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 12,
-                          crossAxisSpacing: 16,
-                          height: 175.h),
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: bannerShimmereffect(
-                              94.toDouble(), 385.toDouble()),
-                        );
-                      },
-                    ))
-                  : noDataFounForList("");
-            } else {
-              return Column(
-                children: [
-                  Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.r),
-                        side: BorderSide(color: AppColors.primaryColor)),
-                    child: ListTile(
-                      onTap: () => customSearchDialogue(context,
-                          doctorList:
-                              provider.myDoctorFullList.reversed.first.data ??
-                                  []),
-                      leading: Icon(
-                        Icons.search_rounded,
-                        color: AppColors.primaryColor,
-                        size: 15.h,
-                      ),
-                      title: Text(
-                        "Search Doctor",
-                        style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          provider.getmyAllDoctors(context);
+          provider.getmyAllDeactiveDoctors(context);
+        },
+        child: Container(
+          width: double.infinity,
+          child: ListView(
+            children: [
+              Card(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Card(
+                        elevation: showTodayAppointments ? 5 : 0,
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              showTodayAppointments = true;
+                              print(showTodayAppointments);
+                            });
+                          },
+                          child: SizedBox(
+                              height: 60.h,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                  color: showTodayAppointments
+                                      ? AppColors.primaryColor
+                                      : Colors.white,
+                                )),
+                                child: const Center(
+                                    child: Text("ActiveDoctors",
+                                        textAlign: TextAlign.center)),
+                              )),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 4.h,
-                  ),
-                  GridView.builder(
-                    itemCount: provider.myDoctorList.length,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    gridDelegate: FlutterzillaFixedGridView(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 12,
-                        crossAxisSpacing: 16,
-                        height: 165.h),
-                    itemBuilder: (context, index) {
-                      var doc = provider.myDoctorList[index];
+                    Expanded(
+                      child: Card(
+                        elevation: !showTodayAppointments ? 5 : 0,
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              showTodayAppointments = false;
+                            });
+                          },
+                          child: SizedBox(
+                              height: 60.h,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                  color: !showTodayAppointments
+                                      ? AppColors.primaryColor
+                                      : Colors.white,
+                                )),
+                                child: const Center(
+                                    child: Text("Deactivate Doctors",
+                                        textAlign: TextAlign.center)),
+                              )),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
 
-                      return DocCard(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DocDetailsView(
-                                      id: doc!.doctorsMasterId!)));
+              Visibility(
+                visible: showTodayAppointments,
+                replacement: Column(
+                  children: [
+                    Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.r),
+                          side: BorderSide(color: AppColors.primaryColor)),
+                      child: ListTile(
+                        onTap: () => customSearchDialogue(context,
+                            doctorList: provider.myDoctordeactiveFullList
+                                .reversed.first.data ??
+                                []),
+                        leading: Icon(
+                          Icons.search_rounded,
+                          color: AppColors.primaryColor,
+                          size: 15.h,
+                        ),
+                        title: Text(
+                          "Search Doctor",
+                          style: TextStyle(
+                              fontSize: 12.sp, color: Colors.grey),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 4.h,
+                    ),
+                    Consumer<MyDoctorDelaisViewModel>(
+                        builder: (context, data, child) {
+                      if (data.myDoctordeactiveList.isEmpty) {
+                        return data.isDoctorLoading == true
+                            ? GridView.builder(
+                            itemCount: 12,
+                            shrinkWrap: true,
+                            gridDelegate: FlutterzillaFixedGridView(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 12,
+                                crossAxisSpacing: 16,
+                                height: 175.h),
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: bannerShimmereffect(
+                                    94.toDouble(), 385.toDouble()),
+                              );
+                            },
+                                                        )
+                            : noDataFounForList("");
+                      } else {
+                        return GridView.builder(
+                          itemCount: provider.myDoctordeactiveList.length,
+                          shrinkWrap: true,
+                          gridDelegate: FlutterzillaFixedGridView(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 12,
+                              crossAxisSpacing: 16,
+                              height: 165.h),
+                          itemBuilder: (context, index) {
+                            var doc = provider.myDoctordeactiveList[index];
 
-                          // context.router
-                          //     .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
-                        },
-                        docImage:
-                            "${AppUrls.drprofile}${doc?.doctors?.drImages.toString()}",
-                        docName:
-                            "${ doc!.doctors!.title==null?'':doc!.doctors!.title!.titleName} ${doc!.doctors!.fullName}",
-                        docSpeciality: doc?.doctors?.specialist?.specialistsName
-                                .toString() ??
-                            "",
-                        docHospital:
-                            "${doc?.doctors!.usualProvider != null ? doc?.doctors!.usualProvider!.usualProviderName.toString() : ""}",
-                        doctortitle: doc.doctors!.academic,
-                      );
-                    },
-                  ),
-                ],
-              );
-            }
-          }),
-        ],
+                            return
+
+                              DeActveocCard(
+
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DocDetailsView(
+                                            id: doc!.doctorsMasterId!)));
+
+                                // context.router
+                                //     .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
+                              },
+                              docImage:
+                              "${AppUrls.drprofile}${doc?.doctors?.drImages.toString()}",
+                              docName:
+                              "${ doc!.doctors!.title==null?'':doc!.doctors!.title!.titleName} ${doc!.doctors!.fullName}",
+                              docSpeciality: doc?.doctors?.specialist?.specialistsName
+                                  .toString() ??
+                                  "",
+                              docHospital:
+                              "${doc?.doctors!.usualProvider != null ? doc?.doctors!.usualProvider!.usualProviderName.toString() : ""}",
+                              doctortitle: doc.doctors!.academic, docId: doc.doctorsMasterId.toString(),
+                            );
+                          },
+                        );
+                      }
+                    }),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.r),
+                          side: BorderSide(color: AppColors.primaryColor)),
+                      child: ListTile(
+                        onTap: () => customSearchDialogue(context,
+                            doctorList: provider
+                                .myDoctorFullList.reversed.first.data ??
+                                []),
+                        leading: Icon(
+                          Icons.search_rounded,
+                          color: AppColors.primaryColor,
+                          size: 15.h,
+                        ),
+                        title: Text(
+                          "Search Doctor",
+                          style: TextStyle(
+                              fontSize: 12.sp, color: Colors.grey),
+                        ),
+                      ),
+                    ),
+                    Consumer<MyDoctorDelaisViewModel>(
+                        builder: (context, data, child) {
+                      if (data.myDoctorList.isEmpty) {
+                        return data.isDoctorLoading == true
+                            ? GridView.builder(
+                            itemCount: 12,
+                            shrinkWrap: true,
+                            gridDelegate: FlutterzillaFixedGridView(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 12,
+                                crossAxisSpacing: 16,
+                                height: 175.h),
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: bannerShimmereffect(
+                                    94.toDouble(), 385.toDouble()),
+                              );
+                            },
+                                                        )
+                            : noDataFounForList("");
+                      } else {
+                        return GridView.builder(
+                          itemCount: provider.myDoctorList.length,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          gridDelegate: FlutterzillaFixedGridView(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 12,
+                              crossAxisSpacing: 16,
+                              height: 165.h),
+                          itemBuilder: (context, index) {
+                            var doc = provider.myDoctorList[index];
+
+                            return DocCard(
+
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DocDetailsView(
+                                            id: doc!.doctorsMasterId!)));
+
+                                // context.router
+                                //     .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
+                              },
+                              docImage:
+                                  "${AppUrls.drprofile}${doc?.doctors?.drImages.toString()}",
+                              docName:
+                                  "${doc!.doctors!.title == null ? '' : doc!.doctors!.title!.titleName} ${doc!.doctors!.fullName}",
+                              docSpeciality: doc
+                                      ?.doctors?.specialist?.specialistsName
+                                      .toString() ??
+                                  "",
+                              docHospital:
+                                  "${doc?.doctors!.usualProvider != null ? doc?.doctors!.usualProvider!.usualProviderName.toString() : ""}",
+                              doctortitle: doc.doctors!.academic,
+                              docId: doc.doctorsMasterId.toString(),
+                            );
+                          },
+                        );
+                      }
+                    }),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

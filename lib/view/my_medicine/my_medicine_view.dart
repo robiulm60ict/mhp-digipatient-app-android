@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../resources/styles.dart';
 import '../../widgets/back_button.dart';
+import '../upcamming/upcamming_view.dart';
 
 class MyMedicineView extends StatelessWidget {
   const MyMedicineView({Key? key}) : super(key: key);
@@ -14,7 +15,8 @@ class MyMedicineView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(leading: const CustomBackButton(),
+        leadingWidth: leadingWidth,
         backgroundColor: AppColors.primary_color,
 
         title: Text("My Medicine", style: Style.alltext_appbar,),
@@ -62,19 +64,25 @@ class MyMedicineView extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: Card(child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 10.h,),
-                      const CircleAvatar(
-                        backgroundImage: AssetImage(Assets.myMedicineBuyMedicineCircle),
-                      ),
-                      SizedBox(height: 8.r,),
-                      Text("Buy Medicine ", style: Style.alltext_default_balck,),
-                      SizedBox(height: 10.h,),
-                    ],
-                  ),),
+                  child: InkWell(
+                    onTap: (){
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => Upcamming()));
+                    },
+                    child: Card(child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 10.h,),
+                        const CircleAvatar(
+                          backgroundImage: AssetImage(Assets.myMedicineBuyMedicineCircle),
+                        ),
+                        SizedBox(height: 8.r,),
+                        Text("Buy Medicine ", style: Style.alltext_default_balck,),
+                        SizedBox(height: 10.h,),
+                      ],
+                    ),),
+                  ),
                 ),
               ],
             ),

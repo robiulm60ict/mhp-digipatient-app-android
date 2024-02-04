@@ -16,6 +16,8 @@ class MyReportView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: leadingWidth,
+        leading: const CustomBackButton(),
         backgroundColor: AppColors.primary_color,
         title: Text("My Report", style: Style.alltext_appbar),
         centerTitle: true,
@@ -35,9 +37,10 @@ class MyReportView extends StatelessWidget {
                             builder: (context) => UploadReportView()));
                   },
                   leading: Image.asset(
-                    Assets.myMedicineRx,
+                    "assets/icons/prescription.png",
                     height: 38.h,
                     width: 36.w,
+                    color: Colors.greenAccent,
                   ),
                   title: Text(
                     "Upload Report",
@@ -62,12 +65,12 @@ class MyReportView extends StatelessWidget {
                     // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
                   },
                   leading: Image.asset(
-                    Assets.myMedicineRx,
+                    "assets/icons/prescription.png",
                     height: 38.h,
-                    width: 36.w,
+                    width: 36.w,color: Colors.green,
                   ),
                   title: Text(
-                    "My Report",
+                    "Uploaded Report",
                     style: Style.alltext_default_balck,
                   ),
                 ),

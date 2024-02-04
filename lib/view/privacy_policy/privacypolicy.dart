@@ -13,7 +13,8 @@ class PrivacyPolicy extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary_color,
-
+        leadingWidth: leadingWidth,
+        leading: const CustomBackButton(),
         centerTitle: true,
         title: Text(
           "Privacy & Policy",

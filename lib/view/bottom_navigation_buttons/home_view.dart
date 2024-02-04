@@ -556,6 +556,7 @@ class _HomeViewState extends State<HomeView> {
                         onTap: () {
                           if (index == 0) {
                             dvm.getmyAllDoctors(context);
+                            dvm.getmyAllDeactiveDoctors(context);
                           }
 
                           provider.homeItemsRouteTo(context, index);

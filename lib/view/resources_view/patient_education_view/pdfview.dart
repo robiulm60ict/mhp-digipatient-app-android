@@ -3,6 +3,8 @@ import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 
 import '../../../resources/colors.dart';
 import '../../../resources/styles.dart';
+import '../../../utils/utils.dart';
+import '../../../widgets/back_button.dart';
 class PdfViewerPage extends StatefulWidget {
   final String pdfUrl;
 
@@ -18,7 +20,8 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
+        elevation: 0, leading: const CustomBackButton(),
+        leadingWidth: leadingWidth,
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         title: Text(

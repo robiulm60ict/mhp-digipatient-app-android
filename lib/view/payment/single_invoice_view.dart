@@ -85,6 +85,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
       },
       child: Scaffold(
         appBar: AppBar(
+
           backgroundColor: AppColors.primary_color,
           title: Text(
             "Single Invoice",

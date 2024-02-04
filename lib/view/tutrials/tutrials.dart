@@ -2,6 +2,8 @@ import 'package:digi_patient/resources/styles.dart';
 import 'package:flutter/material.dart';
 
 import '../../resources/colors.dart';
+import '../../utils/utils.dart';
+import '../../widgets/back_button.dart';
 
 class TutrialsView extends StatelessWidget {
   const TutrialsView({super.key});
@@ -13,7 +15,8 @@ class TutrialsView extends StatelessWidget {
         elevation: 0,
         backgroundColor: AppColors.primaryColor,
         //automaticallyImplyLeading: false,
-
+        leading: const CustomBackButton(),
+        leadingWidth: leadingWidth,
         centerTitle: true,
         title: Text(
           "FAQ",

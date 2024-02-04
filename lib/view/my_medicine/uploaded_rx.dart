@@ -40,7 +40,8 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
       },
       child: Scaffold(
         backgroundColor: AppColors.page_background_color,
-        appBar: AppBar(
+        appBar: AppBar(leading: const CustomBackButton(),
+          leadingWidth: leadingWidth,
           backgroundColor: AppColors.primary_color,
 
           title: Text("Prescription", style: Style.alltext_appbar),
@@ -57,7 +58,7 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                     return data.isPrescriptionRxLoading == true
                         ? Center(
                             child: ListView.builder(
-                              itemCount: 4,
+                              itemCount: 6,
                               scrollDirection: Axis.vertical,
                               physics: const ScrollPhysics(),
                               shrinkWrap: true,

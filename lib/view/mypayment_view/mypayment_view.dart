@@ -8,7 +8,9 @@ import '../../generated/assets.dart';
 import '../../resources/app_url.dart';
 import '../../resources/colors.dart';
 import '../../resources/styles.dart';
+import '../../utils/utils.dart';
 import '../../view_model/mypayment/my_payment_view.dart';
+import '../../widgets/back_button.dart';
 import '../../widgets/shimmer.dart';
 
 class MyPatientView extends StatefulWidget {
@@ -43,6 +45,8 @@ class _MyPatientViewState extends State<MyPatientView> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
+          leading:  CustomBackButton(),
+          leadingWidth: leadingWidth,
           backgroundColor: AppColors.primaryColor,
           //automaticallyImplyLeading: false,
 
