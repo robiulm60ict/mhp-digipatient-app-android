@@ -12,6 +12,7 @@ import '../view/qrcode/qrcode_scnner.dart';
 import '../view/resources_view/resources_view.dart';
 import '../view/tutrials/tutrials.dart';
 import '../view/tutrials/tutrials_category.dart';
+import '../view/upcamming/upcamming_view.dart';
 import 'doctor/my_doctor_view_model.dart';
 
 class HomeViewModel with ChangeNotifier {
@@ -37,22 +38,31 @@ class HomeViewModel with ChangeNotifier {
     } else if (index == 1) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => MyRecordView()));
-      //   context.router.push(const MyRecordRoute());
+
     } else if (index == 2) {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => DailyAndUpcommingView()));
     } else if (index == 3) {
-      //  context.router.push(const MyMedicineRoute());
+
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => MyMedicineView()));
-    }else if (index == 6) {
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>ResourcesView()));
+    } else if (index == 4) {
 
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Upcamming()));
+    } else if (index == 5) {
+
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Upcamming()));
+    } else if (index == 6) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ResourcesView()));
     } else if (index == 7) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => MyPatientView()));
     } else if (index == 8) {
-         Navigator.push(context, MaterialPageRoute(builder: (context)=>const TutrialsCategory()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const TutrialsCategory()));
     }
   }
 }

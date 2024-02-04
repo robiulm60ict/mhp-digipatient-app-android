@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../resources/colors.dart';
 import '../../resources/styles.dart';
+import '../upcamming/upcamming_view.dart';
 import 'tutrials.dart';
 
 class TutrialsCategory extends StatelessWidget {
@@ -106,7 +107,8 @@ class TutrialsCategory extends StatelessWidget {
                                 color: AppColors.page_background_color,
                                 child: InkWell(
                                   onTap: () {
-
+                                    Navigator.push(
+                                        context, MaterialPageRoute(builder: (context) => Upcamming()));
                                   },
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
