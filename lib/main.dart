@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -160,12 +161,40 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+
+  AppUpdateInfo? _updateInfo;
+  InAppUpdate inAppUpdate = InAppUpdate();
+
   @override
   void initState() {
     super.initState();
-
+    // Initialize the InAppUpdate object
+    checkForUpdate();
     if (currentUser.id.isNotEmpty) {
       onUserLogin();
+    }
+  }
+
+  Future<void> checkForUpdate() async {
+    try {
+      InAppUpdate.checkForUpdate().then((info) {
+        setState(() {
+          print("eeeeeeeeeeeeeeee${info.toString()}");
+          _updateInfo = info;
+
+          // Check if an update is available before setting up the listener
+          if (_updateInfo?.updateAvailability ==
+              UpdateAvailability.updateAvailable) {
+            InAppUpdate
+                .performImmediateUpdate(); // You might want to prompt the user to update before calling this
+            InAppUpdate.installUpdateListener;
+            print("eeeeeeeeeeeeeeee${_updateInfo?.updateAvailability ==
+                UpdateAvailability.updateAvailable}");
+          }
+        });
+      });
+    } catch (e) {
+      print(e.toString());
     }
   }
 
@@ -183,7 +212,7 @@ class MyAppState extends State<MyApp> {
         //     currentUser.id.isEmpty ? PageRouteNames.login : PageRouteNames.home,
 
         initialRoute:
-            currentUser.id.isEmpty ? RoutesName.splash : RoutesName.dashbord,
+        currentUser.id.isEmpty ? RoutesName.splash : RoutesName.dashbord,
         onGenerateRoute: Routes.generateRoute,
         color: AppColors.primaryColor,
 

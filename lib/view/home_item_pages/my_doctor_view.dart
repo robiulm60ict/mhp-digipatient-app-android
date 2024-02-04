@@ -84,7 +84,7 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                                       : Colors.white,
                                 )),
                                 child: const Center(
-                                    child: Text("ActiveDoctors",
+                                    child: Text("Active Doctors",
                                         textAlign: TextAlign.center)),
                               )),
                         ),
