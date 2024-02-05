@@ -224,51 +224,45 @@ class AppointmentViewModel with ChangeNotifier {
 
       //barrierColor: Colors.green,
       anchorPoint: Offset(50.0, 100.0),
-
+      selectableDayPredicate: (DateTime date) {
+        return availableDates.any((availableDate) =>
+        date.year == availableDate.year &&
+            date.month == availableDate.month &&
+            date.day == availableDate.day);
+      },
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
-            primaryColor: const Color(0xff128041),
-            // useMaterial3: false,
 
-            // ignore: deprecated_member_use
-            hintColor: const Color(0xff128041),
+            dialogBackgroundColor: Colors.white,
 
+            focusColor: Colors.purple,
+            shadowColor: Colors.yellow,
             textTheme: TextTheme(
-                bodyText1: Style.alltext_default_balck_blodCalender,
-                bodyText2: Style.alltext_default_balck_blodCalender),
-            colorScheme: ColorScheme.light(
-              primary: AppColors.primary_color,
-              // header background color
-              // onPrimary: Colors.black,
-              // header text color
-              //onSurface: Colors.black,
-              inversePrimary: Colors.white,
-              onSecondary: Colors.red,
-              background: Colors.white,
-              onPrimaryContainer: Colors.yellow,
-              // primary: Color(0xff128041)
+                bodyText1:TextStyle(
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.bold,
+                 fontSize: 20,
+                 decorationColor: Colors.purple,
+                ),
+                // bodyText2: Style.alltext_default_balck_blodCalender
             ),
             highlightColor: Colors.red,
-            textSelectionTheme: TextSelectionThemeData(
-                selectionHandleColor: Colors.yellow,
-                selectionColor: Colors.red,
-                cursorColor: Colors.grey),
-            backgroundColor: AppColors.primary_color,
+            primaryColor: Color(0xff128041),
+            hintColor: Colors.blue, // Change accent color
+            // Change color scheme
 
-            buttonTheme:
-                const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            colorScheme: ColorScheme.light(primary: Color(0xff128041),background: Colors.white,secondary: Colors.red), // Change color scheme
+            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.accent,highlightColor: Colors.red,),
+
+
+
           ),
           child: child!,
         );
       },
 
-      selectableDayPredicate: (DateTime date) {
-        return availableDates.any((availableDate) =>
-            date.year == availableDate.year &&
-            date.month == availableDate.month &&
-            date.day == availableDate.day);
-      },
+
     );
 
     print("Picked Date: $picked");

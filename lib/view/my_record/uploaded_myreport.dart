@@ -9,11 +9,8 @@ import '../../../resources/colors.dart';
 import '../../../resources/styles.dart';
 import '../../../widgets/back_button.dart';
 import '../../../widgets/shimmer.dart';
-import '../../resources/app_url.dart';
 import '../../utils/utils.dart';
 import '../../view_model/my_medicine_view_model/my_medicine_view_model.dart';
-import '../my_medicine/image_view.dart';
-import '../resources_view/patient_education_view/pdfview.dart';
 import 'lab/labreport_slider.dart';
 
 class UploadMyReport extends StatefulWidget {
@@ -71,7 +68,7 @@ class _UploadMyReportState extends State<UploadMyReport> {
                               },
                             ),
                           )
-                        : noDataFounForList("No Uploaded History");
+                        : noDataFounForList("Currently you have no records");
                   } else {
                     return SingleChildScrollView(
                       child: Column(

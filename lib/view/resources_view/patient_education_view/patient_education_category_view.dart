@@ -62,7 +62,7 @@ class _PatientEducationViewState extends State<PatientEducationView> {
                       );
                     },
                   )
-                  : noDataFounForList("No Data");
+                  : noDataFounForList("Currently you have no records");
             } else {
               return Container(
                 width: double.infinity,

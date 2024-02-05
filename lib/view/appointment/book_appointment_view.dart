@@ -1,25 +1,22 @@
-import 'package:digi_patient/generated/assets.dart';
-import 'package:digi_patient/model/anatomy/anatomy_symptoms_model.dart';
 
-import 'package:digi_patient/resources/colors.dart';
-import 'package:digi_patient/utils/message.dart';
-import 'package:digi_patient/view/anatomy/anatomy_view.dart';
-import 'package:digi_patient/view/payment/payment_method_view.dart';
-import 'package:digi_patient/view_model/anatomy/anatomy_view_model.dart';
-import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:weekly_date_picker/weekly_date_picker.dart';
 
+import '../../generated/assets.dart';
+import '../../model/anatomy/anatomy_symptoms_model.dart';
 import '../../model/myDoctorList/mydoctorList.dart';
+import '../../resources/colors.dart';
 import '../../resources/styles.dart';
+import '../../utils/message.dart';
 import '../../utils/utils.dart';
-import '../../view_model/doctor/my_doctor_view_model.dart';
+import '../../view_model/anatomy/anatomy_view_model.dart';
+import '../../view_model/appointment_view_model/appointment_view_model.dart';
 import '../../widgets/back_button.dart';
-
 import '../../widgets/shimmer.dart';
+import '../anatomy/anatomy_view.dart';
+import '../payment/payment_method_view.dart';
 
 class BookAppointmentView extends StatefulWidget {
   const BookAppointmentView(

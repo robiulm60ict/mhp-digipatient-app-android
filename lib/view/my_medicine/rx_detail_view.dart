@@ -78,7 +78,7 @@ class _RXDetailViewState extends State<RXDetailView> {
                   );
                 },
               )
-                  : noDataFounForList("No Current Rx History");
+                  : noDataFounForList("Currently you have no records");
             } else {
               return ListView.builder(
                   padding: EdgeInsets.all(15.r),

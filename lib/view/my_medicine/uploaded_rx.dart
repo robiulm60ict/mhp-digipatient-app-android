@@ -71,7 +71,7 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
                               },
                             ),
                           )
-                        : noDataFounForList("No Uploaded History");
+                        : noDataFounForList("Currently you have no records");
                   } else {
                     return RefreshIndicator(
 

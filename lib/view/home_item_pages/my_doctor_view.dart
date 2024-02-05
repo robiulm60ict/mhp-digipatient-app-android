@@ -14,6 +14,7 @@ import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/doc_card.dart';
 import '../../widgets/shimmer.dart';
+import '../my_doctor_category_views/doc_detailsdeactive_view.dart';
 
 class MyDoctorView extends StatefulWidget {
   MyDoctorView({Key? key}) : super(key: key);
@@ -109,7 +110,7 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                                       : Colors.white,
                                 )),
                                 child: const Center(
-                                    child: Text("Deactivate Doctors",
+                                    child: Text("Inactivate Doctors",
                                         textAlign: TextAlign.center)),
                               )),
                         ),
@@ -118,7 +119,6 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                   ],
                 ),
               ),
-
               Visibility(
                 visible: showTodayAppointments,
                 replacement: Column(
@@ -130,7 +130,7 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                       child: ListTile(
                         onTap: () => customSearchDialogue(context,
                             doctorList: provider.myDoctordeactiveFullList
-                                .reversed.first.data ??
+                                    .reversed.first.data ??
                                 []),
                         leading: Icon(
                           Icons.search_rounded,
@@ -139,8 +139,7 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                         ),
                         title: Text(
                           "Search Doctor",
-                          style: TextStyle(
-                              fontSize: 12.sp, color: Colors.grey),
+                          style: TextStyle(fontSize: 12.sp, color: Colors.grey),
                         ),
                       ),
                     ),
@@ -152,22 +151,22 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                       if (data.myDoctordeactiveList.isEmpty) {
                         return data.isDoctorLoading == true
                             ? GridView.builder(
-                            itemCount: 12,
-                            shrinkWrap: true,
-                            gridDelegate: FlutterzillaFixedGridView(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 12,
-                                crossAxisSpacing: 16,
-                                height: 175.h),
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: bannerShimmereffect(
-                                    94.toDouble(), 385.toDouble()),
-                              );
-                            },
-                                                        )
-                            : noDataFounForList("");
+                                itemCount: 12,
+                                shrinkWrap: true,
+                                gridDelegate: FlutterzillaFixedGridView(
+                                    crossAxisCount: 2,
+                                    mainAxisSpacing: 12,
+                                    crossAxisSpacing: 16,
+                                    height: 175.h),
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: bannerShimmereffect(
+                                        94.toDouble(), 385.toDouble()),
+                                  );
+                                },
+                              )
+                            : noDataFounForList("Currently you have no records");
                       } else {
                         return GridView.builder(
                           itemCount: provider.myDoctordeactiveList.length,
@@ -178,32 +177,32 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                               crossAxisSpacing: 16,
                               height: 165.h),
                           itemBuilder: (context, index) {
-                            var doc = provider.myDoctordeactiveList[index];
+                            var docc = provider.myDoctordeactiveList[index];
 
-                            return
-
-                              DeActveocCard(
-
+                            return DeActveocCard(
                               onTap: () {
+                                print(docc.doctorsMasterId.toString());
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => DocDetailsView(
-                                            id: doc!.doctorsMasterId!)));
+                                        builder: (context) => DocDeactiveDetailsView(
+                                            id: docc.doctorsMasterId!)));
 
                                 // context.router
                                 //     .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
                               },
                               docImage:
-                              "${AppUrls.drprofile}${doc?.doctors?.drImages.toString()}",
+                                  "${AppUrls.drprofile}${docc?.doctors?.drImages.toString()}",
                               docName:
-                              "${ doc!.doctors!.title==null?'':doc!.doctors!.title!.titleName} ${doc!.doctors!.fullName}",
-                              docSpeciality: doc?.doctors?.specialist?.specialistsName
-                                  .toString() ??
+                                  "${docc!.doctors!.title == null ? '' : docc!.doctors!.title!.titleName} ${docc!.doctors!.fullName}",
+                              docSpeciality: docc
+                                      ?.doctors?.specialist?.specialistsName
+                                      .toString() ??
                                   "",
                               docHospital:
-                              "${doc?.doctors!.usualProvider != null ? doc?.doctors!.usualProvider!.usualProviderName.toString() : ""}",
-                              doctortitle: doc.doctors!.academic, docId: doc.doctorsMasterId.toString(),
+                                  "${docc?.doctors!.usualProvider != null ? docc?.doctors!.usualProvider!.usualProviderName.toString() : ""}",
+                              doctortitle: docc.doctors!.academic,
+                              docId: docc.doctorsMasterId.toString(),
                             );
                           },
                         );
@@ -219,9 +218,9 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                           side: BorderSide(color: AppColors.primaryColor)),
                       child: ListTile(
                         onTap: () => customSearchDialogue(context,
-                            doctorList: provider
-                                .myDoctorFullList.reversed.first.data ??
-                                []),
+                            doctorList:
+                                provider.myDoctorFullList.reversed.first.data ??
+                                    []),
                         leading: Icon(
                           Icons.search_rounded,
                           color: AppColors.primaryColor,
@@ -229,8 +228,7 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                         ),
                         title: Text(
                           "Search Doctor",
-                          style: TextStyle(
-                              fontSize: 12.sp, color: Colors.grey),
+                          style: TextStyle(fontSize: 12.sp, color: Colors.grey),
                         ),
                       ),
                     ),
@@ -239,22 +237,22 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                       if (data.myDoctorList.isEmpty) {
                         return data.isDoctorLoading == true
                             ? GridView.builder(
-                            itemCount: 12,
-                            shrinkWrap: true,
-                            gridDelegate: FlutterzillaFixedGridView(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 12,
-                                crossAxisSpacing: 16,
-                                height: 175.h),
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: bannerShimmereffect(
-                                    94.toDouble(), 385.toDouble()),
-                              );
-                            },
-                                                        )
-                            : noDataFounForList("");
+                                itemCount: 12,
+                                shrinkWrap: true,
+                                gridDelegate: FlutterzillaFixedGridView(
+                                    crossAxisCount: 2,
+                                    mainAxisSpacing: 12,
+                                    crossAxisSpacing: 16,
+                                    height: 175.h),
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: bannerShimmereffect(
+                                        94.toDouble(), 385.toDouble()),
+                                  );
+                                },
+                              )
+                            : noDataFounForList("Currently you have no records");
                       } else {
                         return GridView.builder(
                           itemCount: provider.myDoctorList.length,
@@ -269,7 +267,6 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                             var doc = provider.myDoctorList[index];
 
                             return DocCard(
-
                               onTap: () {
                                 Navigator.push(
                                     context,

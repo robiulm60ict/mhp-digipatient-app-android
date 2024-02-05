@@ -27,20 +27,18 @@ class Upcamming extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Stack(
-              children: [
-                Image.asset("assets/icons/nodataupcaming.jpg"),
-                Positioned(
-                  top: 280,
-                  left: 0,
-                  right: 0,
-                  child: Image.asset(
-                    "assets/images/upcamming.png",
-                    height: 150,
-                  ),
-                )
-              ],
-            ),
+            Image.asset("assets/icons/ringing.png",height: 100,),
+            Style.distan_size10,
+            Style.distan_size10,
+            Style.distan_size10,
+            Text(
+              "Upcoming....",
+              style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            )
           ],
         ),
       ),

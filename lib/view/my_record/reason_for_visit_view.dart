@@ -59,7 +59,7 @@ class _ReasonForVisitViewState extends State<ReasonForVisitView> {
                       );
                     },
                   )
-                  : noDataFounForList("No History");
+                  : noDataFounForList("Currently you have no records",);
             } else {
               return ListView.builder(
                   itemCount: data.reasonForVisitList.length,

@@ -136,7 +136,7 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
                           );
                         },
                       )
-                          : noDataFounForList("No History");
+                          : noDataFounForList("Currently you have no records");
                     } else {
                       return ListView.builder(
                           padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -183,7 +183,7 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
                           );
                         },
                       )
-                          : noDataFounForList("No History");
+                          : noDataFounForList("Currently you have no records");
                     } else {
                       return ListView.builder(
                           itemCount:

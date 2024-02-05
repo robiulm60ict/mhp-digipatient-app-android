@@ -77,7 +77,7 @@ class _MyMedicalHistoryViewState extends State<MyMedicalHistoryView> {
                 );
               },
             )
-                : noDataFounForList("No Medical History");
+                : noDataFounForList("Currently you have no records");
           } else {
             return ListView.builder(
                 itemCount: sMhFGD.medicalHistoryFromGreatDocPastList.length,

@@ -31,10 +31,12 @@ Widget bannerShimmereffect(height, width) => Container(
       ),
     );
 
-Widget noDataFounForList(text) => Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: Stack(
-        alignment: AlignmentDirectional.center,
+Widget noDataFounForList(text) => Container(
+  width: double.infinity,
+      padding: const EdgeInsets.only(top: 40,left: 2,right: 2),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
             child: Image.asset(
@@ -43,15 +45,11 @@ Widget noDataFounForList(text) => Padding(
               width: 400.w,
             ),
           ),
-          Positioned(
-              bottom: 0,
-              top: 300.h,
-              left: 50,
-              right: 20,
-              child: Text(
-                text,
-                style: Style.alltext_OverLarge_black,
-              )),
+          Text(
+            text,
+            style: Style.alltext_OverLarge_black24_bold,
+          )
+
         ],
       ),
     );

@@ -13,10 +13,8 @@ import '../../resources/constants.dart';
 import '../../utils/message.dart';
 import '../../utils/modal_sheet.dart';
 import '../../utils/user.dart';
-import '../../utils/utils.dart';
 import '../../view_model/anatomy/anatomy_view_model.dart';
-import '../../view_model/user_view_model/user_view_model.dart';
-import '../../widgets/back_button.dart';
+
 
 class AnatomyView extends StatefulWidget {
   const AnatomyView({Key? key}) : super(key: key);

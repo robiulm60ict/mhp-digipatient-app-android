@@ -82,7 +82,7 @@ class _MyPatientViewState extends State<MyPatientView> {
                               },
                             ),
                           )
-                        : noDataFounForList("No Payment History");
+                        : noDataFounForList("Currently you have no records");
                   } else {
                     return Column(
                       children: [

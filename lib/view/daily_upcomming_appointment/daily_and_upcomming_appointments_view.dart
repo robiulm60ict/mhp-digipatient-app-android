@@ -156,7 +156,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                               );
                             },
                           )
-                          : noDataFounForList("No Appointment History")
+                          : noDataFounForList("Currently you have no records")
                       : ListView.builder(
                           shrinkWrap: true,
                           itemCount:
@@ -189,7 +189,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                               );
                             },
                           )
-                          : noDataFounForList("No Appointment History")
+                          : noDataFounForList("Currently you have no records")
                       : ListView.builder(
                           shrinkWrap: true,
                           itemCount: appointments.todayAppointmentList.length,

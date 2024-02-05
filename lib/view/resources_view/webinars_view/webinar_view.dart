@@ -64,7 +64,7 @@ class _WebinarViewState extends State<WebinarView> {
                       );
                     },
                   )
-                  : noDataFounForList("No Data");
+                  : noDataFounForList("Currently you have no records");
             } else {
               return Container(
                 width: double.infinity,

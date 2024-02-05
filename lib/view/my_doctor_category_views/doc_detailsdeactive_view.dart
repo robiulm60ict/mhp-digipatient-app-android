@@ -19,15 +19,15 @@ import '../../widgets/shimmer.dart';
 import '../appointment/book_appointment_view.dart';
 import '../home_item_pages/my_doctor_view.dart';
 
-class DocDetailsView extends StatefulWidget {
-  const DocDetailsView({Key? key, required this.id}) : super(key: key);
+class DocDeactiveDetailsView extends StatefulWidget {
+  DocDeactiveDetailsView({Key? key, required this.id}) : super(key: key);
   final num id;
 
   @override
-  State<DocDetailsView> createState() => _DocDetailsViewState();
+  State<DocDeactiveDetailsView> createState() => _DocDetailsViewState();
 }
 
-class _DocDetailsViewState extends State<DocDetailsView> {
+class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
   // ScrollController listViewController = ScrollController();
   //
   // @override
@@ -52,7 +52,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
   getDoctor(id) async {
     doc = context
         .read<MyDoctorDelaisViewModel>()
-        .myDoctorList
+        .myDoctordeactiveList
         .firstWhere((element) => element.doctorsMasterId == id) as Datum?;
   }
 
@@ -64,42 +64,42 @@ class _DocDetailsViewState extends State<DocDetailsView> {
      final appointmentViewModel = Provider.of<AppointmentViewModel>(context);
 
     return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        child: SizedBox(
-          height: 50.h,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary_color,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.r))),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => BookAppointmentView(
-                          doctors: doc!,
-                          amount:
-                              "${doc?.doctors?.doctorFee == null ? "0" : doc?.doctors?.doctorFee} ")));
-
-              appointmentViewModel.selectedDatee=null;
-              appointmentViewModel.isChamber="";
-              appointmentViewModel.morningeveingButton="";
-
-              // context.router.push(BookAppointmentRoute(
-              //     doctors: doc!,
-              //     amount:
-              //     "${doc?.doctors?.doctorFee ?? "0"} "));
-            },
-            child: Text(
-              "Request For Appointment",
-              style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
-            ),
-          ),
-        ),
-      ),
+      // bottomNavigationBar: BottomAppBar(
+      //   child: SizedBox(
+      //     height: 50.h,
+      //     child: ElevatedButton(
+      //       style: ElevatedButton.styleFrom(
+      //           backgroundColor: AppColors.primary_color,
+      //           shape: RoundedRectangleBorder(
+      //               borderRadius: BorderRadius.circular(15.r))),
+      //       onPressed: () {
+      //         Navigator.push(
+      //             context,
+      //             MaterialPageRoute(
+      //                 builder: (context) => BookAppointmentView(
+      //                     doctors: doc!,
+      //                     amount:
+      //                         "${doc?.doctors?.doctorFee == null ? "0" : doc?.doctors?.doctorFee} ")));
+      //
+      //         appointmentViewModel.selectedDatee=null;
+      //         appointmentViewModel.isChamber="";
+      //         appointmentViewModel.morningeveingButton="";
+      //
+      //         // context.router.push(BookAppointmentRoute(
+      //         //     doctors: doc!,
+      //         //     amount:
+      //         //     "${doc?.doctors?.doctorFee ?? "0"} "));
+      //       },
+      //       child: Text(
+      //         "Request For Appointment",
+      //         style: TextStyle(
+      //             fontSize: 16.sp,
+      //             fontWeight: FontWeight.bold,
+      //             color: Colors.white),
+      //       ),
+      //     ),
+      //   ),
+      // ),
       appBar: AppBar(
         elevation: 0,
         leadingWidth: leadingWidth,
@@ -238,7 +238,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
 
 
                         Padding(
-                          padding: const EdgeInsets.only(left: 3.0,top: 4),
+                          padding: const EdgeInsets.only(left: 8.0,top: 4),
                           child: Row(
 
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -277,13 +277,13 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                         alignment: Alignment.center,
                         child: doc?.doctors?.drImages.toString() != "null"
                             ? CircleAvatar(
-                                radius: 40.r,
+                                radius: 50.r,
                                 backgroundColor: AppColors.linearGradient1,
                                 backgroundImage: NetworkImage(
                                     "${AppUrls.docImage}${doc?.doctors?.drImages}"),
                               )
                             : CircleAvatar(
-                          radius: 40.r,
+                          radius: 50.r,
                           backgroundColor: AppColors.linearGradient1,
                           backgroundImage: AssetImage(
                               Assets.dummy_image),
@@ -291,9 +291,9 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       ),
 
                       Style.distan_size5,
-                      MaterialButton(color:Colors.green,onPressed: (){
+                      MaterialButton(color:Colors.red,onPressed: (){
                         _showDeleteConfirmationDialog(context);
-                      },child:  Text("Active",style: Style.alltext_appbar,),)
+                      },child:  Text("InActive",style: Style.alltext_appbar,),)
 
                     ],
                   ),
@@ -315,11 +315,12 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                     children: [
                       Expanded(
                         child: Card(
+
                           elevation: 5,
                           child: ListTile(
                             leading: Icon(
                               Icons.people,
-                              color: AppColors.primaryColor,
+                              color: AppColors.blackColor,
                             ),
                             title: Text(
                               "${mdVM.data.toString()}+",
@@ -334,11 +335,12 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       ),
                       Expanded(
                         child: Card(
+
                           elevation: 5,
                           child: ListTile(
                             leading: Icon(
                               Icons.cases_outlined,
-                              color: AppColors.primaryColor,
+                              color: AppColors.blackColor,
                             ),
                             title: Text(
                               "${doc?.doctors?.workExperienceYears.toString()} years",
@@ -392,6 +394,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                     children: [
                       Expanded(
                         child: Card(
+                          color: Colors.grey,
                           elevation: 5,
                           child:  Container(
                             height: 55.h,
@@ -419,13 +422,13 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                             child: Container(
                                               // height: 40.h,
                                               // width: 40.w,
-                                              color: Colors.white,
+                                              color: Colors.grey,
                                               padding: const EdgeInsets.all(5.0),
                                               child: SizedBox(
                                                   width: 80.w,
                                                   child: InkWell(
                                                     onTap: () async {
-                                                      await launch(info.url.toString());
+                                                     //await launch(info.url.toString());
 
                                                       // Navigator.push(
                                                       //     context,
@@ -463,6 +466,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       Expanded(
                         child: Card(
                           elevation: 5,
+                          color: Colors.grey,
                           child: SizedBox(
                             height: 55.h,
                             child: ListTile(
@@ -471,7 +475,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                 backgroundColor:  Colors.green,
                                 child: IconButton(
                                   onPressed: (){
-                                    FlutterPhoneDirectCaller.callNumber("${doc!.doctors!.drWorkPhone.toString()}");
+                                   // FlutterPhoneDirectCaller.callNumber("${doc!.doctors!.drWorkPhone.toString()}");
                                   },
                                  icon: Icon( Icons.call,size: 25,
                                      color:AppColors.backgroundColor,)
@@ -538,7 +542,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 Card(
                   elevation: 7,
                   child: Container(
-                  color: Colors.purple,
+                  color: Colors.pink,
                   padding: const EdgeInsets.only(left: 8.0,right: 8,top: 12,bottom: 12),
                   child: Row(
                     children: [
@@ -547,7 +551,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                       Style.widthdistan_size5,
                       SizedBox(
                           width: 280.w,
-                          child: Text("Pay the doctor’s consultation fee in bkash. Please remember bkash number and 10-digit transaction ID to confirm doctor’s follow-up appointment. ",style: Style.alltext_default_white,textAlign: TextAlign.start,)),
+                          child: Text("Please active the doctor prior to make an appointment. you are requested to contact our support center for further assistance . ",style: Style.alltext_default_white,textAlign: TextAlign.start,)),
                     ],
                   ),
                 ),)
@@ -573,7 +577,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
               Text('Confirmation',style: Style.alltext_default_balck_blod_dilog,),
             ],
           ),
-          content: const Text('Do  you want to Inactive this doctor?'),
+          content: const Text('Do  you want to Active this doctor?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -582,17 +586,17 @@ class _DocDetailsViewState extends State<DocDetailsView> {
               child: Text('No'),
             ),
             TextButton(
-              onPressed: () {
-                // Perform deletion logic here
-                // Delete your data and update the UI accordingly
-                // ...
+                onPressed: () {
+                  // Perform deletion logic here
+                  // Delete your data and update the UI accordingly
+                  // ...
 
-                Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyDoctorView()));
-                provider.deactiveDoctors(context,widget.id.toString());
-                // Close the dialog after deletion
-              },
-              child: const Text("Yes")
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyDoctorView()));
+                  provider.activedoctor(context,widget.id.toString());
+                  // Close the dialog after deletion
+                },
+                child: const Text("Yes")
             ),
           ],
         );

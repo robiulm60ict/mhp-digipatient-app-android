@@ -46,6 +46,11 @@ class Style {
     fontWeight: FontWeight.w700,
     color: AppColors.text_primary_color,
     fontSize: 12.sp,
+  ); static TextStyle alltext_default_balck_blod_dilog = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w700,
+    color: AppColors.text_primary_color,
+    fontSize: 16.sp,
   );
   static TextStyle alltext_default_balck_blodCalender = TextStyle(
     fontFamily: 'Roboto',
@@ -89,13 +94,18 @@ class Style {
     fontWeight: FontWeight.w400,
     color: AppColors.text_primary_color,
     fontSize: 24.sp,
+  );static TextStyle alltext_OverLarge_black24_bold = TextStyle(
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w700,
+    color: AppColors.text_primary_color,
+    fontSize: 20.sp,
   );
 // ignore: constant_identifier_names
   static TextStyle drawer_heading_style = TextStyle(
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w400,
     color: AppColors.drawer_button_colors,
-    fontSize: 20,
+    fontSize: 18,
   );
   static TextStyle alltext_small_white = TextStyle(
     fontFamily: 'Roboto',

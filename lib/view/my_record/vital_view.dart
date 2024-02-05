@@ -1,21 +1,18 @@
-import 'package:digi_patient/enum/vitals_enum.dart';
-import 'package:digi_patient/generated/assets.dart';
-import 'package:digi_patient/model/my_record_model/vitals_model.dart';
-import 'package:digi_patient/resources/app_url.dart';
-import 'package:digi_patient/resources/colors.dart';
-import 'package:digi_patient/resources/styles.dart';
-import 'package:digi_patient/utils/utils.dart';
-import 'package:digi_patient/view/bottom_navigation_buttons/home_view.dart';
-import 'package:digi_patient/view/home_item_pages/my_record_view.dart';
-import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
-import 'package:digi_patient/widgets/back_button.dart';
-import 'package:digi_patient/widgets/line_chart.dart';
-import 'package:digi_patient/widgets/vitals_card.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../enum/vitals_enum.dart';
+import '../../model/my_record_model/vitals_model.dart';
+import '../../resources/colors.dart';
+import '../../resources/styles.dart';
+import '../../utils/utils.dart';
+import '../../view_model/my_record_view_model/my_record_view_model.dart';
+import '../../widgets/back_button.dart';
+import '../../widgets/line_chart.dart';
 import '../../widgets/shimmer.dart';
+import '../../widgets/vitals_card.dart';
 
 class VitalsView extends StatefulWidget {
   const VitalsView({
@@ -122,7 +119,7 @@ class _VitalsViewState extends State<VitalsView>
             ),
             body: Consumer<MyRecordViewModel>(builder: (context, data, child) {
               if (data.vitalsList.isEmpty) {
-                return  noDataFounForList("No Vitals History");
+                return  noDataFounForList("Currently you have no records");
               } else {
                 return ListView(
                   padding: EdgeInsets.all(defaultPadding.r),

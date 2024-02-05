@@ -141,55 +141,23 @@ class DocCard extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            top: 10,
-            right: 0,
-            child: ClipOval(
-              child: IconButton(
-
-                icon:Icon(Icons.cancel,color: Colors.red,),
-                onPressed: () {
-                  _showDeleteConfirmationDialog(context);
-               //
-                },
-              ),
-
-            ),
-          ),
+          // Positioned(
+          //   top: 10,
+          //   right: 0,
+          //   child: ClipOval(
+          //     child: IconButton(
+          //
+          //       icon:Icon(Icons.cancel,color: Colors.red,),
+          //       onPressed: () {
+          //
+          //      //
+          //       },
+          //     ),
+          //
+          //   ),
+          // ),
         ],
       ),
-    );
-  }
-  Future<void> _showDeleteConfirmationDialog(BuildContext context) async {
-    final provider =
-    Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Confirm'),
-          content: const Text('Are you sure you want to Deactivate this doctor?'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                // Perform deletion logic here
-                // Delete your data and update the UI accordingly
-                // ...
-                _showDeleteConfirmationDialog(context);
-                provider.deactiveDoctors(context, docId.toString());
-                Navigator.of(context).pop(); // Close the dialog after deletion
-              },
-              child: const Text('Deactivate'),
-            ),
-          ],
-        );
-      },
     );
   }
 
@@ -327,89 +295,11 @@ class DeActveocCard extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            top: 10,
-            right: 0,
-            child: ClipOval(
-              child: IconButton(
 
-                icon:Icon(
-                  Icons.check_circle,
-                color: Colors.green,),
-
-                onPressed: () {
-                  _showActiveConfirmationDialog(context);
-                  //
-                },
-              ),
-
-            ),
-          ),
         ],
       ),
     );
   }
-  Future<void> _showDeleteConfirmationDialog(BuildContext context) async {
-    final provider =
-    Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Confirm'),
-          content: const Text('Are you sure you want to Deactivate this doctor?'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                // Perform deletion logic here
-                // Delete your data and update the UI accordingly
-                // ...
-                provider.activedoctor(context, docId.toString());
-                Navigator.of(context).pop(); // Close the dialog after deletion
-              },
-              child: const Text('Activate'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-  Future<void> _showActiveConfirmationDialog(BuildContext context) async {
-    final provider =
-    Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Confirm'),
-          content: const Text('Are you sure you want to activate this doctor?'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                // Perform deletion logic here
-                // Delete your data and update the UI accordingly
-                // ...
-                provider.activedoctor(context, docId.toString());
-                Navigator.of(context).pop(); // Close the dialog after deletion
-              },
-              child: const Text('Activate'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+
 
 }
