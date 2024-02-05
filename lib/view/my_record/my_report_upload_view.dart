@@ -5,6 +5,7 @@ import 'package:digi_patient/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../../../generated/assets.dart';
@@ -14,46 +15,43 @@ import '../../resources/colors.dart';
 import '../../utils/message.dart';
 import '../../utils/user.dart';
 import '../../utils/utils.dart';
+import '../../view_model/my_medicine_view_model/my_medicine_view_model.dart';
 import '../../widgets/back_button.dart';
 
-
 class UploadReportView extends StatefulWidget {
-  UploadReportView({super.key,});
-
+  UploadReportView({
+    super.key,
+  });
 
   @override
   State<UploadReportView> createState() => _UploadReportViewState();
 }
 
 class _UploadReportViewState extends State<UploadReportView> {
-
   var file;
   List<XFile>? selectedImages = [];
 
   Future<void> loadAssets() async {
     try {
-      selectedImages = await ImagePicker().pickMultiImage();
-      if (selectedImages != null && selectedImages!.isNotEmpty) {
-        setState(() {
+      final List<XFile>? pickedImages = await ImagePicker().pickMultiImage();
 
+      if (pickedImages != null && pickedImages.isNotEmpty) {
+        setState(() {
+          selectedImages!.addAll(pickedImages);
           imgageSelectedtrue();
         });
       }
     } catch (e) {
       print('Error picking images: $e');
     }
-
-
   }
-
-  final List<File> imageList = [];
 
   Future<void> pickImageFromCamera() async {
     final imageFile = await ImagePicker().pickImage(source: ImageSource.camera);
     if (imageFile != null) {
       setState(() {
-        imageList.add(File(imageFile.path));
-        camraSelectedtrue();
+        selectedImages!.add(XFile(imageFile.path));
+        imgageSelectedtrue();
       });
     }
   }
@@ -75,12 +73,12 @@ class _UploadReportViewState extends State<UploadReportView> {
     });
   }
 
-
-  TextEditingController reportName =TextEditingController();
-  TextEditingController typereportName =TextEditingController();
+  TextEditingController reportName = TextEditingController();
+  TextEditingController typereportName = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final report = Provider.of<MyMedicineViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -161,7 +159,6 @@ class _UploadReportViewState extends State<UploadReportView> {
                                     child: TextButton.icon(
                                       onPressed: () {
                                         pickImageFromCamera();
-                                        selectedImages!.clear();
                                       },
                                       icon: Icon(
                                         Icons.camera_alt,
@@ -188,7 +185,6 @@ class _UploadReportViewState extends State<UploadReportView> {
                                       onPressed: () {
                                         setState(() {
                                           loadAssets();
-                                          imageList.clear();
                                         });
                                       },
                                       icon: Icon(
@@ -213,20 +209,21 @@ class _UploadReportViewState extends State<UploadReportView> {
                 ),
               ),
               Style.distan_size10,
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                Text("Note : Upload and save your prescription and report here."),
-                Style.distan_size2,
-                Text("For Prescription: doctor name_ date"),
-                Style.distan_size2,
-                Text("For Report: lab name_ test name_ date"),
-              ],),
-
+                  Text(
+                      "Note : Upload and save your prescription and report here."),
+                  Style.distan_size2,
+                  Text("For Prescription: doctor name_ date"),
+                  Style.distan_size2,
+                  Text("For Report: lab name_ test name_ date"),
+                ],
+              ),
               Style.distan_size10,
               Padding(
-                padding: const EdgeInsets.only(left: 16,right: 16),
+                padding: const EdgeInsets.only(left: 16, right: 16),
                 child: CustomTextField(
                   textEditingController: reportName,
                   prefix: Icon(
@@ -238,7 +235,7 @@ class _UploadReportViewState extends State<UploadReportView> {
               ),
               Style.distan_size10,
               Padding(
-                padding: const EdgeInsets.only(left: 16,right: 16),
+                padding: const EdgeInsets.only(left: 16, right: 16),
                 child: CustomTextField(
                   textEditingController: typereportName,
                   prefix: Icon(
@@ -267,7 +264,7 @@ class _UploadReportViewState extends State<UploadReportView> {
                             var uploadedfile = selectedImages![index];
                             return Container(
                                 height: 55,
-                                margin: EdgeInsets.only(top: 4),
+                                margin: EdgeInsets.only(bottom: 4),
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                   //E9F2F2
@@ -288,8 +285,8 @@ class _UploadReportViewState extends State<UploadReportView> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Image.asset(
-                                          Assets.homeMyRec,
-                                          //color: Colors.white,
+                                          "assets/icons/prescription.png",
+                                          color: Colors.white,
                                           height: 30,
                                           width: 30,
                                         ),
@@ -299,16 +296,32 @@ class _UploadReportViewState extends State<UploadReportView> {
                                         SizedBox(
                                           width: 150.w,
                                           child: Text(
-                                            selectedImages![index]
-                                                .name
-                                                .toString()
-                                                .split("-")
-                                                .last,
+                                            "${uploadedfile.name} ${DateTime.now().toString()}",
                                             maxLines: 1,
                                           ),
                                         ),
                                       ],
                                     ),
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ImageViewAsset(
+                                                image: uploadedfile,
+                                              ),
+                                            ),
+                                          );
+
+                                          // setState(() =>
+                                          //     selectedImages!.removeAt(index));
+                                        },
+                                        child: Icon(
+                                          Icons.view_carousel_outlined,
+                                          size: 35,
+                                          color: Colors.white,
+                                        )),
                                     TextButton(
                                         onPressed: () {
                                           setState(() =>
@@ -322,83 +335,6 @@ class _UploadReportViewState extends State<UploadReportView> {
                                   ],
                                 ));
                           })),
-                ),
-              ),
-              Style.distan_size2,
-              Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16, bottom: 5),
-                child: Visibility(
-                  visible: isvisiblecamra,
-                  child: Container(
-                      //height:selectedfile.length==1? 75: 150,
-
-                      width: MediaQuery.of(context).size.width * 1,
-                      child:  ListView.builder(
-                              itemCount: imageList.length,
-                              scrollDirection: Axis.vertical,
-                              physics: ScrollPhysics(),
-                              shrinkWrap: true,
-                              // ignore: missing_return
-                              itemBuilder: (context, index) {
-                                var uploadedfile = imageList[index];
-                                return Container(
-                                    height: 55,
-                                    margin: EdgeInsets.only(top: 4),
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      //E9F2F2
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(color: Colors.grey),
-                                    ),
-                                    padding: const EdgeInsets.all(8),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Image.asset(
-                                              Assets.homeMyRec,
-                                             // color: Colors.white,
-                                              height: 30,
-                                              width: 30,
-                                            ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            SizedBox(
-                                              width: 150.w,
-                                              child: Text(
-                                                imageList[index]
-                                                    .toString()
-                                                    .split("-")
-                                                    .last,
-                                                maxLines: 1,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        TextButton(
-                                            onPressed: () {
-                                              setState(() =>
-                                                  imageList.removeAt(index));
-                                            },
-                                            child: Icon(
-                                              Icons.delete_forever,
-                                              size: 35,
-                                              color: Colors.white,
-                                            )),
-                                      ],
-                                    ));
-                              })
-                         ),
                 ),
               ),
               Style.distan_size20,
@@ -415,143 +351,175 @@ class _UploadReportViewState extends State<UploadReportView> {
               onPressed: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
 
-                if(reportName.text.isEmpty){
-                  Messages.snackBar(context, "DoctorName / TabName con not be empty !",
+                if (reportName.text.isEmpty) {
+                  Messages.snackBar(
+                    context,
+                    "DoctorName / TabName con not be empty !",
                   );
-                }
-               else if(typereportName.text.isEmpty){
-                  Messages.snackBar(context, "Type of report con not be empty !",
+                } else if (typereportName.text.isEmpty) {
+                  Messages.snackBar(
+                    context,
+                    "Type of report con not be empty !",
                   );
-                }
-
-                else{
+                } else {
                   int? id = prefs.getInt(UserP.id);
                   Map<String, String> body = {
                     'patient_id': id.toString(),
-                    'name':reportName.text,
-                    'type_of_report':typereportName.text,
+                    'name': reportName.text,
+                    'type_of_report': typereportName.text,
                   };
 
                   print(body);
-                  if (selectedImages!.isNotEmpty) {
-                    print('Gallery');
-                    // if (selectedImages == null || selectedImages!.isEmpty) {
-                    //   print('No images selected Gallery');
-                    //   return;
-                    // }
-                    final token = prefs.getString(UserP.fcmToken) ?? "";
-                    Map<String, String> headers = {
-                      'Authorization': "Bearer $token",
-                      'Content-Type': 'multipart/form-data',
-                      'Accept': 'application/json',
-                      'databaseName': 'mhpdemocom',
-                    };
 
-                    final Uri apiUrl = Uri.parse(
-                        AppUrls.uploadMyReport); // Replace with your API endpoint
-
-                    var request = http.MultipartRequest('POST', apiUrl)
-                      ..fields.addAll(body)
-                      ..headers.addAll(headers);
-
-                    for (var image in selectedImages!) {
-                      final File file = File(image.path);
-                      request.files.add(
-                        await http.MultipartFile.fromPath(
-                          "images[]",
-                          file.path,
-                        ),
-                      );
-                    }
-
-                    try {
-                      var response = await request.send();
-                      print("ddddddddddddddddddd${response.request}");
-
-                      if (response.statusCode == 200) {
-                        Messages.snackBar(context, "Images uploaded successfully",
-                            backgroundColor: AppColors.greenColor);
-                        print('Images uploaded successfully');
-                        reportName.clear();
-                        imageList.clear();
-                        selectedImages!.clear();
-                        Navigator.pushReplacement(context,  MaterialPageRoute(builder: (context) => MyRecordView()));
-                        // Navigator.pushAndRemoveUntil(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => MyRecordView()),
-                        //         (route) => false);
-                        // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>ConsultationAppoinmentView()),(route) => DashbordView(),);
-                      } else {
-                        print(
-                            'Failed to upload images. Status code: ${response.statusCode}');
-                      }
-                    } catch (error) {
-                      print('Error uploading images: $error');
-                    }
-                  }
-                  else {
-                    print('Camra');
-                    // if (imageList!.isEmpty) {
-                    //   print('No images selected camera');
-                    //   return;
-                    // }
-                    final token = prefs.getString(UserP.fcmToken) ?? "";
-                    Map<String, String> headers = {
-                      'Authorization': "Bearer $token",
-                      'Content-Type': 'multipart/form-data',
-                      'Accept': 'application/json',
-                      'databaseName': 'mhpdemocom',
-                    };
-
-                    final Uri apiUrl = Uri.parse(
-                        AppUrls.uploadMyReport); // Replace with your API endpoint
-
-                    var request = http.MultipartRequest('POST', apiUrl)
-                      ..fields.addAll(body)
-                      ..headers.addAll(headers);
-
-                    for (var image in imageList!) {
-                      final File file = File(image.path);
-                      request.files.add(
-                        await http.MultipartFile.fromPath(
-                          "images[]",
-                          file.path,
-                        ),
-                      );
-                    }
-
-                    try {
-                      var response = await request.send();
-                      print("ddddddddddddddddddd${response}");
-
-                      if (response.statusCode == 200) {
-                        reportName.clear();
-                        print('Images uploaded successfully');
-                        Messages.snackBar(context, "Images uploaded successfully",
-                            backgroundColor: AppColors.greenColor);
-                        imageList.clear();
-                        selectedImages!.clear();
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyRecordView()),
-                                );
-                      } else {
-                        print(
-                            'Failed to upload images. Status code: ${response.statusCode}');
-                      }
-                    } catch (error) {
-                      print('Error uploading images: $error');
-                    }
-                  }
+                  report.uploadRx(context, body, selectedImages);
+                  // if (selectedImages!.isNotEmpty) {
+                  //   print('Gallery');
+                  //   // if (selectedImages == null || selectedImages!.isEmpty) {
+                  //   //   print('No images selected Gallery');
+                  //   //   return;
+                  //   // }
+                  //   final token = prefs.getString(UserP.fcmToken) ?? "";
+                  //   Map<String, String> headers = {
+                  //     'Authorization': "Bearer $token",
+                  //     'Content-Type': 'multipart/form-data',
+                  //     'Accept': 'application/json',
+                  //     'databaseName': 'mhpdemocom',
+                  //   };
+                  //
+                  //   final Uri apiUrl = Uri.parse(AppUrls
+                  //       .uploadMyReport); // Replace with your API endpoint
+                  //
+                  //   var request = http.MultipartRequest('POST', apiUrl)
+                  //     ..fields.addAll(body)
+                  //     ..headers.addAll(headers);
+                  //
+                  //   for (var image in selectedImages!) {
+                  //     final File file = File(image.path);
+                  //     request.files.add(
+                  //       await http.MultipartFile.fromPath(
+                  //         "images[]",
+                  //         file.path,
+                  //       ),
+                  //     );
+                  //   }
+                  //
+                  //   try {
+                  //     var response = await request.send();
+                  //     print("ddddddddddddddddddd${response.request}");
+                  //
+                  //     if (response.statusCode == 200) {
+                  //       Messages.snackBar(
+                  //           context, "Images uploaded successfully",
+                  //           backgroundColor: AppColors.greenColor);
+                  //       print('Images uploaded successfully');
+                  //       reportName.clear();
+                  //       imageList.clear();
+                  //       selectedImages!.clear();
+                  //       Navigator.pop(context);
+                  //       // Navigator.pushReplacement(context,  MaterialPageRoute(builder: (context) => MyRecordView()));
+                  //       // Navigator.pushAndRemoveUntil(
+                  //       //     context,
+                  //       //     MaterialPageRoute(
+                  //       //         builder: (context) => MyRecordView()),
+                  //       //         (route) => false);
+                  //       // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>ConsultationAppoinmentView()),(route) => DashbordView(),);
+                  //     } else {
+                  //       print(
+                  //           'Failed to upload images. Status code: ${response.statusCode}');
+                  //     }
+                  //   } catch (error) {
+                  //     print('Error uploading images: $error');
+                  //   }
+                  // }
+                  // else {
+                  //   print('Camra');
+                  //   // if (imageList!.isEmpty) {
+                  //   //   print('No images selected camera');
+                  //   //   return;
+                  //   // }
+                  //   final token = prefs.getString(UserP.fcmToken) ?? "";
+                  //   Map<String, String> headers = {
+                  //     'Authorization': "Bearer $token",
+                  //     'Content-Type': 'multipart/form-data',
+                  //     'Accept': 'application/json',
+                  //     'databaseName': 'mhpdemocom',
+                  //   };
+                  //
+                  //   final Uri apiUrl = Uri.parse(AppUrls
+                  //       .uploadMyReport); // Replace with your API endpoint
+                  //
+                  //   var request = http.MultipartRequest('POST', apiUrl)
+                  //     ..fields.addAll(body)
+                  //     ..headers.addAll(headers);
+                  //
+                  //   for (var image in imageList!) {
+                  //     final File file = File(image.path);
+                  //     request.files.add(
+                  //       await http.MultipartFile.fromPath(
+                  //         "images[]",
+                  //         file.path,
+                  //       ),
+                  //     );
+                  //   }
+                  //
+                  //   try {
+                  //     var response = await request.send();
+                  //     print("ddddddddddddddddddd${response}");
+                  //
+                  //     if (response.statusCode == 200) {
+                  //       reportName.clear();
+                  //       print('Images uploaded successfully');
+                  //       Messages.snackBar(
+                  //           context, "Images uploaded successfully",
+                  //           backgroundColor: AppColors.greenColor);
+                  //       imageList.clear();
+                  //       selectedImages!.clear();
+                  //       Navigator.pop(context);
+                  //       // Navigator.pushReplacement(
+                  //       //     context,
+                  //       //     MaterialPageRoute(
+                  //       //         builder: (context) => MyRecordView()),
+                  //       //         );
+                  //     } else {
+                  //       print(
+                  //           'Failed to upload images. Status code: ${response.statusCode}');
+                  //     }
+                  //   } catch (error) {
+                  //     print('Error uploading images: $error');
+                  //   }
+                  // }
                 }
-
 
                 setState(() {});
               },
               child: Text("Save")),
         ),
+      ),
+    );
+  }
+}
+
+class ImageViewAsset extends StatelessWidget {
+  ImageViewAsset({super.key, required this.image});
+
+  var image;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.page_background_color,
+        appBar: AppBar(
+          backgroundColor: AppColors.primary_color,
+          leadingWidth: leadingWidth,
+          leading: const CustomBackButton(),
+          title: Text("Prescription Image", style: Style.alltext_default_white),
+          centerTitle: true,
+        ),
+        body: Container(
+            height: double.infinity,
+            width: double.infinity,
+            child: Image.file(File(image.path))),
       ),
     );
   }

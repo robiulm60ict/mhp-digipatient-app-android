@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 
 import '../../model/my_medicine_model/my_report_model.dart';
 import '../../model/my_medicine_model/prescription_image_list.dart';
+import '../../resources/colors.dart';
+import '../../utils/message.dart';
 
 class MyMedicineViewModel with ChangeNotifier {
   final medicineRepo = MyMedicineRepo();
@@ -37,7 +39,29 @@ class MyMedicineViewModel with ChangeNotifier {
       notifyListeners();
     });
   }
+  uploadRx(
+      BuildContext context, Map<String, String> body, imageBytes,) {
+    print("uploadRx Responcerrrrrrrrrrrrrrrrrrr${imageBytes}");
+    medicineRepo.uploadRx(body, imageBytes).then((value) {
 
+      Messages.snackBar(context, "Report uploaded successfully",
+          backgroundColor: AppColors.greenColor);
+      Navigator.pop(context);
+      print('Images uploaded successfully');
+      // selectedImages!.clear();
+
+
+      // print("uploadRx Responce${value}");
+      // // Messages.snackBar(context, value['success'].toString(),
+      // //     backgroundColor: AppColors.greenColor);
+      //
+      //   // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>ConsultationAppoinmentView()));
+    }).onError((error, stackTrace) {
+      print(error);
+      print(stackTrace);
+      Messages.snackBar(context, error.toString());
+    });
+  }
   getPrescriptionRx(BuildContext context) async {
     isPrescriptionRxLoading = true;
     imageRxList.clear();

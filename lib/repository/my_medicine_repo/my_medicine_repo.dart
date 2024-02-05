@@ -1,15 +1,19 @@
-import 'package:digi_patient/model/doctor_model/doctors_model.dart';
-import 'package:digi_patient/model/my_medicine_model/past_rx_model.dart';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/network/base_api_service.dart';
 import '../../model/my_medicine_model/current_rx_model.dart';
 import '../../model/my_medicine_model/my_report_model.dart';
+import '../../model/my_medicine_model/past_rx_model.dart';
 import '../../model/my_medicine_model/prescription_image_list.dart';
+import '../../resources/send_image.dart';
 import '../../utils/user.dart';
 import '/data/network/network_api_service.dart';
 import '/resources/app_url.dart';
+import 'package:http/http.dart' as http;
 
 
 class MyMedicineRepo{
@@ -106,6 +110,51 @@ class MyMedicineRepo{
 
     }
   }
+  Future uploadRx(Map<String, String> body, List<XFile> imageBytes) async {
+    SendImage sendImage = SendImage();
+
+    try {
+      dynamic response = await sendImage.addImage(body, imageBytes);
+      print("aaaaaaaaaaaaaa$response");
+
+      return response;
+
+    } catch (e) {
+      rethrow;
+    }
+  }
 
 
+}
+class SendImage {
+  Future<dynamic> addImage(Map<String, String> body, List<XFile>  imageBytes) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString(UserP.fcmToken) ?? "";
+    Map<String, String> headers = {
+      'Authorization': "Bearer $token",
+      'Content-Type': 'multipart/form-data',
+      'databaseName': 'mhpdemocom',
+    };
+    var request = http.MultipartRequest('POST', Uri.parse(AppUrls.uploadMyReport))
+      ..fields.addAll(body)
+      ..headers.addAll(headers);
+    // ..files.add(await http.MultipartFile.fromPath('images', imageBytes));
+
+    for (var image in imageBytes!) {
+      final File file = File(image.path);
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          "images[]",
+          file.path,
+        ),
+      );
+    }
+    print(imageBytes);
+    var response = await request.send();
+    debugPrint("\n\n\n\n\n\n\n\n tttttttttttt${response}");
+    var res = await convertStreamedResponseToHttpResponse(response);
+    var finalResponse = NetworkApiService().returnResponse(res);
+    debugPrint("------------------------------------");
+    return finalResponse;
+  }
 }

@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:badges/badges.dart' as badges;
 import 'package:badges/badges.dart';
-import 'package:digi_patient/view/authentications/user_detail_view.dart';
 import 'package:digi_patient/view/daily_upcomming_appointment/daily_and_upcomming_appointments_view.dart';
 import 'package:digi_patient/view/notifications_view.dart';
 import 'package:digi_patient/view/payment/invoice_view.dart';
@@ -10,7 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 import '../../generated/assets.dart';
 import '../../login_service.dart';
@@ -270,7 +268,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 SizedBox(height: 5.h),
                 Text(
-                  "V 1.1.2(7)",
+                  "V 1.1.3(9)",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 12.sp, color: const Color(0xFFAAAAAA)),

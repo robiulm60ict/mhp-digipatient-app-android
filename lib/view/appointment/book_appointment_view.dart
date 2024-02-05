@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -16,6 +15,7 @@ import '../../view_model/appointment_view_model/appointment_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/shimmer.dart';
 import '../anatomy/anatomy_view.dart';
+import '../my_record/my_report_upload_view.dart';
 import '../payment/payment_method_view.dart';
 
 class BookAppointmentView extends StatefulWidget {
@@ -173,7 +173,6 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                     )
                   ],
                 )),
-
             SizedBox(
               height: 10.h,
             ),
@@ -327,7 +326,9 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
             appointmentViewModel.doctorTimeSlotList.isEmpty
                 ? SizedBox()
                 : SizedBox(
-                    height: 150.h,
+                    height:
+                        150.h,
+
                     child: Consumer<AppointmentViewModel>(
                         builder: (context, data, child) {
                       if (data.doctorTimeSlotList.isEmpty) {
@@ -345,71 +346,156 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                                   );
                                 },
                               )
-                            : noDataFounForList("No History");
+                            : noDataFounForList(
+                                "Currently you have no records");
                       } else {
-                        return SizedBox(
-                            //    height: 150.h,
-                            child: ListView.builder(
-                          itemCount: data.doctorTimeSlotList.length,
-                          physics: const ScrollPhysics(),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            var docTime = data.doctorTimeSlotList[index];
+                        return Column(
+                          children: [
+                            SizedBox(
+                                height: appointmentViewModel.morningeveingButton
+                                                .toString() !=
+                                            "" ||
+                                        appointmentViewModel.isChamber
+                                                .toString() !=
+                                            ""
+                                    ? 130.h
+                                    : 0.h,
+                                child: ListView.builder(
+                                  itemCount: data.doctorTimeSlotList.length,
+                                  physics: const ScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    var docTime =
+                                        data.doctorTimeSlotList[index];
 
-                            if ((docTime.type ==
-                                    appointmentViewModel.morningeveingButton
-                                        .toString()) &&
-                                (docTime.appointmentType ==
-                                    appointmentViewModel.isChamber
-                                        .toString())) {
-                              return Center(
-                                child: Card(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          "${docTime.day}",
-                                          style: Style.alltext_default_balck,
+                                    if ((docTime.type ==
+                                            appointmentViewModel
+                                                .morningeveingButton
+                                                .toString()) &&
+                                        (docTime.appointmentType ==
+                                            appointmentViewModel.isChamber
+                                                .toString())) {
+                                      return Center(
+                                        child: Card(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Text(
+                                                  "${docTime.day}",
+                                                  style: Style
+                                                      .alltext_default_balck,
+                                                ),
+                                                Text(
+                                                  "${formatSpecificTime(docTime.slotFrom.toString())} To ${formatSpecificTime(docTime.slotTo.toString())}",
+                                                  style: Style
+                                                      .alltext_default_balck,
+                                                ),
+                                                Text(
+                                                  docTime.status.toString() ==
+                                                          "off_duty"
+                                                      ? "Off Day"
+                                                      : "",
+                                                  style: Style
+                                                      .alltext_default_balck,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                         ),
-                                        Text(
-                                          "${formatSpecificTime(docTime.slotFrom.toString())} To ${formatSpecificTime(docTime.slotTo.toString())}",
-                                          style: Style.alltext_default_balck,
-                                        ),
-                                        // Text(
-                                        //   "${docTime.type.toString().toUpperCase()}",
-                                        //   style: Style.alltext_default_balck,
-                                        // ),
-                                        // Text(
-                                        //   "${docTime.appointmentType.toString().toUpperCase()}",
-                                        //   style: Style.alltext_default_balck,
-                                        // ),
-                                        Text(
-                                          docTime.status.toString() ==
-                                                  "off_duty"
-                                              ? "Off Day"
-                                              : "",
-                                          style: Style.alltext_default_balck,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            } else {
-                              // Return an empty container for items that don't match the filter criteria
-                              return Container();
-                            }
-                          },
-                        ));
+                                      );
+                                    } else {
+                                      // Return an empty container for items that don't match the filter criteria
+                                      return Container();
+                                    }
+                                  },
+                                )),
+                            appointmentViewModel.morningeveingButton
+                                            .toString() !=
+                                        "" ||
+                                    appointmentViewModel.isChamber.toString() !=
+                                        ""
+                                ? Container()
+                                : Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Style.distan_size20,
+                                    Icon(Icons.calendar_month,color: Colors.green,size: 50,),
+                                    Style.distan_size20,
+                                    Text(
+                                        "Please Choose your prefer date for an appointment",
+                                        style: Style.alltext_default_balck_blod,
+                                      ),
+                                  ],
+                                )
+                          ],
+                        );
                       }
                     })),
             SizedBox(
-              height: 10.h,
+              height: 5.h,
             ),
-
+            Row(
+              children: [
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UploadReportView()));
+                      anatomy.favourite.clear();
+                    },
+                    child: Card(
+                      color: Colors.green.shade400,
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.0.w, vertical: 10.h),
+                        child: Text(
+                          "My Report",
+                          textAlign: TextAlign.center,
+                          style: Style.alltext_appbar,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UploadReportView()));
+                      anatomy.favourite.clear();
+                    },
+                    child: Card(
+                      color: Colors.green.shade500,
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.0.w, vertical: 10.h),
+                        child: Text(
+                          "Uploaded Report",
+                          textAlign: TextAlign.center,
+                          style: Style.alltext_appbar,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
             Consumer<AnatomyModelView>(builder: (context, anatomy, child) {
               return Container(
                 width: double.infinity,
@@ -491,56 +577,9 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                 ),
               );
             }),
-
             SizedBox(
-              height: 10.h,
+              height: 5.h,
             ),
-            // Visibility(
-            //   visible: appointmentViewModel.isChamber,
-            //   replacement: ListView.builder(
-            //       shrinkWrap: true,
-            //       physics: const NeverScrollableScrollPhysics(),
-            //       itemCount: appointmentViewModel.onlineList.length,
-            //       itemBuilder: (context, index) {
-            //         OnlineModel on = appointmentViewModel.onlineList[index];
-            //         return Card(
-            //           color: on.isSelected ? Colors.white : Colors.white38,
-            //           child: ListTile(
-            //             onTap: () {
-            //               appointmentViewModel.selectOnline(index);
-            //             },
-            //             leading: CircleAvatar(
-            //               backgroundColor: AppColors.primaryColor,
-            //               child: Icon(
-            //                 on.iconData,
-            //                 color: Colors.white,
-            //                 size: 15.h,
-            //               ),
-            //             ),
-            //             title: Text(
-            //               on.title,
-            //               style: TextStyle(
-            //                   fontSize: 12.sp,
-            //                   fontWeight: FontWeight.bold,
-            //                   color: const Color(0xFF646464)),
-            //             ),
-            //             subtitle: Text(
-            //               on.subTitle,
-            //               style: TextStyle(
-            //                   fontSize: 12.sp, color: const Color(0xFF646464)),
-            //             ),
-            //             trailing: Text(
-            //               "${on.amount} BDT",
-            //               style: TextStyle(
-            //                   fontSize: 12.sp,
-            //                   fontWeight: FontWeight.w500,
-            //                   color: AppColors.primaryColor),
-            //             ),
-            //           ),
-            //         );
-            //       }),
-            //   child: Container(),
-            // ),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -624,7 +663,6 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                 ),
               ),
             ),
-
             appointmentViewModel.doctorTimeSlotList.isEmpty
                 ? Padding(
                     padding: const EdgeInsets.only(left: 6.0, top: 8, right: 6),

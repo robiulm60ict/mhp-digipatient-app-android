@@ -542,7 +542,7 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                 Card(
                   elevation: 7,
                   child: Container(
-                  color: Colors.pink,
+                  color: Colors.green.shade500,
                   padding: const EdgeInsets.only(left: 8.0,right: 8,top: 12,bottom: 12),
                   child: Row(
                     children: [
