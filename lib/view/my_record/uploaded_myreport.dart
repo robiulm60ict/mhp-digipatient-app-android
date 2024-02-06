@@ -41,7 +41,7 @@ class _UploadMyReportState extends State<UploadMyReport> {
           backgroundColor: AppColors.primary_color,
           leadingWidth: leadingWidth,
           leading: const CustomBackButton(),
-          title: Text("My Report", style: Style.alltext_appbar),
+          title: Text("View Report", style: Style.alltext_appbar),
           centerTitle: true,
         ),
         body: Container(

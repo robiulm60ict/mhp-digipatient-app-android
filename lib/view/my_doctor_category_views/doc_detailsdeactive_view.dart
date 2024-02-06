@@ -293,7 +293,7 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                       Style.distan_size5,
                       MaterialButton(color:Colors.red,onPressed: (){
                         _showDeleteConfirmationDialog(context);
-                      },child:  Text("InActive",style: Style.alltext_appbar,),)
+                      },child:  Text("Inactive",style: Style.alltext_appbar,),)
 
                     ],
                   ),

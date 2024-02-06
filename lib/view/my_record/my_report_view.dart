@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../generated/assets.dart';
 import '../../resources/colors.dart';
 import '../../resources/styles.dart';
 import '../../utils/utils.dart';
@@ -70,7 +69,7 @@ class MyReportView extends StatelessWidget {
                     width: 36.w,color: Colors.green,
                   ),
                   title: Text(
-                    "Uploaded Report",
+                    "View Report",
                     style: Style.alltext_default_balck,
                   ),
                 ),

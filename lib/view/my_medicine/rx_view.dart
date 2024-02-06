@@ -121,7 +121,7 @@ class _RXViewState extends State<RXView> {
                     width: 36.w,
                   ),
                   title: Text(
-                    "Uploaded RX",
+                    "View RX",
                     style: Style.alltext_default_balck,
                   ),
                 ),

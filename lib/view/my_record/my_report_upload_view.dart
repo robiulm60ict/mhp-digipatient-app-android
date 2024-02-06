@@ -230,7 +230,7 @@ class _UploadReportViewState extends State<UploadReportView> {
                     Icons.document_scanner_outlined,
                     color: AppColors.primaryColor,
                   ),
-                  hintText: "Name_Date",
+                  hintText: "Name_DD-MM-YYY",
                 ),
               ),
               Style.distan_size10,
@@ -317,7 +317,7 @@ class _UploadReportViewState extends State<UploadReportView> {
                                           // setState(() =>
                                           //     selectedImages!.removeAt(index));
                                         },
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.view_carousel_outlined,
                                           size: 35,
                                           color: Colors.white,

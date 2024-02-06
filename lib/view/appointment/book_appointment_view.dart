@@ -16,6 +16,7 @@ import '../../widgets/back_button.dart';
 import '../../widgets/shimmer.dart';
 import '../anatomy/anatomy_view.dart';
 import '../my_record/my_report_upload_view.dart';
+import '../my_record/uploaded_myreport.dart';
 import '../payment/payment_method_view.dart';
 
 class BookAppointmentView extends StatefulWidget {
@@ -446,7 +447,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => UploadReportView()));
+                              builder: (context) => UploadMyReport()));
                       anatomy.favourite.clear();
                     },
                     child: Card(
@@ -456,7 +457,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                         padding: EdgeInsets.symmetric(
                             horizontal: 8.0.w, vertical: 10.h),
                         child: Text(
-                          "My Report",
+                          "View Report",
                           textAlign: TextAlign.center,
                           style: Style.alltext_appbar,
                         ),
@@ -480,7 +481,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                         padding: EdgeInsets.symmetric(
                             horizontal: 8.0.w, vertical: 10.h),
                         child: Text(
-                          "Uploaded Report",
+                          "Upload Report",
                           textAlign: TextAlign.center,
                           style: Style.alltext_appbar,
                         ),
