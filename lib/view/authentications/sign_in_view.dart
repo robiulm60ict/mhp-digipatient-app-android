@@ -1,9 +1,4 @@
-import 'package:digi_patient/utils/message.dart';
-import 'package:digi_patient/utils/utils.dart';
-import 'package:digi_patient/view/authentications/sign_up_view.dart';
-import 'package:digi_patient/view_model/auth_view_model.dart';
-import 'package:digi_patient/widgets/custom_button.dart';
-import 'package:digi_patient/widgets/custom_textfield.dart';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,11 +6,16 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../resources/colors.dart';
+import '../../utils/message.dart';
 import '../../utils/user.dart';
+import '../../utils/utils.dart';
+import '../../view_model/auth_view_model.dart';
 import '../../view_model/push_notification/notification_service.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_textfield.dart';
 import '../../widgets/gradient_appBar.dart';
-import '../forget_password/forget_pincode_verification_view.dart';
 import '../forget_password/otpsend_view.dart';
+import 'sign_up_view.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({Key? key}) : super(key: key);
@@ -86,7 +86,7 @@ class _SignInViewState extends State<SignInView> {
             text: 'User Login',
           ),
           SizedBox(
-            height: 70.h,
+            height: 30.h,
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
@@ -182,7 +182,7 @@ class _SignInViewState extends State<SignInView> {
             checkColor: Colors.white,
             activeColor: AppColors.primaryColor,
             controlAffinity: ListTileControlAffinity.leading,
-            contentPadding: EdgeInsets.only(left: 20.w),
+            contentPadding: EdgeInsets.only(left: 16.w),
             title: Text(
               "Keep me signed in",
               style: TextStyle(
@@ -192,7 +192,7 @@ class _SignInViewState extends State<SignInView> {
             ),
           ),
           SizedBox(
-            height: 24.h,
+            height: 4.h,
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
@@ -222,7 +222,7 @@ class _SignInViewState extends State<SignInView> {
                   ),
           ),
           SizedBox(
-            height: 15.h,
+            height: 8.h,
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),

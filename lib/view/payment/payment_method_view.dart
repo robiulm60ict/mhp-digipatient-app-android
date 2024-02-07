@@ -1,10 +1,8 @@
 import 'dart:convert';
 
 import 'package:digi_patient/generated/assets.dart';
-import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/utils/message.dart';
-import 'package:digi_patient/utils/popup_dialogue.dart';
 import 'package:digi_patient/view_model/appointment_view_model/appointment_view_model.dart';
 import 'package:digi_patient/widgets/payment_user_detail.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -131,7 +129,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
         leading: const CustomBackButton(),
       ),
       body: ListView(
-        padding: EdgeInsets.all(20.r),
+        padding: EdgeInsets.all(6.r),
         children: [
           PaymentUserDetail(
             name: " ${widget.doctor.doctors?.fullName}",
@@ -424,6 +422,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                         Padding(
                           padding: EdgeInsets.all(8.0.r),
                           child: Row(
+
                             children: [
                               SizedBox(
                                 width: 70.w,

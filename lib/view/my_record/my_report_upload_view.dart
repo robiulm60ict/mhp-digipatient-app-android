@@ -105,7 +105,7 @@ class _UploadReportViewState extends State<UploadReportView> {
                     setState(() {});
                   },
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.20,
+                    height:150.h,
                     padding: EdgeInsets.all(8),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
@@ -152,7 +152,7 @@ class _UploadReportViewState extends State<UploadReportView> {
                             Card(
                               elevation: 3,
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding:  EdgeInsets.all(8.0.r),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(0),
                                   child: Center(
@@ -162,7 +162,7 @@ class _UploadReportViewState extends State<UploadReportView> {
                                       },
                                       icon: Icon(
                                         Icons.camera_alt,
-                                        size: 40,
+                                        size: 30,
                                         color: Colors.green,
                                       ),
                                       label: Text(
@@ -177,7 +177,7 @@ class _UploadReportViewState extends State<UploadReportView> {
                             Card(
                               elevation: 3,
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding:  EdgeInsets.all(8.0.r),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(0),
                                   child: Center(
@@ -189,7 +189,7 @@ class _UploadReportViewState extends State<UploadReportView> {
                                       },
                                       icon: Icon(
                                         Icons.image,
-                                        size: 40,
+                                        size: 30,
                                         color: Colors.green,
                                       ),
                                       label: Text(
@@ -253,7 +253,6 @@ class _UploadReportViewState extends State<UploadReportView> {
                   child: Container(
                       //height:selectedfile.length==1? 75: 150,
 
-                      width: MediaQuery.of(context).size.width * 1,
                       child: ListView.builder(
                           itemCount: selectedImages!.length,
                           scrollDirection: Axis.vertical,
@@ -287,17 +286,17 @@ class _UploadReportViewState extends State<UploadReportView> {
                                         Image.asset(
                                           "assets/icons/prescription.png",
                                           color: Colors.white,
-                                          height: 30,
-                                          width: 30,
+                                         // height: 30,
+                                          width: 30.w,
                                         ),
                                         SizedBox(
-                                          width: 10,
+                                          width: 5.w,
                                         ),
                                         SizedBox(
-                                          width: 150.w,
+                                          width: 120.w,
                                           child: Text(
-                                            "${uploadedfile.name} ${DateTime.now().toString()}",
-                                            maxLines: 1,
+                                            "${uploadedfile.name}",
+                                            maxLines: 1,overflow: TextOverflow.clip,
                                           ),
                                         ),
                                       ],
@@ -318,7 +317,7 @@ class _UploadReportViewState extends State<UploadReportView> {
                                           //     selectedImages!.removeAt(index));
                                         },
                                         child: const Icon(
-                                          Icons.view_carousel_outlined,
+                                          Icons.remove_red_eye,
                                           size: 35,
                                           color: Colors.white,
                                         )),
@@ -344,9 +343,10 @@ class _UploadReportViewState extends State<UploadReportView> {
       ),
       bottomNavigationBar: BottomAppBar(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(4.0),
           child: MaterialButton(
               minWidth: 200.w,
+              height: 50.h,
               color: Colors.green,
               onPressed: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();

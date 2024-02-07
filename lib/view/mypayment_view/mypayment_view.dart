@@ -125,7 +125,7 @@ class _MyPatientViewState extends State<MyPatientView> {
                                           ),
                                           Style.widthdistan_size2,
                                           SizedBox(
-                                            width: 210.w,
+                                            width: 220.w,
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,

@@ -6,9 +6,14 @@ import 'package:onboarding/onboarding.dart';
 
 import '../utils/route/routes_name.dart';
 
-
-TextStyle pageTitleTextStyle = TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700, color: AppColors.primaryColor);
-TextStyle pageBodyTextStyle = TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: AppColors.primaryColor);
+TextStyle pageTitleTextStyle = TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w700,
+    color: AppColors.primaryColor);
+TextStyle pageBodyTextStyle = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.primaryColor);
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({Key? key}) : super(key: key);
@@ -18,11 +23,9 @@ class OnBoardingView extends StatefulWidget {
 }
 
 class _OnBoardingViewState extends State<OnBoardingView> {
-
   late Material materialButton;
   late int index;
   final onBoardingPagesList = [
-
     PageModel(
       widget: DecoratedBox(
         decoration: BoxDecoration(
@@ -32,75 +35,40 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             color: Colors.white,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 45.0,
-                vertical: 90.0,
+        child: Container(
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 25.0,
+                  vertical: 30.0,
+                ),
+                child: Image.asset(
+                  Assets.imagesOb1,
+                ),
               ),
-              child: Image.asset(Assets.imagesOb1,
-                  ),
-            ),
-             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0.w),
-              child: Text(
-                'Healthcare at a Click',
-                style: pageTitleTextStyle,
-                textAlign: TextAlign.center,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0.w),
+                child: Text(
+                  'Healthcare at a Click',
+                  style: pageTitleTextStyle,
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0.w, vertical: 10.0.h),
-              child: Text(
-                'Smart Scheduling Solutions',
-                style: pageBodyTextStyle,
-                textAlign: TextAlign.center,
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 15.0.h),
+                child: Text(
+                  'Smart Scheduling Solutions',
+                  style: pageBodyTextStyle,
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
-    ), PageModel(
-      widget: DecoratedBox(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(
-            width: 0.0,
-            color: Colors.white,
+            ],
           ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 45.0,
-                vertical: 90.0,
-              ),
-              child: Image.asset(Assets.imagesOb2,
-                  ),
-            ),
-             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0.w),
-              child: Text(
-                'Unified Health Management',
-                style: pageTitleTextStyle,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0.w, vertical: 10.0.h),
-              child: Text(
-                'Vital Signs to Vital Decisions ',
-                style: pageBodyTextStyle,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
         ),
       ),
     ),
@@ -113,35 +81,86 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             color: Colors.white,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 45.0.w,
-                vertical: 90.0.h,
+        child: Container(
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 25.0,
+                  vertical: 30.0,
+                ),
+                child: Image.asset(
+                  Assets.imagesOb2,
+                ),
               ),
-              child: Image.asset(Assets.imagesOb3,
-                  ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0.w),
-              child: Text(
-                'Health in Harmony',
-                style: pageTitleTextStyle,
-                textAlign: TextAlign.center,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0.w),
+                child: Text(
+                  'Unified Health Management',
+                  style: pageTitleTextStyle,
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0.w, vertical: 10.0.h),
-              child: Text(
-                'Monitor, Record, Learn, Schedule',
-                style: pageBodyTextStyle,
-                textAlign: TextAlign.center,
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 15.0.h),
+                child: Text(
+                  'Vital Signs to Vital Decisions ',
+                  style: pageBodyTextStyle,
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
+        ),
+      ),
+    ),
+    PageModel(
+      widget: DecoratedBox(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(
+            width: 0.0,
+            color: Colors.white,
+          ),
+        ),
+        child: Container(
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 45.0.w,
+                  vertical: 90.0.h,
+                ),
+                child: Image.asset(
+                  Assets.imagesOb3,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0.w),
+                child: Text(
+                  'Health in Harmony',
+                  style: pageTitleTextStyle,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 25.0.w, vertical: 15.0.h),
+                child: Text(
+                  'Monitor, Record, Learn, Schedule',
+                  style: pageBodyTextStyle,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     ),
@@ -185,7 +204,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
         borderRadius: defaultProceedButtonBorderRadius,
         onTap: () {
           Navigator.pushNamed(context, RoutesName.login);
-        //  AutoRouter.of(context).replace(const SignInRoute());
+          //  AutoRouter.of(context).replace(const SignInRoute());
         },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 10.h),
@@ -219,8 +238,11 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                     netDragPercent: dragDistance,
                     pagesLength: pagesLength,
                     indicator: Indicator(
-                      activeIndicator:  ActiveIndicator(color: AppColors.primaryColor),
-                      closedIndicator: ClosedIndicator(color: AppColors.primaryColor, ),
+                      activeIndicator:
+                          ActiveIndicator(color: AppColors.primaryColor),
+                      closedIndicator: ClosedIndicator(
+                        color: AppColors.primaryColor,
+                      ),
                       indicatorDesign: IndicatorDesign.polygon(
                         polygonDesign: PolygonDesign(
                           polygon: DesignType.polygon_circle,

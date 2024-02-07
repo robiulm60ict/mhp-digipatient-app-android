@@ -122,7 +122,7 @@ class _HomeViewState extends State<HomeView> {
           backgroundColor: AppColors.backgroundColor,
           extendBody: true,
           drawer: Drawer(
-            width: MediaQuery.of(context).size.width * 0.70,
+            width: MediaQuery.of(context).size.width * 0.65,
             shape: OutlineInputBorder(
               borderRadius:
                   BorderRadius.only(bottomRight: Radius.circular(70.w)),
@@ -268,7 +268,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 SizedBox(height: 5.h),
                 Text(
-                  "V 1.1.3(9)",
+                  "V 1.1.4(10)",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 12.sp, color: const Color(0xFFAAAAAA)),
@@ -329,7 +329,7 @@ class _HomeViewState extends State<HomeView> {
             padding: EdgeInsets.symmetric(horizontal: 10.w),
             children: [
               Container(
-                height: 150.h,
+                height: 140.h,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                     // image: DecorationImage(
@@ -337,7 +337,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                 child: Card(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(6.0),
                     child: Consumer<UserViewModel>(
                         builder: (context, userprovider, child) {
                       if (userprovider.userData.isEmpty) {
@@ -441,6 +441,7 @@ class _HomeViewState extends State<HomeView> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.h)),
                   child: Container(
+                    height: 60.h,
                     padding: EdgeInsets.symmetric(horizontal: 0, vertical: 6.h),
                     child: Container(
                       //   width: 100.w,
@@ -461,8 +462,8 @@ class _HomeViewState extends State<HomeView> {
                                 color: AppColors.blackColor,
                               ),
                             ),
-                            height: 60,
-                            width: 50,
+                            height: 60.h,
+                            width: 50.w,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 border: Border(
@@ -480,10 +481,10 @@ class _HomeViewState extends State<HomeView> {
                               bottom: BorderSide(color: Colors.grey),
                               right: BorderSide(color: Colors.grey),
                             )),
-                            height: 60,
-                            width: 180,
+                            height: 60.h,
+                            width: 170.w,
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
+                              padding:  EdgeInsets.only(left: 8.0.r),
                               child: TextField(
                                 //   maxLength: 4,
                                 textAlign: TextAlign.start,
@@ -501,7 +502,7 @@ class _HomeViewState extends State<HomeView> {
                               ),
                             ),
                           ),
-                          Style.widthdistan_size20,
+                          Style.widthdistan_size10,
                           MaterialButton(
                             onPressed: () {
                               if (dvm.controllerRequest.text.isNotEmpty) {
@@ -517,19 +518,7 @@ class _HomeViewState extends State<HomeView> {
                             color: AppColors.primaryColor,
                             child: Text("Submit"),
                           )
-                          // SizedBox(
-                          //   width: 200.w,
-                          //   height: 40.h,
-                          //   child: TextField(
-                          //     controller: dvm.controllerRequest,
-                          //     decoration: const InputDecoration(
-                          //         border: OutlineInputBorder(
-                          //             borderSide: BorderSide(color: Colors.grey)),
-                          //         hintText: 'Enter 4 Digit Code',
-                          //         labelText: 'Add Doctor ID here',
-                          //         suffixStyle: TextStyle(color: Colors.green)),
-                          //   ),
-                          // ),
+
                         ],
                       ),
                     ),

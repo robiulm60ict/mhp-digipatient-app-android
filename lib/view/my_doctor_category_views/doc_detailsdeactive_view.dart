@@ -233,12 +233,12 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                           ],
                         ),
                         SizedBox(
-                          height: 4.h,
+                          height: 2.h,
                         ),
 
 
                         Padding(
-                          padding: const EdgeInsets.only(left: 8.0,top: 4),
+                          padding: const EdgeInsets.only(left: 8.0,top: 0),
                           child: Row(
 
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -357,7 +357,7 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                   ),
                 ),
                 SizedBox(
-                  height: 10.h,
+                  height: 6.h,
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 0.r),
@@ -385,11 +385,9 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 0.r),
+
+                Container(  height: 80.h,
+                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 6.r),
                   child: Row(
                     children: [
                       Expanded(
@@ -467,33 +465,42 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                         child: Card(
                           elevation: 5,
                           color: Colors.grey,
-                          child: SizedBox(
+                          child: Container(
                             height: 55.h,
-                            child: ListTile(
-
-                              leading: CircleAvatar(
+                            padding: EdgeInsets.all(4),
+                            child: Row(children: [
+                              CircleAvatar(
                                 backgroundColor:  Colors.green,
                                 child: IconButton(
-                                  onPressed: (){
-                                   // FlutterPhoneDirectCaller.callNumber("${doc!.doctors!.drWorkPhone.toString()}");
-                                  },
-                                 icon: Icon( Icons.call,size: 25,
-                                     color:AppColors.backgroundColor,)
+                                    onPressed: (){
+                                      FlutterPhoneDirectCaller.callNumber("${doc!.doctors!.drWorkPhone.toString()}");
+                                    },
+                                    icon: Icon( Icons.call,size: 25,
+                                      color:AppColors.backgroundColor,)
 
                                 ),
                               ),
-                              title: Text(
-                                "Support : ",
-                                style: Style.alltext_default_balck,
-                              ),
-                              subtitle: Text(
-                                "${doc!.doctors!.drWorkPhone.toString()=="null"?"":doc!.doctors!.drWorkPhone.toString()
-                                // "${doc!.doctors!.drWorkPhone.toString()
-                                }",
+                              Style.widthdistan_size5,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Support : ",
+                                    style: Style.alltext_default_balck,
+                                  ),
 
-                                style: Style.alltext_default_balck,
-                              ),
-                            ),
+                                  Text(
+                                    "${doc!.doctors!.drWorkPhone.toString()=="null"?"":doc!.doctors!.drWorkPhone.toString()
+                                    }",
+
+                                    style: Style.alltext_default_balck,
+                                  ),
+                                ],
+                              )
+                            ],),
+
+
                           ),
                         ),
                       ),
@@ -502,7 +509,7 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                 ),
 
                 SizedBox(
-                  height: 10.h,
+                  height: 6.h,
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 0.r),

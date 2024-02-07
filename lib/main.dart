@@ -1,8 +1,10 @@
 // Flutter imports:
+import 'package:device_preview/device_preview.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/utils/user.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -140,8 +142,11 @@ void main() async {
             create: (context) => ResourcesViewModel(),
           ),
         ],
-        child: MyApp(
-          navigatorKey: navigatorKey,
+        child: DevicePreview(
+          enabled: !kReleaseMode,
+          builder: (context) => MyApp(
+            navigatorKey: navigatorKey,
+          ),
         ),
       ),
     );
@@ -161,7 +166,6 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-
   AppUpdateInfo? _updateInfo;
   InAppUpdate inAppUpdate = InAppUpdate();
 
@@ -178,7 +182,7 @@ class MyAppState extends State<MyApp> {
   Future<void> checkForUpdate() async {
     try {
       InAppUpdate.checkForUpdate().then((info) {
-        setState(() {
+
           print("eeeeeeeeeeeeeeee${info.toString()}");
           _updateInfo = info;
 
@@ -188,11 +192,11 @@ class MyAppState extends State<MyApp> {
             InAppUpdate
                 .performImmediateUpdate(); // You might want to prompt the user to update before calling this
             InAppUpdate.installUpdateListener;
-            print("eeeeeeeeeeeeeeee${_updateInfo?.updateAvailability ==
-                UpdateAvailability.updateAvailable}");
+            print(
+                "eeeeeeeeeeeeeeee${_updateInfo?.updateAvailability == UpdateAvailability.updateAvailable}");
           }
         });
-      });
+
     } catch (e) {
       print(e.toString());
     }
@@ -212,7 +216,7 @@ class MyAppState extends State<MyApp> {
         //     currentUser.id.isEmpty ? PageRouteNames.login : PageRouteNames.home,
 
         initialRoute:
-        currentUser.id.isEmpty ? RoutesName.splash : RoutesName.dashbord,
+            currentUser.id.isEmpty ? RoutesName.splash : RoutesName.dashbord,
         onGenerateRoute: Routes.generateRoute,
         color: AppColors.primaryColor,
 

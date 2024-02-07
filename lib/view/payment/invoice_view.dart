@@ -68,7 +68,7 @@ class _InvoiceViewState extends State<InvoiceView> {
                 child: CircularProgressIndicator(),
               )
             : ListView.builder(
-                padding: EdgeInsets.all(20.r),
+                padding: EdgeInsets.all(10.r),
                 itemCount: invoice.invoiceList.length,
                 itemBuilder: (context, index) {
                   final item = invoice.invoiceList[index];
@@ -107,7 +107,7 @@ class _InvoiceViewState extends State<InvoiceView> {
                                   ),
                                   Style.widthdistan_size2,
                                   SizedBox(
-                                    width: 210.w,
+                                    width: 215.w,
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment:

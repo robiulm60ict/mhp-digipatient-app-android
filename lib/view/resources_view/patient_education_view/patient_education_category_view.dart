@@ -82,7 +82,7 @@ class _PatientEducationViewState extends State<PatientEducationView> {
                                 crossAxisCount: 3,
                                 mainAxisSpacing: 4,
                                 crossAxisSpacing: 4,
-                                height: 135.h),
+                                height: 110.h),
                             itemCount: provider.patientCatagoryList.length,
                             itemBuilder: (BuildContext context, index) {
                               var resoures = provider.patientCatagoryList[index];

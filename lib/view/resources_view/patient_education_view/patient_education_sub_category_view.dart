@@ -107,8 +107,8 @@ class _PatientEducationSubCatagoryViewState extends State<PatientEducationSubCat
                         child:ListView.builder(
                           itemCount:  provider.patientsubCatagoryList.length,
                           scrollDirection: Axis.vertical,
-                          physics: const AlwaysScrollableScrollPhysics(),
                           shrinkWrap: true,
+                          physics: ScrollPhysics(),
                           itemBuilder: (context, index) {
                             var sub= provider.patientsubCatagoryList[index];
                             return InkWell(

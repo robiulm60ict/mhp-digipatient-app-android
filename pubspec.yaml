@@ -4,7 +4,7 @@ description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 
-version: 1.1.3+9
+version: 1.1.4+10
 
 environment:
   sdk: '>=3.1.5 <4.0.0'
@@ -97,7 +97,7 @@ dependencies:
   #  zego_uikit_prebuilt_call: ^3.17.9
   #  zego_uikit_signaling_plugin: ^2.6.6
   #  zego_uikit_signaling_plugin: ^2.7.3
-  weekly_date_picker: ^1.3.2
+#  weekly_date_picker: ^1.3.2
   webview_flutter: ^3.0.4
   flutter_cached_pdfview: ^0.4.2
   pdf: ^3.1.0
@@ -109,7 +109,7 @@ dependencies:
   path_provider: ^2.1.2
   flutter_phone_direct_caller: ^2.1.1
   carousel_slider: ^4.2.1
-  calendar_date_picker2: ^0.5.3
+#  calendar_date_picker2: ^0.5.3
   device_preview: ^1.1.0
   in_app_update: ^4.2.2
 
