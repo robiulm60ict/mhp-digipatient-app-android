@@ -142,11 +142,8 @@ void main() async {
             create: (context) => ResourcesViewModel(),
           ),
         ],
-        child: DevicePreview(
-          enabled: !kReleaseMode,
-          builder: (context) => MyApp(
-            navigatorKey: navigatorKey,
-          ),
+        child: MyApp(
+          navigatorKey: navigatorKey,
         ),
       ),
     );

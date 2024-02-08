@@ -34,7 +34,9 @@ class _UploadMyReportState extends State<UploadMyReport> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async{    context.read<MyMedicineViewModel>().getMyReport(context); },
+      onRefresh: () async {
+        context.read<MyMedicineViewModel>().getMyReport(context);
+      },
       child: Scaffold(
         backgroundColor: AppColors.page_background_color,
         appBar: AppBar(
@@ -73,69 +75,67 @@ class _UploadMyReportState extends State<UploadMyReport> {
                     return SingleChildScrollView(
                       child: Column(
                         children: [
-
                           GridView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        gridDelegate: FlutterzillaFixedGridView(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 5,
-                            crossAxisSpacing: 10,
-                            height: 90.h),
-                        itemCount:data.myreportimageRxList.length,
-                        itemBuilder: (BuildContext context, index) {
-                          var info = data.myreportimageRxList[index];
-                          return InkWell(
-
-                            onTap: () {
-                             // info.file!.split(".").last != "pdf"
-                                                  //     ?
-                                                  //
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  ReportSliderImage(file: info.file,
-                                                                      )));
-                                                  //     : Navigator.push(
-                                                  //         context,
-                                                  //         MaterialPageRoute(
-                                                  //             builder: (context) =>
-                                                  //                 PdfViewerPage(
-                                                  //                     pdfUrl:
-                                                  //                         "https://gdbackend.macrohealthplus.org/images/patients_reports/${info.file}")));
-                            },
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SizedBox(
-                                  height: 70.h,
-                                  width: double.infinity,
-                                  child: Card(
-                                    color: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12.r),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12.0.r),
-                                      child: Image.asset(
-                                          Assets.myMedicineRx,
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              gridDelegate: FlutterzillaFixedGridView(
+                                  crossAxisCount: 1,
+                                  mainAxisSpacing: 2,
+                                  crossAxisSpacing: 2,
+                                  height: 50.h),
+                              itemCount: data.myreportimageRxList.length,
+                              itemBuilder: (BuildContext context, index) {
+                                var info = data.myreportimageRxList[index];
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, right: 8),
+                                  child: InkWell(
+                                    onTap: () {
+                                      // info.file!.split(".").last != "pdf"
+                                      //     ?
+                                      //
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ReportSliderImage(
+                                                    file: info.file,
+                                                  )));
+                                      //     : Navigator.push(
+                                      //         context,
+                                      //         MaterialPageRoute(
+                                      //             builder: (context) =>
+                                      //                 PdfViewerPage(
+                                      //                     pdfUrl:
+                                      //                         "https://gdbackend.macrohealthplus.org/images/patients_reports/${info.file}")));
+                                    },
+                                    child: Card(
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          SizedBox(
+                                            height: 70.h,
+                                            width: 70.h,
+                                            child: Padding(
+                                              padding: EdgeInsets.all(12.0.r),
+                                              child: Image.asset(
+                                                Assets.myMedicineRx,
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            info.name.toString(),
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.center,
+                                            style: Style.alltext_default_balck,
+                                          )
+                                        ],
                                       ),
                                     ),
                                   ),
-                                ),
-                                Text(
-                                 info.name.toString(),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.center,
-                                  style: Style.alltext_default_balck,
-                                )
-                              ],
-                            ),
-                          );
-                        })
-
+                                );
+                              })
 
                           // ListView.builder(
                           //     itemCount: data.myreportimageRxList.length,
