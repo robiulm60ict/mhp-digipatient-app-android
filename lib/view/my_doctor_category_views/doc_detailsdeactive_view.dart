@@ -45,8 +45,6 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
     context
         .read<MyDoctorViewModel>()
         .getdoctorcountpatient(widget.id.toString());
-
-
   }
 
   getDoctor(id) async {
@@ -61,7 +59,7 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
   @override
   Widget build(BuildContext context) {
     final mdVM = Provider.of<MyDoctorViewModel>(context);
-     final appointmentViewModel = Provider.of<AppointmentViewModel>(context);
+    final appointmentViewModel = Provider.of<AppointmentViewModel>(context);
 
     return Scaffold(
       // bottomNavigationBar: BottomAppBar(
@@ -235,32 +233,28 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                         SizedBox(
                           height: 2.h,
                         ),
-
-
                         Padding(
-                          padding: const EdgeInsets.only(left: 8.0,top: 0),
+                          padding: const EdgeInsets.only(left: 8.0, top: 0),
                           child: Row(
-
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                            Image.asset(
-                              Assets.imagesBkash,
-                              height: 35.h,
-                              width: 35.w,
-                              fit: BoxFit.contain,
-                            ),
-                            // CircleAvatar(
-                            //   maxRadius: 24,
-                            //   backgroundImage: AssetImage(Assets.imagesBkash),
-                            // ),
-                            Text(
-                              " bKash Payment : ${doc!.doctors!.drHomePhone.toString()=="null"?"":doc!.doctors!.drHomePhone.toString()}",
-                              style: Style.alltext_default_balck_blod,
-                            ),
-
-
-                          ],),
+                              Image.asset(
+                                Assets.imagesBkash,
+                                height: 35.h,
+                                width: 35.w,
+                                fit: BoxFit.contain,
+                              ),
+                              // CircleAvatar(
+                              //   maxRadius: 24,
+                              //   backgroundImage: AssetImage(Assets.imagesBkash),
+                              // ),
+                              Text(
+                                " bKash Payment : ${doc!.doctors!.drHomePhone.toString() == "null" ? "" : doc!.doctors!.drHomePhone.toString()}",
+                                style: Style.alltext_default_balck_blod,
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -271,30 +265,44 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
-                  
                     children: [
                       Align(
                         alignment: Alignment.center,
                         child: doc?.doctors?.drImages.toString() != "null"
-                            ? CircleAvatar(
-                                radius: 50.r,
-                                backgroundColor: AppColors.linearGradient1,
-                                backgroundImage: NetworkImage(
-                                    "${AppUrls.docImage}${doc?.doctors?.drImages}"),
+                            ? FadeInImage(
+                                fit: BoxFit.cover,
+                                width: 65,
+                                height: 65,
+                                image: NetworkImage(
+                                  "${AppUrls.docImage}${doc?.doctors?.drImages}"!,
+                                ),
+                                imageErrorBuilder:
+                                    (context, error, stackTrace) =>
+                                        const CircleAvatar(
+                                  radius: 40,
+                                  backgroundImage:
+                                      AssetImage(Assets.dummy_image),
+                                ),
+                                placeholder:
+                                    const AssetImage(Assets.imagesAvatar),
                               )
                             : CircleAvatar(
-                          radius: 50.r,
-                          backgroundColor: AppColors.linearGradient1,
-                          backgroundImage: AssetImage(
-                              Assets.dummy_image),
-                        ),
+                                radius: 50.r,
+                                backgroundColor: AppColors.linearGradient1,
+                                backgroundImage: AssetImage(Assets.dummy_image),
+                              ),
                       ),
-
                       Style.distan_size5,
-                      MaterialButton(color:Colors.red,onPressed: (){
-                        _showDeleteConfirmationDialog(context);
-                      },child:  Text("Inactive",style: Style.alltext_appbar,),)
-
+                      MaterialButton(
+                        color: Colors.red,
+                        onPressed: () {
+                          _showDeleteConfirmationDialog(context);
+                        },
+                        child: Text(
+                          "Inactive",
+                          style: Style.alltext_appbar,
+                        ),
+                      )
                     ],
                   ),
                 )
@@ -310,12 +318,11 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
               children: [
                 // SizedBox(height: 10,)
                 Padding(
-                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 10.r),
+                  padding: EdgeInsets.only(left: 10.r, right: 10.r, top: 10.r),
                   child: Row(
                     children: [
                       Expanded(
                         child: Card(
-
                           elevation: 5,
                           child: ListTile(
                             leading: Icon(
@@ -335,7 +342,6 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                       ),
                       Expanded(
                         child: Card(
-
                           elevation: 5,
                           child: ListTile(
                             leading: Icon(
@@ -360,7 +366,7 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                   height: 6.h,
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 0.r),
+                  padding: EdgeInsets.only(left: 10.r, right: 10.r, top: 0.r),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -386,78 +392,85 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                   ),
                 ),
 
-                Container(  height: 80.h,
-                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 6.r),
+                Container(
+                  height: 80.h,
+                  padding: EdgeInsets.only(left: 10.r, right: 10.r, top: 6.r),
                   child: Row(
                     children: [
                       Expanded(
                         child: Card(
                           color: Colors.grey,
                           elevation: 5,
-                          child:  Container(
+                          child: Container(
                             height: 55.h,
                             child: Consumer<MyDoctorViewModel>(
                                 builder: (context, data, child) {
-                                  if (data.sociallist.isEmpty) {
-                                    return Center(
-                                      child: Text(
-                                        "Currently you have no records",
-                                        style: Style.alltext_default_balck,
-                                      ),
-                                    );
-                                  } else {
-                                    return ListView.builder(
-                                        itemCount: data.sociallist.length>4?4:data.sociallist.length,
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.horizontal,
-                                        physics: ScrollPhysics(),
-                                        itemBuilder: (context, index) {
-                                          var info = data.sociallist[index];
-                                          return Container(
-                                            height: 40.h,
-                                            width: 40.w,
-                                            padding: const EdgeInsets.only(top: 4),
-                                            child: Container(
-                                              // height: 40.h,
-                                              // width: 40.w,
-                                              color: Colors.grey,
-                                              padding: const EdgeInsets.all(5.0),
-                                              child: SizedBox(
-                                                  width: 80.w,
-                                                  child: InkWell(
-                                                    onTap: () async {
-                                                     //await launch(info.url.toString());
+                              if (data.sociallist.isEmpty) {
+                                return Center(
+                                  child: Text(
+                                    "Currently you have no records",
+                                    style: Style.alltext_default_balck,
+                                  ),
+                                );
+                              } else {
+                                return ListView.builder(
+                                    itemCount: data.sociallist.length > 4
+                                        ? 4
+                                        : data.sociallist.length,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    physics: ScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      var info = data.sociallist[index];
+                                      return Container(
+                                        height: 40.h,
+                                        width: 40.w,
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: Container(
+                                          // height: 40.h,
+                                          // width: 40.w,
+                                          color: Colors.grey,
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: SizedBox(
+                                              width: 80.w,
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  //await launch(info.url.toString());
 
-                                                      // Navigator.push(
-                                                      //     context,
-                                                      //     MaterialPageRoute(
-                                                      //         builder: (context) =>
-                                                      //             SocialWebviewView(
-                                                      //               url: info.url,
-                                                      //             )));
-                                                    },
-                                                    child: CircleAvatar(
-                                                      maxRadius: 8,
-                                                      child: Image.asset(info.name
-                                                          .toString() ==
+                                                  // Navigator.push(
+                                                  //     context,
+                                                  //     MaterialPageRoute(
+                                                  //         builder: (context) =>
+                                                  //             SocialWebviewView(
+                                                  //               url: info.url,
+                                                  //             )));
+                                                },
+                                                child: CircleAvatar(
+                                                  maxRadius: 8,
+                                                  child: Image.asset(info.name
+                                                              .toString() ==
                                                           "FaceBook"
-                                                          ? Assets.facebook
-                                                          : (info.name.toString() == "Youtube"
+                                                      ? Assets.facebook
+                                                      : (info.name.toString() ==
+                                                              "Youtube"
                                                           ? Assets.youtube
                                                           : (info.name.toString() ==
-                                                          "LinkedIn"
-                                                          ? Assets.linkedin
-                                                          : ((info.name.toString() ==
-                                                          "Twitter"
-                                                          ? Assets.twitter
-                                                          : Assets.homeMyRec))))),
-                                                    ),
-                                                  )),
-                                            ),
-                                          );
-                                        });
-                                  }
-                                }),
+                                                                  "LinkedIn"
+                                                              ? Assets.linkedin
+                                                              : ((info.name
+                                                                          .toString() ==
+                                                                      "Twitter"
+                                                                  ? Assets
+                                                                      .twitter
+                                                                  : Assets
+                                                                      .homeMyRec))))),
+                                                ),
+                                              )),
+                                        ),
+                                      );
+                                    });
+                              }
+                            }),
                           ),
                         ),
                       ),
@@ -468,39 +481,38 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                           child: Container(
                             height: 55.h,
                             padding: EdgeInsets.all(4),
-                            child: Row(children: [
-                              CircleAvatar(
-                                backgroundColor:  Colors.green,
-                                child: IconButton(
-                                    onPressed: (){
-                                      FlutterPhoneDirectCaller.callNumber("${doc!.doctors!.drWorkPhone.toString()}");
-                                    },
-                                    icon: Icon( Icons.call,size: 25,
-                                      color:AppColors.backgroundColor,)
-
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: Colors.green,
+                                  child: IconButton(
+                                      onPressed: () {
+                                        FlutterPhoneDirectCaller.callNumber(
+                                            "${doc!.doctors!.drWorkPhone.toString()}");
+                                      },
+                                      icon: Icon(
+                                        Icons.call,
+                                        size: 25,
+                                        color: AppColors.backgroundColor,
+                                      )),
                                 ),
-                              ),
-                              Style.widthdistan_size5,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Support : ",
-                                    style: Style.alltext_default_balck,
-                                  ),
-
-                                  Text(
-                                    "${doc!.doctors!.drWorkPhone.toString()=="null"?"":doc!.doctors!.drWorkPhone.toString()
-                                    }",
-
-                                    style: Style.alltext_default_balck,
-                                  ),
-                                ],
-                              )
-                            ],),
-
-
+                                Style.widthdistan_size5,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Support : ",
+                                      style: Style.alltext_default_balck,
+                                    ),
+                                    Text(
+                                      "${doc!.doctors!.drWorkPhone.toString() == "null" ? "" : doc!.doctors!.drWorkPhone.toString()}",
+                                      style: Style.alltext_default_balck,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -512,7 +524,7 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                   height: 6.h,
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 0.r),
+                  padding: EdgeInsets.only(left: 10.r, right: 10.r, top: 0.r),
                   child: Text(
                     "About Doctor",
                     style: Style.alltext_default_balck_blod,
@@ -523,8 +535,9 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                 ),
                 doc?.doctors!.drAbout.toString() != "null"
                     ? Padding(
-                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 0.r),
-                      child: ReadMoreText(
+                        padding:
+                            EdgeInsets.only(left: 10.r, right: 10.r, top: 0.r),
+                        child: ReadMoreText(
                           "${doc?.doctors?.drAbout.toString() ?? ""}",
                           trimLines: 8,
                           colorClickableText: Colors.pink,
@@ -541,7 +554,7 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                               color: AppColors.primaryColor),
                           style: Style.alltext_default_balck,
                         ),
-                    )
+                      )
                     : Text(""),
                 SizedBox(
                   height: 12.w,
@@ -549,21 +562,29 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                 Card(
                   elevation: 7,
                   child: Container(
-                  color: Colors.green.shade500,
-                  padding: const EdgeInsets.only(left: 8.0,right: 8,top: 12,bottom: 12),
-                  child: Row(
-                    children: [
-                      // Icon(Icons.note_add_outlined , color: AppColors.text_primary_color,size: 50,),
-                      Image.asset("assets/icons/info.png",width: 40.w,color: Colors.white,),
-                      Style.widthdistan_size5,
-                      SizedBox(
-                          width: 280.w,
-                          child: Text("Please active the doctor prior to make an appointment. you are requested to contact our support center for further assistance . ",style: Style.alltext_default_white,textAlign: TextAlign.start,)),
-                    ],
+                    color: AppColors.linearGradient1,
+                    padding: const EdgeInsets.only(
+                        left: 8.0, right: 8, top: 12, bottom: 12),
+                    child: Row(
+                      children: [
+                        // Icon(Icons.note_add_outlined , color: AppColors.text_primary_color,size: 50,),
+                        Image.asset(
+                          "assets/icons/info.png",
+                          width: 40.w,
+                          color: Colors.black,
+                        ),
+                        Style.widthdistan_size5,
+                        SizedBox(
+                            width: 280.w,
+                            child: Text(
+                              "Please active the doctor prior to make an appointment. you are requested to contact our support center for further assistance . ",
+                              style: Style.alltext_default_balck,
+                              textAlign: TextAlign.start,
+                            )),
+                      ],
+                    ),
                   ),
-                ),)
-
-
+                )
               ],
             ),
           ),
@@ -571,17 +592,25 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
       ),
     );
   }
+
   Future<void> _showDeleteConfirmationDialog(BuildContext context) async {
     final provider =
-    Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
+        Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Row(
             children: [
-              Icon(Icons.cancel,color: Colors.red,),Style.widthdistan_size5,
-              Text('Confirmation',style: Style.alltext_default_balck_blod_dilog,),
+              Icon(
+                Icons.cancel,
+                color: Colors.red,
+              ),
+              Style.widthdistan_size5,
+              Text(
+                'Confirmation',
+                style: Style.alltext_default_balck_blod_dilog,
+              ),
             ],
           ),
           content: const Text('Do  you want to Active this doctor?'),
@@ -599,16 +628,15 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                   // ...
 
                   Navigator.of(context).pop();
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyDoctorView()));
-                  provider.activedoctor(context,widget.id.toString());
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => MyDoctorView()));
+                  provider.activedoctor(context, widget.id.toString());
                   // Close the dialog after deletion
                 },
-                child: const Text("Yes")
-            ),
+                child: const Text("Yes")),
           ],
         );
       },
     );
   }
-
 }

@@ -275,13 +275,28 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                     children: [
                       Align(
                         alignment: Alignment.center,
-                        child: doc?.doctors?.drImages.toString() != "null"
-                            ? CircleAvatar(
-                                radius: 40.r,
-                                backgroundColor: AppColors.linearGradient1,
-                                backgroundImage: NetworkImage(
-                                    "${AppUrls.docImage}${doc?.doctors?.drImages}"),
-                              )
+                        child: doc?.doctors?.drImages.toString() != "null"|| doc?.doctors?.drImages.toString() != null
+                             ?  FadeInImage(
+                          fit: BoxFit.cover,
+                          width: 65,
+                          height: 65,
+                          image: NetworkImage(
+                            "${AppUrls.docImage}${doc?.doctors?.drImages}"!,
+                          ),
+                          imageErrorBuilder: (context, error, stackTrace) =>
+                          const CircleAvatar(
+                            radius: 40,
+                            backgroundImage: AssetImage(Assets.dummy_image),
+                          ),
+                          placeholder: const AssetImage(Assets.imagesAvatar),
+                        )
+                    //
+                    // CircleAvatar(
+                            //     radius: 40.r,
+                            //     backgroundColor: AppColors.linearGradient1,
+                            //     backgroundImage: NetworkImage(
+                            //         "${AppUrls.docImage}${doc?.doctors?.drImages}"),
+                            //   )
                             : CircleAvatar(
                           radius: 40.r,
                           backgroundColor: AppColors.linearGradient1,
@@ -549,16 +564,16 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 Card(
                   elevation: 7,
                   child: Container(
-                  color: Colors.green.shade400,
+                  color:  AppColors.linearGradient1,
                   padding: const EdgeInsets.only(left: 8.0,right: 8,top: 12,bottom: 12),
                   child: Row(
                     children: [
                       // Icon(Icons.note_add_outlined , color: AppColors.text_primary_color,size: 50,),
-                      Image.asset("assets/icons/info.png",width: 40.w,color: Colors.white,),
+                      Image.asset("assets/icons/info.png",width: 40.w,color: Colors.black,),
                       Style.widthdistan_size5,
                       SizedBox(
                           width: 280.w,
-                          child: Text("Pay the doctor’s consultation fee in bkash. Please remember bkash number and 10-digit transaction ID to confirm doctor’s follow-up appointment. ",style: Style.alltext_default_white,textAlign: TextAlign.start,)),
+                          child: Text("Pay the doctor’s consultation fee in bkash. Please remember bkash number and 10-digit transaction ID to confirm doctor’s follow-up appointment. ",style: Style.alltext_default_balck,textAlign: TextAlign.start,)),
                     ],
                   ),
                 ),)
