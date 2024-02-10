@@ -115,7 +115,7 @@ class MyMedicineRepo{
 
     try {
       dynamic response = await sendImage.addImage(body, imageBytes);
-      print("aaaaaaaaaaaaaa$response");
+      print("aaaaaaaaaaaaaa${response}");
 
       return response;
 
@@ -151,7 +151,9 @@ class SendImage {
     }
     print(imageBytes);
     var response = await request.send();
-    debugPrint("\n\n\n\n\n\n\n\n tttttttttttt${response}");
+    debugPrint("\n\n\n\n\n\n\n\n response${response}");
+    debugPrint(" statusCode${response.statusCode}");
+    debugPrint(" statusCode${response.headers}");
     var res = await convertStreamedResponseToHttpResponse(response);
     var finalResponse = NetworkApiService().returnResponse(res);
     debugPrint("------------------------------------");
