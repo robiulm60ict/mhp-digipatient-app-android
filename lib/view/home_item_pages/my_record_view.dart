@@ -211,7 +211,7 @@ class _MyRecordViewState extends State<MyRecordView> {
             height: 5.h,
           ),
           MyRecordListTile(
-            title: 'Medical History from Great Doc',
+            title: 'My medical history from GreatDoc',
             iconData: Icons.medication_liquid_sharp,
             onTap: () {
               Navigator.push(

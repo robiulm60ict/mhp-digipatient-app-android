@@ -39,7 +39,7 @@ class _SelfMedicalHistoryFGDViewState extends State<SelfMedicalHistoryFGDView> {
           backgroundColor: AppColors.primary_color,
           leadingWidth: leadingWidth,
           leading: const CustomBackButton(),
-          title: Text("Medical History From Great Doc",
+          title: Text("My medical history from GreatDoc",
               style: Style.alltext_appbar),
           centerTitle: true,
           actions: [

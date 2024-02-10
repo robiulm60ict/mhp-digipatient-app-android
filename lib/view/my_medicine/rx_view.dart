@@ -65,7 +65,7 @@ class _RXViewState extends State<RXView> {
                     width: 36.w,
                   ),
                   title: Text(
-                    "Current RX From Great doc",
+                    "Current rx from GreatDoc",
                     style: Style.alltext_default_balck,
                   ),
                 ),
@@ -93,7 +93,7 @@ class _RXViewState extends State<RXView> {
                     width: 36.w,
                   ),
                   title: Text(
-                    "Past RX From Great doc",
+                    "Past rx from GreatDoc",
                     style: Style.alltext_default_balck,
                   ),
                 ),

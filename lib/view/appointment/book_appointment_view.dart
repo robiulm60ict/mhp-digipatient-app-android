@@ -441,6 +441,31 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
             ),
             Row(
               children: [
+
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UploadReportView()));
+                      anatomy.favourite.clear();
+                    },
+                    child: Card(
+                      color: Colors.green.shade500,
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.0.w, vertical: 10.h),
+                        child: Text(
+                          "Upload Report",
+                          textAlign: TextAlign.center,
+                          style: Style.alltext_appbar,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 Expanded(
                   child: InkWell(
                     onTap: () {
@@ -465,30 +490,6 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                     ),
                   ),
                 ),
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UploadReportView()));
-                      anatomy.favourite.clear();
-                    },
-                    child: Card(
-                      color: Colors.green.shade500,
-                      child: Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 8.0.w, vertical: 10.h),
-                        child: Text(
-                          "Upload Report",
-                          textAlign: TextAlign.center,
-                          style: Style.alltext_appbar,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
               ],
             ),
             SizedBox(
