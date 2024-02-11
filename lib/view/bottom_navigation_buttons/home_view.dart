@@ -27,6 +27,7 @@ import '../../view_model/user_view_model/user_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/drawer_list_tile.dart';
 import '../../widgets/shimmer.dart';
+import '../payment/ivoice/pdf_invoice_api.dart';
 import '../privacy_policy/privacypolicy.dart';
 import '../profile/patient_profile.dart';
 import '../support/support_page.dart';
@@ -436,6 +437,7 @@ class _HomeViewState extends State<HomeView> {
               SizedBox(
                 height: 4.h,
               ),
+
               Consumer<MyDoctorDelaisViewModel>(builder: (context, dvm, child) {
                 return Card(
                   shape: RoundedRectangleBorder(

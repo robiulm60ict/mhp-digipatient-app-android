@@ -78,6 +78,8 @@ class AppUrls {
       "$baseUrlPatient/get-patient-report-file/";
   static const String uploadRXimage =
       "$baseUrlPatient/get-patient-prescriptions/";
+  static const String prescrioption_greatdoc =
+      "$baseUrlPatient/get-app-patient-prescription/";
   static const String uploadMyReport =
       "$baseUrlPatient/upload-patient-report-file";
 

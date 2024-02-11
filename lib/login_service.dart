@@ -34,11 +34,12 @@ void onUserLogin() {
 
   print("fffffffffffffffffffffffffffffffffffff${currentUser.id}");
   print("fffffffffffffffffffffffffffffffffffff${currentUser.name}");
+
   /// 4/5. initialized ZegoUIKitPrebuiltCallInvitationService when account is logged in or re-logged in
   ZegoUIKitPrebuiltCallInvitationService().init(
     appID: 1293432009 /*input your AppID*/,
     appSign:
-    'ce9d090d86cd6d51344033934af611515fdb0fc5760cfd02df1f99c06b0b94cf' /*input your AppSign*/,
+        'ce9d090d86cd6d51344033934af611515fdb0fc5760cfd02df1f99c06b0b94cf' /*input your AppSign*/,
     userID: currentUser.id,
     userName: currentUser.name,
     androidNotificationConfig: ZegoAndroidNotificationConfig(
@@ -60,12 +61,14 @@ void onUserLogin() {
               ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
               : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
 
-      config.avatarBuilder = customAvatarBuilder;
+      // config.avatarBuilder = customAvatarBuilder;
 
       /// support minimizing, show minimizing button
       config.topMenuBarConfig.isVisible = true;
-      config.topMenuBarConfig.buttons
+      config.bottomMenuBarConfig.buttons
           .insert(0, ZegoMenuBarButtonName.minimizingButton);
+      config.bottomMenuBarConfig.buttons
+          .remove(ZegoMenuBarButtonName.hangUpButton);
 
       config.onError = (ZegoUIKitError error) {
         debugPrint('onError:$error');

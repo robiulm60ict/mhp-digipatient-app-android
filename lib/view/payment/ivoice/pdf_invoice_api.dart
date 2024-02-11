@@ -1,118 +1,300 @@
 import 'dart:io';
 
-import 'package:dotted_line/dotted_line.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../../../model/book_appointment_model/book_appointment_model.dart';
-import '../../../model/invoice_model/invoice_show_model.dart';
 import '../../../model/myDoctorList/mydoctorList.dart';
-import '../../../resources/colors.dart';
-import '../../../resources/styles.dart';
-import '../../../utils/utils.dart';
-import '../../../widgets/payment_user_detail.dart';
-import '../../../widgets/single_invoice_row.dart';
+import '../../../model/my_medicine_model/prescription_greatdoc.dart';
 import 'mobile.dart';
 
 class PdfInvoiceApi {
-  static Future pdf(InvoiceShowModel invoice, pdfName) async {
-    print("$invoice,,,$pdfName");
+  static Future pdf(pdfName, PrescriptionListGreatDoc doc) async {
+    print(",,,$pdfName");
     final Document pdf = Document(deflate: zlib.encode);
     print('cliked');
 
-    pdf.addPage(MultiPage(
+    // Load the Bengali font
+    final fontData = await rootBundle.load("assets/fonts/SolaimanLipi.ttf");
+    final ttf = pw.Font.ttf(fontData.buffer.asByteData());
+    final Uint8List imageData =
+        (await rootBundle.load("assets/images/rx (2).png"))
+            .buffer
+            .asUint8List();
+    var advice = doc.advice.toString();
+
+    List<String> characters = advice.split(',');
+    List<String> reason_for_visit = doc.reasonForVisit.toString().split(',');
+    List<String> investigation = doc.investigation.toString().split(',');
+    List<String> reason = [];
+    for (var i in reason_for_visit) {
+      reason.add(i);
+    }
+
+    print(reason);
+    Map<String, int> calculateAge(String birthDateString) {
+      final now = DateTime.now();
+      final birthDate = DateFormat('yyyy-MM-dd').parse(birthDateString);
+
+      int years = now.year - birthDate.year;
+      int months = now.month - birthDate.month;
+      int days = now.day - birthDate.day;
+
+      if (months < 0 || (months == 0 && days < 0)) {
+        years--;
+        months += 12;
+      }
+
+      if (days < 0) {
+        final previousMonthDate =
+            DateTime(now.year, now.month - 1, birthDate.day);
+        days = now.difference(previousMonthDate).inDays;
+      }
+
+      return {'years': years, 'months': months, 'days': days};
+    }
+
+    final age = calculateAge(
+        doc.patient!.patientDob.toString().split(" ").first.toString());
+
+    pdf.addPage(pw.MultiPage(
       build: (context) => [
-        Center(child: Text("MHP")),
-        SizedBox(height: 5),
-        Center(child: Text("Location : House 35 East Rampura,Dhaka 1210")),
-        SizedBox(height: 2),
-
-        Center(child: Text("Tel :01681688541")),
-        SizedBox(height: 2),
-
-        Center(child: Text("Vat Reg No : 534565")),
-        SizedBox(height: 2),
-
-        Center(child: Text("Invoice")),
-
-        //     Divider(),
-        //
-        //     Row(
-        //         crossAxisAlignment: CrossAxisAlignment.end,
-        //         mainAxisAlignment: MainAxisAlignment.end,
-        //         children: [
-        //           SizedBox(width: 100, child: Text("SubTotal :")),
-        //           SizedBox(width: 50, child: Text(
-        //               double.parse( invoice.subTotal.toString()).toStringAsFixed(2)
-        //
-        //              , textAlign: TextAlign.end)),
-        //         ]),
-        //
-        //     Row(
-        //         crossAxisAlignment: CrossAxisAlignment.end,
-        //         mainAxisAlignment: MainAxisAlignment.end,
-        //         children: [
-        //           SizedBox(width: 100, child: Text("Special Discount :")),
-        //           SizedBox(width: 50, child: Text(
-        // double.parse( invoice.specialDiscount.toString()).toStringAsFixed(2)
-        //               , textAlign: TextAlign.end)),
-        //         ]),
-        //     Row(
-        //         crossAxisAlignment: CrossAxisAlignment.end,
-        //         mainAxisAlignment: MainAxisAlignment.end,
-        //         children: [
-        //           SizedBox(width: 100, child: Text("Discount Amount :")),
-        //           SizedBox(width: 50, child: Text(
-        // double.parse( invoice.discountAmount.toString()).toStringAsFixed(2)
-        //              , textAlign: TextAlign.end)),
-        //         ]),
-        //
-        //     Row(
-        //         crossAxisAlignment: CrossAxisAlignment.end,
-        //         mainAxisAlignment: MainAxisAlignment.end,
-        //         children: [
-        //           SizedBox(width: 100, child: Text("Return Amount :")),
-        //           SizedBox(width: 50, child: Text(
-        // double.parse( invoice.returnAmount.toString()).toStringAsFixed(2)
-        //
-        // , textAlign: TextAlign.end)),
-        //         ]),
-        //     Divider(),
-        //     Row(
-        //         crossAxisAlignment: CrossAxisAlignment.end,
-        //         mainAxisAlignment: MainAxisAlignment.end,
-        //         children: [
-        //           SizedBox(width: 100, child: Text("Bill Total :")),
-        //           SizedBox(width: 50, child: Text(totalamount(double.parse(invoice.subTotal.toString()),double.parse(invoice.specialDiscount.toString())).toStringAsFixed(2), textAlign: TextAlign.end)),
-        //         ]),
-        //
-        Text("Provided By : Mhp"),
-        SizedBox(height: 10),
-        // Text("Terms & Condition"),
-        // Text("১. ক্যাশ মেমো ছাড়া ওষুধ ফেরত নেওয়া হয় না ।"),
-        // Text("২. বিক্রিত ওষুধ ৭ দিন পর ফেরত নেওয়া হয় না ।"),
-        // Text("৩. ইনসুলিন ও বিদেশী ওষুধ ফেরত নেওয়া হয় না ।"),
-        // Text("৪. বিক্রিত ওষুধ এর টাকা ফেরত দেওয়া হয় না ।"),
-        // Text("৫. কাটা ছেড়া ও ফ্রিজের বিক্রিত ওষুধ ফেরত নেওয়া হয় না ।"),
-        Center(
-          child: Text("Technology Partner Zaimah Technologies Ltd",
-              textAlign: TextAlign.center),
+        Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                  width: 230.w,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        pw.Text(
+                            "${doc.doctor!.title!.titleName.toString()} ${doc.doctor!.fullName!.toString()}",
+                            textAlign: pw.TextAlign.start,
+                            style: pw.TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16)),
+                        pw.SizedBox(height: 2.h),
+                        doc!.doctor!.academic!.isNotEmpty
+                            ? Row(
+                                children: List.generate(
+                                    doc!.doctor!.academic!.length, (index) {
+                                var data = doc!.doctor!.academic![index];
+                                return Center(
+                                  //  width: Get.size.width*0.26,
+                                  child: Text(
+                                    "${data.degreeId}${doc!.doctor!.academic!.last == data ? "" : ", "}",
+                                    maxLines: 3,
+                                    textAlign: TextAlign.start,
+                                  ),
+                                );
+                              }))
+                            : Container(),
+                        pw.SizedBox(height: 2.h),
+                        pw.Text(
+                          doc.doctor!.specialist!.specialistsName.toString(),
+                          textAlign: pw.TextAlign.start,
+                        ),
+                        pw.SizedBox(height: 2.h),
+                        pw.Text(
+                          doc!.doctor!.workExperience!.last.company.toString(),
+                          textAlign: pw.TextAlign.start,
+                        ),
+                        pw.SizedBox(height: 2.h),
+                        pw.Text(
+                          "BMDC Reg No: ${doc.doctor!.drBmdcRegNo.toString() != "null" ? doc.doctor!.drBmdcRegNo.toString() : ""}",
+                          textAlign: pw.TextAlign.start,
+                        ),
+                      ])),
+              SizedBox(
+                  width: 230.w,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        pw.SizedBox(
+                          child: pw.Text(
+                              "${doc.doctor!.usualProvider!.usualProviderName.toString()}",
+                              textAlign: pw.TextAlign.start,
+                              style: pw.TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
+                        ),
+                        pw.SizedBox(height: 2.h),
+                        pw.Text(
+                          "${doc.doctor!.drAddressLine1.toString()}",
+                          textAlign: pw.TextAlign.start,
+                        ),
+                        pw.SizedBox(height: 2.h),
+                        Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                child: pw.Text(
+                                  "Serial Number: ",
+                                  textAlign: pw.TextAlign.start,
+                                ),
+                              ),
+                              Column(children: [
+                                pw.Text(
+                                  "${doc.doctor!.usualProvider!.mobile.toString()}",
+                                  textAlign: pw.TextAlign.start,
+                                ),
+                                pw.SizedBox(height: 2.h),
+                                pw.Text(
+                                  "${doc.doctor!.usualProvider!.phone.toString()}",
+                                  textAlign: pw.TextAlign.start,
+                                ),
+                              ])
+                            ]),
+                      ])),
+            ]),
+        Divider(),
+        Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(children: [
+                Text("Patient Name: "),
+                Text(doc.patient!.fullName.toString()),
+              ]),
+              Row(children: [
+                Text("Gender : "),
+                Text(doc.patient!.patientBirthSex!.birthSexName.toString()),
+              ]),
+              Row(children: [
+                Text("Age : "),
+                Text('${age['years']} Y ${age['months']} M ${age['days']} D'),
+              ]),
+              Text("Weight: N/A"),
+            ]),
+        Divider(),
+        Row(children: [
+          Container(
+              width: 150.w,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    pw.Text(
+                      "Chief Complaints:",
+                      style: pw.TextStyle(font: ttf, fontSize: 14),
+                    ),
+                    SizedBox(height: 10),
+                    for (var i = 0; i < reason.length; i++)
+                      reason[i].trim() != "null"
+                          ? pw.Text(
+                              '${i + 1}. ${reason[i].trim()}',
+                              style: pw.TextStyle(font: ttf, fontSize: 12),
+                            )
+                          : pw.Text(""),
+                    SizedBox(height: 50),
+                    pw.Text(
+                      "Investigation:",
+                      style: pw.TextStyle(font: ttf, fontSize: 14),
+                    ),
+                    SizedBox(height: 10),
+                    for (var i = 0; i < investigation.length; i++)
+                      investigation[i].trim() != "null"
+                          ? pw.Text(
+                              '${i + 1}. ${investigation[i].trim()}',
+                              style: pw.TextStyle(font: ttf, fontSize: 12),
+                            )
+                          : pw.Text(""),
+                  ])),
+          Container(
+            width: 250.w,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  pw.SizedBox(
+                    width: 25.w,
+                    height: 25.h,
+                    child: pw.Image(pw.MemoryImage(imageData)),
+                  ),
+                  SizedBox(height: 10),
+                  pw.Padding(
+                    padding: EdgeInsets.only(left: 16),
+                    child: ListView.builder(
+                      itemCount: doc.details!.length,
+                      itemBuilder: (context, index) {
+                        var details = doc.details![index];
+                        return Container(
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                              pw.Text(
+                                "${index + 1}. ${details.rx!.drugGenericName.toString()}",
+                                style: pw.TextStyle(font: ttf, fontSize: 14),
+                              ),
+                              pw.SizedBox(height: 5.h),
+                              pw.Padding(
+                                padding: EdgeInsets.only(left: 8),
+                                child: pw.Text(
+                                  " ${details.rx!.drugName.toString()}",
+                                  style: pw.TextStyle(font: ttf, fontSize: 12),
+                                ),
+                              ),
+                              pw.SizedBox(height: 5.h),
+                              pw.Padding(
+                                padding: EdgeInsets.only(left: 12),
+                                child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      pw.Text(
+                                        "${details.rx!.frequency.toString()}  ${details.rx!.route.toString()}  ${details.rx!.food.toString()}",
+                                        style: pw.TextStyle(
+                                            font: ttf, fontSize: 12),
+                                      ),
+                                      pw.Text(
+                                          " ${details.rx!.quantity.toString()}"),
+                                    ]),
+                              ),
+                              pw.SizedBox(height: 5.h),
+                            ]));
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 40),
+                  pw.Text(
+                    "Advices:",
+                    style: pw.TextStyle(font: ttf, fontSize: 14),
+                  ),
+                  SizedBox(height: 20),
+                  for (var i = 0; i < characters.length; i++)
+                    characters[i].trim() != "null"
+                        ? pw.Text(
+                            '${i + 1}. ${characters[i].trim()}',
+                            style: pw.TextStyle(font: ttf, fontSize: 12),
+                          )
+                        : pw.Text(""),
+                ]),
+          ),
+        ]),
+        pw.SizedBox(child: Divider(color: PdfColors.grey), width: 100),
+        pw.Text(
+          "${doc.doctor!.title!.titleName.toString()} ${doc.doctor!.fullName.toString()}",
+          style: pw.TextStyle(font: ttf, fontSize: 14),
+          textAlign: pw.TextAlign.start,
         ),
-        SizedBox(height: 10),
-        Center(
-          child: Text("Thank You", textAlign: TextAlign.center),
-        ),
-
-        //    buildTotal(invoice, couponDiscount, totalPrice),
+        Divider(),
+        pw.Text(
+          ".......... দিন পর GreatDoc অ্যাপ এ ফলোআপ / চেম্বারে ব্যাবস্থাপ্ত্র সহ সরাসরি আসবেন",
+          style: pw.TextStyle(font: ttf, fontSize: 16),
+        )
       ],
-      // footer: (context) => buildFooter(invoice),
     ));
+
     List<int> bytes = await pdf.save();
-    return saveAndLaunchFile(bytes, invoice.id.toString());
+    return saveAndLaunchFile(bytes, "${doc.doctor!.fullName} prescription.pdf");
   }
 
   static Future pdfsingle(
@@ -133,7 +315,9 @@ class PdfInvoiceApi {
 
     pdf.addPage(MultiPage(
       build: (context) => [
-        Center(child: Text("Invoice Print Copy ",  style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold))),
+        Center(
+            child: Text("Invoice Print Copy ",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
         SizedBox(height: 5),
         // Center(child: Text("Location : House 35 East Rampura,Dhaka 1210")),
         // SizedBox(height: 2),
@@ -213,7 +397,7 @@ class PdfInvoiceApi {
                           SizedBox(
                               width: 150.w,
                               child: Text(
-                               invoice.toString(),
+                                invoice.toString(),
                               )),
                         ]),
                     SizedBox(
@@ -262,7 +446,6 @@ class PdfInvoiceApi {
                           Text(": "),
                           SizedBox(width: 150.w, child: Text(paymentMethod)),
                         ]),
-
                     SizedBox(
                       height: 4.h,
                     ),
@@ -278,7 +461,6 @@ class PdfInvoiceApi {
                           Text(": "),
                           SizedBox(width: 150.w, child: Text(Shift)),
                         ]),
-
                     SizedBox(
                       height: 8.h,
                     ),

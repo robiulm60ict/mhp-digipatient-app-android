@@ -4,6 +4,7 @@ import 'package:digi_patient/repository/my_medicine_repo/my_medicine_repo.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../model/my_medicine_model/my_report_model.dart';
+import '../../model/my_medicine_model/prescription_greatdoc.dart';
 import '../../model/my_medicine_model/prescription_image_list.dart';
 import '../../resources/colors.dart';
 import '../../utils/message.dart';
@@ -15,6 +16,7 @@ class MyMedicineViewModel with ChangeNotifier {
 
   List<PastRxModel> pastRxList = [];
   List<PreccriptionListModel> imageRxList = [];
+  List<PrescriptionListGreatDoc> prescriptiongreatdoc = [];
   List<MyReportImageModel> myreportimageRxList = [];
 
   // List<Drugs> drugList = [];
@@ -75,6 +77,24 @@ class MyMedicineViewModel with ChangeNotifier {
       notifyListeners();
     }).onError((error, stackTrace) {
       isPrescriptionRxLoading = true;
+      notifyListeners();
+    });
+  }
+  bool isPrescriptionPdfLoading = true;
+
+  getPrescriptionGreatDoc(BuildContext context) async {
+    isPrescriptionPdfLoading = true;
+    prescriptiongreatdoc.clear();
+
+    notifyListeners();
+    medicineRepo.getprescriptiongreatdoc().then((value) {
+      prescriptiongreatdoc = value;
+      print(value);
+
+      isPrescriptionPdfLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      isPrescriptionPdfLoading = true;
       notifyListeners();
     });
   }

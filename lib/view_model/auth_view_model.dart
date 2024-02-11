@@ -11,7 +11,6 @@ import '../model/auth_model/birth_sex_model.dart';
 import '../model/auth_model/blood_group_model.dart';
 import '../model/registration/otp_check_model.dart';
 import '../model/registration/send_verification_code_model.dart';
-import '../repository/doctor_screen_repo/patient_list_repo.dart';
 import '../resources/colors.dart';
 import '../utils/route/routes_name.dart';
 import '../utils/user.dart';

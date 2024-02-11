@@ -3,7 +3,6 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 
 Future<void> saveAndLaunchFile(List<int> bytes, String fileName) async {
-
   Directory? tempDir = await getExternalStorageDirectory();
 
   if (tempDir == null) {
@@ -12,13 +11,14 @@ Future<void> saveAndLaunchFile(List<int> bytes, String fileName) async {
   }
 
   // Define the file path for the PDF file.
-  String filePath = '${tempDir.path}/$fileName.pdf';
+  String filePath = '${tempDir.path}/$fileName';
 
   try {
     // Create the PDF file and write the bytes to it.
     File tempFile = File(filePath);
     File f = await tempFile.writeAsBytes(bytes, flush: true);
     print(f.toString());
+    print('File saved to: ${f.path}');
     // Open the PDF file with its associated app.
     final result = await OpenFile.open(filePath);
 

@@ -8,6 +8,7 @@ import '../../data/network/base_api_service.dart';
 import '../../model/my_medicine_model/current_rx_model.dart';
 import '../../model/my_medicine_model/my_report_model.dart';
 import '../../model/my_medicine_model/past_rx_model.dart';
+import '../../model/my_medicine_model/prescription_greatdoc.dart';
 import '../../model/my_medicine_model/prescription_image_list.dart';
 import '../../resources/send_image.dart';
 import '../../utils/user.dart';
@@ -52,6 +53,27 @@ class MyMedicineRepo{
       List<PreccriptionListModel> datalist = [];
       for (var i in response['0']) {
         datalist.add(PreccriptionListModel.fromJson(i));
+      }
+
+      return datalist;
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<List<PrescriptionListGreatDoc>> getprescriptiongreatdoc() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    int? id = prefs.getInt(UserP.id);
+    try {
+      dynamic response = await apiService.getGetApiResponse(
+        "${AppUrls.prescrioption_greatdoc}$id",
+      );
+      print("data..................${response.toString()}");
+      List<PrescriptionListGreatDoc> datalist = [];
+      for (var i in response['prescription']) {
+        datalist.add(PrescriptionListGreatDoc.fromJson(i));
       }
 
       return datalist;
