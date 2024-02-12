@@ -1,5 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:bijoy_helper/bijoy_helper.dart';
+import 'package:bijoy_helper/bijoy_helper.dart';
+import 'package:bijoy_helper/bijoy_helper.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -15,16 +19,24 @@ import 'mobile.dart';
 class PdfInvoiceApi {
   static Future pdf(pdfName, PrescriptionListGreatDoc doc) async {
     print(",,,$pdfName");
-    final Document pdf = Document(deflate: zlib.encode);
+    final Document pdf = Document();
     print('cliked');
 
     // Load the Bengali font
-    final fontData = await rootBundle.load("assets/fonts/SolaimanLipi.ttf");
+    // Uint8List fontData = await File('assets/fonts/kalpurush.ttf').readAsBytes();
+    // var data = fontData.buffer.asByteData();
+    // var ttf = Font.ttf(data);
+
+    final fontData = await rootBundle.load("assets/fonts/kalpurush.ttf");
     final ttf = pw.Font.ttf(fontData.buffer.asByteData());
     final Uint8List imageData =
         (await rootBundle.load("assets/images/rx (2).png"))
             .buffer
             .asUint8List();
+
+    // final utf8Bytes = utf8.encode(
+    //     "দিন পর GreatDoc অ্যাপ এ ফলোআপ / চেম্বারে ব্যাবস্থাপ্ত্র সহ সরাসরি আসবেন");
+    // final utf8String = utf8.decode(utf8Bytes);
     var advice = doc.advice.toString();
 
     List<String> characters = advice.split(',');
@@ -60,9 +72,12 @@ class PdfInvoiceApi {
 
     final age = calculateAge(
         doc.patient!.patientDob.toString().split(" ").first.toString());
+    print(bijoyToUnicode(
+        ".......... দিন পর GreatDoc অ্যাপ এ ফলোআপ / চেম্বারে ব্যাবস্থাপ্ত্র সহ সরাসরি আসবেন"));
 
     pdf.addPage(pw.MultiPage(
       build: (context) => [
+
         Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -287,13 +302,15 @@ class PdfInvoiceApi {
         ),
         Divider(),
         pw.Text(
-          ".......... দিন পর GreatDoc অ্যাপ এ ফলোআপ / চেম্বারে ব্যাবস্থাপ্ত্র সহ সরাসরি আসবেন",
+
+            ".......... দিন পর GreatDoc অ্যাপ এ ফলোআপ / চেম্বারে ব্যাবস্থাপ্ত্র সহ সরাসরি আসবেন",
+
           style: pw.TextStyle(font: ttf, fontSize: 16),
         )
       ],
     ));
 
-    List<int> bytes = await pdf.save();
+    List<int>   bytes = await pdf.save();
     return saveAndLaunchFile(bytes, "${doc.doctor!.fullName} prescription.pdf");
   }
 

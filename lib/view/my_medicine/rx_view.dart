@@ -64,7 +64,7 @@ class _RXViewState extends State<RXView> {
                     width: 36.w,
                   ),
                   title: Text(
-                    "Current rx from GreatDoc",
+                    "Current Rx from GreatDoc",
                     style: Style.alltext_default_balck,
                   ),
                 ),
@@ -92,7 +92,7 @@ class _RXViewState extends State<RXView> {
                     width: 36.w,
                   ),
                   title: Text(
-                    "Past rx from GreatDoc",
+                    "Past Rx from GreatDoc",
                     style: Style.alltext_default_balck,
                   ),
                 ),
@@ -119,12 +119,13 @@ class _RXViewState extends State<RXView> {
                     width: 36.w,
                   ),
                   title: Text(
-                    "View RX",
+                    "View Rx",
                     style: Style.alltext_default_balck,
                   ),
                 ),
               ),
-            ), SizedBox(
+            ),
+            SizedBox(
               height: 10.h,
             ),
             Card(
@@ -140,12 +141,13 @@ class _RXViewState extends State<RXView> {
                     // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
                   },
                   leading: Image.asset(
-                    "assets/icons/rxpdf.png",color: Colors.green,
+                    "assets/icons/rxpdf.png",
+                    color: Colors.green,
                     height: 38.h,
                     width: 36.w,
                   ),
                   title: Text(
-                    "View prescription from GreatDoc",
+                    "View Rx from GreatDoc",
                     style: Style.alltext_default_balck,
                   ),
                 ),

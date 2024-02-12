@@ -33,7 +33,8 @@ dependencies:
   #  faker: ^2.1.0
   cached_network_image: ^3.3.0
 
-  http: ^1.1.2
+#  http: ^1.1.2
+  http: ^0.13.6
   #  qr_code_scanner: ^1.0.1
 
   #  another_flushbar: ^1.12.29
@@ -113,6 +114,9 @@ dependencies:
   device_preview: ^1.1.0
   in_app_update: ^4.2.2
   google_fonts:
+  bijoy_helper: ^1.0.1
+  gallery_saver: ^2.1.1
+  lecle_downloads_path_provider: ^0.0.2+8
 
 
 
@@ -138,6 +142,7 @@ flutter:
     - assets/icons/my_medicine/
     - assets/icons/my_record/vitals/
     - assets/animation/
+    - assets/fonts/kalpurush.ttf
 
 
   fonts:
@@ -167,16 +172,16 @@ flutter:
           weight: 300
         - asset: assets/fonts/TiroBangla-Regular.ttf
           weight: 200
-    - family: SolaimanLipi
-      fonts:
-        - asset: assets/fonts/SolaimanLipi.ttf
-          weight: 700
-        - asset: assets/fonts/SolaimanLipi.ttf
-          weight: 600
-        - asset: assets/fonts/SolaimanLipi.ttf
-          weight: 500
-        - asset: assets/fonts/SolaimanLipi.ttf
-          weight: 300
-        - asset: assets/fonts/SolaimanLipi.ttf
-          weight: 200
+#    - family: kalpurush
+#      fonts:
+#        - asset: assets/fonts/kalpurush.ttf
+#          weight: 700
+#        - asset: assets/fonts/kalpurush.ttf
+#          weight: 600
+#        - asset: assets/fonts/kalpurush.ttf
+#          weight: 500
+#        - asset: assets/fonts/kalpurush.ttf
+#          weight: 300
+#        - asset: assets/fonts/kalpurush.ttf
+#          weight: 200
 

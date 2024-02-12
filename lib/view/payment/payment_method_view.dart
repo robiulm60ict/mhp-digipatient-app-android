@@ -131,18 +131,18 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
       body: ListView(
         padding: EdgeInsets.all(6.r),
         children: [
-          PaymentUserDetail(
-            name: " ${widget.doctor.doctors?.fullName}",
-            designation:
-                "${widget.doctor.doctors!.department!.departmentsName}",
-            visitingTime: getTime(widget.appointmentDate),
-            hospitalName:
-                "${widget.doctor.doctors!.usualProvider != null ? widget.doctor.doctors!.usualProvider?.usualProviderName.toString() : ""}",
-            date: widget.appointmentDate,
-            location: "${widget.doctor.doctors?.drWorkPhone}",
-            image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',
-            shift: widget.shiftType,
-          ),
+          // PaymentUserDetail(
+          //   name: " ${widget.doctor.doctors?.fullName}",
+          //   designation:
+          //       "${widget.doctor.doctors!.department!.departmentsName}",
+          //   visitingTime: getTime(widget.appointmentDate),
+          //   hospitalName:
+          //       "${widget.doctor.doctors!.usualProvider != null ? widget.doctor.doctors!.usualProvider?.usualProviderName.toString() : ""}",
+          //   date: widget.appointmentDate,
+          //   location: "${widget.doctor.doctors?.drWorkPhone}",
+          //   image: '${AppUrls.docImage}${widget.doctor.doctors?.drImages}',
+          //   shift: widget.shiftType,
+          // ),
           SizedBox(
             height: 6.h,
           ),
@@ -322,6 +322,8 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                         borderRadius: BorderRadius.circular(2.r),
                         side: const BorderSide(color: Colors.black)),
                     child: ExpansionTile(
+                        initiallyExpanded: true,
+
                       leading: CircleAvatar(
                           radius: 10.r,
                           // backgroundColor: Colors.white,
