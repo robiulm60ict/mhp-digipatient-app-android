@@ -18,7 +18,8 @@ class SendImage {
     // String addimageUrl = '<domain-name>/api/imageadd';
 
     Map<String, String> headers = {
-      'databaseName': 'mhpdemocom',
+      // 'databaseName': 'mhpdemocom',
+      'databaseName': 'mhpdemocom_ZXJVT',
       'Content-Type': 'multipart/form-data',
     };
     var request = http.MultipartRequest('POST', Uri.parse(AppUrls.registration))
@@ -49,7 +50,8 @@ Future<dynamic> update(Map<String, String> body, String imageBytes) async {
   //
   int? id = prefs.getInt(UserP.id);
   Map<String, String> headers = {
-    'databaseName': 'mhpdemocom',
+    // 'databaseName': 'mhpdemocom',
+    'databaseName': 'mhpdemocom_ZXJVT',
     'Content-Type': 'multipart/form-data',
   };
   var request = http.MultipartRequest('POST', Uri.parse("${AppUrls.userUrlUpdate}$id"))
@@ -123,7 +125,8 @@ class UserRegistration {
 
     // Set the headers
     Map<String, String> headers = {
-      'databaseName': 'mhpgmailcom',
+      // 'databaseName': 'mhpgmailcom',
+      'databaseName': 'mhpdemocom_ZXJVT',
       'Content-Type': 'application/json',
     };
 

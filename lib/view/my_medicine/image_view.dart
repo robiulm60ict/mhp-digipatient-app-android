@@ -95,8 +95,8 @@ class _ImageViewState extends State<ImageView> {
       });
 
       // Show a toast or snackbar to indicate that the image has been saved
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Image saved to $newImagePath and added to gallery'),
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Image saved to and added to gallery'),
       ));
     } else {
       throw Exception('Failed to load image');
@@ -108,17 +108,19 @@ class _ImageViewState extends State<ImageView> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.page_background_color,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
+        bottomNavigationBar:  BottomAppBar(
+          color: Colors.green,elevation: 0,
+
+          child: MaterialButton( onPressed: () {
             _downloadImage();
           },
-          child: Icon(Icons.download_for_offline),
+          child: Text("Download Prescription",style: Style.alltext_appbar,),),
         ),
-        appBar: AppBar(
-          backgroundColor: AppColors.primary_color,
-          title: Text("Prescription Image", style: Style.alltext_appbar),
-          centerTitle: true,
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: AppColors.primary_color,
+        //   title: Text("Prescription Image", style: Style.alltext_appbar),
+        //   centerTitle: true,
+        // ),
         body: Container(
           height: double.infinity,
           width: double.infinity,

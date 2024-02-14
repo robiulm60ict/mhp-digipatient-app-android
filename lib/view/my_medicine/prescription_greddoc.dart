@@ -221,11 +221,12 @@ class _UploadPrescriptionState extends State<PrescriptionGreatDoc> {
                                                       width: 50.w,
                                                       child: IconButton(
                                                         onPressed: () {
+
                                                           PdfInvoiceApi.pdf(
-                                                              "pdfName", info);
+                                                              "pdfName", info,context);
                                                         },
                                                         icon: Icon(Icons
-                                                            .picture_as_pdf),
+                                                            .picture_as_pdf,color: Colors.green,),
                                                       ))
                                                 ],
                                               ),

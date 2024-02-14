@@ -27,6 +27,7 @@ import '../../view_model/user_view_model/user_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/drawer_list_tile.dart';
 import '../../widgets/shimmer.dart';
+import '../my_record/my_report_upload_view.dart';
 import '../payment/ivoice/pdf_invoice_api.dart';
 import '../privacy_policy/privacypolicy.dart';
 import '../profile/patient_profile.dart';
@@ -424,6 +425,14 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
               ),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UploadReportView()));
+                  },
+                  child: Text("date")),
               SizedBox(
                 height: 6.h,
               ),
@@ -437,7 +446,6 @@ class _HomeViewState extends State<HomeView> {
               SizedBox(
                 height: 4.h,
               ),
-
               Consumer<MyDoctorDelaisViewModel>(builder: (context, dvm, child) {
                 return Card(
                   shape: RoundedRectangleBorder(
@@ -454,7 +462,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                         mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
                             child: Text(
@@ -486,7 +494,7 @@ class _HomeViewState extends State<HomeView> {
                             height: 60.h,
                             width: 170.w,
                             child: Padding(
-                              padding:  EdgeInsets.only(left: 8.0.r),
+                              padding: EdgeInsets.only(left: 8.0.r),
                               child: TextField(
                                 //   maxLength: 4,
                                 textAlign: TextAlign.start,
@@ -520,7 +528,6 @@ class _HomeViewState extends State<HomeView> {
                             color: AppColors.primaryColor,
                             child: Text("Submit"),
                           )
-
                         ],
                       ),
                     ),

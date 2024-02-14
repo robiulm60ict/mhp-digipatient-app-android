@@ -1,8 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:bijoy_helper/bijoy_helper.dart';
-import 'package:bijoy_helper/bijoy_helper.dart';
 import 'package:bijoy_helper/bijoy_helper.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,14 +7,13 @@ import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../model/myDoctorList/mydoctorList.dart';
 import '../../../model/my_medicine_model/prescription_greatdoc.dart';
 import 'mobile.dart';
 
 class PdfInvoiceApi {
-  static Future pdf(pdfName, PrescriptionListGreatDoc doc) async {
+  static Future pdf(pdfName, PrescriptionListGreatDoc doc, context) async {
     print(",,,$pdfName");
     final Document pdf = Document();
     print('cliked');
@@ -90,7 +86,6 @@ class PdfInvoiceApi {
                       children: [
                         pw.Text(
                             "${doc.doctor!.title!.titleName.toString()} ${doc.doctor!.fullName!.toString()}",
-                            textAlign: pw.TextAlign.start,
                             style: pw.TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16)),
                         pw.SizedBox(height: 2.h),
@@ -104,7 +99,6 @@ class PdfInvoiceApi {
                                   child: Text(
                                     "${data.degreeId}${doc!.doctor!.academic!.last == data ? "" : ", "}",
                                     maxLines: 3,
-                                    textAlign: TextAlign.start,
                                   ),
                                 );
                               }))
@@ -112,17 +106,14 @@ class PdfInvoiceApi {
                         pw.SizedBox(height: 2.h),
                         pw.Text(
                           doc.doctor!.specialist!.specialistsName.toString(),
-                          textAlign: pw.TextAlign.start,
                         ),
                         pw.SizedBox(height: 2.h),
                         pw.Text(
                           doc!.doctor!.workExperience!.last.company.toString(),
-                          textAlign: pw.TextAlign.start,
                         ),
                         pw.SizedBox(height: 2.h),
                         pw.Text(
                           "BMDC Reg No: ${doc.doctor!.drBmdcRegNo.toString() != "null" ? doc.doctor!.drBmdcRegNo.toString() : ""}",
-                          textAlign: pw.TextAlign.start,
                         ),
                       ])),
               SizedBox(
@@ -134,14 +125,12 @@ class PdfInvoiceApi {
                         pw.SizedBox(
                           child: pw.Text(
                               "${doc.doctor!.usualProvider!.usualProviderName.toString()}",
-                              textAlign: pw.TextAlign.start,
                               style: pw.TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16)),
                         ),
                         pw.SizedBox(height: 2.h),
                         pw.Text(
                           "${doc.doctor!.drAddressLine1.toString()}",
-                          textAlign: pw.TextAlign.start,
                         ),
                         pw.SizedBox(height: 2.h),
                         Row(
@@ -150,18 +139,15 @@ class PdfInvoiceApi {
                               SizedBox(
                                 child: pw.Text(
                                   "Serial Number: ",
-                                  textAlign: pw.TextAlign.start,
                                 ),
                               ),
                               Column(children: [
                                 pw.Text(
                                   "${doc.doctor!.usualProvider!.mobile.toString()}",
-                                  textAlign: pw.TextAlign.start,
                                 ),
                                 pw.SizedBox(height: 2.h),
                                 pw.Text(
                                   "${doc.doctor!.usualProvider!.phone.toString()}",
-                                  textAlign: pw.TextAlign.start,
                                 ),
                               ])
                             ]),
@@ -298,7 +284,6 @@ class PdfInvoiceApi {
         pw.Text(
           "${doc.doctor!.title!.titleName.toString()} ${doc.doctor!.fullName.toString()}",
           style: pw.TextStyle(font: ttf, fontSize: 14),
-          textAlign: pw.TextAlign.start,
         ),
         Divider(),
         pw.Text(

@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:device_preview/device_preview.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/utils/user.dart';
 import 'package:firebase_core/firebase_core.dart';

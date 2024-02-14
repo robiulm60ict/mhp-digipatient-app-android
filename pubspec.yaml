@@ -4,7 +4,7 @@ description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 
-version: 1.1.5+11
+version: 1.1.6+12
 
 environment:
   sdk: '>=3.1.5 <4.0.0'
@@ -111,12 +111,16 @@ dependencies:
   flutter_phone_direct_caller: ^2.1.1
   carousel_slider: ^4.2.1
   #  calendar_date_picker2: ^0.5.3
-  device_preview: ^1.1.0
+#  device_preview: ^1.1.0
   in_app_update: ^4.2.2
   google_fonts:
   bijoy_helper: ^1.0.1
   gallery_saver: ^2.1.1
   lecle_downloads_path_provider: ^0.0.2+8
+  permission_handler: ^11.0.1
+  image:
+#  syncfusion_flutter_pdf: ^24.2.4
+
 
 
 

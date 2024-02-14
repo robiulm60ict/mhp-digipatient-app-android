@@ -4,21 +4,23 @@ class AppUrls {
   static const String appSign =
       'cf2a1ab2d6d433a3a3e99d076fafd27d42023c32b279fbff9b9b9cd525c96f29';
 
-  static const String baseUrl =
-      'https://dev.macrohealthplus.org/mhp_server/public';
-  static const String baseUrlIP = 'https://gdbackend.macrohealthplus.org';
 
-  // static const String baseUrlPatient = 'http://35.213.180.244:7000/api/v1';
+
+
+  // static const String baseUrlPatientMain =
+  //     'https://gdbackend.macrohealthplus.org';  //App live
+  //
+  static const String baseUrlPatientMain =
+      'https://sandbox.greatdoc-back.macrohealthplus.org'; //Test
+
   static const String baseUrlPatient =
-      'https://gdbackend.macrohealthplus.org/api/v1';
+      '$baseUrlPatientMain/api/v1';
 
-  static const String baseAddApi = '/mhp_server/public/api/';
 
-  static const String bearer = 'Bearer ';
 
   static const String auth = 'Authorization';
   static const String drprofile =
-      'https://gdbackend.macrohealthplus.org/doctors/images/';
+      '$baseUrlPatientMain/doctors/images/';
 
   static const String login = '$baseUrlPatient/login-patient';
   static const String doctorrequest =
@@ -32,32 +34,8 @@ class AppUrls {
   static const String myDoctorsDeactivelist = '$baseUrlPatient/deactivated-doctors/';
   static const String activedoctor = '$baseUrlPatient/activate-doctor/';
   static const String deactivedoctor = '$baseUrlPatient/deactivate-doctor/';
-  static const String allDoctors = '$baseUrl/api/doctors';
-
-  static const String allPatients = '$baseUrl/api/patients';
-
-  static const String saveDocFCM = '$baseUrl/api/doctor-app-token/';
-
-  static const String savePtnFCM = '$baseUrl/api/patient-app-token/';
-
-  static const String docFee = '$baseUrlIP/api/doctors-consultation-Fee/';
-
-  static const String department = '$baseUrlIP/api/department';
-
-  static const String departmentImage =
-      '$baseUrl/mhp_server/public/department/';
-
-  // static const String loginApiEndPoint = '$baseUrl/api/login';
-
-  static const String singUpEndPoint = '$baseUrl/api/registration';
-
-  static const String allSubBodyParts = '$baseUrl/api/sub-body-parts/head';
-
-  static const String diseaseByGenderAndName =
-      '$baseUrl/api/patient-symptomsByGender/';
-
   static const String docImage =
-      "https://gdbackend.macrohealthplus.org/doctors/images/";
+      "$baseUrlPatientMain/doctors/images/";
   static const String baseUrlResoures = 'https://server.macrohealthplus.org';
   static const String medical_education =
       '$baseUrlResoures/medicalEducation/get';
@@ -70,9 +48,9 @@ class AppUrls {
   static const String patient_education_resource =
       '$baseUrlResoures/resource/get/';
   static const String prescription_image =
-      "https://gdbackend.macrohealthplus.org/images/online_prescription/";
+      "$baseUrlPatientMain/images/online_prescription/";
   static const String report_image =
-      "https://gdbackend.macrohealthplus.org/images/patients_reports/";
+      "$baseUrlPatientMain/images/patients_reports/";
   static const String currentRX = "$baseUrlPatient/get-pescriped-dugs/";
   static const String getmyreportimage =
       "$baseUrlPatient/get-patient-report-file/";
@@ -92,12 +70,10 @@ class AppUrls {
   static const String userProfileUrl = "$baseUrlPatient/patients-profile/";
   static const String userUrlUpdate = "$baseUrlPatient/patient-info-update/";
 
-  //TODO: set Edit user url
-  static const String editUserUrl = "$baseUrl/api/edit-patients/";
 
   /// image
 
-  static const String image = "$baseUrlIP/images/files/";
+  static const String image = "$baseUrlPatientMain/images/files/";
 
   /// book appointment
 
@@ -153,7 +129,6 @@ class AppUrls {
   static const String checkOtpforget = '$baseUrlPatient/verification-check';
   static const String registration = '$baseUrlPatient/patient-registration';
 
-  static const String loginAfterRegistration = '$baseUrl/api/login-patient';
 
   /// Blood Group and Birth Sex Patient
 
@@ -164,9 +139,40 @@ class AppUrls {
   static const String invoiceView =
       '$baseUrlPatient/payement-request-for-patient/';
 
-  /// video call
-  static const String videoCall =
-      'http://35.240.201.91:8010/api/generate-agora-token';
+  static const String baseUrl =
+      'https://dev.macrohealthplus.org/mhp_server/public';
+
+
+
+  //TODO: set Edit user url
+  static const String editUserUrl = "$baseUrl/api/edit-patients/";
+
+  static const String loginAfterRegistration = '$baseUrl/api/login-patient';
+
+  static const String allDoctors = '$baseUrl/api/doctors';
+
+  static const String allPatients = '$baseUrl/api/patients';
+
+  static const String saveDocFCM = '$baseUrl/api/doctor-app-token/';
+
+  static const String savePtnFCM = '$baseUrl/api/patient-app-token/';
+
+  static const String docFee = '$baseUrlPatientMain/api/doctors-consultation-Fee/';
+
+  static const String department = '$baseUrlPatientMain/api/department';
+
+  static const String departmentImage =
+      '$baseUrl/mhp_server/public/department/';
+
+
+  static const String singUpEndPoint = '$baseUrl/api/registration';
+
+  static const String allSubBodyParts = '$baseUrl/api/sub-body-parts/head';
+
+  static const String diseaseByGenderAndName =
+      '$baseUrl/api/patient-symptomsByGender/';
+
+
 }
 
 const Map header = {'Accept': 'application/json'};

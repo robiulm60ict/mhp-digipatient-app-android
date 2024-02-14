@@ -317,110 +317,47 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                   // SizedBox(
                   //   height: 10.h,
                   // ),
+
+
+
                   Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(2.r),
                         side: const BorderSide(color: Colors.black)),
-                    child: ExpansionTile(
-                        initiallyExpanded: true,
+                    child:Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Column(children: [
 
-                      leading: CircleAvatar(
-                          radius: 10.r,
-                          // backgroundColor: Colors.white,
-                          child: Icon(
-                            Icons.circle,
-                            size: 15.h,
-                            color: payment == Payment.digital
-                                ? AppColors.primaryColor
-                                : Colors.white,
-                          )),
-                      trailing: Image.asset(
-                        Assets.imagesBkash,
-                        height: 45.h,
-                        width: 50.w,
-                        //fit: BoxFit.fill,
-                      ),
+                        Row(
 
-                      // Row(
-                      //   mainAxisSize: MainAxisSize.min,
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     Image.asset(
-                      //       Assets.imagesBkash,
-                      //       height: 45.h,
-                      //       width: 50.w,
-                      //       fit: BoxFit.fill,
-                      //     ),
-                      //     // SizedBox(
-                      //     //   width: 5.w,
-                      //     // ),
-                      //     // Image.asset(
-                      //     //   Assets.imagesRocket,
-                      //     //   height: 15.h,
-                      //     //   width: 30.w,
-                      //     //   fit: BoxFit.fill,
-                      //     // ),
-                      //     // SizedBox(
-                      //     //   width: 5.w,
-                      //     // ),
-                      //     // Image.asset(
-                      //     //   Assets.imagesNagad,
-                      //     //   height: 15.h,
-                      //     //   width: 30.w,
-                      //     //   fit: BoxFit.fill,
-                      //     // ),
-                      //   ],
-                      // ),
-                      onExpansionChanged: (value) {
-                        setState(() {
-                          payment = Payment.digital;
-                        });
-                      },
-                      title: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Digital Payment",
-                            style: Style.alltext_default_balck_blod,
-                          ),
-                          SizedBox(
-                            height: 4.h,
-                          ),
-                          Text(
-                            "Send Money To \n ${widget.doctor.doctors!.drHomePhone.toString()}",
-                            style: Style.alltext_default_balck_blod,
-                          ),
-                        ],
-                      ),
-                      children: [
-                        // Row(
-                        //   children: digitalPayValue.map((value) {
-                        //     return Expanded(
-                        //       child: RadioListTile(
-                        //         title: Image.asset(
-                        //           value,
-                        //           height: 15.h,
-                        //           width: 30.w,
-                        //           fit: BoxFit.fill,
-                        //         ),
-                        //         value: digitalPayValue.indexOf(value) + 1,
-                        //         groupValue: _selectedDigitalValue,
-                        //         onChanged: (newValue) {
-                        //           setState(() {
-                        //             _selectedDigitalValue = newValue!;
-                        //           });
-                        //         },
-                        //       ),
-                        //     );
-                        //   }).toList(),
-                        // ),
-                        // Center(
-                        //   child: Text(
-                        //     "Send Money To ${widget.doctor.doctors!.drHomePhone.toString()}",
-                        //     style: Style.alltext_default_balck_blod,
-                        //   ),
-                        // ),
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(),
+
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Digital Payment",
+                                  style: Style.alltext_default_balck_blod,
+                                ),
+                                SizedBox(
+                                  height: 4.h,
+                                ),
+                                Text(
+                                  "Send Money To \n ${widget.doctor.doctors!.drHomePhone.toString()}",
+                                  style: Style.alltext_default_balck_blod,
+                                ),
+                              ],
+                            ),
+                            Image.asset(
+                              Assets.imagesBkash,
+                              height: 45.h,
+                              width: 50.w,
+                              //fit: BoxFit.fill,
+                            ),
+                          ],),
                         Padding(
                           padding: EdgeInsets.all(8.0.r),
                           child: Row(
@@ -519,8 +456,211 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                             ],
                           ),
                         ),
-                      ],
-                    ),
+                      ],),
+                    )
+
+                    // ExpansionTile(
+                    //     initiallyExpanded: true,
+                    //
+                    //
+                    //
+                    //   // leading: CircleAvatar(
+                    //   //     radius: 10.r,
+                    //   //     // backgroundColor: Colors.white,
+                    //   //     child: Icon(
+                    //   //       Icons.circle,
+                    //   //       size: 15.h,
+                    //   //       color: payment == Payment.digital
+                    //   //           ? AppColors.primaryColor
+                    //   //           : Colors.white,
+                    //   //     )),
+                    //   trailing: Image.asset(
+                    //     Assets.imagesBkash,
+                    //     height: 45.h,
+                    //     width: 50.w,
+                    //     //fit: BoxFit.fill,
+                    //   ),
+                    //
+                    //   // Row(
+                    //   //   mainAxisSize: MainAxisSize.min,
+                    //   //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   //   children: [
+                    //   //     Image.asset(
+                    //   //       Assets.imagesBkash,
+                    //   //       height: 45.h,
+                    //   //       width: 50.w,
+                    //   //       fit: BoxFit.fill,
+                    //   //     ),
+                    //   //     // SizedBox(
+                    //   //     //   width: 5.w,
+                    //   //     // ),
+                    //   //     // Image.asset(
+                    //   //     //   Assets.imagesRocket,
+                    //   //     //   height: 15.h,
+                    //   //     //   width: 30.w,
+                    //   //     //   fit: BoxFit.fill,
+                    //   //     // ),
+                    //   //     // SizedBox(
+                    //   //     //   width: 5.w,
+                    //   //     // ),
+                    //   //     // Image.asset(
+                    //   //     //   Assets.imagesNagad,
+                    //   //     //   height: 15.h,
+                    //   //     //   width: 30.w,
+                    //   //     //   fit: BoxFit.fill,
+                    //   //     // ),
+                    //   //   ],
+                    //   // ),
+                    //   // onExpansionChanged: (value) {
+                    //   //   setState(() {
+                    //   //     payment = Payment.digital;
+                    //   //   });
+                    //   // },
+                    //   title: Column(
+                    //     crossAxisAlignment: CrossAxisAlignment.center,
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: [
+                    //       Text(
+                    //         "Digital Payment",
+                    //         style: Style.alltext_default_balck_blod,
+                    //       ),
+                    //       SizedBox(
+                    //         height: 4.h,
+                    //       ),
+                    //       Text(
+                    //         "Send Money To \n ${widget.doctor.doctors!.drHomePhone.toString()}",
+                    //         style: Style.alltext_default_balck_blod,
+                    //       ),
+                    //     ],
+                    //   ),
+                    //   children: [
+                    //     // Row(
+                    //     //   children: digitalPayValue.map((value) {
+                    //     //     return Expanded(
+                    //     //       child: RadioListTile(
+                    //     //         title: Image.asset(
+                    //     //           value,
+                    //     //           height: 15.h,
+                    //     //           width: 30.w,
+                    //     //           fit: BoxFit.fill,
+                    //     //         ),
+                    //     //         value: digitalPayValue.indexOf(value) + 1,
+                    //     //         groupValue: _selectedDigitalValue,
+                    //     //         onChanged: (newValue) {
+                    //     //           setState(() {
+                    //     //             _selectedDigitalValue = newValue!;
+                    //     //           });
+                    //     //         },
+                    //     //       ),
+                    //     //     );
+                    //     //   }).toList(),
+                    //     // ),
+                    //     // Center(
+                    //     //   child: Text(
+                    //     //     "Send Money To ${widget.doctor.doctors!.drHomePhone.toString()}",
+                    //     //     style: Style.alltext_default_balck_blod,
+                    //     //   ),
+                    //     // ),
+                    //     Padding(
+                    //       padding: EdgeInsets.all(8.0.r),
+                    //       child: Row(
+                    //
+                    //         children: [
+                    //           SizedBox(
+                    //             width: 70.w,
+                    //             child: Text(
+                    //               "Payment Number *",
+                    //               style: Style.alltext_default_balck,
+                    //             ),
+                    //           ),
+                    //           SizedBox(
+                    //             width: 5.w,
+                    //           ),
+                    //           Expanded(
+                    //             child: TextField(
+                    //               controller: transactionphone,
+                    //               keyboardType: TextInputType.number,
+                    //               maxLength: 11,
+                    //               decoration: InputDecoration(
+                    //                 filled: true,
+                    //                 fillColor: Colors.grey.shade200,
+                    //                 border: InputBorder.none,
+                    //                 focusedBorder: InputBorder.none,
+                    //                 enabledBorder: InputBorder.none,
+                    //                 hintText: "pay number",
+                    //                 hintStyle: Style.alltext_default_balck,
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: EdgeInsets.all(8.0.r),
+                    //       child: Row(
+                    //         children: [
+                    //           SizedBox(
+                    //             width: 70.w,
+                    //             child: Text(
+                    //               "Trans ID *",
+                    //               style: Style.alltext_default_balck,
+                    //             ),
+                    //           ),
+                    //           SizedBox(
+                    //             width: 5.w,
+                    //           ),
+                    //           Expanded(
+                    //             child: TextField(
+                    //               keyboardType: TextInputType.text,
+                    //               controller: transaction,
+                    //               maxLength: 10,
+                    //               decoration: InputDecoration(
+                    //                 filled: true,
+                    //                 fillColor: Colors.grey.shade200,
+                    //                 border: InputBorder.none,
+                    //                 focusedBorder: InputBorder.none,
+                    //                 enabledBorder: InputBorder.none,
+                    //                 hintText: "xxxxxxxxxxx",
+                    //                 hintStyle: Style.alltext_default_balck,
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: EdgeInsets.all(8.0.r),
+                    //       child: Row(
+                    //         children: [
+                    //           SizedBox(
+                    //             width: 70.w,
+                    //             child: Text(
+                    //               "Reference Name *",
+                    //               style: Style.alltext_default_balck,
+                    //             ),
+                    //           ),
+                    //           SizedBox(
+                    //             width: 5.w,
+                    //           ),
+                    //           Expanded(
+                    //             child: TextField(
+                    //               controller: transactionrefer,
+                    //               decoration: InputDecoration(
+                    //                 filled: true,
+                    //                 fillColor: Colors.grey.shade200,
+                    //                 border: InputBorder.none,
+                    //                 focusedBorder: InputBorder.none,
+                    //                 enabledBorder: InputBorder.none,
+                    //                 hintText: "xxxxxxxxxxx",
+                    //                 hintStyle: Style.alltext_default_balck,
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   ),
                   SizedBox(
                     height: 8.h,
@@ -635,9 +775,12 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryColor),
                       onPressed: () async {
-                        if (payment != Payment.digital) {
-                          Messages.snackBar(context, "Select Digital Payment");
-                        } else if (transactionphone.text.isEmpty) {
+                        // if (payment != Payment.digital) {
+                        //   Messages.snackBar(context, "Select Digital Payment");
+                        // } else
+                        //
+
+                          if (transactionphone.text.isEmpty) {
                           Messages.snackBar(context, "Enter Payment Number");
                         } else if (transactionphone.text.length != 11) {
                           Messages.snackBar(
@@ -658,7 +801,8 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                             "date": widget.appointmentDate.split(" ").first,
                             "appointment_type": widget.appointmentType,
                             "disease": jsonEncode(items),
-                            "payment_type": getPaymentMethod(),
+                            "payment_type": "bKash",
+                            // getPaymentMethod(),
                             "amount": widget.amount,
                             "transaction_no": transaction.text,
                             "referred_name": transactionrefer.text,

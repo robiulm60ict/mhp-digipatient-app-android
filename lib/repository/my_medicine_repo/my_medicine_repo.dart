@@ -155,7 +155,8 @@ class SendImage {
     Map<String, String> headers = {
       'Authorization': "Bearer $token",
       'Content-Type': 'multipart/form-data',
-      'databaseName': 'mhpdemocom',
+      // 'databaseName': 'mhpdemocom',
+      'databaseName': 'mhpdemocom_ZXJVT',
     };
     var request = http.MultipartRequest('POST', Uri.parse(AppUrls.uploadMyReport))
       ..fields.addAll(body)
