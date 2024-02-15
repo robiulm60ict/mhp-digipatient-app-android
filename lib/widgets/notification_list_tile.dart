@@ -35,10 +35,10 @@ class NotificationListTile extends StatelessWidget {
             ),
             children: <TextSpan>[
               TextSpan(
-                text: doctorName,
+                text: " $doctorName",
                 style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.primaryColor,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.text_primary_color,
                     fontSize: 14.sp
                 ),
               ),

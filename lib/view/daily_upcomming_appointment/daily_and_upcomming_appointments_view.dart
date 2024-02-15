@@ -167,7 +167,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                             return AppointmentNotificationCard(
                               onTap: () {},
                               title:
-                                  "You have an appointment with  ${app.doctors!.title!.titleName}. ${app.doctors!.fullName} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
+                                  "appointment with  ${app.doctors!.title!.titleName}. ${app.doctors!.fullName} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
                               subTitle:
                                   "Starts: ${getTime(app.startTime.toString())} Ends: ${getTime(app.endTime.toString())}",
                               docImage:

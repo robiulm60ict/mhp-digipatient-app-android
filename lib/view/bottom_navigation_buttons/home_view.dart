@@ -426,14 +426,14 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MyPage()));
-                  },
-                  child: Text("date")),
+              // ElevatedButton(
+              //     onPressed: () {
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => MyPage()));
+              //     },
+              //     child: Text("date")),
               SizedBox(
                 height: 6.h,
               ),

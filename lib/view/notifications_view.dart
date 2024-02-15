@@ -57,7 +57,6 @@ class _NotificationsViewState extends State<NotificationsView> {
     final appointments = Provider.of<DailyAndUpcommingViewModel>(context);
 
     return Scaffold(
-
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.primaryColor,
@@ -89,32 +88,33 @@ class _NotificationsViewState extends State<NotificationsView> {
             ),
             appointments.isTodayAppointmentLoading
                 ? const Center(child: CircularProgressIndicator())
-                :
-                     ListView.separated(
-                       shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          TodaysPatientAppointment app =
-                              appointments.todayAppointmentList[index];
+                : ListView.separated(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      TodaysPatientAppointment app =
+                          appointments.todayAppointmentList[index];
 
-                          return appointments.todayAppointmentList.isNotEmpty?NotificationListTile(
-                            doctorName: "${app.titleName}. ${app.drGivenName} ${app.drMiddleName} ${app.drLastName} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(
-                                app.startTime.toString()))}.",
-                            appointmentTime:
-                                "${getTime(app.startTime.toString())}- ${getTime(app.endTime.toString())}",
-                            onTap: () {
-                              // notificationPopup(context,
-                              //     doctorName: "${app.drGivenName}",
-                              //     docImage:
-                              //         "${AppUrls.docImage}${app.drImages}", time: '${getTime(app.startTime.toString())}', date: '${getDate(app.createdAt.toString())}', hospital: '${app.patientUsualProviderId}');
-                            },
-                            docImage: "${AppUrls.docImage}${app.drImages}",
-                            beforeText: 'Today, You have an appointment with ',
-                          ):Container();
-                        },
-                        separatorBuilder: (context, index) => SizedBox(
-                              height: 10.h,
-                            ),
-                        itemCount: appointments.todayAppointmentList.length),
+                      return appointments.todayAppointmentList.isNotEmpty
+                          ? NotificationListTile(
+                              doctorName:
+                                  "${app.titleName}. ${app.drGivenName}${app.drMiddleName.toString() != "" && app.drMiddleName.toString() != null && app.drMiddleName.toString() != "null" ? app.drMiddleName.toString() : ""} ${app.drLastName} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
+                              appointmentTime:
+                                  "${getTime(app.startTime.toString())}- ${getTime(app.endTime.toString())}",
+                              onTap: () {
+                                // notificationPopup(context,
+                                //     doctorName: "${app.drGivenName}",
+                                //     docImage:
+                                //         "${AppUrls.docImage}${app.drImages}", time: '${getTime(app.startTime.toString())}', date: '${getDate(app.createdAt.toString())}', hospital: '${app.patientUsualProviderId}');
+                              },
+                              docImage: "${AppUrls.docImage}${app.drImages}",
+                              beforeText: 'Today, You have an  ',
+                            )
+                          : Container();
+                    },
+                    separatorBuilder: (context, index) => SizedBox(
+                          height: 10.h,
+                        ),
+                    itemCount: appointments.todayAppointmentList.length),
 
             //
             // Align(
@@ -133,31 +133,34 @@ class _NotificationsViewState extends State<NotificationsView> {
             ),
             appointments.isUpcommingAppointmentLoading
                 ? const Center(child: CircularProgressIndicator())
-                :  ListView.separated(
-              shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        UpcomingAppointment app =
-                            appointments.upcommingAppointmentList[index];
+                : ListView.separated(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      UpcomingAppointment app =
+                          appointments.upcommingAppointmentList[index];
 
-                        return appointments.upcommingAppointmentList.isNotEmpty? NotificationListTile(
-                          doctorName: "${app.doctors!.title!.titleName.toString()}. ${app.doctors!.fullName!.toString()} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(
-                              app.startTime.toString()))}.",
-                          appointmentTime:
-                              "${getTime(app.startTime.toString())}- ${getTime(app.endTime.toString())}",
-                          onTap: () {
-                            // notificationPopup(context,
-                            //     doctorName: "${app.drGivenName}",
-                            //     docImage: "${AppUrls.docImage}${app.drImages}");
-                          },
-                          docImage: "${AppUrls.docImage}${app.doctors!.drImages.toString()}",
-                          beforeText: 'You have an appointment with ',
-                        ):Container();
-                      },
-                      separatorBuilder: (context, index) => SizedBox(
-                        height: 10.h,
-                      ),
-                      itemCount: appointments.upcommingAppointmentList.length,
+                      return appointments.upcommingAppointmentList.isNotEmpty
+                          ? NotificationListTile(
+                              doctorName:
+                                  "appointment with ${app.doctors!.title!.titleName.toString()}. ${app.doctors!.fullName!.toString()} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
+                              appointmentTime:
+                                  "${getTime(app.startTime.toString())}- ${getTime(app.endTime.toString())}",
+                              onTap: () {
+                                // notificationPopup(context,
+                                //     doctorName: "${app.drGivenName}",
+                                //     docImage: "${AppUrls.docImage}${app.drImages}");
+                              },
+                              docImage:
+                                  "${AppUrls.docImage}${app.doctors!.drImages.toString()}",
+                              beforeText: 'You have an ',
+                            )
+                          : Container();
+                    },
+                    separatorBuilder: (context, index) => SizedBox(
+                      height: 10.h,
                     ),
+                    itemCount: appointments.upcommingAppointmentList.length,
+                  ),
 
             SizedBox(
               height: kPadding.h,

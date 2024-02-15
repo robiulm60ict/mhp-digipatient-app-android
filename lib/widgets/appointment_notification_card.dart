@@ -34,9 +34,19 @@ class AppointmentNotificationCard extends StatelessWidget {
             ),
           ),
         ),
-        title: Text(
-          title,
-          style: Style.alltext_default_balck_blod,
+        title: RichText(
+          text: new TextSpan(
+            // Note: Styles for TextSpans must be explicitly defined.
+            // Child text spans will inherit styles from parent
+            style: new TextStyle(
+              fontSize: 14.0,
+              color: Colors.black,
+            ),
+            children: <TextSpan>[
+               TextSpan(text: 'You have an ',style:  TextStyle(fontWeight: FontWeight.bold,color: Colors.green)),
+               TextSpan(text: title, style:  TextStyle(fontWeight: FontWeight.bold)),
+            ],
+          ),
         ),
         subtitle: Text(
           subTitle,
