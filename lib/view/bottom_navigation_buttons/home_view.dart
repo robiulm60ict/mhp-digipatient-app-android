@@ -27,6 +27,7 @@ import '../../view_model/user_view_model/user_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/drawer_list_tile.dart';
 import '../../widgets/shimmer.dart';
+import '../daily_upcomming_appointment/patientqueioo.dart';
 import '../my_record/my_report_upload_view.dart';
 import '../payment/ivoice/pdf_invoice_api.dart';
 import '../privacy_policy/privacypolicy.dart';
@@ -430,7 +431,7 @@ class _HomeViewState extends State<HomeView> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => UploadReportView()));
+                            builder: (context) => MyPage()));
                   },
                   child: Text("date")),
               SizedBox(

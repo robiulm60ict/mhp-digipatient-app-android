@@ -41,11 +41,16 @@ class MyMedicineViewModel with ChangeNotifier {
       notifyListeners();
     });
   }
+
+  bool isPrescriptionRxUplodLoading = false;
+
   uploadRx(
       BuildContext context, Map<String, String> body, imageBytes,) {
+    isPrescriptionRxUplodLoading = true;
+    notifyListeners();
     print("uploadRx Responcerrrrrrrrrrrrrrrrrrr${imageBytes}");
     medicineRepo.uploadRx(body, imageBytes).then((value) {
-
+      isPrescriptionRxUplodLoading = false;
       Messages.snackBar(context, "Report uploaded successfully",
           backgroundColor: AppColors.greenColor);
       Navigator.pop(context);
@@ -61,6 +66,8 @@ class MyMedicineViewModel with ChangeNotifier {
     }).onError((error, stackTrace) {
       print(error);
       print(stackTrace);
+      isPrescriptionRxUplodLoading = false;
+
       Messages.snackBar(context, error.toString());
     });
   }

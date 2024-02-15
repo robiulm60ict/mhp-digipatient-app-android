@@ -45,8 +45,6 @@ class _DocDetailsViewState extends State<DocDetailsView> {
     context
         .read<MyDoctorViewModel>()
         .getdoctorcountpatient(widget.id.toString());
-
-
   }
 
   getDoctor(id) async {
@@ -61,7 +59,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
   @override
   Widget build(BuildContext context) {
     final mdVM = Provider.of<MyDoctorViewModel>(context);
-     final appointmentViewModel = Provider.of<AppointmentViewModel>(context);
+    final appointmentViewModel = Provider.of<AppointmentViewModel>(context);
 
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
@@ -81,9 +79,9 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           amount:
                               "${doc?.doctors?.doctorFee == null ? "0" : doc?.doctors?.doctorFee} ")));
 
-              appointmentViewModel.selectedDatee=null;
-              appointmentViewModel.isChamber="";
-              appointmentViewModel.morningeveingButton="";
+              appointmentViewModel.selectedDatee = null;
+              appointmentViewModel.isChamber = "";
+              appointmentViewModel.morningeveingButton = "";
 
               // context.router.push(BookAppointmentRoute(
               //     doctors: doc!,
@@ -149,20 +147,50 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                               )
                             : SizedBox(),
                         doc!.doctors!.academic!.isNotEmpty
-                            ? Row(
-                                children: List.generate(
-                                    doc!.doctors!.academic!.length, (index) {
-                                var data = doc!.doctors!.academic![index];
-                                return Center(
-                                  //  width: Get.size.width*0.26,
-                                  child: Text(
-                                      "${data.degreeId}${doc!.doctors!.academic!.last == data ? "" : ", "}",
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
-                                      style: Style.alltext_ExtraSmall_black),
-                                );
-                              }))
+                            ? Container(
+                                height: 20.h,
+                                width: 200.h,
+                                // width: 200, // specify a height here,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: doc!.doctors!.academic!.length < 5
+                                      ? doc!.doctors!.academic!.length
+                                      : 6,
+                                  itemBuilder: (context, index) {
+                                    var data = doc!.doctors!.academic![index];
+                                    return Container(
+                                      // width: 50.h,
+
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 0.0),
+                                      child: Text(
+                                        "${data.degreeId}${doc!.doctors!.academic!.last == data ? "" : ", "}",
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                        style: Style.alltext_ExtraSmall_black,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              )
+
+                            // Row(
+                            //         children: List.generate(
+                            //             doc!.doctors!.academic!.length, (index) {
+                            //         var data = doc!.doctors!.academic![index];
+                            //         return Center(
+                            //           //  width: Get.size.width*0.26,
+                            //           child: Text(
+                            //               "${data.degreeId}${doc!.doctors!.academic!.last == data ? "" : ", "}",
+                            //               maxLines: 3,
+                            //               overflow: TextOverflow.ellipsis,
+                            //               textAlign: TextAlign.center,
+                            //               style: Style.alltext_ExtraSmall_black),
+                            //         );
+                            //       }))
                             : Container(),
                         SizedBox(
                           height: 8.h,
@@ -235,32 +263,28 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                         SizedBox(
                           height: 2.h,
                         ),
-
-
                         Padding(
-                          padding: const EdgeInsets.only(left: 3.0,top: 0),
+                          padding: const EdgeInsets.only(left: 3.0, top: 0),
                           child: Row(
-
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                            Image.asset(
-                              Assets.imagesBkash,
-                              height: 35.h,
-                              width: 35.w,
-                              fit: BoxFit.contain,
-                            ),
-                            // CircleAvatar(
-                            //   maxRadius: 24,
-                            //   backgroundImage: AssetImage(Assets.imagesBkash),
-                            // ),
-                            Text(
-                              " bKash Payment : ${doc!.doctors!.drHomePhone.toString()=="null"?"":doc!.doctors!.drHomePhone.toString()}",
-                              style: Style.alltext_default_balck_blod,
-                            ),
-
-
-                          ],),
+                              Image.asset(
+                                Assets.imagesBkash,
+                                height: 35.h,
+                                width: 35.w,
+                                fit: BoxFit.contain,
+                              ),
+                              // CircleAvatar(
+                              //   maxRadius: 24,
+                              //   backgroundImage: AssetImage(Assets.imagesBkash),
+                              // ),
+                              Text(
+                                " bKash Payment : ${doc!.doctors!.drHomePhone.toString() == "null" ? "" : doc!.doctors!.drHomePhone.toString()}",
+                                style: Style.alltext_default_balck_blod,
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -271,45 +295,52 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
-                  
                     children: [
                       Align(
                         alignment: Alignment.center,
-                        child: doc?.doctors?.drImages.toString() != "null"|| doc?.doctors?.drImages.toString() != null
-                             ?  FadeInImage(
-                          fit: BoxFit.cover,
-                          width: 65,
-                          height: 65,
-                          image: NetworkImage(
-                            "${AppUrls.docImage}${doc?.doctors?.drImages}"!,
-                          ),
-                          imageErrorBuilder: (context, error, stackTrace) =>
-                          const CircleAvatar(
-                            radius: 40,
-                            backgroundImage: AssetImage(Assets.dummy_image),
-                          ),
-                          placeholder: const AssetImage(Assets.imagesAvatar),
-                        )
-                    //
-                    // CircleAvatar(
+                        child: doc?.doctors?.drImages.toString() != "null" ||
+                                doc?.doctors?.drImages.toString() != null
+                            ? FadeInImage(
+                                fit: BoxFit.cover,
+                                width: 65,
+                                height: 65,
+                                image: NetworkImage(
+                                  "${AppUrls.docImage}${doc?.doctors?.drImages}"!,
+                                ),
+                                imageErrorBuilder:
+                                    (context, error, stackTrace) =>
+                                        const CircleAvatar(
+                                  radius: 40,
+                                  backgroundImage:
+                                      AssetImage(Assets.dummy_image),
+                                ),
+                                placeholder:
+                                    const AssetImage(Assets.imagesAvatar),
+                              )
+                            //
+                            // CircleAvatar(
                             //     radius: 40.r,
                             //     backgroundColor: AppColors.linearGradient1,
                             //     backgroundImage: NetworkImage(
                             //         "${AppUrls.docImage}${doc?.doctors?.drImages}"),
                             //   )
                             : CircleAvatar(
-                          radius: 40.r,
-                          backgroundColor: AppColors.linearGradient1,
-                          backgroundImage: AssetImage(
-                              Assets.dummy_image),
-                        ),
+                                radius: 40.r,
+                                backgroundColor: AppColors.linearGradient1,
+                                backgroundImage: AssetImage(Assets.dummy_image),
+                              ),
                       ),
-
                       Style.distan_size5,
-                      MaterialButton(color:Colors.green,onPressed: (){
-                        _showDeleteConfirmationDialog(context);
-                      },child:  Text("Active",style: Style.alltext_appbar,),)
-
+                      MaterialButton(
+                        color: Colors.green,
+                        onPressed: () {
+                          _showDeleteConfirmationDialog(context);
+                        },
+                        child: Text(
+                          "Active",
+                          style: Style.alltext_appbar,
+                        ),
+                      )
                     ],
                   ),
                 )
@@ -325,8 +356,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
               children: [
                 // SizedBox(height: 10,)
                 Container(
-
-                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 6.r),
+                  padding: EdgeInsets.only(left: 10.r, right: 10.r, top: 6.r),
                   height: 80.h,
                   child: Row(
                     children: [
@@ -375,7 +405,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                   height: 6.h,
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 0.r),
+                  padding: EdgeInsets.only(left: 10.r, right: 10.r, top: 0.r),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -404,76 +434,83 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                   height: 6.h,
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 0.r),
+                  padding: EdgeInsets.only(left: 10.r, right: 10.r, top: 0.r),
                   child: Row(
                     children: [
                       Expanded(
                         child: Card(
                           elevation: 3,
-                          child:  Container(
+                          child: Container(
                             height: 55.h,
                             child: Consumer<MyDoctorViewModel>(
                                 builder: (context, data, child) {
-                                  if (data.sociallist.isEmpty) {
-                                    return Center(
-                                      child: Text(
-                                        "Currently you have no records",
-                                        style: Style.alltext_default_balck,
-                                      ),
-                                    );
-                                  } else {
-                                    return ListView.builder(
-                                        itemCount: data.sociallist.length>4?4:data.sociallist.length,
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.horizontal,
-                                        physics: ScrollPhysics(),
-                                        itemBuilder: (context, index) {
-                                          var info = data.sociallist[index];
-                                          return Container(
-                                            height: 40.h,
-                                            width: 40.w,
-                                            padding: const EdgeInsets.only(top: 4),
-                                            child: Container(
-                                              // height: 40.h,
-                                              // width: 40.w,
-                                              color: Colors.white,
-                                              padding: const EdgeInsets.all(5.0),
-                                              child: SizedBox(
-                                                  width: 80.w,
-                                                  child: InkWell(
-                                                    onTap: () async {
-                                                      await launch(info.url.toString());
+                              if (data.sociallist.isEmpty) {
+                                return Center(
+                                  child: Text(
+                                    "Currently you have no records",
+                                    style: Style.alltext_default_balck,
+                                  ),
+                                );
+                              } else {
+                                return ListView.builder(
+                                    itemCount: data.sociallist.length > 4
+                                        ? 4
+                                        : data.sociallist.length,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    physics: ScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      var info = data.sociallist[index];
+                                      return Container(
+                                        height: 40.h,
+                                        width: 40.w,
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: Container(
+                                          // height: 40.h,
+                                          // width: 40.w,
+                                          color: Colors.white,
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: SizedBox(
+                                              width: 80.w,
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  await launch(
+                                                      info.url.toString());
 
-                                                      // Navigator.push(
-                                                      //     context,
-                                                      //     MaterialPageRoute(
-                                                      //         builder: (context) =>
-                                                      //             SocialWebviewView(
-                                                      //               url: info.url,
-                                                      //             )));
-                                                    },
-                                                    child: CircleAvatar(
-                                                      maxRadius: 8,
-                                                      child: Image.asset(info.name
-                                                          .toString() ==
+                                                  // Navigator.push(
+                                                  //     context,
+                                                  //     MaterialPageRoute(
+                                                  //         builder: (context) =>
+                                                  //             SocialWebviewView(
+                                                  //               url: info.url,
+                                                  //             )));
+                                                },
+                                                child: CircleAvatar(
+                                                  maxRadius: 8,
+                                                  child: Image.asset(info.name
+                                                              .toString() ==
                                                           "FaceBook"
-                                                          ? Assets.facebook
-                                                          : (info.name.toString() == "Youtube"
+                                                      ? Assets.facebook
+                                                      : (info.name.toString() ==
+                                                              "Youtube"
                                                           ? Assets.youtube
                                                           : (info.name.toString() ==
-                                                          "LinkedIn"
-                                                          ? Assets.linkedin
-                                                          : ((info.name.toString() ==
-                                                          "Twitter"
-                                                          ? Assets.twitter
-                                                          : Assets.homeMyRec))))),
-                                                    ),
-                                                  )),
-                                            ),
-                                          );
-                                        });
-                                  }
-                                }),
+                                                                  "LinkedIn"
+                                                              ? Assets.linkedin
+                                                              : ((info.name
+                                                                          .toString() ==
+                                                                      "Twitter"
+                                                                  ? Assets
+                                                                      .twitter
+                                                                  : Assets
+                                                                      .homeMyRec))))),
+                                                ),
+                                              )),
+                                        ),
+                                      );
+                                    });
+                              }
+                            }),
                           ),
                         ),
                       ),
@@ -483,39 +520,38 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                           child: Container(
                             height: 55.h,
                             padding: EdgeInsets.all(4),
-                            child: Row(children: [
-                              CircleAvatar(
-                                  backgroundColor:  Colors.green,
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: Colors.green,
                                   child: IconButton(
-                                    onPressed: (){
-                                      FlutterPhoneDirectCaller.callNumber("${doc!.doctors!.drWorkPhone.toString()}");
-                                    },
-                                   icon: Icon( Icons.call,size: 25,
-                                       color:AppColors.backgroundColor,)
-
-                                  ),
+                                      onPressed: () {
+                                        FlutterPhoneDirectCaller.callNumber(
+                                            "${doc!.doctors!.drWorkPhone.toString()}");
+                                      },
+                                      icon: Icon(
+                                        Icons.call,
+                                        size: 25,
+                                        color: AppColors.backgroundColor,
+                                      )),
                                 ),
-                              Style.widthdistan_size5,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                        "Support : ",
-                                        style: Style.alltext_default_balck,
-                                      ),
-
-                                  Text(
-                                        "${doc!.doctors!.drWorkPhone.toString()=="null"?"":doc!.doctors!.drWorkPhone.toString()
-                                        }",
-
-                                        style: Style.alltext_default_balck,
-                                      ),
-                                ],
-                              )
-                            ],),
-
-
+                                Style.widthdistan_size5,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Support : ",
+                                      style: Style.alltext_default_balck,
+                                    ),
+                                    Text(
+                                      "${doc!.doctors!.drWorkPhone.toString() == "null" ? "" : doc!.doctors!.drWorkPhone.toString()}",
+                                      style: Style.alltext_default_balck,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -527,7 +563,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                   height: 10.h,
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 0.r),
+                  padding: EdgeInsets.only(left: 10.r, right: 10.r, top: 0.r),
                   child: Text(
                     "About Doctor",
                     style: Style.alltext_default_balck_blod,
@@ -538,8 +574,9 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 ),
                 doc?.doctors!.drAbout.toString() != "null"
                     ? Padding(
-                  padding: EdgeInsets.only(left: 10.r,right: 10.r,top: 0.r),
-                      child: ReadMoreText(
+                        padding:
+                            EdgeInsets.only(left: 10.r, right: 10.r, top: 0.r),
+                        child: ReadMoreText(
                           "${doc?.doctors?.drAbout.toString() ?? ""}",
                           trimLines: 8,
                           colorClickableText: Colors.pink,
@@ -556,7 +593,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                               color: AppColors.primaryColor),
                           style: Style.alltext_default_balck,
                         ),
-                    )
+                      )
                     : Text(""),
                 SizedBox(
                   height: 12.w,
@@ -564,21 +601,29 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                 Card(
                   elevation: 7,
                   child: Container(
-                  color:  AppColors.linearGradient1,
-                  padding: const EdgeInsets.only(left: 8.0,right: 8,top: 12,bottom: 12),
-                  child: Row(
-                    children: [
-                      // Icon(Icons.note_add_outlined , color: AppColors.text_primary_color,size: 50,),
-                      Image.asset("assets/icons/info.png",width: 40.w,color: Colors.black,),
-                      Style.widthdistan_size5,
-                      SizedBox(
-                          width: 280.w,
-                          child: Text("Pay the doctor’s consultation fee in bkash. Please remember bkash number and 10-digit transaction ID to confirm doctor’s follow-up appointment. ",style: Style.alltext_default_balck,textAlign: TextAlign.start,)),
-                    ],
+                    color: AppColors.linearGradient1,
+                    padding: const EdgeInsets.only(
+                        left: 8.0, right: 8, top: 12, bottom: 12),
+                    child: Row(
+                      children: [
+                        // Icon(Icons.note_add_outlined , color: AppColors.text_primary_color,size: 50,),
+                        Image.asset(
+                          "assets/icons/info.png",
+                          width: 40.w,
+                          color: Colors.black,
+                        ),
+                        Style.widthdistan_size5,
+                        SizedBox(
+                            width: 280.w,
+                            child: Text(
+                              "Pay the doctor’s consultation fee in bkash. Please remember bkash number and 10-digit transaction ID to confirm doctor’s follow-up appointment. ",
+                              style: Style.alltext_default_balck,
+                              textAlign: TextAlign.start,
+                            )),
+                      ],
+                    ),
                   ),
-                ),)
-
-
+                )
               ],
             ),
           ),
@@ -586,17 +631,25 @@ class _DocDetailsViewState extends State<DocDetailsView> {
       ),
     );
   }
+
   Future<void> _showDeleteConfirmationDialog(BuildContext context) async {
     final provider =
-    Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
+        Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Row(
             children: [
-              Icon(Icons.cancel,color: Colors.red,),Style.widthdistan_size5,
-              Text('Confirmation',style: Style.alltext_default_balck_blod_dilog,),
+              Icon(
+                Icons.cancel,
+                color: Colors.red,
+              ),
+              Style.widthdistan_size5,
+              Text(
+                'Confirmation',
+                style: Style.alltext_default_balck_blod_dilog,
+              ),
             ],
           ),
           content: const Text('Do  you want to Inactive this doctor?'),
@@ -608,22 +661,21 @@ class _DocDetailsViewState extends State<DocDetailsView> {
               child: Text('No'),
             ),
             TextButton(
-              onPressed: () {
-                // Perform deletion logic here
-                // Delete your data and update the UI accordingly
-                // ...
+                onPressed: () {
+                  // Perform deletion logic here
+                  // Delete your data and update the UI accordingly
+                  // ...
 
-                Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyDoctorView()));
-                provider.deactiveDoctors(context,widget.id.toString());
-                // Close the dialog after deletion
-              },
-              child: const Text("Yes")
-            ),
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => MyDoctorView()));
+                  provider.deactiveDoctors(context, widget.id.toString());
+                  // Close the dialog after deletion
+                },
+                child: const Text("Yes")),
           ],
         );
       },
     );
   }
-
 }

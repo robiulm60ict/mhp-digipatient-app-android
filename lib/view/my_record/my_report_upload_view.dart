@@ -570,7 +570,7 @@ class _UploadReportViewState extends State<UploadReportView> {
                   height: 100, // Adjust height as needed
                   child: const Column(
                     children: [
-                      Text("Please Waiting"),
+                      Text("Please Wait..."),
                       Center(
                         child: CircularProgressIndicator(color: Colors.green), // Loading indicator
                       ),
@@ -585,7 +585,7 @@ class _UploadReportViewState extends State<UploadReportView> {
 
 
 
-      bottomNavigationBar: BottomAppBar(
+      bottomNavigationBar: report.isPrescriptionRxUplodLoading==true?Center(child: CircularProgressIndicator()): BottomAppBar(
         child: Padding(
           padding: const EdgeInsets.all(4.0),
           child: MaterialButton(

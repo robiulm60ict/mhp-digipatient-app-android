@@ -67,7 +67,8 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
       },
       child: Scaffold(
         backgroundColor: AppColors.page_background_color,
-        appBar: AppBar(   leading: const CustomBackButton(),
+        appBar: AppBar(
+          leading: const CustomBackButton(),
           leadingWidth: leadingWidth,
           backgroundColor: AppColors.primary_color,
           centerTitle: true,
@@ -145,17 +146,16 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                   replacement: appointments.upcommingAppointmentList.isEmpty
                       ? appointments.isUpcommingAppointmentLoading == true
                           ? ListView.builder(
-                            itemCount: 6,
-                            shrinkWrap: true,
-
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: bannerShimmereffect(
-                                    94.toDouble(), 385.toDouble()),
-                              );
-                            },
-                          )
+                              itemCount: 6,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: bannerShimmereffect(
+                                      94.toDouble(), 385.toDouble()),
+                                );
+                              },
+                            )
                           : noDataFounForList("Currently you have no records")
                       : ListView.builder(
                           shrinkWrap: true,
@@ -165,9 +165,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                             UpcomingAppointment app =
                                 appointments.upcommingAppointmentList[index];
                             return AppointmentNotificationCard(
-                              onTap: () {
-
-                              },
+                              onTap: () {},
                               title:
                                   "You have an appointment with  ${app.doctors!.title!.titleName}. ${app.doctors!.fullName} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
                               subTitle:
@@ -179,16 +177,16 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                   child: appointments.todayAppointmentList.isEmpty
                       ? appointments.isTodayAppointmentLoading == true
                           ? ListView.builder(
-                            itemCount: 6,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: bannerShimmereffect(
-                                    94.toDouble(), 385.toDouble()),
-                              );
-                            },
-                          )
+                              itemCount: 6,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: bannerShimmereffect(
+                                      94.toDouble(), 385.toDouble()),
+                                );
+                              },
+                            )
                           : noDataFounForList("Currently you have no records")
                       : ListView.builder(
                           shrinkWrap: true,
@@ -200,10 +198,9 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                               onTap: () {
                                 debugPrint(
                                     "--------------------${app.appType}");
-
                               },
                               title:
-                                  "You have an appointment with ${app.titleName ?? ""}. ${app.drGivenName ?? ""} ${app.drMiddleName ?? ""} ${app.drLastName ?? ""} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
+                                  "You have an appointment with ${app.titleName ?? ""}. ${app.drGivenName ?? ""} ${app.drMiddleName.toString() != "" && app.drMiddleName.toString() != null && app.drMiddleName.toString() != "null" ? app.drMiddleName.toString() : ""} ${app.drLastName ?? ""} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
                               subTitle:
                                   "Starts: ${DateFormat("hh:mm a").format(DateTime.parse(app.startTime.toString()))} Ends: ${DateFormat("hh:mm a").format(DateTime.parse(app.endTime.toString()))}",
                               docImage: "${AppUrls.docImage}${app.drImages}",
