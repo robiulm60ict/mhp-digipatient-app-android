@@ -200,7 +200,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                                     "--------------------${app.appType}");
                               },
                               title:
-                                  "You have an appointment with ${app.titleName ?? ""}. ${app.drGivenName ?? ""} ${app.drMiddleName.toString() != "" && app.drMiddleName.toString() != null && app.drMiddleName.toString() != "null" ? app.drMiddleName.toString() : ""} ${app.drLastName ?? ""} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
+                                  " appointment with ${app.titleName ?? ""}. ${app.drGivenName ?? ""} ${app.drMiddleName.toString() != "" && app.drMiddleName.toString() != null && app.drMiddleName.toString() != "null" ? app.drMiddleName.toString() : ""} ${app.drLastName ?? ""} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
                               subTitle:
                                   "Starts: ${DateFormat("hh:mm a").format(DateTime.parse(app.startTime.toString()))} Ends: ${DateFormat("hh:mm a").format(DateTime.parse(app.endTime.toString()))}",
                               docImage: "${AppUrls.docImage}${app.drImages}",
