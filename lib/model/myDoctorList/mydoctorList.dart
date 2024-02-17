@@ -260,8 +260,8 @@ class Academic {
   dynamic updatedBy;
   DateTime? createdAt;
   DateTime? updatedAt;
-  List<Inistitution>? inistitution;
-  List<Country>? country;
+  Inistitution? inistitution;
+  Country? country;
 
   Academic({
     this.id,
@@ -299,8 +299,8 @@ class Academic {
     updatedBy: json["updated_by"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    inistitution: json["inistitution"] == null ? [] : List<Inistitution>.from(json["inistitution"]!.map((x) => Inistitution.fromJson(x))),
-    country: json["country"] == null ? [] : List<Country>.from(json["country"]!.map((x) => Country.fromJson(x))),
+    inistitution: json["inistitution"] == null ? null : Inistitution.fromJson(json["inistitution"]),
+    country: json["country"] == null ? null : Country.fromJson(json["country"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -319,8 +319,8 @@ class Academic {
     "updated_by": updatedBy,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
-    "inistitution": inistitution == null ? [] : List<dynamic>.from(inistitution!.map((x) => x.toJson())),
-    "country": country == null ? [] : List<dynamic>.from(country!.map((x) => x.toJson())),
+    "inistitution": inistitution?.toJson(),
+    "country": country?.toJson(),
   };
 }
 

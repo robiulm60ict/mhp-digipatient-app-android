@@ -16,17 +16,19 @@ import '../utils/user.dart';
 class SendImage {
   Future<dynamic> addImage(Map<String, String> body, String imageBytes) async {
     // String addimageUrl = '<domain-name>/api/imageadd';
-
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString(UserP.fcmToken) ?? "";
     Map<String, String> headers = {
       // 'databaseName': 'mhpdemocom',
-      'databaseName': 'mhpdemocom_ZXJVT',
+      'token': "$token",
+      // 'databaseName': 'mhpdemocom',
+      'databaseName': '${AppUrls.databasename}',
       'Content-Type': 'multipart/form-data',
     };
     var request = http.MultipartRequest('POST', Uri.parse(AppUrls.registration))
       ..fields.addAll(body)
       ..headers.addAll(headers)
-      ..files
-          .add(await http.MultipartFile.fromPath('image', imageBytes));
+      ..files.add(await http.MultipartFile.fromPath('image', imageBytes));
     var response = await request.send();
     debugPrint("\n\n\n\n\n\n\n\n${response.reasonPhrase}");
     var res = await convertStreamedResponseToHttpResponse(response);
@@ -43,37 +45,38 @@ class SendImage {
     // }
   }
 
-
-Future<dynamic> update(Map<String, String> body, String imageBytes) async {
-  // String addimageUrl = '<domain-name>/api/imageadd';
-  final prefs = await SharedPreferences.getInstance();
-  //
-  int? id = prefs.getInt(UserP.id);
-  Map<String, String> headers = {
-    // 'databaseName': 'mhpdemocom',
-    'databaseName': 'mhpdemocom_ZXJVT',
-    'Content-Type': 'multipart/form-data',
-  };
-  var request = http.MultipartRequest('POST', Uri.parse("${AppUrls.userUrlUpdate}$id"))
-    ..fields.addAll(body)
-    ..headers.addAll(headers)
-    ..files
-        .add(await http.MultipartFile.fromPath('image', imageBytes));
-  var response = await request.send();
-  debugPrint("\n\n\n\n\n\n\n\n${response.reasonPhrase}");
-  var res = await convertStreamedResponseToHttpResponse(response);
-  var finalResponse = NetworkApiService().returnResponse(res);
-  debugPrint("------------------------------------");
-  return finalResponse;
-  // return RegistrationModel.fromJson(finalResponse);
-  // debugPrint(
-  //     "--- \n\n\n\n\n\n\nResponse Code: ${response.statusCode} and response ${finalResponse.toString()}");
-  // if (response.statusCode == 200 || response.statusCode == 201) {
-  //   return true;
-  // } else {
-  //   return false;
-  // }
-}
+  Future<dynamic> update(Map<String, String> body, String imageBytes) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString(UserP.fcmToken) ?? "";
+    int? id = prefs.getInt(UserP.id);
+    Map<String, String> headers = {
+      'token': "$token",
+      // 'databaseName': 'mhpdemocom',
+      'databaseName': '${AppUrls.databasename}',
+      // 'databaseName': 'mhpdemocom',
+      // 'databaseName': 'mhpdemocom_ZXJVT',
+      'Content-Type': 'multipart/form-data',
+    };
+    var request =
+        http.MultipartRequest('POST', Uri.parse("${AppUrls.userUrlUpdate}$id"))
+          ..fields.addAll(body)
+          ..headers.addAll(headers)
+          ..files.add(await http.MultipartFile.fromPath('image', imageBytes));
+    var response = await request.send();
+    debugPrint("\n\n\n\n\n\n\n\n${response.reasonPhrase}");
+    var res = await convertStreamedResponseToHttpResponse(response);
+    var finalResponse = NetworkApiService().returnResponse(res);
+    debugPrint("------------------------------------");
+    return finalResponse;
+    // return RegistrationModel.fromJson(finalResponse);
+    // debugPrint(
+    //     "--- \n\n\n\n\n\n\nResponse Code: ${response.statusCode} and response ${finalResponse.toString()}");
+    // if (response.statusCode == 200 || response.statusCode == 201) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+  }
 }
 
 Future<http.Response> convertStreamedResponseToHttpResponse(
@@ -88,7 +91,7 @@ Future<http.Response> convertStreamedResponseToHttpResponse(
 }
 
 class UserRegistration {
-   sendImageAndData(
+  sendImageAndData(
       {required File imageFile,
       required String phoneNumber,
       required String token,
@@ -126,6 +129,7 @@ class UserRegistration {
     // Set the headers
     Map<String, String> headers = {
       // 'databaseName': 'mhpgmailcom',
+
       'databaseName': 'mhpdemocom_ZXJVT',
       'Content-Type': 'application/json',
     };
@@ -137,7 +141,7 @@ class UserRegistration {
       body: jsonData,
     );
 
-    return  NetworkApiService().returnResponse(response);
+    return NetworkApiService().returnResponse(response);
     // // Check the response
     // if (response.statusCode == 200) {
     //   print('Image and data sent successfully');
@@ -152,6 +156,5 @@ class UserRegistration {
     // }catch (e){
     //   Messages.snackBar(context, e.toString());
     // }
-
   }
 }

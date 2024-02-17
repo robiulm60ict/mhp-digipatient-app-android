@@ -83,7 +83,7 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
     isDoctorLoading = true;
 
     notifyListeners();
-    await DoctorRepository().getmyAllDeactiveDoctors().then((value) {
+    await DoctorRepository().getmyAllDeactiveDoctors(context).then((value) {
       print("rerrrrrrrrrrrrrrrr$value");
       myDoctordeactiveFullList.add(value);
       myDoctordeactiveList.addAll(value.data!);

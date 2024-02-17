@@ -42,6 +42,16 @@ class AuthRepository {
     } catch (e) {
       rethrow;
     }
+  }  Future logoutApi(
+      {required Map<String, dynamic> body}) async {
+    try {
+      dynamic response =
+          await apiService.getPostApiResponse(AppUrls.logout, body);
+      print(response);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
   }
   Future sendOTPForget(
       {required Map<String, dynamic> body}) async {

@@ -10,7 +10,17 @@ import '../../model/appointment_model/todays_appointment_model.dart';
 class AppointmentRepo{
   BaseApiService apiService = NetworkApiService();
 
-  Future<TodaysAppointmentModel> getTodayAppointment()async{
+  Future getAppoinmentsqueue(docid,appoinmentid)async{
+
+    try{
+      dynamic response = await apiService.getGetApiResponse("${AppUrls.Appoinmentsqueue}/$docid/$appoinmentid");
+     // print(response);
+    return response;
+    }catch (e){
+      print(e);
+      rethrow;
+    }
+  }  Future<TodaysAppointmentModel> getTodayAppointment()async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     int? id = prefs.getInt(UserP.id);

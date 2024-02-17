@@ -28,8 +28,6 @@ import '../../widgets/back_button.dart';
 import '../../widgets/drawer_list_tile.dart';
 import '../../widgets/shimmer.dart';
 import '../daily_upcomming_appointment/patientqueioo.dart';
-import '../my_record/my_report_upload_view.dart';
-import '../payment/ivoice/pdf_invoice_api.dart';
 import '../privacy_policy/privacypolicy.dart';
 import '../profile/patient_profile.dart';
 import '../support/support_page.dart';
@@ -243,8 +241,12 @@ class _HomeViewState extends State<HomeView> {
                       final prefs = await SharedPreferences.getInstance();
 
                       await prefs.setBool(UserP.isLoggedIn, false);
+                      int? id = prefs.getInt(UserP.userid);
+
                       auth.onUserLogout();
+                      auth.logout(id);
                       logout();
+
                       Navigator.pushNamedAndRemoveUntil(
                         context,
                         RoutesName.login,
@@ -431,7 +433,7 @@ class _HomeViewState extends State<HomeView> {
               //       Navigator.push(
               //           context,
               //           MaterialPageRoute(
-              //               builder: (context) => MyPage()));
+              //               builder: (context) => PatientQueioPage()));
               //     },
               //     child: Text("date")),
               SizedBox(

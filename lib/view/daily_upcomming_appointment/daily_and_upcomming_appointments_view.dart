@@ -196,14 +196,18 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                                 appointments.todayAppointmentList[index];
                             return AppointmentNotificationCard(
                               onTap: () {
+
+                                appointments.getAppoinmentsqueue(context, app.doctorsId, app.id);
+
                                 debugPrint(
-                                    "--------------------${app.appType}");
+                                    "--------------------${app.doctorsId}");   debugPrint(
+                                    "--------------------${app.id}");
                               },
                               title:
-                                  " appointment with ${app.titleName ?? ""}. ${app.drGivenName ?? ""} ${app.drMiddleName.toString() != "" && app.drMiddleName.toString() != null && app.drMiddleName.toString() != "null" ? app.drMiddleName.toString() : ""} ${app.drLastName ?? ""} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
+                                  " appointment with ${app.doctors!.title!.titleName ?? ""}. ${app.doctors!.fullName ?? ""} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
                               subTitle:
                                   "Starts: ${DateFormat("hh:mm a").format(DateTime.parse(app.startTime.toString()))} Ends: ${DateFormat("hh:mm a").format(DateTime.parse(app.endTime.toString()))}",
-                              docImage: "${AppUrls.docImage}${app.drImages}",
+                              docImage: "${AppUrls.docImage}${app.doctors!.drImages}",
                             );
                           }),
                 ),

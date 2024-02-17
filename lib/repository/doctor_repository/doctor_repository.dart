@@ -42,12 +42,12 @@ class DoctorRepository {
       print(e);
       rethrow;
     }
-  }  Future<MyDoctorList> getmyAllDeactiveDoctors() async {
+  }  Future<MyDoctorList> getmyAllDeactiveDoctors(contex) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       int? id = prefs.getInt(UserP.id);
       dynamic response =
-          await apiService.getGetApiResponse("${AppUrls.myDoctorsDeactivelist}$id");
+          await apiService.getGetApiResponsecontext("${AppUrls.myDoctorsDeactivelist}$id",contex);
       print("rrrrrrrrrrrrrrrrrrr${response}");
       return MyDoctorList.fromJson(response);
     } catch (e) {

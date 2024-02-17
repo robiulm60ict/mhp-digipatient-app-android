@@ -17,7 +17,9 @@ class FetchDataException extends AppException {
 class BadRequestException extends AppException {
   BadRequestException([String? message]) : super(message, 'Invalid Request');
 }
-
+class BadRequestExceptionToken extends AppException {
+  BadRequestExceptionToken() : super( 'Another device is logged into this account.'," Please logout then login. ");
+}
 class LargeRequestException extends AppException {
   LargeRequestException([String? message]) : super(message, 'Large File Request');
 }

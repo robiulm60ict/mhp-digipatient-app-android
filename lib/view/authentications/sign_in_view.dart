@@ -208,7 +208,8 @@ class _SignInViewState extends State<SignInView> {
                         Map<String, String> body = {
                           'email': emailController!.text,
                           'password': passwordController!.text,
-                          'deviceToke': token
+                          'deviceToke': token,
+                          "login_status" : "1",
                         };
                         authVm.loginApi(context, body,
                             keepMeSignIn: keepMeSignedIn);

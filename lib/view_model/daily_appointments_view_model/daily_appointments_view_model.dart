@@ -37,6 +37,25 @@ class DailyAndUpcommingViewModel with ChangeNotifier{
     });
   }
 
+  getAppoinmentsqueue(BuildContext context,docid,appoinmentid)async{
+    // isTodayAppointmentLoading = true;
+    // todayAppointmentFullList.clear();
+    // todayAppointmentList.clear();
+    // notifyListeners();
+    // todayAppointmentFullList.clear();
+    await appointmentRepo.getAppoinmentsqueue(docid,appoinmentid).then((value) {
+      print(value);
+      // todayAppointmentFullList.add(value);
+      // todayAppointmentList.addAll(value.todaysPatientAppointments!);
+      isTodayAppointmentLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      isTodayAppointmentLoading = true;
+      notifyListeners();
+      Messages.snackBar(context, error.toString());
+    });
+  }
+
   getUpcommingAppointments(BuildContext context)async{
     isUpcommingAppointmentLoading = true;
     upcommingAppointmentFullList.clear();

@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/resources/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -47,13 +48,13 @@ class _ReportSliderImageState extends State<ReportSliderImage> {
                             MaterialPageRoute(
                                 builder: (context) => ImageView(
                                     image:
-                                        "https://gdbackend.macrohealthplus.org/images/patients_reports/${urlImage.file}")))
+                                        "${AppUrls.baseUrlPatientMain}/images/patients_reports/${urlImage.file}")))
                         : Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => PdfViewerPage(
                                     pdfUrl:
-                                        "https://gdbackend.macrohealthplus.org/images/patients_reports/${urlImage.file}")));
+                                        "${AppUrls.baseUrlPatientMain}/images/patients_reports/${urlImage.file}")));
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +70,7 @@ class _ReportSliderImageState extends State<ReportSliderImage> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10.0),
                             child: Image.network(
-                                "https://gdbackend.macrohealthplus.org/images/patients_reports/${urlImage.file}",
+                                "${AppUrls.baseUrlPatientMain}/images/patients_reports/${urlImage.file}",
                                 height:
                                     MediaQuery.of(context).size.height * .40,
                                 width:  MediaQuery.of(context).size.width,

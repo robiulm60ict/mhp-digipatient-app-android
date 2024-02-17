@@ -153,10 +153,13 @@ class SendImage {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(UserP.fcmToken) ?? "";
     Map<String, String> headers = {
-      'Authorization': "Bearer $token",
+      'token': "$token",
+      // 'databaseName': 'mhpdemocom',
+      'databaseName': '${AppUrls.databasename}',
+      // 'Authorization': "Bearer $token",
       'Content-Type': 'multipart/form-data',
       // 'databaseName': 'mhpdemocom',
-      'databaseName': 'mhpdemocom_ZXJVT',
+      // 'databaseName': 'mhpdemocom_ZXJVT',
     };
     var request = http.MultipartRequest('POST', Uri.parse(AppUrls.uploadMyReport))
       ..fields.addAll(body)

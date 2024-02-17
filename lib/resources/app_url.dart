@@ -7,11 +7,18 @@ class AppUrls {
 
 
 
-  // static const String baseUrlPatientMain =
-  //     'https://gdbackend.macrohealthplus.org';  //App live
-  //
   static const String baseUrlPatientMain =
-      'https://sandbox.greatdoc-back.macrohealthplus.org'; //Test
+      'https://gdbackend.macrohealthplus.org';  //App live
+
+
+
+  static const String databasename =
+      'mhpdemocom'; //AppLive
+
+  // static const String databasename =
+  //     'mhpdemocom_ZXJVT'; //Test
+  // static const String baseUrlPatientMain =
+  //     'https://sandbox.greatdoc-back.macrohealthplus.org'; //Test
 
   static const String baseUrlPatient =
       '$baseUrlPatientMain/api/v1';
@@ -81,6 +88,8 @@ class AppUrls {
 
   /// Appointments
 
+  static const String Appoinmentsqueue =
+      '$baseUrlPatient/patient-appointment-queue-number';
   static const String todayAppointments =
       '$baseUrlPatient/todays-patientappointment/';
 
@@ -121,6 +130,8 @@ class AppUrls {
 
   static const String sendVerification =
       '$baseUrlPatient/send-verfication-code';
+  static const String logout =
+      '$baseUrlPatient/patient-logout';
   static const String sendVerificationForget =
       '$baseUrlPatient/send-verfication-code-forgot-password';
 

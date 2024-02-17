@@ -11,21 +11,49 @@ import '/data/app_exception.dart';
 import '/data/network/base_api_service.dart';
 import 'package:http/http.dart' as http;
 
-
-
 class NetworkApiService extends BaseApiService {
   @override
   Future getGetApiResponse(String url) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString(UserP.fcmToken) ?? "";
     dynamic responseJson;
     try {
       final response = await http.get(
         Uri.parse(url),
         headers: {
+          'token': "$token",
           // 'databaseName': 'mhpdemocom',live
-          'databaseName': 'mhpdemocom_ZXJVT',
+          'databaseName': '${AppUrls.databasename}',
           'Accept': 'application/json',
         },
       ).timeout(const Duration(seconds: 10));
+
+      print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr${response.statusCode}");
+
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw FetchDataException("No Internet Connection");
+    }
+    return responseJson;
+  }
+ @override
+  Future getGetApiResponsecontext(String url,BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString(UserP.fcmToken) ?? "";
+    dynamic responseJson;
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'token': "$token",
+          // 'databaseName': 'mhpdemocom',live
+          'databaseName': '${AppUrls.databasename}',
+          'Accept': 'application/json',
+        },
+      ).timeout(const Duration(seconds: 10));
+
+      print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr${response.statusCode}");
+
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException("No Internet Connection");
@@ -59,9 +87,9 @@ class NetworkApiService extends BaseApiService {
       final response = await http.get(
         Uri.parse(url),
         headers: {
-          'Authorization': "Bearer $token",
+          'token': "$token",
           // 'databaseName': 'mhpdemocom',
-          'databaseName': 'mhpdemocom_ZXJVT',
+          'databaseName': '${AppUrls.databasename}',
           'Accept': 'application/json',
         },
       ).timeout(const Duration(seconds: 10));
@@ -74,6 +102,8 @@ class NetworkApiService extends BaseApiService {
 
   @override
   Future getPostApiResponse(String url, dynamic body) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString(UserP.fcmToken) ?? "";
     dynamic responseJson;
     try {
       final response = await http.post(
@@ -81,7 +111,8 @@ class NetworkApiService extends BaseApiService {
         Uri.parse(url),
         headers: {
           // 'databaseName': 'mhpdemocom',
-          'databaseName': 'mhpdemocom_ZXJVT',
+          'databaseName': '${AppUrls.databasename}',
+          'token': "$token",
           'Accept': 'application/json',
         },
       ).timeout(
@@ -96,18 +127,24 @@ class NetworkApiService extends BaseApiService {
 
   @override
   Future getPostApiResponseUrl(String url) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString(UserP.fcmToken) ?? "";
     dynamic responseJson;
     try {
       final response = await http.post(
         Uri.parse(url),
         headers: {
+          'token': "$token",
           // 'databaseName': 'mhpdemocom',
-          'databaseName': 'mhpdemocom_ZXJVT',
+          'databaseName': '${AppUrls.databasename}',
+
           'Accept': 'application/json',
         },
       ).timeout(
         const Duration(seconds: 10),
       );
+
+      print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr$response");
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException("No Internet Connection");
@@ -125,9 +162,10 @@ class NetworkApiService extends BaseApiService {
         body: body,
         Uri.parse(url),
         headers: {
-          'Authorization': "Bearer $token",
+          'token': "$token",
           // 'databaseName': 'mhpdemocom',
-          'databaseName': 'mhpdemocom_ZXJVT',
+          'databaseName': '${AppUrls.databasename}',
+
           'Accept': 'application/json',
         },
       ).timeout(
@@ -142,6 +180,7 @@ class NetworkApiService extends BaseApiService {
 
   dynamic returnResponse(http.Response response) {
     print(response.statusCode);
+    print("dddddddddddddddddd${response.statusCode}");
     switch (response.statusCode) {
       case 200:
         dynamic responseJson = jsonDecode(response.body.toString());
@@ -157,9 +196,10 @@ class NetworkApiService extends BaseApiService {
         return responseJson;
       case 422:
         dynamic responseJson = jsonDecode(response.body.toString());
+
         return responseJson;
       case 400:
-        throw BadRequestException(response.body.toString());
+        throw   BadRequestExceptionToken();
       case 404:
         dynamic responseJson = jsonDecode(response.body.toString());
         return responseJson;

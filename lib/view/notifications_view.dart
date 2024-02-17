@@ -97,7 +97,7 @@ class _NotificationsViewState extends State<NotificationsView> {
                       return appointments.todayAppointmentList.isNotEmpty
                           ? NotificationListTile(
                               doctorName:
-                                  "${app.titleName}. ${app.drGivenName}${app.drMiddleName.toString() != "" && app.drMiddleName.toString() != null && app.drMiddleName.toString() != "null" ? app.drMiddleName.toString() : ""} ${app.drLastName} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
+                                  "${app.doctors!.title!.titleName}. ${app.doctors!.fullName} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
                               appointmentTime:
                                   "${getTime(app.startTime.toString())}- ${getTime(app.endTime.toString())}",
                               onTap: () {
@@ -106,7 +106,8 @@ class _NotificationsViewState extends State<NotificationsView> {
                                 //     docImage:
                                 //         "${AppUrls.docImage}${app.drImages}", time: '${getTime(app.startTime.toString())}', date: '${getDate(app.createdAt.toString())}', hospital: '${app.patientUsualProviderId}');
                               },
-                              docImage: "${AppUrls.docImage}${app.drImages}",
+                              docImage:
+                                  "${AppUrls.docImage}${app.doctors!.drImages}",
                               beforeText: 'Today, You have an  ',
                             )
                           : Container();

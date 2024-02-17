@@ -1,6 +1,5 @@
 import 'dart:io';
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -83,7 +82,6 @@ class AuthViewModel with ChangeNotifier {
           // onUserLogin();
         });
         // currentUser.id =  int.parse(value["user"]['user_id']).toString();
-
 
         // Future.delayed(const Duration(seconds: 0)).then((v) {
         //   setLoginLoading(false);
@@ -252,6 +250,25 @@ class AuthViewModel with ChangeNotifier {
       setSendOtpLoading(false);
       debugPrint(error.toString());
       Messages.snackBar(context, error.toString());
+    });
+  }
+
+  Future<void> logout(id) async {
+    Map<String, dynamic> body = {"id": id.toString()};
+    setSendOtpLoading(true);
+    isSendOtpLoading = true;
+    notifyListeners();
+    otpList.clear();
+    await _authRepo.logoutApi(body: body).then((value) {
+      print(value);
+
+      // otpList.add(value);
+
+      // context.router.push(PinCodeVerificationRoute(phoneNumber: phnNumber));
+    }).onError((error, stackTrace) {
+      isSendOtpLoading = false;
+      notifyListeners();
+
     });
   }
 

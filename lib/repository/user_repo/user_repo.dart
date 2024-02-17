@@ -21,25 +21,26 @@ class UserRepo {
       dynamic response = await apiService.getGetApiResponse(
         "${AppUrls.userProfileUrl}$id",
       );
-
+      print(response);
       return UserProfileModel.fromJson(response);
     } catch (e) {
       print(e.toString());
       rethrow;
     }
   }
+
   signUpApiUpdate(
       {required Map<String, String> body, required imageBytes}) async {
     SendImage sendImage = SendImage();
     try {
-      dynamic response =
-      await sendImage.update(body, imageBytes);
+      dynamic response = await sendImage.update(body, imageBytes);
       //   await apiService.getPostApiResponse(AppUrls.registration, body);
       return response;
     } catch (e) {
       rethrow;
     }
   }
+
   Future editUserData(body) async {
     final prefs = await SharedPreferences.getInstance();
 
@@ -47,8 +48,7 @@ class UserRepo {
     print(id);
     try {
       dynamic response = await apiService.getPostApiResponse(
-        "${AppUrls.userUrlUpdate}$id",body
-      );
+          "${AppUrls.userUrlUpdate}$id", body);
 
       print(response);
       return response;

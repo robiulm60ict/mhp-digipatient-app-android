@@ -111,25 +111,46 @@ class _UploadMyReportState extends State<UploadMyReport> {
                                     },
                                     child: Card(
                                       child: Row(
-                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                                         children: [
-                                          SizedBox(
-                                            height: 70.h,
-                                            width: 70.h,
-                                            child: Padding(
-                                              padding: EdgeInsets.all(12.0.r),
-                                              child: Image.asset(
-                                                Assets.myMedicineRx,
+                                          Row(children: [
+                                            SizedBox(
+                                              height: 70.h,
+                                              width: 70.h,
+                                              child: Padding(
+                                                padding: EdgeInsets.all(12.0.r),
+                                                child: Image.asset(
+                                                  Assets.myMedicineRx,
+                                                ),
                                               ),
                                             ),
+                                            Text(
+                                              info.name.toString(),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.center,
+                                              style: Style.alltext_default_balck,
+                                            ),
+                                          ],),
+
+
+                                          Row(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                DateFormat("dd-MM-yyyy - hh:mm:a").format(DateTime.parse(
+                                                    info.date.toString())),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                textAlign: TextAlign.center,
+                                                style: Style.alltext_default_balck,
+                                              ),
+                                              Style.widthdistan_size20,
+                                            ],
                                           ),
-                                          Text(
-                                            info.name.toString(),
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.center,
-                                            style: Style.alltext_default_balck,
-                                          )
                                         ],
                                       ),
                                     ),

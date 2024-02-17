@@ -147,20 +147,35 @@ class _DocDetailsViewState extends State<DocDeactiveDetailsView> {
                               )
                             : SizedBox(),
                         doc!.doctors!.academic!.isNotEmpty
-                            ? Row(
-                                children: List.generate(
-                                    doc!.doctors!.academic!.length, (index) {
-                                var data = doc!.doctors!.academic![index];
-                                return Center(
-                                  //  width: Get.size.width*0.26,
-                                  child: Text(
-                                      "${data.degreeId}${doc!.doctors!.academic!.last == data ? "" : ", "}",
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
-                                      style: Style.alltext_ExtraSmall_black),
-                                );
-                              }))
+                            ? Container(
+                          height: 20.h,
+                          width: 200.h,
+                          // width: 200, // specify a height here,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: doc!.doctors!.academic!.length < 5
+                                ? doc!.doctors!.academic!.length
+                                : 6,
+                            itemBuilder: (context, index) {
+                              var data = doc!.doctors!.academic![index];
+                              return Container(
+                                // width: 50.h,
+
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 0.0),
+                                child: Text(
+                                  "${data.degreeId}${doc!.doctors!.academic!.last == data ? "" : ", "}",
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.center,
+                                  style: Style.alltext_ExtraSmall_black,
+                                ),
+                              );
+                            },
+                          ),
+                        )
                             : Container(),
                         SizedBox(
                           height: 8.h,

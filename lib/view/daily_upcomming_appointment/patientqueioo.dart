@@ -2,12 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-class MyPage extends StatefulWidget {
+import '../../resources/colors.dart';
+import '../../resources/styles.dart';
+
+class PatientQueioPage extends StatefulWidget {
   @override
-  _MyPageState createState() => _MyPageState();
+  _PatientQueioPageState createState() => _PatientQueioPageState();
 }
 
-class _MyPageState extends State<MyPage> {
+class _PatientQueioPageState extends State<PatientQueioPage> {
   Timer? _timer;
 
   @override
@@ -44,22 +47,42 @@ class _MyPageState extends State<MyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Page'),
+        backgroundColor: AppColors.primary_color,
+
+        centerTitle: true,
+        title: Text(
+          "Connecting with doctor",
+          style: Style.alltext_appbar,
+        ),
       ),
-      body: Column(
-        children: [
-          // Center(
-          //   child: ElevatedButton(
-          //     onPressed: () {
-          //       setState(() {
-          //         _pageClosed = true;
-          //       });
-          //       Navigator.pop(context);
-          //     },
-          //     child: Text('Close Page'),
-          //   ),
-          // ),
-        ],
+      body:  SizedBox(
+        width: double.infinity,
+        child: const Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+
+            Style.distan_size20,
+            Text("Please wait your next Queue \n\n 12:00 am",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,),textAlign: TextAlign.center,),
+
+            Text("2",style: TextStyle(fontSize: 45,fontWeight: FontWeight.bold),),
+
+            Style.distan_size20,
+            Text("Please apps don't stop",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+            // Center(
+            //   child: ElevatedButton(
+            //     onPressed: () {
+            //       setState(() {
+            //         _pageClosed = true;
+            //       });
+            //       Navigator.pop(context);
+            //     },
+            //     child: Text('Close Page'),
+            //   ),
+            // ),
+
+          ],
+        ),
       ),
     );
   }
