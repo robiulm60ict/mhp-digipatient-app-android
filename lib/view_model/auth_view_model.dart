@@ -255,8 +255,6 @@ class AuthViewModel with ChangeNotifier {
 
   Future<void> logout(id) async {
     Map<String, dynamic> body = {"id": id.toString()};
-    setSendOtpLoading(true);
-    isSendOtpLoading = true;
     notifyListeners();
     otpList.clear();
     await _authRepo.logoutApi(body: body).then((value) {
@@ -266,7 +264,6 @@ class AuthViewModel with ChangeNotifier {
 
       // context.router.push(PinCodeVerificationRoute(phoneNumber: phnNumber));
     }).onError((error, stackTrace) {
-      isSendOtpLoading = false;
       notifyListeners();
 
     });
