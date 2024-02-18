@@ -27,7 +27,7 @@ class MyPaymentViewModel with ChangeNotifier {
     isDoctorLoading = true;
 
     notifyListeners();
-    await myRepo.getmypayment().then((value) {
+    await myRepo.getmypayment(context).then((value) {
       mypayment=value;
 
       isDoctorLoading = false;

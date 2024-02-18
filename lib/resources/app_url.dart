@@ -10,8 +10,6 @@ class AppUrls {
   static const String baseUrlPatientMain =
       'https://gdbackend.macrohealthplus.org';  //App live
 
-
-
   static const String databasename =
       'mhpdemocom'; //AppLive
 

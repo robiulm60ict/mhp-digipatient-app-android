@@ -12,14 +12,14 @@ import '../../utils/user.dart';
 class UserRepo {
   BaseApiService apiService = NetworkApiService();
 
-  Future<UserProfileModel> getUserData() async {
+  Future<UserProfileModel> getUserData(contex) async {
     final prefs = await SharedPreferences.getInstance();
 
     int? id = prefs.getInt(UserP.id);
 
     try {
-      dynamic response = await apiService.getGetApiResponse(
-        "${AppUrls.userProfileUrl}$id",
+      dynamic response = await apiService.getGetApiResponsecontext(
+        "${AppUrls.userProfileUrl}$id",contex,
       );
       print(response);
       return UserProfileModel.fromJson(response);

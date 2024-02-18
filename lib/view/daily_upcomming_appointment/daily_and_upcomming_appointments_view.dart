@@ -13,6 +13,7 @@ import '../../view_model/daily_appointments_view_model/daily_appointments_view_m
 import '../../widgets/appointment_notification_card.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/shimmer.dart';
+import 'patientqueioo.dart';
 
 class DailyAndUpcommingView extends StatefulWidget {
   const DailyAndUpcommingView({Key? key}) : super(key: key);
@@ -194,20 +195,27 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
                           itemBuilder: (context, index) {
                             TodaysPatientAppointment app =
                                 appointments.todayAppointmentList[index];
-                            return AppointmentNotificationCard(
+                            return AppointmentNotificationCardQueio(
                               onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => PatientQurio(todaysPatientAppointment: app,
+                                             
+                                            )));
 
-                                appointments.getAppoinmentsqueue(context, app.doctorsId, app.id);
-
-                                debugPrint(
-                                    "--------------------${app.doctorsId}");   debugPrint(
-                                    "--------------------${app.id}");
+                                // appointments.getAppoinmentsqueue(context, app.doctorsId, app.id);
+                                //
+                                // debugPrint(
+                                //     "--------------------${app.doctorsId}");   debugPrint(
+                                //     "--------------------${app.id}");
                               },
                               title:
                                   " appointment with ${app.doctors!.title!.titleName ?? ""}. ${app.doctors!.fullName ?? ""} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
                               subTitle:
                                   "Starts: ${DateFormat("hh:mm a").format(DateTime.parse(app.startTime.toString()))} Ends: ${DateFormat("hh:mm a").format(DateTime.parse(app.endTime.toString()))}",
-                              docImage: "${AppUrls.docImage}${app.doctors!.drImages}",
+                              docImage:
+                                  "${AppUrls.docImage}${app.doctors!.drImages}",
                             );
                           }),
                 ),

@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:digi_patient/utils/route/routes_name.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../login_service.dart';
 import '../../resources/app_url.dart';
 import '../../resources/send_image.dart';
 import '../../utils/user.dart';
@@ -52,6 +55,35 @@ class NetworkApiService extends BaseApiService {
         },
       ).timeout(const Duration(seconds: 10));
 
+      if (response.statusCode == 400) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            // Return the dialog widget
+            return AlertDialog(
+              title: Text('Notification'),
+              content:  const Text('You are already logged in another device'),
+              actions: [
+                TextButton(
+                  onPressed: () async{
+                    // Close the dialog
+                    final prefs = await SharedPreferences.getInstance();
+
+                    await prefs.setBool(UserP.isLoggedIn, false);
+                    int? id = prefs.getInt(UserP.userid);
+
+
+                    logout();
+
+                    Navigator.of(context).pushNamedAndRemoveUntil( RoutesName.login, (route) => false);
+                  },
+                  child: Text('Ok'),
+                ),
+              ],
+            );
+          },
+        );
+      }
       print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr${response.statusCode}");
 
       responseJson = returnResponse(response);

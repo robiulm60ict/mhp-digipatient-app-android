@@ -25,7 +25,7 @@ class DailyAndUpcommingViewModel with ChangeNotifier{
     todayAppointmentList.clear();
     notifyListeners();
     todayAppointmentFullList.clear();
-    await appointmentRepo.getTodayAppointment().then((value) {
+    await appointmentRepo.getTodayAppointment(context).then((value) {
       todayAppointmentFullList.add(value);
       todayAppointmentList.addAll(value.todaysPatientAppointments!);
       isTodayAppointmentLoading = false;
@@ -61,7 +61,7 @@ class DailyAndUpcommingViewModel with ChangeNotifier{
     upcommingAppointmentFullList.clear();
     upcommingAppointmentList.clear();
     notifyListeners();
-    await appointmentRepo.getUpcommingAppointment().then((value) {
+    await appointmentRepo.getUpcommingAppointment(context).then((value) {
       upcommingAppointmentFullList.add(value);
       upcommingAppointmentList.addAll(value.upcomingAppointments!);
       isUpcommingAppointmentLoading = false;

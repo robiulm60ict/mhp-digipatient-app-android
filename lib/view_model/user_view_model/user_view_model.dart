@@ -17,11 +17,11 @@ class UserViewModel with ChangeNotifier {
 
   bool isUserLoading = true;
 
-  getUserDetails() async {
+  getUserDetails(BuildContext context) async {
     userData.clear();
     isUserLoading = true;
     // notifyListeners();
-    await userRepo.getUserData().then((value) async {
+    await userRepo.getUserData(context).then((value) async {
       userData.add(value);
       user = value.patientsDetails!;
       print(user!.patientBirthSex!.birthSexName.toString());
@@ -42,7 +42,7 @@ class UserViewModel with ChangeNotifier {
     isUserLoading = true;
     // notifyListeners();
     await userRepo.signUpApiUpdate( body: body, imageBytes: imageBytes).then((value) async {
-      getUserDetails();
+      getUserDetails(context);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => ProfileData()));
       isUserLoading = false;
@@ -56,7 +56,7 @@ class UserViewModel with ChangeNotifier {
     isUserLoading = true;
     // notifyListeners();
     await userRepo.editUserData(  body).then((value) async {
-      getUserDetails();
+      getUserDetails(context);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => ProfileData()));
       isUserLoading = false;

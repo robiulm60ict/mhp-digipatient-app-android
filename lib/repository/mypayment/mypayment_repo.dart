@@ -20,12 +20,12 @@ class MyPaymentRepo {
   BaseApiService apiService = NetworkApiService();
 
   Future<List<MyPaymentModel>>
-      getmypayment() async {
+      getmypayment(contex) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? id = prefs.getInt(UserP.id);
     try {
-      dynamic response = await apiService.getGetApiResponse(
-        "${AppUrls.mypayment}$id",
+      dynamic response = await apiService.getGetApiResponsecontext(
+        "${AppUrls.mypayment}$id",contex
       );
 
       print(response);

@@ -51,7 +51,7 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
     //  getUserData();
     onUserLogin();
-    context.read<UserViewModel>().getUserDetails();
+    context.read<UserViewModel>().getUserDetails(context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<DailyAndUpcommingViewModel>().getTodayAppointments(context);
       context

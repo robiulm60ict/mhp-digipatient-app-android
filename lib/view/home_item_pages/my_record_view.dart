@@ -33,7 +33,7 @@ class _MyRecordViewState extends State<MyRecordView> {
   @override
   void initState() {
     super.initState();
-    context.read<UserViewModel>().getUserDetails();
+    context.read<UserViewModel>().getUserDetails(context);
   }
 
   @override

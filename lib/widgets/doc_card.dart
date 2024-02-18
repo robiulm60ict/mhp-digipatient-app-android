@@ -251,7 +251,7 @@ class DeActveocCard extends StatelessWidget {
                     ),
                     doctortitle!.isNotEmpty
                         ? Container(
-                      height: 20.h,
+                      height: 16.h,
                       width: 200.h,
                       // width: 200, // specify a height here,
                       child: ListView.builder(
@@ -263,11 +263,10 @@ class DeActveocCard extends StatelessWidget {
                             : 5,
                         itemBuilder: (context, index) {
                           var data = doctortitle![index];
-                          return Container(
+                          return Center(
                             // width: 50.h,
 
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 0.0),
+
                             child: Text(
                               "${data.degreeId}${doctortitle!.last == data ? "" : ", "}",
                               maxLines: 2,

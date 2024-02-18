@@ -22,7 +22,7 @@ class _ProfileDataState extends State<ProfileData> {
   @override
   void initState() {
     super.initState();
-    context.read<UserViewModel>().getUserDetails();
+    context.read<UserViewModel>().getUserDetails(context);
   }
 
   @override

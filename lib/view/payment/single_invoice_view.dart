@@ -51,7 +51,7 @@ class _SingleInvoiceViewState extends State<SingleInvoiceView> {
   @override
   void initState() {
     super.initState();
-    context.read<UserViewModel>().getUserDetails();
+    context.read<UserViewModel>().getUserDetails(context);
   }
 
   String getDate(String? date) {

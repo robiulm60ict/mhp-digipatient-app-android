@@ -3,6 +3,7 @@ import 'package:digi_patient/data/network/network_api_service.dart';
 import 'package:digi_patient/model/appointment_model/upcomming_appointments_model.dart';
 import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/utils/user.dart';
+import 'package:pdf/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/appointment_model/todays_appointment_model.dart';
@@ -20,12 +21,12 @@ class AppointmentRepo{
       print(e);
       rethrow;
     }
-  }  Future<TodaysAppointmentModel> getTodayAppointment()async{
+  }  Future<TodaysAppointmentModel> getTodayAppointment(contex)async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     int? id = prefs.getInt(UserP.id);
     try{
-      dynamic response = await apiService.getGetApiResponse("${AppUrls.todayAppointments}$id");
+      dynamic response = await apiService.getGetApiResponsecontext("${AppUrls.todayAppointments}$id",contex);
      // print(response);
     return TodaysAppointmentModel.fromJson(response);
     }catch (e){
@@ -34,12 +35,12 @@ class AppointmentRepo{
     }
   }
 
-  Future<UpcommingAppointmentsModel> getUpcommingAppointment()async{
+  Future<UpcommingAppointmentsModel> getUpcommingAppointment(context)async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     int? id = prefs.getInt(UserP.id);
     try{
-      dynamic response = await apiService.getGetApiResponse("${AppUrls.upcommingAppointments}$id");
+      dynamic response = await apiService.getGetApiResponsecontext("${AppUrls.upcommingAppointments}$id",context);
       print("fffffffffffffffffffff${response}");
       return UpcommingAppointmentsModel.fromJson(response);
     }catch (e){

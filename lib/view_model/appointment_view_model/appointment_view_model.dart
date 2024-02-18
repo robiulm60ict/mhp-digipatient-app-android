@@ -492,7 +492,7 @@ class AppointmentViewModel with ChangeNotifier {
     invoiceList.clear();
     setInvoiceLoading(true);
     final id = await getPatientId();
-    await invoiceRepo.getInvoiceList(id.toString()).then((value) {
+    await invoiceRepo.getInvoiceList(id.toString(),context).then((value) {
       invoiceList = value;
       setInvoiceLoading(false);
     }).onError((error, stackTrace) {
