@@ -16,7 +16,8 @@ class DocCard extends StatelessWidget {
       this.docSpeciality,
       this.docImage,
       this.docHospital,
-      this.doctortitle, required this.docId})
+      this.doctortitle,
+      required this.docId})
       : super(key: key);
   final VoidCallback? onTap;
   final String docName;
@@ -29,7 +30,7 @@ class DocCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider =
-    Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
+        Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
     return InkWell(
       onTap: onTap,
       child: Stack(
@@ -61,70 +62,70 @@ class DocCard extends StatelessWidget {
                       style: Style.alltext_default_balck_blod,
                     ),
                     const SizedBox(
-                      height: 4,
+                      height: 2,
                     ),
                     doctortitle!.isNotEmpty
-                        ?  Container(
-                      height: 20.h,
-                      width: 200.h,
-                      // width: 200, // specify a height here,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: doctortitle!.length < 4
-                            ?doctortitle!.length
-                            : 5,
-                        itemBuilder: (context, index) {
-                          var data = doctortitle![index];
-                          return Container(
-                            // width: 50.h,
+                        ? Container(
+                            height: 16.h,
+                            width: 200.h,
+                            // width: 200, // specify a height here,
+                            child: Center(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: doctortitle!.length < 4
+                                    ? doctortitle!.length
+                                    : 5,
+                                itemBuilder: (context, index) {
+                                  var data = doctortitle![index];
+                                  return Container(
+                                    // width: 50.h,
 
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 0.0),
-                            child: Text(
-                              "${data.degreeId}${doctortitle!.last == data ? "" : ", "}",
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style: Style.alltext_ExtraSmall_black,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 0.0),
+                                    child: Text(
+                                      "${data.degreeId}${doctortitle!.last == data ? "" : ", "}",
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                      style: Style.alltext_ExtraSmall_black,
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
-                          );
-                        },
-                      ),
-                    )
+                          )
 
-
-
-                    // Container(
-                    //         //width: 100,
-                    //         padding: const EdgeInsets.only(left: 12),
-                    //         child: Center(
-                    //             child: Row(
-                    //                 mainAxisAlignment: MainAxisAlignment.center,
-                    //                 children: List.generate(
-                    //                     doctortitle!.length < 4
-                    //                         ? doctortitle!.length
-                    //                         : 4, (index) {
-                    //                   var data = doctortitle![index];
-                    //                   return Center(
-                    //                     //  width: Get.size.width*0.26,
-                    //                     child: SizedBox(
-                    //                       //  width: 2,
-                    //                       child: Text(
-                    //                           "${data.degreeId}${doctortitle!.last == data ? "" : ","}",
-                    //                           maxLines: 1,
-                    //                           overflow: TextOverflow.ellipsis,
-                    //                           textAlign: TextAlign.center,
-                    //                           style: Style
-                    //                               .alltext_ExtraSmall_black),
-                    //                     ),
-                    //                   );
-                    //                 }))),
-                    //       )
+                        // Container(
+                        //         //width: 100,
+                        //         padding: const EdgeInsets.only(left: 12),
+                        //         child: Center(
+                        //             child: Row(
+                        //                 mainAxisAlignment: MainAxisAlignment.center,
+                        //                 children: List.generate(
+                        //                     doctortitle!.length < 4
+                        //                         ? doctortitle!.length
+                        //                         : 4, (index) {
+                        //                   var data = doctortitle![index];
+                        //                   return Center(
+                        //                     //  width: Get.size.width*0.26,
+                        //                     child: SizedBox(
+                        //                       //  width: 2,
+                        //                       child: Text(
+                        //                           "${data.degreeId}${doctortitle!.last == data ? "" : ","}",
+                        //                           maxLines: 1,
+                        //                           overflow: TextOverflow.ellipsis,
+                        //                           textAlign: TextAlign.center,
+                        //                           style: Style
+                        //                               .alltext_ExtraSmall_black),
+                        //                     ),
+                        //                   );
+                        //                 }))),
+                        //       )
                         : Container(),
                     const SizedBox(
-                      height: 2,
+                      height: 0,
                     ),
                     Text(
                       docSpeciality!,
@@ -192,17 +193,18 @@ class DocCard extends StatelessWidget {
       ),
     );
   }
-
 }
+
 class DeActveocCard extends StatelessWidget {
   const DeActveocCard(
       {Key? key,
-        this.onTap,
-        required this.docName,
-        this.docSpeciality,
-        this.docImage,
-        this.docHospital,
-        this.doctortitle, required this.docId})
+      this.onTap,
+      required this.docName,
+      this.docSpeciality,
+      this.docImage,
+      this.docHospital,
+      this.doctortitle,
+      required this.docId})
       : super(key: key);
   final VoidCallback? onTap;
   final String docName;
@@ -215,7 +217,7 @@ class DeActveocCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider =
-    Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
+        Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
     return InkWell(
       onTap: onTap,
       child: Stack(
@@ -251,33 +253,34 @@ class DeActveocCard extends StatelessWidget {
                     ),
                     doctortitle!.isNotEmpty
                         ? Container(
-                      height: 16.h,
-                      width: 200.h,
-                      // width: 200, // specify a height here,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: doctortitle!.length < 4
-                            ?doctortitle!.length
-                            : 5,
-                        itemBuilder: (context, index) {
-                          var data = doctortitle![index];
-                          return Center(
-                            // width: 50.h,
+                            height: 16.h,
+                            width: 200.h,
+                            // width: 200, // specify a height here,
+                            child: Center(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: doctortitle!.length < 4
+                                    ? doctortitle!.length
+                                    : 5,
+                                itemBuilder: (context, index) {
+                                  var data = doctortitle![index];
+                                  return Center(
+                                    // width: 50.h,
 
-
-                            child: Text(
-                              "${data.degreeId}${doctortitle!.last == data ? "" : ", "}",
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style: Style.alltext_ExtraSmall_black,
+                                    child: Text(
+                                      "${data.degreeId}${doctortitle!.last == data ? "" : ", "}",
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                      style: Style.alltext_ExtraSmall_black,
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
-                          );
-                        },
-                      ),
-                    )
+                          )
                         : Container(),
                     const SizedBox(
                       height: 2,
@@ -321,7 +324,7 @@ class DeActveocCard extends StatelessWidget {
                   docImage!,
                 ),
                 imageErrorBuilder: (context, error, stackTrace) =>
-                const CircleAvatar(
+                    const CircleAvatar(
                   radius: 35,
                   backgroundImage: AssetImage(Assets.dummy_image),
                 ),
@@ -329,11 +332,8 @@ class DeActveocCard extends StatelessWidget {
               ),
             ),
           ),
-
         ],
       ),
     );
   }
-
-
 }

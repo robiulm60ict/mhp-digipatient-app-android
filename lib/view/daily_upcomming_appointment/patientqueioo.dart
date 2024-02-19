@@ -115,8 +115,8 @@ class _PatientQurioState extends State<PatientQurio> {
     //     : 'N/A';
     String message = '';
     DateTime? targetTime;
-    DateTime? nullableDateTime =
-        DateTime(2024, 2, 18, 15, 0, 0); // nullable DateTime
+    // DateTime? nullableDateTime =
+    //     DateTime(2024, 2, 18, 17, 30, 0); // nullable DateTime
 
     String formattedTime = widget.todaysPatientAppointment.startTime != null
         ? DateFormat(' hh:mm a')
@@ -142,7 +142,7 @@ class _PatientQurioState extends State<PatientQurio> {
       // Define messages based on the condition
       message = isBeforeTargetTime
           ? "You are in next Queue"
-          : "doctor will call you in next 10 minuets.";
+          : "Doctor will call you in next 10 minutes.";
       print("isBeforeTargetTime$isBeforeTargetTime");
       print("message$message");
     } else {

@@ -245,32 +245,32 @@ class _VitalsViewState extends State<VitalsView>
                     SizedBox(
                       height: 18.h,
                     ),
-                    vital.isVitalLoading
-                        ? const Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : TabBar(
-                            // controller: _tabController,
-                            indicatorSize: TabBarIndicatorSize.label,
-                            indicatorColor: AppColors.primaryColor,
-                            isScrollable: true,
-
-                            tabs: getTabBar(),
-                          ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    vital.isVitalLoading
-                        ? const Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : SizedBox(
-                            height: 300.h,
-                            child: TabBarView(
-                              // controller: _tabController,
-                              children: getTabView(),
-                            ),
-                          ),
+                    // vital.isVitalLoading
+                    //     ? const Center(
+                    //         child: CircularProgressIndicator(),
+                    //       )
+                    //     : TabBar(
+                    //         // controller: _tabController,
+                    //         indicatorSize: TabBarIndicatorSize.label,
+                    //         indicatorColor: AppColors.primaryColor,
+                    //         isScrollable: true,
+                    //
+                    //         tabs: getTabBar(),
+                    //       ),
+                    // SizedBox(
+                    //   height: 10.h,
+                    // ),
+                    // vital.isVitalLoading
+                    //     ? const Center(
+                    //         child: CircularProgressIndicator(),
+                    //       )
+                    //     : SizedBox(
+                    //         height: 300.h,
+                    //         child: TabBarView(
+                    //           // controller: _tabController,
+                    //           children: getTabView(),
+                    //         ),
+                    //       ),
                     SizedBox(
                       height: 50.h,
                     ),
