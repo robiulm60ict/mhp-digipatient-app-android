@@ -9,6 +9,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 
 import '../../resources/colors.dart';
+import '../../utils/message.dart';
 import 'newpassword_view.dart';
 
 class ForgetPinCodeVerificationView extends StatefulWidget {
@@ -193,40 +194,7 @@ class _ForgetPinCodeVerificationViewState extends State<ForgetPinCodeVerificatio
                   ),
                   TextButton(
                     onPressed: () {
-                      print("dddddddddddddd");
-                      Map<String,dynamic> body = {
-                        "phone_number" : widget.phoneNumber,
-                        "token" : widget.token,
-                        "verification_code" : currentText
-                      };
-                      print("dddddddddddddd");
-                      // snackBar(" Enter The house ");
-                     formKey.currentState!.validate();
-                      // conditions for validating
-                      if (currentText.length != 4) {
-                        // snackBar(" Wrong Place ");
-                        errorController!.add(ErrorAnimationType
-                            .shake); // Triggering error shake animation
-                        setState(() => hasError = true);
-                      } else {
-                        print("dddddddddddddd");
-                        setState(
-                              () {
-                            hasError = false;
-                            auth.otpCheckForget(context, body).then((value) {
-                              // if(auth.otpCheckError){
-                              //   errorController!.add(ErrorAnimationType
-                              //       .shake);
-                              //   setState(() {
-                              //     hasError = true;
-                              //   });
-                              // }
-                            });
-
-                          },
-                        );
-                      }
-
+                      auth.sendOtpForget(context, phnNumber: widget.phoneNumber.toString());
 
 
                     },
@@ -264,7 +232,7 @@ class _ForgetPinCodeVerificationViewState extends State<ForgetPinCodeVerificatio
                 margin:
                  EdgeInsets.symmetric(vertical: 16.0.h, horizontal: 30.w),
                 decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: acceptTheTerms==true? Colors.green:Colors.grey,
                     borderRadius: BorderRadius.circular(5.r),
                     boxShadow: [
                       BoxShadow(
@@ -280,38 +248,44 @@ class _ForgetPinCodeVerificationViewState extends State<ForgetPinCodeVerificatio
                   height: 50.h,
                   child: TextButton(
                     onPressed: () async{
-                      Map<String,dynamic> body = {
-                        "phone_number" : widget.phoneNumber,
-                        "token" : widget.token,
-                        "verification_code" : currentText
-                      };
 
-                      snackBar(" Enter The house ");
-                      formKey.currentState!.validate();
-                      // conditions for validating
-                      if (currentText.length != 4) {
-                        // snackBar(" Wrong Place ");
-                        errorController!.add(ErrorAnimationType
-                            .shake); // Triggering error shake animation
-                        setState(() => hasError = true);
-                      } else {
-                        setState(
-                              () {
-                            hasError = false;
-                             auth.otpCheckForget(context, body).then((value) {
-                              if(auth.otpCheckError){
-                                errorController!.add(ErrorAnimationType
-                                    .shake);
-                                setState(() {
-                                  hasError = true;
-                                });
-                              }
-                            });
+                      if(acceptTheTerms==true){
+                        Map<String,dynamic> body = {
+                          "phone_number" : widget.phoneNumber,
+                          "token" : widget.token,
+                          "verification_code" : currentText
+                        };
 
-                          },
-                        );
+                        snackBar(" Enter The house ");
+                        formKey.currentState!.validate();
+                        // conditions for validating
+                        if (currentText.length != 4) {
+                          // snackBar(" Wrong Place ");
+                          errorController!.add(ErrorAnimationType
+                              .shake); // Triggering error shake animation
+                          setState(() => hasError = true);
+                        } else {
+                          setState(
+                                () {
+                              hasError = false;
+                              auth.otpCheckForget(context, body).then((value) {
+                                if(auth.otpCheckError){
+                                  errorController!.add(ErrorAnimationType
+                                      .shake);
+                                  setState(() {
+                                    hasError = true;
+                                  });
+                                }
+                              });
+
+                            },
+                          );
+                        }
+
+
+                      }else{
+                        Messages.snackBar(context, "Selected Terms & conditions");
                       }
-
 
 
                     },

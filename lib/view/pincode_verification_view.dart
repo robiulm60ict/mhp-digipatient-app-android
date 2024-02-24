@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../generated/assets.dart';
 import '../resources/colors.dart';
+import '../utils/message.dart';
 
 class PinCodeVerificationView extends StatefulWidget {
   final String? phoneNumber;
@@ -17,8 +18,8 @@ class PinCodeVerificationView extends StatefulWidget {
 
   const PinCodeVerificationView({
     Key? key,
-   required this.phoneNumber,
-   required this.token,
+    required this.phoneNumber,
+    required this.token,
   }) : super(key: key);
 
   @override
@@ -28,6 +29,7 @@ class PinCodeVerificationView extends StatefulWidget {
 
 class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
   TextEditingController textEditingController = TextEditingController();
+
   // ..text = "123456";
 
   // ignore: close_sinks
@@ -40,13 +42,12 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
   @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
-    WidgetsBinding.instance.addPostFrameCallback((_){
-
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AuthViewModel>().setOtpCheckLoading(false);
-
     });
     super.initState();
   }
+
   bool acceptTheTerms = true;
 
   @override
@@ -68,7 +69,7 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthViewModel>(context,listen: false);
+    final auth = Provider.of<AuthViewModel>(context, listen: false);
     return Scaffold(
       body: GestureDetector(
         onTap: () {},
@@ -77,13 +78,13 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
           width: MediaQuery.of(context).size.width,
           child: ListView(
             children: <Widget>[
-               const GradientAppBar(text: "Verification"),
+              const GradientAppBar(text: "Verification"),
 
               SizedBox(height: 50.h),
 
               Padding(
                 padding:
-                 EdgeInsets.symmetric(horizontal: 30.0.w, vertical: 8.h),
+                    EdgeInsets.symmetric(horizontal: 30.0.w, vertical: 8.h),
                 child: RichText(
                   text: TextSpan(
                       text: "Enter the code sent to ",
@@ -95,12 +96,11 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15.sp)),
                       ],
-                      style:
-                      TextStyle(color: Colors.black54, fontSize: 15.sp)),
+                      style: TextStyle(color: Colors.black54, fontSize: 15.sp)),
                   textAlign: TextAlign.center,
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: 20.h,
               ),
               Form(
@@ -130,13 +130,11 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
                       // },
                       pinTheme: PinTheme(
                         shape: PinCodeFieldShape.box,
-
                         borderRadius: BorderRadius.circular(5),
                         fieldHeight: 55,
                         fieldWidth: 55,
                         activeFillColor: Colors.white,
                         inactiveFillColor: AppColors.backgroundColor,
-
                       ),
                       cursorColor: Colors.black,
                       animationDuration: const Duration(milliseconds: 300),
@@ -175,30 +173,31 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
                 padding: EdgeInsets.symmetric(horizontal: 30.0.w),
                 child: Text(
                   hasError ? "*Please fill up all the cells properly" : "",
-                  style:  TextStyle(
+                  style: TextStyle(
                       color: Colors.red,
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w400),
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: 15.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   Text(
+                  Text(
                     "Didn't receive the code? ",
                     style: TextStyle(color: Colors.black54, fontSize: 15.sp),
                   ),
                   TextButton(
                     onPressed: () {
-                      auth.sendOtp(context, phnNumber: widget.phoneNumber!).then((value) {
+                      auth
+                          .sendOtp(context, phnNumber: widget.phoneNumber!)
+                          .then((value) {
                         snackBar("OTP resend!!");
                       });
-
                     },
-                    child:  Text(
+                    child: Text(
                       "RESEND",
                       style: TextStyle(
                           color: const Color(0xFF91D3B3),
@@ -208,104 +207,119 @@ class _PinCodeVerificationViewState extends State<PinCodeVerificationView> {
                   )
                 ],
               ),
-               SizedBox(
+              SizedBox(
                 height: 14.h,
               ),
               CheckboxListTile(
                 activeColor: AppColors.primaryColor,
-                  controlAffinity: ListTileControlAffinity.leading,
-                  value: acceptTheTerms, onChanged: (val){
-                acceptTheTerms = val!;
-                setState(() {
-
-                });
-              },
-              title: RichText(text: TextSpan(text: "I accept the ", style: TextStyle(fontSize: 13.sp, color: Colors.grey), children: [
-                TextSpan(
-                    text: "Terms & conditions",
-                    style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: AppColors.primaryColor),
-                recognizer: TapGestureRecognizer()..onTap = ()=>{}
-                ),
-              ],),),
-              ),
-              auth.isOtpCheckLoading ? const Center(child: CircularProgressIndicator(),) : Container(
-                margin:
-                 EdgeInsets.symmetric(vertical: 16.0.h, horizontal: 30.w),
-                decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(5.r),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.green.shade200,
-                          offset: const Offset(1, -2),
-                          blurRadius: 5),
-                      BoxShadow(
-                          color: Colors.green.shade200,
-                          offset: const Offset(-1, 2),
-                          blurRadius: 5)
-                    ],),
-                child: ButtonTheme(
-                  height: 50.h,
-                  child: TextButton(
-                    onPressed: () async{
-                      Map<String,dynamic> body = {
-                        "phone_number" : widget.phoneNumber,
-                        "token" : widget.token,
-                        "verification_code" : currentText
-                      };
-
-                      // snackBar(" Enter The house ");
-                      formKey.currentState!.validate();
-                      // conditions for validating
-                      if (currentText.length != 4) {
-                        // snackBar(" Wrong Place ");
-                        errorController!.add(ErrorAnimationType
-                            .shake); // Triggering error shake animation
-                        setState(() => hasError = true);
-                      } else {
-                        setState(
-                              () {
-                            hasError = false;
-                             auth.otpCheck(context, body).then((value) {
-                              if(auth.otpCheckError){
-                                errorController!.add(ErrorAnimationType
-                                    .shake);
-                                setState(() {
-                                  hasError = true;
-                                });
-                              }
-                            });
-                            // snackBar("OTP Verified!!");
-                            // congratsDialogue(context,onTap: (){
-                            //   context.router.replace(const DashboardRoute(),);
-                            // });
-                            // if(auth.otpCheckList.first.verify!){
-                            //   context.router.push(const CreateAccountRoute());
-                            //
-                            // }else{
-                            //   snackBar(auth.otpCheckList.first.message);
-                            // }
-                          },
-                        );
-                      }
-
-                    },
-                    child: Center(
-                        child: Text(
-                          "VERIFY",
-                          style:  TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.bold),
-                        ),),
+                controlAffinity: ListTileControlAffinity.leading,
+                value: acceptTheTerms,
+                onChanged: (val) {
+                  acceptTheTerms = val!;
+                  setState(() {});
+                },
+                title: RichText(
+                  text: TextSpan(
+                    text: "I accept the ",
+                    style: TextStyle(fontSize: 13.sp, color: Colors.grey),
+                    children: [
+                      TextSpan(
+                          text: "Terms & conditions",
+                          style: TextStyle(
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primaryColor),
+                          recognizer: TapGestureRecognizer()..onTap = () => {}),
+                    ],
                   ),
                 ),
               ),
+              auth.isOtpCheckLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Container(
+                      margin: EdgeInsets.symmetric(
+                          vertical: 16.0.h, horizontal: 30.w),
+                      decoration: BoxDecoration(
+                        color: acceptTheTerms==true?Colors.green:Colors.grey,
+                        borderRadius: BorderRadius.circular(5.r),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.green.shade200,
+                              offset: const Offset(1, -2),
+                              blurRadius: 5),
+                          BoxShadow(
+                              color: Colors.green.shade200,
+                              offset: const Offset(-1, 2),
+                              blurRadius: 5)
+                        ],
+                      ),
+                      child: ButtonTheme(
+                        height: 50.h,
+                        child: TextButton(
+                          onPressed: () async {
+
+                                if(acceptTheTerms==true){
+                                  Map<String, dynamic> body = {
+                                    "phone_number": widget.phoneNumber,
+                                    "token": widget.token,
+                                    "verification_code": currentText
+                                  };
+
+                                  // snackBar(" Enter The house ");
+                                  formKey.currentState!.validate();
+                                  // conditions for validating
+                                  if (currentText.length != 4) {
+                                    // snackBar(" Wrong Place ");
+                                    errorController!.add(ErrorAnimationType
+                                        .shake); // Triggering error shake animation
+                                    setState(() => hasError = true);
+                                  } else {
+                                    setState(
+                                          () {
+                                        hasError = false;
+                                        auth.otpCheck(context, body).then((value) {
+                                          if (auth.otpCheckError) {
+                                            errorController!
+                                                .add(ErrorAnimationType.shake);
+                                            setState(() {
+                                              hasError = true;
+                                            });
+                                          }
+                                        });
+
+                                      },
+                                    );
+                                  }
+                                }else{
+                                  Messages.snackBar(context, "Selected Terms & conditions");
+                                }
+
+
+                          },
+                          child: Center(
+                            child: Text(
+                              "VERIFY",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
               //  SizedBox(
               //   height: 16.h,
               // ),
               TextButton(
-                child: Text("Clear", style: TextStyle(fontSize: 14.sp, ),),
+                child: Text(
+                  "Clear",
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                  ),
+                ),
                 onPressed: () {
                   textEditingController.clear();
                 },
