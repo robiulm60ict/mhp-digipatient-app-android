@@ -593,7 +593,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                              "${widget.doctors.doctors!.title!.titleName.toString()} ${widget.doctors.doctors!.fullName.toString()}"),
+                              "${widget.doctors!.doctors!.title == null ? '':widget.doctors!.doctors!.title!.titleName} ${widget.doctors.doctors!.fullName.toString()}"),
                           Style.distan_size2,
                           widget.doctors.doctors!.usualProvider != null
                               ? Text(
