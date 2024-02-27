@@ -126,12 +126,15 @@ class _UploadMyReportState extends State<UploadMyReport> {
                                                 ),
                                               ),
                                             ),
-                                            Text(
-                                              info.name.toString(),
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              textAlign: TextAlign.center,
-                                              style: Style.alltext_default_balck,
+                                            SizedBox(
+                                              width: 100.w,
+                                              child: Text(
+                                                info.name.toString(),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                textAlign: TextAlign.center,
+                                                style: Style.alltext_default_balck,
+                                              ),
                                             ),
                                           ],),
 

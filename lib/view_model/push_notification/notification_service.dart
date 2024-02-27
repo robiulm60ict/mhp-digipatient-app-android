@@ -141,23 +141,23 @@ class NotificationService {
       importance: Importance.max,
       showBadge: true,
     );
-    // BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
-    //
-    //     message.notification!.body.toString(),
-    //     htmlFormatBigText: true,
-    //     contentTitle: message.notification!.title.toString(),
-    //     htmlFormatContentTitle: true);
+    BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
+
+        message.notification!.body.toString(),
+        htmlFormatBigText: true,
+        contentTitle: message.notification!.title.toString(),
+        htmlFormatContentTitle: true);
 
     final notificationData = message.data;
-    final title = notificationData['title'] ?? 'Default Title';
-    final body = notificationData['body'] ?? 'Default Body';
-    final imageUrl = notificationData['image'] ??
-        "https://proshort.ai/static/img/ps_logo.png";
-    BigPictureStyleInformation bigPictureStyle = BigPictureStyleInformation(
-      FilePathAndroidBitmap(imageUrl.toString()),
-      contentTitle: title,
-      summaryText: body,
-    );
+    // final title = notificationData['title'] ?? 'Default Title';
+    // final body = notificationData['body'] ?? 'Default Body';
+    // final imageUrl = notificationData['image'] ??
+    //     "https://proshort.ai/static/img/ps_logo.png";
+    // BigPictureStyleInformation bigPictureStyle = BigPictureStyleInformation(
+    //   FilePathAndroidBitmap(imageUrl.toString()),
+    //   contentTitle: title,
+    //   summaryText: body,
+    // );
     AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
             channel.id.toString(), channel.name.toString(),
@@ -165,7 +165,7 @@ class NotificationService {
             importance: Importance.max,
             priority: Priority.high,
             ticker: "ticker",
-            styleInformation: bigPictureStyle,
+            styleInformation: bigTextStyleInformation,
             playSound: true);
     const DarwinNotificationDetails darwinNotificationDetails =
         DarwinNotificationDetails(
