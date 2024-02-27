@@ -18,6 +18,7 @@ import '../../utils/utils.dart';
 import '../../view_model/my_medicine_view_model/my_medicine_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/custom_textfield.dart';
+import '../../widgets/lodding_widget.dart';
 
 class UploadReportView extends StatefulWidget {
   UploadReportView({
@@ -562,22 +563,32 @@ class _UploadReportViewState extends State<UploadReportView> {
               ),
             ),
             if (isCompressing)
-              AlertDialog(
-
-                // backgroundColor: Colors.transparent,
-                content: Container(
-                  width: 100, // Adjust width as needed
-                  height: 100, // Adjust height as needed
-                  child: const Column(
-                    children: [
-                      Text("Please Wait..."),
-                      Center(
-                        child: CircularProgressIndicator(color: Colors.green), // Loading indicator
-                      ),
-                    ],
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 100.h,
                   ),
-                ),
+                  const LoaderWidget(),
+                ],
               ),
+              // AlertDialog(
+              //
+              //   // backgroundColor: Colors.transparent,
+              //   content: Container(
+              //     width: 100, // Adjust width as needed
+              //     height: 100, // Adjust height as needed
+              //     child: const Column(
+              //       children: [
+              //         Text("Please Wait..."),
+              //         Center(
+              //           child: CircularProgressIndicator(color: Colors.green), // Loading indicator
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
           ],
         ),
 
