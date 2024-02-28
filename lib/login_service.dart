@@ -42,14 +42,16 @@ void onUserLogin() {
         'ce9d090d86cd6d51344033934af611515fdb0fc5760cfd02df1f99c06b0b94cf' /*input your AppSign*/,
     userID: currentUser.id,
     userName: currentUser.name,
-    androidNotificationConfig: ZegoAndroidNotificationConfig(
-      channelID: "ZegoUIKit",
-      channelName: "Call Notifications",
-      sound: "notification",
-      icon: "notification_icon",
-    ),
-    iOSNotificationConfig: ZegoIOSNotificationConfig(
-      systemCallingIconName: 'CallKitIcon',
+    notificationConfig: ZegoCallInvitationNotificationConfig(
+      androidNotificationConfig: ZegoCallAndroidNotificationConfig(
+        channelID: "ZegoUIKit",
+        channelName: "Call Notifications",
+        sound: "notification",
+        icon: "notification_icon",
+      ),
+      iOSNotificationConfig: ZegoCallIOSNotificationConfig(
+        systemCallingIconName: 'CallKitIcon',
+      ),
     ),
     plugins: [ZegoUIKitSignalingPlugin()],
     requireConfig: (ZegoCallInvitationData data) {
@@ -64,15 +66,16 @@ void onUserLogin() {
       // config.avatarBuilder = customAvatarBuilder;
 
       /// support minimizing, show minimizing button
-      config.topMenuBarConfig.isVisible = true;
-      config.bottomMenuBarConfig.buttons
-          .insert(0, ZegoMenuBarButtonName.minimizingButton);
-      config.bottomMenuBarConfig.buttons
-          .remove(ZegoMenuBarButtonName.hangUpButton);
+      config.topMenuBar.isVisible = true;
 
-      config.onError = (ZegoUIKitError error) {
-        debugPrint('onError:$error');
-      };
+      config.bottomMenuBar.buttons
+          .insert(0, ZegoCallMenuBarButtonName.minimizingButton);
+      config.bottomMenuBar.buttons
+          .remove(ZegoCallMenuBarButtonName.hangUpButton);
+
+      // config.onError = (ZegoUIKitError error) {
+      //   debugPrint('onError:$error');
+      // };
 
       return config;
     },
