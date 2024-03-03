@@ -318,12 +318,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                     const AssetImage(Assets.imagesAvatar),
                               )
                             //
-                            // CircleAvatar(
-                            //     radius: 40.r,
-                            //     backgroundColor: AppColors.linearGradient1,
-                            //     backgroundImage: NetworkImage(
-                            //         "${AppUrls.docImage}${doc?.doctors?.drImages}"),
-                            //   )
+
                             : CircleAvatar(
                                 radius: 40.r,
                                 backgroundColor: AppColors.linearGradient1,
@@ -388,7 +383,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                               color: AppColors.primaryColor,
                             ),
                             title: Text(
-                              "${doc?.doctors?.workExperienceYears.toString()} years",
+                              "${doc?.doctors?.workExperienceYears==null||doc?.doctors?.workExperienceYears.toString()=="null"?"0":doc?.doctors?.workExperienceYears.toString()} years",
                               style: Style.alltext_default_balck,
                             ),
                             subtitle: Text(
@@ -422,7 +417,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                         child: Padding(
                           padding: EdgeInsets.all(0.r),
                           child: Text(
-                            "${doc?.doctors!.specialist?.specialistsName.toString()}",
+                            "${doc?.doctors!.specialist?.specialistsName==null||doc?.doctors!.specialist?.specialistsName.toString()=="null"?"":doc?.doctors!.specialist?.specialistsName.toString()}",
                             style: Style.alltext_default_balck,
                           ),
                         ),
@@ -545,7 +540,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                       style: Style.alltext_default_balck,
                                     ),
                                     Text(
-                                      "${doc!.doctors!.drWorkPhone.toString() == "null" ? "" : doc!.doctors!.drWorkPhone.toString()}",
+                                      "${doc!.doctors!.drWorkPhone==null||doc!.doctors!.drWorkPhone.toString() == "null" ? "" : doc!.doctors!.drWorkPhone.toString()}",
                                       style: Style.alltext_default_balck,
                                     ),
                                   ],

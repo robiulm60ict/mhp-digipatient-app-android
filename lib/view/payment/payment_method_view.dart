@@ -318,8 +318,11 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
                   //   height: 10.h,
                   // ),
 
-
-
+                  widget.doctor.doctors!.drHomePhone==null||
+                  widget.doctor.doctors!.drHomePhone.toString()=="null"?SizedBox(child: const Card(child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Center(child: Text("Doctor No Payment Number",style: TextStyle(fontSize: 20),)),
+                  ),)):
                   Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(2.r),
