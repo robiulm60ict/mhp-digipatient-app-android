@@ -15,7 +15,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 
-
 class SignUpView extends StatefulWidget {
   const SignUpView({Key? key}) : super(key: key);
 
@@ -32,13 +31,20 @@ class _SignUpViewState extends State<SignUpView> {
     phnNumber.dispose();
   }
 
+  GlobalKey<FormState> _formKey = GlobalKey();
+
+  FocusNode focusNode = FocusNode();
+
+  var number = '';
+
   @override
   Widget build(BuildContext context) {
     print("object");
     return Scaffold(
-      body:  Consumer<AuthViewModel>(builder: (context, auth, child) {
-
-          return  ListView(
+      body: Consumer<AuthViewModel>(builder: (context, auth, child) {
+        return Form(
+          key: _formKey,
+          child: ListView(
             children: [
               const GradientAppBar(text: "Sign Up"),
               SizedBox(
@@ -60,9 +66,11 @@ class _SignUpViewState extends State<SignUpView> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: IntlPhoneField(
+                  focusNode: focusNode,
+                  controller: phnNumber,
                   initialCountryCode: 'BD',
-                  keyboardType: TextInputType.phone,
 
+                  keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     labelText: 'Phone Number',
                     border: OutlineInputBorder(
@@ -71,7 +79,10 @@ class _SignUpViewState extends State<SignUpView> {
                   ),
                   languageCode: "bd",
                   onChanged: (phone) {
+                    phnNumber.text;
                     print(phone.completeNumber);
+                    number = phone.completeNumber;
+                    print(number);
                   },
                   onCountryChanged: (country) {
                     print('Country changed to: ' + country.name);
@@ -79,124 +90,132 @@ class _SignUpViewState extends State<SignUpView> {
                 ),
               ),
 
-              Card(
-                margin: EdgeInsets.all(defaultPadding.r),
-
-                // color: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.r),
-                    side: BorderSide(
-                      color: AppColors.primaryColor,
-                    )),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: SizedBox(
-                    height: 55.h,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 100.w,
-                             height: 40.h,
-                              child: CountryCodePicker(
-                                onChanged: (element)  {
-                                  debugPrint(element.toLongString());
-                                  debugPrint(element.name);
-                                  debugPrint(element.code);
-                                  debugPrint("element.code${element.code}");
-                                  debugPrint("element.dialCode${element.dialCode}");
-                                  debugPrint(element.flagUri);
-                                },
-                                initialSelection: 'BD',
-                                showCountryOnly: true,
-                                showOnlyCountryWhenClosed: false,
-                                hideSearch: false,
-                                hideMainText: false,
-                                favorite: const ['+880', 'BD'],
-                              ),
-                            ),
-                            // Text(
-                            //   "  +88  ",
-                            //   style:
-                            //   TextStyle(fontSize: 16.sp, color: AppColors.blackColor,),
-                            // ),
-                            // Style.distan_size10,
-                            // Style.distan_size2,
-                            // Style.distan_size2,
-                          ],
-                        ),
-                        Expanded(
-                          flex: 8,
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 12),
-                              child: TextField(
-                                controller: phnNumber,
-                                keyboardType: TextInputType.number,
-                                // enabled: true,
-                                // maxLength: 11,
-                                maxLength: 11, // Set maximum character limit
-                                maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                                textAlign: TextAlign.start,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                    RegExp(
-                                        r'^\d+\.?\d{0,2}'), // Allows only digits with up to two decimal places
-                                  ),
-                                ],
-
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-
-                                ),
-                                // decoration: InputDecoration(
-                                //   border: InputBorder.none,
-                                //
-                                // ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              // Card(
+              //   margin: EdgeInsets.all(defaultPadding.r),
+              //
+              //   // color: Colors.transparent,
+              //   shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(10.r),
+              //       side: BorderSide(
+              //         color: AppColors.primaryColor,
+              //       )),
+              //   child: Padding(
+              //     padding: const EdgeInsets.only(top: 10),
+              //     child: SizedBox(
+              //       height: 55.h,
+              //       child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         crossAxisAlignment: CrossAxisAlignment.center,
+              //         children: [
+              //           Column(
+              //             mainAxisAlignment: MainAxisAlignment.center,
+              //             crossAxisAlignment: CrossAxisAlignment.center,
+              //             children: [
+              //               SizedBox(
+              //                 width: 100.w,
+              //                height: 40.h,
+              //                 child: CountryCodePicker(
+              //                   onChanged: (element)  {
+              //                     debugPrint(element.toLongString());
+              //                     debugPrint(element.name);
+              //                     debugPrint(element.code);
+              //                     debugPrint("element.code${element.code}");
+              //                     debugPrint("element.dialCode${element.dialCode}");
+              //                     debugPrint(element.flagUri);
+              //                   },
+              //                   initialSelection: 'BD',
+              //                   showCountryOnly: true,
+              //                   showOnlyCountryWhenClosed: false,
+              //                   hideSearch: false,
+              //                   hideMainText: false,
+              //                   favorite: const ['+880', 'BD'],
+              //                 ),
+              //               ),
+              //               // Text(
+              //               //   "  +88  ",
+              //               //   style:
+              //               //   TextStyle(fontSize: 16.sp, color: AppColors.blackColor,),
+              //               // ),
+              //               // Style.distan_size10,
+              //               // Style.distan_size2,
+              //               // Style.distan_size2,
+              //             ],
+              //           ),
+              //           Expanded(
+              //             flex: 8,
+              //             child: Center(
+              //               child: Padding(
+              //                 padding: const EdgeInsets.only(top: 12),
+              //                 child: TextField(
+              //                   controller: phnNumber,
+              //                   keyboardType: TextInputType.number,
+              //                   // enabled: true,
+              //                   // maxLength: 11,
+              //                   maxLength: 11, // Set maximum character limit
+              //                   maxLengthEnforcement: MaxLengthEnforcement.enforced,
+              //                   textAlign: TextAlign.start,
+              //                   inputFormatters: [
+              //                     FilteringTextInputFormatter.allow(
+              //                       RegExp(
+              //                           r'^\d+\.?\d{0,2}'), // Allows only digits with up to two decimal places
+              //                     ),
+              //                   ],
+              //
+              //                   decoration: InputDecoration(
+              //                     border: InputBorder.none,
+              //
+              //                   ),
+              //                   // decoration: InputDecoration(
+              //                   //   border: InputBorder.none,
+              //                   //
+              //                   // ),
+              //                 ),
+              //               ),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // ),
 
               SizedBox(
                 height: 30.h,
               ),
               auth.isSendOtpLoading == true
                   ? Center(
-                child: CircularProgressIndicator(),
-              )
+                      child: CircularProgressIndicator(),
+                    )
                   : Padding(
-                padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
-                child: CustomButton(
-                  text: "Continue",
-                  onTap: () {
+                      padding:
+                          EdgeInsets.symmetric(horizontal: defaultPadding.w),
+                      child: CustomButton(
+                        text: "Continue",
+                        onTap: () {
+                          // if( _formKey.currentState!.validate()){
+                          //   print('fff');
+                          //
+                          // }else{
+                          //
+                          // }
+                          if (phnNumber.text.isEmpty) {
+                            Messages.snackBar(context, "Enter Mobile Number");
+                          } else if (_formKey.currentState!.validate()) {
+                            print('fff');
+                           // Messages.snackBar(context, "val Mobile Number");
+                            auth.sendOtp(context, phnNumber: phnNumber.text);
+                          }
 
-                    if (phnNumber.text.isEmpty) {
-                      Messages.snackBar(context, "Enter Mobile Number");
-
-                    }
-
-                    else if (phnNumber.text.length !=11) {
-                      Messages.snackBar(context, "Mobile Number must be 11 digit");
-                    }
-                    else {
-                      auth.sendOtp(context, phnNumber: phnNumber.text);
-
-                    }
-                  },
-                ),
-              ),
-
+                          // else if (phnNumber.text.length !=11) {
+                          //   Messages.snackBar(context, "Mobile Number must be 11 digit");
+                          // }
+                          // else {
+                          //   print(phnNumber.text);
+                          //
+                          // }
+                        },
+                      ),
+                    ),
 
               SizedBox(
                 height: 15.h,
@@ -224,12 +243,9 @@ class _SignUpViewState extends State<SignUpView> {
                 ),
               ),
             ],
-          );
-
+          ),
+        );
       }),
-
-
-
     );
   }
 }
