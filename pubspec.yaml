@@ -114,6 +114,7 @@ dependencies:
   lecle_downloads_path_provider: ^0.0.2+8
 #  permission_handler: ^11.0.1
   image:
+  country_code_picker: ^3.0.0
 #  syncfusion_flutter_pdf: ^24.2.4
 
 

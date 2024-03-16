@@ -1,3 +1,4 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/utils/message.dart';
@@ -8,6 +9,7 @@ import 'package:digi_patient/widgets/custom_button.dart';
 import 'package:digi_patient/widgets/gradient_appBar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -55,8 +57,57 @@ class _OtpSendViewState extends State<OtpSendView> {
               height: 10.h,
             ),
 
+            // Card(
+            //   margin: EdgeInsets.all(defaultPadding.r),
+            //   // color: Colors.transparent,
+            //   shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(10.r),
+            //       side: BorderSide(
+            //         color: AppColors.primaryColor,
+            //       )),
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     child: SizedBox(
+            //       height: 55,
+            //       child: Row(
+            //         children: [
+            //           Column(
+            //             mainAxisAlignment: MainAxisAlignment.center,
+            //             crossAxisAlignment: CrossAxisAlignment.center,
+            //             children: [
+            //
+            //               Text(
+            //                 "  +88  ",
+            //                 style:
+            //                 TextStyle(fontSize: 16.sp, color: AppColors.blackColor,),
+            //               ),
+            //               Style.distan_size2,
+            //               Style.distan_size2,
+            //               Style.distan_size2,
+            //             ],
+            //           ),
+            //           Expanded(
+            //             child: TextField(
+            //               controller: phnNumber,
+            //               maxLength: 11,
+            //
+            //
+            //               keyboardType: TextInputType.number,
+            //               enabled: true,
+            //               decoration: InputDecoration(
+            //                 border: InputBorder.none,
+            //
+            //               ),
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Card(
               margin: EdgeInsets.all(defaultPadding.r),
+
               // color: Colors.transparent,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.r),
@@ -64,37 +115,76 @@ class _OtpSendViewState extends State<OtpSendView> {
                     color: AppColors.primaryColor,
                   )),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(top: 10),
                 child: SizedBox(
-                  height: 55,
+                  height: 55.h,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-
-                          Text(
-                            "  +88  ",
-                            style:
-                            TextStyle(fontSize: 16.sp, color: AppColors.blackColor,),
+                          SizedBox(
+                            width: 100.w,
+                            height: 40.h,
+                            child: CountryCodePicker(
+                              onChanged: (element)  {
+                                debugPrint(element.toLongString());
+                                debugPrint(element.name);
+                                debugPrint(element.code);
+                                debugPrint("element.code${element.code}");
+                                debugPrint("element.dialCode${element.dialCode}");
+                                debugPrint(element.flagUri);
+                              },
+                              initialSelection: 'BD',
+                              showCountryOnly: true,
+                              showOnlyCountryWhenClosed: false,
+                              hideSearch: false,
+                              hideMainText: false,
+                              favorite: const ['+880', 'BD'],
+                            ),
                           ),
-                          Style.distan_size2,
-                          Style.distan_size2,
-                          Style.distan_size2,
+                          // Text(
+                          //   "  +88  ",
+                          //   style:
+                          //   TextStyle(fontSize: 16.sp, color: AppColors.blackColor,),
+                          // ),
+                          // Style.distan_size10,
+                          // Style.distan_size2,
+                          // Style.distan_size2,
                         ],
                       ),
                       Expanded(
-                        child: TextField(
-                          controller: phnNumber,
-                          maxLength: 11,
+                        flex: 8,
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 12),
+                            child: TextField(
+                              controller: phnNumber,
+                              keyboardType: TextInputType.number,
+                              // enabled: true,
+                              // maxLength: 11,
+                              maxLength: 11, // Set maximum character limit
+                              maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                              textAlign: TextAlign.start,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                  RegExp(
+                                      r'^\d+\.?\d{0,2}'), // Allows only digits with up to two decimal places
+                                ),
+                              ],
 
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
 
-                          keyboardType: TextInputType.number,
-                          enabled: true,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-
+                              ),
+                              // decoration: InputDecoration(
+                              //   border: InputBorder.none,
+                              //
+                              // ),
+                            ),
                           ),
                         ),
                       ),
@@ -103,7 +193,6 @@ class _OtpSendViewState extends State<OtpSendView> {
                 ),
               ),
             ),
-
             SizedBox(
               height: 30.h,
             ),
