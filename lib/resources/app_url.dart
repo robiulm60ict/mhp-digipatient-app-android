@@ -7,16 +7,16 @@ class AppUrls {
 
 
 
-  static const String baseUrlPatientMain =
-      'https://gdbackend.macrohealthplus.org';  //App live
-
+  // static const String baseUrlPatientMain =
+  //     'https://gdbackend.macrohealthplus.org';  //App live
+  //
   static const String databasename =
       'mhpdemocom'; //AppLive
 
   // static const String databasename =
   //     'mhpdemocom_ZXJVT'; //Test
-  // static const String baseUrlPatientMain =
-  //     'https://sandbox.greatdoc-back.macrohealthplus.org'; //Test
+  static const String baseUrlPatientMain =
+      'https://sandbox.greatdoc-back.macrohealthplus.org'; //Test
 
   static const String baseUrlPatient =
       '$baseUrlPatientMain/api/v1';

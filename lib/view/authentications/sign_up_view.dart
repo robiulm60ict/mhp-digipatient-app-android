@@ -202,15 +202,17 @@ class _SignUpViewState extends State<SignUpView> {
                             Messages.snackBar(context, "Enter Mobile Number");
                           } else if (_formKey.currentState!.validate()) {
                             print('fff');
+                            print(number);
+                            print(phnNumber.text);
+
                            // Messages.snackBar(context, "val Mobile Number");
-                            auth.sendOtp(context, phnNumber: phnNumber.text);
+                            auth.sendOtp(context, phnNumber: number);
                           }
 
                           // else if (phnNumber.text.length !=11) {
                           //   Messages.snackBar(context, "Mobile Number must be 11 digit");
                           // }
                           // else {
-                          //   print(phnNumber.text);
                           //
                           // }
                         },
