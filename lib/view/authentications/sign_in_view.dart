@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../resources/colors.dart';
 import '../../utils/message.dart';
@@ -28,8 +29,8 @@ class _SignInViewState extends State<SignInView> {
   bool keepMeSignedIn = true;
   bool obSecureText = false;
 
-  TextEditingController? passwordController;
-  TextEditingController? emailController;
+  TextEditingController? passwordController= TextEditingController();
+  TextEditingController? emailController= TextEditingController();
 
   NotificationService notificationService = NotificationService();
 
@@ -48,7 +49,7 @@ class _SignInViewState extends State<SignInView> {
       token = value!;
     });
     Future.delayed(const Duration(seconds: 0)).then((v) {
-      getUserData();
+     // getUserData();
       setState(() {});
     });
 
@@ -56,6 +57,12 @@ class _SignInViewState extends State<SignInView> {
     // TODO: implement initState
     super.initState();
   }
+  GlobalKey<FormState> _formKey = GlobalKey();
+
+  FocusNode focusNode = FocusNode();
+
+  var number = '';
+
 
   getUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -101,19 +108,52 @@ class _SignInViewState extends State<SignInView> {
           SizedBox(
             height: 5.h,
           ),
+
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
-            child: CustomTextField(
-              maxLength: 11,
-              textEditingController: emailController,
-              keyboardType: TextInputType.number,
-              prefix: Icon(
-                Icons.person_pin,
-                color: AppColors.primaryColor,
+            padding: const EdgeInsets.only(left: 16.0,right: 16),
+            child: IntlPhoneField(
+              focusNode: focusNode,
+              controller: emailController,
+              initialCountryCode: 'BD',
+
+              keyboardType: TextInputType.phone,
+
+              decoration: InputDecoration(
+
+
+
+                labelText: 'Phone Number',
+                border: OutlineInputBorder(
+
+
+                  borderSide: BorderSide(color: AppColors.primary_color,width: 1),
+                ),
               ),
-              hintText: "Mobile",
+              languageCode: "bd",
+              onChanged: (phone) {
+                emailController!.text;
+                print(phone.completeNumber);
+                number = phone.completeNumber;
+                print(number);
+              },
+              onCountryChanged: (country) {
+                print('Country changed to: ' + country.name);
+              },
             ),
           ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: defaultPadding.w),
+          //   child: CustomTextField(
+          //     maxLength: 11,
+          //     textEditingController: emailController,
+          //     keyboardType: TextInputType.number,
+          //     prefix: Icon(
+          //       Icons.person_pin,
+          //       color: AppColors.primaryColor,
+          //     ),
+          //     hintText: "Mobile",
+          //   ),
+          // ),
           SizedBox(
             height: 5.h,
           ),
@@ -206,13 +246,16 @@ class _SignInViewState extends State<SignInView> {
                       if (emailController!.text.isNotEmpty ||
                           passwordController!.text.isNotEmpty) {
                         Map<String, String> body = {
-                          'email': emailController!.text,
+                          'email': number,
                           'password': passwordController!.text,
                           'deviceToke': token,
                           "login_status" : "1",
                         };
+                        print(body);
                         authVm.loginApi(context, body,
                             keepMeSignIn: keepMeSignedIn);
+
+
                       } else {
                         Messages.snackBar(context, "Fill Up All of the field!",
                             backgroundColor: Colors.red);
