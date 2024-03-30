@@ -205,7 +205,7 @@ class AppointmentViewModel with ChangeNotifier {
 
   Future<void> selectDate(BuildContext context, docId) async {
     if (availableDates.isEmpty) {
-      Messages.snackBar(context, "Doctor seduce not available!");
+      Messages.snackBar(context, "Doctor Schedule  not available!");
       // Handle the case when availableDates is empty.
       print("No available dates");
       return;

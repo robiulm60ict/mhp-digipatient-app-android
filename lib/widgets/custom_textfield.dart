@@ -42,16 +42,16 @@ class CustomTextField extends StatelessWidget {
         hintStyle: TextStyle(fontSize: 12.sp, color: Colors.black),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(color: AppColors.primaryColor),
+          borderSide: BorderSide(color: AppColors.hint_text_color),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(color: AppColors.primaryColor),
+          borderSide: BorderSide(color: AppColors.hint_text_color),
         ),
         enabled: true,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(color: AppColors.primaryColor),
+          borderSide: BorderSide(color: AppColors.hint_text_color),
         ),
       ),
     );

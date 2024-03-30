@@ -1,4 +1,3 @@
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,8 +28,8 @@ class _SignInViewState extends State<SignInView> {
   bool keepMeSignedIn = true;
   bool obSecureText = false;
 
-  TextEditingController? passwordController= TextEditingController();
-  TextEditingController? emailController= TextEditingController();
+  TextEditingController? passwordController = TextEditingController();
+  TextEditingController? emailController = TextEditingController();
 
   NotificationService notificationService = NotificationService();
 
@@ -49,7 +48,7 @@ class _SignInViewState extends State<SignInView> {
       token = value!;
     });
     Future.delayed(const Duration(seconds: 0)).then((v) {
-     // getUserData();
+      // getUserData();
       setState(() {});
     });
 
@@ -57,11 +56,11 @@ class _SignInViewState extends State<SignInView> {
     // TODO: implement initState
     super.initState();
   }
+
   GlobalKey<FormState> _formKey = GlobalKey();
 
-  FocusNode focusNode = FocusNode();
+  FocusNode focusNode = FocusNode();  var number = '';
 
-  var number = '';
 
 
   getUserData() async {
@@ -110,23 +109,23 @@ class _SignInViewState extends State<SignInView> {
           ),
 
           Padding(
-            padding: const EdgeInsets.only(left: 16.0,right: 16),
+            padding: const EdgeInsets.only(left: 16.0, right: 16),
             child: IntlPhoneField(
               focusNode: focusNode,
               controller: emailController,
               initialCountryCode: 'BD',
-
               keyboardType: TextInputType.phone,
 
               decoration: InputDecoration(
-
-
-
                 labelText: 'Phone Number',
+                focusColor: AppColors.primary_color,
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: AppColors.primary_color, width: 1),
+                ),
                 border: OutlineInputBorder(
-
-
-                  borderSide: BorderSide(color: AppColors.primary_color,width: 1),
+                  borderSide:
+                      BorderSide(color: AppColors.primary_color, width: 1),
                 ),
               ),
               languageCode: "bd",
@@ -137,7 +136,7 @@ class _SignInViewState extends State<SignInView> {
                 print(number);
               },
               onCountryChanged: (country) {
-                print('Country changed to: ' + country.name);
+                print('Country changed to: ${country.name}');
               },
             ),
           ),
@@ -249,13 +248,11 @@ class _SignInViewState extends State<SignInView> {
                           'email': number,
                           'password': passwordController!.text,
                           'deviceToke': token,
-                          "login_status" : "1",
+                          "login_status": "1",
                         };
                         print(body);
                         authVm.loginApi(context, body,
                             keepMeSignIn: keepMeSignedIn);
-
-
                       } else {
                         Messages.snackBar(context, "Fill Up All of the field!",
                             backgroundColor: Colors.red);

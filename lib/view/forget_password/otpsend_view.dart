@@ -11,6 +11,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 
 import '../../resources/styles.dart';
@@ -25,12 +26,14 @@ class OtpSendView extends StatefulWidget {
 
 class _OtpSendViewState extends State<OtpSendView> {
   TextEditingController phnNumber = TextEditingController();
+  var number = '';
 
   @override
   void dispose() {
     super.dispose();
     phnNumber.dispose();
   }
+  FocusNode focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -105,92 +108,125 @@ class _OtpSendViewState extends State<OtpSendView> {
             //     ),
             //   ),
             // ),
-            Card(
-              margin: EdgeInsets.all(defaultPadding.r),
+            // Card(
+            //   margin: EdgeInsets.all(defaultPadding.r),
+            //
+            //   // color: Colors.transparent,
+            //   shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(10.r),
+            //       side: BorderSide(
+            //         color: AppColors.primaryColor,
+            //       )),
+            //   child: Padding(
+            //     padding: const EdgeInsets.only(top: 10),
+            //     child: SizedBox(
+            //       height: 55.h,
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.center,
+            //         crossAxisAlignment: CrossAxisAlignment.center,
+            //         children: [
+            //           Column(
+            //             mainAxisAlignment: MainAxisAlignment.center,
+            //             crossAxisAlignment: CrossAxisAlignment.center,
+            //             children: [
+            //               SizedBox(
+            //                 width: 100.w,
+            //                 height: 40.h,
+            //                 child: CountryCodePicker(
+            //                   onChanged: (element)  {
+            //                     debugPrint(element.toLongString());
+            //                     debugPrint(element.name);
+            //                     debugPrint(element.code);
+            //                     debugPrint("element.code${element.code}");
+            //                     debugPrint("element.dialCode${element.dialCode}");
+            //                     debugPrint(element.flagUri);
+            //                   },
+            //                   initialSelection: 'BD',
+            //                   showCountryOnly: true,
+            //                   showOnlyCountryWhenClosed: false,
+            //                   hideSearch: false,
+            //                   hideMainText: false,
+            //                   favorite: const ['+880', 'BD'],
+            //                 ),
+            //               ),
+            //               // Text(
+            //               //   "  +88  ",
+            //               //   style:
+            //               //   TextStyle(fontSize: 16.sp, color: AppColors.blackColor,),
+            //               // ),
+            //               // Style.distan_size10,
+            //               // Style.distan_size2,
+            //               // Style.distan_size2,
+            //             ],
+            //           ),
+            //           Expanded(
+            //             flex: 8,
+            //             child: Center(
+            //               child: Padding(
+            //                 padding: const EdgeInsets.only(top: 12),
+            //                 child: TextField(
+            //                   controller: phnNumber,
+            //                   keyboardType: TextInputType.number,
+            //                   // enabled: true,
+            //                   // maxLength: 11,
+            //                   maxLength: 11, // Set maximum character limit
+            //                   maxLengthEnforcement: MaxLengthEnforcement.enforced,
+            //                   textAlign: TextAlign.start,
+            //                   inputFormatters: [
+            //                     FilteringTextInputFormatter.allow(
+            //                       RegExp(
+            //                           r'^\d+\.?\d{0,2}'), // Allows only digits with up to two decimal places
+            //                     ),
+            //                   ],
+            //
+            //                   decoration: InputDecoration(
+            //                     border: InputBorder.none,
+            //
+            //                   ),
+            //                   // decoration: InputDecoration(
+            //                   //   border: InputBorder.none,
+            //                   //
+            //                   // ),
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
 
-              // color: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.r),
-                  side: BorderSide(
-                    color: AppColors.primaryColor,
-                  )),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: SizedBox(
-                  height: 55.h,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 100.w,
-                            height: 40.h,
-                            child: CountryCodePicker(
-                              onChanged: (element)  {
-                                debugPrint(element.toLongString());
-                                debugPrint(element.name);
-                                debugPrint(element.code);
-                                debugPrint("element.code${element.code}");
-                                debugPrint("element.dialCode${element.dialCode}");
-                                debugPrint(element.flagUri);
-                              },
-                              initialSelection: 'BD',
-                              showCountryOnly: true,
-                              showOnlyCountryWhenClosed: false,
-                              hideSearch: false,
-                              hideMainText: false,
-                              favorite: const ['+880', 'BD'],
-                            ),
-                          ),
-                          // Text(
-                          //   "  +88  ",
-                          //   style:
-                          //   TextStyle(fontSize: 16.sp, color: AppColors.blackColor,),
-                          // ),
-                          // Style.distan_size10,
-                          // Style.distan_size2,
-                          // Style.distan_size2,
-                        ],
-                      ),
-                      Expanded(
-                        flex: 8,
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 12),
-                            child: TextField(
-                              controller: phnNumber,
-                              keyboardType: TextInputType.number,
-                              // enabled: true,
-                              // maxLength: 11,
-                              maxLength: 11, // Set maximum character limit
-                              maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                              textAlign: TextAlign.start,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                  RegExp(
-                                      r'^\d+\.?\d{0,2}'), // Allows only digits with up to two decimal places
-                                ),
-                              ],
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0, right: 16),
+              child: IntlPhoneField(
+                focusNode: focusNode,
+                controller: phnNumber,
+                initialCountryCode: 'BD',
+                keyboardType: TextInputType.phone,
 
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-
-                              ),
-                              // decoration: InputDecoration(
-                              //   border: InputBorder.none,
-                              //
-                              // ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                decoration: InputDecoration(
+                  labelText: 'Phone Number',
+                  focusColor: AppColors.primary_color,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                    BorderSide(color: AppColors.primary_color, width: 1),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide:
+                    BorderSide(color: AppColors.primary_color, width: 1),
                   ),
                 ),
+                languageCode: "bd",
+                onChanged: (phone) {
+                  phnNumber!.text;
+                  print(phone.completeNumber);
+                  number = phone.completeNumber;
+                  print(number);
+                },
+                onCountryChanged: (country) {
+                  print('Country changed to: ${country.name}');
+                },
               ),
             ),
             SizedBox(
@@ -211,11 +247,11 @@ class _OtpSendViewState extends State<OtpSendView> {
 
                         }
 
-                        else if (phnNumber.text.length !=11) {
-                          Messages.snackBar(context, "Mobile Number must be 11 digit");
-                        }
+                        // else if (phnNumber.text.length !=11) {
+                        //   Messages.snackBar(context, "Mobile Number must be 11 digit");
+                        // }
                         else {
-                          auth.sendOtpForget(context, phnNumber: phnNumber.text);
+                          auth.sendOtpForget(context, phnNumber: number);
 
                         }
                       },

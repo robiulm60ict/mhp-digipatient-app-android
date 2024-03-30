@@ -174,47 +174,68 @@ class MyAppState extends State<MyApp> {
       onUserLogin();
     }
   }
-
-  Future<void> checkForUpdate() async {
+Future<void> checkForUpdate() async {
     try {
-      final AppUpdateInfo info = await InAppUpdate.checkForUpdate();
-      print("Update check result: ${info.toString()}");
+      InAppUpdate.checkForUpdate().then((info) {
 
-      if (info?.updateAvailability == UpdateAvailability.updateAvailable) {
-        // An update is available, prompt the user to update
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Update Available'),
-              content:
-                  Text('An update is available. Do you want to update now?'),
-              actions: <Widget>[
-                TextButton(
-                  child: Text('Yes'),
-                  onPressed: () {
-                    Navigator.pop(context); // Close the dialog
-                    // Start the immediate update
-                    InAppUpdate.performImmediateUpdate();
-                  },
-                ),
-                TextButton(
-                  child: Text('No'),
-                  onPressed: () {
-                    Navigator.pop(context); // Close the dialog
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      } else {
-        print('No update available.');
-      }
+          print("eeeeeeeeeeeeeeee${info.toString()}");
+          _updateInfo = info;
+
+          // Check if an update is available before setting up the listener
+          if (_updateInfo?.updateAvailability ==
+              UpdateAvailability.updateAvailable) {
+            InAppUpdate
+                .performImmediateUpdate(); // You might want to prompt the user to update before calling this
+            InAppUpdate.installUpdateListener;
+            print("eeeeeeeeeeeeeeee${_updateInfo?.updateAvailability ==
+                UpdateAvailability.updateAvailable}");
+
+          }
+        });
     } catch (e) {
-      print('Error checking for update: $e');
+      print(e.toString());
     }
   }
+  // Future<void> checkForUpdate() async {
+  //   try {
+  //     final AppUpdateInfo info = await InAppUpdate.checkForUpdate();
+  //     print("Update check result: ${info.toString()}");
+  //
+  //     if (info?.updateAvailability == UpdateAvailability.updateAvailable) {
+  //       // An update is available, prompt the user to update
+  //       showDialog(
+  //         context: context,
+  //         builder: (BuildContext context) {
+  //           return AlertDialog(
+  //             title: Text('Update Available'),
+  //             content:
+  //                 Text('An update is available. Do you want to update now?'),
+  //             actions: <Widget>[
+  //               TextButton(
+  //                 child: Text('Yes'),
+  //                 onPressed: () {
+  //                   Navigator.pop(context); // Close the dialog
+  //                   // Start the immediate update
+  //                   InAppUpdate.performImmediateUpdate();
+  //                 },
+  //               ),
+  //               TextButton(
+  //                 child: Text('No'),
+  //                 onPressed: () {
+  //                   Navigator.pop(context); // Close the dialog
+  //                 },
+  //               ),
+  //             ],
+  //           );
+  //         },
+  //       );
+  //     } else {
+  //       print('No update available.');
+  //     }
+  //   } catch (e) {
+  //     print('Error checking for update: $e');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
