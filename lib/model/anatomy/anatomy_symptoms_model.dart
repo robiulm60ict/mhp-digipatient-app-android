@@ -29,13 +29,13 @@ class AnatomyModel {
 }
 
 class SymptomsAnatomy {
-  int? id;
+  String? id;
   String? mainBodyPartId;
   String? subBodyPartId;
   String? sideSelectionName;
   String? genderId;
   String? symptomName;
-  int? deleteStatus;
+  String? deleteStatus;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? mainBodyPartName;

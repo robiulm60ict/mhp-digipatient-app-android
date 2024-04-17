@@ -559,6 +559,7 @@ class AuthViewModel with ChangeNotifier {
       });
       setBirthSexLoading(false);
     }).onError((error, stackTrace) {
+      print(stackTrace.toString());
       setBirthSexLoading(true);
       Messages.snackBar(context, error.toString());
     });
@@ -593,6 +594,8 @@ class AuthViewModel with ChangeNotifier {
       });
       setBloodGroupLoading(false);
     }).onError((error, stackTrace) {
+      print(stackTrace.toString());
+
       setBloodGroupLoading(true);
       Messages.snackBar(context, error.toString());
     });

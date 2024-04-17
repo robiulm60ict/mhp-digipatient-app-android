@@ -61,6 +61,7 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
       notifyListeners();
     }).onError((error, stackTrace) {
       isDoctorLoading = true;
+      print(stackTrace);
 
       debugPrint(error.toString());
 

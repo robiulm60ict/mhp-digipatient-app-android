@@ -46,7 +46,7 @@ class _PatientQurioState extends State<PatientQurio> {
     try {
       final response = await http.get(
         Uri.parse(
-            "https://gdbackend.macrohealthplus.org/api/v1/patient-appointment-queue-number/$docId/$appoitmentId"),
+            "${AppUrls.baseUrlPatient}/patient-appointment-queue-number/$docId/$appoitmentId"),
         headers: {
           'token': "$token",
           'databaseName': '${AppUrls.databasename}',

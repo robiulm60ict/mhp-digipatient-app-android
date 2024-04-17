@@ -47,8 +47,8 @@ class TodaysPatientAppointment {
   String? appType;
   dynamic mediaTypeOnline;
   dynamic media;
-  int? appointmentCompleted;
-  int? deleteStatus;
+  String? appointmentCompleted;
+  String? deleteStatus;
   dynamic createdBy;
   dynamic updatedBy;
   DateTime? createdAt;
@@ -210,8 +210,8 @@ class Title {
 
 class OnlineApp {
   int? id;
-  int? patientId;
-  int? doctorId;
+  String? patientId;
+  String? doctorId;
   String? inoviceNumber;
   DateTime? date;
   dynamic time;
@@ -225,9 +225,9 @@ class OnlineApp {
   String? transactionPhoneNumber;
   String? shift;
   String? referredName;
-  int? paymentConfirmation;
-  int? isConfirmed;
-  int? rescheduleId;
+  String? paymentConfirmation;
+  String? isConfirmed;
+  String? rescheduleId;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -447,13 +447,17 @@ class PatientBirthSex {
 class Token {
   String? userType;
   String? userId;
-  String? deviceToke;
+  dynamic deviceToke;
+  String? loginStatus;
+  DateTime? lastLoginLogoutTime;
   String? profilePhotoUrl;
 
   Token({
     this.userType,
     this.userId,
     this.deviceToke,
+    this.loginStatus,
+    this.lastLoginLogoutTime,
     this.profilePhotoUrl,
   });
 
@@ -461,6 +465,8 @@ class Token {
     userType: json["user_type"],
     userId: json["user_id"],
     deviceToke: json["deviceToke"],
+    loginStatus: json["login_status"],
+    lastLoginLogoutTime: json["last_login_logout_time"] == null ? null : DateTime.parse(json["last_login_logout_time"]),
     profilePhotoUrl: json["profile_photo_url"],
   );
 
@@ -468,6 +474,8 @@ class Token {
     "user_type": userType,
     "user_id": userId,
     "deviceToke": deviceToke,
+    "login_status": loginStatus,
+    "last_login_logout_time": lastLoginLogoutTime?.toIso8601String(),
     "profile_photo_url": profilePhotoUrl,
   };
 }

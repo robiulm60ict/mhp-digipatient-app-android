@@ -31,7 +31,7 @@ class BirthSexModel {
 class BirthSex {
   int? id;
   String? birthSexName;
-  int? deleteStatus;
+  String? deleteStatus;
   dynamic createdBy;
   dynamic updatedBy;
   DateTime? createdAt;

@@ -91,6 +91,7 @@ class AnatomyModelView with ChangeNotifier {
       //   debugPrint("SymptomName: ${i.symptomName} Selected: ${i.isSelected}");
       // }
     }).onError((error, stackTrace) {
+      print(stackTrace);
       setAnatomyLoading(true, "Error Try Again Later......");
       notifyListeners();
       Messages.snackBar(context, error.toString());

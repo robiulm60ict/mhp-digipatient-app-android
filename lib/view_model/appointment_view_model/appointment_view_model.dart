@@ -118,6 +118,7 @@ class AppointmentViewModel with ChangeNotifier {
       isDocChamberTimeLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
+      print(stackTrace);
       isDocChamberTimeLoading = false;
       notifyListeners();
       Messages.snackBar(context, error.toString());
@@ -497,6 +498,7 @@ class AppointmentViewModel with ChangeNotifier {
       setInvoiceLoading(false);
     }).onError((error, stackTrace) {
       setInvoiceLoading(true);
+      print(stackTrace);
       debugPrint("\n\n\n\n\n\n\n\n\n Error: $error");
       Messages.snackBar(context, error.toString());
     });

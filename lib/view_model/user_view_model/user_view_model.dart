@@ -33,6 +33,7 @@ class UserViewModel with ChangeNotifier {
       isUserLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
+      print(stackTrace);
       isUserLoading = true;
       notifyListeners();
     });

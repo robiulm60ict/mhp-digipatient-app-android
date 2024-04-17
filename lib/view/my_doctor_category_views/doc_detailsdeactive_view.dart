@@ -21,7 +21,7 @@ import '../home_item_pages/my_doctor_view.dart';
 
 class DocDeactiveDetailsView extends StatefulWidget {
   DocDeactiveDetailsView({Key? key, required this.id}) : super(key: key);
-  final num id;
+   var id;
 
   @override
   State<DocDeactiveDetailsView> createState() => _DocDetailsViewState();

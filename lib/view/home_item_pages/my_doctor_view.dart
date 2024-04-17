@@ -186,7 +186,7 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => DocDeactiveDetailsView(
-                                            id: docc.doctorsMasterId!)));
+                                            id: docc.doctorsMasterId)));
 
                                 // context.router
                                 //     .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
@@ -272,7 +272,7 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => DocDetailsView(
-                                            id: doc!.doctorsMasterId!)));
+                                            id: doc!.doctorsMasterId)));
 
                                 // context.router
                                 //     .push(DocDetailsRoute(id: doc!.doctorsMasterId!));

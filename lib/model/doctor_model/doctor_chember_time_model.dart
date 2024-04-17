@@ -20,7 +20,7 @@ class DoctorChamberTimeModel {
   String? slotTo;
   String? type;
   String? appointmentType;
-  int? deleteStatus;
+  String? deleteStatus;
   DateTime? createdAt;
   DateTime? updatedAt;
 

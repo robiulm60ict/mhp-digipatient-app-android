@@ -8,10 +8,11 @@ class AppUrls {
 
 
   static const String baseUrlPatientMain =
-      'https://gdbackend.macrohealthplus.org';  //App live
+      'https://greatdoc.macrohealthplus.org/mhp_server/public';  //App live
   //
   static const String databasename =
-      'mhpdemocom'; //AppLive
+      'macrohealthplus_mhpdemocom'; //AppLive
+      // 'mhpdemocom'; //AppLive
 
   // static const String databasename =
   //     'mhpdemocom_ZXJVT'; //Test

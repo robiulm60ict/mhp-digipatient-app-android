@@ -10,8 +10,8 @@ String invoiceShowModelToJson(List<InvoiceShowModel> data) => json.encode(List<d
 
 class InvoiceShowModel {
   int? id;
-  int? patientId;
-  int? doctorId;
+  String? patientId;
+  String? doctorId;
   String? inoviceNumber;
   DateTime? date;
   dynamic time;
@@ -25,8 +25,8 @@ class InvoiceShowModel {
   String? transactionPhoneNumber;
   String? shift;
   String? referredName;
-  int? paymentConfirmation;
-  int? isConfirmed;
+  String? paymentConfirmation;
+  String? isConfirmed;
   dynamic rescheduleId;
   DateTime? createdAt;
   DateTime? updatedAt;

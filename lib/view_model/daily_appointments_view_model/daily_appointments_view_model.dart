@@ -31,6 +31,7 @@ class DailyAndUpcommingViewModel with ChangeNotifier{
       isTodayAppointmentLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
+      print(stackTrace);
       isTodayAppointmentLoading = true;
       notifyListeners();
       Messages.snackBar(context, error.toString());
@@ -49,8 +50,9 @@ class DailyAndUpcommingViewModel with ChangeNotifier{
       // todayAppointmentList.addAll(value.todaysPatientAppointments!);
       isTodayAppointmentLoading = false;
       notifyListeners();
-    }).onError((error, stackTrace) {
-      isTodayAppointmentLoading = true;
+    }).onError((error, stackTrace) {      print(stackTrace);
+
+    isTodayAppointmentLoading = true;
       notifyListeners();
       Messages.snackBar(context, error.toString());
     });
@@ -66,8 +68,9 @@ class DailyAndUpcommingViewModel with ChangeNotifier{
       upcommingAppointmentList.addAll(value.upcomingAppointments!);
       isUpcommingAppointmentLoading = false;
       notifyListeners();
-    }).onError((error, stackTrace) {
-      isUpcommingAppointmentLoading = true;
+    }).onError((error, stackTrace) {      print(stackTrace);
+
+    isUpcommingAppointmentLoading = true;
       notifyListeners();
       Messages.snackBar(context, error.toString());
     });

@@ -30,9 +30,9 @@ class MyDoctorList {
 
 class Datum {
   int? id;
-  int? patientId;
-  int? doctorsMasterId;
-  int? status;
+  String? patientId;
+  String? doctorsMasterId;
+  String? status;
   DateTime? createdAt;
   DateTime? updatedAt;
   Doctors? doctors;
@@ -255,7 +255,7 @@ class Academic {
   String? cityId;
   String? scanCopy;
   String? scanCopyTitle;
-  int? deleteStatus;
+  String? deleteStatus;
   dynamic createdBy;
   dynamic updatedBy;
   DateTime? createdAt;
@@ -427,10 +427,10 @@ class Title {
 class UsualProvider {
   int? id;
   String? usualProviderName;
-  dynamic address;
+  String? address;
   dynamic mobile;
-  dynamic phone;
-  dynamic email;
+  String? phone;
+  String? email;
 
   UsualProvider({
     this.id,
@@ -463,7 +463,7 @@ class UsualProvider {
 class Token {
   String? userType;
   String? userId;
-  String? deviceToke;
+  dynamic deviceToke;
   String? profilePhotoUrl;
 
   Token({

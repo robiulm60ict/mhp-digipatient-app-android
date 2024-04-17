@@ -13,7 +13,7 @@ class MyPaymentModel {
   String? doctorId;
   String? patientId;
   String? paymentType;
-  int? amount;
+  String? amount;
   DateTime? date;
   dynamic details;
   DateTime? createdAt;

@@ -20,8 +20,8 @@ import '../appointment/book_appointment_view.dart';
 import '../home_item_pages/my_doctor_view.dart';
 
 class DocDetailsView extends StatefulWidget {
-  const DocDetailsView({Key? key, required this.id}) : super(key: key);
-  final num id;
+   DocDetailsView({Key? key, required this.id}) : super(key: key);
+  var  id;
 
   @override
   State<DocDetailsView> createState() => _DocDetailsViewState();

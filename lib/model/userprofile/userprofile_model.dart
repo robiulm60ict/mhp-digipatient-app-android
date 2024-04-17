@@ -79,9 +79,9 @@ class PatientsDetails {
   String? patientImages;
   dynamic patientGeneralNotes;
   dynamic patientAppointmentNotes;
-  int? lactation;
+  String? lactation;
   dynamic appToken;
-  int? deleteStatus;
+  String? deleteStatus;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic title;

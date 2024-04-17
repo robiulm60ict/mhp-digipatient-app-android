@@ -47,8 +47,8 @@ class UpcomingAppointment {
   String? appType;
   dynamic mediaTypeOnline;
   dynamic media;
-  int? appointmentCompleted;
-  int? deleteStatus;
+  String? appointmentCompleted;
+  String? deleteStatus;
   dynamic createdBy;
   dynamic updatedBy;
   DateTime? createdAt;

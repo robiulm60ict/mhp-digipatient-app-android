@@ -91,6 +91,29 @@ class NetworkApiService extends BaseApiService {
       throw FetchDataException("No Internet Connection");
     }
     return responseJson;
+  } @override
+  Future getGetApiResponseNotoken(String url) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString(UserP.fcmToken) ?? "";
+    dynamic responseJson;
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'databaseName': AppUrls.databasename,
+          // 'Accept': 'application/json',
+        },
+      ).timeout(const Duration(seconds: 10));
+
+
+      print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr${response.statusCode}");
+      print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr${response.body}");
+
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw FetchDataException("No Internet Connection");
+    }
+    return responseJson;
   }
 
   @override

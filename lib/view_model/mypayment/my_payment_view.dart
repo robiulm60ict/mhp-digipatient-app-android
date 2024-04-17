@@ -35,6 +35,7 @@ class MyPaymentViewModel with ChangeNotifier {
     }).onError((error, stackTrace) {
       isDoctorLoading = true;
       debugPrint(error.toString());
+      print(stackTrace);
 
       Messages.snackBar(
         context,

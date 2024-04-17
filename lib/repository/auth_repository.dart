@@ -154,7 +154,7 @@ class AuthRepository {
 
   Future<BloodGroupModel> getBloodGroup() async {
     try {
-      dynamic response = await apiService.getGetApiResponse(AppUrls.bloodGroup);
+      dynamic response = await apiService.getGetApiResponseNotoken(AppUrls.bloodGroup);
       print(response);
       return BloodGroupModel.fromJson(response);
     } catch (e) {
@@ -164,7 +164,7 @@ class AuthRepository {
 
   Future<BirthSexModel> getBirthSex() async {
     try {
-      dynamic response = await apiService.getGetApiResponse(AppUrls.birthSex);
+      dynamic response = await apiService.getGetApiResponseNotoken(AppUrls.birthSex);
       print(response);
 
       return BirthSexModel.fromJson(response);

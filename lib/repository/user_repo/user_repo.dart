@@ -21,7 +21,7 @@ class UserRepo {
       dynamic response = await apiService.getGetApiResponsecontext(
         "${AppUrls.userProfileUrl}$id",contex,
       );
-      print(response);
+      print("rrr$response");
       return UserProfileModel.fromJson(response);
     } catch (e) {
       print(e.toString());
