@@ -25,7 +25,7 @@ class Routes {
             builder: (BuildContext context) => const SignInView());
       case RoutesName.dashbord:
         return MaterialPageRoute(
-            builder: (BuildContext context) =>  HomeView());
+            builder: (BuildContext context) =>  DashboardView());
 
 
       default:
