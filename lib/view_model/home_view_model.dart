@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../view/daily_upcomming_appointment/daily_and_upcomming_appointments_view.dart';
 import '../view/home_item_pages/my_record_view.dart';
+import '../view/myClinic/myclinic_view.dart';
 import '../view/mypayment_view/mypayment_view.dart';
 import '../view/qrcode/qrcode_scnner.dart';
 import '../view/resources_view/resources_view.dart';
@@ -49,7 +50,7 @@ class HomeViewModel with ChangeNotifier {
     } else if (index == 4) {
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Upcamming()));
+          context, MaterialPageRoute(builder: (context) => MyClinicView()));
     } else if (index == 5) {
 
       Navigator.push(

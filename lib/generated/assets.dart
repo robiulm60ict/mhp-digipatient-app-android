@@ -48,6 +48,7 @@ class Assets {
   static const String imagesLogoGreen = 'assets/images/logo-green.png';
   static const String imagesLogoWhite = 'assets/images/logo-white.png';
   static const String imagesMacroHealthPlus = 'assets/images/macro-health-plus.png';
+  static const String mhplogo = 'assets/images/mhplogo.png';
   static const String imagesMastercard = 'assets/images/mastercard.png';
   static const String imagesMobile = 'assets/images/mobile.png';
   static const String imagesMyDoctor = 'assets/images/my-doctor.png';
