@@ -68,24 +68,29 @@ class MyClinicServices extends StatelessWidget {
                       crossAxisSpacing: 16,
                       height: 135.h),
                   itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(44)),
-                      child: Card( shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                        elevation: 4,
-                        shadowColor: AppColors.primary_color,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(clinic.serviceItemsList[index].image,height: 70,),
-                            Style.distan_size5,
-                            Text(
-                              clinic.serviceItemsList[index].title,
-                              style: Style.alltext_default_balck_blod,
-                            )
-                          ],
+                    return InkWell(
+                      onTap: (){
+                        clinic.homeItemsRouteTo(context, index);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(44)),
+                        child: Card( shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                          elevation: 4,
+                          shadowColor: AppColors.primary_color,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(clinic.serviceItemsList[index].image,height: 70,),
+                              Style.distan_size5,
+                              Text(
+                                clinic.serviceItemsList[index].title,
+                                style: Style.alltext_default_balck_blod,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     );

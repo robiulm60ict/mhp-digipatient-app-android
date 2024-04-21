@@ -117,6 +117,7 @@ dependencies:
   intl_phone_field: ^3.2.0
   circle_nav_bar: ^2.0.1+1
   mdi:
+  google_maps_flutter: ^2.6.1
 
 #  syncfusion_flutter_pdf: ^24.2.4
 

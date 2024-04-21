@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../generated/assets.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/styles.dart';
-import '../myclinic_servic/myclinic_service.dart';
+import '../myclinic_our_servic/myclinic_service.dart';
 
 class ClinicBranches extends StatelessWidget {
   const ClinicBranches({super.key});

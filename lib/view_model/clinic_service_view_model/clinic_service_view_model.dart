@@ -3,6 +3,9 @@ import 'package:digi_patient/view/home_item_pages/my_doctor_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../view/myClinic/myclinic_our_servic/appoinemtntdoctor/my_doctor_view.dart';
+import '../../view/myClinic/myclinic_our_servic/pathology/pathology_view_add_test.dart';
+
 
 
 class ClinicServiceViewModel with ChangeNotifier {
@@ -18,8 +21,12 @@ class ClinicServiceViewModel with ChangeNotifier {
   homeItemsRouteTo(BuildContext context, int index) {
     if (index == 0) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => MyDoctorView()));
-      //  context.router.push(const MyDoctorRoute());
+          context, MaterialPageRoute(builder: (context) => ClinicBranchDoctorView()));
+
+    }else if (index == 1) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => PathologyAddTest()));
+
     }
   }
 }
