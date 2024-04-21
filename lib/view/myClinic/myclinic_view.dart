@@ -36,7 +36,7 @@ class MyClinicView extends StatelessWidget {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.only(left: 8, right: 8),
+        padding: EdgeInsets.only(left: 12, right: 12),
         child: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
           child: Column(
@@ -92,11 +92,11 @@ class MyClinicView extends StatelessWidget {
                             SizedBox(
                               child: Image.asset(Assets.imagesChamber),
                               height: 90.w,
-                              width: 80.w,
+                              width: 75.w,
                             ),
                             Container(
                               padding: EdgeInsets.only(left: 12),
-                              width: 240.w,
+                              width: 235.w,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

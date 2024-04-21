@@ -13,7 +13,21 @@ class BranchesDetails extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
+
+          backgroundColor: Colors.white,
+          // leading: Padding(
+          //   padding: const EdgeInsets.all(4.0),
+          //   child: Image.asset(
+          //     Assets.mhplogo,
+          //   ),
+          // ),
+          actions: [
+            CircleAvatar(
+              backgroundImage: AssetImage(Assets.dummy_image),
+            ),
+            Style.widthdistan_size5,
+          ],
         ),
         backgroundColor: Colors.white,
         body: Container(

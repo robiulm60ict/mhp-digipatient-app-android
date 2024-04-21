@@ -1,13 +1,9 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names, duplicate_ignore
 
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'colors.dart';
-
-
 
 class Style {
   // static double width=MediaQuery.of(context as BuildContext).size.width;
@@ -46,7 +42,8 @@ class Style {
     fontWeight: FontWeight.w700,
     color: AppColors.text_primary_color,
     fontSize: 12.sp,
-  ); static TextStyle alltext_default_balck_blod_dilog = TextStyle(
+  );
+  static TextStyle alltext_default_balck_blod_dilog = TextStyle(
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w700,
     color: AppColors.text_primary_color,
@@ -75,7 +72,7 @@ class Style {
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w400,
     color: AppColors.text_primary_color,
-    fontSize:10.sp,
+    fontSize: 10.sp,
   );
   static TextStyle alltext_ExtraLarge_black = TextStyle(
     fontFamily: 'Roboto',
@@ -94,12 +91,14 @@ class Style {
     fontWeight: FontWeight.w400,
     color: AppColors.text_primary_color,
     fontSize: 24.sp,
-  );static TextStyle alltext_OverLarge_black24_bold = TextStyle(
+  );
+  static TextStyle alltext_OverLarge_black24_bold = TextStyle(
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w700,
     color: AppColors.text_primary_color,
     fontSize: 20.sp,
   );
+
 // ignore: constant_identifier_names
   static TextStyle drawer_heading_style = TextStyle(
     fontFamily: 'Roboto',
@@ -117,12 +116,13 @@ class Style {
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w400,
     color: AppColors.page_background_color,
-    fontSize:14.sp,
-  ); static TextStyle alltext_appbar = TextStyle(
+    fontSize: 14.sp,
+  );
+  static TextStyle alltext_appbar = TextStyle(
     fontFamily: 'Roboto',
     fontWeight: FontWeight.w400,
     color: AppColors.page_background_color,
-    fontSize:14.sp,
+    fontSize: 14.sp,
   );
   static TextStyle alltext_Large_white = TextStyle(
     fontFamily: 'Roboto',
@@ -187,10 +187,6 @@ class Style {
     fontSize: 24.sp,
   );
 
-
-
-
-
   //
   // // ignore: constant_identifier_names
   // static const landscript_text_filed_style = TextStyle(
@@ -207,6 +203,7 @@ class Style {
     color: AppColors.drawer_button_colors,
     fontSize: 12,
   );
+
   // ignore: constant_identifier_names
   static TextStyle alltext_block_text_style = TextStyle(
     fontFamily: 'Roboto',
@@ -214,6 +211,7 @@ class Style {
     color: AppColors.text_primary_color,
     fontSize: 14,
   );
+
   // ignore: constant_identifier_names
   static TextStyle alltext_white_text_style = TextStyle(
     fontFamily: 'Roboto',
@@ -247,6 +245,7 @@ class Style {
     color: AppColors.drawer_button_colors,
     fontSize: 16,
   );
+
   // // ignore: constant_identifier_names
   // static const text_hind_style = TextStyle(
   //   fontFamily: 'Roboto',
@@ -276,6 +275,7 @@ class Style {
     color: AppColors.page_background_color,
     fontSize: 15,
   );
+
   // ignore: constant_identifier_names
   static TextStyle level_heading_text_block1_text_style = TextStyle(
     fontFamily: 'Roboto',
@@ -283,6 +283,7 @@ class Style {
     color: AppColors.text_primary_color,
     fontSize: 15,
   );
+
   //
   // static const robotoHeader15primaryColor = TextStyle(
   //   fontFamily: 'Roboto',
@@ -347,20 +348,21 @@ class Style {
   //   fontSize: 15,
   // );
 
-
-
   // ignore: constant_identifier_names
   static const distan_size20 = SizedBox(
     height: 20,
   );
+
   // ignore: constant_identifier_names
   static const distan_size15 = SizedBox(
     height: 15,
   );
+
   // ignore: constant_identifier_names
   static const distan_size10 = SizedBox(
     height: 10,
   );
+
   // ignore: constant_identifier_names
   static const distan_size5 = SizedBox(
     height: 5,
@@ -368,34 +370,42 @@ class Style {
   static const distan_size3 = SizedBox(
     height: 3,
   );
+
   // ignore: constant_identifier_names
   static const distan_size2 = SizedBox(
     height: 2,
   );
+
   // ignore: constant_identifier_names
   static const distan_size1 = SizedBox(
     height: 2,
   );
+
   // ignore: constant_identifier_names
   static const widthdistan_size20 = SizedBox(
     width: 20,
   );
+
   // ignore: constant_identifier_names
   static const widthdistan_size15 = SizedBox(
     width: 15,
   );
+
   // ignore: constant_identifier_names
   static const widthdistan_size10 = SizedBox(
     width: 10,
   );
+
   // ignore: constant_identifier_names
   static const widthdistan_size5 = SizedBox(
     width: 5,
   );
+
   // ignore: constant_identifier_names
   static const widthdistan_size2 = SizedBox(
     width: 2,
   );
+
   // ignore: constant_identifier_names
   static const widthdistan_size1 = SizedBox(
     width: 2,
@@ -403,6 +413,4 @@ class Style {
 
   // ignore: constant_identifier_names
   static const drawe_icon_size = 30;
-
-
 }

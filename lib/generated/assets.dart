@@ -77,4 +77,9 @@ class Assets {
   static const String vitalsVital = 'assets/icons/my_record/vitals/vital.png';
   static const String vitalsWeight = 'assets/icons/my_record/vitals/weight.png';
 
+  static const String service_appoinment = 'assets/icons/appointment.png';
+  static const String service_pathology = 'assets/icons/microorganism.png';
+  static const String service_radiology = 'assets/icons/medicalscan.png';
+  static const String service_ambulance = 'assets/icons/ambulance.png';
+
 }

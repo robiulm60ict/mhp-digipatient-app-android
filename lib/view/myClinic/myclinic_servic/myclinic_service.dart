@@ -1,23 +1,33 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
+import 'package:provider/provider.dart';
 
 import '../../../generated/assets.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/styles.dart';
+import '../../../view_model/clinic_service_view_model/clinic_service_view_model.dart';
 
 class MyClinicServices extends StatelessWidget {
   const MyClinicServices({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final clinic = Provider.of<ClinicServiceViewModel>(context);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          elevation: 0,
-          title: Text("Our Services",style: Style.alltext_default_balck_blod,),
+          iconTheme: IconThemeData(color: Colors.black),
+          backgroundColor: Colors.white,
+          title: Text(
+            "Our Services",
+            style: Style.alltext_default_balck_blod,
+          ),
           actions: [
-            Icon(Icons.sms_failed_rounded)
+            Icon(Icons.sms_failed_rounded),
+            Style.widthdistan_size15,
           ],
         ),
         backgroundColor: Colors.white,
@@ -43,41 +53,44 @@ class MyClinicServices extends StatelessWidget {
                       "WELCOME TO",
                       style: Style.alltext_default_balck_blod_dilog,
                     )),
-
-
                 Style.distan_size15,
                 Text(
                   "IBN SINA DHANMONDI BRANCH",
                   style: Style.alltext_default_balck_blod,
                 ),
-
-                Style.distan_size5,
-              GridView.builder(
-                itemCount: 4,
-                shrinkWrap: true,
-                gridDelegate: FlutterzillaFixedGridView(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 12,
-                    crossAxisSpacing: 16,
-                    height: 135.h),
-                itemBuilder: (context, index) {
-
-
-                  return Container(
-                    child: Card(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                      
-                          Icon(Icons.calendar_month,size: 50,color: Colors.black,),
-                          Text("Appointment",style: Style.alltext_default_balck_blod,)
-                        ],
+                Style.distan_size15,
+                GridView.builder(
+                  itemCount: clinic.serviceItemsList.length,
+                  shrinkWrap: true,
+                  gridDelegate: FlutterzillaFixedGridView(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 12,
+                      crossAxisSpacing: 16,
+                      height: 135.h),
+                  itemBuilder: (context, index) {
+                    return Container(
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(44)),
+                      child: Card( shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                    ),
-                  );
-                },
-              )
+                        elevation: 4,
+                        shadowColor: AppColors.primary_color,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(clinic.serviceItemsList[index].image,height: 70,),
+                            Style.distan_size5,
+                            Text(
+                              clinic.serviceItemsList[index].title,
+                              style: Style.alltext_default_balck_blod,
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                )
               ],
             ),
           ),
