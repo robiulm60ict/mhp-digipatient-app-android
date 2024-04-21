@@ -22,10 +22,11 @@ class MyClinicView extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: Padding(
-          padding: const EdgeInsets.all(4.0),
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Padding(
+          padding: const EdgeInsets.only(left: 0.0),
           child: Image.asset(
-            Assets.mhplogo,
+            Assets.mhplogo,height: 50,
           ),
         ),
         actions: [
@@ -71,8 +72,11 @@ class MyClinicView extends StatelessWidget {
                   itemCount: 5,
                   itemBuilder: (context, index) {
                     return InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ClinicBranches()));
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ClinicBranches()));
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -83,10 +87,10 @@ class MyClinicView extends StatelessWidget {
                                 ? Color(0xff71B92A).withOpacity(0.5)
                                 : Colors.white,
                             borderRadius: BorderRadius.circular(8)),
-                        padding:
-                            EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 8),
-                        margin:
-                            EdgeInsets.only(left: 2, right: 2, top: 4, bottom: 4),
+                        padding: EdgeInsets.only(
+                            left: 8, right: 8, top: 8, bottom: 8),
+                        margin: EdgeInsets.only(
+                            left: 2, right: 2, top: 4, bottom: 4),
                         child: Row(
                           children: [
                             SizedBox(

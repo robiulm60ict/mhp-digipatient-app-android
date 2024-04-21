@@ -1,19 +1,44 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../generated/assets.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/styles.dart';
 
-class BranchesDetails extends StatelessWidget {
+class BranchesDetails extends StatefulWidget {
   const BranchesDetails({super.key});
 
   @override
+  State<BranchesDetails> createState() => _BranchesDetailsState();
+}
+
+class _BranchesDetailsState extends State<BranchesDetails> {
+  final Completer<GoogleMapController> _controller =
+  Completer<GoogleMapController>();
+
+  static const CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.4746,
+  );
+  @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.black),
+          leading: FloatingActionButton(
+            mini: true,
+            backgroundColor: Colors.black26,
+            elevation: 0,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.keyboard_arrow_left_rounded),
+          ),
+          iconTheme: IconThemeData(color: Colors.white),
 
           backgroundColor: Colors.white,
           // leading: Padding(
@@ -187,7 +212,7 @@ class BranchesDetails extends StatelessWidget {
                     )
                   ],
                 ),
-                Style.distan_size2,
+                Style.distan_size5,
                 Row(
                   children: [
                     Icon(
@@ -202,7 +227,7 @@ class BranchesDetails extends StatelessWidget {
                     )
                   ],
                 ),
-                Style.distan_size2,
+                Style.distan_size5,
                 Row(
                   children: [
                     Icon(
@@ -217,7 +242,7 @@ class BranchesDetails extends StatelessWidget {
                     )
                   ],
                 ),
-                Style.distan_size2,
+                Style.distan_size5,
                 Row(
                   children: [
                     Icon(
@@ -232,11 +257,26 @@ class BranchesDetails extends StatelessWidget {
                     )
                   ],
                 ),
-                Style.distan_size2,
+                Style.distan_size5,
+                Card(
+                  elevation: 0,
+                  child: SizedBox(
+                    height: 130,
+                    child: GoogleMap(
+                      mapType: MapType.normal,
+                      initialCameraPosition: _kGooglePlex,
+                      onMapCreated: (GoogleMapController controller) {
+                        _controller.complete(controller);
+                      },
+                    ),
+                  ),
+                ),
+                Style.distan_size5,
                 Text(
                   "Nearest public facilities",
                   style: Style.alltext_default_balck_blod,
                 ),
+
                 Style.distan_size5,
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -320,10 +360,10 @@ class BranchesDetails extends StatelessWidget {
                   "About IBN SINA Clinic",
                   style: Style.alltext_default_balck_blod,
                 ),
-                Style.distan_size5,
+                Style.distan_size15,
                 Text(
                   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
-                  style: Style.alltext_default_balck_blod,
+                  style: Style.alltext_default_balck,
                 ),
                 Style.distan_size5,
               ],

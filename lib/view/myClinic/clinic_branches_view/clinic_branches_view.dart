@@ -60,7 +60,7 @@ class ClinicBranches extends StatelessWidget {
                       size: 25.h,
                     ),
                     title: Text(
-                      "Search Clinic",
+                      "Search your branch",
                       style: TextStyle(fontSize: 12.sp, color: Colors.grey),
                     ),
                   ),
