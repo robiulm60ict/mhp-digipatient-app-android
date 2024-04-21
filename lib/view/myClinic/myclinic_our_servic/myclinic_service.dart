@@ -41,7 +41,7 @@ class MyClinicServices extends StatelessWidget {
                 Style.distan_size10,
                 SizedBox(
                   child: Image.asset(
-                    Assets.imagesChamber,
+                    "assets/images/picturebuttons1.png",fit: BoxFit.fill,
                   ),
                   height: 150.h,
                   width: double.infinity,

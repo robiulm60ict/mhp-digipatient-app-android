@@ -12,6 +12,7 @@ import 'package:digi_patient/model/my_record_model/diagnosis_procedure_model.dar
 
 import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
 
+import '../../../../model/testmodel/testmodellist.dart';
 import '../../../../resources/colors.dart';
 import '../../payment_clinic/checkout.dart';
 
@@ -42,22 +43,25 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
   @override
   Widget build(BuildContext context) {
     final myRecord = Provider.of<MyRecordViewModel>(context, listen: false);
-    Data? selectedCondition;
+    TestName? selectedCondition;
 
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.white,
       bottomNavigationBar: BottomAppBar(
         height: 60.h,
-        child:     ListTile(
-        title: Text("Total Bill"),
-        subtitle: Text("100 BDT"),
-        trailing: ElevatedButton(onPressed: (){
-
-
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>CheckoutPayment()));
-        },child: Text("Proceed to Payment"),),
-      ) ,),
+        child: ListTile(
+          title: Text("Total Bill"),
+          subtitle: Text("100 BDT"),
+          trailing: ElevatedButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => CheckoutPayment()));
+            },
+            child: Text("Proceed to Payment"),
+          ),
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
@@ -118,13 +122,13 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: Text("Select Test"),
-                            content: DropdownSearch<Data>(
+                            content: DropdownSearch<TestName>(
                               asyncItems: (String filter) =>
-                                  myRecord.getDiagnosisList(context),
-                              itemAsString: (Data u) =>
-                                  u.diagnosisProcedureName ?? "",
-                              onChanged: (Data? data) {
-                                testlist.add(data!.diagnosisProcedureName);
+                                  myRecord.getalltest(context),
+                              itemAsString: (TestName u) =>
+                                  u.testName ?? "",
+                              onChanged: (TestName? data) {
+                                testlist.add(data!.testName);
                                 print(testlist);
                                 setState(() {});
                                 Navigator.pop(context);
@@ -132,15 +136,16 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                               },
                               popupProps: PopupPropsMultiSelection.dialog(
                                 showSearchBox: true,
-                                itemBuilder: (context, item, isSelected) => Card(
+                                itemBuilder: (context, item, isSelected) =>
+                                    Card(
                                   margin: EdgeInsets.all(5),
                                   child: ListTile(
                                     title: Text(
-                                      "${item.diagnosisProcedureName}",
+                                      "${item.testName}",
                                       style: Style.alltext_default_balck,
                                     ),
                                     subtitle: Text(
-                                      "${item.diagnosisProcedureCode}",
+                                      "${item.fee}",
                                       style: Style.alltext_default_balck,
                                     ),
                                   ),
@@ -154,8 +159,8 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                                   labelStyle:
                                       TextStyle(color: AppColors.primaryColor),
                                   border: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: AppColors.primaryColor),
+                                    borderSide: BorderSide(
+                                        color: AppColors.primaryColor),
                                   ),
                                 ),
                               ),
@@ -209,7 +214,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                     style: Style.alltext_block_text_style,
                   ),
                   IconButton(
-                      onPressed:  _goToTheLake,
+                      onPressed: _goToTheLake,
                       icon: Icon(
                         Icons.location_disabled,
                         size: 25,
@@ -231,42 +236,40 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                   ),
                 ),
               ),
-          
               Card(
-                child: Column(children: [
-                  RadioListTile<int>(
-                    value: 20,
-                    // The value associated with this radio button
-                    groupValue: groupValue,
-                    // The currently selected value in the group
-                    onChanged: (int? newValue) {
-                      // Update the state to reflect the new value when the radio button is selected
-                      setState(() {
-                        groupValue = newValue;
-                      });
-                    },
-                    title: Text(
-                        'Booking request at Clinic'), // The title displayed next to the radio button
-                  ),
-                  RadioListTile<int>(
-                    value: 10,
-                    // The value associated with this radio button
-                    groupValue: groupValue,
-                    // The currently selected value in the group
-                    onChanged: (int? newValue) {
-                      // Update the state to reflect the new value when the radio button is selected
-                      setState(() {
-                        groupValue = newValue;
-                      });
-                    },
-                    title: Text(
-                        'Sample Collection Request'), // The title displayed next to the radio button
-                  ),
-                ],),
+                child: Column(
+                  children: [
+                    RadioListTile<int>(
+                      value: 20,
+                      // The value associated with this radio button
+                      groupValue: groupValue,
+                      // The currently selected value in the group
+                      onChanged: (int? newValue) {
+                        // Update the state to reflect the new value when the radio button is selected
+                        setState(() {
+                          groupValue = newValue;
+                        });
+                      },
+                      title: Text(
+                          'Booking request at Clinic'), // The title displayed next to the radio button
+                    ),
+                    RadioListTile<int>(
+                      value: 10,
+                      // The value associated with this radio button
+                      groupValue: groupValue,
+                      // The currently selected value in the group
+                      onChanged: (int? newValue) {
+                        // Update the state to reflect the new value when the radio button is selected
+                        setState(() {
+                          groupValue = newValue;
+                        });
+                      },
+                      title: Text(
+                          'Sample Collection Request'), // The title displayed next to the radio button
+                    ),
+                  ],
+                ),
               ),
-          
-
-          
             ],
           ),
         ),

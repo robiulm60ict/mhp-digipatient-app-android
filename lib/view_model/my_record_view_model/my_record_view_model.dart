@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/my_record_model/medical_history_from_great_doc_model.dart';
+import '../../model/testmodel/testmodellist.dart';
 import '../../repository/my_record_repo/my_record_repo.dart';
 import '../../utils/user.dart';
 import '../../view/my_record/add_medical_history_view.dart';
@@ -210,6 +211,7 @@ class MyRecordViewModel with ChangeNotifier {
   bool isDiagnosisLoading = true;
   String diagnosisStatus = "";
   List<Data> diagnosisList = [];
+  List<TestName> testList = [];
 
   setDiagnosisLoadingAndStatus(bool val, String status) {
     isDiagnosisLoading = val;
@@ -224,6 +226,15 @@ class MyRecordViewModel with ChangeNotifier {
         .onError((error, stackTrace) =>
             Messages.snackBar(context, error.toString()));
     return data ?? <Data>[];
+  }
+
+  Future<List<TestName>> getalltest(BuildContext context) async {
+    List<TestName>? data = await myRecordRepo
+        .getalltest()
+        .then((value) => value.testName)
+        .onError((error, stackTrace) =>
+            Messages.snackBar(context, error.toString()));
+    return data ?? <TestName>[];
   }
 
   getDiagnosis() async {

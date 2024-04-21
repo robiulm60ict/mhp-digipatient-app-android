@@ -98,7 +98,7 @@ class CheckoutPayment extends StatelessWidget {
                 child: Row(
                   children: [
                     Image.asset(
-                      Assets.homeServices,
+                      "assets/images/picturebuttons1.png",
                       height: 70,
                     ),
                     Style.widthdistan_size5,

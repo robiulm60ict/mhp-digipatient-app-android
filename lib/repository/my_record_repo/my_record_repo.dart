@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/network/base_api_service.dart';
 import '../../model/doctor_model/doctor_chember_time_model.dart';
 import '../../model/my_record_model/save_vital_model.dart';
+import '../../model/testmodel/testmodellist.dart';
 import '/data/network/network_api_service.dart';
 import '/resources/app_url.dart';
 
@@ -96,6 +97,16 @@ class MyRecordRepo {
       );
 
       return DiagnosisProcedureModel.fromJson(response);
+    } catch (e) {
+      rethrow;
+    }
+  }  Future<AllTestNameModel> getalltest() async {
+    try {
+      dynamic response = await apiService.getGetApiResponse(
+       "${AppUrls.baseUrlPatient}/new-test-name",
+      );
+
+      return AllTestNameModel.fromJson(response);
     } catch (e) {
       rethrow;
     }

@@ -41,8 +41,8 @@ class ClinicBranches extends StatelessWidget {
                 Style.distan_size20,
                 SizedBox(
                   child: Image.asset(
-                    Assets.imagesChamber,
-                    fit: BoxFit.contain,
+                   "assets/images/picturebuttons2.png",
+                    fit: BoxFit.fill,
                   ),
                   height: 130.w,
                   width: double.infinity,

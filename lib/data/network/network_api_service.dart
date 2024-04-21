@@ -154,6 +154,25 @@ class NetworkApiService extends BaseApiService {
     }
     return responseJson;
   }
+@override
+  Future getGetApiResponseHederNoDatabase(String url) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString(UserP.fcmToken) ?? "";
+    dynamic responseJson;
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'token': token,
+          'Accept': 'application/json',
+        },
+      ).timeout(const Duration(seconds: 10));
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw FetchDataException("No Internet Connection");
+    }
+    return responseJson;
+  }
 
   @override
   Future getPostApiResponse(String url, dynamic body) async {

@@ -60,9 +60,9 @@ class _MyDoctorViewState extends State<ClinicBranchDoctorView> {
                 children: [
                   SizedBox(
                     child: Image.asset(
-                      Assets.imagesChamber,
+                      "assets/images/picturebuttons1.png",fit: BoxFit.fill,
                     ),
-                    height: 130.h,
+                    height: 150.h,
                     width: double.infinity,
                   ),
                   Style.distan_size10,
