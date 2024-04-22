@@ -38,16 +38,19 @@ class ClinicBranches extends StatelessWidget {
             physics: AlwaysScrollableScrollPhysics(),
             child: Column(
               children: [
-                Style.distan_size20,
+                Style.distan_size10,
                 SizedBox(
-                  child: Image.asset(
-                   "assets/images/picturebuttons2.png",
-                    fit: BoxFit.fill,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Image.asset(
+                      "assets/images/picturebuttons1.png",
+                      fit: BoxFit.fill,
+                    ),
                   ),
                   height: 130.w,
                   width: double.infinity,
                 ),
-                Style.distan_size20,
+                Style.distan_size10,
                 Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.r),
@@ -80,15 +83,16 @@ class ClinicBranches extends StatelessWidget {
                             ),
                             // color:index%2==0? Color(0xff71B92A).withOpacity(0.5):Colors.white,
                             borderRadius: BorderRadius.circular(8)),
-                        padding:
-                            EdgeInsets.only(left: 8, right: 4, top: 8, bottom: 8),
-                        margin:
-                            EdgeInsets.only(left: 0, right: 0, top: 4, bottom: 4),
+                        padding: EdgeInsets.only(
+                            left: 8, right: 4, top: 8, bottom: 8),
+                        margin: EdgeInsets.only(
+                            left: 0, right: 0, top: 4, bottom: 4),
                         child: Row(
                           children: [
                             SizedBox(
                               child: CircleAvatar(
-                                backgroundImage: AssetImage(Assets.imagesChamber),
+                                backgroundImage:
+                                    AssetImage("assets/icons/branceicon.png"),
                                 radius: 30,
                               ),
                             ),
@@ -115,34 +119,32 @@ class ClinicBranches extends StatelessWidget {
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    IconButton(
-                                      color: Colors.deepPurple,
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    BranchesDetails()));
-                                      },
-                                      icon: Icon(
-                                        Icons.arrow_circle_right,
-                                        size: 25,
-                                      ),
-                                    ),
-                                    IconButton(
-                                      color: Colors.greenAccent,
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    MyClinicServices()));
-                                      },
-                                      icon: Icon(
-                                        Icons.details,
-                                        size: 25,
-                                      ),
-                                    ),
+                                    InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      BranchesDetails()));
+                                        },
+                                        child: Image.asset(
+                                          "assets/icons/details.png",
+                                          width: 50,
+                                          height: 50,
+                                        )),
+                                    InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MyClinicServices()));
+                                        },
+                                        child: Image.asset(
+                                          "assets/icons/service.png",
+                                          width: 50,
+                                          height: 50,
+                                        )),
                                   ]),
                             ),
                           ],

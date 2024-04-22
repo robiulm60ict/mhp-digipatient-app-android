@@ -64,15 +64,19 @@ class _BranchesDetailsState extends State<BranchesDetails> {
               children: [
                 Style.distan_size10,
                 SizedBox(
-                  child: Image.asset(
-                    "assets/images/picturebuttons2.png",fit: BoxFit.fill,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Image.asset(
+                      "assets/images/picturebuttons1.png",
+                      fit: BoxFit.fill,
+                    ),
                   ),
-                  height: 150.h,
+                  height: 130.w,
                   width: double.infinity,
                 ),
                 Style.distan_size10,
                 Container(
-                  height: 55,
+                  height: 50,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       color: Colors.grey.shade100,
@@ -97,7 +101,7 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                           "IBN Sina DHANMONDI BRANCH ,DHAKA, BD",
                           style: Style.alltext_default_balck_blod_dilog,
                         )),
-                    Icon(Icons.favorite_border),
+                    Icon(Icons.favorite_border,color: Colors.black,),
                   ],
                 ),
                 Style.distan_size15,
@@ -307,7 +311,7 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Hospital"),
+                            Text("Hospital       "),
                             Style.distan_size10,
                             Text("200m"),
                           ],

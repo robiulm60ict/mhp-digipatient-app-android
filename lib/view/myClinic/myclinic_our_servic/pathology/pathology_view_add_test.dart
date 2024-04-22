@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:digi_patient/resources/styles.dart';
+import 'package:digi_patient/view/myClinic/myclinic_our_servic/pathology/pathology_view_add_test.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,10 @@ import 'package:digi_patient/view_model/my_record_view_model/my_record_view_mode
 
 import '../../../../model/testmodel/testmodellist.dart';
 import '../../../../resources/colors.dart';
+import '../../../../view_model/clinic_service_view_model/clinic_service_view_model.dart';
+import '../../../../widgets/shimmer.dart';
 import '../../payment_clinic/checkout.dart';
+import 'pathology_view_add_test.dart';
 
 class PathologyAddTest extends StatefulWidget {
   const PathologyAddTest({super.key});
@@ -24,7 +28,6 @@ class PathologyAddTest extends StatefulWidget {
 }
 
 class _PathologyAddTestState extends State<PathologyAddTest> {
-  List testlist = [];
   int? groupValue;
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
@@ -41,8 +44,15 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
       zoom: 19.151926040649414);
 
   @override
+  void initState() {
+    context.read<MyRecordViewModel>().getalldata(context);
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final myRecord = Provider.of<MyRecordViewModel>(context, listen: false);
+    final myRecord = Provider.of<MyRecordViewModel>(context);
     TestName? selectedCondition;
 
     return SafeArea(
@@ -113,62 +123,84 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                     "Available Test List",
                     style: Style.alltext_Large_black,
                   ),
+                  // FloatingActionButton(
+                  //   mini: true,
+                  //   elevation: 0,
+                  //   onPressed: () {
+                  //     showDialog(
+                  //       context: context,
+                  //       builder: (BuildContext context) {
+                  //         return AlertDialog(
+                  //           title: Text("Select Test"),
+                  //           content: DropdownSearch<TestName>(
+                  //             asyncItems: (String filter) =>
+                  //                 myRecord.getalltest(context),
+                  //             itemAsString: (TestName u) => u.testName ?? "",
+                  //             onChanged: (TestName? data) {
+                  //               // TestItemsModel newItem = TestItemsModel(
+                  //               //     title: data!.testName.toString(),
+                  //               //     price: data!.fee.toString());
+                  //               // myRecord.  testlist.add(newItem);
+                  //               // for (var item in  myRecord.testlist) {
+                  //               //   print(
+                  //               //       "Title: ${item.title}, Price: ${item.price}");
+                  //               // }
+                  //               setState(() {});
+                  //               Navigator.pop(context);
+                  //               // Handle onChanged event if needed
+                  //             },
+                  //             popupProps: PopupPropsMultiSelection.dialog(
+                  //               showSearchBox: true,
+                  //               itemBuilder: (context, item, isSelected) =>
+                  //                   Card(
+                  //                 margin: EdgeInsets.all(5),
+                  //                 child: ListTile(
+                  //                   title: Text(
+                  //                     "${item.testName}",
+                  //                     style: Style.alltext_default_balck,
+                  //                   ),
+                  //                   subtitle: Text(
+                  //                     "${item.fee}",
+                  //                     style: Style.alltext_default_balck,
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //             dropdownDecoratorProps: DropDownDecoratorProps(
+                  //               dropdownSearchDecoration: InputDecoration(
+                  //                 hintText: "Search your desire tests",
+                  //                 // helperText: "Search",
+                  //                 // labelText: "Condition",
+                  //                 labelStyle:
+                  //                     TextStyle(color: AppColors.primaryColor),
+                  //                 border: OutlineInputBorder(
+                  //                   borderSide: BorderSide(
+                  //                       color: AppColors.primaryColor),
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //             dropdownButtonProps:
+                  //                 DropdownButtonProps(icon: Icon(Icons.add)),
+                  //             selectedItem: selectedCondition,
+                  //           ),
+                  //         );
+                  //       },
+                  //     );
+                  //   },
+                  //   child: Icon(
+                  //     Icons.add,
+                  //     size: 20,
+                  //   ),
+                  // ),
                   FloatingActionButton(
                     mini: true,
                     elevation: 0,
                     onPressed: () {
+                      //  myRecord.getalltest(context);
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text("Select Test"),
-                            content: DropdownSearch<TestName>(
-                              asyncItems: (String filter) =>
-                                  myRecord.getalltest(context),
-                              itemAsString: (TestName u) =>
-                                  u.testName ?? "",
-                              onChanged: (TestName? data) {
-                                testlist.add(data!.testName);
-                                print(testlist);
-                                setState(() {});
-                                Navigator.pop(context);
-                                // Handle onChanged event if needed
-                              },
-                              popupProps: PopupPropsMultiSelection.dialog(
-                                showSearchBox: true,
-                                itemBuilder: (context, item, isSelected) =>
-                                    Card(
-                                  margin: EdgeInsets.all(5),
-                                  child: ListTile(
-                                    title: Text(
-                                      "${item.testName}",
-                                      style: Style.alltext_default_balck,
-                                    ),
-                                    subtitle: Text(
-                                      "${item.fee}",
-                                      style: Style.alltext_default_balck,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              dropdownDecoratorProps: DropDownDecoratorProps(
-                                dropdownSearchDecoration: InputDecoration(
-                                  hintText: "Search your desire tests",
-                                  // helperText: "Search",
-                                  // labelText: "Condition",
-                                  labelStyle:
-                                      TextStyle(color: AppColors.primaryColor),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: AppColors.primaryColor),
-                                  ),
-                                ),
-                              ),
-                              dropdownButtonProps:
-                                  DropdownButtonProps(icon: Icon(Icons.add)),
-                              selectedItem: selectedCondition,
-                            ),
-                          );
+                          return SearchListDialog();
                         },
                       );
                     },
@@ -179,39 +211,77 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 100,
-                child: ListView.builder(
-                    itemCount: testlist.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        leading: Icon(
-                          Icons.cloud_done_rounded,
-                          color: AppColors.primary_color,
-                        ),
-                        trailing: IconButton(
-                          onPressed: () {
-                            testlist.removeAt(index);
-                            setState(() {});
-                          },
-                          icon: Icon(
-                            Icons.remove_circle,
-                            color: Colors.red,
-                          ),
-                        ),
-                        title: Text(
-                          testlist[index].toString(),
-                        ),
-                      );
-                    }),
-              ),
+              Consumer<MyRecordViewModel>(builder: (context, data, child) {
+                if (data.testlistfavert.isEmpty) {
+                  return noDataFounForList("Currently you have no records");
+                } else {
+                  return SizedBox(
+                    // height: 100,
+                    child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: myRecord.testlistfavert.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.cloud_done_rounded,
+                                      color: AppColors.primary_color,
+                                    ),
+                                    Style.widthdistan_size20,
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        SizedBox(
+                                          child: Text(
+                                            myRecord
+                                                .testlistfavert[index].testName
+                                                .toString(),
+                                            style: Style.alltext_default_balck,
+                                          ),
+                                          width: 200,
+                                        ),
+                                        Style.distan_size2,
+                                        Text(
+                                          "${myRecord.testlistfavert[index].fee.toString()} BDT",
+                                          style: Style.alltext_small_black,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    myRecord.testlistfavert.removeAt(index);
+                                    setState(() {});
+                                  },
+                                  icon: Icon(
+                                    Icons.remove_circle,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
+                  );
+                }
+              }),
               Style.distan_size20,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     "Locate Me",
-                    style: Style.alltext_block_text_style,
+                    style: Style.alltext_Large_black,
                   ),
                   IconButton(
                       onPressed: _goToTheLake,
@@ -251,7 +321,9 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                         });
                       },
                       title: Text(
-                          'Booking request at Clinic'), // The title displayed next to the radio button
+                        'Booking request at Clinic',
+                        style: Style.alltext_default_balck,
+                      ), // The title displayed next to the radio button
                     ),
                     RadioListTile<int>(
                       value: 10,
@@ -265,7 +337,9 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                         });
                       },
                       title: Text(
-                          'Sample Collection Request'), // The title displayed next to the radio button
+                        'Sample Collection Request',
+                        style: Style.alltext_default_balck,
+                      ), // The title displayed next to the radio button
                     ),
                   ],
                 ),
@@ -280,5 +354,131 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;
     await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+  }
+}
+
+class SearchListDialog extends StatefulWidget {
+  @override
+  _SearchListDialogState createState() => _SearchListDialogState();
+}
+
+class _SearchListDialogState extends State<SearchListDialog> {
+  TextEditingController _searchController = TextEditingController();
+  List<TestName> _filteredData = [];
+
+  @override
+  void initState() {
+    _filteredData.addAll(context.read<MyRecordViewModel>().testList);
+    // Instead of initializing in initState, use a FutureBuilder
+    super.initState();
+  }
+
+  void filterSearchResults(String query, List<TestName> testList) {
+    List<TestName> dummySearchList = [];
+    dummySearchList.addAll(testList);
+    if (query.isNotEmpty) {
+      List<TestName> dummyListData = [];
+      dummySearchList.forEach((item) {
+        if (item.testName!.toLowerCase().contains(query.toLowerCase())) {
+          dummyListData.add(item);
+        }
+      });
+      setState(() {
+        _filteredData.clear();
+        _filteredData.addAll(dummyListData);
+      });
+    } else {
+      setState(() {
+        _filteredData.clear();
+        _filteredData.addAll(testList);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final myRecord = Provider.of<MyRecordViewModel>(context);
+
+    return AlertDialog(
+      title: Text("Search List"),
+      actions: [
+        TextButton(
+          onPressed: () {
+
+            Navigator.pop(context);
+          },
+          child: Text("Ok"),
+        )
+      ],
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: _searchController,
+              onChanged: (value) {
+                filterSearchResults(value, myRecord.testList);
+              },
+              decoration: InputDecoration(
+                labelText: "Search",
+                hintText: "Search",
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                ),
+              ),
+            ),
+            SizedBox(height: 8),
+            SizedBox(
+              height: 380,
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                itemCount: _filteredData.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(_filteredData[index].testName.toString()),
+                    onTap: () {
+                      print("Selected item: ${_filteredData[index]}");
+                      Navigator.pop(context); // Close the dialog
+                    },
+                    trailing: IconButton(
+                      onPressed: () {
+                        // Add or remove the item from the list based on its presence
+
+                        setState(() {
+                          if (myRecord.testlistfavert
+                              .contains(_filteredData[index])) {
+                            myRecord.removeTest(index);
+                            // myRecord.testlistfavert
+                            //     .remove(_filteredData[index]);
+                          } else {
+                            myRecord.addTest(_filteredData[index]);
+                            // myRecord.testlistfavert.add(_filteredData[index]);
+                          }
+                        });
+                        for (var item in myRecord.testlistfavert) {
+                          print("Title: ${item.testName}, Price: ${item.fee}");
+                        }
+                      },
+                      icon:
+                          myRecord.testlistfavert.contains(_filteredData[index])
+                              ? Icon(
+                                  Icons.remove_circle,
+                                  color: Colors.red,
+                                )
+                              : Icon(
+                                  Icons.add_circle,
+                                  color: Colors.green,
+                                ),
+                    ),
+                  );
+                },
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

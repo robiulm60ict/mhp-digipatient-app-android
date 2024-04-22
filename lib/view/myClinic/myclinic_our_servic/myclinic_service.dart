@@ -40,10 +40,14 @@ class MyClinicServices extends StatelessWidget {
               children: [
                 Style.distan_size10,
                 SizedBox(
-                  child: Image.asset(
-                    "assets/images/picturebuttons1.png",fit: BoxFit.fill,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Image.asset(
+                      "assets/images/picturebuttons1.png",
+                      fit: BoxFit.fill,
+                    ),
                   ),
-                  height: 150.h,
+                  height: 140.w,
                   width: double.infinity,
                 ),
                 Style.distan_size10,
@@ -53,7 +57,7 @@ class MyClinicServices extends StatelessWidget {
                       "WELCOME TO",
                       style: Style.alltext_default_balck_blod_dilog,
                     )),
-                Style.distan_size15,
+                Style.distan_size10,
                 Text(
                   "IBN SINA DHANMONDI BRANCH",
                   style: Style.alltext_default_balck_blod,

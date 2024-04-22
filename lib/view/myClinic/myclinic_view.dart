@@ -56,7 +56,11 @@ class MyClinicView extends StatelessWidget {
                     Icons.search_rounded,
                     color: AppColors.primaryColor,
                     size: 25.h,
-                  ),
+                  ), trailing:
+
+                Image.asset("assets/icons/serch.png"),
+
+
                   title: Text(
                     "Search Clinic",
                     style: TextStyle(fontSize: 12.sp, color: Colors.grey),
@@ -80,12 +84,12 @@ class MyClinicView extends StatelessWidget {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.black12,
-                            ),
+                            // border: Border.all(
+                            //   color: Colors.black12,
+                            // ),B8DC94
                             color: index % 2 == 0
-                                ? Color(0xff71B92A).withOpacity(0.5)
-                                : Colors.white,
+                                ? Color(0xffB8DC94)
+                                : Color(0xffF7F7F7),
                             borderRadius: BorderRadius.circular(8)),
                         padding: EdgeInsets.only(
                             left: 8, right: 8, top: 8, bottom: 8),
@@ -100,17 +104,20 @@ class MyClinicView extends StatelessWidget {
                             ),
                             Container(
                               padding: EdgeInsets.only(left: 12),
-                              width: 235.w,
+                              width: 240.w,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Icon(
                                         Icons.star,
                                         color: Colors.amber,
                                         size: 20,
                                       ),
+                                      Style.widthdistan_size2,
                                       Text(
                                         "4.0 (76)",
                                         style: Style.alltext_small_black,
@@ -125,9 +132,9 @@ class MyClinicView extends StatelessWidget {
                                   Style.distan_size5,
                                   Text("Dhanmondi, Dhaka",
                                       style: Style.alltext_default_balck),
-                                  Style.distan_size2,
-                                  Style.distan_size2,
-                                  Row(
+                                  Style.distan_size5,
+                                  Row(crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Icon(
                                         Icons.shop,
@@ -139,7 +146,7 @@ class MyClinicView extends StatelessWidget {
                                         "10 branches",
                                         style: Style.alltext_small_black,
                                       ),
-                                      Style.widthdistan_size5,
+                                      Style.widthdistan_size10,
                                       Icon(
                                         Icons.deck,
                                         color: Colors.grey,
@@ -157,7 +164,7 @@ class MyClinicView extends StatelessWidget {
                                     children: [
                                       Text(
                                         "৳",
-                                        style: Style.alltext_ExtraLarge_black,
+                                        style: Style.alltext_default_balck_blod,
                                       ),
                                       Style.widthdistan_size2,
                                       Text(

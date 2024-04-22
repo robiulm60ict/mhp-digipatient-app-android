@@ -140,7 +140,8 @@ void main() async {
           ),
           ChangeNotifierProvider(
             create: (context) => ResourcesViewModel(),
-          ), ChangeNotifierProvider(
+          ),
+          ChangeNotifierProvider(
             create: (context) => ClinicServiceViewModel(),
           ),
         ],
@@ -177,68 +178,27 @@ class MyAppState extends State<MyApp> {
       onUserLogin();
     }
   }
-Future<void> checkForUpdate() async {
+
+  Future<void> checkForUpdate() async {
     try {
       InAppUpdate.checkForUpdate().then((info) {
+        print("eeeeeeeeeeeeeeee${info.toString()}");
+        _updateInfo = info;
 
-          print("eeeeeeeeeeeeeeee${info.toString()}");
-          _updateInfo = info;
-
-          // Check if an update is available before setting up the listener
-          if (_updateInfo?.updateAvailability ==
-              UpdateAvailability.updateAvailable) {
-            InAppUpdate
-                .performImmediateUpdate(); // You might want to prompt the user to update before calling this
-            InAppUpdate.installUpdateListener;
-            print("eeeeeeeeeeeeeeee${_updateInfo?.updateAvailability ==
-                UpdateAvailability.updateAvailable}");
-
-          }
-        });
+        // Check if an update is available before setting up the listener
+        if (_updateInfo?.updateAvailability ==
+            UpdateAvailability.updateAvailable) {
+          InAppUpdate
+              .performImmediateUpdate(); // You might want to prompt the user to update before calling this
+          InAppUpdate.installUpdateListener;
+          print(
+              "eeeeeeeeeeeeeeee${_updateInfo?.updateAvailability == UpdateAvailability.updateAvailable}");
+        }
+      });
     } catch (e) {
       print(e.toString());
     }
   }
-  // Future<void> checkForUpdate() async {
-  //   try {
-  //     final AppUpdateInfo info = await InAppUpdate.checkForUpdate();
-  //     print("Update check result: ${info.toString()}");
-  //
-  //     if (info?.updateAvailability == UpdateAvailability.updateAvailable) {
-  //       // An update is available, prompt the user to update
-  //       showDialog(
-  //         context: context,
-  //         builder: (BuildContext context) {
-  //           return AlertDialog(
-  //             title: Text('Update Available'),
-  //             content:
-  //                 Text('An update is available. Do you want to update now?'),
-  //             actions: <Widget>[
-  //               TextButton(
-  //                 child: Text('Yes'),
-  //                 onPressed: () {
-  //                   Navigator.pop(context); // Close the dialog
-  //                   // Start the immediate update
-  //                   InAppUpdate.performImmediateUpdate();
-  //                 },
-  //               ),
-  //               TextButton(
-  //                 child: Text('No'),
-  //                 onPressed: () {
-  //                   Navigator.pop(context); // Close the dialog
-  //                 },
-  //               ),
-  //             ],
-  //           );
-  //         },
-  //       );
-  //     } else {
-  //       print('No update available.');
-  //     }
-  //   } catch (e) {
-  //     print('Error checking for update: $e');
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -302,3 +262,140 @@ Future<void> checkForUpdate() async {
     );
   }
 }
+
+// import 'package:flutter/material.dart';
+// void main() {
+//   runApp(MyApp());
+// }
+//
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: Text("Search List Dialog"),
+//         ),
+//         body: Center(
+//           child: ElevatedButton(
+//             onPressed: () {
+//               showDialog(
+//                 context: context,
+//                 builder: (BuildContext context) {
+//                   return Builder(
+//                     builder: (BuildContext context) {
+//                       return SearchListDialog(); // Use Builder here
+//                     },
+//                   );
+//                 },
+//               );
+//             },
+//             child: Text("Show Dialog"),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+// class SearchListDialog extends StatefulWidget {
+//   @override
+//   _SearchListDialogState createState() => _SearchListDialogState();
+// }
+//
+// class _SearchListDialogState extends State<SearchListDialog> {
+//   TextEditingController _searchController = TextEditingController();
+//   List<String> _data = [
+//     "Apple",
+//     "Banana",
+//     "Cherry",
+//     "Date",
+//     "Elderberry",
+//     "Fig",
+//     "Grape",
+//     "Honeydew",
+//     "Kiwi",
+//     "Lemon",
+//     "Mango",
+//     "Orange",
+//     "Papaya",
+//     "Quince",
+//     "Raspberry",
+//     "Strawberry",
+//     "Tomato",
+//     "Ugli fruit",
+//     "Vanilla bean",
+//     "Watermelon"
+//   ];
+//   List<String> _filteredData = [];
+//
+//   @override
+//   void initState() {
+//     _filteredData.addAll(_data);
+//     super.initState();
+//   }
+//
+//   void filterSearchResults(String query) {
+//     List<String> dummySearchList = [];
+//     dummySearchList.addAll(_data);
+//     if (query.isNotEmpty) {
+//       List<String> dummyListData = [];
+//       dummySearchList.forEach((item) {
+//         if (item.toLowerCase().contains(query.toLowerCase())) {
+//           dummyListData.add(item);
+//         }
+//       });
+//       setState(() {
+//         _filteredData.clear();
+//         _filteredData.addAll(dummyListData);
+//       });
+//       return;
+//     } else {
+//       setState(() {
+//         _filteredData.clear();
+//         _filteredData.addAll(_data);
+//       });
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return AlertDialog(
+//       title: Text("Search List"),
+//       content: Column(
+//         mainAxisSize: MainAxisSize.min,
+//         children: [
+//           TextField(
+//             controller: _searchController,
+//             onChanged: (value) {
+//               filterSearchResults(value);
+//             },
+//             decoration: InputDecoration(
+//               labelText: "Search",
+//               hintText: "Search",
+//               prefixIcon: Icon(Icons.search),
+//               border: OutlineInputBorder(
+//                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
+//               ),
+//             ),
+//           ),
+//           SizedBox(height: 8),
+//           ListView.builder(
+//             shrinkWrap: true,
+//             itemCount: _filteredData.length,
+//             itemBuilder: (context, index) {
+//               return ListTile(
+//                 title: Text(_filteredData[index]),
+//                 onTap: () {
+//                   // Do something when an item is tapped
+//                   print("Selected item: ${_filteredData[index]}");
+//                   Navigator.pop(context); // Close the dialog
+//                 },
+//               );
+//             },
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

@@ -106,8 +106,10 @@ class MyRecordRepo {
        "${AppUrls.baseUrlPatient}/new-test-name",
       );
 
+      var res=response['test_name'];
       return AllTestNameModel.fromJson(response);
     } catch (e) {
+      print("rrr$e");
       rethrow;
     }
   }

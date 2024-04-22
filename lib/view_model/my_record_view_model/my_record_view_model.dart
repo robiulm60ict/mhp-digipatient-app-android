@@ -16,31 +16,32 @@ import '../../repository/my_record_repo/my_record_repo.dart';
 import '../../utils/user.dart';
 import '../../view/my_record/add_medical_history_view.dart';
 import '../../view/my_record/my_medical_history_view.dart';
+import '../clinic_service_view_model/clinic_service_view_model.dart';
 
 class MyRecordViewModel with ChangeNotifier {
   List<MedicalHistoryFromGreatDocModel> medicalHistoryFromGreatDocList = [];
   List<PastHistory> medicalHistoryFromGreatDocPastList = [];
-  bool showPastHistory=true;
+  bool showPastHistory = true;
 
-  past(){
+  past() {
     notifyListeners();
-    showPastHistory=true;
+    showPastHistory = true;
     print(showPastHistory);
     notifyListeners();
-
   }
-  procedure(){
+
+  procedure() {
     notifyListeners();
-    showPastHistory=false;
+    showPastHistory = false;
 
     notifyListeners();
   }
+
   bool isMedicalHistoryFromGreatDocLoading = true;
   MyRecordRepo myRecordRepo = MyRecordRepo();
   double bmiResult = 0.0;
 
-  void calculateBMI(bmiw,bmih) {
-
+  void calculateBMI(bmiw, bmih) {
     double weight = double.tryParse(bmiw.text) ?? 0.0;
     double height = double.tryParse(bmih.text) ?? 0.0;
 
@@ -48,7 +49,6 @@ class MyRecordViewModel with ChangeNotifier {
       double bmi = weight / ((height / 100) * (height / 100));
       bmiResult = double.parse(bmi.toStringAsFixed(2));
       print(bmiResult);
-
 
       print("bmiResultvvvvvvvvvvvvvvvvvvvvv${bmiResult}");
       notifyListeners();
@@ -59,8 +59,8 @@ class MyRecordViewModel with ChangeNotifier {
       bmiResult = 0.0;
       notifyListeners();
     }
-
   }
+
   getMedicalHistoryFromGreatDoc(BuildContext context) async {
     // medicalHistoryFromGreatDocList.clear();
     medicalHistoryFromGreatDocPastList.clear();
@@ -115,7 +115,7 @@ class MyRecordViewModel with ChangeNotifier {
     myRecordRepo.getVitals().then((value) {
       vitalsList.add(value);
       // tabController = TabController(length: vitalsList.first.vsArray!.length + 1, vsync: vsync);
-       patientVsList.addAll(value.vsArray!.first.patientsVs!);
+      patientVsList.addAll(value.vsArray!.first.patientsVs!);
       isVitalLoading = false;
       notifyListeners();
 
@@ -186,8 +186,9 @@ class MyRecordViewModel with ChangeNotifier {
       setVitalStatus("$vitalName Added Successfully");
       // Messages.snackBar(context, "$vitalName Added Successfully");
       isSaveVitalLoading = false;
-     // getVitals(context);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>VitalsView()));
+      // getVitals(context);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => VitalsView()));
       Messages.flushBarMessage(context, "$vitalName Added Successfully",
           flushBarPosition: FlushbarPosition.TOP,
           backgroundColor: Colors.green);
@@ -212,6 +213,8 @@ class MyRecordViewModel with ChangeNotifier {
   String diagnosisStatus = "";
   List<Data> diagnosisList = [];
   List<TestName> testList = [];
+  List<AllTestNameModel> testListall = [];
+  bool isDoctorLoading = true;
 
   setDiagnosisLoadingAndStatus(bool val, String status) {
     isDiagnosisLoading = val;
@@ -237,16 +240,67 @@ class MyRecordViewModel with ChangeNotifier {
     return data ?? <TestName>[];
   }
 
+  List<TestName> testlistfavert = [];
+
+
+  void addTest(TestName test) {
+    testlistfavert.add(test);
+    notifyListeners(); // Notify listeners that data has changed
+  }
+
+  void removeTest(int index) {
+    testlistfavert.removeAt(index);
+    notifyListeners(); // Notify listeners that data has changed
+  }
+
+
   getDiagnosis() async {
     diagnosisList.clear();
+    isDoctorLoading = true;
+
+    notifyListeners();
     setDiagnosisLoadingAndStatus(true, "Loading...");
     await myRecordRepo.getDiagnosisProcedure().then((value) {
       // diagnosisList.add(value.data);
       diagnosisList = value.data!;
       print(diagnosisList.length);
+      isDoctorLoading = false;
+      notifyListeners();
       setDiagnosisLoadingAndStatus(false, "Successful");
     }).onError((error, stackTrace) {
+      print(error);
+      print(stackTrace);
+      isDoctorLoading = true;
+      notifyListeners();
       setDiagnosisLoadingAndStatus(true, error.toString());
+    });
+  }
+
+  getalldata(BuildContext context) async {
+    testList.clear();
+
+    isDoctorLoading = true;
+
+    notifyListeners();
+    await myRecordRepo.getalltest().then((value) {
+      testListall.add(value);
+      testList.addAll(value.testName as Iterable<TestName>);
+
+      print(testList);
+      print("code");
+      isDoctorLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      isDoctorLoading = true;
+      debugPrint(error.toString());
+      print("rr$error");
+      print("rr$stackTrace");
+
+      notifyListeners();
+      Messages.snackBar(
+        context,
+        error.toString(),
+      );
     });
   }
 
