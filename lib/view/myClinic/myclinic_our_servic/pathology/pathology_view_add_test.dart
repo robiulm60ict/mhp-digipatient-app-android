@@ -5,6 +5,7 @@ import 'package:digi_patient/view/myClinic/myclinic_our_servic/pathology/patholo
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +35,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
 
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
+    zoom: 18.4746,
   );
 
   static const CameraPosition _kLake = CameraPosition(
@@ -115,7 +116,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                   ),
                 ),
               ),
-              Style.distan_size20,
+              Style.distan_size10,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -212,70 +213,66 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                 ],
               ),
               Consumer<MyRecordViewModel>(builder: (context, data, child) {
-                if (data.testlistfavert.isEmpty) {
-                  return noDataFounForList("Currently you have no records");
-                } else {
-                  return SizedBox(
-                    // height: 100,
-                    child: ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: myRecord.testlistfavert.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.cloud_done_rounded,
-                                      color: AppColors.primary_color,
-                                    ),
-                                    Style.widthdistan_size20,
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        SizedBox(
-                                          child: Text(
-                                            myRecord
-                                                .testlistfavert[index].testName
-                                                .toString(),
-                                            style: Style.alltext_default_balck,
-                                          ),
-                                          width: 200,
-                                        ),
-                                        Style.distan_size2,
-                                        Text(
-                                          "${myRecord.testlistfavert[index].fee.toString()} BDT",
-                                          style: Style.alltext_small_black,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    myRecord.testlistfavert.removeAt(index);
-                                    setState(() {});
-                                  },
-                                  icon: Icon(
-                                    Icons.remove_circle,
-                                    color: Colors.red,
+                return SizedBox(
+                  // height: 100,
+                  child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: myRecord.testlistfavert.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.cloud_done_rounded,
+                                    color: AppColors.primary_color,
                                   ),
+                                  Style.widthdistan_size20,
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      SizedBox(
+                                        child: Text(
+                                          myRecord
+                                              .testlistfavert[index].testName
+                                              .toString(),
+                                          style: Style.alltext_default_balck,
+                                        ),
+                                        width: 200,
+                                      ),
+                                      Style.distan_size2,
+                                      Text(
+                                        "${myRecord.testlistfavert[index].fee.toString()} BDT",
+                                        style: Style.alltext_small_black,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  myRecord.testlistfavert.removeAt(index);
+                                  setState(() {});
+                                },
+                                icon: Icon(
+                                  Icons.remove_circle,
+                                  color: Colors.red,
                                 ),
-                              ],
-                            ),
-                          );
-                        }),
-                  );
-                }
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
+                );
               }),
-              Style.distan_size20,
+              Style.distan_size10,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -296,9 +293,9 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
               Card(
                 elevation: 0,
                 child: SizedBox(
-                  height: 130,
+                  height: 160,
                   child: GoogleMap(
-                    mapType: MapType.normal,
+                    mapType: MapType.hybrid,
                     initialCameraPosition: _kGooglePlex,
                     onMapCreated: (GoogleMapController controller) {
                       _controller.complete(controller);
@@ -307,41 +304,56 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                 ),
               ),
               Card(
-                child: Column(
-                  children: [
-                    RadioListTile<int>(
-                      value: 20,
-                      // The value associated with this radio button
-                      groupValue: groupValue,
-                      // The currently selected value in the group
-                      onChanged: (int? newValue) {
-                        // Update the state to reflect the new value when the radio button is selected
-                        setState(() {
-                          groupValue = newValue;
-                        });
-                      },
-                      title: Text(
-                        'Booking request at Clinic',
-                        style: Style.alltext_default_balck,
-                      ), // The title displayed next to the radio button
-                    ),
-                    RadioListTile<int>(
-                      value: 10,
-                      // The value associated with this radio button
-                      groupValue: groupValue,
-                      // The currently selected value in the group
-                      onChanged: (int? newValue) {
-                        // Update the state to reflect the new value when the radio button is selected
-                        setState(() {
-                          groupValue = newValue;
-                        });
-                      },
-                      title: Text(
-                        'Sample Collection Request',
-                        style: Style.alltext_default_balck,
-                      ), // The title displayed next to the radio button
-                    ),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Sample Collection",
+                        style: Style.alltext_Large_black,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            child: Radio<int>(
+                              value: 10,
+                              groupValue: groupValue,
+                              onChanged: (int? newValue) {
+                                // Update the state to reflect the new value when the radio button is selected
+                                setState(() {
+                                  groupValue = newValue;
+                                });
+                              },
+                            ),
+                          ),
+                          Text(
+                            ' Clinic',
+                            style: Style.alltext_default_balck,
+                          ),
+                          SizedBox(
+                            child: Radio<int>(
+                              value: 10,
+                              groupValue: groupValue,
+                              onChanged: (int? newValue) {
+                                // Update the state to reflect the new value when the radio button is selected
+                                setState(() {
+                                  groupValue = newValue;
+                                });
+                              },
+                            ),
+                          ),
+                          Text(
+                            'Home',
+                            style: Style.alltext_default_balck,
+                          ), // The ti
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -404,7 +416,6 @@ class _SearchListDialogState extends State<SearchListDialog> {
       actions: [
         TextButton(
           onPressed: () {
-
             Navigator.pop(context);
           },
           child: Text("Ok"),
