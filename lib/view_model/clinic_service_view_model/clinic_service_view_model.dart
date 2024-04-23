@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../view/myClinic/myclinic_our_servic/appoinemtntdoctor/my_doctor_view.dart';
 import '../../view/myClinic/myclinic_our_servic/pathology/pathology_view_add_test.dart';
+import '../../view/myClinic/myclinic_our_servic/radiology/radiology_view_add_test.dart';
 
 class ClinicServiceViewModel with ChangeNotifier {
   List<HomeItemsModel> serviceItemsList = [
@@ -21,6 +22,9 @@ class ClinicServiceViewModel with ChangeNotifier {
     } else if (index == 1) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => PathologyAddTest()));
+    } else if (index == 2) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => RadoiologyAddTest()));
     }
   }
 }

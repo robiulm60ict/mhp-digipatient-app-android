@@ -123,26 +123,26 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                 visible: showTodayAppointments,
                 replacement: Column(
                   children: [
-                    Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.r),
-                          side: BorderSide(color: AppColors.primaryColor)),
-                      child: ListTile(
-                        onTap: () => customSearchDialogue(context,
-                            doctorList: provider.myDoctordeactiveFullList
-                                    .reversed.first.data ??
-                                []),
-                        leading: Icon(
-                          Icons.search_rounded,
-                          color: AppColors.primaryColor,
-                          size: 15.h,
-                        ),
-                        title: Text(
-                          "Search Doctor",
-                          style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-                        ),
-                      ),
-                    ),
+                    // Card(
+                    //   shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(8.r),
+                    //       side: BorderSide(color: AppColors.primaryColor)),
+                    //   child: ListTile(
+                    //     onTap: () => customSearchDialogue(context,
+                    //         doctorList: provider.myDoctordeactiveFullList
+                    //                 .reversed.first.data ??
+                    //             []),
+                    //     leading: Icon(
+                    //       Icons.search_rounded,
+                    //       color: AppColors.primaryColor,
+                    //       size: 15.h,
+                    //     ),
+                    //     title: Text(
+                    //       "Search Doctor",
+                    //       style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 4.h,
                     ),
@@ -192,15 +192,15 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                                 //     .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
                               },
                               docImage:
-                                  "${AppUrls.drprofile}${docc?.doctors?.drImages.toString()}",
+                                  "${AppUrls.drprofile}${docc.doctors?.drImages.toString()}",
                               docName:
                                   "${docc!.doctors!.title == null ? '' : docc!.doctors!.title!.titleName} ${docc!.doctors!.fullName}",
                               docSpeciality: docc
-                                      ?.doctors?.specialist?.specialistsName
+                                      .doctors?.specialist?.specialistsName
                                       .toString() ??
                                   "",
                               docHospital:
-                                  "${docc?.doctors!.usualProvider != null ? docc?.doctors!.usualProvider!.usualProviderName.toString() : ""}",
+                                  "${docc.doctors!.usualProvider != null ? docc.doctors!.usualProvider!.usualProviderName.toString() : ""}",
                               doctortitle: docc.doctors!.academic,
                               docId: docc.doctorsMasterId.toString(),
                             );
@@ -212,26 +212,26 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                 ),
                 child: Column(
                   children: [
-                    Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.r),
-                          side: BorderSide(color: AppColors.primaryColor)),
-                      child: ListTile(
-                        onTap: () => customSearchDialogue(context,
-                            doctorList:
-                                provider.myDoctorFullList.reversed.first.data ??
-                                    []),
-                        leading: Icon(
-                          Icons.search_rounded,
-                          color: AppColors.primaryColor,
-                          size: 15.h,
-                        ),
-                        title: Text(
-                          "Search Doctor",
-                          style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-                        ),
-                      ),
-                    ),
+                    // Card(
+                    //   shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(8.r),
+                    //       side: BorderSide(color: AppColors.primaryColor)),
+                    //   child: ListTile(
+                    //     onTap: () => customSearchDialogue(context,
+                    //         doctorList:
+                    //             provider.myDoctorFullList.reversed.first.data ??
+                    //                 []),
+                    //     leading: Icon(
+                    //       Icons.search_rounded,
+                    //       color: AppColors.primaryColor,
+                    //       size: 15.h,
+                    //     ),
+                    //     title: Text(
+                    //       "Search Doctor",
+                    //       style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                    //     ),
+                    //   ),
+                    // ),
                     Consumer<MyDoctorDelaisViewModel>(
                         builder: (context, data, child) {
                       if (data.myDoctorList.isEmpty) {
@@ -278,15 +278,15 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                                 //     .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
                               },
                               docImage:
-                                  "${AppUrls.drprofile}${doc?.doctors?.drImages.toString()}",
+                                  "${AppUrls.drprofile}${doc.doctors?.drImages.toString()}",
                               docName:
                                   "${doc!.doctors!.title == null ? '' : doc!.doctors!.title!.titleName} ${doc!.doctors!.fullName}",
                               docSpeciality: doc
-                                      ?.doctors?.specialist?.specialistsName
+                                      .doctors?.specialist?.specialistsName
                                       .toString() ??
                                   "",
                               docHospital:
-                                  "${doc?.doctors!.usualProvider != null ? doc?.doctors!.usualProvider!.usualProviderName.toString() : ""}",
+                                  "${doc.doctors!.usualProvider != null ? doc.doctors!.usualProvider!.usualProviderName.toString() : ""}",
                               doctortitle: doc.doctors!.academic,
                               docId: doc.doctorsMasterId.toString(),
                             );

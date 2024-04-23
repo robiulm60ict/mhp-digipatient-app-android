@@ -5,19 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+
 import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
+
 import '../../../../model/testmodel/testmodellist.dart';
 import '../../../../resources/colors.dart';
 import '../../payment_clinic/checkout.dart';
 
-class PathologyAddTest extends StatefulWidget {
-  const PathologyAddTest({super.key});
+class RadoiologyAddTest extends StatefulWidget {
+  const RadoiologyAddTest({super.key});
 
   @override
-  State<PathologyAddTest> createState() => _PathologyAddTestState();
+  State<RadoiologyAddTest> createState() => _PathologyAddTestState();
 }
 
-class _PathologyAddTestState extends State<PathologyAddTest> {
+class _PathologyAddTestState extends State<RadoiologyAddTest> {
   int? groupValue;
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
@@ -48,23 +50,23 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.white,
-      bottomNavigationBar: BottomAppBar(
-        height: 55.h,
-        child: ListTile(
-          title: Text(
-            "Total Bill",
-            style: Style.alltext_Large_black,
+          bottomNavigationBar: BottomAppBar(
+            height: 55.h,
+            child: ListTile(
+              title: Text(
+                "Total Bill",
+                style: Style.alltext_Large_black,
+              ),
+              subtitle: Text("${calculateTotal(myRecord.testlistfavert)}BDT", style: Style.alltext_default_balck_blod,),
+              trailing: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CheckoutPayment()));
+                },
+                child: Text("Proceed to Payment", style: Style.drawer_button_style,),
+              ),
+            ),
           ),
-          subtitle: Text("${calculateTotal(myRecord.testlistfavert)}BDT", style: Style.alltext_default_balck_blod,),
-          trailing: ElevatedButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CheckoutPayment()));
-            },
-            child: Text("Proceed to Payment", style: Style.drawer_button_style,),
-          ),
-        ),
-      ),
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
@@ -82,7 +84,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
             children: [
               Style.distan_size20,
               Text(
-                "Diagnostic Tests from Home",
+                "Radiology Tests at Clinic",
                 style: Style.alltext_Large_black,
               ),
               Style.distan_size5,
@@ -96,7 +98,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                     borderRadius: BorderRadius.circular(8.r),
                     side: BorderSide(color: AppColors.primaryColor)),
                 child: ListTile(
-                  onTap: () {},
+                  onTap: (){},
                   leading: Icon(
                     Icons.search_rounded,
                     color: AppColors.primaryColor,
@@ -224,14 +226,16 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                                 ),
                                 Style.widthdistan_size20,
                                 Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     SizedBox(
                                       width: 200,
                                       child: Text(
-                                        myRecord.testlistfavert[index].testName
+                                        myRecord
+                                            .testlistfavert[index].testName
                                             .toString(),
                                         style: Style.alltext_default_balck,
                                       ),
@@ -290,59 +294,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                   ),
                 ),
               ),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Sample Collection",
-                        style: Style.alltext_Large_black,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            child: Radio<int>(
-                              value: 10,
-                              groupValue: groupValue,
-                              onChanged: (int? newValue) {
-                                // Update the state to reflect the new value when the radio button is selected
-                                setState(() {
-                                  groupValue = newValue;
-                                });
-                              },
-                            ),
-                          ),
-                          Text(
-                            ' Clinic',
-                            style: Style.alltext_default_balck,
-                          ),
-                          SizedBox(
-                            child: Radio<int>(
-                              value: 10,
-                              groupValue: groupValue,
-                              onChanged: (int? newValue) {
-                                // Update the state to reflect the new value when the radio button is selected
-                                setState(() {
-                                  groupValue = newValue;
-                                });
-                              },
-                            ),
-                          ),
-                          Text(
-                            'Home',
-                            style: Style.alltext_default_balck,
-                          ), // The ti
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              RadioListTile(value: 0, groupValue: groupValue, onChanged:(int? newValue){},title: Text("Clinic Booking Request"),),
             ],
           ),
         ),
@@ -358,7 +310,6 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
     }
     return total;
   }
-
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;
     await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
