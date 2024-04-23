@@ -32,7 +32,7 @@ dependencies:
   cached_network_image: ^3.3.0
 #  http: ^1.1.2
   http: ^0.13.6
-  #  qr_code_scanner: ^1.0.1
+  qr_code_scanner: ^1.0.1
   #  another_flushbar: ^1.12.29
   another_flushbar: ^1.12.30
   #  fluttertoast: ^8.2.1

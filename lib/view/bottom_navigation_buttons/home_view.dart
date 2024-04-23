@@ -548,7 +548,7 @@ class _HomeViewState extends State<HomeView> {
                         crossAxisCount: 3,
                         mainAxisSpacing: 5,
                         crossAxisSpacing: 10,
-                        height: 90.h),
+                        height: 95.h),
                     itemCount: provider.homeItemsList.length,
                     itemBuilder: (BuildContext context, index) {
                       return InkWell(
@@ -564,7 +564,7 @@ class _HomeViewState extends State<HomeView> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SizedBox(
-                              height: 70.h,
+                              height: 75.h,
                               width: double.infinity,
                               child: Card(
                                 color: Colors.white,
@@ -579,6 +579,7 @@ class _HomeViewState extends State<HomeView> {
                                 ),
                               ),
                             ),
+                            Style.distan_size5,
                             Text(
                               provider.homeItemsList[index].title,
                               maxLines: 1,

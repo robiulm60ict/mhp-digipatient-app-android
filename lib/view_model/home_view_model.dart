@@ -23,7 +23,7 @@ class HomeViewModel with ChangeNotifier {
     HomeItemsModel(title: "My Appointments", image: Assets.homeAppointments),
 
     HomeItemsModel(title: "My Medicine", image: Assets.homeMyMedicine),
-    HomeItemsModel(title: "My Family", image: Assets.homeMyFamily),
+    HomeItemsModel(title: "My Clinic", image: Assets.homeMyFamily),
     HomeItemsModel(title: "My Lab", image: Assets.homeMyLab),
     HomeItemsModel(title: "Resources", image: Assets.homeResources),
     HomeItemsModel(title: "Payments", image: Assets.homePayments),

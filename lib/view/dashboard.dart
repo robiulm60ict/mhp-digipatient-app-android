@@ -8,6 +8,7 @@ import 'bottom_navigation_buttons/basket_view.dart';
 import 'bottom_navigation_buttons/favourites_view.dart';
 import 'bottom_navigation_buttons/home_view.dart';
 import 'daily_upcomming_appointment/daily_and_upcomming_appointments_view.dart';
+import 'qrcode/qrcode_scnner.dart';
 import 'tutrials/tutrials_category.dart';
 
 class DashboardView extends StatefulWidget {
@@ -47,11 +48,12 @@ class _MyHomePageState extends State<DashboardView>
           // Icon(Icons.person, color: Colors.deepPurple),
           Icon(Icons.home, color: AppColors.primary_color),
           Icon(Icons.video_collection, color: AppColors.primary_color),
-          Image.asset(
-            Assets.iconsDrawer,
-            height: 100,
-            width: 100,
-          ),
+          // Image.asset(
+          //   Assets.iconsDrawer,
+          //   height: 100,
+          //   width: 100,
+          // ),
+          Icon(Icons.qr_code, color: AppColors.primary_color),
           Icon(Icons.favorite, color: AppColors.primary_color),
           Icon(Icons.notification_add, color: AppColors.primary_color),
           Icon(Icons.person, color: AppColors.primary_color),
@@ -60,11 +62,13 @@ class _MyHomePageState extends State<DashboardView>
           // Text("My"),
           Icon(Icons.home, color: AppColors.primary_color),
           Icon(Icons.video_collection, color: AppColors.primary_color),
-          Image.asset(
-            Assets.iconsDrawer,
-            height: 100,
-            width: 100,
-          ),
+          Icon(Icons.qr_code, color: AppColors.primary_color),
+
+          // Image.asset(
+          //   Assets.iconsDrawer,
+          //   height: 100,
+          //   width: 100,
+          // ),
           Icon(Icons.favorite, color: AppColors.primary_color),
           Icon(Icons.notification_add, color: AppColors.primary_color),
           Icon(Icons.person, color: AppColors.primary_color),
@@ -95,7 +99,7 @@ class _MyHomePageState extends State<DashboardView>
         children: [
           HomeView(),
           TutrialsCategory(),
-          BasketView(),
+          QRCodeScanner(),
           FavouritesView(),
           DailyAndUpcommingView(),
           ProfileData()
