@@ -43,37 +43,37 @@ class MyClinicView extends StatelessWidget {
           child: Column(
             children: [
               Style.distan_size10,
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.r),
-                    side: BorderSide(color: AppColors.primaryColor)),
-                child: ListTile(
-                  onTap: () => customSearchDialogue(context,
-                      doctorList: provider
-                              .myDoctordeactiveFullList.reversed.first.data ??
-                          []),
-                  leading: Icon(
-                    Icons.search_rounded,
-                    color: AppColors.primaryColor,
-                    size: 25.h,
-                  ), trailing:
-
-                Image.asset("assets/icons/serch.png"),
-
-
-                  title: Text(
-                    "Search Clinic",
-                    style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 4.h,
-              ),
+              // Card(
+              //   shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(8.r),
+              //       side: BorderSide(color: AppColors.primaryColor)),
+              //   child: ListTile(
+              //     onTap: () => customSearchDialogue(context,
+              //         doctorList: provider
+              //                 .myDoctordeactiveFullList.reversed.first.data ??
+              //             []),
+              //     leading: Icon(
+              //       Icons.search_rounded,
+              //       color: AppColors.primaryColor,
+              //       size: 25.h,
+              //     ), trailing:
+              //
+              //   Image.asset("assets/icons/serch.png"),
+              //
+              //
+              //     title: Text(
+              //       "Search Clinic",
+              //       style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: 4.h,
+              // ),
               ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: 5,
+                  itemCount: 8,
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
@@ -108,23 +108,7 @@ class MyClinicView extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.star,
-                                        color: Colors.amber,
-                                        size: 20,
-                                      ),
-                                      Style.widthdistan_size2,
-                                      Text(
-                                        "4.0 (76)",
-                                        style: Style.alltext_small_black,
-                                      )
-                                    ],
-                                  ),
-                                  Style.distan_size2,
+
                                   Text(
                                     "Modern Diagonistic Center -Dhanmondi",
                                     style: Style.alltext_default_balck_w700,
@@ -162,20 +146,7 @@ class MyClinicView extends StatelessWidget {
                                   Style.distan_size5,
                                   Row(
                                     children: [
-                                      Text(
-                                        "৳",
-                                        style: Style.alltext_default_balck_blod,
-                                      ),
-                                      Style.widthdistan_size2,
-                                      Text(
-                                        "300",
-                                        style: Style.alltext_default_balck_blod,
-                                      ),
-                                      Text(
-                                        "/ avg doctor fee",
-                                        style: Style.alltext_small_black,
-                                      ),
-                                      Style.widthdistan_size20,
+
                                       Icon(
                                         Icons.favorite_border,
                                         color: Colors.grey,

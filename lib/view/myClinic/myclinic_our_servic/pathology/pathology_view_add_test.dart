@@ -19,6 +19,7 @@ import '../../../../resources/colors.dart';
 import '../../../../view_model/clinic_service_view_model/clinic_service_view_model.dart';
 import '../../../../widgets/shimmer.dart';
 import '../../payment_clinic/checkout.dart';
+import 'custom_search_pathology_selected_test_dialogue.dart';
 import 'pathology_view_add_test.dart';
 
 class PathologyAddTest extends StatefulWidget {
@@ -104,7 +105,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                     borderRadius: BorderRadius.circular(8.r),
                     side: BorderSide(color: AppColors.primaryColor)),
                 child: ListTile(
-                  onTap: () {},
+                  onTap: (){},
                   leading: Icon(
                     Icons.search_rounded,
                     color: AppColors.primaryColor,
@@ -220,54 +221,51 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                       itemCount: myRecord.testlistfavert.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return Container(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.cloud_done_rounded,
-                                    color: AppColors.primary_color,
-                                  ),
-                                  Style.widthdistan_size20,
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      SizedBox(
-                                        child: Text(
-                                          myRecord
-                                              .testlistfavert[index].testName
-                                              .toString(),
-                                          style: Style.alltext_default_balck,
-                                        ),
-                                        width: 200,
-                                      ),
-                                      Style.distan_size2,
-                                      Text(
-                                        "${myRecord.testlistfavert[index].fee.toString()} BDT",
-                                        style: Style.alltext_small_black,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  myRecord.testlistfavert.removeAt(index);
-                                  setState(() {});
-                                },
-                                icon: Icon(
-                                  Icons.remove_circle,
-                                  color: Colors.red,
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.cloud_done_rounded,
+                                  color: AppColors.primary_color,
                                 ),
+                                Style.widthdistan_size20,
+                                Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    SizedBox(
+                                      width: 200,
+                                      child: Text(
+                                        myRecord
+                                            .testlistfavert[index].testName
+                                            .toString(),
+                                        style: Style.alltext_default_balck,
+                                      ),
+                                    ),
+                                    Style.distan_size2,
+                                    Text(
+                                      "${myRecord.testlistfavert[index].fee.toString()} BDT",
+                                      style: Style.alltext_small_black,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                myRecord.removeTest(index);
+                              },
+                              icon: Icon(
+                                Icons.remove_circle,
+                                color: Colors.red,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         );
                       }),
                 );

@@ -29,16 +29,16 @@ class _BranchesDetailsState extends State<BranchesDetails> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          leading: FloatingActionButton(
-            mini: true,
-            backgroundColor: Colors.black26,
-            elevation: 0,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Icon(Icons.keyboard_arrow_left_rounded),
-          ),
-          iconTheme: IconThemeData(color: Colors.white),
+          // leading: FloatingActionButton(
+          //   mini: true,
+          //   backgroundColor: Colors.black26,
+          //   elevation: 0,
+          //   onPressed: () {
+          //     Navigator.pop(context);
+          //   },
+          //   child: Icon(Icons.keyboard_arrow_left_rounded),
+          // ),
+          iconTheme: IconThemeData(color: Colors.black),
 
           backgroundColor: Colors.white,
           // leading: Padding(
@@ -51,7 +51,7 @@ class _BranchesDetailsState extends State<BranchesDetails> {
             CircleAvatar(
               backgroundImage: AssetImage(Assets.dummy_image),
             ),
-            Style.widthdistan_size5,
+            Style.widthdistan_size10,
           ],
         ),
         backgroundColor: Colors.white,
@@ -82,7 +82,7 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                       color: Colors.grey.shade100,
                       border:
                           Border.all(color: AppColors.primary_color, width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Center(
                       child: Text(
                     "Watch Intro video",
@@ -101,7 +101,7 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                           "IBN Sina DHANMONDI BRANCH ,DHAKA, BD",
                           style: Style.alltext_default_balck_blod_dilog,
                         )),
-                    Icon(Icons.favorite_border,color: Colors.black,),
+                    Icon(Icons.favorite_border,color: Colors.black,size: 25,),
                   ],
                 ),
                 Style.distan_size15,
@@ -130,7 +130,7 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                       children: [
                         Icon(
                           Icons.shopping_bag_outlined,
-                          color: Colors.grey,
+                          color: Colors.black,
                           size: 20,
                         ),
                         Style.widthdistan_size2,
@@ -142,7 +142,7 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                     ),
                   ],
                 ),
-                Style.distan_size5,
+                Style.distan_size10,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -150,7 +150,7 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                       children: [
                         Icon(
                           Icons.location_on,
-                          color: Colors.grey,
+                          color: Colors.black,
                           size: 20,
                         ),
                         Style.widthdistan_size2,
@@ -164,7 +164,7 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                       children: [
                         Icon(
                           Icons.timer,
-                          color: Colors.grey,
+                          color: Colors.black,
                           size: 20,
                         ),
                         Style.widthdistan_size2,
@@ -176,7 +176,7 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                     ),
                   ],
                 ),
-                Style.distan_size15,
+                Style.distan_size10,
                 Divider(),
                 ListTile(
                   leading: CircleAvatar(
@@ -185,13 +185,10 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                   title: Text("Dr . John K.C"),
                   subtitle: Text("Operation Manager"),
                   trailing: FloatingActionButton(
-                    elevation: 1,
+                    elevation: 0,
                     backgroundColor: Colors.white,
                     onPressed: () {},
-                    child: Icon(
-                      Icons.add_call,
-                      color: AppColors.primary_color,
-                    ),
+                    child:Image.asset("assets/icons/call.png")
                   ),
                 ),
                 Row(
@@ -201,7 +198,8 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                       style: Style.alltext_Large_black,
                     )
                   ],
-                ),
+                ),                Style.distan_size10,
+
                 Row(
                   children: [
                     Icon(
@@ -216,7 +214,7 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                     )
                   ],
                 ),
-                Style.distan_size5,
+                Style.distan_size10,
                 Row(
                   children: [
                     Icon(
@@ -246,7 +244,7 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                     )
                   ],
                 ),
-                Style.distan_size5,
+                Style.distan_size10,
                 Row(
                   children: [
                     Icon(
@@ -276,89 +274,90 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                   ),
                 ),
                 Style.distan_size5,
-                Text(
-                  "Nearest public facilities",
-                  style: Style.alltext_default_balck_blod,
-                ),
-
-                Style.distan_size5,
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(Icons.add_shopping_cart_rounded),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Minimarket"),
-                            Style.distan_size10,
-                            Text("200m"),
-                          ],
-                        )
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(Icons.local_hospital),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Hospital       "),
-                            Style.distan_size10,
-                            Text("200m"),
-                          ],
-                        )
-                      ],
-                    )
-                  ],
-                ),
-                Style.distan_size10,
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(Icons.restaurant),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Minimarket"),
-                            Style.distan_size10,
-                            Text("200m"),
-                          ],
-                        )
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(Icons.train),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Train station"),
-                            Style.distan_size10,
-                            Text("200m"),
-                          ],
-                        )
-                      ],
-                    )
-                  ],
-                ),
+                // Text(
+                //   "Nearest public facilities",
+                //   style: Style.alltext_default_balck_blod,
+                // ),
+                //
+                // Style.distan_size10,
+                //
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Row(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       mainAxisAlignment: MainAxisAlignment.start,
+                //       children: [
+                //         Icon(Icons.add_shopping_cart_rounded),
+                //         Column(
+                //           mainAxisAlignment: MainAxisAlignment.start,
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           children: [
+                //             Text("Minimarket"),
+                //             Style.distan_size10,
+                //             Text("200m"),
+                //           ],
+                //         )
+                //       ],
+                //     ),
+                //     Row(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       mainAxisAlignment: MainAxisAlignment.start,
+                //       children: [
+                //         Icon(Icons.local_hospital),
+                //         Column(
+                //           mainAxisAlignment: MainAxisAlignment.start,
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           children: [
+                //             Text("Hospital       "),
+                //             Style.distan_size10,
+                //             Text("200m"),
+                //           ],
+                //         )
+                //       ],
+                //     )
+                //   ],
+                // ),
+                // Style.distan_size10,
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Row(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       mainAxisAlignment: MainAxisAlignment.start,
+                //       children: [
+                //         Icon(Icons.restaurant),
+                //         Column(
+                //           mainAxisAlignment: MainAxisAlignment.start,
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           children: [
+                //             Text("Minimarket"),
+                //             Style.distan_size10,
+                //             Text("200m"),
+                //           ],
+                //         )
+                //       ],
+                //     ),
+                //     Row(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       mainAxisAlignment: MainAxisAlignment.start,
+                //       children: [
+                //         Icon(Icons.train),
+                //         Column(
+                //           mainAxisAlignment: MainAxisAlignment.start,
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           children: [
+                //             Text("Train station"),
+                //             Style.distan_size10,
+                //             Text("200m"),
+                //           ],
+                //         )
+                //       ],
+                //     )
+                //   ],
+                // ),
                 Style.distan_size15,
                 Text(
                   "About IBN SINA Clinic",
