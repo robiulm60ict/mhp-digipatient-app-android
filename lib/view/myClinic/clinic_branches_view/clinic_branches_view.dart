@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../generated/assets.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/styles.dart';
+import '../../../utils/utils.dart';
+import '../../../widgets/back_button.dart';
 import '../myclinic_our_servic/myclinic_service.dart';
 
 class ClinicBranches extends StatelessWidget {
@@ -16,21 +18,10 @@ class ClinicBranches extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.black),
-
-          backgroundColor: Colors.white,
-          // leading: Padding(
-          //   padding: const EdgeInsets.all(4.0),
-          //   child: Image.asset(
-          //     Assets.mhplogo,
-          //   ),
-          // ),
-          actions: [
-            CircleAvatar(
-              backgroundImage: AssetImage(Assets.dummy_image),
-            ),
-            Style.widthdistan_size5,
-          ],
+          elevation: 0,
+          leadingWidth: leadingWidth,
+          leading: const CustomBackButton(),
+          backgroundColor: AppColors.linearGradient2,  title: Text("Branch List",style: Style.alltext_appbar,),
         ),
         body: Container(
           padding: EdgeInsets.only(left: 8, right: 8),
@@ -98,7 +89,7 @@ class ClinicBranches extends StatelessWidget {
                             ),
                             Container(
                               padding: EdgeInsets.only(left: 8),
-                              width: 165.w,
+                              width: 200.w,
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -132,19 +123,19 @@ class ClinicBranches extends StatelessWidget {
                                           width: 50,
                                           height: 50,
                                         )),
-                                    InkWell(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      MyClinicServices()));
-                                        },
-                                        child: Image.asset(
-                                          "assets/icons/service.png",
-                                          width: 50,
-                                          height: 50,
-                                        )),
+                                    // InkWell(
+                                    //     onTap: () {
+                                    //       Navigator.push(
+                                    //           context,
+                                    //           MaterialPageRoute(
+                                    //               builder: (context) =>
+                                    //                   MyClinicServices()));
+                                    //     },
+                                    //     child: Image.asset(
+                                    //       "assets/icons/service.png",
+                                    //       width: 50,
+                                    //       height: 50,
+                                    //     )),
                                   ]),
                             ),
                           ],

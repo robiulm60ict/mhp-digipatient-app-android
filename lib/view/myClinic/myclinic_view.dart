@@ -6,9 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../resources/colors.dart';
 import '../../utils/custom_search_dialogue.dart';
+import '../../utils/utils.dart';
 import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
 import 'package:mdi/mdi.dart';
 
+import '../../widgets/back_button.dart';
 import 'clinic_branches_view/clinic_branches_view.dart';
 
 class MyClinicView extends StatelessWidget {
@@ -21,20 +23,11 @@ class MyClinicView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
-        title: Padding(
-          padding: const EdgeInsets.only(left: 0.0),
-          child: Image.asset(
-            Assets.mhplogo,height: 50,
-          ),
-        ),
-        actions: [
-          CircleAvatar(
-            backgroundImage: AssetImage(Assets.dummy_image),
-          ),
-          Style.widthdistan_size5,
-        ],
+        elevation: 0,
+        leadingWidth: leadingWidth,
+        leading: const CustomBackButton(),
+        backgroundColor: AppColors.linearGradient2,
+        title: Text("My Clinic",style: Style.alltext_appbar,),
       ),
       body: Container(
         padding: EdgeInsets.only(left: 12, right: 12),

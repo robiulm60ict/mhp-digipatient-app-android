@@ -10,6 +10,8 @@ import 'package:digi_patient/view_model/my_record_view_model/my_record_view_mode
 
 import '../../../../model/testmodel/testmodellist.dart';
 import '../../../../resources/colors.dart';
+import '../../../../utils/utils.dart';
+import '../../../../widgets/back_button.dart';
 import '../../payment_clinic/checkout.dart';
 
 class RadoiologyAddTest extends StatefulWidget {
@@ -67,14 +69,16 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
               ),
             ),
           ),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
-        title: Text(
-          "Diagnostic Tests",
-          style: Style.alltext_default_balck_blod,
-        ),
-      ),
+          appBar: AppBar(
+            elevation: 0,
+            leadingWidth: leadingWidth,
+            leading: const CustomBackButton(),
+            backgroundColor: AppColors.linearGradient2,
+            title: Text(
+              "Diagnostic Tests",
+              style: Style.alltext_appbar,
+            ),
+          ),
       body: Container(
         padding: EdgeInsets.only(left: 12, right: 12),
         child: SingleChildScrollView(
@@ -93,24 +97,24 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
                 style: Style.alltext_default_balck_blod,
               ),
               Style.distan_size20,
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.r),
-                    side: BorderSide(color: AppColors.primaryColor)),
-                child: ListTile(
-                  onTap: (){},
-                  leading: Icon(
-                    Icons.search_rounded,
-                    color: AppColors.primaryColor,
-                    size: 25.h,
-                  ),
-                  title: Text(
-                    "Search Clinic",
-                    style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-                  ),
-                ),
-              ),
-              Style.distan_size10,
+              // Card(
+              //   shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(8.r),
+              //       side: BorderSide(color: AppColors.primaryColor)),
+              //   child: ListTile(
+              //     onTap: (){},
+              //     leading: Icon(
+              //       Icons.search_rounded,
+              //       color: AppColors.primaryColor,
+              //       size: 25.h,
+              //     ),
+              //     title: Text(
+              //       "Search Clinic",
+              //       style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+              //     ),
+              //   ),
+              // ),
+              // Style.distan_size10,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

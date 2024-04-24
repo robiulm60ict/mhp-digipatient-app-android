@@ -2,11 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../../../generated/assets.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/styles.dart';
+import '../../../utils/utils.dart';
+import '../../../view_model/clinic_service_view_model/clinic_service_view_model.dart';
+import '../../../widgets/back_button.dart';
 
 class BranchesDetails extends StatefulWidget {
   const BranchesDetails({super.key});
@@ -17,42 +22,25 @@ class BranchesDetails extends StatefulWidget {
 
 class _BranchesDetailsState extends State<BranchesDetails> {
   final Completer<GoogleMapController> _controller =
-  Completer<GoogleMapController>();
+      Completer<GoogleMapController>();
 
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
   );
+
   @override
   Widget build(BuildContext context) {
+    final clinic = Provider.of<ClinicServiceViewModel>(context);
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          // leading: FloatingActionButton(
-          //   mini: true,
-          //   backgroundColor: Colors.black26,
-          //   elevation: 0,
-          //   onPressed: () {
-          //     Navigator.pop(context);
-          //   },
-          //   child: Icon(Icons.keyboard_arrow_left_rounded),
-          // ),
-          iconTheme: IconThemeData(color: Colors.black),
+          elevation: 0,
+          leadingWidth: leadingWidth,
+          leading: const CustomBackButton(),
+          backgroundColor: AppColors.linearGradient2,        title: Text("Branch Details",style: Style.alltext_appbar,),
 
-          backgroundColor: Colors.white,
-          // leading: Padding(
-          //   padding: const EdgeInsets.all(4.0),
-          //   child: Image.asset(
-          //     Assets.mhplogo,
-          //   ),
-          // ),
-          actions: [
-            CircleAvatar(
-              backgroundImage: AssetImage(Assets.dummy_image),
-            ),
-            Style.widthdistan_size10,
-          ],
         ),
         backgroundColor: Colors.white,
         body: Container(
@@ -101,10 +89,14 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                           "IBN Sina DHANMONDI BRANCH ,DHAKA, BD",
                           style: Style.alltext_default_balck_blod_dilog,
                         )),
-                    Icon(Icons.favorite_border,color: Colors.black,size: 25,),
+                    Icon(
+                      Icons.favorite_border,
+                      color: Colors.black,
+                      size: 25,
+                    ),
                   ],
                 ),
-                Style.distan_size15,
+                Style.distan_size10,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -185,11 +177,10 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                   title: Text("Dr . John K.C"),
                   subtitle: Text("Operation Manager"),
                   trailing: FloatingActionButton(
-                    elevation: 0,
-                    backgroundColor: Colors.white,
-                    onPressed: () {},
-                    child:Image.asset("assets/icons/call.png")
-                  ),
+                      elevation: 0,
+                      backgroundColor: Colors.white,
+                      onPressed: () {},
+                      child: Image.asset("assets/icons/call.png")),
                 ),
                 Row(
                   children: [
@@ -198,67 +189,109 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                       style: Style.alltext_Large_black,
                     )
                   ],
-                ),                Style.distan_size10,
-
-                Row(
-                  children: [
-                    Icon(
-                      Icons.home,
-                      color: Colors.black,
-                      size: 20,
-                    ),
-                    Style.widthdistan_size5,
-                    Text(
-                      "Doctor Chamber",
-                      style: Style.alltext_default_balck,
-                    )
-                  ],
                 ),
                 Style.distan_size10,
-                Row(
-                  children: [
-                    Icon(
-                      Icons.account_tree,
-                      color: Colors.black,
-                      size: 20,
-                    ),
-                    Style.widthdistan_size5,
-                    Text(
-                      "Pathology",
-                      style: Style.alltext_default_balck,
-                    )
-                  ],
+                GridView.builder(
+                  itemCount: clinic.serviceItemsList.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  gridDelegate: FlutterzillaFixedGridView(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 8,
+                      height: 90.h),
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        clinic.homeItemsRouteTo(context, index);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(44)),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          elevation: 4,
+                          shadowColor: AppColors.primary_color,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                clinic.serviceItemsList[index].image,
+                                height: 50,
+                              ),
+                              Text(
+                                clinic.serviceItemsList[index].title,
+                                style: Style.alltext_default_balck_blod,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
-                Style.distan_size5,
-                Row(
-                  children: [
-                    Icon(
-                      Icons.computer,
-                      color: Colors.black,
-                      size: 20,
-                    ),
-                    Style.widthdistan_size5,
-                    Text(
-                      "Radiology",
-                      style: Style.alltext_default_balck,
-                    )
-                  ],
-                ),
-                Style.distan_size10,
-                Row(
-                  children: [
-                    Icon(
-                      Icons.person_2,
-                      color: Colors.black,
-                      size: 20,
-                    ),
-                    Style.widthdistan_size5,
-                    Text(
-                      "Free Consultations",
-                      style: Style.alltext_default_balck,
-                    )
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     Icon(
+                //       Icons.home,
+                //       color: Colors.black,
+                //       size: 20,
+                //     ),
+                //     Style.widthdistan_size5,
+                //     Text(
+                //       "Doctor Chamber",
+                //       style: Style.alltext_default_balck,
+                //     )
+                //   ],
+                // ),
+                // Style.distan_size10,
+                // Row(
+                //   children: [
+                //     Icon(
+                //       Icons.account_tree,
+                //       color: Colors.black,
+                //       size: 20,
+                //     ),
+                //     Style.widthdistan_size5,
+                //     Text(
+                //       "Pathology",
+                //       style: Style.alltext_default_balck,
+                //     )
+                //   ],
+                // ),
+                // Style.distan_size5,
+                // Row(
+                //   children: [
+                //     Icon(
+                //       Icons.computer,
+                //       color: Colors.black,
+                //       size: 20,
+                //     ),
+                //     Style.widthdistan_size5,
+                //     Text(
+                //       "Radiology",
+                //       style: Style.alltext_default_balck,
+                //     )
+                //   ],
+                // ),
+                // Style.distan_size10,
+                // Row(
+                //   children: [
+                //     Icon(
+                //       Icons.person_2,
+                //       color: Colors.black,
+                //       size: 20,
+                //     ),
+                //     Style.widthdistan_size5,
+                //     Text(
+                //       "Free Consultations",
+                //       style: Style.alltext_default_balck,
+                //     )
+                //   ],
+                // ),
                 Style.distan_size5,
                 Card(
                   elevation: 0,
