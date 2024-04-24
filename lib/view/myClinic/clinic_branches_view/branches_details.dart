@@ -39,8 +39,11 @@ class _BranchesDetailsState extends State<BranchesDetails> {
           elevation: 0,
           leadingWidth: leadingWidth,
           leading: const CustomBackButton(),
-          backgroundColor: AppColors.linearGradient2,        title: Text("Branch Details",style: Style.alltext_appbar,),
-
+          backgroundColor: AppColors.linearGradient2,
+          title: Text(
+            "Branch Details",
+            style: Style.alltext_appbar,
+          ),
         ),
         backgroundColor: Colors.white,
         body: Container(
@@ -292,11 +295,11 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                 //     )
                 //   ],
                 // ),
-                Style.distan_size5,
+                Style.distan_size10,
                 Card(
                   elevation: 0,
                   child: SizedBox(
-                    height: 130,
+                    height: 160,
                     child: GoogleMap(
                       mapType: MapType.normal,
                       initialCameraPosition: _kGooglePlex,
