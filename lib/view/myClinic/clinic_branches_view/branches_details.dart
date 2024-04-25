@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../generated/assets.dart';
+import '../../../model/clinic/orgamozationlist_model.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/styles.dart';
 import '../../../utils/utils.dart';
@@ -14,7 +15,9 @@ import '../../../view_model/clinic_service_view_model/clinic_service_view_model.
 import '../../../widgets/back_button.dart';
 
 class BranchesDetails extends StatefulWidget {
-  const BranchesDetails({super.key});
+  BranchesDetails({super.key, this.branch});
+
+  Branch? branch;
 
   @override
   State<BranchesDetails> createState() => _BranchesDetailsState();
@@ -89,7 +92,7 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                     SizedBox(
                         width: 250.w,
                         child: Text(
-                          "IBN Sina DHANMONDI BRANCH ,DHAKA, BD",
+                          widget.branch!.name.toString(),
                           style: Style.alltext_default_balck_blod_dilog,
                         )),
                     Icon(
@@ -100,23 +103,20 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                   ],
                 ),
                 Style.distan_size10,
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
                         Icon(
-                          Icons.star,
-                          color: Colors.yellow,
+                          Icons.location_on,
+                          color: Colors.black,
                           size: 20,
                         ),
                         Style.widthdistan_size2,
                         Text(
-                          "4.1",
-                          style: Style.alltext_small_black,
-                        ),
-                        Text(
-                          "(66 reviews)",
+                          widget.branch!.address.toString(),
                           style: Style.alltext_small_black,
                         ),
                       ],
@@ -138,46 +138,12 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                   ],
                 ),
                 Style.distan_size10,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.location_on,
-                          color: Colors.black,
-                          size: 20,
-                        ),
-                        Style.widthdistan_size2,
-                        Text(
-                          "Dhaka ",
-                          style: Style.alltext_small_black,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.timer,
-                          color: Colors.black,
-                          size: 20,
-                        ),
-                        Style.widthdistan_size2,
-                        Text(
-                          "8 Am to 10 Pm",
-                          style: Style.alltext_small_black,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Style.distan_size10,
                 Divider(),
                 ListTile(
                   leading: CircleAvatar(
                     backgroundImage: AssetImage(Assets.dummy_image),
                   ),
-                  title: Text("Dr . John K.C"),
+                  title: Text(widget.branch!.contactPersonName.toString()),
                   subtitle: Text("Operation Manager"),
                   trailing: FloatingActionButton(
                       elevation: 0,

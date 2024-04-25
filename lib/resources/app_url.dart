@@ -4,29 +4,21 @@ class AppUrls {
   static const String appSign =
       'cf2a1ab2d6d433a3a3e99d076fafd27d42023c32b279fbff9b9b9cd525c96f29';
 
-
-
-
   static const String baseUrlPatientMain =
-      'https://greatdoc.macrohealthplus.org/mhp_server/public';  //App live
+      'https://greatdoc.macrohealthplus.org/mhp_server/public'; //App live
   //
-  static const String databasename =
-      'macrohealthplus_mhpdemocom'; //AppLive
-      // 'mhpdemocom'; //AppLive
+  static const String databasename = 'macrohealthplus_mhpdemocom'; //AppLive
+  // 'mhpdemocom'; //AppLive
 
   // static const String databasename =
   //     'mhpdemocom_ZXJVT'; //Test
   // static const String baseUrlPatientMain =
   //     'https://sandbox.greatdoc-back.macrohealthplus.org'; //Test
 
-  static const String baseUrlPatient =
-      '$baseUrlPatientMain/api/v1';
-
-
+  static const String baseUrlPatient = '$baseUrlPatientMain/api/v1';
 
   static const String auth = 'Authorization';
-  static const String drprofile =
-      '$baseUrlPatientMain/doctors/images/';
+  static const String drprofile = '$baseUrlPatientMain/doctors/images/';
 
   static const String login = '$baseUrlPatient/login-patient';
   static const String doctorrequest =
@@ -37,11 +29,11 @@ class AppUrls {
 
   static const String myDoctorslist =
       '$baseUrlPatient/patient-list-for-doctor/';
-  static const String myDoctorsDeactivelist = '$baseUrlPatient/deactivated-doctors/';
+  static const String myDoctorsDeactivelist =
+      '$baseUrlPatient/deactivated-doctors/';
   static const String activedoctor = '$baseUrlPatient/activate-doctor/';
   static const String deactivedoctor = '$baseUrlPatient/deactivate-doctor/';
-  static const String docImage =
-      "$baseUrlPatientMain/doctors/images/";
+  static const String docImage = "$baseUrlPatientMain/doctors/images/";
   static const String baseUrlResoures = 'https://server.macrohealthplus.org';
   static const String medical_education =
       '$baseUrlResoures/medicalEducation/get';
@@ -76,6 +68,10 @@ class AppUrls {
   static const String userProfileUrl = "$baseUrlPatient/patients-profile/";
   static const String userUrlUpdate = "$baseUrlPatient/patient-info-update/";
 
+  /// clinic
+
+  static const String organization = '$baseUrlPatient/organization/';
+  static const String serach_organization = '$baseUrlPatient/serach-organization';
 
   /// image
 
@@ -129,8 +125,7 @@ class AppUrls {
 
   static const String sendVerification =
       '$baseUrlPatient/send-verfication-code';
-  static const String logout =
-      '$baseUrlPatient/patient-logout';
+  static const String logout = '$baseUrlPatient/patient-logout';
   static const String sendVerificationForget =
       '$baseUrlPatient/send-verfication-code-forgot-password';
 
@@ -138,7 +133,6 @@ class AppUrls {
   static const String newPassword = '$baseUrlPatient/patient-password-update';
   static const String checkOtpforget = '$baseUrlPatient/verification-check';
   static const String registration = '$baseUrlPatient/patient-registration';
-
 
   /// Blood Group and Birth Sex Patient
 
@@ -151,8 +145,6 @@ class AppUrls {
 
   static const String baseUrl =
       'https://dev.macrohealthplus.org/mhp_server/public';
-
-
 
   //TODO: set Edit user url
   static const String editUserUrl = "$baseUrl/api/edit-patients/";
@@ -167,13 +159,13 @@ class AppUrls {
 
   static const String savePtnFCM = '$baseUrl/api/patient-app-token/';
 
-  static const String docFee = '$baseUrlPatientMain/api/doctors-consultation-Fee/';
+  static const String docFee =
+      '$baseUrlPatientMain/api/doctors-consultation-Fee/';
 
   static const String department = '$baseUrlPatientMain/api/department';
 
   static const String departmentImage =
       '$baseUrl/mhp_server/public/department/';
-
 
   static const String singUpEndPoint = '$baseUrl/api/registration';
 
@@ -181,8 +173,6 @@ class AppUrls {
 
   static const String diseaseByGenderAndName =
       '$baseUrl/api/patient-symptomsByGender/';
-
-
 }
 
 const Map header = {'Accept': 'application/json'};

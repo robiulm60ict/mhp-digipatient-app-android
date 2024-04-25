@@ -39,8 +39,9 @@ class NetworkApiService extends BaseApiService {
     }
     return responseJson;
   }
- @override
-  Future getGetApiResponsecontext(String url,BuildContext context) async {
+
+  @override
+  Future getGetApiResponsecontext(String url, BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(UserP.fcmToken) ?? "";
     dynamic responseJson;
@@ -62,20 +63,20 @@ class NetworkApiService extends BaseApiService {
             // Return the dialog widget
             return AlertDialog(
               title: Text('Notification'),
-              content:  const Text('You are already logged in another device'),
+              content: const Text('You are already logged in another device'),
               actions: [
                 TextButton(
-                  onPressed: () async{
+                  onPressed: () async {
                     // Close the dialog
                     final prefs = await SharedPreferences.getInstance();
 
                     await prefs.setBool(UserP.isLoggedIn, false);
                     int? id = prefs.getInt(UserP.userid);
 
-
                     logout();
 
-                    Navigator.of(context).pushNamedAndRemoveUntil( RoutesName.login, (route) => false);
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        RoutesName.login, (route) => false);
                   },
                   child: Text('Ok'),
                 ),
@@ -91,7 +92,9 @@ class NetworkApiService extends BaseApiService {
       throw FetchDataException("No Internet Connection");
     }
     return responseJson;
-  } @override
+  }
+
+  @override
   Future getGetApiResponseNotoken(String url) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(UserP.fcmToken) ?? "";
@@ -104,7 +107,6 @@ class NetworkApiService extends BaseApiService {
           // 'Accept': 'application/json',
         },
       ).timeout(const Duration(seconds: 10));
-
 
       print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr${response.statusCode}");
       print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr${response.body}");
@@ -154,7 +156,8 @@ class NetworkApiService extends BaseApiService {
     }
     return responseJson;
   }
-@override
+
+  @override
   Future getGetApiResponseHederNoDatabase(String url) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(UserP.fcmToken) ?? "";
@@ -184,8 +187,7 @@ class NetworkApiService extends BaseApiService {
         body: body,
         Uri.parse(url),
         headers: {
-          // 'databaseName': 'mhpdemocom',
-          'databaseName': '${AppUrls.databasename}',
+         'databaseName': AppUrls.databasename,
           'token': "$token",
           'Accept': 'application/json',
         },
@@ -276,7 +278,7 @@ class NetworkApiService extends BaseApiService {
         dynamic responseJson = jsonDecode(response.body.toString());
 
         return responseJson;
-        // throw   BadRequestExceptionToken();
+      // throw   BadRequestExceptionToken();
       case 404:
         dynamic responseJson = jsonDecode(response.body.toString());
         return responseJson;

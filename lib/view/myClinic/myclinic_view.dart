@@ -6,19 +6,35 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../resources/colors.dart';
 import '../../utils/custom_search_dialogue.dart';
+import '../../utils/message.dart';
 import '../../utils/utils.dart';
+import '../../view_model/my_clinic_view_model/my_clinic_view_model.dart';
 import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
 import 'package:mdi/mdi.dart';
 
 import '../../widgets/back_button.dart';
+import '../../widgets/shimmer.dart';
 import 'clinic_branches_view/clinic_branches_view.dart';
 
-class MyClinicView extends StatelessWidget {
+class MyClinicView extends StatefulWidget {
   const MyClinicView({super.key});
 
   @override
+  State<MyClinicView> createState() => _MyClinicViewState();
+}
+
+class _MyClinicViewState extends State<MyClinicView> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<MyClinicViewModel>().getoriganization(context);
+    });
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<MyDoctorDelaisViewModel>(context);
+    final provider = Provider.of<MyClinicViewModel>(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -36,131 +52,221 @@ class MyClinicView extends StatelessWidget {
           child: Column(
             children: [
               Style.distan_size10,
-              // Card(
-              //   shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(8.r),
-              //       side: BorderSide(color: AppColors.primaryColor)),
-              //   child: ListTile(
-              //     onTap: () => customSearchDialogue(context,
-              //         doctorList: provider
-              //                 .myDoctordeactiveFullList.reversed.first.data ??
-              //             []),
-              //     leading: Icon(
-              //       Icons.search_rounded,
-              //       color: AppColors.primaryColor,
-              //       size: 25.h,
-              //     ), trailing:
-              //
-              //   Image.asset("assets/icons/serch.png"),
-              //
-              //
-              //     title: Text(
-              //       "Search Clinic",
-              //       style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: 4.h,
-              // ),
-              ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: 8,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ClinicBranches()));
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            // border: Border.all(
-                            //   color: Colors.black12,
-                            // ),B8DC94
-                            color: index % 2 == 0
-                                ? Color(0xffB8DC94)
-                                : Color(0xffF7F7F7),
-                            borderRadius: BorderRadius.circular(8)),
-                        padding: EdgeInsets.only(
-                            left: 8, right: 8, top: 8, bottom: 8),
-                        margin: EdgeInsets.only(
-                            left: 2, right: 2, top: 4, bottom: 4),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              child: Image.asset(Assets.imagesChamber),
-                              height: 90.w,
-                              width: 75.w,
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: 12),
-                              width: 240.w,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-
-                                  Text(
-                                    "Modern Diagonistic Center -Dhanmondi",
-                                    style: Style.alltext_default_balck_w700,
-                                  ),
-                                  Style.distan_size5,
-                                  Text("Dhanmondi, Dhaka",
-                                      style: Style.alltext_default_balck),
-                                  Style.distan_size5,
-                                  Row(crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.shop,
-                                        color: Colors.grey,
-                                        size: 20,
-                                      ),
-                                      Style.widthdistan_size2,
-                                      Text(
-                                        "10 branches",
-                                        style: Style.alltext_small_black,
-                                      ),
-                                      Style.widthdistan_size10,
-                                      Icon(
-                                        Icons.deck,
-                                        color: Colors.grey,
-                                        size: 20,
-                                      ),
-                                      Style.widthdistan_size2,
-                                      Text(
-                                        "644 m2",
-                                        style: Style.alltext_small_black,
-                                      ),
-                                    ],
-                                  ),
-                                  Style.distan_size5,
-                                  Row(
-                                    children: [
-
-                                      Icon(
-                                        Icons.favorite_border,
-                                        color: Colors.grey,
-                                        size: 20,
-                                      ),
-                                      Style.widthdistan_size10,
-                                      Icon(
-                                        Icons.arrow_circle_right_outlined,
-                                        color: Colors.green,
-                                        size: 20,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+              Consumer<MyClinicViewModel>(builder: (context, dvm, child) {
+                return Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.h)),
+                  child: Container(
+                    height: 60.h,
+                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: 6.h),
+                    child: Container(
+                      //   width: 100.w,
+                      decoration: BoxDecoration(
+                        // border: Border.all(
+                        //   color: Colors.grey
+                        // )
                       ),
-                    );
-                  }),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: Text(
+                              "OC - ",
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                color: AppColors.blackColor,
+                              ),
+                            ),
+                            height: 60.h,
+                            width: 50.w,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                border: Border(
+                                  left: BorderSide(color: Colors.grey),
+                                  top: BorderSide(color: Colors.grey),
+                                  bottom: BorderSide(color: Colors.grey),
+                                  right: BorderSide(color: Colors.grey),
+                                )),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                  // left: BorderSide(color: Colors.grey),
+                                  top: BorderSide(color: Colors.grey),
+                                  bottom: BorderSide(color: Colors.grey),
+                                  right: BorderSide(color: Colors.grey),
+                                )),
+                            height: 60.h,
+                            width: 170.w,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 8.0.r),
+                              child: TextField(
+                                //   maxLength: 4,
+                                textAlign: TextAlign.start,
+
+                                controller: dvm.controllerRequest,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  // border:OutlineInputBorder(
+                                  //    borderSide: BorderSide(color: Colors.grey)),
+                                  hintText: 'Enter 4 Digit Code',
+                                  labelText: 'Add Clinic ID here',
+                                  border: InputBorder.none,
+                                  // suffixStyle: TextStyle(color: Colors.green)
+                                ),
+                              ),
+                            ),
+                          ),
+                          Style.widthdistan_size10,
+                          MaterialButton(
+                            onPressed: () {
+                              if (dvm.controllerRequest.text.isNotEmpty) {
+                                dvm.clinicRequest(
+                                    context, dvm.controllerRequest.text);
+                              } else {
+                                Messages.snackBar(
+                                  context,
+                                  "Enter Clinic identity number",
+                                );
+                              }
+                            },
+                            color: AppColors.primaryColor,
+                            child: Text("Submit"),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }),
+              Style.distan_size10,
+
+              Consumer<MyClinicViewModel>(builder: (context, data, child) {
+                if (data.organizationlistmodel.isEmpty) {
+                  return data.isorgaizationLoading == true
+                      ? Center(
+                    child: ListView.builder(
+                      itemCount: 6,
+                      scrollDirection: Axis.vertical,
+                      physics: const ScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: bannerShimmereffect(
+                              94.toDouble(), 385.toDouble()),
+                        );
+                      },
+                    ),
+                  )
+                      : noDataFounForList("Currently you have no records");
+                } else {
+                  return Column(
+                    children: [
+                      ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: data.organizationlistmodel.length,
+                          itemBuilder: (context, index) {
+                            var organzation=data.organizationlistmodel[index];
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ClinicBranches(organizationListModle: organzation,)));
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  // border: Border.all(
+                                  //   color: Colors.black12,
+                                  // ),B8DC94
+                                    color: index % 2 == 0
+                                        ? Color(0xffB8DC94)
+                                        : Color(0xffF7F7F7),
+                                    borderRadius: BorderRadius.circular(8)),
+                                padding: EdgeInsets.only(
+                                    left: 8, right: 8, top: 8, bottom: 8),
+                                margin: EdgeInsets.only(
+                                    left: 2, right: 2, top: 4, bottom: 4),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      height: 90.w,
+                                      width: 75.w,
+                                      child: Image.network(  organzation.organization!.logo.toString()),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.only(left: 12),
+                                      width: 240.w,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+
+                                          Text(
+                                            organzation.organization!.name.toString(),
+                                            style: Style.alltext_default_balck_w700,
+                                          ),
+                                          Style.distan_size5,
+                                          Text(  organzation.organization!.address.toString(),
+                                              style: Style.alltext_default_balck),
+                                          Style.distan_size5,
+                                          Row(crossAxisAlignment: CrossAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Icon(
+                                                Icons.shop,
+                                                color: Colors.black,
+                                                size: 20,
+                                              ),
+                                              Style.widthdistan_size2,
+                                              Text(
+                                                "${  organzation.organization!.branch!.length.toString()} branches",
+                                                style: Style.alltext_small_black,
+                                              ),
+                                              Style.widthdistan_size10,
+                                              // Icon(
+                                              //   Icons.deck,
+                                              //   color: Colors.grey,
+                                              //   size: 20,
+                                              // ),
+                                              // Style.widthdistan_size2,
+                                              // Text(
+                                              //   "644 m2",
+                                              //   style: Style.alltext_small_black,
+                                              // ),
+                                            ],
+                                          ),
+                                          Style.distan_size5,
+                                          Row(
+                                            children: [
+
+                                              Icon(
+                                                Icons.favorite_border,
+                                                color: Colors.grey,
+                                                size: 20,
+                                              ),
+                                              Style.widthdistan_size10,
+                                              Icon(
+                                                Icons.arrow_circle_right_outlined,
+                                                color: Colors.green,
+                                                size: 20,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                    ],
+                  );
+                }
+              }),
             ],
           ),
         ),

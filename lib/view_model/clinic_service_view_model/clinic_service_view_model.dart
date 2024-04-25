@@ -1,5 +1,4 @@
 import 'package:digi_patient/generated/assets.dart';
-import 'package:digi_patient/view/home_item_pages/my_doctor_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
