@@ -26,19 +26,17 @@ import 'view_model/anatomy/anatomy_view_model.dart';
 import 'view_model/app_locale_state/app_locale_view_model.dart';
 import 'view_model/appointment_view_model/appointment_view_model.dart';
 import 'view_model/auth_view_model.dart';
+import 'view_model/clinic/my_clinic_view_model/my_clinic_view_model.dart';
 import 'view_model/clinic_service_view_model/clinic_service_view_model.dart';
-import 'view_model/communication view model/communication_view_model.dart';
 import 'view_model/daily_appointments_view_model/daily_appointments_view_model.dart';
 import 'view_model/doctor/my_doctor_view_model.dart';
 import 'view_model/doctor_screen_view_model/all_patient_list_view_model.dart';
 import 'view_model/home_view_model.dart';
-import 'view_model/my_clinic_view_model/my_clinic_view_model.dart';
 import 'view_model/my_medicine_view_model/my_medicine_view_model.dart';
 import 'view_model/my_record_view_model/my_record_view_model.dart';
 import 'view_model/mydoctor/new_my_doctor_view_model.dart';
 import 'view_model/mypayment/my_payment_view.dart';
 import 'view_model/qr_code_dr_profile_view_model/profile_view_model.dart';
-import 'view_model/real_communication/video_call_view_model.dart';
 import 'view_model/resources_view_model/resources_view_model.dart';
 import 'view_model/signup_model.dart';
 import 'view_model/user_view_model/user_view_model.dart';
@@ -97,9 +95,7 @@ void main() async {
           ChangeNotifierProvider(
             create: (context) => AnatomyModelView(),
           ),
-          ChangeNotifierProvider(
-            create: (context) => CommunicationViewModel(),
-          ),
+
           ChangeNotifierProvider(
             create: (context) => AppLocaleViewModel(),
           ),
@@ -127,9 +123,7 @@ void main() async {
           ChangeNotifierProvider(
             create: (context) => MyRecordViewModel(),
           ),
-          ChangeNotifierProvider(
-            create: (context) => VideoCallViewModel(),
-          ),
+
           ChangeNotifierProvider(
             create: (context) => DrProfileViewModel(),
           ),

@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../model/clinic/orgamozationlist_model.dart';
-import '../../repository/my_clinic_repository/my_Clinic_repo.dart';
-import '../../utils/message.dart';
-import '../../utils/user.dart';
+import '../../../model/clinic/orgamozationlist_model.dart';
+import '../../../repository/my_clinic_repository/my_Clinic_repo.dart';
+import '../../../utils/message.dart';
+import '../../../utils/user.dart';
 
-class MyClinicViewModel with ChangeNotifier {
+
+
+class MyClinicDoctorViewModel with ChangeNotifier {
   final myRepo = MyClinicRepo();
   TextEditingController controllerRequest=TextEditingController();
 
@@ -23,8 +25,8 @@ class MyClinicViewModel with ChangeNotifier {
     await myRepo.postclinicRequest(body).then((value) {
       print(value);
       print("postclinicRequest");
-       getoriganization(context);
-       controllerRequest.clear();
+      getoriganization(context);
+      controllerRequest.clear();
 
       // if (value['message'].toString() == "Successfully store data") {
       //   Messages.snackBar(context, value['message'].toString(),

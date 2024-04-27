@@ -1,17 +1,13 @@
-import 'package:digi_patient/generated/assets.dart';
 import 'package:digi_patient/resources/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '../../resources/colors.dart';
-import '../../utils/custom_search_dialogue.dart';
 import '../../utils/message.dart';
 import '../../utils/utils.dart';
-import '../../view_model/my_clinic_view_model/my_clinic_view_model.dart';
-import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
-import 'package:mdi/mdi.dart';
 
+import '../../view_model/clinic/my_clinic_view_model/my_clinic_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/shimmer.dart';
 import 'clinic_branches_view/clinic_branches_view.dart';

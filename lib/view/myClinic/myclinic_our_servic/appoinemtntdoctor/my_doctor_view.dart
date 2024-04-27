@@ -1,16 +1,13 @@
 import 'package:digi_patient/generated/assets.dart';
-import 'package:digi_patient/resources/app_url.dart';
 import 'package:digi_patient/resources/colors.dart';
-import 'package:digi_patient/utils/custom_search_dialogue.dart';
+
 import 'package:digi_patient/utils/utils.dart';
-import 'package:digi_patient/view/my_doctor_category_views/doc_details_view.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../resources/styles.dart';
-import '../../../../view_model/mydoctor/new_my_doctor_view_model.dart';
 import '../../../../widgets/back_button.dart';
 import '../../../../widgets/doc_card.dart';
 

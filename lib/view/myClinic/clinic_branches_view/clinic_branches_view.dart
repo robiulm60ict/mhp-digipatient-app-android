@@ -1,14 +1,11 @@
 import 'package:digi_patient/view/myClinic/clinic_branches_view/branches_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../generated/assets.dart';
 import '../../../model/clinic/orgamozationlist_model.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/styles.dart';
 import '../../../utils/utils.dart';
 import '../../../widgets/back_button.dart';
-import '../myclinic_our_servic/myclinic_service.dart';
 
 class ClinicBranches extends StatelessWidget {
   ClinicBranches({super.key, required this.organizationListModle});
