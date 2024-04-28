@@ -30,6 +30,8 @@ class MyDoctorList {
 
 class Datum {
   int? id;
+  dynamic saasBranchId;
+  dynamic saasBranchName;
   String? patientId;
   String? doctorsMasterId;
   String? status;
@@ -40,6 +42,8 @@ class Datum {
 
   Datum({
     this.id,
+    this.saasBranchId,
+    this.saasBranchName,
     this.patientId,
     this.doctorsMasterId,
     this.status,
@@ -51,6 +55,8 @@ class Datum {
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
+    saasBranchId: json["saas_branch_id"],
+    saasBranchName: json["saas_branch_name"],
     patientId: json["patient_id"],
     doctorsMasterId: json["doctors_master_id"],
     status: json["status"],
@@ -62,6 +68,8 @@ class Datum {
 
   Map<String, dynamic> toJson() => {
     "id": id,
+    "saas_branch_id": saasBranchId,
+    "saas_branch_name": saasBranchName,
     "patient_id": patientId,
     "doctors_master_id": doctorsMasterId,
     "status": status,
@@ -76,6 +84,8 @@ class Doctors {
   int? id;
   String? drIdentityNo;
   Title? title;
+  String? saasBranchId;
+  String? saasBranchName;
   String? departmentId;
   String? specialistsId;
   dynamic departmentName;
@@ -118,6 +128,8 @@ class Doctors {
     this.id,
     this.drIdentityNo,
     this.title,
+    this.saasBranchId,
+    this.saasBranchName,
     this.departmentId,
     this.specialistsId,
     this.departmentName,
@@ -161,6 +173,8 @@ class Doctors {
     id: json["id"],
     drIdentityNo: json["dr_identity_no"],
     title: json["title"] == null ? null : Title.fromJson(json["title"]),
+    saasBranchId: json["saas_branch_id"],
+    saasBranchName: json["saas_branch_name"],
     departmentId: json["department_id"],
     specialistsId: json["specialists_id"],
     departmentName: json["department_name"],
@@ -204,6 +218,8 @@ class Doctors {
     "id": id,
     "dr_identity_no": drIdentityNo,
     "title": title?.toJson(),
+    "saas_branch_id": saasBranchId,
+    "saas_branch_name": saasBranchName,
     "department_id": departmentId,
     "specialists_id": specialistsId,
     "department_name": departmentName,
@@ -246,6 +262,8 @@ class Doctors {
 
 class Academic {
   int? id;
+  dynamic saasBranchId;
+  dynamic saasBranchName;
   String? doctorsMasterId;
   String? degreeId;
   String? passingYear;
@@ -260,11 +278,13 @@ class Academic {
   dynamic updatedBy;
   DateTime? createdAt;
   DateTime? updatedAt;
-  Inistitution? inistitution;
-  Country? country;
+  List<Inistitution>? inistitution;
+  List<Country>? country;
 
   Academic({
     this.id,
+    this.saasBranchId,
+    this.saasBranchName,
     this.doctorsMasterId,
     this.degreeId,
     this.passingYear,
@@ -285,6 +305,8 @@ class Academic {
 
   factory Academic.fromJson(Map<String, dynamic> json) => Academic(
     id: json["id"],
+    saasBranchId: json["saas_branch_id"],
+    saasBranchName: json["saas_branch_name"],
     doctorsMasterId: json["doctors_master_id"],
     degreeId: json["degree_id"],
     passingYear: json["passing_year"],
@@ -299,12 +321,14 @@ class Academic {
     updatedBy: json["updated_by"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    inistitution: json["inistitution"] == null ? null : Inistitution.fromJson(json["inistitution"]),
-    country: json["country"] == null ? null : Country.fromJson(json["country"]),
+    inistitution: json["inistitution"] == null ? [] : List<Inistitution>.from(json["inistitution"]!.map((x) => Inistitution.fromJson(x))),
+    country: json["country"] == null ? [] : List<Country>.from(json["country"]!.map((x) => Country.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
+    "saas_branch_id": saasBranchId,
+    "saas_branch_name": saasBranchName,
     "doctors_master_id": doctorsMasterId,
     "degree_id": degreeId,
     "passing_year": passingYear,
@@ -319,8 +343,8 @@ class Academic {
     "updated_by": updatedBy,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
-    "inistitution": inistitution?.toJson(),
-    "country": country?.toJson(),
+    "inistitution": inistitution == null ? [] : List<dynamic>.from(inistitution!.map((x) => x.toJson())),
+    "country": country == null ? [] : List<dynamic>.from(country!.map((x) => x.toJson())),
   };
 }
 
@@ -427,10 +451,10 @@ class Title {
 class UsualProvider {
   int? id;
   String? usualProviderName;
-  String? address;
+  dynamic address;
   dynamic mobile;
-  String? phone;
-  String? email;
+  dynamic phone;
+  dynamic email;
 
   UsualProvider({
     this.id,
@@ -463,7 +487,7 @@ class UsualProvider {
 class Token {
   String? userType;
   String? userId;
-  dynamic deviceToke;
+  String? deviceToke;
   String? profilePhotoUrl;
 
   Token({

@@ -1,69 +1,35 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../model/clinic/orgamozationlist_model.dart';
-import '../../../repository/my_clinic_repository/my_Clinic_repo.dart';
+import '../../../model/myDoctorList/mydoctorList.dart';
+import '../../../repository/my_clinic_repository/clinic_repo_database.dart';
 import '../../../utils/message.dart';
-import '../../../utils/user.dart';
-
-
 
 class MyClinicDoctorViewModel with ChangeNotifier {
-  final myRepo = MyClinicRepo();
-  TextEditingController controllerRequest=TextEditingController();
+  ClinicRepository docRepo = ClinicRepository();
+  TextEditingController controllerRequest = TextEditingController();
 
-  clinicRequest(BuildContext context, orId) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool isDoctorLoading = true;
 
-    int? id = prefs.getInt(UserP.id);
-    Map body = {
-      "code": "OC-${orId.toString()}",
-      "patient_id": id.toString()
-    };
-    print(body);
-    await myRepo.postclinicRequest(body).then((value) {
-      print(value);
-      print("postclinicRequest");
-      getoriganization(context);
-      controllerRequest.clear();
+  List<MyDoctorList> myDoctorFullList = [];
+  List<Datum> myDoctorList = [];
 
-      // if (value['message'].toString() == "Successfully store data") {
-      //   Messages.snackBar(context, value['message'].toString(),
-      //       backgroundColor: Colors.green);
-      //
-      // } else {
-      //   Messages.snackBar(context, value['message'].toString());
-      // }
+  getmyAllDoctors(BuildContext context, DatabaseName) async {
+    myDoctorList.clear();
+    myDoctorFullList.clear();
 
-      notifyListeners();
-    }).onError((error, stackTrace) {
-      debugPrint(error.toString());
-      debugPrint(stackTrace.toString());
-    });
+    isDoctorLoading = true;
 
     notifyListeners();
-  }
-
-  List<OrganizationListModle> organizationlistmodel = [];
-
-  bool isorgaizationLoading = true;
-
-  getoriganization(BuildContext context) async {
-    organizationlistmodel.clear();
-
-    isorgaizationLoading = true;
-
-    notifyListeners();
-    await myRepo.getoriganization(context).then((value) {
-      organizationlistmodel = value;
-
-      isorgaizationLoading = false;
+    await docRepo.getmybrnceDoctors(context, DatabaseName).then((value) {
+      myDoctorFullList.add(value);
+      myDoctorList.addAll(value.data!);
+      isDoctorLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
-      isorgaizationLoading = true;
-      debugPrint(error.toString());
+      isDoctorLoading = true;
       print(stackTrace);
+
+      debugPrint(error.toString());
 
       Messages.snackBar(
         context,

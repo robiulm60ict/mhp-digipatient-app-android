@@ -79,7 +79,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
           ),
         ),
         body: Padding(
-          padding: EdgeInsets.all(20.r),
+          padding: EdgeInsets.all(12.r),
           child: Column(
             children: [
               Card(

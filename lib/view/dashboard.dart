@@ -8,7 +8,9 @@ import 'bottom_navigation_buttons/basket_view.dart';
 import 'bottom_navigation_buttons/favourites_view.dart';
 import 'bottom_navigation_buttons/home_view.dart';
 import 'daily_upcomming_appointment/daily_and_upcomming_appointments_view.dart';
+import 'home_item_pages/my_record_view.dart';
 import 'qrcode/qrcode_scnner.dart';
+import 'resources_view/resources_view.dart';
 import 'tutrials/tutrials_category.dart';
 
 class DashboardView extends StatefulWidget {
@@ -47,7 +49,7 @@ class _MyHomePageState extends State<DashboardView>
         activeIcons: [
           // Icon(Icons.person, color: Colors.deepPurple),
           Icon(Icons.home, color: AppColors.primary_color),
-          Icon(Icons.video_collection, color: AppColors.primary_color),
+          Icon( IconData(0xe559, fontFamily: 'MaterialIcons'), color: AppColors.primary_color),
           // Image.asset(
           //   Assets.iconsDrawer,
           //   height: 100,
@@ -61,7 +63,8 @@ class _MyHomePageState extends State<DashboardView>
         inactiveIcons: [
           // Text("My"),
           Icon(Icons.home, color: AppColors.primary_color),
-          Icon(Icons.video_collection, color: AppColors.primary_color),
+          Icon( IconData(0xe559, fontFamily: 'MaterialIcons'), color: AppColors.primary_color),
+
           Icon(Icons.qr_code, color: AppColors.primary_color),
 
           // Image.asset(
@@ -98,11 +101,11 @@ class _MyHomePageState extends State<DashboardView>
         },
         children: [
           HomeView(),
-          TutrialsCategory(),
+          ResourcesView(),
           QRCodeScanner(),
          // FavouritesView(),
           DailyAndUpcommingView(),
-          ProfileData()
+          MyRecordView()
         ],
       ),
     );

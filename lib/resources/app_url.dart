@@ -24,9 +24,6 @@ class AppUrls {
   static const String doctorrequest =
       '$baseUrlPatient/patient-request-to-doctor/';
 
-  // static const String login = '$baseUrlIP/api/login';
-  // static const String login = '$baseUrlIP/api/login-with-saas';
-
   static const String myDoctorslist =
       '$baseUrlPatient/patient-list-for-doctor/';
   static const String myDoctorsDeactivelist =

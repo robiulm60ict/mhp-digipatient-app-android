@@ -19,16 +19,21 @@ import 'doctor/my_doctor_view_model.dart';
 class HomeViewModel with ChangeNotifier {
   List<HomeItemsModel> homeItemsList = [
     HomeItemsModel(title: "My Doctor", image: Assets.homeMyDoc),
-    HomeItemsModel(title: "My Records", image: Assets.homeMyRec),
-    HomeItemsModel(title: "My Appointments", image: Assets.homeAppointments),
-
-    HomeItemsModel(title: "My Medicine", image: Assets.homeMyMedicine),
-    HomeItemsModel(title: "My Clinic", image: Assets.homeMyFamily),
-    HomeItemsModel(title: "My Lab", image: Assets.homeMyLab),
-    HomeItemsModel(title: "Resources", image: Assets.homeResources),
-    HomeItemsModel(title: "Payments", image: Assets.homePayments),
-    HomeItemsModel(title: "User Guidelines", image: Assets.homeServices),
+    // HomeItemsModel(title: "My Records", image: Assets.homeMyRec),
+    // HomeItemsModel(title: "My Appointments", image: Assets.homeAppointments),
+    //
+    // HomeItemsModel(title: "My Medicine", image: Assets.homeMyMedicine),
+    HomeItemsModel(title: "My Clinic", image: Assets.myclinic),
+    HomeItemsModel(title: "My Medicines", image: Assets.mymedicines),
+    // HomeItemsModel(title: "My Lab", image: Assets.homeMyLab),
+    // HomeItemsModel(title: "Resources", image: Assets.homeResources),
+    // HomeItemsModel(title: "Payments", image: Assets.homePayments),
+    // HomeItemsModel(title: "User Guidelines", image: Assets.homeServices),
     //  HomeItemsModel(title: "My Qr  Doctor", image: Assets.homeMyDoc),
+  ]; List<HomeItemsModel> serviceItemsList = [
+    HomeItemsModel(title: "My Doctor", image: Assets.homeMyDoc),
+    HomeItemsModel(title: "My Records", image: Assets.homeMyRec),
+
   ];
 
   homeItemsRouteTo(BuildContext context, int index) {
@@ -36,17 +41,21 @@ class HomeViewModel with ChangeNotifier {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => MyDoctorView()));
       //  context.router.push(const MyDoctorRoute());
-    } else if (index == 1) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => MyRecordView()));
+    }
 
-    } else if (index == 2) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => DailyAndUpcommingView()));
+    else if (index == 1) {   Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MyClinicView()));
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => MyRecordView()));
+
+    } else if (index == 2) {   Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MyMedicineView()));
+      // Navigator.push(context,
+      //     MaterialPageRoute(builder: (context) => DailyAndUpcommingView()));
     } else if (index == 3) {
 
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => MyMedicineView()));
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => MyMedicineView()));
     } else if (index == 4) {
 
       Navigator.push(
@@ -66,6 +75,12 @@ class HomeViewModel with ChangeNotifier {
           MaterialPageRoute(builder: (context) => const TutrialsCategory()));
     }
   }
+  List<String> imgList = [
+    // 'assets/images/b1.jpg',
+    'assets/images/b4.jpg',
+    'assets/images/b2.jpg',
+    'assets/images/b3.jpg'
+  ];
 }
 
 //TODO: Replace this model with real model
