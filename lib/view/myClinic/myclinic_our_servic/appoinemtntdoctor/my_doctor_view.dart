@@ -14,6 +14,7 @@ import '../../../../view_model/clinic/my_clinic_view_model/my_clinic_doctor_view
 import '../../../../widgets/back_button.dart';
 import '../../../../widgets/doc_card.dart';
 import '../../../../widgets/shimmer.dart';
+import 'brance_doc_details_view.dart';
 
 class ClinicBranchDoctorView extends StatefulWidget {
   ClinicBranchDoctorView({Key? key}) : super(key: key);
@@ -125,12 +126,12 @@ class _MyDoctorViewState extends State<ClinicBranchDoctorView> {
                               return BranceActveocCard(
                                 onTap: () {
                                   // print(docc.doctorsMasterId.toString());
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) =>
-                                  //             DocDeactiveDetailsView(
-                                  //                 id: docc.doctorsMasterId)));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              BranceDocDetailsView(doc: docc,
+                                                  )));
 
                                   // context.router
                                   //     .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
