@@ -25,6 +25,20 @@ class MyClinicRepo {
       print("${e.toString()}");
       rethrow;
     }
+  } Future copypateitnpostclinicRequest(body) async {
+    try {
+
+      dynamic response = await apiService.getPostApiResponse(
+          AppUrls.copy_patient_to_database, body);
+
+        print("eeeeeeeeeee${response}");
+        print("eeeeeeeeeee$body");
+
+      return response['message'];
+    } catch (e) {
+      print("${e.toString()}");
+      rethrow;
+    }
   }
   Future<List<OrganizationListModle>> getoriganization(contex) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

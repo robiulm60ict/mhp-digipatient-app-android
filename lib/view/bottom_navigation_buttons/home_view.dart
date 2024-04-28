@@ -29,6 +29,7 @@ import '../../view_model/user_view_model/user_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/drawer_list_tile.dart';
 import '../../widgets/shimmer.dart';
+import '../daily_upcomming_appointment/appoinment_catagory.dart';
 import '../daily_upcomming_appointment/patientqueioo.dart';
 import '../privacy_policy/privacypolicy.dart';
 import '../profile/patient_profile.dart';
@@ -155,83 +156,79 @@ class _HomeViewState extends State<HomeView> {
 
                 Consumer<UserViewModel>(
                     builder: (context, userprovider, child) {
-                      if (userprovider.userData.isEmpty) {
-                        return userprovider.isUserLoading == true
-                            ? Center(
-                          child: ListView.builder(
-                            itemCount: 1,
-                            scrollDirection: Axis.vertical,
-                            physics: const ScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: bannerShimmereffect(
-                                    80.toDouble(), 400.toDouble()),
-                              );
-                            },
-                          ),
-                        )
-                            : noDataFounForList("");
-                      } else {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            userprovider.user?.patientImages.toString() ==
-                                "null"
-                                ? SizedBox(
-                              //height: 110,
-                              // width: 90.w,
+                  if (userprovider.userData.isEmpty) {
+                    return userprovider.isUserLoading == true
+                        ? Center(
+                            child: ListView.builder(
+                              itemCount: 1,
+                              scrollDirection: Axis.vertical,
+                              physics: const ScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: bannerShimmereffect(
+                                      80.toDouble(), 400.toDouble()),
+                                );
+                              },
+                            ),
+                          )
+                        : noDataFounForList("");
+                  } else {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        userprovider.user?.patientImages.toString() == "null"
+                            ? SizedBox(
+                                //height: 110,
+                                // width: 90.w,
                                 child: const CircleAvatar(
-                                  radius: 40,
-                                  backgroundImage:
-                                  AssetImage(Assets.dummy_image),
-                                ))
-                                : SizedBox(
-                              // height: 110,
-                              // width: 90.w,
+                                radius: 40,
+                                backgroundImage: AssetImage(Assets.dummy_image),
+                              ))
+                            : SizedBox(
+                                // height: 110,
+                                // width: 90.w,
                                 child: CircleAvatar(
-                                  radius: 40,
-                                  backgroundImage: NetworkImage(
-                                    "${AppUrls.image}${userprovider.user?.patientImages}",
-                                  ),
-                                )
+                                radius: 40,
+                                backgroundImage: NetworkImage(
+                                  "${AppUrls.image}${userprovider.user?.patientImages}",
+                                ),
+                              )
 
-                              // Image.network(
-                              //
-                              //   height: 110,
-                              //   width: 90.w,
-                              //   fit: BoxFit.fill,
-                              // ),
-                            ),
-                            Style.distan_size10,
-
-                            Text(
-                              "${user?.patientFirstName} ${user?.patientLastName}"
-                                  .toString(),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12.sp,
-                                  color: const Color(0xFF454545)),
-                            ),
-                            Style.distan_size5,
-                            Text(
-                              "${user?.patientEmail}"
-                                  .toString(),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12.sp,
-                                  color: const Color(0xFF454545)),
-                            ),
-                          ],
-                        );
-                      }
-                    }),
+                                // Image.network(
+                                //
+                                //   height: 110,
+                                //   width: 90.w,
+                                //   fit: BoxFit.fill,
+                                // ),
+                                ),
+                        Style.distan_size10,
+                        Text(
+                          "${user?.patientFirstName} ${user?.patientLastName}"
+                              .toString(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12.sp,
+                              color: const Color(0xFF454545)),
+                        ),
+                        Style.distan_size5,
+                        Text(
+                          "${user?.patientEmail}".toString(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12.sp,
+                              color: const Color(0xFF454545)),
+                        ),
+                      ],
+                    );
+                  }
+                }),
                 Style.distan_size15,
                 DrawerListTile(
                   iconData: Icons.person,
@@ -250,7 +247,7 @@ class _HomeViewState extends State<HomeView> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DailyAndUpcommingView()));
+                            builder: (context) => AppoinmentCatagoryView()));
 
                     // context.router.push(const DailyAndUpcommingRoute());
                   },
@@ -273,10 +270,13 @@ class _HomeViewState extends State<HomeView> {
                   iconData: Icons.video_collection,
                   title: "User GridLine",
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => TutrialsCategory()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TutrialsCategory()));
                   },
-                ),   Style.distan_size2,
+                ),
+                Style.distan_size2,
                 DrawerListTile(
                   iconData: Icons.support,
                   title: "Support",
@@ -557,97 +557,7 @@ class _HomeViewState extends State<HomeView> {
                     fontWeight: FontWeight.w500,
                     color: const Color(0xFF8A8A8A)),
               ),
-              // SizedBox(
-              //   height: 4.h,
-              // ),
-              // Consumer<MyDoctorDelaisViewModel>(builder: (context, dvm, child) {
-              //   return Card(
-              //     shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(12.h)),
-              //     child: Container(
-              //       height: 60.h,
-              //       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 6.h),
-              //       child: Container(
-              //         //   width: 100.w,
-              //         decoration: BoxDecoration(
-              //             // border: Border.all(
-              //             //   color: Colors.grey
-              //             // )
-              //             ),
-              //         child: Row(
-              //           crossAxisAlignment: CrossAxisAlignment.center,
-              //           mainAxisAlignment: MainAxisAlignment.center,
-              //           children: [
-              //             Container(
-              //               child: Text(
-              //                 "DC - ",
-              //                 style: TextStyle(
-              //                   fontSize: 16.sp,
-              //                   color: AppColors.blackColor,
-              //                 ),
-              //               ),
-              //               height: 60.h,
-              //               width: 50.w,
-              //               alignment: Alignment.center,
-              //               decoration: BoxDecoration(
-              //                   border: Border(
-              //                 left: BorderSide(color: Colors.grey),
-              //                 top: BorderSide(color: Colors.grey),
-              //                 bottom: BorderSide(color: Colors.grey),
-              //                 right: BorderSide(color: Colors.grey),
-              //               )),
-              //             ),
-              //             Container(
-              //               decoration: BoxDecoration(
-              //                   border: Border(
-              //                 // left: BorderSide(color: Colors.grey),
-              //                 top: BorderSide(color: Colors.grey),
-              //                 bottom: BorderSide(color: Colors.grey),
-              //                 right: BorderSide(color: Colors.grey),
-              //               )),
-              //               height: 60.h,
-              //               width: 170.w,
-              //               child: Padding(
-              //                 padding: EdgeInsets.only(left: 8.0.r),
-              //                 child: TextField(
-              //                   //   maxLength: 4,
-              //                   textAlign: TextAlign.start,
-              //
-              //                   controller: dvm.controllerRequest,
-              //                   keyboardType: TextInputType.number,
-              //                   decoration: InputDecoration(
-              //                     // border:OutlineInputBorder(
-              //                     //    borderSide: BorderSide(color: Colors.grey)),
-              //                     hintText: 'Enter 4 Digit Code',
-              //                     labelText: 'Add Doctor ID here',
-              //                     border: InputBorder.none,
-              //                     // suffixStyle: TextStyle(color: Colors.green)
-              //                   ),
-              //                 ),
-              //               ),
-              //             ),
-              //             Style.widthdistan_size10,
-              //             MaterialButton(
-              //               onPressed: () {
-              //                 if (dvm.controllerRequest.text.isNotEmpty) {
-              //                   dvm.docotrRequest(
-              //                       context, dvm.controllerRequest.text);
-              //                 } else {
-              //                   Messages.snackBar(
-              //                     context,
-              //                     "Enter Doctor identity number",
-              //                   );
-              //                 }
-              //               },
-              //               color: AppColors.primaryColor,
-              //               child: Text("Submit"),
-              //             )
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //   );
-              // }),
+
               SizedBox(
                 height: 4.h,
               ),

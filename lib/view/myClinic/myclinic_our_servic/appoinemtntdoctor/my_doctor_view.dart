@@ -6,10 +6,14 @@ import 'package:digi_patient/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../resources/app_url.dart';
 import '../../../../resources/styles.dart';
+import '../../../../view_model/clinic/my_clinic_view_model/my_clinic_doctor_view_model.dart';
 import '../../../../widgets/back_button.dart';
 import '../../../../widgets/doc_card.dart';
+import '../../../../widgets/shimmer.dart';
 
 class ClinicBranchDoctorView extends StatefulWidget {
   ClinicBranchDoctorView({Key? key}) : super(key: key);
@@ -84,120 +88,70 @@ class _MyDoctorViewState extends State<ClinicBranchDoctorView> {
                   SizedBox(
                     height: 4.h,
                   ),
-                  GridView.builder(
-                    itemCount: 4,
-                    shrinkWrap: true,
-                    gridDelegate: FlutterzillaFixedGridView(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 12,
-                        crossAxisSpacing: 16,
-                        height: 165.h),
-                    itemBuilder: (context, index) {
-                      return
-                        InkWell(
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 4.0),
-                                child: Card(
-                                  elevation: 5,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.r),
-                                  ),
-                                  margin: const EdgeInsets.only(top: 35),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 4.0.w),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(
-                                          height: 35.h,
-                                          width: double.infinity,
-                                        ),
-                                        Text(
-                                          "Dr. Matroska John",
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.center,
-                                          style: Style.alltext_default_balck_blod,
-                                        ),
-                                        const SizedBox(
-                                          height: 4,
-                                        ),
-                                        Text(
-                                          "docSpeciality"!,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.start,
-                                          style: Style.alltext_default_balck,
-                                        ),
-                                        const SizedBox(
-                                          height: 2,
-                                        ),
-                                        Text(
-                                          "docSpeciality"!,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.start,
-                                          style: Style.alltext_default_balck,
-                                        ),
-                                        const SizedBox(
-                                          height: 2,
-                                        ),
-                                        Text(
-                                          "docHospital"!,
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.center,
-                                          style: Style.alltext_default_balck,
-                                        ),
-                                        const SizedBox(
-                                          height: 2,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              // Positioned(
-                              //     top: 0,
-                              //     child: CircleAvatar(radius: 25.h,),),
-                              Positioned(
-                                top: 10,
-                                child: ClipOval(
-                                  child: FadeInImage(
-                                    fit: BoxFit.cover,
-                                    width: 65,
-                                    height: 65,
-                                    image: NetworkImage(
-                                      "docImage"!,
-                                    ),
-                                    imageErrorBuilder: (context, error, stackTrace) =>
-                                    const CircleAvatar(
-                                      radius: 35,
-                                      backgroundImage: AssetImage(Assets.dummy_image),
-                                    ),
-                                    placeholder: const AssetImage(Assets.imagesAvatar),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                        DeActveocCard(
-                        onTap: () {},
-                        docImage:
-                            "",
-                        docName: "Dr. Matroska John",
-                        docSpeciality: "MBBS,FCPS,Cardologist",
-                        docHospital: "Bangladesh Hospital",
-                        doctortitle: null,
-                        docId: '',
-                      );
-                    },
-                  )
+                  Consumer<MyClinicDoctorViewModel>(
+                      builder: (context, data, child) {
+                        if (data.myDoctorFullList.isEmpty) {
+                          return data.isDoctorLoading == true
+                              ? GridView.builder(
+                            itemCount: 12,
+                            shrinkWrap: true,
+                            gridDelegate: FlutterzillaFixedGridView(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 12,
+                                crossAxisSpacing: 16,
+                                height: 175.h),
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: bannerShimmereffect(
+                                    94.toDouble(), 385.toDouble()),
+                              );
+                            },
+                          )
+                              : noDataFounForList(
+                              "Currently you have no records");
+                        } else {
+                          return GridView.builder(
+                            itemCount: data.myDoctorList.length,
+                            shrinkWrap: true,
+                            gridDelegate: FlutterzillaFixedGridView(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 12,
+                                crossAxisSpacing: 16,
+                                height: 165.h),
+                            itemBuilder: (context, index) {
+                              var docc = data.myDoctorList[index];
+
+                              return BranceActveocCard(
+                                onTap: () {
+                                  // print(docc.doctorsMasterId.toString());
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) =>
+                                  //             DocDeactiveDetailsView(
+                                  //                 id: docc.doctorsMasterId)));
+
+                                  // context.router
+                                  //     .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
+                                },
+                                docImage:
+                                "${AppUrls.drprofile}${docc.drImages.toString()}",
+                                docName:
+                                "${docc.title == null ? '' : docc.title!.titleName} ${docc.fullName}",
+                                docSpeciality: docc
+                                    .specialist?.specialistsName
+                                    .toString() ??
+                                    "",
+                                docHospital:
+                                "${docc.usualProvider != null ? docc.usualProvider!.usualProviderName.toString() : ""}",
+                                doctortitle: docc.academic,
+                                docId: docc.toString(),
+                              );
+                            },
+                          );
+                        }
+                      }),
                 ],
               ),
             ],

@@ -5,9 +5,9 @@ class AppUrls {
       'cf2a1ab2d6d433a3a3e99d076fafd27d42023c32b279fbff9b9b9cd525c96f29';
 
   static const String baseUrlPatientMain =
-      'https://greatdoc.macrohealthplus.org/mhp_server/public'; //App live
+      'http://newgreatdoc.macrohealthplus.org'; //App live
   //
-  static const String databasename = 'macrohealthplus_mhpdemocom'; //AppLive
+  static const String databasename = 'mhpdemocom'; //AppLive
   // 'mhpdemocom'; //AppLive
 
   // static const String databasename =
@@ -26,6 +26,8 @@ class AppUrls {
 
   static const String myDoctorslist =
       '$baseUrlPatient/patient-list-for-doctor/';
+  static const String myDoctorslistclinic =
+      '$baseUrlPatient/doctor-list-for-clinic/';
   static const String myDoctorsDeactivelist =
       '$baseUrlPatient/deactivated-doctors/';
   static const String activedoctor = '$baseUrlPatient/activate-doctor/';
@@ -69,6 +71,7 @@ class AppUrls {
 
   static const String organization = '$baseUrlPatient/organization/';
   static const String serach_organization = '$baseUrlPatient/serach-organization';
+  static const String copy_patient_to_database = '$baseUrlPatient/copy-patient-to-database';
 
   /// image
 

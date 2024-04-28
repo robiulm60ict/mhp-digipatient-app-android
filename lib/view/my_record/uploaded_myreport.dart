@@ -143,14 +143,14 @@ class _UploadMyReportState extends State<UploadMyReport> {
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              Text(
-                                                DateFormat("dd-MM-yyyy - hh:mm:a").format(DateTime.parse(
-                                                    info.date.toString())),
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.center,
-                                                style: Style.alltext_default_balck,
-                                              ),
+                                              // Text(
+                                              //   DateFormat("dd-MM-yyyy - hh:mm:a").format(DateTime.parse(
+                                              //       info.file.toString())),
+                                              //   maxLines: 2,
+                                              //   overflow: TextOverflow.ellipsis,
+                                              //   textAlign: TextAlign.center,
+                                              //   style: Style.alltext_default_balck,
+                                              // ),
                                               Style.widthdistan_size20,
                                             ],
                                           ),

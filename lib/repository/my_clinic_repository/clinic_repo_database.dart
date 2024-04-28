@@ -7,6 +7,7 @@ import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/network/base_api_service.dart';
+import '../../model/clinic/mydoctorlistbrance.dart';
 import '../../model/doctor_model/doctor_chember_time_model.dart';
 import '../../model/myDoctorList/mydoctorList.dart';
 import '../../utils/user.dart';
@@ -18,14 +19,13 @@ class ClinicRepository {
 
 
 
-  Future<MyDoctorList> getmybrnceDoctors(contex,DatabaseName) async {
+  Future<MyDoctorBrance> getmybrnceDoctors(contex,DatabaseName,brancid) async {
     try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      int? id = prefs.getInt(UserP.id);
+      print(DatabaseName);
       dynamic response =
-      await apiService.getGetApiResponsecontext("${AppUrls.myDoctorslist}$id",contex,DatabaseName);
+      await apiService.getGetApiResponse("${AppUrls.myDoctorslistclinic}$brancid",DatabaseName);
       print(response);
-      return MyDoctorList.fromJson(response);
+      return MyDoctorBrance.fromJson(response);
     } catch (e) {
       print(e);
       rethrow;

@@ -26,6 +26,7 @@ import 'view_model/anatomy/anatomy_view_model.dart';
 import 'view_model/app_locale_state/app_locale_view_model.dart';
 import 'view_model/appointment_view_model/appointment_view_model.dart';
 import 'view_model/auth_view_model.dart';
+import 'view_model/clinic/my_clinic_view_model/my_clinic_doctor_view_model.dart';
 import 'view_model/clinic/my_clinic_view_model/my_clinic_view_model.dart';
 import 'view_model/clinic_service_view_model/clinic_service_view_model.dart';
 import 'view_model/daily_appointments_view_model/daily_appointments_view_model.dart';
@@ -95,7 +96,6 @@ void main() async {
           ChangeNotifierProvider(
             create: (context) => AnatomyModelView(),
           ),
-
           ChangeNotifierProvider(
             create: (context) => AppLocaleViewModel(),
           ),
@@ -123,7 +123,6 @@ void main() async {
           ChangeNotifierProvider(
             create: (context) => MyRecordViewModel(),
           ),
-
           ChangeNotifierProvider(
             create: (context) => DrProfileViewModel(),
           ),
@@ -138,8 +137,11 @@ void main() async {
           ),
           ChangeNotifierProvider(
             create: (context) => ClinicServiceViewModel(),
-          ), ChangeNotifierProvider(
+          ),
+          ChangeNotifierProvider(
             create: (context) => MyClinicViewModel(),
+          ), ChangeNotifierProvider(
+            create: (context) => MyClinicDoctorViewModel(),
           ),
         ],
         child: MyApp(

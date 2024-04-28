@@ -31,10 +31,24 @@ class HomeViewModel with ChangeNotifier {
     // HomeItemsModel(title: "User Guidelines", image: Assets.homeServices),
     //  HomeItemsModel(title: "My Qr  Doctor", image: Assets.homeMyDoc),
   ]; List<HomeItemsModel> serviceItemsList = [
-    HomeItemsModel(title: "My Doctor", image: Assets.homeMyDoc),
-    HomeItemsModel(title: "My Records", image: Assets.homeMyRec),
+    HomeItemsModel(title: "Appointment with Doctors", image: Assets.homeMyDoc),
+    HomeItemsModel(title: "Appointment at Clinic", image: Assets.homeMyRec),
 
   ];
+  appoinmentcatagoryItemsRouteTo(BuildContext context, int index) {
+    if (index == 0) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => DailyAndUpcommingView()));
+      //  context.router.push(const MyDoctorRoute());
+    }
+
+    else if (index == 1) {   Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MyClinicView()));
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => MyRecordView()));
+
+    }
+  }
 
   homeItemsRouteTo(BuildContext context, int index) {
     if (index == 0) {

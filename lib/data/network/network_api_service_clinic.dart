@@ -29,6 +29,7 @@ class NetworkApiServiceClinic extends BaseApiServiceClinic {
         },
       ).timeout(const Duration(seconds: 10));
 
+      print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr${DatabaseName}");
       print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr${response.statusCode}");
 
       responseJson = returnResponse(response);
@@ -47,7 +48,7 @@ class NetworkApiServiceClinic extends BaseApiServiceClinic {
       final response = await http.get(
         Uri.parse(url),
         headers: {
-          'token': "$token",
+          // 'token': "$token",
           // 'databaseName': 'mhpdemocom',live
           'databaseName': DatabaseName.toString(),
           'Accept': 'application/json',

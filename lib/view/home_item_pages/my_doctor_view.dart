@@ -10,6 +10,7 @@ import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:provider/provider.dart';
 
 import '../../resources/styles.dart';
+import '../../utils/message.dart';
 import '../../view_model/mydoctor/new_my_doctor_view_model.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/doc_card.dart';
@@ -62,6 +63,97 @@ class _MyDoctorViewState extends State<MyDoctorView> {
           width: double.infinity,
           child: ListView(
             children: [
+              SizedBox(
+                height: 4.h,
+              ),
+              Consumer<MyDoctorDelaisViewModel>(builder: (context, dvm, child) {
+                return Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.h)),
+                  child: Container(
+                    height: 60.h,
+                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: 6.h),
+                    child: Container(
+                      //   width: 100.w,
+                      decoration: BoxDecoration(
+                          // border: Border.all(
+                          //   color: Colors.grey
+                          // )
+                          ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: Text(
+                              "DC - ",
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                color: AppColors.blackColor,
+                              ),
+                            ),
+                            height: 60.h,
+                            width: 50.w,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                border: Border(
+                              left: BorderSide(color: Colors.grey),
+                              top: BorderSide(color: Colors.grey),
+                              bottom: BorderSide(color: Colors.grey),
+                              right: BorderSide(color: Colors.grey),
+                            )),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                              // left: BorderSide(color: Colors.grey),
+                              top: BorderSide(color: Colors.grey),
+                              bottom: BorderSide(color: Colors.grey),
+                              right: BorderSide(color: Colors.grey),
+                            )),
+                            height: 60.h,
+                            width: 170.w,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 8.0.r),
+                              child: TextField(
+                                //   maxLength: 4,
+                                textAlign: TextAlign.start,
+
+                                controller: dvm.controllerRequest,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  // border:OutlineInputBorder(
+                                  //    borderSide: BorderSide(color: Colors.grey)),
+                                  hintText: 'Enter 4 Digit Code',
+                                  labelText: 'Add Doctor ID here',
+                                  border: InputBorder.none,
+                                  // suffixStyle: TextStyle(color: Colors.green)
+                                ),
+                              ),
+                            ),
+                          ),
+                          Style.widthdistan_size10,
+                          MaterialButton(
+                            onPressed: () {
+                              if (dvm.controllerRequest.text.isNotEmpty) {
+                                dvm.docotrRequest(
+                                    context, dvm.controllerRequest.text);
+                              } else {
+                                Messages.snackBar(
+                                  context,
+                                  "Enter Doctor identity number",
+                                );
+                              }
+                            },
+                            color: AppColors.primaryColor,
+                            child: Text("Submit"),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }),
               Card(
                 child: Row(
                   children: [
@@ -166,7 +258,8 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                                   );
                                 },
                               )
-                            : noDataFounForList("Currently you have no records");
+                            : noDataFounForList(
+                                "Currently you have no records");
                       } else {
                         return GridView.builder(
                           itemCount: provider.myDoctordeactiveList.length,
@@ -185,8 +278,9 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => DocDeactiveDetailsView(
-                                            id: docc.doctorsMasterId)));
+                                        builder: (context) =>
+                                            DocDeactiveDetailsView(
+                                                id: docc.doctorsMasterId)));
 
                                 // context.router
                                 //     .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
@@ -252,7 +346,8 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                                   );
                                 },
                               )
-                            : noDataFounForList("Currently you have no records");
+                            : noDataFounForList(
+                                "Currently you have no records");
                       } else {
                         return GridView.builder(
                           itemCount: provider.myDoctorList.length,

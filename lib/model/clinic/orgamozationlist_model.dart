@@ -10,8 +10,8 @@ String organizationListModleToJson(List<OrganizationListModle> data) => json.enc
 
 class OrganizationListModle {
   int? id;
-  String? patientId;
-  String? organizationId;
+  int? patientId;
+  int? organizationId;
   Organization? organization;
 
   OrganizationListModle({
@@ -51,7 +51,7 @@ class Organization {
   String? logo;
   String? dbName;
   dynamic metaTags;
-  String? status;
+  int? status;
   dynamic deletedAt;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -128,7 +128,7 @@ class Branch {
   int? id;
   String? name;
   String? address;
-  String? organizationId;
+  int? organizationId;
   String? phone;
   String? email;
   dynamic logo;

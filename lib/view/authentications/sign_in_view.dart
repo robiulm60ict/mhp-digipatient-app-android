@@ -199,9 +199,11 @@ class _SignInViewState extends State<SignInView> {
             child: Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => OtpSendView()));
+                  onPressed: () { Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OtpSendView()));
+                   
                   },
                   child: Text(
                     "Forgot Password?",

@@ -1,10 +1,12 @@
 import 'package:digi_patient/view/myClinic/clinic_branches_view/branches_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import '../../../model/clinic/orgamozationlist_model.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/styles.dart';
 import '../../../utils/utils.dart';
+import '../../../view_model/clinic/my_clinic_view_model/my_clinic_view_model.dart';
 import '../../../widgets/back_button.dart';
 
 class ClinicBranches extends StatelessWidget {
@@ -14,6 +16,8 @@ class ClinicBranches extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<MyClinicViewModel>(context);
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -76,11 +80,13 @@ class ClinicBranches extends StatelessWidget {
                           organizationListModle.organization!.branch![index];
                       return InkWell(
                         onTap: (){
+
+                          provider.copypateitnpostclinicRequest(context,  organizationListModle.organization!.dbName.toString(), branch.id.toString(), branch.name.toString());
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      BranchesDetails(branch: branch,)));
+                                      BranchesDetails(branch: branch,DbName: organizationListModle.organization!.dbName.toString(),)));
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -128,11 +134,11 @@ class ClinicBranches extends StatelessWidget {
                                     children: [
                                       InkWell(
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        BranchesDetails(branch: branch,)));
+                                            // Navigator.push(
+                                            //     context,
+                                            //     MaterialPageRoute(
+                                            //         builder: (context) =>
+                                            //             BranchesDetails(branch: branch,)));
                                           },
                                           child: Image.asset(
                                             "assets/icons/details.png",

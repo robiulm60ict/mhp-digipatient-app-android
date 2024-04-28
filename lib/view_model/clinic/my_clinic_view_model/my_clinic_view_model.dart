@@ -44,6 +44,32 @@ class MyClinicViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  copypateitnpostclinicRequest(BuildContext context, dbName,saas_branch_id,saas_branch_name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    int? id = prefs.getInt(UserP.userid);
+    Map body =
+      {
+        "paitentId": id.toString(),
+        "dbName":dbName.toString(),
+        "saas_branch_id": saas_branch_id.toString(),
+        "saas_branch_name":saas_branch_name.toString()
+
+    };
+    print(body);
+    await myRepo.copypateitnpostclinicRequest(body).then((value) {
+      print(value);
+
+
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      debugPrint(error.toString());
+      debugPrint(stackTrace.toString());
+    });
+
+    notifyListeners();
+  }
+
   List<OrganizationListModle> organizationlistmodel = [];
 
   bool isorgaizationLoading = true;

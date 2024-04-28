@@ -34,6 +34,8 @@ class UserProfileModel {
 
 class PatientsDetails {
   int? id;
+  dynamic saasBranchId;
+  dynamic saasBranchName;
   String? patientHnNumber;
   dynamic patientTitleId;
   dynamic patientNid;
@@ -42,14 +44,14 @@ class PatientsDetails {
   String? patientFirstName;
   dynamic patientMiddleName;
   String? patientLastName;
-  dynamic patientPreferredName;
+  String? patientPreferredName;
   dynamic patientContactVia;
   dynamic patientHomePhone;
   dynamic patientWorkPhone;
-  dynamic patientMobilePhone;
+  String? patientMobilePhone;
   dynamic patientHeadOfFamily;
   dynamic patientEmergencyContact;
-  String? patientDob;
+  DateTime? patientDob;
   dynamic patientPassport;
   String? patientStatus;
   String? patientEmail;
@@ -75,15 +77,17 @@ class PatientsDetails {
   dynamic patientExpireDate;
   dynamic patientMedicalNo;
   dynamic patientOccupationId;
+  int? doctorId;
   dynamic patientHccNo;
   String? patientImages;
   dynamic patientGeneralNotes;
   dynamic patientAppointmentNotes;
-  String? lactation;
+  int? lactation;
   dynamic appToken;
-  String? deleteStatus;
+  int? deleteStatus;
   DateTime? createdAt;
   DateTime? updatedAt;
+  String? fullName;
   dynamic title;
   dynamic religion;
   dynamic ethnicity;
@@ -100,6 +104,8 @@ class PatientsDetails {
 
   PatientsDetails({
     this.id,
+    this.saasBranchId,
+    this.saasBranchName,
     this.patientHnNumber,
     this.patientTitleId,
     this.patientNid,
@@ -141,6 +147,7 @@ class PatientsDetails {
     this.patientExpireDate,
     this.patientMedicalNo,
     this.patientOccupationId,
+    this.doctorId,
     this.patientHccNo,
     this.patientImages,
     this.patientGeneralNotes,
@@ -150,6 +157,7 @@ class PatientsDetails {
     this.deleteStatus,
     this.createdAt,
     this.updatedAt,
+    this.fullName,
     this.title,
     this.religion,
     this.ethnicity,
@@ -167,6 +175,8 @@ class PatientsDetails {
 
   factory PatientsDetails.fromJson(Map<String, dynamic> json) => PatientsDetails(
     id: json["id"],
+    saasBranchId: json["saas_branch_id"],
+    saasBranchName: json["saas_branch_name"],
     patientHnNumber: json["patient_hn_number"],
     patientTitleId: json["patient_title_id"],
     patientNid: json["patient_nid"],
@@ -182,7 +192,7 @@ class PatientsDetails {
     patientMobilePhone: json["patient_mobile_phone"],
     patientHeadOfFamily: json["patient_head_of_family"],
     patientEmergencyContact: json["patient_emergency_contact"],
-    patientDob: json["patient_dob"],
+    patientDob: json["patient_dob"] == null ? null : DateTime.parse(json["patient_dob"]),
     patientPassport: json["patient_passport"],
     patientStatus: json["patient_status"],
     patientEmail: json["patient_email"],
@@ -208,6 +218,7 @@ class PatientsDetails {
     patientExpireDate: json["patient_expire_date"],
     patientMedicalNo: json["patient_medical_no"],
     patientOccupationId: json["patient_occupation_id"],
+    doctorId: json["doctor_id"],
     patientHccNo: json["patient_hcc_no"],
     patientImages: json["patient_images"],
     patientGeneralNotes: json["patient_general_notes"],
@@ -217,6 +228,7 @@ class PatientsDetails {
     deleteStatus: json["delete_status"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    fullName: json["fullName"],
     title: json["title"],
     religion: json["religion"],
     ethnicity: json["ethnicity"],
@@ -234,6 +246,8 @@ class PatientsDetails {
 
   Map<String, dynamic> toJson() => {
     "id": id,
+    "saas_branch_id": saasBranchId,
+    "saas_branch_name": saasBranchName,
     "patient_hn_number": patientHnNumber,
     "patient_title_id": patientTitleId,
     "patient_nid": patientNid,
@@ -249,7 +263,7 @@ class PatientsDetails {
     "patient_mobile_phone": patientMobilePhone,
     "patient_head_of_family": patientHeadOfFamily,
     "patient_emergency_contact": patientEmergencyContact,
-    "patient_dob": patientDob,
+    "patient_dob": "${patientDob!.year.toString().padLeft(4, '0')}-${patientDob!.month.toString().padLeft(2, '0')}-${patientDob!.day.toString().padLeft(2, '0')}",
     "patient_passport": patientPassport,
     "patient_status": patientStatus,
     "patient_email": patientEmail,
@@ -275,6 +289,7 @@ class PatientsDetails {
     "patient_expire_date": patientExpireDate,
     "patient_medical_no": patientMedicalNo,
     "patient_occupation_id": patientOccupationId,
+    "doctor_id": doctorId,
     "patient_hcc_no": patientHccNo,
     "patient_images": patientImages,
     "patient_general_notes": patientGeneralNotes,
@@ -284,6 +299,7 @@ class PatientsDetails {
     "delete_status": deleteStatus,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
+    "fullName": fullName,
     "title": title,
     "religion": religion,
     "ethnicity": ethnicity,

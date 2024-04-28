@@ -10,9 +10,12 @@ String pastRxModelToJson(List<PastRxModel> data) => json.encode(List<dynamic>.fr
 
 class PastRxModel {
   int? id;
+  dynamic saasBranchId;
+  dynamic saasBranchName;
   String? patientId;
   String? drugId;
   String? drugName;
+  dynamic brandName;
   String? guid;
   String? drugGenericName;
   String? dose;
@@ -21,45 +24,48 @@ class PastRxModel {
   String? others;
   String? route;
   dynamic tabsInistraction;
-  String? complexInstruction;
+  dynamic complexInstruction;
   dynamic extraInstruction;
-  dynamic drugsTimeLimit;
+  String? drugsTimeLimit;
   dynamic prescribedAs;
   dynamic generalNote;
   dynamic pbsListing;
   String? quantity;
   String? repeats;
   String? condition;
-  dynamic furtherDetails;
-  int? iSAllergyCheck;
-  int? isFvDose;
-  int? isRegulation;
-  int? isPrintBrandName;
-  int? isPrintGenericName;
-  int? isUrgentSupply;
-  int? isAllowBrandSubstitution;
-  int? isSaveDose;
-  int? isConditionStatusRight;
-  int? isConditionStatusLeft;
-  int? isConditionStatusBilateral;
-  int? isConditionStatusAcute;
-  int? isConditionStatusChronic;
-  int? isConditionStatusMild;
-  int? isConditionStatusModerate;
-  int? isConditionStatusSevere;
-  int? isAddToPastHistory;
-  int? isAddToReasonForVisit;
-  int? isMarkAsConfidential;
-  int? deleteStatus;
+  String? furtherDetails;
+  String? iSAllergyCheck;
+  String? isFvDose;
+  String? isRegulation;
+  String? isPrintBrandName;
+  String? isPrintGenericName;
+  String? isUrgentSupply;
+  String? isAllowBrandSubstitution;
+  String? isSaveDose;
+  String? isConditionStatusRight;
+  String? isConditionStatusLeft;
+  String? isConditionStatusBilateral;
+  String? isConditionStatusAcute;
+  String? isConditionStatusChronic;
+  String? isConditionStatusMild;
+  String? isConditionStatusModerate;
+  String? isConditionStatusSevere;
+  String? isAddToPastHistory;
+  String? isAddToReasonForVisit;
+  String? isMarkAsConfidential;
+  String? deleteStatus;
   DateTime? createdAt;
   DateTime? updatedAt;
   Medicine? medicine;
 
   PastRxModel({
     this.id,
+    this.saasBranchId,
+    this.saasBranchName,
     this.patientId,
     this.drugId,
     this.drugName,
+    this.brandName,
     this.guid,
     this.drugGenericName,
     this.dose,
@@ -105,9 +111,12 @@ class PastRxModel {
 
   factory PastRxModel.fromJson(Map<String, dynamic> json) => PastRxModel(
     id: json["id"],
+    saasBranchId: json["saas_branch_id"],
+    saasBranchName: json["saas_branch_name"],
     patientId: json["patient_id"],
     drugId: json["drug_id"],
     drugName: json["drug_name"],
+    brandName: json["brand_name"],
     guid: json["guid"],
     drugGenericName: json["drug_generic_name"],
     dose: json["dose"],
@@ -153,9 +162,12 @@ class PastRxModel {
 
   Map<String, dynamic> toJson() => {
     "id": id,
+    "saas_branch_id": saasBranchId,
+    "saas_branch_name": saasBranchName,
     "patient_id": patientId,
     "drug_id": drugId,
     "drug_name": drugName,
+    "brand_name": brandName,
     "guid": guid,
     "drug_generic_name": drugGenericName,
     "dose": dose,
@@ -203,19 +215,23 @@ class PastRxModel {
 class Medicine {
   int? id;
   String? macrohealthSg;
+  String? mimsSg;
 
   Medicine({
     this.id,
     this.macrohealthSg,
+    this.mimsSg,
   });
 
   factory Medicine.fromJson(Map<String, dynamic> json) => Medicine(
     id: json["id"],
     macrohealthSg: json["macrohealth_sg"],
+    mimsSg: json["mims_sg"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "macrohealth_sg": macrohealthSg,
+    "mims_sg": mimsSg,
   };
 }

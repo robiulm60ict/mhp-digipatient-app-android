@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../model/myDoctorList/mydoctorList.dart';
+import '../../../model/clinic/mydoctorlistbrance.dart';
 import '../../../repository/my_clinic_repository/clinic_repo_database.dart';
 import '../../../utils/message.dart';
 
@@ -10,17 +10,17 @@ class MyClinicDoctorViewModel with ChangeNotifier {
 
   bool isDoctorLoading = true;
 
-  List<MyDoctorList> myDoctorFullList = [];
+  List<MyDoctorBrance> myDoctorFullList = [];
   List<Datum> myDoctorList = [];
 
-  getmyAllDoctors(BuildContext context, DatabaseName) async {
+  getmyAllDoctors(BuildContext context, DatabaseName,brancid) async {
     myDoctorList.clear();
     myDoctorFullList.clear();
 
     isDoctorLoading = true;
-
+print("databasena");
     notifyListeners();
-    await docRepo.getmybrnceDoctors(context, DatabaseName).then((value) {
+    await docRepo.getmybrnceDoctors(context, DatabaseName,brancid).then((value) {
       myDoctorFullList.add(value);
       myDoctorList.addAll(value.data!);
       isDoctorLoading = false;

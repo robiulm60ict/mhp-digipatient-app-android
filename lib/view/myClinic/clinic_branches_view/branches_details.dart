@@ -11,13 +11,15 @@ import '../../../model/clinic/orgamozationlist_model.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/styles.dart';
 import '../../../utils/utils.dart';
+import '../../../view_model/clinic/my_clinic_view_model/my_clinic_doctor_view_model.dart';
 import '../../../view_model/clinic_service_view_model/clinic_service_view_model.dart';
 import '../../../widgets/back_button.dart';
 
 class BranchesDetails extends StatefulWidget {
-  BranchesDetails({super.key, this.branch});
+  BranchesDetails({super.key, this.branch,this.DbName});
 
   Branch? branch;
+  String? DbName;
 
   @override
   State<BranchesDetails> createState() => _BranchesDetailsState();
@@ -35,6 +37,7 @@ class _BranchesDetailsState extends State<BranchesDetails> {
   @override
   Widget build(BuildContext context) {
     final clinic = Provider.of<ClinicServiceViewModel>(context);
+    final doctorbrance = Provider.of<MyClinicDoctorViewModel>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -172,7 +175,8 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        clinic.homeItemsRouteTo(context, index);
+                        doctorbrance.getmyAllDoctors(context, widget.DbName.toString(), widget.branch!.id.toString());
+                       clinic.homeItemsRouteTo(context, index);
                       },
                       child: Container(
                         decoration: BoxDecoration(
