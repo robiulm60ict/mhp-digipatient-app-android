@@ -11,15 +11,18 @@ import 'package:readmore/readmore.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../model/clinic/mydoctorlistbrance.dart';
+import '../../../../model/clinic/orgamozationlist_model.dart';
 import '../../../../utils/utils.dart';
-import '../../../../view_model/appointment_view_model/appointment_view_model.dart';
-import '../../../../view_model/mydoctor/new_my_doctor_view_model.dart';
+import '../../../../view_model/appointment_view_model/brance_appointment_view_model.dart';
 import '../../../../widgets/back_button.dart';
-
+import 'brance_book_appointment_view.dart';
 
 class BranceDocDetailsView extends StatefulWidget {
-  BranceDocDetailsView({Key? key, this.doc}) : super(key: key);
-  Datum? doc;
+  BranceDocDetailsView({Key? key, this.doc,this.DbName,this.branch}) : super(key: key);
+  MhpDoctorsMaster? doc;
+  Branch? branch;
+  String? DbName;
+
   @override
   State<BranceDocDetailsView> createState() => _DocDetailsViewState();
 }
@@ -33,15 +36,16 @@ class _DocDetailsViewState extends State<BranceDocDetailsView> {
   //   // listViewController.dispose();
   // }
 
-
   @override
   void initState() {
     super.initState();
-   // getDoctor(widget.id);
-  //  context.read<MyDoctorViewModel>().getSocialMediea(widget.id.toString());
-  //   context
-  //       .read<MyDoctorViewModel>()
-  //       .getdoctorcountpatient(widget.id.toString());
+    // getDoctor(widget.id);
+    print(widget.DbName.toString());
+    print(widget.branch!.id.toString());
+     context.read<BranceAppointmentViewModel>().getSocialMediea(widget.doc!.id.toString(),widget.DbName.toString(),widget.branch!.id.toString());
+      context
+          .read<BranceAppointmentViewModel>()
+          .getdoctorcountpatient(widget.doc!.id.toString(),widget.DbName.toString(),widget.branch!.id.toString());
   }
 
   getDoctor(id) async {
@@ -56,7 +60,7 @@ class _DocDetailsViewState extends State<BranceDocDetailsView> {
   @override
   Widget build(BuildContext context) {
     final mdVM = Provider.of<MyDoctorViewModel>(context);
-    final appointmentViewModel = Provider.of<AppointmentViewModel>(context);
+    final appointmentViewModel = Provider.of<BranceAppointmentViewModel>(context);
 
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
@@ -68,13 +72,13 @@ class _DocDetailsViewState extends State<BranceDocDetailsView> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.r))),
             onPressed: () {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) => BookAppointmentView(
-              //             doctors: doc!,
-              //             amount:
-              //                 "${doc?.doctors?.doctorFee == null ? "0" : doc?.doctors?.doctorFee} ")));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BranceBookAppointmentView(
+                          doctors: widget.doc!,
+                          amount:
+                              "${ widget.doc?.doctorFee == null ? "0" : widget.doc?.doctorFee} ", branch: widget.branch, DbName: widget.DbName,)));
 
               appointmentViewModel.selectedDatee = null;
               appointmentViewModel.isChamber = "";
@@ -138,12 +142,12 @@ class _DocDetailsViewState extends State<BranceDocDetailsView> {
                           overflow: TextOverflow.ellipsis,
                           style: Style.alltext_default_balck_blod,
                         ),
-                        widget. doc!.academic!.isNotEmpty
+                        widget.doc!.academic!.isNotEmpty
                             ? SizedBox(
                                 height: 8.h,
                               )
                             : SizedBox(),
-                        widget. doc!.academic!.isNotEmpty
+                        widget.doc!.academic!.isNotEmpty
                             ? Container(
                                 height: 20.h,
                                 width: 200.h,
@@ -153,10 +157,10 @@ class _DocDetailsViewState extends State<BranceDocDetailsView> {
                                   scrollDirection: Axis.horizontal,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemCount: widget.doc!.academic!.length < 5
-                                      ?widget. doc!.academic!.length
+                                      ? widget.doc!.academic!.length
                                       : 6,
                                   itemBuilder: (context, index) {
-                                    var data =widget. doc!.academic![index];
+                                    var data = widget.doc!.academic![index];
                                     return Container(
                                       // width: 50.h,
 
@@ -238,8 +242,7 @@ class _DocDetailsViewState extends State<BranceDocDetailsView> {
                                 ),
                                 child: RichText(
                                   text: TextSpan(
-                                      text:
-                                          "${widget.doc?.doctorFee ?? "0"} ",
+                                      text: "${widget.doc?.doctorFee ?? "0"} ",
                                       style: TextStyle(
                                         fontFamily: 'Roboto',
                                         fontWeight: FontWeight.w700,
@@ -277,7 +280,7 @@ class _DocDetailsViewState extends State<BranceDocDetailsView> {
                               //   backgroundImage: AssetImage(Assets.imagesBkash),
                               // ),
                               Text(
-                                " bKash Payment : ${widget.doc!.drHomePhone.toString() == "null" ? "" :widget. doc!.drHomePhone.toString()}",
+                                " bKash Payment : ${widget.doc!.drHomePhone.toString() == "null" ? "" : widget.doc!.drHomePhone.toString()}",
                                 style: Style.alltext_default_balck_blod,
                               ),
                             ],
@@ -295,8 +298,8 @@ class _DocDetailsViewState extends State<BranceDocDetailsView> {
                     children: [
                       Align(
                         alignment: Alignment.center,
-                        child:widget. doc?.drImages.toString() != "null" ||
-                            widget. doc?.drImages.toString() != null
+                        child: widget.doc?.drImages.toString() != "null" ||
+                                widget.doc?.drImages.toString() != null
                             ? FadeInImage(
                                 fit: BoxFit.cover,
                                 width: 65,
@@ -380,7 +383,7 @@ class _DocDetailsViewState extends State<BranceDocDetailsView> {
                               color: AppColors.primaryColor,
                             ),
                             title: Text(
-                              "${widget.doc?.workExperienceYears==null||widget.doc?.workExperienceYears.toString()=="null"?"0":widget.doc?.workExperienceYears.toString()} years",
+                              "${widget.doc?.workExperienceYears == null || widget.doc?.workExperienceYears.toString() == "null" ? "0" : widget.doc?.workExperienceYears.toString()} years",
                               style: Style.alltext_default_balck,
                             ),
                             subtitle: Text(
@@ -414,7 +417,7 @@ class _DocDetailsViewState extends State<BranceDocDetailsView> {
                         child: Padding(
                           padding: EdgeInsets.all(0.r),
                           child: Text(
-                            "${widget.doc!.specialist?.specialistsName==null||widget.doc!.specialist?.specialistsName.toString()=="null"?"":widget.doc!.specialist?.specialistsName.toString()}",
+                            "${widget.doc!.specialist?.specialistsName == null || widget.doc!.specialist?.specialistsName.toString() == "null" ? "" : widget.doc!.specialist?.specialistsName.toString()}",
                             style: Style.alltext_default_balck,
                           ),
                         ),
@@ -537,7 +540,7 @@ class _DocDetailsViewState extends State<BranceDocDetailsView> {
                                       style: Style.alltext_default_balck,
                                     ),
                                     Text(
-                                      "${widget.doc!.drWorkPhone==null||widget.doc!.drWorkPhone.toString() == "null" ? "" : widget.doc!.drWorkPhone.toString()}",
+                                      "${widget.doc!.drWorkPhone == null || widget.doc!.drWorkPhone.toString() == "null" ? "" : widget.doc!.drWorkPhone.toString()}",
                                       style: Style.alltext_default_balck,
                                     ),
                                   ],
@@ -564,7 +567,7 @@ class _DocDetailsViewState extends State<BranceDocDetailsView> {
                 SizedBox(
                   height: 10.h,
                 ),
-                widget. doc!.drAbout.toString() != "null"
+                widget.doc!.drAbout.toString() != "null"
                     ? Padding(
                         padding:
                             EdgeInsets.only(left: 10.r, right: 10.r, top: 0.r),
@@ -623,5 +626,4 @@ class _DocDetailsViewState extends State<BranceDocDetailsView> {
       ),
     );
   }
-
 }

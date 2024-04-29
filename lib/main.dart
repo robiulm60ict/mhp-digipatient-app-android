@@ -25,6 +25,7 @@ import 'utils/route/routes_name.dart';
 import 'view_model/anatomy/anatomy_view_model.dart';
 import 'view_model/app_locale_state/app_locale_view_model.dart';
 import 'view_model/appointment_view_model/appointment_view_model.dart';
+import 'view_model/appointment_view_model/brance_appointment_view_model.dart';
 import 'view_model/auth_view_model.dart';
 import 'view_model/clinic/my_clinic_view_model/my_clinic_doctor_view_model.dart';
 import 'view_model/clinic/my_clinic_view_model/my_clinic_view_model.dart';
@@ -140,8 +141,11 @@ void main() async {
           ),
           ChangeNotifierProvider(
             create: (context) => MyClinicViewModel(),
-          ), ChangeNotifierProvider(
+          ),
+          ChangeNotifierProvider(
             create: (context) => MyClinicDoctorViewModel(),
+          ), ChangeNotifierProvider(
+            create: (context) => BranceAppointmentViewModel(),
           ),
         ],
         child: MyApp(

@@ -32,9 +32,9 @@ class Datum {
   int? id;
   dynamic saasBranchId;
   dynamic saasBranchName;
-  String? patientId;
-  String? doctorsMasterId;
-  String? status;
+  int? patientId;
+  int? doctorsMasterId;
+  int? status;
   DateTime? createdAt;
   DateTime? updatedAt;
   Doctors? doctors;

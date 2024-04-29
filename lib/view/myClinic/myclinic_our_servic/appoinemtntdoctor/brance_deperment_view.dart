@@ -8,7 +8,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../model/clinic/mydoctorlistbrance.dart';
 import '../../../../model/clinic/orgamozationlist_model.dart';
 import '../../../../resources/app_url.dart';
 import '../../../../resources/styles.dart';
@@ -17,17 +16,18 @@ import '../../../../widgets/back_button.dart';
 import '../../../../widgets/doc_card.dart';
 import '../../../../widgets/shimmer.dart';
 import 'brance_doc_details_view.dart';
+import 'my_doctor_view.dart';
 
-class ClinicBranchDoctorView extends StatefulWidget {
-  ClinicBranchDoctorView({Key? key,this.mhpdoctorlist,this.branch,this.DbName}) : super(key: key);
-  List<MhpDoctorsMaster>? mhpdoctorlist;
+class ClinicBranchDepermentView extends StatefulWidget {
+  ClinicBranchDepermentView({Key? key,this.branch,this.DbName}) : super(key: key);
   Branch? branch;
   String? DbName;
+
   @override
-  State<ClinicBranchDoctorView> createState() => _MyDoctorViewState();
+  State<ClinicBranchDepermentView> createState() => _MyDoctorViewState();
 }
 
-class _MyDoctorViewState extends State<ClinicBranchDoctorView> {
+class _MyDoctorViewState extends State<ClinicBranchDepermentView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +80,7 @@ class _MyDoctorViewState extends State<ClinicBranchDoctorView> {
                       )),
                   Style.distan_size15,
                   Text(
-                    "IBN SINA DHANMONDI BRANCH",
+                    widget.branch!.name.toString(),
                     style: Style.alltext_default_balck_blod,
                   ),
                   Style.distan_size10,
@@ -95,48 +95,44 @@ class _MyDoctorViewState extends State<ClinicBranchDoctorView> {
                   ),
                   Consumer<MyClinicDoctorViewModel>(
                       builder: (context, data, child) {
-                        if (widget.mhpdoctorlist!.isEmpty) {
-                          return noDataFounForList(
-                              "Currently you have no records");
-                        } else {
-                          return GridView.builder(
-                            itemCount:widget.mhpdoctorlist!.length,
+                        if (data.myDoctorFullList.isEmpty) {
+                          return data.isDoctorLoading == true
+                              ? GridView.builder(
+                            itemCount: 12,
                             shrinkWrap: true,
-                            physics: ScrollPhysics(),
                             gridDelegate: FlutterzillaFixedGridView(
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 12,
                                 crossAxisSpacing: 16,
-                                height: 165.h),
+                                height: 175.h),
                             itemBuilder: (context, index) {
-                              var docc = widget.mhpdoctorlist![index];
-
-                              return BranceActveocCard(
-                                onTap: () {
-                                  // print(docc.doctorsMasterId.toString());
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              BranceDocDetailsView(doc: docc,DbName: widget.DbName,branch: widget.branch,
-                                                  )));
-
-                                  // context.router
-                                  //     .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
-                                },
-                                docImage:
-                                "${AppUrls.drprofile}${docc.drImages.toString()}",
-                                docName:
-                                "${docc.title == null ? '' : docc.title!.titleName} ${docc.fullName}",
-                                docSpeciality: docc
-                                    .specialist?.specialistsName
-                                    .toString() ??
-                                    "",
-                                docHospital:
-                                "${docc.usualProvider != null ? docc.usualProvider!.usualProviderName.toString() : ""}",
-                                doctortitle: docc.academic,
-                                docId: docc.toString(),
+                              return Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: bannerShimmereffect(
+                                    94.toDouble(), 385.toDouble()),
                               );
+                            },
+                          )
+                              : noDataFounForList(
+                              "Currently you have no records");
+                        } else {
+                          return GridView.builder(
+                            itemCount: data.mydepermentList.length,
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            gridDelegate: FlutterzillaFixedGridView(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 12,
+                                crossAxisSpacing: 16,
+                                height: 50.h),
+                            itemBuilder: (context, index) {
+                              var docc = data.mydepermentList[index];
+
+                              return InkWell(
+                                  onTap: (){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ClinicBranchDoctorView(mhpdoctorlist: docc.mhpDoctorsMaster,DbName: widget.DbName,branch: widget.branch,)));
+                                  },
+                                  child: Card(child: Center(child: Text(docc.departmentsName.toString()))));
                             },
                           );
                         }

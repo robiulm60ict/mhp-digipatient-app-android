@@ -5,7 +5,7 @@ class AppUrls {
       'cf2a1ab2d6d433a3a3e99d076fafd27d42023c32b279fbff9b9b9cd525c96f29';
 
   static const String baseUrlPatientMain =
-      'http://newgreatdoc.macrohealthplus.org'; //App live
+      'https://newgreatdoc.macrohealthplus.org'; //App live
   //
   static const String databasename = 'mhpdemocom'; //AppLive
   // 'mhpdemocom'; //AppLive

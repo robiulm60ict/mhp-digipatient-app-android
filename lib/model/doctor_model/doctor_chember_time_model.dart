@@ -10,6 +10,8 @@ String doctorChamberTimeModelToJson(List<DoctorChamberTimeModel> data) => json.e
 
 class DoctorChamberTimeModel {
   int? id;
+  int? saasBranchId;
+  String? saasBranchName;
   String? doctorId;
   String? chamberId;
   String? year;
@@ -20,12 +22,14 @@ class DoctorChamberTimeModel {
   String? slotTo;
   String? type;
   String? appointmentType;
-  String? deleteStatus;
+  int? deleteStatus;
   DateTime? createdAt;
   DateTime? updatedAt;
 
   DoctorChamberTimeModel({
     this.id,
+    this.saasBranchId,
+    this.saasBranchName,
     this.doctorId,
     this.chamberId,
     this.year,
@@ -43,6 +47,8 @@ class DoctorChamberTimeModel {
 
   factory DoctorChamberTimeModel.fromJson(Map<String, dynamic> json) => DoctorChamberTimeModel(
     id: json["id"],
+    saasBranchId: json["saas_branch_id"],
+    saasBranchName: json["saas_branch_name"],
     doctorId: json["doctor_id"],
     chamberId: json["chamber_id"],
     year: json["year"],
@@ -60,6 +66,8 @@ class DoctorChamberTimeModel {
 
   Map<String, dynamic> toJson() => {
     "id": id,
+    "saas_branch_id": saasBranchId,
+    "saas_branch_name": saasBranchName,
     "doctor_id": doctorId,
     "chamber_id": chamberId,
     "year": year,

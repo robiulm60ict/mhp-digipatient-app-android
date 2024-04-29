@@ -176,7 +176,7 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                     return InkWell(
                       onTap: () {
                         doctorbrance.getmyAllDoctors(context, widget.DbName.toString(), widget.branch!.id.toString());
-                       clinic.homeItemsRouteTo(context, index);
+                       clinic.homeItemsRouteTo(context, index,widget.branch,widget.DbName.toString());
                       },
                       child: Container(
                         decoration: BoxDecoration(

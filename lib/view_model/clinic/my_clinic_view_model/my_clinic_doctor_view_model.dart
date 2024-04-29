@@ -11,10 +11,11 @@ class MyClinicDoctorViewModel with ChangeNotifier {
   bool isDoctorLoading = true;
 
   List<MyDoctorBrance> myDoctorFullList = [];
-  List<Datum> myDoctorList = [];
+  // List<Datum> myDoctorList = [];
+  List<Datum> mydepermentList = [];
 
   getmyAllDoctors(BuildContext context, DatabaseName,brancid) async {
-    myDoctorList.clear();
+    mydepermentList.clear();
     myDoctorFullList.clear();
 
     isDoctorLoading = true;
@@ -22,7 +23,7 @@ print("databasena");
     notifyListeners();
     await docRepo.getmybrnceDoctors(context, DatabaseName,brancid).then((value) {
       myDoctorFullList.add(value);
-      myDoctorList.addAll(value.data!);
+      mydepermentList.addAll(value.data!);
       isDoctorLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {

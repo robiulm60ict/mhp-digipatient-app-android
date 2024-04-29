@@ -86,7 +86,7 @@ class ClinicBranches extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      BranchesDetails(branch: branch,DbName: organizationListModle.organization!.dbName.toString(),)));
+                                      BranchesDetails(branch: branch,DbName: organizationListModle.organization!.dbName.toString())));
                         },
                         child: Container(
                           decoration: BoxDecoration(

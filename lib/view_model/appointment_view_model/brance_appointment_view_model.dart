@@ -1,28 +1,82 @@
-import 'package:digi_patient/model/book_appointment_model/book_appointment_model.dart';
-import 'package:digi_patient/model/doctor_model/doctors_model.dart';
-import 'package:digi_patient/model/invoice_model/invoice_show_model.dart';
-import 'package:digi_patient/repository/book_appointment/book_appointment_repo.dart';
-import 'package:digi_patient/repository/invoice_repo/invoice_repo.dart';
-import 'package:digi_patient/resources/colors.dart';
-import 'package:digi_patient/utils/datetime.dart';
-import 'package:digi_patient/utils/message.dart';
-import 'package:digi_patient/utils/popup_dialogue.dart';
+
+
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../generated/assets.dart';
+import '../../model/book_appointment_model/book_appointment_model.dart';
+import '../../model/clinic/mydoctorlistbrance.dart';
 import '../../model/doctor_model/doctor_chember_time_model.dart';
-import '../../model/myDoctorList/mydoctorList.dart';
+import '../../model/doctor_model/doctors_model.dart';
+import '../../model/invoice_model/invoice_show_model.dart';
 import '../../model/online_model/online_model.dart';
+import '../../model/social/social_model.dart';
+import '../../repository/book_appointment/book_appointment_repo.dart';
 import '../../repository/doctor_repository/doctor_repository.dart';
-import '../../resources/styles.dart';
+import '../../repository/invoice_repo/invoice_repo.dart';
+import '../../repository/my_clinic_repository/clinic_repo_database.dart';
+import '../../resources/colors.dart';
+import '../../utils/datetime.dart';
+import '../../utils/message.dart';
+import '../../utils/popup_dialogue.dart';
 import '../../utils/user.dart';
-import '../../view/payment/ivoice/pdf_invoice_api.dart';
+import '../../view/myClinic/myclinic_our_servic/appoinemtntdoctor/brance_single_invoice_view.dart';
 import '../anatomy/anatomy_view_model.dart';
 import '../push_notification/notification_service.dart';
 
-class AppointmentViewModel with ChangeNotifier {
+class BranceAppointmentViewModel with ChangeNotifier {
+
+
+
+  List<DoctorsModels> allDoctorList = [];
+
+  DoctorRepository docRepo = DoctorRepository();
+  final social = ClinicRepository();
+
+  bool isDoctorLoading = true;
+  bool issocialLoading = true;
+  List<SocialListModel> sociallist = [];
+
+  getSocialMediea(id,dbName,branceid) async {
+    issocialLoading = true;
+    sociallist.clear();
+    social.getsocialmediea(id,dbName,branceid).then((value) {
+      sociallist = value;
+      // registerList.addAll(value.data as Iterable<Datum>);
+
+      //  registerListfull.add(value as PaymentinboxRequestModel);
+
+      issocialLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      issocialLoading = true;
+      notifyListeners();
+    });
+  }
+  var data ;
+  getdoctorcountpatient(id,dbName,branceid) async {
+    //issocialLoading = true;
+    social.getdoctorpacatientcount(id,dbName,branceid).then((value) {
+      data = value['data'];
+
+
+      print("ddddddddddddddd${value['data']}");
+      // print(value['data']);
+
+
+      // issocialLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      issocialLoading = true;
+      notifyListeners();
+    });
+  }
+
+
   DateTime appointmentDate = DateTime.now();
   var date = DateTime.now();
 
@@ -50,33 +104,7 @@ class AppointmentViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  // setAppointmentDatee(BuildContext context, docid) async {
-  //   selectedDate =
-  //       await PickDateTime().pickDate(context, initialDate: appointmentDate);
-  //   notifyListeners();
-  //
-  //   if (selectedDate != null) {
-  //     print("selectedDate$selectedDate");
-  //     appointmentDate = selectedDate!;
-  //     print("selectedDate$appointmentDate");
-  //
-  //     getDocChamberTime(
-  //       context,
-  //       appointmentDate.toString().split(" ").first,
-  //       docId: docid,
-  //     );
-  //
-  //     print(appointmentDate.toString().split(" ").first);
-  //     notifyListeners();
-  //   }
-  // }
 
-  //
-  // appoinmentonline() {
-  //   isChamber = false;
-  //   print(isChamber);
-  //   notifyListeners();
-  // }
   DateTime? selectedDate = DateTime.now();
 
   setAppointmentDate(BuildContext context) async {
@@ -97,12 +125,13 @@ class AppointmentViewModel with ChangeNotifier {
   bool isDocChamberTimeLoading = true;
   List<DateTime> availableDates = [];
 
-  getDocChamberTime(BuildContext context, date, {required docId}) async {
+  getDocChamberTime(BuildContext context, date,databaseName,branceid, {required docId}) async {
     doctorTimeSlotList.clear();
     // availableDates.clear();
+    print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
     notifyListeners();
     print(date);
-    DoctorRepository().getDocChamberTime(docId, date).then((value) {
+    ClinicRepository().getDocChamberTime(docId, date,databaseName,branceid).then((value) {
       doctorTimeSlotList.addAll(value! as Iterable<DoctorChamberTimeModel>);
       // for (var i in value) {
       //   print(i.day);
@@ -125,13 +154,14 @@ class AppointmentViewModel with ChangeNotifier {
     });
   }
 
-  getDocChamberTimeCalender(BuildContext context, date,
+  getDocChamberTimeCalender(BuildContext context, date,databaseName,branceid,
       {required docId}) async {
     // doctorTimeclnder.clear();
+    print("apiccccccccccccccccccccccccccccccccccccccccccccccccccccdatabaseName$databaseName");
     availableDates.clear();
     notifyListeners();
     print(date);
-    DoctorRepository().getDocChamberTime(docId, date).then((value) {
+    ClinicRepository().getDocChamberTime(docId, date,databaseName,branceid).then((value) {
       // doctorTimeclnder.addAll(value! as Iterable<DoctorChamberTimeModel>);
       for (var i in value) {
         print(i.day);
@@ -204,7 +234,7 @@ class AppointmentViewModel with ChangeNotifier {
   //   }
   // }
 
-  Future<void> selectDate(BuildContext context, docId) async {
+  Future<void> selectDate(BuildContext context, docId,databaseName,branceid,) async {
     if (availableDates.isEmpty) {
       Messages.snackBar(context, "Doctor Schedule  not available!");
       // Handle the case when availableDates is empty.
@@ -272,7 +302,7 @@ class AppointmentViewModel with ChangeNotifier {
 
       getDocChamberTime(
         context,
-        selectedDatee.toString().split(" ").first,
+        selectedDatee.toString().split(" ").first,databaseName,branceid,
         docId: docId,
       );
 
@@ -335,82 +365,17 @@ class AppointmentViewModel with ChangeNotifier {
   List<BookAppointmentModel> appointmentList = [];
   bool isBookAppointmentLoading = false;
 
-  BookAppointmentRepo bookAppointmentRepo = BookAppointmentRepo();
+  ClinicRepository bookAppointmentRepo = ClinicRepository();
 
-  bookAppointment(BuildContext context,
-      {required Datum doctor, required Map body}) async {
-    final anatomy = Provider.of<AnatomyModelView>(context, listen: false);
-    print("aaaa");
-    isBookAppointmentLoading = true;
-    appointmentList.clear();
-    notifyListeners();
-    await bookAppointmentRepo.bookAppointment(body: body).then((value) async {
-      // appointmentList.add(value);
-      if (value['transaction_no'].toString() ==
-          "[The transaction no has already been taken.]") {
-        // Messages.snackBar(context, value['transaction_no'].toString(), backgroundColor: Colors.red);
-        Messages.snackBar(context, "The transaction no has already been taken.",
-            backgroundColor: Colors.red);
-      } else {
-        print("ddddd$value");
-        isBookAppointmentLoading = false;
-        notifyListeners();
-
-        invoiceSuccessPopUp(
-          context,
-          appointmentDate: body["date"],
-          amount: body["amount"],
-          doctorId: body["doctor_id"],
-          appointmentType: body["appointment_type"],
-          doctor: doctor,
-          patientId: body["patient_id"],
-          paymentMethod: body["payment_type"],
-          trinscationNo: body["transaction_no"],
-          invoice: value['inovice_number'].toString(),
-          paymentnumber: body["transaction_phone_number"],
-          Shift: body["shift"],
-        );
-        print("${doctor.token!.deviceToke.toString()}");
-        final Map dataa = {
-          'to': "${doctor.token!.deviceToke.toString()}",
-          'notification': {
-            'title': 'Your Appointment Request',
-            'body': "Please Check your Payment Inbox",
-            // "image":
-            //     "${visitorController.piketImagePath.value}",
-            //"image": "https://proshort.ai/static/img/ps_logo.png",
-            'sound': 'default',
-            'badge': '1',
-          },
-          'priority': 'high',
-          // 'data': {
-          //   'type': 'chat',
-          //   'id':
-          //   'Asif Taj ffffffffffffff'
-          // }
-        };
-        print(dataa);
-        notificationService.sendPushNotification(dataa);
-        anatomy.favourite.clear();
-        // anatomy.symptomsList.removeLast();
-        anatomy.getSymptomsList.clear();
-        // anatomy.getSymptomsList.removeLast();
-      }
-    }).onError((error, stackTrace) {
-      print(error);
-      Messages.snackBar(context, error.toString());
-      isBookAppointmentLoading = true;
-      notifyListeners();
-    });
-  }
   bookAppointmentbrance(BuildContext context,
-      {required Datum doctor, required Map body}) async {
+      {required MhpDoctorsMaster doctor, required Map body ,
+      String? DbName}) async {
     final anatomy = Provider.of<AnatomyModelView>(context, listen: false);
-    print("aaaa");
+    print("aaaa$DbName");
     isBookAppointmentLoading = true;
     appointmentList.clear();
     notifyListeners();
-    await bookAppointmentRepo.bookAppointment(body: body).then((value) async {
+    await bookAppointmentRepo.bookAppointment( body: body,DbName!).then((value) async {
       // appointmentList.add(value);
       if (value['transaction_no'].toString() ==
           "[The transaction no has already been taken.]") {
@@ -422,7 +387,7 @@ class AppointmentViewModel with ChangeNotifier {
         isBookAppointmentLoading = false;
         notifyListeners();
 
-        invoiceSuccessPopUp(
+        branceinvoiceSuccessPopUp(
           context,
           appointmentDate: body["date"],
           amount: body["amount"],
@@ -584,4 +549,70 @@ class WeekDayModel {
       this.isSelected = false,
       required this.dateTime,
       required this.day});
+}
+branceinvoiceSuccessPopUp(BuildContext context,
+    {bool barrierDismissible = false,
+      required String appointmentDate,
+      required String doctorId,
+      required String patientId,
+      required String amount,
+      required String paymentMethod,
+      required String paymentnumber,
+      required String appointmentType,
+      required MhpDoctorsMaster doctor,
+      required String trinscationNo,
+      required String Shift,
+      required invoice }) {
+  return showDialog(
+    context: context,
+    barrierDismissible: barrierDismissible,
+    useSafeArea: true,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+        actionsPadding: EdgeInsets.only(bottom: 25.h),
+        title: Lottie.asset(Assets.animationSuccessful, repeat: false),
+        content: Text(
+          'Payment Successful',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primaryColor),
+        ),
+        alignment: Alignment.center,
+        actionsAlignment: MainAxisAlignment.center,
+        actions: <Widget>[
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BranceSingleInvoiceView(
+                        appointmentDate: appointmentDate,
+                        doctorId: doctorId,
+                        patientId: patientId,
+                        amount: amount,
+                        appointmentType: appointmentType,
+                        doctor: doctor,
+                        paymentMethod: paymentMethod,
+                        trinscationNo: trinscationNo,
+                        paymentnumber: paymentnumber,
+                        invoicec: invoice, shift: Shift,
+                      )));
+
+              // context.router.push(SingleInvoiceRoute(appointmentDate: appointmentDate, doctorId: doctorId, patientId: patientId, amount: amount, appointmentType: appointmentType, doctor: doctor, paymentMethod: paymentMethod));
+            },
+            child: Text(
+              'View Invoice',
+              style: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ),
+        ],
+      );
+    },
+  );
 }
