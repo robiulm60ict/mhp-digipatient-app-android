@@ -32,6 +32,7 @@ import '../../widgets/shimmer.dart';
 import '../daily_upcomming_appointment/appoinment_catagory.dart';
 import '../daily_upcomming_appointment/patientqueioo.dart';
 import '../mypayment_view/mypayment_view.dart';
+import '../mypayment_view/payment_catagory.dart';
 import '../privacy_policy/privacypolicy.dart';
 import '../profile/patient_profile.dart';
 import '../support/support_page.dart';
@@ -260,7 +261,7 @@ class _HomeViewState extends State<HomeView> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const MyPatientView()));
+                            builder: (context) => const PaymentCatagoryView()));
                     //  context.router.push(const InvoiceRoute());
                   },
                 ),

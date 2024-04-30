@@ -12,6 +12,7 @@ import '../../model/appointment_model/upcomming_appointments_model.dart';
 import '../../model/clinic/mydoctorlistbrance.dart';
 import '../../model/doctor_model/doctor_chember_time_model.dart';
 import '../../model/myDoctorList/mydoctorList.dart';
+import '../../model/mypayment/mypaument_model.dart';
 import '../../model/social/social_model.dart';
 import '../../utils/user.dart';
 import '/data/network/network_api_service.dart';
@@ -20,8 +21,8 @@ import '/resources/app_url.dart';
 class ClinicRepository {
   BaseApiServiceClinic apiService = NetworkApiServiceClinic();
 
-  Future<MyDoctorBrance> getmybrnceDoctors(
-      contex, DatabaseName, brancid) async {
+  Future<MyDoctorBrance> getmybrnceDoctors(contex, DatabaseName,
+      brancid) async {
     try {
       print(DatabaseName);
       dynamic response = await apiService.getGetApiResponse(
@@ -34,8 +35,8 @@ class ClinicRepository {
     }
   }
 
-  Future<List<DoctorChamberTimeModel>> getDocChamberTime(
-      docId, date, DatabaseName, branceid) async {
+  Future<List<DoctorChamberTimeModel>> getDocChamberTime(docId, date,
+      DatabaseName, branceid) async {
     try {
       print(
           "ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffff$date");
@@ -113,41 +114,68 @@ class ClinicRepository {
     }
   }
 
-
-  Future getAppoinmentsqueue(docid,appoinmentid,DbName,branceid)async{
-
-    try{
-      dynamic response = await apiService.getGetApiResponse("${AppUrls.Appoinmentsqueue}/$docid/$appoinmentid",DbName);
+  Future getAppoinmentsqueue(docid, appoinmentid, DbName, branceid) async {
+    try {
+      dynamic response = await apiService.getGetApiResponse(
+          "${AppUrls.Appoinmentsqueue}/$docid/$appoinmentid", DbName);
       // print(response);
       return response;
-    }catch (e){
-      print(e);
-      rethrow;
-    }
-  }  Future<TodaysAppointmentModel> getTodayAppointment(contex,DbName,branceid)async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    int? id = prefs.getInt(UserP.id);
-    try{
-      dynamic response = await apiService.getGetApiResponsecontext("${AppUrls.todayAppointments}$id/$branceid",contex,DbName);
-      print(response);
-      return TodaysAppointmentModel.fromJson(response);
-    }catch (e){
+    } catch (e) {
       print(e);
       rethrow;
     }
   }
 
-  Future<UpcommingAppointmentsModel> getUpcommingAppointment(context,DbName,branceid)async{
+  Future<TodaysAppointmentModel> getTodayAppointment(contex, DbName,
+      branceid) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     int? id = prefs.getInt(UserP.id);
-    try{
-      dynamic response = await apiService.getGetApiResponsecontext("${AppUrls.upcommingAppointments}$id/$branceid",context,DbName);
+    try {
+      dynamic response = await apiService.getGetApiResponsecontext(
+          "${AppUrls.todayAppointments}$id/$branceid", contex, DbName);
+      print(response);
+      return TodaysAppointmentModel.fromJson(response);
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<UpcommingAppointmentsModel> getUpcommingAppointment(context, DbName,
+      branceid) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    int? id = prefs.getInt(UserP.id);
+    try {
+      dynamic response = await apiService.getGetApiResponsecontext(
+          "${AppUrls.upcommingAppointments}$id/$branceid", context, DbName);
       print("fffffffffffffffffffff${response}");
       return UpcommingAppointmentsModel.fromJson(response);
-    }catch (e){
+    } catch (e) {
       print(e);
+      rethrow;
+    }
+  }
+
+
+  Future<List<MyPaymentModel>>
+  getmypayment(contex, DbName) async {
+    print(DbName);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? id = prefs.getInt(UserP.id);
+    try {
+      dynamic response = await apiService.getGetApiResponsecontext(
+          "${AppUrls.mypayment}$id", contex, DbName
+      );
+
+      print(response);
+      List<MyPaymentModel> alldata = [];
+      for (var i in response) {
+        alldata.add(MyPaymentModel.fromJson(i));
+      }
+      return alldata;
+    } catch (e) {
       rethrow;
     }
   }

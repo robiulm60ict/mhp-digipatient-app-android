@@ -10,6 +10,7 @@ import '../view/daily_upcomming_appointment/myclinic_appoinment_view.dart';
 import '../view/home_item_pages/deperment_view.dart';
 import '../view/home_item_pages/my_record_view.dart';
 import '../view/myClinic/myclinic_view.dart';
+import '../view/mypayment_view/myclinic_payment_view.dart';
 import '../view/mypayment_view/mypayment_view.dart';
 import '../view/qrcode/qrcode_scnner.dart';
 import '../view/resources_view/resources_view.dart';
@@ -46,6 +47,20 @@ class HomeViewModel with ChangeNotifier {
 
     else if (index == 1) {   Navigator.push(
         context, MaterialPageRoute(builder: (context) => MyClinicAppoinmentView()));
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => MyRecordView()));
+
+    }
+  }
+  paymentcatagoryItemsRouteTo(BuildContext context, int index) {
+    if (index == 0) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => MyPatientView()));
+      //  context.router.push(const MyDoctorRoute());
+    }
+
+    else if (index == 1) {   Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MyClinicPaymentView()));
       // Navigator.push(
       //     context, MaterialPageRoute(builder: (context) => MyRecordView()));
 

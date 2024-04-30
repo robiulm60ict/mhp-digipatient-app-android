@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../model/appointment_model/todays_appointment_model.dart';
 import '../../../model/appointment_model/upcomming_appointments_model.dart';
 import '../../../model/clinic/mydoctorlistbrance.dart';
+import '../../../model/mypayment/mypaument_model.dart';
 import '../../../repository/my_clinic_repository/clinic_repo_database.dart';
 import '../../../utils/message.dart';
 
@@ -115,4 +116,36 @@ class MyClinicDoctorViewModel with ChangeNotifier {
       Messages.snackBar(context, error.toString());
     });
   }
+
+  List<MyPaymentModel> mypayment = [];
+
+
+
+  getmypayment(BuildContext context,DBName) async {
+    mypayment.clear();
+
+    isDoctorLoading = true;
+
+    notifyListeners();
+    await docRepo.getmypayment(context,DBName).then((value) {
+      mypayment=value;
+
+      print(value);
+      isDoctorLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      isDoctorLoading = true;
+      debugPrint(error.toString());
+      print(stackTrace);
+
+      Messages.snackBar(
+        context,
+        error.toString(),
+      );
+    });
+
+    notifyListeners();
+  }
+
+
 }
