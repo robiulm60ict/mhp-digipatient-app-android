@@ -20,33 +20,33 @@ import '../../../../view_model/appointment_view_model/brance_appointment_view_mo
 import '../../../../view_model/user_view_model/user_view_model.dart';
 import '../../../../widgets/back_button.dart';
 
-
-
 class BrancePaymentMethodView extends StatefulWidget {
-   BrancePaymentMethodView(
-      {Key? key,
-      required this.appointmentDate,
-      required this.doctorId,
-      required this.patientId,
-      required this.amount,
-      required this.appointmentType,
-      required this.shiftType,
-      required this.doctor,
-      required this.diseaseList,
-      required this.branch,
-      required this.DbName,
-      })
-      : super(key: key);
+  BrancePaymentMethodView({
+    Key? key,
+    required this.appointmentDate,
+    required this.doctorId,
+    required this.patientId,
+    required this.amount,
+    required this. saas_branch_id,
+    required this.appointmentType,
+    required this.shiftType,
+    required this.doctor,
+    required this.diseaseList,
+    required this.branch,
+    required this.DbName,
+  }) : super(key: key);
   final String appointmentDate;
   final String doctorId;
   final String patientId;
   final String amount;
+  final String  saas_branch_id;
   final String appointmentType;
   final String shiftType;
   final MhpDoctorsMaster doctor;
   final List<SymptomsAnatomy> diseaseList;
   Branch? branch;
   String? DbName;
+
   @override
   State<BrancePaymentMethodView> createState() => _PaymentMethodViewState();
 }
@@ -121,7 +121,8 @@ class _PaymentMethodViewState extends State<BrancePaymentMethodView> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserViewModel>(context).user;
 
-    final apVM = Provider.of<BranceAppointmentViewModel>(context, listen: false);
+    final apVM =
+        Provider.of<BranceAppointmentViewModel>(context, listen: false);
     final anatomy = Provider.of<AnatomyModelView>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
@@ -170,7 +171,8 @@ class _PaymentMethodViewState extends State<BrancePaymentMethodView> {
 
                   Text(
                     "Pay the doctor’s consultation fee in bkash. Please remember bkash number and 10-digit transaction ID to confirm doctor’s follow-up appointment ",
-                    style: Style.alltext_default_balck_blod,textAlign: TextAlign.start,
+                    style: Style.alltext_default_balck_blod,
+                    textAlign: TextAlign.start,
                   ),
 
                   // ListTile(
@@ -324,353 +326,368 @@ class _PaymentMethodViewState extends State<BrancePaymentMethodView> {
                   //   height: 10.h,
                   // ),
 
-                  widget.doctor!.drHomePhone==null||
-                  widget.doctor!.drHomePhone.toString()=="null"?SizedBox(child: const Card(child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Center(child: Text("Doctor No Payment Number",style: TextStyle(fontSize: 20),)),
-                  ),)):
-                  Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(2.r),
-                        side: const BorderSide(color: Colors.black)),
-                    child:Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Column(children: [
-
-                        Row(
-
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(),
-
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                  widget.doctor!.drHomePhone == null ||
+                          widget.doctor!.drHomePhone.toString() == "null"
+                      ? SizedBox(
+                          child: const Card(
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Center(
+                                child: Text(
+                              "Doctor No Payment Number",
+                              style: TextStyle(fontSize: 20),
+                            )),
+                          ),
+                        ))
+                      : Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(2.r),
+                              side: const BorderSide(color: Colors.black)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Column(
                               children: [
-                                Text(
-                                  "Digital Payment",
-                                  style: Style.alltext_default_balck_blod,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Digital Payment",
+                                          style:
+                                              Style.alltext_default_balck_blod,
+                                        ),
+                                        SizedBox(
+                                          height: 4.h,
+                                        ),
+                                        Text(
+                                          "Send Money To \n ${widget.doctor!.drHomePhone.toString()}",
+                                          style:
+                                              Style.alltext_default_balck_blod,
+                                        ),
+                                      ],
+                                    ),
+                                    Image.asset(
+                                      Assets.imagesBkash,
+                                      height: 45.h,
+                                      width: 50.w,
+                                      //fit: BoxFit.fill,
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(
-                                  height: 4.h,
+                                Padding(
+                                  padding: EdgeInsets.all(8.0.r),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 70.w,
+                                        child: Text(
+                                          "Payment Number *",
+                                          style: Style.alltext_default_balck,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 5.w,
+                                      ),
+                                      Expanded(
+                                        child: TextField(
+                                          controller: transactionphone,
+                                          keyboardType: TextInputType.number,
+                                          maxLength: 11,
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor: Colors.grey.shade200,
+                                            border: InputBorder.none,
+                                            focusedBorder: InputBorder.none,
+                                            enabledBorder: InputBorder.none,
+                                            hintText: "pay number",
+                                            hintStyle:
+                                                Style.alltext_default_balck,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                Text(
-                                  "Send Money To \n ${widget.doctor!.drHomePhone.toString()}",
-                                  style: Style.alltext_default_balck_blod,
+                                Padding(
+                                  padding: EdgeInsets.all(8.0.r),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 70.w,
+                                        child: Text(
+                                          "Trans ID *",
+                                          style: Style.alltext_default_balck,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 5.w,
+                                      ),
+                                      Expanded(
+                                        child: TextField(
+                                          keyboardType: TextInputType.text,
+                                          controller: transaction,
+                                          maxLength: 10,
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor: Colors.grey.shade200,
+                                            border: InputBorder.none,
+                                            focusedBorder: InputBorder.none,
+                                            enabledBorder: InputBorder.none,
+                                            hintText: "xxxxxxxxxxx",
+                                            hintStyle:
+                                                Style.alltext_default_balck,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(8.0.r),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 70.w,
+                                        child: Text(
+                                          "Reference Name *",
+                                          style: Style.alltext_default_balck,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 5.w,
+                                      ),
+                                      Expanded(
+                                        child: TextField(
+                                          controller: transactionrefer,
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor: Colors.grey.shade200,
+                                            border: InputBorder.none,
+                                            focusedBorder: InputBorder.none,
+                                            enabledBorder: InputBorder.none,
+                                            hintText: "xxxxxxxxxxx",
+                                            hintStyle:
+                                                Style.alltext_default_balck,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
-                            Image.asset(
-                              Assets.imagesBkash,
-                              height: 45.h,
-                              width: 50.w,
-                              //fit: BoxFit.fill,
-                            ),
-                          ],),
-                        Padding(
-                          padding: EdgeInsets.all(8.0.r),
-                          child: Row(
+                          )
 
-                            children: [
-                              SizedBox(
-                                width: 70.w,
-                                child: Text(
-                                  "Payment Number *",
-                                  style: Style.alltext_default_balck,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Expanded(
-                                child: TextField(
-                                  controller: transactionphone,
-                                  keyboardType: TextInputType.number,
-                                  maxLength: 11,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.grey.shade200,
-                                    border: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    hintText: "pay number",
-                                    hintStyle: Style.alltext_default_balck,
-                                  ),
-                                ),
-                              ),
-                            ],
+                          // ExpansionTile(
+                          //     initiallyExpanded: true,
+                          //
+                          //
+                          //
+                          //   // leading: CircleAvatar(
+                          //   //     radius: 10.r,
+                          //   //     // backgroundColor: Colors.white,
+                          //   //     child: Icon(
+                          //   //       Icons.circle,
+                          //   //       size: 15.h,
+                          //   //       color: payment == Payment.digital
+                          //   //           ? AppColors.primaryColor
+                          //   //           : Colors.white,
+                          //   //     )),
+                          //   trailing: Image.asset(
+                          //     Assets.imagesBkash,
+                          //     height: 45.h,
+                          //     width: 50.w,
+                          //     //fit: BoxFit.fill,
+                          //   ),
+                          //
+                          //   // Row(
+                          //   //   mainAxisSize: MainAxisSize.min,
+                          //   //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   //   children: [
+                          //   //     Image.asset(
+                          //   //       Assets.imagesBkash,
+                          //   //       height: 45.h,
+                          //   //       width: 50.w,
+                          //   //       fit: BoxFit.fill,
+                          //   //     ),
+                          //   //     // SizedBox(
+                          //   //     //   width: 5.w,
+                          //   //     // ),
+                          //   //     // Image.asset(
+                          //   //     //   Assets.imagesRocket,
+                          //   //     //   height: 15.h,
+                          //   //     //   width: 30.w,
+                          //   //     //   fit: BoxFit.fill,
+                          //   //     // ),
+                          //   //     // SizedBox(
+                          //   //     //   width: 5.w,
+                          //   //     // ),
+                          //   //     // Image.asset(
+                          //   //     //   Assets.imagesNagad,
+                          //   //     //   height: 15.h,
+                          //   //     //   width: 30.w,
+                          //   //     //   fit: BoxFit.fill,
+                          //   //     // ),
+                          //   //   ],
+                          //   // ),
+                          //   // onExpansionChanged: (value) {
+                          //   //   setState(() {
+                          //   //     payment = Payment.digital;
+                          //   //   });
+                          //   // },
+                          //   title: Column(
+                          //     crossAxisAlignment: CrossAxisAlignment.center,
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       Text(
+                          //         "Digital Payment",
+                          //         style: Style.alltext_default_balck_blod,
+                          //       ),
+                          //       SizedBox(
+                          //         height: 4.h,
+                          //       ),
+                          //       Text(
+                          //         "Send Money To \n ${widget.doctor.doctors!.drHomePhone.toString()}",
+                          //         style: Style.alltext_default_balck_blod,
+                          //       ),
+                          //     ],
+                          //   ),
+                          //   children: [
+                          //     // Row(
+                          //     //   children: digitalPayValue.map((value) {
+                          //     //     return Expanded(
+                          //     //       child: RadioListTile(
+                          //     //         title: Image.asset(
+                          //     //           value,
+                          //     //           height: 15.h,
+                          //     //           width: 30.w,
+                          //     //           fit: BoxFit.fill,
+                          //     //         ),
+                          //     //         value: digitalPayValue.indexOf(value) + 1,
+                          //     //         groupValue: _selectedDigitalValue,
+                          //     //         onChanged: (newValue) {
+                          //     //           setState(() {
+                          //     //             _selectedDigitalValue = newValue!;
+                          //     //           });
+                          //     //         },
+                          //     //       ),
+                          //     //     );
+                          //     //   }).toList(),
+                          //     // ),
+                          //     // Center(
+                          //     //   child: Text(
+                          //     //     "Send Money To ${widget.doctor.doctors!.drHomePhone.toString()}",
+                          //     //     style: Style.alltext_default_balck_blod,
+                          //     //   ),
+                          //     // ),
+                          //     Padding(
+                          //       padding: EdgeInsets.all(8.0.r),
+                          //       child: Row(
+                          //
+                          //         children: [
+                          //           SizedBox(
+                          //             width: 70.w,
+                          //             child: Text(
+                          //               "Payment Number *",
+                          //               style: Style.alltext_default_balck,
+                          //             ),
+                          //           ),
+                          //           SizedBox(
+                          //             width: 5.w,
+                          //           ),
+                          //           Expanded(
+                          //             child: TextField(
+                          //               controller: transactionphone,
+                          //               keyboardType: TextInputType.number,
+                          //               maxLength: 11,
+                          //               decoration: InputDecoration(
+                          //                 filled: true,
+                          //                 fillColor: Colors.grey.shade200,
+                          //                 border: InputBorder.none,
+                          //                 focusedBorder: InputBorder.none,
+                          //                 enabledBorder: InputBorder.none,
+                          //                 hintText: "pay number",
+                          //                 hintStyle: Style.alltext_default_balck,
+                          //               ),
+                          //             ),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //     Padding(
+                          //       padding: EdgeInsets.all(8.0.r),
+                          //       child: Row(
+                          //         children: [
+                          //           SizedBox(
+                          //             width: 70.w,
+                          //             child: Text(
+                          //               "Trans ID *",
+                          //               style: Style.alltext_default_balck,
+                          //             ),
+                          //           ),
+                          //           SizedBox(
+                          //             width: 5.w,
+                          //           ),
+                          //           Expanded(
+                          //             child: TextField(
+                          //               keyboardType: TextInputType.text,
+                          //               controller: transaction,
+                          //               maxLength: 10,
+                          //               decoration: InputDecoration(
+                          //                 filled: true,
+                          //                 fillColor: Colors.grey.shade200,
+                          //                 border: InputBorder.none,
+                          //                 focusedBorder: InputBorder.none,
+                          //                 enabledBorder: InputBorder.none,
+                          //                 hintText: "xxxxxxxxxxx",
+                          //                 hintStyle: Style.alltext_default_balck,
+                          //               ),
+                          //             ),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //     Padding(
+                          //       padding: EdgeInsets.all(8.0.r),
+                          //       child: Row(
+                          //         children: [
+                          //           SizedBox(
+                          //             width: 70.w,
+                          //             child: Text(
+                          //               "Reference Name *",
+                          //               style: Style.alltext_default_balck,
+                          //             ),
+                          //           ),
+                          //           SizedBox(
+                          //             width: 5.w,
+                          //           ),
+                          //           Expanded(
+                          //             child: TextField(
+                          //               controller: transactionrefer,
+                          //               decoration: InputDecoration(
+                          //                 filled: true,
+                          //                 fillColor: Colors.grey.shade200,
+                          //                 border: InputBorder.none,
+                          //                 focusedBorder: InputBorder.none,
+                          //                 enabledBorder: InputBorder.none,
+                          //                 hintText: "xxxxxxxxxxx",
+                          //                 hintStyle: Style.alltext_default_balck,
+                          //               ),
+                          //             ),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8.0.r),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 70.w,
-                                child: Text(
-                                  "Trans ID *",
-                                  style: Style.alltext_default_balck,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Expanded(
-                                child: TextField(
-                                  keyboardType: TextInputType.text,
-                                  controller: transaction,
-                                  maxLength: 10,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.grey.shade200,
-                                    border: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    hintText: "xxxxxxxxxxx",
-                                    hintStyle: Style.alltext_default_balck,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8.0.r),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 70.w,
-                                child: Text(
-                                  "Reference Name *",
-                                  style: Style.alltext_default_balck,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Expanded(
-                                child: TextField(
-                                  controller: transactionrefer,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.grey.shade200,
-                                    border: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    hintText: "xxxxxxxxxxx",
-                                    hintStyle: Style.alltext_default_balck,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],),
-                    )
-
-                    // ExpansionTile(
-                    //     initiallyExpanded: true,
-                    //
-                    //
-                    //
-                    //   // leading: CircleAvatar(
-                    //   //     radius: 10.r,
-                    //   //     // backgroundColor: Colors.white,
-                    //   //     child: Icon(
-                    //   //       Icons.circle,
-                    //   //       size: 15.h,
-                    //   //       color: payment == Payment.digital
-                    //   //           ? AppColors.primaryColor
-                    //   //           : Colors.white,
-                    //   //     )),
-                    //   trailing: Image.asset(
-                    //     Assets.imagesBkash,
-                    //     height: 45.h,
-                    //     width: 50.w,
-                    //     //fit: BoxFit.fill,
-                    //   ),
-                    //
-                    //   // Row(
-                    //   //   mainAxisSize: MainAxisSize.min,
-                    //   //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   //   children: [
-                    //   //     Image.asset(
-                    //   //       Assets.imagesBkash,
-                    //   //       height: 45.h,
-                    //   //       width: 50.w,
-                    //   //       fit: BoxFit.fill,
-                    //   //     ),
-                    //   //     // SizedBox(
-                    //   //     //   width: 5.w,
-                    //   //     // ),
-                    //   //     // Image.asset(
-                    //   //     //   Assets.imagesRocket,
-                    //   //     //   height: 15.h,
-                    //   //     //   width: 30.w,
-                    //   //     //   fit: BoxFit.fill,
-                    //   //     // ),
-                    //   //     // SizedBox(
-                    //   //     //   width: 5.w,
-                    //   //     // ),
-                    //   //     // Image.asset(
-                    //   //     //   Assets.imagesNagad,
-                    //   //     //   height: 15.h,
-                    //   //     //   width: 30.w,
-                    //   //     //   fit: BoxFit.fill,
-                    //   //     // ),
-                    //   //   ],
-                    //   // ),
-                    //   // onExpansionChanged: (value) {
-                    //   //   setState(() {
-                    //   //     payment = Payment.digital;
-                    //   //   });
-                    //   // },
-                    //   title: Column(
-                    //     crossAxisAlignment: CrossAxisAlignment.center,
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //       Text(
-                    //         "Digital Payment",
-                    //         style: Style.alltext_default_balck_blod,
-                    //       ),
-                    //       SizedBox(
-                    //         height: 4.h,
-                    //       ),
-                    //       Text(
-                    //         "Send Money To \n ${widget.doctor.doctors!.drHomePhone.toString()}",
-                    //         style: Style.alltext_default_balck_blod,
-                    //       ),
-                    //     ],
-                    //   ),
-                    //   children: [
-                    //     // Row(
-                    //     //   children: digitalPayValue.map((value) {
-                    //     //     return Expanded(
-                    //     //       child: RadioListTile(
-                    //     //         title: Image.asset(
-                    //     //           value,
-                    //     //           height: 15.h,
-                    //     //           width: 30.w,
-                    //     //           fit: BoxFit.fill,
-                    //     //         ),
-                    //     //         value: digitalPayValue.indexOf(value) + 1,
-                    //     //         groupValue: _selectedDigitalValue,
-                    //     //         onChanged: (newValue) {
-                    //     //           setState(() {
-                    //     //             _selectedDigitalValue = newValue!;
-                    //     //           });
-                    //     //         },
-                    //     //       ),
-                    //     //     );
-                    //     //   }).toList(),
-                    //     // ),
-                    //     // Center(
-                    //     //   child: Text(
-                    //     //     "Send Money To ${widget.doctor.doctors!.drHomePhone.toString()}",
-                    //     //     style: Style.alltext_default_balck_blod,
-                    //     //   ),
-                    //     // ),
-                    //     Padding(
-                    //       padding: EdgeInsets.all(8.0.r),
-                    //       child: Row(
-                    //
-                    //         children: [
-                    //           SizedBox(
-                    //             width: 70.w,
-                    //             child: Text(
-                    //               "Payment Number *",
-                    //               style: Style.alltext_default_balck,
-                    //             ),
-                    //           ),
-                    //           SizedBox(
-                    //             width: 5.w,
-                    //           ),
-                    //           Expanded(
-                    //             child: TextField(
-                    //               controller: transactionphone,
-                    //               keyboardType: TextInputType.number,
-                    //               maxLength: 11,
-                    //               decoration: InputDecoration(
-                    //                 filled: true,
-                    //                 fillColor: Colors.grey.shade200,
-                    //                 border: InputBorder.none,
-                    //                 focusedBorder: InputBorder.none,
-                    //                 enabledBorder: InputBorder.none,
-                    //                 hintText: "pay number",
-                    //                 hintStyle: Style.alltext_default_balck,
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //     Padding(
-                    //       padding: EdgeInsets.all(8.0.r),
-                    //       child: Row(
-                    //         children: [
-                    //           SizedBox(
-                    //             width: 70.w,
-                    //             child: Text(
-                    //               "Trans ID *",
-                    //               style: Style.alltext_default_balck,
-                    //             ),
-                    //           ),
-                    //           SizedBox(
-                    //             width: 5.w,
-                    //           ),
-                    //           Expanded(
-                    //             child: TextField(
-                    //               keyboardType: TextInputType.text,
-                    //               controller: transaction,
-                    //               maxLength: 10,
-                    //               decoration: InputDecoration(
-                    //                 filled: true,
-                    //                 fillColor: Colors.grey.shade200,
-                    //                 border: InputBorder.none,
-                    //                 focusedBorder: InputBorder.none,
-                    //                 enabledBorder: InputBorder.none,
-                    //                 hintText: "xxxxxxxxxxx",
-                    //                 hintStyle: Style.alltext_default_balck,
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //     Padding(
-                    //       padding: EdgeInsets.all(8.0.r),
-                    //       child: Row(
-                    //         children: [
-                    //           SizedBox(
-                    //             width: 70.w,
-                    //             child: Text(
-                    //               "Reference Name *",
-                    //               style: Style.alltext_default_balck,
-                    //             ),
-                    //           ),
-                    //           SizedBox(
-                    //             width: 5.w,
-                    //           ),
-                    //           Expanded(
-                    //             child: TextField(
-                    //               controller: transactionrefer,
-                    //               decoration: InputDecoration(
-                    //                 filled: true,
-                    //                 fillColor: Colors.grey.shade200,
-                    //                 border: InputBorder.none,
-                    //                 focusedBorder: InputBorder.none,
-                    //                 enabledBorder: InputBorder.none,
-                    //                 hintText: "xxxxxxxxxxx",
-                    //                 hintStyle: Style.alltext_default_balck,
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                  ),
                   SizedBox(
                     height: 8.h,
                   ),
@@ -789,7 +806,7 @@ class _PaymentMethodViewState extends State<BrancePaymentMethodView> {
                         // } else
                         //
 
-                          if (transactionphone.text.isEmpty) {
+                        if (transactionphone.text.isEmpty) {
                           Messages.snackBar(context, "Enter Payment Number");
                         } else if (transactionphone.text.length != 11) {
                           Messages.snackBar(
@@ -797,8 +814,8 @@ class _PaymentMethodViewState extends State<BrancePaymentMethodView> {
                         } else if (transaction.text.isEmpty) {
                           Messages.snackBar(context, "Enter Transaction Id");
                         } else if (transaction.text.length != 10) {
-                          Messages.snackBar(context,
-                              "Enter Trans ID must be 10 digit");
+                          Messages.snackBar(
+                              context, "Enter Trans ID must be 10 digit");
                         } else if (transactionrefer.text.isEmpty) {
                           Messages.snackBar(context, "Enter reference name");
                         } else {
@@ -813,6 +830,7 @@ class _PaymentMethodViewState extends State<BrancePaymentMethodView> {
                             "payment_type": "bKash",
                             // getPaymentMethod(),
                             "amount": widget.amount,
+                            "saas_branch_id": widget.saas_branch_id,
                             "transaction_no": transaction.text,
                             "referred_name": transactionrefer.text,
                             "transaction_phone_number": transactionphone.text,
@@ -823,7 +841,9 @@ class _PaymentMethodViewState extends State<BrancePaymentMethodView> {
                           print(body);
 
                           await apVM.bookAppointmentbrance(context,
-                              body: body, doctor: widget.doctor,DbName: widget.DbName);
+                              body: body,
+                              doctor: widget.doctor,
+                              DbName: widget.DbName);
                         }
                       },
                       child: Text(
