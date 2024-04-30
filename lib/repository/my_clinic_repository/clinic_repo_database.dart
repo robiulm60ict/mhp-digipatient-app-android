@@ -7,6 +7,8 @@ import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/network/base_api_service.dart';
+import '../../model/appointment_model/todays_appointment_model.dart';
+import '../../model/appointment_model/upcomming_appointments_model.dart';
 import '../../model/clinic/mydoctorlistbrance.dart';
 import '../../model/doctor_model/doctor_chember_time_model.dart';
 import '../../model/myDoctorList/mydoctorList.dart';
@@ -18,13 +20,12 @@ import '/resources/app_url.dart';
 class ClinicRepository {
   BaseApiServiceClinic apiService = NetworkApiServiceClinic();
 
-
-
-  Future<MyDoctorBrance> getmybrnceDoctors(contex,DatabaseName,brancid) async {
+  Future<MyDoctorBrance> getmybrnceDoctors(
+      contex, DatabaseName, brancid) async {
     try {
       print(DatabaseName);
-      dynamic response =
-      await apiService.getGetApiResponse("${AppUrls.myDoctorslistclinic}$brancid",DatabaseName);
+      dynamic response = await apiService.getGetApiResponse(
+          "${AppUrls.myDoctorslistclinic}$brancid", DatabaseName);
       print(response);
       return MyDoctorBrance.fromJson(response);
     } catch (e) {
@@ -33,14 +34,19 @@ class ClinicRepository {
     }
   }
 
-  Future<List<DoctorChamberTimeModel>> getDocChamberTime(docId, date,DatabaseName,branceid) async {
+  Future<List<DoctorChamberTimeModel>> getDocChamberTime(
+      docId, date, DatabaseName, branceid) async {
     try {
-      print("ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffff$date");
-      print("ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffff$branceid");
-      print("ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffff$DatabaseName");
-      print("ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffff$docId");
-      dynamic response = await apiService
-          .getGetApiResponse("${AppUrls.docChamberTime}$docId/$branceid/$date",DatabaseName);
+      print(
+          "ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffff$date");
+      print(
+          "ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffff$branceid");
+      print(
+          "ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffff$DatabaseName");
+      print(
+          "ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffff$docId");
+      dynamic response = await apiService.getGetApiResponse(
+          "${AppUrls.docChamberTime}$docId/$branceid/$date", DatabaseName);
       print("response${response}");
       print("docId${docId}");
       print("docId$DatabaseName");
@@ -56,24 +62,24 @@ class ClinicRepository {
       rethrow;
     }
   }
-  bookAppointment(String DbName,{required  body}) async{
-print(DbName);
-    try{
-      dynamic response = await apiService.getPostApiResponsehader(AppUrls.bookAppointment, body,DbName.toString());
+
+  bookAppointment(String DbName, {required body}) async {
+    print(DbName);
+    try {
+      dynamic response = await apiService.getPostApiResponsehader(
+          AppUrls.bookAppointment, body, DbName.toString());
       print("response$response");
 
       return response;
-
-    }catch (e){
+    } catch (e) {
       rethrow;
     }
   }
-  Future getdoctorpacatientcount(doctorid,dbName,branceid) async {
 
+  Future getdoctorpacatientcount(doctorid, dbName, branceid) async {
     try {
-      dynamic response =
-      await apiService.getGetApiResponse("${AppUrls.doctorcountpatient}$doctorid/$branceid",dbName);
-
+      dynamic response = await apiService.getGetApiResponse(
+          "${AppUrls.doctorcountpatient}$doctorid/$branceid", dbName);
 
       print("eeeeeeeeeee$response");
       return response;
@@ -83,12 +89,15 @@ print(DbName);
       rethrow;
     }
   }
-  Future<List<SocialListModel>> getsocialmediea(id,dbName,branceid) async {
+
+  Future<List<SocialListModel>> getsocialmediea(id, dbName, branceid) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     try {
-      dynamic response =
-      await apiService.getGetApiResponse("${AppUrls.socialacount}$id/$branceid",dbName,);
+      dynamic response = await apiService.getGetApiResponse(
+        "${AppUrls.socialacount}$id/$branceid",
+        dbName,
+      );
 
       //
       List<SocialListModel> datalist = [];
@@ -100,6 +109,45 @@ print(DbName);
       print("fffffffffffffffff$e");
 
       print(e.toString());
+      rethrow;
+    }
+  }
+
+
+  Future getAppoinmentsqueue(docid,appoinmentid,DbName,branceid)async{
+
+    try{
+      dynamic response = await apiService.getGetApiResponse("${AppUrls.Appoinmentsqueue}/$docid/$appoinmentid",DbName);
+      // print(response);
+      return response;
+    }catch (e){
+      print(e);
+      rethrow;
+    }
+  }  Future<TodaysAppointmentModel> getTodayAppointment(contex,DbName,branceid)async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    int? id = prefs.getInt(UserP.id);
+    try{
+      dynamic response = await apiService.getGetApiResponsecontext("${AppUrls.todayAppointments}$id/$branceid",contex,DbName);
+      print(response);
+      return TodaysAppointmentModel.fromJson(response);
+    }catch (e){
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<UpcommingAppointmentsModel> getUpcommingAppointment(context,DbName,branceid)async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    int? id = prefs.getInt(UserP.id);
+    try{
+      dynamic response = await apiService.getGetApiResponsecontext("${AppUrls.upcommingAppointments}$id/$branceid",context,DbName);
+      print("fffffffffffffffffffff${response}");
+      return UpcommingAppointmentsModel.fromJson(response);
+    }catch (e){
+      print(e);
       rethrow;
     }
   }

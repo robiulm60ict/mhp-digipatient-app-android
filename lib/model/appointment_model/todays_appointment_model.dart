@@ -34,6 +34,8 @@ class TodaysAppointmentModel {
 
 class TodaysPatientAppointment {
   int? id;
+  int? saasBranchId;
+  String? saasBranchName;
   String? doctorsId;
   String? patientId;
   String? patientName;
@@ -47,19 +49,20 @@ class TodaysPatientAppointment {
   String? appType;
   dynamic mediaTypeOnline;
   dynamic media;
-  String? appointmentCompleted;
-  String? deleteStatus;
+  int? appointmentCompleted;
+  int? deleteStatus;
   dynamic createdBy;
   dynamic updatedBy;
   DateTime? createdAt;
   DateTime? updatedAt;
   Patient? patientAppionment;
   Patient? patients;
-  OnlineApp? onlineApp;
   Doctors? doctors;
 
   TodaysPatientAppointment({
     this.id,
+    this.saasBranchId,
+    this.saasBranchName,
     this.doctorsId,
     this.patientId,
     this.patientName,
@@ -81,12 +84,13 @@ class TodaysPatientAppointment {
     this.updatedAt,
     this.patientAppionment,
     this.patients,
-    this.onlineApp,
     this.doctors,
   });
 
   factory TodaysPatientAppointment.fromJson(Map<String, dynamic> json) => TodaysPatientAppointment(
     id: json["id"],
+    saasBranchId: json["saas_branch_id"],
+    saasBranchName: json["saas_branch_name"],
     doctorsId: json["doctors_id"],
     patientId: json["patient_id"],
     patientName: json["patient_name"],
@@ -108,12 +112,13 @@ class TodaysPatientAppointment {
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     patientAppionment: json["patient_appionment"] == null ? null : Patient.fromJson(json["patient_appionment"]),
     patients: json["patients"] == null ? null : Patient.fromJson(json["patients"]),
-    onlineApp: json["online_app"] == null ? null : OnlineApp.fromJson(json["online_app"]),
     doctors: json["doctors"] == null ? null : Doctors.fromJson(json["doctors"]),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
+    "saas_branch_id": saasBranchId,
+    "saas_branch_name": saasBranchName,
     "doctors_id": doctorsId,
     "patient_id": patientId,
     "patient_name": patientName,
@@ -135,7 +140,6 @@ class TodaysPatientAppointment {
     "updated_at": updatedAt?.toIso8601String(),
     "patient_appionment": patientAppionment?.toJson(),
     "patients": patients?.toJson(),
-    "online_app": onlineApp?.toJson(),
     "doctors": doctors?.toJson(),
   };
 }
@@ -208,10 +212,140 @@ class Title {
   };
 }
 
-class OnlineApp {
+class Patient {
   int? id;
-  String? patientId;
-  String? doctorId;
+  String? patientFirstName;
+  dynamic patientMiddleName;
+  String? patientLastName;
+  String? patientPreferredName;
+  String? patientImages;
+  dynamic patientCityId;
+  dynamic patientAddress2;
+  String? patientAddress1;
+  dynamic patientBcid;
+  String? ptnBloodGroupId;
+  dynamic patientContactVia;
+  String? patientHnNumber;
+  DateTime? patientDob;
+  String? patientBirthSexId;
+  String? patientEmail;
+  String? patientMobilePhone;
+  String? fullName;
+  PatientBirthSex? patientBirthSex;
+  dynamic contactVia;
+  dynamic city;
+  BloodGroup? bloodGroup;
+  List<MhpPatientAppointment>? mhpPatientAppointment;
+  Token? token;
+
+  Patient({
+    this.id,
+    this.patientFirstName,
+    this.patientMiddleName,
+    this.patientLastName,
+    this.patientPreferredName,
+    this.patientImages,
+    this.patientCityId,
+    this.patientAddress2,
+    this.patientAddress1,
+    this.patientBcid,
+    this.ptnBloodGroupId,
+    this.patientContactVia,
+    this.patientHnNumber,
+    this.patientDob,
+    this.patientBirthSexId,
+    this.patientEmail,
+    this.patientMobilePhone,
+    this.fullName,
+    this.patientBirthSex,
+    this.contactVia,
+    this.city,
+    this.bloodGroup,
+    this.mhpPatientAppointment,
+    this.token,
+  });
+
+  factory Patient.fromJson(Map<String, dynamic> json) => Patient(
+    id: json["id"],
+    patientFirstName: json["patient_first_name"],
+    patientMiddleName: json["patient_middle_name"],
+    patientLastName: json["patient_last_name"],
+    patientPreferredName: json["patient_preferred_name"],
+    patientImages: json["patient_images"],
+    patientCityId: json["patient_city_id"],
+    patientAddress2: json["patient_address2"],
+    patientAddress1: json["patient_address1"],
+    patientBcid: json["patient_bcid"],
+    ptnBloodGroupId: json["ptn_blood_group_id"],
+    patientContactVia: json["patient_contact_via"],
+    patientHnNumber: json["patient_hn_number"],
+    patientDob: json["patient_dob"] == null ? null : DateTime.parse(json["patient_dob"]),
+    patientBirthSexId: json["patient_birth_sex_id"],
+    patientEmail: json["patient_email"],
+    patientMobilePhone: json["patient_mobile_phone"],
+    fullName: json["fullName"],
+    patientBirthSex: json["patient_birth_sex"] == null ? null : PatientBirthSex.fromJson(json["patient_birth_sex"]),
+    contactVia: json["contact_via"],
+    city: json["city"],
+    bloodGroup: json["blood_group"] == null ? null : BloodGroup.fromJson(json["blood_group"]),
+    mhpPatientAppointment: json["mhp_patient_appointment"] == null ? [] : List<MhpPatientAppointment>.from(json["mhp_patient_appointment"]!.map((x) => MhpPatientAppointment.fromJson(x))),
+    token: json["token"] == null ? null : Token.fromJson(json["token"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "patient_first_name": patientFirstName,
+    "patient_middle_name": patientMiddleName,
+    "patient_last_name": patientLastName,
+    "patient_preferred_name": patientPreferredName,
+    "patient_images": patientImages,
+    "patient_city_id": patientCityId,
+    "patient_address2": patientAddress2,
+    "patient_address1": patientAddress1,
+    "patient_bcid": patientBcid,
+    "ptn_blood_group_id": ptnBloodGroupId,
+    "patient_contact_via": patientContactVia,
+    "patient_hn_number": patientHnNumber,
+    "patient_dob": "${patientDob!.year.toString().padLeft(4, '0')}-${patientDob!.month.toString().padLeft(2, '0')}-${patientDob!.day.toString().padLeft(2, '0')}",
+    "patient_birth_sex_id": patientBirthSexId,
+    "patient_email": patientEmail,
+    "patient_mobile_phone": patientMobilePhone,
+    "fullName": fullName,
+    "patient_birth_sex": patientBirthSex?.toJson(),
+    "contact_via": contactVia,
+    "city": city,
+    "blood_group": bloodGroup?.toJson(),
+    "mhp_patient_appointment": mhpPatientAppointment == null ? [] : List<dynamic>.from(mhpPatientAppointment!.map((x) => x.toJson())),
+    "token": token?.toJson(),
+  };
+}
+
+class BloodGroup {
+  int? id;
+  String? bloodGroupName;
+
+  BloodGroup({
+    this.id,
+    this.bloodGroupName,
+  });
+
+  factory BloodGroup.fromJson(Map<String, dynamic> json) => BloodGroup(
+    id: json["id"],
+    bloodGroupName: json["blood_group_name"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "blood_group_name": bloodGroupName,
+  };
+}
+
+class MhpPatientAppointment {
+  int? id;
+  int? saasBranchId;
+  String? saasBranchName;
+  int? patientId;
+  int? doctorId;
   String? inoviceNumber;
   DateTime? date;
   dynamic time;
@@ -225,14 +359,16 @@ class OnlineApp {
   String? transactionPhoneNumber;
   String? shift;
   String? referredName;
-  String? paymentConfirmation;
-  String? isConfirmed;
-  String? rescheduleId;
+  int? paymentConfirmation;
+  int? isConfirmed;
+  int? rescheduleId;
   DateTime? createdAt;
   DateTime? updatedAt;
 
-  OnlineApp({
+  MhpPatientAppointment({
     this.id,
+    this.saasBranchId,
+    this.saasBranchName,
     this.patientId,
     this.doctorId,
     this.inoviceNumber,
@@ -255,8 +391,10 @@ class OnlineApp {
     this.updatedAt,
   });
 
-  factory OnlineApp.fromJson(Map<String, dynamic> json) => OnlineApp(
+  factory MhpPatientAppointment.fromJson(Map<String, dynamic> json) => MhpPatientAppointment(
     id: json["id"],
+    saasBranchId: json["saas_branch_id"],
+    saasBranchName: json["saas_branch_name"],
     patientId: json["patient_id"],
     doctorId: json["doctor_id"],
     inoviceNumber: json["inovice_number"],
@@ -281,6 +419,8 @@ class OnlineApp {
 
   Map<String, dynamic> toJson() => {
     "id": id,
+    "saas_branch_id": saasBranchId,
+    "saas_branch_name": saasBranchName,
     "patient_id": patientId,
     "doctor_id": doctorId,
     "inovice_number": inoviceNumber,
@@ -301,126 +441,6 @@ class OnlineApp {
     "reschedule_id": rescheduleId,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
-  };
-}
-
-class Patient {
-  int? id;
-  String? patientFirstName;
-  String? patientMiddleName;
-  String? patientLastName;
-  dynamic patientPreferredName;
-  String? patientImages;
-  dynamic patientCityId;
-  dynamic patientAddress2;
-  String? patientAddress1;
-  dynamic patientBcid;
-  String? ptnBloodGroupId;
-  dynamic patientContactVia;
-  DateTime? patientDob;
-  String? patientBirthSexId;
-  String? fullName;
-  PatientBirthSex? patientBirthSex;
-  dynamic contactVia;
-  dynamic city;
-  BloodGroup? bloodGroup;
-  String? patientHnNumber;
-  List<OnlineApp>? mhpPatientAppointment;
-  Token? token;
-
-  Patient({
-    this.id,
-    this.patientFirstName,
-    this.patientMiddleName,
-    this.patientLastName,
-    this.patientPreferredName,
-    this.patientImages,
-    this.patientCityId,
-    this.patientAddress2,
-    this.patientAddress1,
-    this.patientBcid,
-    this.ptnBloodGroupId,
-    this.patientContactVia,
-    this.patientDob,
-    this.patientBirthSexId,
-    this.fullName,
-    this.patientBirthSex,
-    this.contactVia,
-    this.city,
-    this.bloodGroup,
-    this.patientHnNumber,
-    this.mhpPatientAppointment,
-    this.token,
-  });
-
-  factory Patient.fromJson(Map<String, dynamic> json) => Patient(
-    id: json["id"],
-    patientFirstName: json["patient_first_name"],
-    patientMiddleName: json["patient_middle_name"],
-    patientLastName: json["patient_last_name"],
-    patientPreferredName: json["patient_preferred_name"],
-    patientImages: json["patient_images"],
-    patientCityId: json["patient_city_id"],
-    patientAddress2: json["patient_address2"],
-    patientAddress1: json["patient_address1"],
-    patientBcid: json["patient_bcid"],
-    ptnBloodGroupId: json["ptn_blood_group_id"],
-    patientContactVia: json["patient_contact_via"],
-    patientDob: json["patient_dob"] == null ? null : DateTime.parse(json["patient_dob"]),
-    patientBirthSexId: json["patient_birth_sex_id"],
-    fullName: json["fullName"],
-    patientBirthSex: json["patient_birth_sex"] == null ? null : PatientBirthSex.fromJson(json["patient_birth_sex"]),
-    contactVia: json["contact_via"],
-    city: json["city"],
-    bloodGroup: json["blood_group"] == null ? null : BloodGroup.fromJson(json["blood_group"]),
-    patientHnNumber: json["patient_hn_number"],
-    mhpPatientAppointment: json["mhp_patient_appointment"] == null ? [] : List<OnlineApp>.from(json["mhp_patient_appointment"]!.map((x) => OnlineApp.fromJson(x))),
-    token: json["token"] == null ? null : Token.fromJson(json["token"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "patient_first_name": patientFirstName,
-    "patient_middle_name": patientMiddleName,
-    "patient_last_name": patientLastName,
-    "patient_preferred_name": patientPreferredName,
-    "patient_images": patientImages,
-    "patient_city_id": patientCityId,
-    "patient_address2": patientAddress2,
-    "patient_address1": patientAddress1,
-    "patient_bcid": patientBcid,
-    "ptn_blood_group_id": ptnBloodGroupId,
-    "patient_contact_via": patientContactVia,
-    "patient_dob": "${patientDob!.year.toString().padLeft(4, '0')}-${patientDob!.month.toString().padLeft(2, '0')}-${patientDob!.day.toString().padLeft(2, '0')}",
-    "patient_birth_sex_id": patientBirthSexId,
-    "fullName": fullName,
-    "patient_birth_sex": patientBirthSex?.toJson(),
-    "contact_via": contactVia,
-    "city": city,
-    "blood_group": bloodGroup?.toJson(),
-    "patient_hn_number": patientHnNumber,
-    "mhp_patient_appointment": mhpPatientAppointment == null ? [] : List<dynamic>.from(mhpPatientAppointment!.map((x) => x.toJson())),
-    "token": token?.toJson(),
-  };
-}
-
-class BloodGroup {
-  int? id;
-  String? bloodGroupName;
-
-  BloodGroup({
-    this.id,
-    this.bloodGroupName,
-  });
-
-  factory BloodGroup.fromJson(Map<String, dynamic> json) => BloodGroup(
-    id: json["id"],
-    bloodGroupName: json["blood_group_name"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "blood_group_name": bloodGroupName,
   };
 }
 
@@ -447,17 +467,13 @@ class PatientBirthSex {
 class Token {
   String? userType;
   String? userId;
-  dynamic deviceToke;
-  String? loginStatus;
-  DateTime? lastLoginLogoutTime;
+  String? deviceToke;
   String? profilePhotoUrl;
 
   Token({
     this.userType,
     this.userId,
     this.deviceToke,
-    this.loginStatus,
-    this.lastLoginLogoutTime,
     this.profilePhotoUrl,
   });
 
@@ -465,8 +481,6 @@ class Token {
     userType: json["user_type"],
     userId: json["user_id"],
     deviceToke: json["deviceToke"],
-    loginStatus: json["login_status"],
-    lastLoginLogoutTime: json["last_login_logout_time"] == null ? null : DateTime.parse(json["last_login_logout_time"]),
     profilePhotoUrl: json["profile_photo_url"],
   );
 
@@ -474,8 +488,6 @@ class Token {
     "user_type": userType,
     "user_id": userId,
     "deviceToke": deviceToke,
-    "login_status": loginStatus,
-    "last_login_logout_time": lastLoginLogoutTime?.toIso8601String(),
     "profile_photo_url": profilePhotoUrl,
   };
 }

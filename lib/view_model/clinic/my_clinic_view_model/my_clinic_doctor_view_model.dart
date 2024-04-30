@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../model/appointment_model/todays_appointment_model.dart';
+import '../../../model/appointment_model/upcomming_appointments_model.dart';
 import '../../../model/clinic/mydoctorlistbrance.dart';
 import '../../../repository/my_clinic_repository/clinic_repo_database.dart';
 import '../../../utils/message.dart';
@@ -11,17 +13,20 @@ class MyClinicDoctorViewModel with ChangeNotifier {
   bool isDoctorLoading = true;
 
   List<MyDoctorBrance> myDoctorFullList = [];
+
   // List<Datum> myDoctorList = [];
   List<Datum> mydepermentList = [];
 
-  getmyAllDoctors(BuildContext context, DatabaseName,brancid) async {
+  getmyAllDoctors(BuildContext context, DatabaseName, brancid) async {
     mydepermentList.clear();
     myDoctorFullList.clear();
 
     isDoctorLoading = true;
-print("databasena");
+    print("databasena");
     notifyListeners();
-    await docRepo.getmybrnceDoctors(context, DatabaseName,brancid).then((value) {
+    await docRepo
+        .getmybrnceDoctors(context, DatabaseName, brancid)
+        .then((value) {
       myDoctorFullList.add(value);
       mydepermentList.addAll(value.data!);
       isDoctorLoading = false;
@@ -39,5 +44,75 @@ print("databasena");
     });
 
     notifyListeners();
+  }
+
+  List<TodaysAppointmentModel> todayAppointmentFullList = [];
+  List<UpcommingAppointmentsModel> upcommingAppointmentFullList = [];
+
+  List<TodaysPatientAppointment> todayAppointmentList = [];
+  List<UpcomingAppointment> upcommingAppointmentList = [];
+
+  bool isTodayAppointmentLoading = true;
+  bool isUpcommingAppointmentLoading = true;
+
+  getTodayAppointments(BuildContext context, DbName,branceid) async {
+    isTodayAppointmentLoading = true;
+    todayAppointmentFullList.clear();
+    todayAppointmentList.clear();
+    notifyListeners();
+    todayAppointmentFullList.clear();
+    await docRepo.getTodayAppointment(context, DbName,branceid).then((value) {
+      todayAppointmentFullList.add(value);
+      todayAppointmentList.addAll(value.todaysPatientAppointments!);
+      isTodayAppointmentLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      print(stackTrace);
+      isTodayAppointmentLoading = true;
+      notifyListeners();
+      Messages.snackBar(context, error.toString());
+    });
+  }
+
+  getAppoinmentsqueue(BuildContext context, docid, appoinmentid, DbName,branceid) async {
+    // isTodayAppointmentLoading = true;
+    // todayAppointmentFullList.clear();
+    // todayAppointmentList.clear();
+    // notifyListeners();
+    // todayAppointmentFullList.clear();
+    await docRepo
+        .getAppoinmentsqueue(docid, appoinmentid, DbName,branceid)
+        .then((value) {
+      print(value);
+      // todayAppointmentFullList.add(value);
+      // todayAppointmentList.addAll(value.todaysPatientAppointments!);
+      isTodayAppointmentLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      print(stackTrace);
+
+      isTodayAppointmentLoading = true;
+      notifyListeners();
+      Messages.snackBar(context, error.toString());
+    });
+  }
+
+  getUpcommingAppointments(BuildContext context, DbName,branceid) async {
+    isUpcommingAppointmentLoading = true;
+    upcommingAppointmentFullList.clear();
+    upcommingAppointmentList.clear();
+    notifyListeners();
+    await docRepo.getUpcommingAppointment(context, DbName,branceid).then((value) {
+      upcommingAppointmentFullList.add(value);
+      upcommingAppointmentList.addAll(value.upcomingAppointments!);
+      isUpcommingAppointmentLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      print(stackTrace);
+
+      isUpcommingAppointmentLoading = true;
+      notifyListeners();
+      Messages.snackBar(context, error.toString());
+    });
   }
 }

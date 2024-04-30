@@ -2,16 +2,13 @@ import 'package:circle_nav_bar/circle_nav_bar.dart';
 import 'package:digi_patient/view/profile/patient_profile.dart';
 import 'package:flutter/material.dart';
 
-import '../generated/assets.dart';
 import '../resources/colors.dart';
-import 'bottom_navigation_buttons/basket_view.dart';
-import 'bottom_navigation_buttons/favourites_view.dart';
+
 import 'bottom_navigation_buttons/home_view.dart';
 import 'daily_upcomming_appointment/daily_and_upcomming_appointments_view.dart';
 import 'home_item_pages/my_record_view.dart';
 import 'qrcode/qrcode_scnner.dart';
 import 'resources_view/resources_view.dart';
-import 'tutrials/tutrials_category.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({Key? key}) : super(key: key);

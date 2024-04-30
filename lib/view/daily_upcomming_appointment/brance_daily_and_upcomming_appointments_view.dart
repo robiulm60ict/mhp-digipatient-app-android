@@ -5,24 +5,28 @@ import 'package:provider/provider.dart';
 
 import '../../model/appointment_model/todays_appointment_model.dart';
 import '../../model/appointment_model/upcomming_appointments_model.dart';
+import '../../model/clinic/orgamozationlist_model.dart';
 import '../../resources/app_url.dart';
 import '../../resources/colors.dart';
 import '../../resources/styles.dart';
 import '../../utils/utils.dart';
+import '../../view_model/clinic/my_clinic_view_model/my_clinic_doctor_view_model.dart';
 import '../../view_model/daily_appointments_view_model/daily_appointments_view_model.dart';
 import '../../widgets/appointment_notification_card.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/shimmer.dart';
 import 'patientqueioo.dart';
 
-class DailyAndUpcommingView extends StatefulWidget {
-  const DailyAndUpcommingView({Key? key}) : super(key: key);
+class BranceDailyAndUpcommingView extends StatefulWidget {
+   BranceDailyAndUpcommingView({Key? key,this.DbName,this.branch}) : super(key: key);
 
+  Branch? branch;
+  String? DbName;
   @override
-  State<DailyAndUpcommingView> createState() => _DailyAndUpcommingViewState();
+  State<BranceDailyAndUpcommingView> createState() => _DailyAndUpcommingViewState();
 }
 
-class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
+class _DailyAndUpcommingViewState extends State<BranceDailyAndUpcommingView> {
   bool showTodayAppointments = true;
 
   @override
@@ -30,10 +34,10 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
 
-      context.read<DailyAndUpcommingViewModel>().getTodayAppointments(context);
+      context.read<MyClinicDoctorViewModel>().getTodayAppointments(context,widget.DbName.toString(),widget.branch!.id.toString());
       context
-          .read<DailyAndUpcommingViewModel>()
-          .getUpcommingAppointments(context);
+          .read<MyClinicDoctorViewModel>()
+          .getUpcommingAppointments(context,widget.DbName.toString(),widget.branch!.id.toString());
     });
   }
 
@@ -57,15 +61,14 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
 
   @override
   Widget build(BuildContext context) {
-    final appointments = Provider.of<DailyAndUpcommingViewModel>(context);
+    final appointments = Provider.of<MyClinicDoctorViewModel>(context);
     return RefreshIndicator(
       onRefresh: () async {
+
+        context.read<MyClinicDoctorViewModel>().getTodayAppointments(context,widget.DbName.toString(),widget.branch!.id.toString());
         context
-            .read<DailyAndUpcommingViewModel>()
-            .getTodayAppointments(context);
-        context
-            .read<DailyAndUpcommingViewModel>()
-            .getUpcommingAppointments(context);
+            .read<MyClinicDoctorViewModel>()
+            .getUpcommingAppointments(context,widget.DbName.toString(),widget.branch!.id.toString());
       },
       child: Scaffold(
         backgroundColor: AppColors.page_background_color,
@@ -75,7 +78,7 @@ class _DailyAndUpcommingViewState extends State<DailyAndUpcommingView> {
           backgroundColor: AppColors.primary_color,
           centerTitle: true,
           title: Text(
-            "Appointments",
+            "Branch Appointments",
             style: Style.alltext_appbar,
           ),
         ),

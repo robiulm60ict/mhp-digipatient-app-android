@@ -26,7 +26,7 @@ class AppointmentRepo{
 
     int? id = prefs.getInt(UserP.id);
     try{
-      dynamic response = await apiService.getGetApiResponsecontext("${AppUrls.todayAppointments}$id",contex);
+      dynamic response = await apiService.getGetApiResponsecontext("${AppUrls.todayAppointments}$id/null",contex);
      // print(response);
     return TodaysAppointmentModel.fromJson(response);
     }catch (e){
@@ -40,7 +40,7 @@ class AppointmentRepo{
 
     int? id = prefs.getInt(UserP.id);
     try{
-      dynamic response = await apiService.getGetApiResponsecontext("${AppUrls.upcommingAppointments}$id",context);
+      dynamic response = await apiService.getGetApiResponsecontext("${AppUrls.upcommingAppointments}$id/null",context);
       print("fffffffffffffffffffff${response}");
       return UpcommingAppointmentsModel.fromJson(response);
     }catch (e){

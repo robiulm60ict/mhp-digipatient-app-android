@@ -97,7 +97,7 @@ class _NotificationsViewState extends State<NotificationsView> {
                       return appointments.todayAppointmentList.isNotEmpty
                           ? NotificationListTile(
                               doctorName:
-                                  "${app.doctors!.title!.titleName}. ${app.doctors!.fullName} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
+                                  "${app.doctors!.title!.titleName} ${app.doctors!.fullName} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
                               appointmentTime:
                                   "${getTime(app.startTime.toString())}- ${getTime(app.endTime.toString())}",
                               onTap: () {
@@ -143,7 +143,7 @@ class _NotificationsViewState extends State<NotificationsView> {
                       return appointments.upcommingAppointmentList.isNotEmpty
                           ? NotificationListTile(
                               doctorName:
-                                  "appointment with ${app.doctors!.title!.titleName.toString()}. ${app.doctors!.fullName!.toString()} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
+                                  "appointment with ${app.doctors!.title!.titleName.toString()} ${app.doctors!.fullName!.toString()} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
                               appointmentTime:
                                   "${getTime(app.startTime.toString())}- ${getTime(app.endTime.toString())}",
                               onTap: () {

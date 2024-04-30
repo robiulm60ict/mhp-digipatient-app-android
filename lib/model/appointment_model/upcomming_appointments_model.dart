@@ -34,21 +34,23 @@ class UpcommingAppointmentsModel {
 
 class UpcomingAppointment {
   int? id;
+  int? saasBranchId;
+  String? saasBranchName;
   String? doctorsId;
   String? patientId;
   String? patientName;
   String? patientMobile;
   dynamic notes;
   String? statusColor;
-  dynamic statusName;
+  String? statusName;
   DateTime? startTime;
   DateTime? endTime;
   dynamic subject;
   String? appType;
   dynamic mediaTypeOnline;
   dynamic media;
-  String? appointmentCompleted;
-  String? deleteStatus;
+  int? appointmentCompleted;
+  int? deleteStatus;
   dynamic createdBy;
   dynamic updatedBy;
   DateTime? createdAt;
@@ -58,6 +60,8 @@ class UpcomingAppointment {
 
   UpcomingAppointment({
     this.id,
+    this.saasBranchId,
+    this.saasBranchName,
     this.doctorsId,
     this.patientId,
     this.patientName,
@@ -83,6 +87,8 @@ class UpcomingAppointment {
 
   factory UpcomingAppointment.fromJson(Map<String, dynamic> json) => UpcomingAppointment(
     id: json["id"],
+    saasBranchId: json["saas_branch_id"],
+    saasBranchName: json["saas_branch_name"],
     doctorsId: json["doctors_id"],
     patientId: json["patient_id"],
     patientName: json["patient_name"],
@@ -108,6 +114,8 @@ class UpcomingAppointment {
 
   Map<String, dynamic> toJson() => {
     "id": id,
+    "saas_branch_id": saasBranchId,
+    "saas_branch_name": saasBranchName,
     "doctors_id": doctorsId,
     "patient_id": patientId,
     "patient_name": patientName,
@@ -207,18 +215,21 @@ class PatientAppionment {
   String? patientLastName;
   String? patientPreferredName;
   String? patientImages;
-  String? patientCityId;
-  String? patientAddress2;
+  dynamic patientCityId;
+  dynamic patientAddress2;
   String? patientAddress1;
-  String? patientBcid;
+  dynamic patientBcid;
   String? ptnBloodGroupId;
-  String? patientContactVia;
+  dynamic patientContactVia;
+  String? patientHnNumber;
   DateTime? patientDob;
   String? patientBirthSexId;
+  String? patientEmail;
+  String? patientMobilePhone;
   String? fullName;
   PatientBirthSex? patientBirthSex;
-  ContactVia? contactVia;
-  City? city;
+  dynamic contactVia;
+  dynamic city;
   BloodGroup? bloodGroup;
 
   PatientAppionment({
@@ -234,8 +245,11 @@ class PatientAppionment {
     this.patientBcid,
     this.ptnBloodGroupId,
     this.patientContactVia,
+    this.patientHnNumber,
     this.patientDob,
     this.patientBirthSexId,
+    this.patientEmail,
+    this.patientMobilePhone,
     this.fullName,
     this.patientBirthSex,
     this.contactVia,
@@ -256,12 +270,15 @@ class PatientAppionment {
     patientBcid: json["patient_bcid"],
     ptnBloodGroupId: json["ptn_blood_group_id"],
     patientContactVia: json["patient_contact_via"],
+    patientHnNumber: json["patient_hn_number"],
     patientDob: json["patient_dob"] == null ? null : DateTime.parse(json["patient_dob"]),
     patientBirthSexId: json["patient_birth_sex_id"],
+    patientEmail: json["patient_email"],
+    patientMobilePhone: json["patient_mobile_phone"],
     fullName: json["fullName"],
     patientBirthSex: json["patient_birth_sex"] == null ? null : PatientBirthSex.fromJson(json["patient_birth_sex"]),
-    contactVia: json["contact_via"] == null ? null : ContactVia.fromJson(json["contact_via"]),
-    city: json["city"] == null ? null : City.fromJson(json["city"]),
+    contactVia: json["contact_via"],
+    city: json["city"],
     bloodGroup: json["blood_group"] == null ? null : BloodGroup.fromJson(json["blood_group"]),
   );
 
@@ -278,12 +295,15 @@ class PatientAppionment {
     "patient_bcid": patientBcid,
     "ptn_blood_group_id": ptnBloodGroupId,
     "patient_contact_via": patientContactVia,
+    "patient_hn_number": patientHnNumber,
     "patient_dob": "${patientDob!.year.toString().padLeft(4, '0')}-${patientDob!.month.toString().padLeft(2, '0')}-${patientDob!.day.toString().padLeft(2, '0')}",
     "patient_birth_sex_id": patientBirthSexId,
+    "patient_email": patientEmail,
+    "patient_mobile_phone": patientMobilePhone,
     "fullName": fullName,
     "patient_birth_sex": patientBirthSex?.toJson(),
-    "contact_via": contactVia?.toJson(),
-    "city": city?.toJson(),
+    "contact_via": contactVia,
+    "city": city,
     "blood_group": bloodGroup?.toJson(),
   };
 }
@@ -305,46 +325,6 @@ class BloodGroup {
   Map<String, dynamic> toJson() => {
     "id": id,
     "blood_group_name": bloodGroupName,
-  };
-}
-
-class City {
-  int? id;
-  String? cityName;
-
-  City({
-    this.id,
-    this.cityName,
-  });
-
-  factory City.fromJson(Map<String, dynamic> json) => City(
-    id: json["id"],
-    cityName: json["city_name"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "city_name": cityName,
-  };
-}
-
-class ContactVia {
-  int? id;
-  String? contactViaName;
-
-  ContactVia({
-    this.id,
-    this.contactViaName,
-  });
-
-  factory ContactVia.fromJson(Map<String, dynamic> json) => ContactVia(
-    id: json["id"],
-    contactViaName: json["contact_via_name"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "contact_via_name": contactViaName,
   };
 }
 
