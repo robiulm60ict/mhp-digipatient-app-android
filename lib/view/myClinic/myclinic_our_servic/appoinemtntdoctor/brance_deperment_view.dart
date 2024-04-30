@@ -39,7 +39,7 @@ class _MyDoctorViewState extends State<ClinicBranchDepermentView> {
         backgroundColor: Colors.transparent,
         centerTitle: true,
         title: Text(
-          "My Doctor",
+          "Department",
           style: Style.alltext_appbar,
         ),
         // leading: Padding(
@@ -86,7 +86,7 @@ class _MyDoctorViewState extends State<ClinicBranchDepermentView> {
                   Style.distan_size10,
                   Center(
                     child: Text(
-                      "Available Doctors",
+                      "Available Doctors department",
                       style: Style.alltext_default_balck,
                     ),
                   ),
@@ -132,7 +132,9 @@ class _MyDoctorViewState extends State<ClinicBranchDepermentView> {
                                   onTap: (){
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>ClinicBranchDoctorView(mhpdoctorlist: docc.mhpDoctorsMaster,DbName: widget.DbName,branch: widget.branch,)));
                                   },
-                                  child: Card(child: Center(child: Text(docc.departmentsName.toString()))));
+                                  child: Card(elevation: 5,
+                                      shadowColor: AppColors.primary_color,
+                                      child: Center(child: Text(docc.departmentsName.toString(),style: Style.alltext_Large_black,))));
                             },
                           );
                         }

@@ -25,7 +25,7 @@ class AppUrls {
       '$baseUrlPatient/patient-request-to-doctor/';
 
   static const String myDoctorslist =
-      '$baseUrlPatient/patient-list-for-doctor/';
+      '$baseUrlPatient';
   static const String myDoctorslistclinic =
       '$baseUrlPatient/doctor-list-for-clinic/';
   static const String myDoctorsDeactivelist =

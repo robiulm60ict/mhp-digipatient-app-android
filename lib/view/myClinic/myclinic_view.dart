@@ -28,6 +28,7 @@ class _MyClinicViewState extends State<MyClinicView> {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MyClinicViewModel>(context);
@@ -39,7 +40,10 @@ class _MyClinicViewState extends State<MyClinicView> {
         leadingWidth: leadingWidth,
         leading: const CustomBackButton(),
         backgroundColor: AppColors.linearGradient2,
-        title: Text("My Clinic",style: Style.alltext_appbar,),
+        title: Text(
+          "My Clinic",
+          style: Style.alltext_appbar,
+        ),
       ),
       body: Container(
         padding: EdgeInsets.only(left: 12, right: 12),
@@ -58,10 +62,10 @@ class _MyClinicViewState extends State<MyClinicView> {
                     child: Container(
                       //   width: 100.w,
                       decoration: BoxDecoration(
-                        // border: Border.all(
-                        //   color: Colors.grey
-                        // )
-                      ),
+                          // border: Border.all(
+                          //   color: Colors.grey
+                          // )
+                          ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -79,20 +83,20 @@ class _MyClinicViewState extends State<MyClinicView> {
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 border: Border(
-                                  left: BorderSide(color: Colors.grey),
-                                  top: BorderSide(color: Colors.grey),
-                                  bottom: BorderSide(color: Colors.grey),
-                                  right: BorderSide(color: Colors.grey),
-                                )),
+                              left: BorderSide(color: Colors.grey),
+                              top: BorderSide(color: Colors.grey),
+                              bottom: BorderSide(color: Colors.grey),
+                              right: BorderSide(color: Colors.grey),
+                            )),
                           ),
                           Container(
                             decoration: BoxDecoration(
                                 border: Border(
-                                  // left: BorderSide(color: Colors.grey),
-                                  top: BorderSide(color: Colors.grey),
-                                  bottom: BorderSide(color: Colors.grey),
-                                  right: BorderSide(color: Colors.grey),
-                                )),
+                              // left: BorderSide(color: Colors.grey),
+                              top: BorderSide(color: Colors.grey),
+                              bottom: BorderSide(color: Colors.grey),
+                              right: BorderSide(color: Colors.grey),
+                            )),
                             height: 60.h,
                             width: 170.w,
                             child: Padding(
@@ -137,25 +141,24 @@ class _MyClinicViewState extends State<MyClinicView> {
                 );
               }),
               Style.distan_size10,
-
               Consumer<MyClinicViewModel>(builder: (context, data, child) {
                 if (data.organizationlistmodel.isEmpty) {
                   return data.isorgaizationLoading == true
                       ? Center(
-                    child: ListView.builder(
-                      itemCount: 6,
-                      scrollDirection: Axis.vertical,
-                      physics: const ScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: bannerShimmereffect(
-                              94.toDouble(), 385.toDouble()),
-                        );
-                      },
-                    ),
-                  )
+                          child: ListView.builder(
+                            itemCount: 6,
+                            scrollDirection: Axis.vertical,
+                            physics: const ScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: bannerShimmereffect(
+                                    94.toDouble(), 385.toDouble()),
+                              );
+                            },
+                          ),
+                        )
                       : noDataFounForList("Currently you have no records");
                 } else {
                   return Column(
@@ -165,19 +168,22 @@ class _MyClinicViewState extends State<MyClinicView> {
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: data.organizationlistmodel.length,
                           itemBuilder: (context, index) {
-                            var organzation=data.organizationlistmodel[index];
+                            var organzation = data.organizationlistmodel[index];
                             return InkWell(
                               onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ClinicBranches(organizationListModle: organzation,)));
+                                        builder: (context) => ClinicBranches(
+                                              organizationListModle:
+                                                  organzation,
+                                            )));
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                  // border: Border.all(
-                                  //   color: Colors.black12,
-                                  // ),B8DC94
+                                    // border: Border.all(
+                                    //   color: Colors.black12,
+                                    // ),B8DC94
                                     color: index % 2 == 0
                                         ? Color(0xffB8DC94)
                                         : Color(0xffF7F7F7),
@@ -191,25 +197,35 @@ class _MyClinicViewState extends State<MyClinicView> {
                                     SizedBox(
                                       height: 90.w,
                                       width: 75.w,
-                                      child: Image.network(  organzation.organization!.logo.toString()),
+                                      child: Image.network(organzation
+                                          .organization!.logo
+                                          .toString()),
                                     ),
                                     Container(
                                       padding: EdgeInsets.only(left: 12),
                                       width: 240.w,
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-
                                           Text(
-                                            organzation.organization!.name.toString(),
-                                            style: Style.alltext_default_balck_w700,
+                                            organzation.organization!.name
+                                                .toString(),
+                                            style: Style
+                                                .alltext_default_balck_w700,
                                           ),
                                           Style.distan_size5,
-                                          Text(  organzation.organization!.address.toString(),
-                                              style: Style.alltext_default_balck),
+                                          Text(
+                                              organzation.organization!.address
+                                                  .toString(),
+                                              style:
+                                                  Style.alltext_default_balck),
                                           Style.distan_size5,
-                                          Row(crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment: MainAxisAlignment.start,
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
                                               Icon(
                                                 Icons.shop,
@@ -218,8 +234,9 @@ class _MyClinicViewState extends State<MyClinicView> {
                                               ),
                                               Style.widthdistan_size2,
                                               Text(
-                                                "${  organzation.organization!.branch!.length.toString()} branches",
-                                                style: Style.alltext_small_black,
+                                                "${organzation.organization!.branch!.length.toString()} branches",
+                                                style:
+                                                    Style.alltext_small_black,
                                               ),
                                               Style.widthdistan_size10,
                                               // Icon(
@@ -237,7 +254,6 @@ class _MyClinicViewState extends State<MyClinicView> {
                                           Style.distan_size5,
                                           Row(
                                             children: [
-
                                               Icon(
                                                 Icons.favorite_border,
                                                 color: Colors.grey,
@@ -245,7 +261,8 @@ class _MyClinicViewState extends State<MyClinicView> {
                                               ),
                                               Style.widthdistan_size10,
                                               Icon(
-                                                Icons.arrow_circle_right_outlined,
+                                                Icons
+                                                    .arrow_circle_right_outlined,
                                                 color: Colors.green,
                                                 size: 20,
                                               ),

@@ -98,11 +98,12 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                           widget.branch!.name.toString(),
                           style: Style.alltext_default_balck_blod_dilog,
                         )),
-                    Icon(
-                      Icons.favorite_border,
-                      color: Colors.black,
-                      size: 25,
-                    ),
+                    SizedBox()
+                    // Icon(
+                    //   Icons.favorite_border,
+                    //   color: Colors.black,
+                    //   size: 25,
+                    // ),
                   ],
                 ),
                 Style.distan_size10,
