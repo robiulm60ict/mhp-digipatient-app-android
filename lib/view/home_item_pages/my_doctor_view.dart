@@ -56,7 +56,7 @@ class _MyDoctorViewState extends State<MyDoctorView> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          provider.getmyAllDoctors(context);
+          // provider.getmyAllDoctors(context);
           provider.getmyAllDeactiveDoctors(context);
         },
         child: Container(
@@ -288,7 +288,7 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                               docImage:
                                   "${AppUrls.drprofile}${docc.doctors?.drImages.toString()}",
                               docName:
-                                  "${docc!.doctors!.title == null ? '' : docc!.doctors!.title!.titleName} ${docc!.doctors!.fullName}",
+                                  "${docc.doctors!.title == null ? '' : docc.doctors!.title!.titleName} ${docc.doctors!.fullName}",
                               docSpeciality: docc
                                       .doctors?.specialist?.specialistsName
                                       .toString() ??
@@ -361,13 +361,13 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                           itemBuilder: (context, index) {
                             var doc = provider.myDoctorList[index];
 
-                            return DocCard(
+                            return doc.doctors !=null?DocCard(
                               onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => DocDetailsView(
-                                            id: doc!.doctorsMasterId)));
+                                            id: doc.doctorsMasterId)));
 
                                 // context.router
                                 //     .push(DocDetailsRoute(id: doc!.doctorsMasterId!));
@@ -375,7 +375,7 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                               docImage:
                                   "${AppUrls.drprofile}${doc.doctors?.drImages.toString()}",
                               docName:
-                                  "${doc!.doctors!.title == null ? '' : doc!.doctors!.title!.titleName} ${doc!.doctors!.fullName}",
+                                  "${doc.doctors!.title == null ? '' : doc.doctors!.title!.titleName} ${doc.doctors!.fullName}",
                               docSpeciality: doc
                                       .doctors?.specialist?.specialistsName
                                       .toString() ??
@@ -384,7 +384,7 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                                   "${doc.doctors!.usualProvider != null ? doc.doctors!.usualProvider!.usualProviderName.toString() : ""}",
                               doctortitle: doc.doctors!.academic,
                               docId: doc.doctorsMasterId.toString(),
-                            );
+                            ):Container();
                           },
                         );
                       }

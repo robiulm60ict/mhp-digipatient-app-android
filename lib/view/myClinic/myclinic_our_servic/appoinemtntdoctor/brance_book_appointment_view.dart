@@ -165,7 +165,7 @@ class _BookAppointmentViewState extends State<BranceBookAppointmentView> {
                 color: AppColors.primary_color,
                 onPressed: () async {
                   await appointmentViewModel.selectDate(
-                      context,widget.DbName,widget.branch!.id ,widget.doctors.id);
+                      context,widget.doctors.id.toString(),widget.DbName.toString(),widget.branch!.id.toString() );
                   // await appointmentViewModel.selectDate();
                 },
                 child: Row(

@@ -30,12 +30,12 @@ class DoctorRepository {
     }
   }
 
-  Future<MyDoctorList> getmyAllActiveDoctors(contex) async {
+  Future<MyDoctorList> getmyAllActiveDoctors(contex,derpermentId) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       int? id = prefs.getInt(UserP.id);
       dynamic response =
-          await apiService.getGetApiResponsecontext("${AppUrls.myDoctorslist}$id",contex);
+          await apiService.getGetApiResponsecontext("${AppUrls.myDoctorslist}$id/$derpermentId",contex);
       print(response);
       return MyDoctorList.fromJson(response);
     } catch (e) {
@@ -105,7 +105,7 @@ class DoctorRepository {
   Future<List<DoctorChamberTimeModel>> getDocChamberTime(docId, date) async {
     try {
       dynamic response = await apiService
-          .getGetApiResponse("${AppUrls.docChamberTime}$docId/$date");
+          .getGetApiResponse("${AppUrls.docChamberTime}$docId/null/$date");
       print("response${response}");
       print("docId${docId}");
       print("date${date}");

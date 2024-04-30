@@ -1,148 +1,81 @@
+// To parse this JSON data, do
 //
-// class DepartmentModel {
-//   DepartmentModel({
-//       this.status,
-//       this.department,});
-//
-//   DepartmentModel.fromJson(dynamic json) {
-//     status = json['status'];
-//     if (json['department'] != null) {
-//       department = [];
-//       json['department'].forEach((v) {
-//         department?.add(AllDepartment.fromJson(v));
-//       });
-//     }
-//   }
-//   int? status;
-//   List<AllDepartment>? department;
-//
-//   Map<String, dynamic> toJson() {
-//     final map = <String, dynamic>{};
-//     map['status'] = status;
-//     if (department != null) {
-//       map['department'] = department?.map((v) => v.toJson()).toList();
-//     }
-//     return map;
-//   }
-//
-// }
-//
-// class AllDepartment {
-//   AllDepartment({
-//     this.id,
-//     this.departmentsName,
-//     this.deleteStatus,
-//     this.createdBy,
-//     this.updatedBy,
-//     this.createdAt,
-//     this.updatedAt,});
-//
-//   AllDepartment.fromJson(dynamic json) {
-//     id = json['id'];
-//     departmentsName = json['departments_name'];
-//     deleteStatus = json['delete_status'];
-//     createdBy = json['created_by'];
-//     updatedBy = json['updated_by'];
-//     createdAt = json['created_at'];
-//     updatedAt = json['updated_at'];
-//   }
-//   int? id;
-//   String? departmentsName;
-//   String? deleteStatus;
-//   dynamic createdBy;
-//   dynamic updatedBy;
-//   String? createdAt;
-//   String? updatedAt;
-//
-//   Map<String, dynamic> toJson() {
-//     final map = <String, dynamic>{};
-//     map['id'] = id;
-//     map['departments_name'] = departmentsName;
-//     map['delete_status'] = deleteStatus;
-//     map['created_by'] = createdBy;
-//     map['updated_by'] = updatedBy;
-//     map['created_at'] = createdAt;
-//     map['updated_at'] = updatedAt;
-//     return map;
-//   }
-//
-// }
+//     final departmentsListModel = departmentsListModelFromJson(jsonString);
 
 import 'dart:convert';
 
-DepartmentModel departmentModelsFromJson(String str) => DepartmentModel.fromJson(json.decode(str));
-String departmentModelsToJson(DepartmentModel data) => json.encode(data.toJson());
-class DepartmentModel {
-  DepartmentModel({
+DepartmentsListModel departmentsListModelFromJson(String str) => DepartmentsListModel.fromJson(json.decode(str));
+
+String departmentsListModelToJson(DepartmentsListModel data) => json.encode(data.toJson());
+
+class DepartmentsListModel {
+  int? status;
+  List<Department>? department;
+
+  DepartmentsListModel({
     this.status,
-    this.department,});
+    this.department,
+  });
 
-  DepartmentModel.fromJson(dynamic json) {
-    status = json['status'];
-    if (json['department'] != null) {
-      department = [];
-      json['department'].forEach((v) {
-        department?.add(AllDepartment.fromJson(v));
-      });
-    }
-  }
-  num? status;
-  List<AllDepartment>? department;
+  factory DepartmentsListModel.fromJson(Map<String, dynamic> json) => DepartmentsListModel(
+    status: json["status"],
+    department: json["department"] == null ? [] : List<Department>.from(json["department"]!.map((x) => Department.fromJson(x))),
+  );
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['status'] = status;
-    if (department != null) {
-      map['department'] = department?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
-
+  Map<String, dynamic> toJson() => {
+    "status": status,
+    "department": department == null ? [] : List<dynamic>.from(department!.map((x) => x.toJson())),
+  };
 }
 
-AllDepartment departmentFromJson(String str) => AllDepartment.fromJson(json.decode(str));
-String departmentToJson(AllDepartment data) => json.encode(data.toJson());
-class AllDepartment {
-  AllDepartment({
+class Department {
+  int? id;
+  dynamic saasBranchId;
+  dynamic saasBranchName;
+  String? departmentsName;
+  String? departmentImage;
+  int? deleteStatus;
+  dynamic createdBy;
+  dynamic updatedBy;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+
+  Department({
     this.id,
+    this.saasBranchId,
+    this.saasBranchName,
     this.departmentsName,
     this.departmentImage,
     this.deleteStatus,
     this.createdBy,
     this.updatedBy,
     this.createdAt,
-    this.updatedAt,});
+    this.updatedAt,
+  });
 
-  AllDepartment.fromJson(dynamic json) {
-    id = json['id'];
-    departmentsName = json['departments_name'];
-    departmentImage = json['department_image'];
-    deleteStatus = json['delete_status'];
-    createdBy = json['created_by'];
-    updatedBy = json['updated_by'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-  }
-  num? id;
-  String? departmentsName;
-  String? departmentImage;
-  String? deleteStatus;
-  dynamic createdBy;
-  dynamic updatedBy;
-  String? createdAt;
-  String? updatedAt;
+  factory Department.fromJson(Map<String, dynamic> json) => Department(
+    id: json["id"],
+    saasBranchId: json["saas_branch_id"],
+    saasBranchName: json["saas_branch_name"],
+    departmentsName: json["departments_name"],
+    departmentImage: json["department_image"],
+    deleteStatus: json["delete_status"],
+    createdBy: json["created_by"],
+    updatedBy: json["updated_by"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+  );
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['departments_name'] = departmentsName;
-    map['department_image'] = departmentImage;
-    map['delete_status'] = deleteStatus;
-    map['created_by'] = createdBy;
-    map['updated_by'] = updatedBy;
-    map['created_at'] = createdAt;
-    map['updated_at'] = updatedAt;
-    return map;
-  }
-
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "saas_branch_id": saasBranchId,
+    "saas_branch_name": saasBranchName,
+    "departments_name": departmentsName,
+    "department_image": departmentImage,
+    "delete_status": deleteStatus,
+    "created_by": createdBy,
+    "updated_by": updatedBy,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+  };
 }

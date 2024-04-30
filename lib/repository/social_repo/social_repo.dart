@@ -18,7 +18,7 @@ class SocialRepo {
 
     try {
       dynamic response =
-          await apiService.getGetApiResponse("${AppUrls.socialacount}$id");
+          await apiService.getGetApiResponse("${AppUrls.socialacount}$id/null");
 
       //
       List<SocialListModel> datalist = [];
@@ -37,13 +37,13 @@ class SocialRepo {
 
     try {
       dynamic response =
-      await apiService.getGetApiResponse("${AppUrls.doctorcountpatient}$doctorid");
+      await apiService.getGetApiResponse("${AppUrls.doctorcountpatient}$doctorid/null");
 
 
       print("eeeeeeeeeee$response");
       return response;
     } catch (e) {
-      print("fffffffffffffffff$e");
+      print("eeeeeeeeeeeddd$e");
 
       rethrow;
     }

@@ -370,9 +370,9 @@ class AppointmentViewModel with ChangeNotifier {
           paymentnumber: body["transaction_phone_number"],
           Shift: body["shift"],
         );
-        print("${doctor.token!.deviceToke.toString()}");
+        print("${doctor.doctors!.token!.deviceToke.toString()}");
         final Map dataa = {
-          'to': "${doctor.token!.deviceToke.toString()}",
+          'to': "${doctor.doctors!.token!.deviceToke.toString()}",
           'notification': {
             'title': 'Your Appointment Request',
             'body': "Please Check your Payment Inbox",
@@ -436,9 +436,9 @@ class AppointmentViewModel with ChangeNotifier {
           paymentnumber: body["transaction_phone_number"],
           Shift: body["shift"],
         );
-        print("${doctor.token!.deviceToke.toString()}");
+        print("${doctor.doctors!.token!.deviceToke.toString()}");
         final Map dataa = {
-          'to': "${doctor.token!.deviceToke.toString()}",
+          'to': "${doctor.doctors!.token!.deviceToke.toString()}",
           'notification': {
             'title': 'Your Appointment Request',
             'body': "Please Check your Payment Inbox",

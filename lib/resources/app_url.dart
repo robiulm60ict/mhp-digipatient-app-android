@@ -162,7 +162,7 @@ class AppUrls {
   static const String docFee =
       '$baseUrlPatientMain/api/doctors-consultation-Fee/';
 
-  static const String department = '$baseUrlPatientMain/api/department';
+  static const String department = '$baseUrlPatient/department';
 
   static const String departmentImage =
       '$baseUrl/mhp_server/public/department/';

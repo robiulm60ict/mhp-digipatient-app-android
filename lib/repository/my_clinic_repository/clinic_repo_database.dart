@@ -35,7 +35,10 @@ class ClinicRepository {
 
   Future<List<DoctorChamberTimeModel>> getDocChamberTime(docId, date,DatabaseName,branceid) async {
     try {
-      print("ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffff");
+      print("ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffff$date");
+      print("ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffff$branceid");
+      print("ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffff$DatabaseName");
+      print("ddddddddddddddddddddddddddffffffffffffffffffffffffffffffffffffff$docId");
       dynamic response = await apiService
           .getGetApiResponse("${AppUrls.docChamberTime}$docId/$branceid/$date",DatabaseName);
       print("response${response}");

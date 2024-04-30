@@ -1,20 +1,17 @@
-import 'package:digi_patient/generated/assets.dart';
-import 'package:digi_patient/model/doctor_model/doctor_chember_time_model.dart';
-import 'package:digi_patient/model/doctor_model/doctor_fee_model.dart';
-import 'package:digi_patient/repository/department_repo/department_repo.dart';
-import 'package:flutter/cupertino.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../generated/assets.dart';
 import '../../model/department_model/department_model.dart';
-import '../../model/doctor_model/doctors_model.dart';
 import '../../model/social/social_model.dart';
+import '../../repository/department_repo/department_repo.dart';
 import '../../repository/doctor_repository/doctor_repository.dart';
 import '../../repository/social_repo/social_repo.dart';
 import '../../utils/message.dart';
 
 class MyDoctorViewModel with ChangeNotifier {
-  List<DoctorsModels> allDoctorList = [];
 
   DoctorRepository docRepo = DoctorRepository();
   final social = SocialRepo();
@@ -116,33 +113,35 @@ class MyDoctorViewModel with ChangeNotifier {
   //
   // }
 
-  List<Doctor>? getDoctorsByType({required num departmentId}) {
-    return allDoctorList.first.doctors
-        ?.where((element) => element.department?.id == departmentId)
-        .toList();
-  }
+  // List<Doctor>? getDoctorsByType({required num departmentId}) {
+  //   return allDoctorList.first.doctors
+  //       ?.where((element) => element.department?.id == departmentId)
+  //       .toList();
+  // }
 
   /// Department Model
 
-  List<DepartmentModel> departmentList = [];
+  List<DepartmentsListModel> departmentList = [];
+  List<Department> department = [];
 
   bool isDepartmentLoading = true;
 
-  // getDepartments(BuildContext context) async {
-  //   departmentList.clear();
-  //
-  //   await DepartmentRepository().getAllDepartment().then((value) {
-  //     departmentList.add(value);
-  //
-  //     isDepartmentLoading = false;
-  //   }).onError((error, stackTrace) {
-  //     isDepartmentLoading = true;
-  //
-  //     Messages.snackBar(context, error.toString());
-  //   });
-  //
-  //   notifyListeners();
-  // }
+  getDepartments(BuildContext context) async {
+    departmentList.clear();
+print("object");
+    await DepartmentRepository().getAllDepartment().then((value) {
+      departmentList.add(value);
+      department.addAll(value.department as Iterable<Department>);
+
+      isDepartmentLoading = false;
+    }).onError((error, stackTrace) {
+      isDepartmentLoading = true;
+
+      Messages.snackBar(context, error.toString());
+    });
+
+    notifyListeners();
+  }
 }
 
 class CategoryItemsModel {

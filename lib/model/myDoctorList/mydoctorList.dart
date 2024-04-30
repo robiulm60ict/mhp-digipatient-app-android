@@ -38,7 +38,6 @@ class Datum {
   DateTime? createdAt;
   DateTime? updatedAt;
   Doctors? doctors;
-  Token? token;
 
   Datum({
     this.id,
@@ -50,7 +49,6 @@ class Datum {
     this.createdAt,
     this.updatedAt,
     this.doctors,
-    this.token,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -63,7 +61,6 @@ class Datum {
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     doctors: json["doctors"] == null ? null : Doctors.fromJson(json["doctors"]),
-    token: json["token"] == null ? null : Token.fromJson(json["token"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -76,16 +73,15 @@ class Datum {
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
     "doctors": doctors?.toJson(),
-    "token": token?.toJson(),
   };
 }
 
 class Doctors {
   int? id;
+  int? saasBranchId;
+  String? saasBranchName;
   String? drIdentityNo;
   Title? title;
-  String? saasBranchId;
-  String? saasBranchName;
   String? departmentId;
   String? specialistsId;
   dynamic departmentName;
@@ -123,13 +119,14 @@ class Doctors {
   Department? department;
   UsualProvider? usualProvider;
   List<Academic>? academic;
+  Token? token;
 
   Doctors({
     this.id,
-    this.drIdentityNo,
-    this.title,
     this.saasBranchId,
     this.saasBranchName,
+    this.drIdentityNo,
+    this.title,
     this.departmentId,
     this.specialistsId,
     this.departmentName,
@@ -167,14 +164,15 @@ class Doctors {
     this.department,
     this.usualProvider,
     this.academic,
+    this.token,
   });
 
   factory Doctors.fromJson(Map<String, dynamic> json) => Doctors(
     id: json["id"],
-    drIdentityNo: json["dr_identity_no"],
-    title: json["title"] == null ? null : Title.fromJson(json["title"]),
     saasBranchId: json["saas_branch_id"],
     saasBranchName: json["saas_branch_name"],
+    drIdentityNo: json["dr_identity_no"],
+    title: json["title"] == null ? null : Title.fromJson(json["title"]),
     departmentId: json["department_id"],
     specialistsId: json["specialists_id"],
     departmentName: json["department_name"],
@@ -212,14 +210,15 @@ class Doctors {
     department: json["department"] == null ? null : Department.fromJson(json["department"]),
     usualProvider: json["usual_provider"] == null ? null : UsualProvider.fromJson(json["usual_provider"]),
     academic: json["academic"] == null ? [] : List<Academic>.from(json["academic"]!.map((x) => Academic.fromJson(x))),
+    token: json["token"] == null ? null : Token.fromJson(json["token"]),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "dr_identity_no": drIdentityNo,
-    "title": title?.toJson(),
     "saas_branch_id": saasBranchId,
     "saas_branch_name": saasBranchName,
+    "dr_identity_no": drIdentityNo,
+    "title": title?.toJson(),
     "department_id": departmentId,
     "specialists_id": specialistsId,
     "department_name": departmentName,
@@ -257,6 +256,7 @@ class Doctors {
     "department": department?.toJson(),
     "usual_provider": usualProvider?.toJson(),
     "academic": academic == null ? [] : List<dynamic>.from(academic!.map((x) => x.toJson())),
+    "token": token?.toJson(),
   };
 }
 
@@ -273,7 +273,7 @@ class Academic {
   String? cityId;
   String? scanCopy;
   String? scanCopyTitle;
-  String? deleteStatus;
+  int? deleteStatus;
   dynamic createdBy;
   dynamic updatedBy;
   DateTime? createdAt;
@@ -448,6 +448,34 @@ class Title {
   };
 }
 
+class Token {
+  String? userType;
+  String? userId;
+  String? deviceToke;
+  String? profilePhotoUrl;
+
+  Token({
+    this.userType,
+    this.userId,
+    this.deviceToke,
+    this.profilePhotoUrl,
+  });
+
+  factory Token.fromJson(Map<String, dynamic> json) => Token(
+    userType: json["user_type"],
+    userId: json["user_id"],
+    deviceToke: json["deviceToke"],
+    profilePhotoUrl: json["profile_photo_url"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "user_type": userType,
+    "user_id": userId,
+    "deviceToke": deviceToke,
+    "profile_photo_url": profilePhotoUrl,
+  };
+}
+
 class UsualProvider {
   int? id;
   String? usualProviderName;
@@ -481,33 +509,5 @@ class UsualProvider {
     "mobile": mobile,
     "phone": phone,
     "email": email,
-  };
-}
-
-class Token {
-  String? userType;
-  String? userId;
-  String? deviceToke;
-  String? profilePhotoUrl;
-
-  Token({
-    this.userType,
-    this.userId,
-    this.deviceToke,
-    this.profilePhotoUrl,
-  });
-
-  factory Token.fromJson(Map<String, dynamic> json) => Token(
-    userType: json["user_type"],
-    userId: json["user_id"],
-    deviceToke: json["deviceToke"],
-    profilePhotoUrl: json["profile_photo_url"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "user_type": userType,
-    "user_id": userId,
-    "deviceToke": deviceToke,
-    "profile_photo_url": profilePhotoUrl,
   };
 }

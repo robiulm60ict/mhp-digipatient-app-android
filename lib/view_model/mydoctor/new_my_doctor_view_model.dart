@@ -28,7 +28,7 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
       if (value['message'].toString() == "Successfully store data") {
         Messages.snackBar(context, value['message'].toString(),
             backgroundColor: Colors.green);
-        getmyAllDoctors(context);
+        // getmyAllDoctors(context);
       } else {
         Messages.snackBar(context, value['message'].toString());
       }
@@ -47,16 +47,17 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
   List<MyDoctorList> myDoctorFullList = [];
   List<Datum> myDoctorList = [];
 
-  getmyAllDoctors(BuildContext context) async {
+  getmyAllDoctors(BuildContext context,depertmentid) async {
     myDoctorList.clear();
     myDoctorFullList.clear();
 
     isDoctorLoading = true;
 
     notifyListeners();
-    await DoctorRepository().getmyAllActiveDoctors(context).then((value) {
+    await DoctorRepository().getmyAllActiveDoctors(context,depertmentid).then((value) {
       myDoctorFullList.add(value);
       myDoctorList.addAll(value.data!);
+      print(myDoctorList.length);
       isDoctorLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
@@ -109,7 +110,7 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
 
     notifyListeners();
     await DoctorRepository().deactivedoctor(doctorid).then((value) {
-      getmyAllDoctors(context);
+      // getmyAllDoctors(context);
       getmyAllDeactiveDoctors(context);
       notifyListeners();
     }).onError((error, stackTrace) {
@@ -124,7 +125,7 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
 
     notifyListeners();
     await DoctorRepository().activedoctor(doctorid).then((value) {
-      getmyAllDoctors(context);
+      // getmyAllDoctors(context);
       getmyAllDeactiveDoctors(context);
       notifyListeners();
     }).onError((error, stackTrace) {

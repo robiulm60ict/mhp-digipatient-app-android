@@ -11,13 +11,13 @@ class DepartmentRepository{
 
   BaseApiService apiService = NetworkApiService();
 
-  Future<DepartmentModel> getAllDepartment() async{
+  Future<DepartmentsListModel> getAllDepartment() async{
 
     try{
 
       dynamic response = await apiService.getGetApiResponse(AppUrls.department,);
-
-      return DepartmentModel.fromJson(response);
+print(response);
+      return DepartmentsListModel.fromJson(response);
 
     }catch(e){
 
