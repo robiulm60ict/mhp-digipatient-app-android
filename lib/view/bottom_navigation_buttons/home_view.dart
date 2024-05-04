@@ -107,6 +107,7 @@ class _HomeViewState extends State<HomeView> {
     final user = Provider.of<UserViewModel>(context).user;
     final auth = Provider.of<AuthViewModel>(context, listen: false);
     final appointments = Provider.of<DailyAndUpcommingViewModel>(context);
+    final dvm = Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
 
     return WillPopScope(
       onWillPop: () async {
@@ -576,7 +577,8 @@ class _HomeViewState extends State<HomeView> {
                       return InkWell(
                         onTap: () {
                           if (index == 0) {
-
+                            dvm.getmyAllDoctors(context);
+                            dvm.getmyAllDeactiveDoctors(context);
                           }
 
                           provider.homeItemsRouteTo(context, index);

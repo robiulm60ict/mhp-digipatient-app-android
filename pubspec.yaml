@@ -67,7 +67,7 @@ dependencies:
   photo_view: ^0.14.0
   #  agora_rtc_engine: ^6.1.0
   date_format: ^2.0.7
-  human_body_selector: ^0.0.1
+#  human_body_selector: ^0.0.1
   zoom_widget: ^2.0.1
   badges: ^3.0.3
   flutter_rating_bar: ^4.0.1
@@ -118,6 +118,10 @@ dependencies:
   circle_nav_bar: ^2.0.1+1
   mdi:
   google_maps_flutter: ^2.6.1
+
+  human_body_selector:
+    git:
+      url: https://github.com/robiulalam210/human_body_selector.git
 
 #  syncfusion_flutter_pdf: ^24.2.4
 

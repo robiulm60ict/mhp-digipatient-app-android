@@ -20,7 +20,7 @@ class PathologyAddTest extends StatefulWidget {
 }
 
 class _PathologyAddTestState extends State<PathologyAddTest> {
-  int? groupValue;
+  String? groupValue = "Clinic";
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
@@ -34,6 +34,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
       target: LatLng(37.43296265331129, -122.08832357078792),
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
+  LatLng target = _kLake.target;
 
   @override
   void initState() {
@@ -41,6 +42,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
     // TODO: implement initState
     super.initState();
   }
+  bool isLocating = false;
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +65,37 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
           ),
           trailing: ElevatedButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CheckoutPayment()));
+              print(target.latitude);
+              List<Map<String, dynamic>> dataList = [];
+              print(myRecord.testlistfavert);
+              for (var i in myRecord.testlistfavert) {
+                // Using null-aware operator to handle nullable strings
+                if (i.testName != null && i.fee != null) {
+                  // Adding each testName and fee as separate entries in the list of maps
+                  dataList.add({
+                    'id': i.id!,
+                    'testName': i.testName!,
+                    'fee': i.fee!,
+                  });
+                }
+              }
+              print(dataList);
+
+
+              // Map<String ,dynamic> data={};
+              // print( myRecord.testlistfavert);
+              // for (var i  in  myRecord.testlistfavert){
+              //   data= {
+              //     "name": data.add(i.testName),
+              //     "name": data.add(i.testName),
+              //
+              //   };
+              //
+              // }
+              // print(data);
+              // myRecord.testList
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => CheckoutPayment()));
             },
             child: Text(
               "Proceed to Payment",
@@ -101,24 +132,6 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                 style: Style.alltext_default_balck_blod,
               ),
               Style.distan_size10,
-              // Card(
-              //   shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(8.r),
-              //       side: BorderSide(color: AppColors.primaryColor)),
-              //   child: ListTile(
-              //     onTap: () {},
-              //     leading: Icon(
-              //       Icons.search_rounded,
-              //       color: AppColors.primaryColor,
-              //       size: 25.h,
-              //     ),
-              //     title: Text(
-              //       "Search Clinic",
-              //       style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-              //     ),
-              //   ),
-              // ),
-              // Style.distan_size10,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -278,12 +291,21 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                     style: Style.alltext_Large_black,
                   ),
                   IconButton(
-                      onPressed: _goToTheLake,
+                      onPressed: () {
+                        // Toggle the button state when clicked
+                        setState(() {
+                          isLocating = !isLocating;
+                        });
+                        // Call the _goToTheLake function
+                        _goToTheLake();
+                      },
+                      // Set the icon based on the button state
                       icon: Icon(
-                        Icons.location_disabled,
+                        isLocating ? Icons.location_on : Icons.location_disabled,
                         size: 25,
                         color: AppColors.primary_color,
-                      ))
+                      )
+                  )
                 ],
               ),
               Style.distan_size5,
@@ -316,10 +338,10 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
-                            child: Radio<int>(
-                              value: 10,
+                            child: Radio<String>(
+                              value: "Clinic",
                               groupValue: groupValue,
-                              onChanged: (int? newValue) {
+                              onChanged: (String? newValue) {
                                 // Update the state to reflect the new value when the radio button is selected
                                 setState(() {
                                   groupValue = newValue;
@@ -328,14 +350,14 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                             ),
                           ),
                           Text(
-                            ' Clinic',
+                            'Clinic',
                             style: Style.alltext_default_balck,
                           ),
                           SizedBox(
-                            child: Radio<int>(
-                              value: 10,
+                            child: Radio<String>(
+                              value: "Home", // Adjust value for Home if needed
                               groupValue: groupValue,
-                              onChanged: (int? newValue) {
+                              onChanged: (String? newValue) {
                                 // Update the state to reflect the new value when the radio button is selected
                                 setState(() {
                                   groupValue = newValue;
@@ -346,7 +368,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                           Text(
                             'Home',
                             style: Style.alltext_default_balck,
-                          ), // The ti
+                          ),
                         ],
                       ),
                     ],
@@ -369,10 +391,13 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
     return total;
   }
 
+
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;
     await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+    print('Target latitude: ${target.latitude}, Target longitude: ${target.longitude}');
   }
+
 }
 
 class SearchListDialog extends StatefulWidget {

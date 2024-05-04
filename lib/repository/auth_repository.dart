@@ -40,6 +40,7 @@ class AuthRepository {
       print(response);
       return response;
     } catch (e) {
+      print(e);
       rethrow;
     }
   }  Future logoutApi(

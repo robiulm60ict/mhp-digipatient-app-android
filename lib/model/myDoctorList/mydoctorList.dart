@@ -78,8 +78,8 @@ class Datum {
 
 class Doctors {
   int? id;
-  int? saasBranchId;
-  String? saasBranchName;
+  dynamic saasBranchId;
+  dynamic saasBranchName;
   String? drIdentityNo;
   Title? title;
   String? departmentId;
@@ -278,7 +278,7 @@ class Academic {
   dynamic updatedBy;
   DateTime? createdAt;
   DateTime? updatedAt;
-  List<Inistitution>? inistitution;
+  List<dynamic>? inistitution;
   List<Country>? country;
 
   Academic({
@@ -321,7 +321,7 @@ class Academic {
     updatedBy: json["updated_by"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    inistitution: json["inistitution"] == null ? [] : List<Inistitution>.from(json["inistitution"]!.map((x) => Inistitution.fromJson(x))),
+    inistitution: json["inistitution"] == null ? [] : List<dynamic>.from(json["inistitution"]!.map((x) => x)),
     country: json["country"] == null ? [] : List<Country>.from(json["country"]!.map((x) => Country.fromJson(x))),
   );
 
@@ -343,7 +343,7 @@ class Academic {
     "updated_by": updatedBy,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
-    "inistitution": inistitution == null ? [] : List<dynamic>.from(inistitution!.map((x) => x.toJson())),
+    "inistitution": inistitution == null ? [] : List<dynamic>.from(inistitution!.map((x) => x)),
     "country": country == null ? [] : List<dynamic>.from(country!.map((x) => x.toJson())),
   };
 }
@@ -365,26 +365,6 @@ class Country {
   Map<String, dynamic> toJson() => {
     "id": id,
     "country_name": countryName,
-  };
-}
-
-class Inistitution {
-  int? id;
-  String? name;
-
-  Inistitution({
-    this.id,
-    this.name,
-  });
-
-  factory Inistitution.fromJson(Map<String, dynamic> json) => Inistitution(
-    id: json["id"],
-    name: json["name"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
   };
 }
 
@@ -479,10 +459,10 @@ class Token {
 class UsualProvider {
   int? id;
   String? usualProviderName;
-  dynamic address;
+  String? address;
   dynamic mobile;
-  dynamic phone;
-  dynamic email;
+  String? phone;
+  String? email;
 
   UsualProvider({
     this.id,

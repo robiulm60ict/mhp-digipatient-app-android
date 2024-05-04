@@ -218,7 +218,7 @@ class AuthViewModel with ChangeNotifier {
           "Verification code sent successfully") {
         setSendOtpLoading(false);
         isSendOtpLoading = false;
-
+        Messages.snackBar(context, value['message'].toString());
         notifyListeners();
         Navigator.pushReplacement(
             context,

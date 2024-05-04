@@ -111,7 +111,7 @@ class _MyDoctorViewState extends State<DepermentView> {
 
                               return InkWell(
                                   onTap: (){
-                                    dvm.getmyAllDoctors(context,docc.id.toString());
+                                  //  dvm.getmyAllDoctors(context,docc.id.toString());
                                     dvm.getmyAllDeactiveDoctors(context);
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>MyDoctorView()));
                                   },

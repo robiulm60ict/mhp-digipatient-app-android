@@ -70,7 +70,7 @@ class HomeViewModel with ChangeNotifier {
   homeItemsRouteTo(BuildContext context, int index) {
     if (index == 0) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => DepermentView()));
+          context, MaterialPageRoute(builder: (context) => MyDoctorView()));
       //  context.router.push(const MyDoctorRoute());
     }
 

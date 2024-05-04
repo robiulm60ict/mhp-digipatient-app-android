@@ -47,14 +47,14 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
   List<MyDoctorList> myDoctorFullList = [];
   List<Datum> myDoctorList = [];
 
-  getmyAllDoctors(BuildContext context,depertmentid) async {
+  getmyAllDoctors(BuildContext context) async {
     myDoctorList.clear();
     myDoctorFullList.clear();
 
     isDoctorLoading = true;
 
     notifyListeners();
-    await DoctorRepository().getmyAllActiveDoctors(context,depertmentid).then((value) {
+    await DoctorRepository().getmyAllActiveDoctors(context).then((value) {
       myDoctorFullList.add(value);
       myDoctorList.addAll(value.data!);
       print(myDoctorList.length);

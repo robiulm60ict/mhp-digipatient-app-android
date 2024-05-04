@@ -47,7 +47,7 @@ class MyClinicViewModel with ChangeNotifier {
   copypateitnpostclinicRequest(BuildContext context, dbName,saas_branch_id,saas_branch_name) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int? id = prefs.getInt(UserP.userid);
+    int? id = prefs.getInt(UserP.id);
     Map body =
       {
         "paitentId": id.toString(),

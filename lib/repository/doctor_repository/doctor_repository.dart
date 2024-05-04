@@ -30,24 +30,26 @@ class DoctorRepository {
     }
   }
 
-  Future<MyDoctorList> getmyAllActiveDoctors(contex,derpermentId) async {
+  Future<MyDoctorList> getmyAllActiveDoctors(contex) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       int? id = prefs.getInt(UserP.id);
-      dynamic response =
-          await apiService.getGetApiResponsecontext("${AppUrls.myDoctorslist}$id/$derpermentId",contex);
+      dynamic response = await apiService.getGetApiResponsecontext(
+          "${AppUrls.myDoctorslist}$id", contex);
       print(response);
       return MyDoctorList.fromJson(response);
     } catch (e) {
       print(e);
       rethrow;
     }
-  }  Future<MyDoctorList> getmyAllDeactiveDoctors(contex) async {
+  }
+
+  Future<MyDoctorList> getmyAllDeactiveDoctors(contex) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       int? id = prefs.getInt(UserP.id);
-      dynamic response =
-          await apiService.getGetApiResponsecontext("${AppUrls.myDoctorsDeactivelist}$id",contex);
+      dynamic response = await apiService.getGetApiResponsecontext(
+          "${AppUrls.myDoctorsDeactivelist}$id", contex);
       print("rrrrrrrrrrrrrrrrrrr${response}");
       return MyDoctorList.fromJson(response);
     } catch (e) {
@@ -55,24 +57,27 @@ class DoctorRepository {
       rethrow;
     }
   }
+
   Future activedoctor(doctorid) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       int? id = prefs.getInt(UserP.id);
-      dynamic response =
-          await apiService.getGetApiResponse("${AppUrls.activedoctor}$id/$doctorid");
+      dynamic response = await apiService
+          .getGetApiResponse("${AppUrls.activedoctor}$id/$doctorid");
       print(response);
       return MyDoctorList.fromJson(response);
     } catch (e) {
       print(e);
       rethrow;
     }
-  }  Future deactivedoctor(doctorid) async {
+  }
+
+  Future deactivedoctor(doctorid) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       int? id = prefs.getInt(UserP.id);
-      dynamic response =
-          await apiService.getGetApiResponse("${AppUrls.deactivedoctor}$id/$doctorid");
+      dynamic response = await apiService
+          .getGetApiResponse("${AppUrls.deactivedoctor}$id/$doctorid");
       print(response);
       return MyDoctorList.fromJson(response);
     } catch (e) {
