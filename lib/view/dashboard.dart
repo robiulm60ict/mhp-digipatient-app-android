@@ -46,7 +46,7 @@ class _MyHomePageState extends State<DashboardView>
         activeIcons: [
           // Icon(Icons.person, color: Colors.deepPurple),
           Icon(Icons.home, color: AppColors.primary_color),
-          Icon( IconData(0xe559, fontFamily: 'MaterialIcons'), color: AppColors.primary_color),
+          Icon(Icons.deck, color: AppColors.primary_color),
           // Image.asset(
           //   Assets.iconsDrawer,
           //   height: 100,
@@ -60,7 +60,7 @@ class _MyHomePageState extends State<DashboardView>
         inactiveIcons: [
           // Text("My"),
           Icon(Icons.home, color: AppColors.primary_color),
-          Icon( IconData(0xe559, fontFamily: 'MaterialIcons'), color: AppColors.primary_color),
+          Icon(Icons.deck, color: AppColors.primary_color),
 
           Icon(Icons.qr_code, color: AppColors.primary_color),
 

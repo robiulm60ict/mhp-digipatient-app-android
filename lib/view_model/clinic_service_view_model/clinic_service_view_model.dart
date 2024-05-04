@@ -23,10 +23,10 @@ class ClinicServiceViewModel with ChangeNotifier {
           MaterialPageRoute(builder: (context) => ClinicBranchDepermentView(branch: branch,DbName: DbName,)));
     } else if (index == 1) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => PathologyAddTest()));
+          context, MaterialPageRoute(builder: (context) => PathologyAddTest(branceid: branch!.id.toString(), DbName: DbName,)));
     } else if (index == 2) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => RadoiologyAddTest()));
+          context, MaterialPageRoute(builder: (context) => RadoiologyAddTest(branceid: branch!.id.toString(), DbName: DbName,)));
     }
   }
 }

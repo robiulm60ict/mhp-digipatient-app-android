@@ -11,11 +11,15 @@ import 'package:digi_patient/view_model/my_record_view_model/my_record_view_mode
 import '../../../../model/testmodel/testmodellist.dart';
 import '../../../../resources/colors.dart';
 import '../../../../utils/utils.dart';
+import '../../../../view_model/clinic/my_clinic_view_model/my_clinic_lav_view_model.dart';
 import '../../../../widgets/back_button.dart';
 import '../../payment_clinic/checkout.dart';
 
 class RadoiologyAddTest extends StatefulWidget {
-  const RadoiologyAddTest({super.key});
+  RadoiologyAddTest({super.key, required this.branceid,required this.DbName});
+
+  String branceid;
+  String DbName;
 
   @override
   State<RadoiologyAddTest> createState() => _PathologyAddTestState();
@@ -44,41 +48,77 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
     super.initState();
   }
 
+  LatLng target = _kLake.target;
+
   @override
   Widget build(BuildContext context) {
     final myRecord = Provider.of<MyRecordViewModel>(context);
+    final myLab = Provider.of<MyClinicLabViewModel>(context);
     TestName? selectedCondition;
 
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.white,
-          bottomNavigationBar: BottomAppBar(
-            height: 55.h,
-            child: ListTile(
-              title: Text(
-                "Total Bill",
-                style: Style.alltext_Large_black,
-              ),
-              subtitle: Text("${calculateTotal(myRecord.testlistfavert)}BDT", style: Style.alltext_default_balck_blod,),
-              trailing: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CheckoutPayment()));
-                },
-                child: Text("Proceed to Payment", style: Style.drawer_button_style,),
-              ),
+      bottomNavigationBar: BottomAppBar(
+        height: 55.h,
+        child: ListTile(
+          title: Text(
+            "Total Bill",
+            style: Style.alltext_Large_black,
+          ),
+          subtitle: Text(
+            "${calculateTotal(myRecord.testlistfavert)}BDT",
+            style: Style.alltext_default_balck_blod,
+          ),
+          trailing: ElevatedButton(
+            onPressed: () {
+              print(target.latitude);
+              List<Map<String, dynamic>> dataList = [];
+              print(myRecord.testlistfavert);
+              for (var i in myRecord.testlistfavert) {
+                // Using null-aware operator to handle nullable strings
+                if (i.testName != null && i.fee != null) {
+                  // Adding each testName and fee as separate entries in the list of maps
+                  dataList.add({
+                    'id': i.id!,
+                    'testName': i.testName!,
+                    'fee': i.fee!,
+                  });
+                }
+              }
+              print(dataList);
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CheckoutPayment(
+                            branch_id: widget.branceid.toString(),
+                            amount:
+                                "${calculateTotal(myRecord.testlistfavert)}",
+                            lat: target.latitude.toString(),
+                            long: target.longitude.toString(),
+                            sample_collection: groupValue.toString(),
+                            test_name: dataList.toString(),
+                            test_type: "radiology",DbName: widget.DbName.toString(),
+                          )));
+            },
+            child: Text(
+              "Proceed to Payment",
+              style: Style.drawer_button_style,
             ),
           ),
-          appBar: AppBar(
-            elevation: 0,
-            leadingWidth: leadingWidth,
-            leading: const CustomBackButton(),
-            backgroundColor: AppColors.linearGradient2,
-            title: Text(
-              "Diagnostic Tests",
-              style: Style.alltext_appbar,
-            ),
-          ),
+        ),
+      ),
+      appBar: AppBar(
+        elevation: 0,
+        leadingWidth: leadingWidth,
+        leading: const CustomBackButton(),
+        backgroundColor: AppColors.linearGradient2,
+        title: Text(
+          "Diagnostic Tests",
+          style: Style.alltext_appbar,
+        ),
+      ),
       body: Container(
         padding: EdgeInsets.only(left: 12, right: 12),
         child: SingleChildScrollView(
@@ -230,16 +270,14 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
                                 ),
                                 Style.widthdistan_size20,
                                 Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     SizedBox(
                                       width: 200,
                                       child: Text(
-                                        myRecord
-                                            .testlistfavert[index].testName
+                                        myRecord.testlistfavert[index].testName
                                             .toString(),
                                         style: Style.alltext_default_balck,
                                       ),
@@ -298,7 +336,12 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
                   ),
                 ),
               ),
-              RadioListTile(value: 0, groupValue: groupValue, onChanged:(int? newValue){},title: Text("Clinic Booking Request"),),
+              RadioListTile(
+                value: 0,
+                groupValue: groupValue,
+                onChanged: (int? newValue) {},
+                title: Text("Clinic Booking Request"),
+              ),
             ],
           ),
         ),
@@ -314,6 +357,7 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
     }
     return total;
   }
+
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;
     await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));

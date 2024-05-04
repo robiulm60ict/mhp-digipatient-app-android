@@ -28,6 +28,7 @@ import 'view_model/appointment_view_model/appointment_view_model.dart';
 import 'view_model/appointment_view_model/brance_appointment_view_model.dart';
 import 'view_model/auth_view_model.dart';
 import 'view_model/clinic/my_clinic_view_model/my_clinic_doctor_view_model.dart';
+import 'view_model/clinic/my_clinic_view_model/my_clinic_lav_view_model.dart';
 import 'view_model/clinic/my_clinic_view_model/my_clinic_view_model.dart';
 import 'view_model/clinic_service_view_model/clinic_service_view_model.dart';
 import 'view_model/daily_appointments_view_model/daily_appointments_view_model.dart';
@@ -144,8 +145,11 @@ void main() async {
           ),
           ChangeNotifierProvider(
             create: (context) => MyClinicDoctorViewModel(),
-          ), ChangeNotifierProvider(
+          ),
+          ChangeNotifierProvider(
             create: (context) => BranceAppointmentViewModel(),
+          ), ChangeNotifierProvider(
+            create: (context) => MyClinicLabViewModel(),
           ),
         ],
         child: MyApp(

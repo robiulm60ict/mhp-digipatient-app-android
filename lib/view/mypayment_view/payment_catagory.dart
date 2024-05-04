@@ -123,7 +123,7 @@ class _AppoinmentCatagoryViewState extends State<PaymentCatagoryView> {
                 }),
             Style.distan_size15,
             GridView.builder(
-              itemCount: clinic.serviceItemsList.length,
+              itemCount: clinic.serviceItemsListpayment.length,
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: FlutterzillaFixedGridView(
@@ -150,12 +150,12 @@ class _AppoinmentCatagoryViewState extends State<PaymentCatagoryView> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            clinic.serviceItemsList[index].image,
+                            clinic.serviceItemsListpayment[index].image,
                             height: 50,
                           ),
                           Style.distan_size20,
                           Text(
-                            clinic.serviceItemsList[index].title,
+                            clinic.serviceItemsListpayment[index].title,
                             style: Style.alltext_default_balck_blod,
                           )
                         ],

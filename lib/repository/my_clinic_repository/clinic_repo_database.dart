@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/network/base_api_service.dart';
 import '../../model/appointment_model/todays_appointment_model.dart';
 import '../../model/appointment_model/upcomming_appointments_model.dart';
+import '../../model/clinic/lab_request_data.dart';
 import '../../model/clinic/mydoctorlistbrance.dart';
 import '../../model/doctor_model/doctor_chember_time_model.dart';
 import '../../model/myDoctorList/mydoctorList.dart';
@@ -69,6 +70,19 @@ class ClinicRepository {
     try {
       dynamic response = await apiService.getPostApiResponsehader(
           AppUrls.bookAppointment, body, DbName.toString());
+      print("response$response");
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  bookTest(String DbName, {required body}) async {
+    print(DbName);
+    try {
+      dynamic response = await apiService.getPostApiResponsehader(
+          AppUrls.lab_request, body, DbName.toString());
       print("response$response");
 
       return response;
@@ -173,6 +187,25 @@ class ClinicRepository {
       List<MyPaymentModel> alldata = [];
       for (var i in response) {
         alldata.add(MyPaymentModel.fromJson(i));
+      }
+      return alldata;
+    } catch (e) {
+      rethrow;
+    }
+  } Future<List<MyLabRequestDataList>>
+  getlabdata(contex,String branceid, DbName) async {
+    print(DbName);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? id = prefs.getInt(UserP.id);
+    try {
+      dynamic response = await apiService.getGetApiResponsecontext(
+          "${AppUrls.mylab}$id/$branceid", contex, DbName
+      );
+
+      print(response);
+      List<MyLabRequestDataList> alldata = [];
+      for (var i in response['data']) {
+        alldata.add(MyLabRequestDataList.fromJson(i));
       }
       return alldata;
     } catch (e) {

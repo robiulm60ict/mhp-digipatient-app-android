@@ -9,11 +9,15 @@ import 'package:digi_patient/view_model/my_record_view_model/my_record_view_mode
 import '../../../../model/testmodel/testmodellist.dart';
 import '../../../../resources/colors.dart';
 import '../../../../utils/utils.dart';
+import '../../../../view_model/clinic/my_clinic_view_model/my_clinic_lav_view_model.dart';
 import '../../../../widgets/back_button.dart';
 import '../../payment_clinic/checkout.dart';
 
 class PathologyAddTest extends StatefulWidget {
-  const PathologyAddTest({super.key});
+  PathologyAddTest({super.key, required this.branceid, required this.DbName});
+
+  String branceid;
+  String DbName;
 
   @override
   State<PathologyAddTest> createState() => _PathologyAddTestState();
@@ -42,11 +46,13 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
     // TODO: implement initState
     super.initState();
   }
+
   bool isLocating = false;
 
   @override
   Widget build(BuildContext context) {
     final myRecord = Provider.of<MyRecordViewModel>(context);
+    final myLab = Provider.of<MyClinicLabViewModel>(context);
     TestName? selectedCondition;
 
     return SafeArea(
@@ -81,21 +87,19 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
               }
               print(dataList);
 
-
-              // Map<String ,dynamic> data={};
-              // print( myRecord.testlistfavert);
-              // for (var i  in  myRecord.testlistfavert){
-              //   data= {
-              //     "name": data.add(i.testName),
-              //     "name": data.add(i.testName),
-              //
-              //   };
-              //
-              // }
-              // print(data);
-              // myRecord.testList
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => CheckoutPayment()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CheckoutPayment(
+                            branch_id: widget.branceid.toString(),
+                            amount:
+                                "${calculateTotal(myRecord.testlistfavert)}",
+                            lat: target.latitude.toString(),
+                            long: target.longitude.toString(),
+                            sample_collection: groupValue.toString(),
+                            test_name: dataList.toString(),
+                            test_type: "pathology",DbName: widget.DbName.toString(),
+                          )));
             },
             child: Text(
               "Proceed to Payment",
@@ -301,11 +305,12 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                       },
                       // Set the icon based on the button state
                       icon: Icon(
-                        isLocating ? Icons.location_on : Icons.location_disabled,
+                        isLocating
+                            ? Icons.location_on
+                            : Icons.location_disabled,
                         size: 25,
                         color: AppColors.primary_color,
-                      )
-                  )
+                      ))
                 ],
               ),
               Style.distan_size5,
@@ -355,7 +360,8 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                           ),
                           SizedBox(
                             child: Radio<String>(
-                              value: "Home", // Adjust value for Home if needed
+                              value: "Home",
+                              // Adjust value for Home if needed
                               groupValue: groupValue,
                               onChanged: (String? newValue) {
                                 // Update the state to reflect the new value when the radio button is selected
@@ -391,13 +397,12 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
     return total;
   }
 
-
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;
     await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-    print('Target latitude: ${target.latitude}, Target longitude: ${target.longitude}');
+    print(
+        'Target latitude: ${target.latitude}, Target longitude: ${target.longitude}');
   }
-
 }
 
 class SearchListDialog extends StatefulWidget {

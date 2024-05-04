@@ -38,6 +38,12 @@ class HomeViewModel with ChangeNotifier {
     HomeItemsModel(title: "Appointment at Clinic", image: Assets.homeMyRec),
 
   ];
+
+  List<HomeItemsModel> serviceItemsListpayment = [
+    HomeItemsModel(title: "Appointment with Doctors", image: Assets.homePayments),
+    HomeItemsModel(title: "Appointment at Clinic", image: Assets.homeServices),
+
+  ];
   appoinmentcatagoryItemsRouteTo(BuildContext context, int index) {
     if (index == 0) {
       Navigator.push(

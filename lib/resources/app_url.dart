@@ -80,6 +80,7 @@ class AppUrls {
   /// book appointment
 
   static const String bookAppointment = '$baseUrlPatient/online-booking-app';
+  static const String lab_request = '$baseUrlPatient/lab-request-from-app';
 
   /// Appointments
 
@@ -104,6 +105,10 @@ class AppUrls {
 
   static const String mypayment =
       '$baseUrlPatient/online-booking-app-payment-details/';
+
+
+  static const String mylab =
+      '$baseUrlPatient/lab-request-from-app/';
   static const String medicalHistoryFromGreatDoc =
       '$baseUrlPatient/past-history/';
 

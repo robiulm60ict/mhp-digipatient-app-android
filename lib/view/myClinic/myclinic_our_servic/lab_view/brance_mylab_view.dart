@@ -4,30 +4,34 @@ import 'package:intl/intl.dart';
 
 import 'package:provider/provider.dart';
 
-import '../../generated/assets.dart';
-import '../../resources/app_url.dart';
-import '../../resources/colors.dart';
-import '../../resources/styles.dart';
-import '../../utils/utils.dart';
-import '../../view_model/clinic/my_clinic_view_model/my_clinic_doctor_view_model.dart';
-import '../../view_model/mypayment/my_payment_view.dart';
-import '../../widgets/back_button.dart';
-import '../../widgets/shimmer.dart';
+import '../../../../generated/assets.dart';
+import '../../../../resources/app_url.dart';
+import '../../../../resources/colors.dart';
+import '../../../../resources/styles.dart';
+import '../../../../utils/utils.dart';
+import '../../../../view_model/clinic/my_clinic_view_model/my_clinic_doctor_view_model.dart';
+import '../../../../view_model/clinic/my_clinic_view_model/my_clinic_lav_view_model.dart';
+import '../../../../widgets/back_button.dart';
+import '../../../../widgets/shimmer.dart';
 
-class MyBrancePatmentView extends StatefulWidget {
-   MyBrancePatmentView({super.key,this.DbName});
-String? DbName;
+class MyLabView extends StatefulWidget {
+  MyLabView({super.key, this.DbName, this.Branceid});
+
+  String? DbName;
+  String? Branceid;
+
   @override
-  State<MyBrancePatmentView> createState() => _MyPatientViewState();
+  State<MyLabView> createState() => _MyPatientViewState();
 }
 
-class _MyPatientViewState extends State<MyBrancePatmentView> {
+class _MyPatientViewState extends State<MyLabView> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       print("object${widget.DbName}");
 
-      context.read<MyClinicDoctorViewModel>().getmypayment(context,widget.DbName.toString());
+      context.read<MyClinicLabViewModel>().getlab(
+          context, widget.Branceid.toString(), widget.DbName.toString());
     });
     // TODO: implement initState
     super.initState();
@@ -36,25 +40,27 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
   @override
   Widget build(BuildContext context) {
     print("object");
-    final myRecord = Provider.of<MyClinicDoctorViewModel>(context, listen: false);
+    final myRecord = Provider.of<MyClinicLabViewModel>(context, listen: false);
 
     return SafeArea(
         child: RefreshIndicator(
       onRefresh: () async {
-        context.read<MyClinicDoctorViewModel>().getmypayment(context,widget.DbName.toString());
+        context
+            .read<MyClinicDoctorViewModel>()
+            .getmypayment(context, widget.DbName.toString());
       },
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
-          leading:  CustomBackButton(),
+          leading: CustomBackButton(),
           leadingWidth: leadingWidth,
           backgroundColor: AppColors.primaryColor,
           //automaticallyImplyLeading: false,
 
           centerTitle: true,
           title: Text(
-            "My Payments",
+            "My Lab",
             style: Style.alltext_default_white,
           ),
         ),
@@ -66,9 +72,9 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Consumer<MyClinicDoctorViewModel>(builder: (context, data, child) {
+                Consumer<MyClinicLabViewModel>(builder: (context, data, child) {
                   if (data.mypayment.isEmpty) {
-                    return data.isDoctorLoading == true
+                    return data.isLabLoading == true
                         ? Center(
                             child: ListView.builder(
                               itemCount: 6,
@@ -109,19 +115,14 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
                                         children: [
-
-                                          Style.widthdistan_size2,
                                           SizedBox(
-                                            width: 220.w,
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-
                                                 Style.distan_size2,
-
                                                 Row(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
@@ -146,7 +147,77 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
                                                   ],
                                                 ),
                                                 Style.distan_size2,
-
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 70.w,
+                                                      child: Text(
+                                                        "TestType ",
+                                                        style: Style
+                                                            .alltext_default_balck,
+                                                      ),
+                                                    ),
+                                                    Text(":  "),
+                                                    SizedBox(
+                                                      width: 130.w,
+                                                      child: Text(
+                                                          item.testType
+                                                              .toString(),
+                                                          style: Style
+                                                              .alltext_default_balck),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Style.distan_size2,
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 70.w,
+                                                      child: Text(
+                                                        "TranId",
+                                                        style: Style
+                                                            .alltext_default_balck,
+                                                      ),
+                                                    ),
+                                                    Text(":  "),
+                                                    SizedBox(
+                                                      width: 130.w,
+                                                      child: Text(
+                                                          item.tranId
+                                                              .toString(),
+                                                          style: Style
+                                                              .alltext_default_balck),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Style.distan_size2,
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 70.w,
+                                                      child: Text(
+                                                        "PaymentNumber",
+                                                        style: Style
+                                                            .alltext_default_balck,
+                                                      ),
+                                                    ),
+                                                    Text(":  "),
+                                                    SizedBox(
+                                                      width: 180.w,
+                                                      child: Text(
+                                                          item.paymentNumber
+                                                              .toString(),
+                                                          style: Style
+                                                              .alltext_default_balck),
+                                                    ),
+                                                  ],
+                                                ),
                                                 Style.distan_size2,
                                                 Row(
                                                   crossAxisAlignment:
@@ -161,7 +232,13 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
                                                       ),
                                                     ),
                                                     Text(":  "),
-
+                                                    SizedBox(
+                                                      width: 120.w,
+                                                      child: Text(
+                                                          "${DateFormat("dd-MM-yyyy").format(DateTime.parse("${item.createdAt.toString()}"))}",
+                                                          style: Style
+                                                              .alltext_default_balck),
+                                                    ),
                                                   ],
                                                 ),
                                                 Style.distan_size2,

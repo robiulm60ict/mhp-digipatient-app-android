@@ -3,6 +3,8 @@ import 'package:badges/badges.dart' as badges;
 import 'package:badges/badges.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:digi_patient/view/daily_upcomming_appointment/daily_and_upcomming_appointments_view.dart';
+import 'package:digi_patient/view/myClinic/myclinic_our_servic/lab_view/brance_mylab_view.dart';
+import 'package:digi_patient/view/myClinic/myclinic_our_servic/lab_view/myclinic_appoinment_view.dart';
 import 'package:digi_patient/view/notifications_view.dart';
 import 'package:digi_patient/view/payment/invoice_view.dart';
 import 'package:digi_patient/view/tutrials/tutrials_category.dart';
@@ -263,6 +265,18 @@ class _HomeViewState extends State<HomeView> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => const PaymentCatagoryView()));
+                    //  context.router.push(const InvoiceRoute());
+                  },
+                ),
+
+                Style.distan_size2,  DrawerListTile(
+                  iconData: Icons.payment,
+                  title: "Lab details",
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>  MyClinicLabView()));
                     //  context.router.push(const InvoiceRoute());
                   },
                 ),
