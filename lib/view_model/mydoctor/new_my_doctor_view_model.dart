@@ -110,7 +110,7 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
 
     notifyListeners();
     await DoctorRepository().deactivedoctor(doctorid).then((value) {
-      // getmyAllDoctors(context);
+      getmyAllDoctors(context);
       getmyAllDeactiveDoctors(context);
       notifyListeners();
     }).onError((error, stackTrace) {
@@ -125,7 +125,7 @@ class MyDoctorDelaisViewModel with ChangeNotifier {
 
     notifyListeners();
     await DoctorRepository().activedoctor(doctorid).then((value) {
-      // getmyAllDoctors(context);
+      getmyAllDoctors(context);
       getmyAllDeactiveDoctors(context);
       notifyListeners();
     }).onError((error, stackTrace) {

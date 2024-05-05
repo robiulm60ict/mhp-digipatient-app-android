@@ -16,6 +16,7 @@ import '../../widgets/appointment_notification_card.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/shimmer.dart';
 import 'patientqueioo.dart';
+import 'patientqueioo_brance.dart';
 
 class BranceDailyAndUpcommingView extends StatefulWidget {
    BranceDailyAndUpcommingView({Key? key,this.DbName,this.branch}) : super(key: key);
@@ -204,8 +205,8 @@ class _DailyAndUpcommingViewState extends State<BranceDailyAndUpcommingView> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => PatientQurio(
-                                              todaysPatientAppointment: app,
+                                        builder: (context) => BrancePatientQurio(
+                                              todaysPatientAppointment: app, databasename: widget.DbName.toString(), branceid: widget.branch!.id.toString(),
                                             )));
 
                                 // appointments.getAppoinmentsqueue(context, app.doctorsId, app.id);

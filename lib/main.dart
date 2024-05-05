@@ -68,7 +68,7 @@ void main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await Firebase.initializeApp(
-    name: "digi_patient",
+    // name: "digi_patient",
     options: DefaultFirebaseOptions.currentPlatform,
   );
 

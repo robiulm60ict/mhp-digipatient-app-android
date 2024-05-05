@@ -26,7 +26,7 @@ class RadoiologyAddTest extends StatefulWidget {
 }
 
 class _PathologyAddTestState extends State<RadoiologyAddTest> {
-  int? groupValue;
+  String? groupValue = "Clinic";
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
@@ -49,6 +49,7 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
   }
 
   LatLng target = _kLake.target;
+  bool isLocating = false;
 
   @override
   Widget build(BuildContext context) {
@@ -314,9 +315,19 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
                     style: Style.alltext_Large_black,
                   ),
                   IconButton(
-                      onPressed: _goToTheLake,
+                      onPressed: () {
+                        // Toggle the button state when clicked
+                        setState(() {
+                          isLocating = !isLocating;
+                        });
+                        // Call the _goToTheLake function
+                        _goToTheLake();
+                      },
+                      // Set the icon based on the button state
                       icon: Icon(
-                        Icons.location_disabled,
+                        isLocating
+                            ? Icons.location_on
+                            : Icons.location_disabled,
                         size: 25,
                         color: AppColors.primary_color,
                       ))
@@ -336,12 +347,31 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
                   ),
                 ),
               ),
-              RadioListTile(
-                value: 0,
-                groupValue: groupValue,
-                onChanged: (int? newValue) {},
-                title: Text("Clinic Booking Request"),
+
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    child: Radio<String>(
+                      value: "Clinic",
+                      groupValue: groupValue,
+                      onChanged: (String? newValue) {
+                        // Update the state to reflect the new value when the radio button is selected
+                        setState(() {
+                          groupValue = newValue;
+                        });
+                      },
+                    ),
+                  ),
+                  Text(
+                    'Clinic',
+                    style: Style.alltext_default_balck,
+                  ),
+
+                ],
               ),
+
             ],
           ),
         ),
