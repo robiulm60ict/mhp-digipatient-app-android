@@ -45,11 +45,12 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
 
     print("resultdataaaaaaaaaaaaaaaaaaaaaaaa$result");
     if(result.toString().split("IFI").first.toString()=="W"){
+      // context.read<DrProfileViewModel>().getProfileData(context,result.toString());
+
       print("object");
     }else{
       print("elseelseelseelseelseelseelseelseelseelseelseelseelse");
     }
-   // context.read<DrProfileViewModel>().getProfileData(context,result.toString());
     controller!.dispose();
     // Navigator.pushNamed(context, RoutesName.dashbord);
   }
@@ -105,28 +106,28 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
                   onQRViewCreated: onQRViewCreated,
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Center(
-                  child: (result != null)
-                      ? Text('Data: ${result!}')
-                      : Text('Scan a code'),
-                ),
-              ),
-              Expanded(
-                  flex: 1,
-                  child: Center(
-                    child: TextButton(
-                      onPressed: () {
-                        if (result.isNotEmpty) {
-                          Clipboard.setData(ClipboardData(text: result));
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Copied to Clipboard")));
-                        }
-                      },
-                      child: Text("Copy"),
-                    ),
-                  ))
+              // Expanded(
+              //   flex: 1,
+              //   child: Center(
+              //     child: (result != null)
+              //         ? Text('Data: ${result!}')
+              //         : Text('Scan a code'),
+              //   ),
+              // ),
+              // Expanded(
+              //     flex: 1,
+              //     child: Center(
+              //       child: TextButton(
+              //         onPressed: () {
+              //           if (result.isNotEmpty) {
+              //             Clipboard.setData(ClipboardData(text: result));
+              //             ScaffoldMessenger.of(context).showSnackBar(
+              //                 SnackBar(content: Text("Copied to Clipboard")));
+              //           }
+              //         },
+              //         child: Text("Copy"),
+              //       ),
+              //     ))
             ],
           ),
         ),

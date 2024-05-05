@@ -8,6 +8,7 @@ import '../../../resources/styles.dart';
 import '../../../utils/utils.dart';
 import '../../../view_model/clinic/my_clinic_view_model/my_clinic_view_model.dart';
 import '../../../widgets/back_button.dart';
+import '../../generated/assets.dart';
 import 'brance_daily_and_upcomming_appointments_view.dart';
 
 class ClinicAppoinemnrtBranches extends StatelessWidget {
@@ -51,26 +52,26 @@ class ClinicAppoinemnrtBranches extends StatelessWidget {
                   width: double.infinity,
                 ),
                 Style.distan_size10,
-                Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r),
-                      side: BorderSide(color: AppColors.primaryColor)),
-                  child: ListTile(
-                    onTap: () {},
-                    leading: Icon(
-                      Icons.search_rounded,
-                      color: AppColors.primaryColor,
-                      size: 25.h,
-                    ),
-                    title: Text(
-                      "Search your branch",
-                      style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 4.h,
-                ),
+                // Card(
+                //   shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(8.r),
+                //       side: BorderSide(color: AppColors.primaryColor)),
+                //   child: ListTile(
+                //     onTap: () {},
+                //     leading: Icon(
+                //       Icons.search_rounded,
+                //       color: AppColors.primaryColor,
+                //       size: 25.h,
+                //     ),
+                //     title: Text(
+                //       "Search your branch",
+                //       style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                //     ),
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 4.h,
+                // ),
                 ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
@@ -102,13 +103,27 @@ class ClinicAppoinemnrtBranches extends StatelessWidget {
                           child: Row(
                             children: [
                               SizedBox(
-                                child: CircleAvatar(
+                                child:
+
+                                branch.logo.toString() ==
+                                    "null"
+                                    ? SizedBox(
+                                  //height: 110,
+                                  // width: 90.w,
+                                    child: const CircleAvatar(
+                                      radius: 30,
+                                      backgroundImage:
+                                      AssetImage(Assets.nodatafound),
+                                    ))
+                                    :
+                                CircleAvatar(
                                   backgroundImage: NetworkImage(
                                     branch.logo.toString(),
                                   ),
                                   radius: 30,
                                 ),
                               ),
+
                               Container(
                                 padding: EdgeInsets.only(left: 8),
                                 width: 200.w,
@@ -134,6 +149,11 @@ class ClinicAppoinemnrtBranches extends StatelessWidget {
                                     children: [
                                       InkWell(
                                           onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        BranceDailyAndUpcommingView(branch: branch,DbName: organizationListModle.organization!.dbName.toString(),)));
 
                                           },
                                           child: Image.asset(

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterzilla_fixed_grid/flutterzilla_fixed_grid.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -152,7 +153,10 @@ class _BranchesDetailsState extends State<BranchesDetails> {
                   trailing: FloatingActionButton(
                       elevation: 0,
                       backgroundColor: Colors.white,
-                      onPressed: () {},
+                      onPressed: () {
+                        FlutterPhoneDirectCaller.callNumber(
+                            "${widget.branch!.phone.toString()}");
+                      },
                       child: Image.asset("assets/icons/call.png")),
                 ),
                 Row(

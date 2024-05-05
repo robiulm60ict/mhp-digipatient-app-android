@@ -46,21 +46,21 @@ class _MyHomePageState extends State<DashboardView>
         activeIcons: [
           // Icon(Icons.person, color: Colors.deepPurple),
           Icon(Icons.home, color: AppColors.primary_color),
-          Icon(Icons.deck, color: AppColors.primary_color),
+          Icon(Icons.school, color: AppColors.primary_color),
           // Image.asset(
           //   Assets.iconsDrawer,
           //   height: 100,
           //   width: 100,
           // ),
           Icon(Icons.qr_code, color: AppColors.primary_color),
-        //  Icon(Icons.favorite, color: AppColors.primary_color),
+          //  Icon(Icons.favorite, color: AppColors.primary_color),
           Icon(Icons.notification_add, color: AppColors.primary_color),
           Icon(Icons.person, color: AppColors.primary_color),
         ],
         inactiveIcons: [
           // Text("My"),
           Icon(Icons.home, color: AppColors.primary_color),
-          Icon(Icons.deck, color: AppColors.primary_color),
+          Icon(Icons.school, color: AppColors.primary_color),
 
           Icon(Icons.qr_code, color: AppColors.primary_color),
 
@@ -69,7 +69,7 @@ class _MyHomePageState extends State<DashboardView>
           //   height: 100,
           //   width: 100,
           // ),
-         // Icon(Icons.favorite, color: AppColors.primary_color),
+          // Icon(Icons.favorite, color: AppColors.primary_color),
           Icon(Icons.notification_add, color: AppColors.primary_color),
           Icon(Icons.person, color: AppColors.primary_color),
         ],
@@ -100,7 +100,7 @@ class _MyHomePageState extends State<DashboardView>
           HomeView(),
           ResourcesView(),
           QRCodeScanner(),
-         // FavouritesView(),
+          // FavouritesView(),
           DailyAndUpcommingView(),
           MyRecordView()
         ],

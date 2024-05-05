@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import '../../generated/assets.dart';
 import '../../resources/colors.dart';
 import '../../utils/message.dart';
 import '../../utils/utils.dart';
@@ -102,10 +103,20 @@ class _MyClinicViewState extends State<MyClinicPaymentView> {
                                 child: Row(
                                   children: [
                                     SizedBox(
-                                      height: 90.w,
-                                      width: 75.w,
-                                      child: Image.network(  organzation.organization!.logo.toString()),
-                                    ),
+                                        height: 80,
+                                        width: 70.w,
+                                        //height: 110,
+                                        // width: 90.w,
+                                        child: organzation.organization!.logo.toString() ==
+                                            "null"
+                                            ?Image.asset(Assets.nodatafound)
+
+                                            :
+                                        Image.network(organzation
+                                            .organization!.logo
+                                            .toString(),)),
+
+
                                     Container(
                                       padding: EdgeInsets.only(left: 12),
                                       width: 240.w,
