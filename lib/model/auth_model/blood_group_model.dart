@@ -31,7 +31,7 @@ class BloodGroupModel {
 class BloodGroups {
   int? id;
   String? bloodGroupName;
-  String? deleteStatus;
+  int? deleteStatus;
   dynamic createdBy;
   dynamic updatedBy;
   DateTime? createdAt;

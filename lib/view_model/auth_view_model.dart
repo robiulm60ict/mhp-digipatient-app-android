@@ -215,7 +215,7 @@ class AuthViewModel with ChangeNotifier {
     await _authRepo.sendOTP(body: body).then((value) {
       print(value);
       if (value['message'].toString() ==
-          "Verification code sent successfully") {
+          "Request successfully submitted") {
         setSendOtpLoading(false);
         isSendOtpLoading = false;
         Messages.snackBar(context, value['message'].toString());
@@ -280,7 +280,7 @@ class AuthViewModel with ChangeNotifier {
       print("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
       print(value);
       if (value['message'].toString() ==
-          "Verification code sent successfully") {
+          "Request successfully submitted") {
         setSendOtpLoading(false);
         isSendOtpLoading = false;
 
@@ -559,6 +559,7 @@ class AuthViewModel with ChangeNotifier {
       });
       setBirthSexLoading(false);
     }).onError((error, stackTrace) {
+      print(error.toString());
       print(stackTrace.toString());
       setBirthSexLoading(true);
       Messages.snackBar(context, error.toString());
