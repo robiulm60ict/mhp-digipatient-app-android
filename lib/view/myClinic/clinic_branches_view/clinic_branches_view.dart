@@ -117,20 +117,20 @@ class ClinicBranches extends StatelessWidget {
                               SizedBox(
                                 child:
 
-                                branch.logo.toString() ==
-                                    "null"
-                                    ? SizedBox(
-                                  //height: 110,
-                                  // width: 90.w,
-                                    child: const CircleAvatar(
-                                      radius: 30,
-                                      backgroundImage:
-                                      AssetImage(Assets.nodatafound),
-                                    ))
-                                    :
+                                // branch.logo.toString() ==
+                                //     "null"
+                                //     ? SizedBox(
+                                //   //height: 110,
+                                //   // width: 90.w,
+                                //     child: const CircleAvatar(
+                                //       radius: 30,
+                                //       backgroundImage:
+                                //       AssetImage(Assets.nodatafound),
+                                //     ))
+                                //     :
                                 CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                    branch.logo.toString(),
+                                  backgroundImage: AssetImage(
+                                   "assets/icons/branch.png",
                                   ),
                                   radius: 30,
                                 ),

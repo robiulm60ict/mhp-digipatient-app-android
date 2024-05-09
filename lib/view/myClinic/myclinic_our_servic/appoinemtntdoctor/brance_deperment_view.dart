@@ -124,7 +124,7 @@ class _MyDoctorViewState extends State<ClinicBranchDepermentView> {
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 12,
                                 crossAxisSpacing: 16,
-                                height: 50.h),
+                                height: 100.h),
                             itemBuilder: (context, index) {
                               var docc = data.mydepermentList[index];
 
@@ -132,9 +132,17 @@ class _MyDoctorViewState extends State<ClinicBranchDepermentView> {
                                   onTap: (){
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>ClinicBranchDoctorView(mhpdoctorlist: docc.mhpDoctorsMaster,DbName: widget.DbName,branch: widget.branch,)));
                                   },
-                                  child: Card(elevation: 5,
+                                  child: Card(elevation: 3,
                                       shadowColor: AppColors.primary_color,
-                                      child: Center(child: Text(docc.departmentsName.toString(),style: Style.alltext_Large_black,))));
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset("assets/icons/phlebotomy.png",height: 50,),
+                                          Style.distan_size2,
+                                          Text(docc.departmentsName.toString(),style: Style.alltext_Large_black,),
+                                        ],
+                                      )));
                             },
                           );
                         }
