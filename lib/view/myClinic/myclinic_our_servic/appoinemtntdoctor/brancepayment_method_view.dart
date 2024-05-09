@@ -823,7 +823,8 @@ class _PaymentMethodViewState extends State<BrancePaymentMethodView> {
 
                           Map body = {
                             "doctor_id": widget.doctorId,
-                            "patient_id": widget.patientId,
+                            "patient_id": "2",
+                            // "patient_id": widget.patientId,
                             "date": widget.appointmentDate.split(" ").first,
                             "appointment_type": widget.appointmentType,
                             "disease": jsonEncode(items),
