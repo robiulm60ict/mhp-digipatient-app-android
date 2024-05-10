@@ -800,7 +800,7 @@ class _PaymentMethodViewState extends State<PaymentMethodView> {
 
                           Map body = {
                             "doctor_id": widget.doctorId,
-                            "patient_id": widget.patientId,
+                            "patient_hn_number": widget.patientId,
                             "date": widget.appointmentDate.split(" ").first,
                             "appointment_type": widget.appointmentType,
                             "disease": jsonEncode(items),

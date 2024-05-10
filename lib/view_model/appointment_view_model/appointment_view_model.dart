@@ -315,16 +315,16 @@ class AppointmentViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  int? patientId;
+  String? patientId;
 
   // int? docId;
   // String appointmentType = 'Chamber';
   // String paymentType = 'cash';
   // String? transactionNo;
 
-  Future<int?> getPatientId() async {
+  Future<String?> getPatientId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    patientId = prefs.getInt(UserP.id);
+    patientId = prefs.getString(UserP.hnnumber);
     notifyListeners();
     return patientId;
   }
@@ -363,7 +363,7 @@ class AppointmentViewModel with ChangeNotifier {
           doctorId: body["doctor_id"],
           appointmentType: body["appointment_type"],
           doctor: doctor,
-          patientId: body["patient_id"],
+          patientId: body["patient_hn_number"],
           paymentMethod: body["payment_type"],
           trinscationNo: body["transaction_no"],
           invoice: value['inovice_number'].toString(),

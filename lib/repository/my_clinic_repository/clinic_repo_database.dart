@@ -141,10 +141,9 @@ class ClinicRepository {
   }
 
   Future<TodaysAppointmentModel> getTodayAppointment(contex, DbName,
-      branceid) async {
+      branceid,id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int? id = prefs.getInt(UserP.id);
     try {
       dynamic response = await apiService.getGetApiResponsecontext(
           "${AppUrls.todayAppointments}$id/$branceid", contex, DbName);
@@ -157,10 +156,9 @@ class ClinicRepository {
   }
 
   Future<UpcommingAppointmentsModel> getUpcommingAppointment(context, DbName,
-      branceid) async {
+      branceid,id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    int? id = prefs.getInt(UserP.id);
     try {
       dynamic response = await apiService.getGetApiResponsecontext(
           "${AppUrls.upcommingAppointments}$id/$branceid", context, DbName);
@@ -177,7 +175,7 @@ class ClinicRepository {
   getmypayment(contex, DbName) async {
     print(DbName);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int? id = prefs.getInt(UserP.id);
+    String? id = prefs.getString(UserP.hnnumber);
     try {
       dynamic response = await apiService.getGetApiResponsecontext(
           "${AppUrls.mypayment}$id", contex, DbName

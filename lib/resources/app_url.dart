@@ -70,8 +70,11 @@ class AppUrls {
   /// clinic
 
   static const String organization = '$baseUrlPatient/organization/';
+  static const String deactiveorganization = '$baseUrlPatient/organization-inactive/';
   static const String serach_organization = '$baseUrlPatient/serach-organization';
+  static const String deactive_organization = '$baseUrlPatient/organization-status-update/';
   static const String copy_patient_to_database = '$baseUrlPatient/copy-patient-to-database';
+  static const String get_patient_details_from_organization = '$baseUrlPatient/get-patient-details-from-organization';
 
   /// image
 
@@ -104,7 +107,7 @@ class AppUrls {
   /// Medical History From Great Doc
 
   static const String mypayment =
-      '$baseUrlPatient/online-booking-app-payment-details/';
+      '$baseUrlPatient/patients-payment-details/';
 
 
   static const String mylab =

@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../model/appointment_model/todays_appointment_model.dart';
 import '../../model/appointment_model/upcomming_appointments_model.dart';
 import '../../model/clinic/orgamozationlist_model.dart';
+import '../../model/clinic/patientid_brance.dart';
 import '../../resources/app_url.dart';
 import '../../resources/colors.dart';
 import '../../resources/styles.dart';
@@ -19,12 +20,17 @@ import 'patientqueioo.dart';
 import 'patientqueioo_brance.dart';
 
 class BranceDailyAndUpcommingView extends StatefulWidget {
-   BranceDailyAndUpcommingView({Key? key,this.DbName,this.branch}) : super(key: key);
+  BranceDailyAndUpcommingView(
+      {Key? key, this.DbName, this.branch, this.patientBranceIdModel})
+      : super(key: key);
 
   Branch? branch;
   String? DbName;
+  PatientBranceIdModel? patientBranceIdModel;
+
   @override
-  State<BranceDailyAndUpcommingView> createState() => _DailyAndUpcommingViewState();
+  State<BranceDailyAndUpcommingView> createState() =>
+      _DailyAndUpcommingViewState();
 }
 
 class _DailyAndUpcommingViewState extends State<BranceDailyAndUpcommingView> {
@@ -34,11 +40,18 @@ class _DailyAndUpcommingViewState extends State<BranceDailyAndUpcommingView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-
-      context.read<MyClinicDoctorViewModel>().getTodayAppointments(context,widget.DbName.toString(),widget.branch!.id.toString());
-      context
-          .read<MyClinicDoctorViewModel>()
-          .getUpcommingAppointments(context,widget.DbName.toString(),widget.branch!.id.toString());
+      print(
+          "widget.patientBranceIdModel!.data!.id.toString()${widget.patientBranceIdModel!.data!.id.toString()}");
+      context.read<MyClinicDoctorViewModel>().getTodayAppointments(
+          context,
+          widget.DbName.toString(),
+          widget.branch!.id.toString(),
+          widget.patientBranceIdModel!.data!.id.toString());
+      context.read<MyClinicDoctorViewModel>().getUpcommingAppointments(
+          context,
+          widget.DbName.toString(),
+          widget.branch!.id.toString(),
+          widget.patientBranceIdModel!.data!.id.toString());
     });
   }
 
@@ -65,11 +78,12 @@ class _DailyAndUpcommingViewState extends State<BranceDailyAndUpcommingView> {
     final appointments = Provider.of<MyClinicDoctorViewModel>(context);
     return RefreshIndicator(
       onRefresh: () async {
-
-        context.read<MyClinicDoctorViewModel>().getTodayAppointments(context,widget.DbName.toString(),widget.branch!.id.toString());
-        context
-            .read<MyClinicDoctorViewModel>()
-            .getUpcommingAppointments(context,widget.DbName.toString(),widget.branch!.id.toString());
+        // context.read<MyClinicDoctorViewModel>().getTodayAppointments(context,widget.DbName.toString(),widget.branch!.id.toString());
+        context.read<MyClinicDoctorViewModel>().getUpcommingAppointments(
+            context,
+            widget.DbName.toString(),
+            widget.branch!.id.toString(),
+            widget.patientBranceIdModel!.data!.id.toString());
       },
       child: Scaffold(
         backgroundColor: AppColors.page_background_color,
@@ -205,8 +219,13 @@ class _DailyAndUpcommingViewState extends State<BranceDailyAndUpcommingView> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => BrancePatientQurio(
-                                              todaysPatientAppointment: app, databasename: widget.DbName.toString(), branceid: widget.branch!.id.toString(),
+                                        builder: (context) =>
+                                            BrancePatientQurio(
+                                              todaysPatientAppointment: app,
+                                              databasename:
+                                                  widget.DbName.toString(),
+                                              branceid:
+                                                  widget.branch!.id.toString(),
                                             )));
 
                                 // appointments.getAppoinmentsqueue(context, app.doctorsId, app.id);

@@ -66,11 +66,12 @@ class AuthViewModel with ChangeNotifier {
             id: int.parse(value["user"]['user_id']),
             userid: int.parse(value["user"]['id'].toString()),
             role: value["user"]['user_type'] ?? "",
-            token: value['token'].toString());
+            token: value['token'].toString(),
+            hnnumber: value["user"]['patient']['patient_hn_number']);
         currentUser.name = value["user"]['name'].toString();
         print("cccccccccccccccccccccc${value["user"]['name'].toString()}");
         login(
-          userID: int.parse(value["user"]['user_id']).toString(),
+          userID: int.parse(value["user"]['patient']['patient_hn_number'].toString().split("-").last.toString()).toString(),
           userName: value["user"]['name'].toString(),
         ).then((value) {
           onUserLogin();
@@ -214,8 +215,7 @@ class AuthViewModel with ChangeNotifier {
     otpList.clear();
     await _authRepo.sendOTP(body: body).then((value) {
       print(value);
-      if (value['message'].toString() ==
-          "Request successfully submitted") {
+      if (value['message'].toString() == "Request successfully submitted") {
         setSendOtpLoading(false);
         isSendOtpLoading = false;
         Messages.snackBar(context, value['message'].toString());
@@ -265,7 +265,6 @@ class AuthViewModel with ChangeNotifier {
       // context.router.push(PinCodeVerificationRoute(phoneNumber: phnNumber));
     }).onError((error, stackTrace) {
       notifyListeners();
-
     });
   }
 
@@ -279,8 +278,7 @@ class AuthViewModel with ChangeNotifier {
     await _authRepo.sendOTPForget(body: body).then((value) {
       print("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
       print(value);
-      if (value['message'].toString() ==
-          "Request successfully submitted") {
+      if (value['message'].toString() == "Request successfully submitted") {
         setSendOtpLoading(false);
         isSendOtpLoading = false;
 
@@ -506,6 +504,7 @@ class AuthViewModel with ChangeNotifier {
       required String name,
       required String token,
       required int id,
+      required String hnnumber,
       required int userid,
       required String role}) async {
     final prefs = await SharedPreferences.getInstance();
@@ -516,6 +515,7 @@ class AuthViewModel with ChangeNotifier {
     await prefs.setString(UserP.password, password);
     await prefs.setString(UserP.fcmToken, token);
     await prefs.setString(UserP.name, name);
+    await prefs.setString(UserP.hnnumber, hnnumber);
     await prefs.setInt(UserP.id, id);
     await prefs.setInt(UserP.userid, userid);
   }

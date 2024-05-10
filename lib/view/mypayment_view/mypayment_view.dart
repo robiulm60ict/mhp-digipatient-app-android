@@ -107,22 +107,22 @@ class _MyPatientViewState extends State<MyPatientView> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
                                         children: [
-                                          SizedBox(
-                                            height: 75.h,
-                                            width: 70.w,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              child:
-                                                  item.doctor!.drImages != null
-                                                      ? Image.network(
-                                                          "${AppUrls.drprofile}${item.doctor!.drImages.toString()}",
-                                                          fit: BoxFit.fill,
-                                                        )
-                                                      : Image.asset(
-                                                          Assets.dummy_image),
-                                            ),
-                                          ),
+                                          // SizedBox(
+                                          //   height: 75.h,
+                                          //   width: 70.w,
+                                          //   child: ClipRRect(
+                                          //     borderRadius:
+                                          //         BorderRadius.circular(8),
+                                          //     child:
+                                          //         item.doctor!.drImages != null
+                                          //             ? Image.network(
+                                          //                 "${AppUrls.drprofile}${item.doctor!.drImages.toString()}",
+                                          //                 fit: BoxFit.fill,
+                                          //               )
+                                          //             : Image.asset(
+                                          //                 Assets.dummy_image),
+                                          //   ),
+                                          // ),
                                           Style.widthdistan_size2,
                                           SizedBox(
                                             width: 220.w,
@@ -132,10 +132,10 @@ class _MyPatientViewState extends State<MyPatientView> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                    "${item.doctor!.fullName ?? ""}",
-                                                    style: Style
-                                                        .alltext_default_balck_blod),
+                                                // Text(
+                                                //     "${item.doctor!.fullName ?? ""}",
+                                                //     style: Style
+                                                //         .alltext_default_balck_blod),
                                                 Style.distan_size2,
 
                                                 Row(
@@ -186,33 +186,33 @@ class _MyPatientViewState extends State<MyPatientView> {
                                                   ],
                                                 ),
                                                 Style.distan_size2,
-                                                item.paymentMethod.toString() !=
-                                                        null
-                                                    ? Row(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 70.w,
-                                                            child: Text(
-                                                              "Pay Method ",
-                                                              style: Style
-                                                                  .alltext_default_balck,
-                                                            ),
-                                                          ),
-                                                          Text(":  "),
-                                                          SizedBox(
-                                                            width: 130.w,
-                                                            child: Text(
-                                                                item.paymentMethod
-                                                                    .toString(),
-                                                                style: Style
-                                                                    .alltext_default_balck),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    : Container(),
+                                                // item.paymentMethod.toString() !=
+                                                //         null
+                                                //     ? Row(
+                                                //         crossAxisAlignment:
+                                                //             CrossAxisAlignment
+                                                //                 .start,
+                                                //         children: [
+                                                //           SizedBox(
+                                                //             width: 70.w,
+                                                //             child: Text(
+                                                //               "Pay Method ",
+                                                //               style: Style
+                                                //                   .alltext_default_balck,
+                                                //             ),
+                                                //           ),
+                                                //           Text(":  "),
+                                                //           SizedBox(
+                                                //             width: 130.w,
+                                                //             child: Text(
+                                                //                 item.paymentMethod
+                                                //                     .toString(),
+                                                //                 style: Style
+                                                //                     .alltext_default_balck),
+                                                //           ),
+                                                //         ],
+                                                //       )
+                                                //     : Container(),
                                                 Style.distan_size2,
                                                 Row(
                                                   crossAxisAlignment:

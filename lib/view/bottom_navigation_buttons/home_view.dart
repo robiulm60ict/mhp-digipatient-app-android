@@ -65,7 +65,6 @@ class _HomeViewState extends State<HomeView> {
           .read<DailyAndUpcommingViewModel>()
           .getUpcommingAppointments(context);
     });
-
     notificationService.requestPermission();
     notificationService.getToken();
     notificationService.getDeviceToken();
@@ -269,14 +268,15 @@ class _HomeViewState extends State<HomeView> {
                   },
                 ),
 
-                Style.distan_size2,  DrawerListTile(
+                Style.distan_size2,
+                DrawerListTile(
                   iconData: Icons.payment,
                   title: "Lab details",
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>  MyClinicLabView()));
+                            builder: (context) => MyClinicLabView()));
                     //  context.router.push(const InvoiceRoute());
                   },
                 ),

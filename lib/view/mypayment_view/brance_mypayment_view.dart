@@ -95,7 +95,7 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               var item = data.mypayment[index];
-                              return Padding(
+                              return  Padding(
                                 padding: const EdgeInsets.only(top: 6),
                                 child: Card(
                                   elevation: 2,
@@ -107,24 +107,42 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
+                                        MainAxisAlignment.spaceAround,
                                         children: [
-
+                                          // SizedBox(
+                                          //   height: 75.h,
+                                          //   width: 70.w,
+                                          //   child: ClipRRect(
+                                          //     borderRadius:
+                                          //     BorderRadius.circular(8),
+                                          //     child:
+                                          //     item.doctor!.drImages != null
+                                          //         ? Image.network(
+                                          //       "${AppUrls.drprofile}${item.doctor!.drImages.toString()}",
+                                          //       fit: BoxFit.fill,
+                                          //     )
+                                          //         : Image.asset(
+                                          //         Assets.dummy_image),
+                                          //   ),
+                                          // ),
                                           Style.widthdistan_size2,
                                           SizedBox(
                                             width: 220.w,
                                             child: Column(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                              MainAxisAlignment.start,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               children: [
-
+                                                // Text(
+                                                //     "${item.doctor!.fullName ?? ""}",
+                                                //     style: Style
+                                                //         .alltext_default_balck_blod),
                                                 Style.distan_size2,
 
                                                 Row(
                                                   crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                                   children: [
                                                     SizedBox(
                                                       width: 70.w,
@@ -146,11 +164,84 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
                                                   ],
                                                 ),
                                                 Style.distan_size2,
-
+                                                Row(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 70.w,
+                                                      child: Text(
+                                                        "Type ",
+                                                        style: Style
+                                                            .alltext_default_balck,
+                                                      ),
+                                                    ),
+                                                    Text(":  "),
+                                                    SizedBox(
+                                                      width: 130.w,
+                                                      child: Text(
+                                                          item.paymentType
+                                                              .toString(),
+                                                          style: Style
+                                                              .alltext_default_balck),
+                                                    ),
+                                                  ],
+                                                ),
+                                                // Style.distan_size2,
+                                                // item.paymentMethod.toString() !=
+                                                //     null
+                                                //     ? Row(
+                                                //   crossAxisAlignment:
+                                                //   CrossAxisAlignment
+                                                //       .start,
+                                                //   children: [
+                                                //     SizedBox(
+                                                //       width: 70.w,
+                                                //       child: Text(
+                                                //         "Pay Method ",
+                                                //         style: Style
+                                                //             .alltext_default_balck,
+                                                //       ),
+                                                //     ),
+                                                //     Text(":  "),
+                                                //     SizedBox(
+                                                //       width: 130.w,
+                                                //       child: Text(
+                                                //           item.paymentMethod
+                                                //               .toString(),
+                                                //           style: Style
+                                                //               .alltext_default_balck),
+                                                //     ),
+                                                //   ],
+                                                // )
+                                                //     : Container(),
                                                 Style.distan_size2,
                                                 Row(
                                                   crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 70.w,
+                                                      child: Text(
+                                                        "Time",
+                                                        style: Style
+                                                            .alltext_default_balck,
+                                                      ),
+                                                    ),
+                                                    Text(":  "),
+                                                    SizedBox(
+                                                      width: 120.w,
+                                                      child: Text(
+                                                          "${DateFormat("hh:mm a").format(DateTime.parse(item.date.toString()))}",
+                                                          style: Style
+                                                              .alltext_default_balck),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Style.distan_size2,
+                                                Row(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                                   children: [
                                                     SizedBox(
                                                       width: 70.w,
@@ -161,7 +252,13 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
                                                       ),
                                                     ),
                                                     Text(":  "),
-
+                                                    SizedBox(
+                                                      width: 120.w,
+                                                      child: Text(
+                                                          "${DateFormat("dd-MM-yyyy").format(DateTime.parse("${item.date.toString()}"))}",
+                                                          style: Style
+                                                              .alltext_default_balck),
+                                                    ),
                                                   ],
                                                 ),
                                                 Style.distan_size2,

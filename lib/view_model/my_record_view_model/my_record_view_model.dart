@@ -233,7 +233,7 @@ class MyRecordViewModel with ChangeNotifier {
 
   Future<List<TestName>> getalltest(BuildContext context) async {
     List<TestName>? data = await myRecordRepo
-        .getalltest()
+        .getalltestradiology()
         .then((value) => value.testName)
         .onError((error, stackTrace) =>
             Messages.snackBar(context, error.toString()));
@@ -276,13 +276,13 @@ class MyRecordViewModel with ChangeNotifier {
     });
   }
 
-  getalldata(BuildContext context) async {
+  getalldatapathology(BuildContext context) async {
     testList.clear();
 
     isDoctorLoading = true;
 
     notifyListeners();
-    await myRecordRepo.getalltest().then((value) {
+    await myRecordRepo.getalltestpathology().then((value) {
       testListall.add(value);
       testList.addAll(value.testName as Iterable<TestName>);
 
@@ -303,7 +303,33 @@ class MyRecordViewModel with ChangeNotifier {
       );
     });
   }
+  getalldataradiology(BuildContext context) async {
+    testList.clear();
 
+    isDoctorLoading = true;
+
+    notifyListeners();
+    await myRecordRepo.getalltestradiology().then((value) {
+      testListall.add(value);
+      testList.addAll(value.testName as Iterable<TestName>);
+
+      print(testList);
+      print("code");
+      isDoctorLoading = false;
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      isDoctorLoading = true;
+      debugPrint(error.toString());
+      print("rr$error");
+      print("rr$stackTrace");
+
+      notifyListeners();
+      Messages.snackBar(
+        context,
+        error.toString(),
+      );
+    });
+  }
   addMedicalHistory(BuildContext context, dynamic body) async {
     addMedicalHistoryList.clear();
     setAddMedicalHistoryLoading(true);

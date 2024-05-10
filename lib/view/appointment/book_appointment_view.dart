@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../generated/assets.dart';
 import '../../model/anatomy/anatomy_symptoms_model.dart';
@@ -9,6 +10,7 @@ import '../../model/myDoctorList/mydoctorList.dart';
 import '../../resources/colors.dart';
 import '../../resources/styles.dart';
 import '../../utils/message.dart';
+import '../../utils/user.dart';
 import '../../utils/utils.dart';
 import '../../view_model/anatomy/anatomy_view_model.dart';
 import '../../view_model/appointment_view_model/appointment_view_model.dart';
@@ -95,7 +97,7 @@ class _BookAppointmentViewState extends State<BookAppointmentView> {
                   Messages.snackBar(context, "Please Select Shift Type!");
                 } else if (anatomy.favourite.isEmpty) {
                   Messages.snackBar(context, "Please Select Symptoms!");
-                } else {
+                } else  {
                   print(
                     "${DateFormat("dd-MM-yyyy H:m").format(DateTime.parse("${appointmentViewModel.selectedDatee.toString()}"))}",
                   );

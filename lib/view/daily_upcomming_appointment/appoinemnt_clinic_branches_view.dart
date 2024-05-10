@@ -82,12 +82,13 @@ class ClinicAppoinemnrtBranches extends StatelessWidget {
                           organizationListModle.organization!.branch![index];
                       return InkWell(
                         onTap: (){
+                          print(provider.patientBranceIdModel!.data!.id);
 
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      BranceDailyAndUpcommingView(branch: branch,DbName: organizationListModle.organization!.dbName.toString(),)));
+                                      BranceDailyAndUpcommingView(branch: branch,DbName: organizationListModle.organization!.dbName.toString(),patientBranceIdModel: provider.patientBranceIdModel,)));
                         },
                         child: Container(
                           decoration: BoxDecoration(

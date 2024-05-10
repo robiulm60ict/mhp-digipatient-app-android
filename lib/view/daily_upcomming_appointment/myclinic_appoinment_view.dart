@@ -29,6 +29,7 @@ class _MyClinicViewState extends State<MyClinicAppoinmentView> {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MyClinicViewModel>(context);
@@ -40,7 +41,10 @@ class _MyClinicViewState extends State<MyClinicAppoinmentView> {
         leadingWidth: leadingWidth,
         leading: const CustomBackButton(),
         backgroundColor: AppColors.linearGradient2,
-        title: Text("My Clinic",style: Style.alltext_appbar,),
+        title: Text(
+          "My Clinic",
+          style: Style.alltext_appbar,
+        ),
       ),
       body: Container(
         padding: EdgeInsets.only(left: 12, right: 12),
@@ -49,26 +53,24 @@ class _MyClinicViewState extends State<MyClinicAppoinmentView> {
           child: Column(
             children: [
               Style.distan_size10,
-
-
               Consumer<MyClinicViewModel>(builder: (context, data, child) {
                 if (data.organizationlistmodel.isEmpty) {
                   return data.isorgaizationLoading == true
                       ? Center(
-                    child: ListView.builder(
-                      itemCount: 6,
-                      scrollDirection: Axis.vertical,
-                      physics: const ScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: bannerShimmereffect(
-                              94.toDouble(), 385.toDouble()),
-                        );
-                      },
-                    ),
-                  )
+                          child: ListView.builder(
+                            itemCount: 6,
+                            scrollDirection: Axis.vertical,
+                            physics: const ScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: bannerShimmereffect(
+                                    94.toDouble(), 385.toDouble()),
+                              );
+                            },
+                          ),
+                        )
                       : noDataFounForList("Currently you have no records");
                 } else {
                   return Column(
@@ -78,19 +80,28 @@ class _MyClinicViewState extends State<MyClinicAppoinmentView> {
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: data.organizationlistmodel.length,
                           itemBuilder: (context, index) {
-                            var organzation=data.organizationlistmodel[index];
+                            var organzation = data.organizationlistmodel[index];
                             return InkWell(
                               onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ClinicAppoinemnrtBranches(organizationListModle: organzation,)));
+                                        builder: (context) =>
+                                            ClinicAppoinemnrtBranches(
+                                              organizationListModle:
+                                                  organzation,
+                                            )));
+
+                                provider.pateitnIdGETpostclinicRequest(
+                                    context,
+                                    organzation.organization!.dbName
+                                        .toString());
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                  // border: Border.all(
-                                  //   color: Colors.black12,
-                                  // ),B8DC94
+                                    // border: Border.all(
+                                    //   color: Colors.black12,
+                                    // ),B8DC94
                                     color: index % 2 == 0
                                         ? Color(0xffB8DC94)
                                         : Color(0xffF7F7F7),
@@ -101,38 +112,44 @@ class _MyClinicViewState extends State<MyClinicAppoinmentView> {
                                     left: 2, right: 2, top: 4, bottom: 4),
                                 child: Row(
                                   children: [
-
-                                     SizedBox(
-                                    height: 80,
-                                    width: 70.w,
-                                  //height: 110,
-                                  // width: 90.w,
-                                    child: organzation.organization!.logo.toString() ==
-                                    "null"
-                                    ?Image.asset(Assets.nodatafound)
-
-                                    :
-                                Image.network(organzation
-                                    .organization!.logo
-                                    .toString(),)),
-
+                                    SizedBox(
+                                        height: 80,
+                                        width: 70.w,
+                                        //height: 110,
+                                        // width: 90.w,
+                                        child: organzation.organization!.logo
+                                                    .toString() ==
+                                                "null"
+                                            ? Image.asset(Assets.nodatafound)
+                                            : Image.network(
+                                                organzation.organization!.logo
+                                                    .toString(),
+                                              )),
                                     Container(
                                       padding: EdgeInsets.only(left: 12),
                                       width: 240.w,
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-
                                           Text(
-                                            organzation.organization!.name.toString(),
-                                            style: Style.alltext_default_balck_w700,
+                                            organzation.organization!.name
+                                                .toString(),
+                                            style: Style
+                                                .alltext_default_balck_w700,
                                           ),
                                           Style.distan_size5,
-                                          Text(  organzation.organization!.address.toString(),
-                                              style: Style.alltext_default_balck),
+                                          Text(
+                                              organzation.organization!.address
+                                                  .toString(),
+                                              style:
+                                                  Style.alltext_default_balck),
                                           Style.distan_size5,
-                                          Row(crossAxisAlignment: CrossAxisAlignment.center,
-                                            mainAxisAlignment: MainAxisAlignment.start,
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
                                               Icon(
                                                 Icons.shop,
@@ -141,8 +158,9 @@ class _MyClinicViewState extends State<MyClinicAppoinmentView> {
                                               ),
                                               Style.widthdistan_size2,
                                               Text(
-                                                "${  organzation.organization!.branch!.length.toString()} branches",
-                                                style: Style.alltext_small_black,
+                                                "${organzation.organization!.branch!.length.toString()} branches",
+                                                style:
+                                                    Style.alltext_small_black,
                                               ),
                                               Style.widthdistan_size10,
                                               // Icon(
@@ -160,7 +178,6 @@ class _MyClinicViewState extends State<MyClinicAppoinmentView> {
                                           Style.distan_size5,
                                           Row(
                                             children: [
-
                                               Icon(
                                                 Icons.favorite_border,
                                                 color: Colors.grey,
@@ -168,7 +185,8 @@ class _MyClinicViewState extends State<MyClinicAppoinmentView> {
                                               ),
                                               Style.widthdistan_size10,
                                               Icon(
-                                                Icons.arrow_circle_right_outlined,
+                                                Icons
+                                                    .arrow_circle_right_outlined,
                                                 color: Colors.green,
                                                 size: 20,
                                               ),

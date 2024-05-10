@@ -22,7 +22,7 @@ class MyPaymentRepo {
   Future<List<MyPaymentModel>>
       getmypayment(contex) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int? id = prefs.getInt(UserP.id);
+    String? id = prefs.getString(UserP.hnnumber);
     try {
       dynamic response = await apiService.getGetApiResponsecontext(
         "${AppUrls.mypayment}$id",contex

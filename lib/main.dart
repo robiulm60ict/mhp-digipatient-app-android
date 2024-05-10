@@ -148,7 +148,8 @@ void main() async {
           ),
           ChangeNotifierProvider(
             create: (context) => BranceAppointmentViewModel(),
-          ), ChangeNotifierProvider(
+          ),
+          ChangeNotifierProvider(
             create: (context) => MyClinicLabViewModel(),
           ),
         ],

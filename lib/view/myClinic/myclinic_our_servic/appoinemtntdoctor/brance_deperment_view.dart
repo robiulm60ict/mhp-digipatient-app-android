@@ -124,7 +124,7 @@ class _MyDoctorViewState extends State<ClinicBranchDepermentView> {
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 12,
                                 crossAxisSpacing: 16,
-                                height: 100.h),
+                                height: 110.h),
                             itemBuilder: (context, index) {
                               var docc = data.mydepermentList[index];
 
@@ -138,9 +138,11 @@ class _MyDoctorViewState extends State<ClinicBranchDepermentView> {
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
+                                          docc.departmentImage !=null?
+                                          Image.network("https://newgreatdoc.macrohealthplus.org/department/${docc.departmentImage}",height: 50,):
                                           Image.asset("assets/icons/phlebotomy.png",height: 50,),
                                           Style.distan_size2,
-                                          Text(docc.departmentsName.toString(),style: Style.alltext_Large_black,),
+                                          Text(docc.departmentsName.toString(),style: Style.alltext_default_balck,textAlign: TextAlign.center,),
                                         ],
                                       )));
                             },

@@ -42,7 +42,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
 
   @override
   void initState() {
-    context.read<MyRecordViewModel>().getalldata(context);
+    context.read<MyRecordViewModel>().getalldatapathology(context);
     // TODO: implement initState
     super.initState();
   }

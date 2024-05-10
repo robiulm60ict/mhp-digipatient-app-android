@@ -100,7 +100,9 @@ class MyRecordRepo {
     } catch (e) {
       rethrow;
     }
-  }  Future<AllTestNameModel> getalltest() async {
+  }
+
+  Future<AllTestNameModel> getalltest() async {
     try {
       dynamic response = await apiService.getGetApiResponse(
        "${AppUrls.baseUrlPatient}/new-test-name",
@@ -114,6 +116,32 @@ class MyRecordRepo {
     }
   }
 
+  Future<AllTestNameModel> getalltestradiology() async {
+    try {
+      dynamic response = await apiService.getGetApiResponse(
+        "${AppUrls.baseUrlPatient}/test-name-radiology",
+      );
+
+      var res=response['test_name'];
+      return AllTestNameModel.fromJson(response);
+    } catch (e) {
+      print("rrr$e");
+      rethrow;
+    }
+  }  Future<AllTestNameModel> getalltestpathology() async {
+    try {
+      dynamic response = await apiService.getGetApiResponse(
+        "${AppUrls.baseUrlPatient}/test-name-pathology",
+      );
+
+      print("patholgy$response");
+      var res=response['test_name'];
+      return AllTestNameModel.fromJson(response);
+    } catch (e) {
+      print("rrr$e");
+      rethrow;
+    }
+  }
   Future<AddMedicalHistoryModel> addMedicalHistory(dynamic body) async {
     try {
       dynamic response =

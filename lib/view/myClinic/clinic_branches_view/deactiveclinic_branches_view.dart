@@ -11,8 +11,8 @@ import '../../../utils/utils.dart';
 import '../../../view_model/clinic/my_clinic_view_model/my_clinic_view_model.dart';
 import '../../../widgets/back_button.dart';
 
-class ClinicBranches extends StatelessWidget {
-  ClinicBranches({super.key, required this.organizationListModle});
+class DeactiveClinicBranches extends StatelessWidget {
+  DeactiveClinicBranches({super.key, required this.organizationListModle});
 
   OrganizationListModle organizationListModle;
 
@@ -53,12 +53,12 @@ class ClinicBranches extends StatelessWidget {
                 ),
                 Style.distan_size10,
                 MaterialButton(
-                  color: Colors.green,
+                  color: Colors.red,
                   onPressed: () {
                     _showDeleteConfirmationDialog(context,organizationListModle.id.toString());
                   },
                   child: Text(
-                    "Active Clinic",
+                    "Inactive Clinic",
                     style: Style.alltext_appbar,
                   ),
                 ),
@@ -244,7 +244,7 @@ class ClinicBranches extends StatelessWidget {
               ),
             ],
           ),
-          content: const Text('Do  you want to Inactive this clinic?'),
+          content: const Text('Do  you want to Active this clinic?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -261,7 +261,7 @@ class ClinicBranches extends StatelessWidget {
                   Navigator.of(context).pop();
                   // Navigator.of(context).push(
                   //     MaterialPageRoute(builder: (context) => MyDoctorView()));
-                   provider.deactiveDoctors(context,id,"0");
+                   provider.deactiveDoctors(context,id,"1");
                   // Close the dialog after deletion
                 },
                 child: const Text("Yes")),

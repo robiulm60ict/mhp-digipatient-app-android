@@ -56,13 +56,13 @@ class MyClinicDoctorViewModel with ChangeNotifier {
   bool isTodayAppointmentLoading = true;
   bool isUpcommingAppointmentLoading = true;
 
-  getTodayAppointments(BuildContext context, DbName,branceid) async {
+  getTodayAppointments(BuildContext context, DbName,branceid,id) async {
     isTodayAppointmentLoading = true;
     todayAppointmentFullList.clear();
     todayAppointmentList.clear();
     notifyListeners();
     todayAppointmentFullList.clear();
-    await docRepo.getTodayAppointment(context, DbName,branceid).then((value) {
+    await docRepo.getTodayAppointment(context, DbName,branceid,id).then((value) {
       todayAppointmentFullList.add(value);
       todayAppointmentList.addAll(value.todaysPatientAppointments!);
       isTodayAppointmentLoading = false;
@@ -98,12 +98,12 @@ class MyClinicDoctorViewModel with ChangeNotifier {
     });
   }
 
-  getUpcommingAppointments(BuildContext context, DbName,branceid) async {
+  getUpcommingAppointments(BuildContext context, DbName,branceid,id) async {
     isUpcommingAppointmentLoading = true;
     upcommingAppointmentFullList.clear();
     upcommingAppointmentList.clear();
     notifyListeners();
-    await docRepo.getUpcommingAppointment(context, DbName,branceid).then((value) {
+    await docRepo.getUpcommingAppointment(context, DbName,branceid,id).then((value) {
       upcommingAppointmentFullList.add(value);
       upcommingAppointmentList.addAll(value.upcomingAppointments!);
       isUpcommingAppointmentLoading = false;
