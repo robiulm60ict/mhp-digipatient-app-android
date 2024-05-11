@@ -234,7 +234,7 @@ class _HomeViewState extends State<HomeView> {
                 Style.distan_size15,
                 DrawerListTile(
                   iconData: Icons.person,
-                  title: "Personal details",
+                  title: "Personal Details",
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => ProfileData()));
@@ -257,7 +257,7 @@ class _HomeViewState extends State<HomeView> {
                 Style.distan_size2,
                 DrawerListTile(
                   iconData: Icons.payment,
-                  title: "Payment details",
+                  title: "Payment Details",
                   onTap: () {
                     Navigator.push(
                         context,
@@ -270,7 +270,7 @@ class _HomeViewState extends State<HomeView> {
                 Style.distan_size2,
                 DrawerListTile(
                   iconData: Icons.payment,
-                  title: "Lab details",
+                  title: "Lab Details",
                   onTap: () {
                     Navigator.push(
                         context,
@@ -283,7 +283,7 @@ class _HomeViewState extends State<HomeView> {
                 Style.distan_size2,
                 DrawerListTile(
                   iconData: Icons.video_collection,
-                  title: "User GridLine",
+                  title: "User Guide Line",
                   onTap: () {
                     Navigator.push(
                         context,
@@ -600,9 +600,11 @@ class _HomeViewState extends State<HomeView> {
                           elevation: 4,
                           shadowColor: AppColors.primary_color,
                           child: Padding(
-                            padding: const EdgeInsets.all(4.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 SizedBox(
                                   // height: 75.h,
@@ -631,7 +633,7 @@ class _HomeViewState extends State<HomeView> {
                                     ),
                                     Style.distan_size5,
                                     Text(
-                                      "Find your own clinics from app",
+                                      provider.homeItemsList[index].des.toString(),
                                       style: Style.alltext_default_balck,
                                     )
                                   ],

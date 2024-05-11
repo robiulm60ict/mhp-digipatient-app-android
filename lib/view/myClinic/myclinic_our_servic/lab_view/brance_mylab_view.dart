@@ -4,8 +4,6 @@ import 'package:intl/intl.dart';
 
 import 'package:provider/provider.dart';
 
-import '../../../../generated/assets.dart';
-import '../../../../resources/app_url.dart';
 import '../../../../resources/colors.dart';
 import '../../../../resources/styles.dart';
 import '../../../../utils/utils.dart';

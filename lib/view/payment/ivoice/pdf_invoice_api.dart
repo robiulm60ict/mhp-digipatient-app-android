@@ -108,9 +108,9 @@ class PdfInvoiceApi {
                           doc.doctor!.specialist!.specialistsName.toString(),
                         ),
                         pw.SizedBox(height: 2.h),
-                        pw.Text(
-                          doc!.doctor!.workExperience!.last.company.toString(),
-                        ),
+                        // pw.Text(
+                        //   doc!.doctor!.workExperience!.last.company.toString(),
+                        // ),
                         pw.SizedBox(height: 2.h),
                         pw.Text(
                           "BMDC Reg No: ${doc.doctor!.drBmdcRegNo.toString() != "null" ? doc.doctor!.drBmdcRegNo.toString() : ""}",
@@ -130,7 +130,7 @@ class PdfInvoiceApi {
                         ),
                         pw.SizedBox(height: 2.h),
                         pw.Text(
-                          "${doc.doctor!.drAddressLine1.toString()}",
+                          "${doc.doctor!.drAddressLine1?.toString()}",
                         ),
                         pw.SizedBox(height: 2.h),
                         Row(

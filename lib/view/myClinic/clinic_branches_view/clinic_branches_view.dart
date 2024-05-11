@@ -127,24 +127,29 @@ class ClinicBranches extends StatelessWidget {
                             children: [
                               SizedBox(
                                 child:
-
-                                // branch.logo.toString() ==
-                                //     "null"
-                                //     ? SizedBox(
-                                //   //height: 110,
-                                //   // width: 90.w,
-                                //     child: const CircleAvatar(
-                                //       radius: 30,
-                                //       backgroundImage:
-                                //       AssetImage(Assets.nodatafound),
-                                //     ))
-                                //     :
-                                CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                   "assets/icons/branch.png",
-                                  ),
-                                  radius: 30,
+                                SizedBox(
+                                  height: 90.w,
+                                  width: 75.w,
+                                  child: organizationListModle
+                                      .organization!.logo
+                                      .toString() ==
+                                      "null"
+                                      ? SizedBox(
+                                    //height: 110,
+                                    // width: 90.w,
+                                      child: Image.asset(
+                                          Assets.nodata))
+                                      : Image.network(organizationListModle
+                                      .organization!.logo
+                                      .toString()),
                                 ),
+
+                                // CircleAvatar(
+                                //   backgroundImage: AssetImage(
+                                //    "assets/icons/branch.png",
+                                //   ),
+                                //   radius: 30,
+                                // ),
                               ),
                               Container(
                                 padding: EdgeInsets.only(left: 8),

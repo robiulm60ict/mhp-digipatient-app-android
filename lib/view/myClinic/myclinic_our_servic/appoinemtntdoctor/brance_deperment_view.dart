@@ -124,7 +124,7 @@ class _MyDoctorViewState extends State<ClinicBranchDepermentView> {
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 12,
                                 crossAxisSpacing: 16,
-                                height: 110.h),
+                                height: 100.h),
                             itemBuilder: (context, index) {
                               var docc = data.mydepermentList[index];
 

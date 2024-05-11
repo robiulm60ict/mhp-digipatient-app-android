@@ -118,7 +118,7 @@ class MyMedicineViewModel with ChangeNotifier {
       isCurrentRxLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
-      isCurrentRxLoading = true;
+      isCurrentRxLoading = false;
       notifyListeners();
     });
   }
@@ -134,7 +134,7 @@ class MyMedicineViewModel with ChangeNotifier {
       isPastRxLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
-      isPastRxLoading = true;
+      isPastRxLoading = false;
       notifyListeners();
     });
   }

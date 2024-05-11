@@ -272,7 +272,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                               Image.asset(
                                 Assets.imagesBkash,
                                 height: 35.h,
-                                width: 35.w,
+                                width: 25.w,
                                 fit: BoxFit.contain,
                               ),
                               // CircleAvatar(
@@ -280,7 +280,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                               //   backgroundImage: AssetImage(Assets.imagesBkash),
                               // ),
                               Text(
-                                " bKash Payment : ${doc!.doctors!.drHomePhone.toString() == "null" ? "" : doc!.doctors!.drHomePhone.toString()}",
+                                "bKash Payment : ${doc!.doctors!.drHomePhone.toString() == "null" ? "" : doc!.doctors!.drHomePhone.toString()}",
                                 style: Style.alltext_default_balck_blod,
                               ),
                             ],

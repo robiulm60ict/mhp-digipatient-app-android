@@ -20,14 +20,14 @@ import '../view/upcamming/upcamming_view.dart';
 import 'doctor/my_doctor_view_model.dart';
 
 class HomeViewModel with ChangeNotifier {
-  List<HomeItemsModel> homeItemsList = [
-    HomeItemsModel(title: "My Doctor", image: Assets.homeMyDoc),
+  List<HomeItemsModelData> homeItemsList = [
+    HomeItemsModelData(title: "My Doctor", image: Assets.homeMyDoc, des: "Find your own doctor from app",),
     // HomeItemsModel(title: "My Records", image: Assets.homeMyRec),
     // HomeItemsModel(title: "My Appointments", image: Assets.homeAppointments),
     //
     // HomeItemsModel(title: "My Medicine", image: Assets.homeMyMedicine),
-    HomeItemsModel(title: "My Clinic", image: Assets.myclinic),
-    HomeItemsModel(title: "My Medicines", image: Assets.mymedicines),
+    HomeItemsModelData(title: "My Clinic", image: Assets.myclinic, des: "Find your own clinics from app",),
+    HomeItemsModelData(title: "My Medicines", image: Assets.mymedicines, des: "Find your own medicines from app",),
     // HomeItemsModel(title: "My Lab", image: Assets.homeMyLab),
     // HomeItemsModel(title: "Resources", image: Assets.homeResources),
     // HomeItemsModel(title: "Payments", image: Assets.homePayments),
@@ -121,6 +121,14 @@ class HomeViewModel with ChangeNotifier {
 }
 
 //TODO: Replace this model with real model
+class HomeItemsModelData {
+  String title;
+  String des;
+  String image;
+
+  HomeItemsModelData({required this.title,required this.des, required this.image});
+}
+
 class HomeItemsModel {
   String title;
   String image;

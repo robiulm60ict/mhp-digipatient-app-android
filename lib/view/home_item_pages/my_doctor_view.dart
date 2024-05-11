@@ -245,6 +245,7 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                             ? GridView.builder(
                                 itemCount: 12,
                                 shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
                                 gridDelegate: FlutterzillaFixedGridView(
                                     crossAxisCount: 2,
                                     mainAxisSpacing: 12,
@@ -264,6 +265,7 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                         return GridView.builder(
                           itemCount: provider.myDoctordeactiveList.length,
                           shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
                           gridDelegate: FlutterzillaFixedGridView(
                               crossAxisCount: 2,
                               mainAxisSpacing: 12,
@@ -333,6 +335,7 @@ class _MyDoctorViewState extends State<MyDoctorView> {
                             ? GridView.builder(
                                 itemCount: 12,
                                 shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
                                 gridDelegate: FlutterzillaFixedGridView(
                                     crossAxisCount: 2,
                                     mainAxisSpacing: 12,
