@@ -3,7 +3,6 @@ import 'package:badges/badges.dart' as badges;
 import 'package:badges/badges.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:digi_patient/view/daily_upcomming_appointment/daily_and_upcomming_appointments_view.dart';
-import 'package:digi_patient/view/myClinic/myclinic_our_servic/lab_view/brance_mylab_view.dart';
 import 'package:digi_patient/view/myClinic/myclinic_our_servic/lab_view/myclinic_appoinment_view.dart';
 import 'package:digi_patient/view/notifications_view.dart';
 import 'package:digi_patient/view/payment/invoice_view.dart';
@@ -80,7 +79,7 @@ class _HomeViewState extends State<HomeView> {
     final prefs = await SharedPreferences.getInstance();
     name = prefs.getString(UserP.name) ?? "";
     gender = prefs.getString(UserP.gender) ?? "";
-    print(gender);
+    print("ttttttttttttttttttttttttt$gender");
     bool isLoggedIn = prefs.getBool(UserP.isLoggedIn) ?? false;
 
     String role = prefs.getString(UserP.role) ?? "";
@@ -624,7 +623,7 @@ class _HomeViewState extends State<HomeView> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      provider.homeItemsList[index].title,
+                                      provider.homeItemsList[index].title.toString(),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,

@@ -45,7 +45,8 @@ class _AnatomyViewState extends State<AnatomyView> {
     final prefs = await SharedPreferences.getInstance();
 
     gender = prefs.getString(UserP.gender) ?? "";
-    gender == "Male"
+    print("object$gender");
+    gender == "MALE"
         ? _selectedValue = maleFront
         : _selectedValue = femaleFront;
   }
@@ -214,9 +215,9 @@ class _AnatomyViewState extends State<AnatomyView> {
               DropdownButton(
                 value: _selectedValue,
                 items: [
-                  if (gender == "Male" ||
-                      gender == "Other" ||
-                      gender == "Transgender")
+                  if (gender == "MALE" ||
+                      gender == "OTHER" ||
+                      gender == "TRANSGENDER")
                     DropdownMenuItem(
                       value: maleFront,
                       child: Text(
@@ -224,9 +225,9 @@ class _AnatomyViewState extends State<AnatomyView> {
                         style: Style.alltext_default_balck,
                       ),
                     ),
-                  if (gender == "Male" ||
-                      gender == "Other" ||
-                      gender == "Transgender")
+                  if (gender == "MALE" ||
+                      gender == "OTHER" ||
+                      gender == "TRANSGENDER")
                     DropdownMenuItem(
                       value: maleBack,
                       child: Text(
@@ -234,9 +235,9 @@ class _AnatomyViewState extends State<AnatomyView> {
                         style: Style.alltext_default_balck,
                       ),
                     ),
-                  if (gender == "Female" ||
-                      gender == "Other" ||
-                      gender == "Transgender")
+                  if (gender == "FEMALE" ||
+                      gender == "OTHER" ||
+                      gender == "TRANSGENDER")
                     DropdownMenuItem(
                       value: femaleFront,
                       child: Text(
@@ -244,9 +245,9 @@ class _AnatomyViewState extends State<AnatomyView> {
                         style: Style.alltext_default_balck,
                       ),
                     ),
-                  if (gender == "Female" ||
-                      gender == "Other" ||
-                      gender == "Transgender")
+                  if (gender == "FEMALE" ||
+                      gender == "OTHER" ||
+                      gender == "TRANSGENDER")
                     DropdownMenuItem(
                       value: femaleBack,
                       child: Text(

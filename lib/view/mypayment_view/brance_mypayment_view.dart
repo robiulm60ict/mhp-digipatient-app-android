@@ -109,22 +109,22 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
                                         mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                         children: [
-                                          // SizedBox(
-                                          //   height: 75.h,
-                                          //   width: 70.w,
-                                          //   child: ClipRRect(
-                                          //     borderRadius:
-                                          //     BorderRadius.circular(8),
-                                          //     child:
-                                          //     item.doctor!.drImages != null
-                                          //         ? Image.network(
-                                          //       "${AppUrls.drprofile}${item.doctor!.drImages.toString()}",
-                                          //       fit: BoxFit.fill,
-                                          //     )
-                                          //         : Image.asset(
-                                          //         Assets.dummy_image),
-                                          //   ),
-                                          // ),
+                                          SizedBox(
+                                            height: 75.h,
+                                            width: 70.w,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                              BorderRadius.circular(8),
+                                              child:
+                                              item.doctors!.drImages != null
+                                                  ? Image.network(
+                                                "${AppUrls.drprofile}${item.doctors!.drImages.toString()}",
+                                                fit: BoxFit.fill,
+                                              )
+                                                  : Image.asset(
+                                                  Assets.dummy_image),
+                                            ),
+                                          ),
                                           Style.widthdistan_size2,
                                           SizedBox(
                                             width: 220.w,
@@ -134,10 +134,10 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
                                               crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                               children: [
-                                                // Text(
-                                                //     "${item.doctor!.fullName ?? ""}",
-                                                //     style: Style
-                                                //         .alltext_default_balck_blod),
+                                                Text(
+                                                    "${item.doctors!.title?.titleName ?? ""} ${item.doctors!.fullName ?? ""}",
+                                                    style: Style
+                                                        .alltext_default_balck_blod),
                                                 Style.distan_size2,
 
                                                 Row(

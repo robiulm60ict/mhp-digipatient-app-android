@@ -609,9 +609,10 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       //       context, "Email con not be empty !");
                       // }
 
-                      else if (address.text.isEmpty) {
-                        Messages.snackBar(context, "Address con not be empty !");
-                      } else if (password.text.length < 7) {
+                      // else if (address.text.isEmpty) {
+                      //   Messages.snackBar(context, "Address con not be empty !");
+                      // }
+                      else if (password.text.length < 7) {
                         Messages.snackBar(
                             context, "Enter At least 8 Digit Password");
                       } else {

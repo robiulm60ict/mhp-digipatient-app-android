@@ -111,11 +111,14 @@ class ClinicAppoinemnrtBranches extends StatelessWidget {
                                     ? SizedBox(
                                   //height: 110,
                                   // width: 90.w,
-                                    child: const CircleAvatar(
+                                    child:     CircleAvatar(
+                                      backgroundImage: AssetImage(
+                                        "assets/icons/branch.png",
+                                      ),
                                       radius: 30,
-                                      backgroundImage:
-                                      AssetImage(Assets.nodatafound),
-                                    ))
+                                    ),
+
+                                )
                                     :
                                 CircleAvatar(
                                   backgroundImage: NetworkImage(

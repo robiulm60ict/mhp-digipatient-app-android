@@ -82,7 +82,7 @@ class Style {
   );
   static TextStyle alltext_Large_black = TextStyle(
     fontFamily: 'Roboto',
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w500,
     color: AppColors.text_primary_color,
     fontSize: 16.sp,
   );
