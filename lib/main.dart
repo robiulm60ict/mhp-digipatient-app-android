@@ -48,6 +48,7 @@ import 'view_model/user_view_model/user_view_model.dart';
 Future<void> firbaseMessageBackgroundHandeler(RemoteMessage message) async {
   print('Handler a background messahe${message.messageId}');
 }
+final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,7 +62,6 @@ void main() async {
   }
 
   /// 1/5: define a navigator key
-  final navigatorKey = GlobalKey<NavigatorState>();
 
   /// 2/5: set navigator key to ZegoUIKitPrebuiltCallInvitationService
   ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);

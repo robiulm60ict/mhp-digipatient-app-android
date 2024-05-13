@@ -66,10 +66,11 @@ android {
     }
     buildTypes {
         release {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
         }
     }
@@ -80,6 +81,8 @@ flutter {
 }
 
 dependencies {
+    implementation 'com.google.firebase:firebase-messaging:21.1.0'
+
 //        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20"
 
 

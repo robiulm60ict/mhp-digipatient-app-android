@@ -80,7 +80,7 @@ class _MyDoctorViewState extends State<ClinicBranchDoctorView> {
                       )),
                   Style.distan_size15,
                   Text(
-                    "IBN SINA DHANMONDI BRANCH",
+                    widget.branch!.name.toString(),
                     style: Style.alltext_default_balck_blod,
                   ),
                   Style.distan_size10,
