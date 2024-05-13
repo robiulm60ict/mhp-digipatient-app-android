@@ -114,7 +114,12 @@ class ClinicRepository {
         dbName,
       );
 
-      //
+
+      print("response$response");
+      print("id$id");
+      print("dbName$dbName");
+      print("branceid$branceid");
+
       List<SocialListModel> datalist = [];
       for (var i in response['data']) {
         datalist.add(SocialListModel.fromJson(i));

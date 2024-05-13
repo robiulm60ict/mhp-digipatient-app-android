@@ -44,6 +44,7 @@ class BranceAppointmentViewModel with ChangeNotifier {
   getSocialMediea(id,dbName,branceid) async {
     issocialLoading = true;
     sociallist.clear();
+    notifyListeners();
     social.getsocialmediea(id,dbName,branceid).then((value) {
       sociallist = value;
       // registerList.addAll(value.data as Iterable<Datum>);
