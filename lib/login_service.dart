@@ -42,8 +42,11 @@ void onUserLogin() {
         'ce9d090d86cd6d51344033934af611515fdb0fc5760cfd02df1f99c06b0b94cf' /*input your AppSign*/,
     userID: currentUser.id,
     userName: currentUser.name,
+
     notificationConfig: ZegoCallInvitationNotificationConfig(
       androidNotificationConfig: ZegoCallAndroidNotificationConfig(
+        showFullScreen: true,
+
         channelID: "ZegoUIKit",
         channelName: "Call Notifications",
         sound: "notification",

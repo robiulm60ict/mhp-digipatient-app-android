@@ -602,43 +602,50 @@ class _HomeViewState extends State<HomeView> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
-                              mainAxisSize: MainAxisSize.min,
+                              // mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 SizedBox(
                                   // height: 75.h,
-                                  // width: 75.w,
-                                  child: CircleAvatar(
+                                  width: 75.w,
+                                  child:
+
+                                  CircleAvatar(
                                     radius: 35,
                                     child: Image.asset(
+                                      width: 70.w,
                                       provider.homeItemsList[index].image,
                                     ),
+                                    backgroundColor: Colors.white,
                                     // backgroundImage:AssetImage(
                                     //   provider.homeItemsList[index].image,
                                     // ),
                                   ),
                                 ),
-                                Style.widthdistan_size10,
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      provider.homeItemsList[index].title.toString(),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
-                                      style: Style.alltext_Large_black,
-                                    ),
-                                    Style.distan_size5,
-                                    Text(
-                                      provider.homeItemsList[index].des.toString(),
-                                      style: Style.alltext_default_balck,
-                                    )
-                                  ],
+                                // Style.widthdistan_size5,
+                                SizedBox(
+                                  width: 190.w,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        provider.homeItemsList[index].title.toString(),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                        style: Style.alltext_Large_black,
+                                      ),
+                                      Style.distan_size5,
+                                      Text(
+                                        provider.homeItemsList[index].des.toString(),
+                                        style: Style.alltext_default_balck,
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                Style.widthdistan_size20,
+                                Style.widthdistan_size10,
                                 Image.asset("assets/icons/home/homebutton.png")
                               ],
                             ),

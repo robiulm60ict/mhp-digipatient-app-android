@@ -144,7 +144,8 @@ class _MyDoctorViewState extends State<ClinicBranchDepermentView> {
                                           Style.distan_size2,
                                           Text(docc.departmentsName.toString(),style: Style.alltext_default_balck,textAlign: TextAlign.center,),
                                         ],
-                                      )));
+                                      ))
+                              );
                             },
                           );
                         }
