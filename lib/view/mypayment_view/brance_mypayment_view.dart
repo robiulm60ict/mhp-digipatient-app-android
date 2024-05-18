@@ -15,8 +15,10 @@ import '../../widgets/back_button.dart';
 import '../../widgets/shimmer.dart';
 
 class MyBrancePatmentView extends StatefulWidget {
-   MyBrancePatmentView({super.key,this.DbName});
-String? DbName;
+  MyBrancePatmentView({super.key, this.DbName});
+
+  String? DbName;
+
   @override
   State<MyBrancePatmentView> createState() => _MyPatientViewState();
 }
@@ -27,7 +29,9 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       print("object${widget.DbName}");
 
-      context.read<MyClinicDoctorViewModel>().getmypayment(context,widget.DbName.toString());
+      context
+          .read<MyClinicDoctorViewModel>()
+          .getmypayment(context, widget.DbName.toString());
     });
     // TODO: implement initState
     super.initState();
@@ -36,18 +40,21 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
   @override
   Widget build(BuildContext context) {
     print("object");
-    final myRecord = Provider.of<MyClinicDoctorViewModel>(context, listen: false);
+    final myRecord =
+        Provider.of<MyClinicDoctorViewModel>(context, listen: false);
 
     return SafeArea(
         child: RefreshIndicator(
       onRefresh: () async {
-        context.read<MyClinicDoctorViewModel>().getmypayment(context,widget.DbName.toString());
+        context
+            .read<MyClinicDoctorViewModel>()
+            .getmypayment(context, widget.DbName.toString());
       },
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
-          leading:  CustomBackButton(),
+          leading: CustomBackButton(),
           leadingWidth: leadingWidth,
           backgroundColor: AppColors.primaryColor,
           //automaticallyImplyLeading: false,
@@ -66,7 +73,8 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Consumer<MyClinicDoctorViewModel>(builder: (context, data, child) {
+                Consumer<MyClinicDoctorViewModel>(
+                    builder: (context, data, child) {
                   if (data.mypayment.isEmpty) {
                     return data.isDoctorLoading == true
                         ? Center(
@@ -95,7 +103,7 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               var item = data.mypayment[index];
-                              return  Padding(
+                              return Padding(
                                 padding: const EdgeInsets.only(top: 6),
                                 child: Card(
                                   elevation: 2,
@@ -107,22 +115,22 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                            MainAxisAlignment.spaceAround,
                                         children: [
                                           SizedBox(
                                             height: 75.h,
                                             width: 70.w,
                                             child: ClipRRect(
                                               borderRadius:
-                                              BorderRadius.circular(8),
+                                                  BorderRadius.circular(8),
                                               child:
-                                              item.doctors!.drImages != null
-                                                  ? Image.network(
-                                                "${AppUrls.drprofile}${item.doctors!.drImages.toString()}",
-                                                fit: BoxFit.fill,
-                                              )
-                                                  : Image.asset(
-                                                  Assets.dummy_image),
+                                                  item.doctors!.drImages != null
+                                                      ? Image.network(
+                                                          "${AppUrls.drprofile}${item.doctors!.drImages.toString()}",
+                                                          fit: BoxFit.fill,
+                                                        )
+                                                      : Image.asset(
+                                                          Assets.dummy_image),
                                             ),
                                           ),
                                           Style.widthdistan_size2,
@@ -130,9 +138,9 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
                                             width: 220.w,
                                             child: Column(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                                  MainAxisAlignment.start,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                     "${item.doctors!.title?.titleName ?? ""} ${item.doctors!.fullName ?? ""}",
@@ -142,7 +150,7 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
 
                                                 Row(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     SizedBox(
                                                       width: 70.w,
@@ -166,7 +174,58 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
                                                 Style.distan_size2,
                                                 Row(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 70.w,
+                                                      child: Text(
+                                                        "Statues",
+                                                        style: Style
+                                                            .alltext_default_balck,
+                                                      ),
+                                                    ),
+                                                    Text(":  "),
+                                                    SizedBox(
+                                                      width: 130.w,
+                                                      child: Text(
+                                                          item.isConfirmed
+                                                                      .toString() ==
+                                                                  "0"
+                                                              ? "Pending"
+                                                              : "Confirm",
+                                                          style: Style
+                                                              .alltext_default_balck),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Style.distan_size2,
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 70.w,
+                                                      child: Text(
+                                                        "Amount",
+                                                        style: Style
+                                                            .alltext_default_balck,
+                                                      ),
+                                                    ),
+                                                    Text(":  "),
+                                                    SizedBox(
+                                                      width: 130.w,
+                                                      child: Text(
+                                                          item.amount
+                                                              .toString(),
+                                                          style: Style
+                                                              .alltext_default_balck),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Style.distan_size2,
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     SizedBox(
                                                       width: 70.w,
@@ -218,7 +277,7 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
                                                 Style.distan_size2,
                                                 Row(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     SizedBox(
                                                       width: 70.w,
@@ -241,7 +300,7 @@ class _MyPatientViewState extends State<MyBrancePatmentView> {
                                                 Style.distan_size2,
                                                 Row(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     SizedBox(
                                                       width: 70.w,

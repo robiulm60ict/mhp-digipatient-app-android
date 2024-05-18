@@ -219,7 +219,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         Style.distan_size5,
                         Text(
-                          "${user?.patientEmail}".toString(),
+                          (user?.patientEmail??"N/A").toString(),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(

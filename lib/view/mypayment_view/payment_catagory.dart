@@ -108,8 +108,9 @@ class _AppoinmentCatagoryViewState extends State<PaymentCatagoryView> {
                         ),
                         Style.distan_size5,
                         Text(
-                          "${userprovider.user?.patientEmail}"
-                              .toString(),
+                  "${userprovider.user?.patientEmail??"N?A"}"
+                      .toString(),
+
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
