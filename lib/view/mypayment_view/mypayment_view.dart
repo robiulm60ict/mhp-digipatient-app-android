@@ -164,6 +164,34 @@ class _MyPatientViewState extends State<MyPatientView> {
                                                 Style.distan_size2,
                                                 Row(
                                                   crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 70.w,
+                                                      child: Text(
+                                                        "Statues",
+                                                        style: Style
+                                                            .alltext_default_balck,
+                                                      ),
+                                                    ),
+                                                    Text(":  "),
+                                                    SizedBox(
+                                                      width: 130.w,
+                                                      child: Text(
+                                                          item.isConfirmed
+                                                              .toString() ==
+                                                              "0"
+                                                              ? "Pending"
+                                                              : "Confirm",
+                                                          style: Style
+                                                              .alltext_default_balck),
+                                                    ),
+                                                  ],
+                                                ),
+
+                                                Style.distan_size2,
+                                                Row(
+                                                  crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     SizedBox(
