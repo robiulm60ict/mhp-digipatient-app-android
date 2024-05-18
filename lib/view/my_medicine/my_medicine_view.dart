@@ -39,52 +39,116 @@ class MyMedicineView extends StatelessWidget {
               ),
             ),
             SizedBox(height: defaultPadding.h,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: InkWell(
-                    onTap: (){
-                      // context.router.push(const RXRoute());
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>RXView()));
-                    },
-                    child: Card(child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 10.h,),
-                        const CircleAvatar(
-                          backgroundImage: AssetImage(Assets.myMedicineMedicineCircle),
-                        ),
-                        SizedBox(height: 8.r,),
-                        Text("Medication", style: Style.alltext_default_balck,),
-                        SizedBox(height: 10.h,),
-                      ],
-                    ),),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     // Expanded(
+            //     //   child: InkWell(
+            //     //     onTap: (){
+            //     //       // context.router.push(const RXRoute());
+            //     //       Navigator.push(context, MaterialPageRoute(builder: (context)=>RXView()));
+            //     //     },
+            //     //     child: Card(child: Column(
+            //     //       mainAxisSize: MainAxisSize.min,
+            //     //       crossAxisAlignment: CrossAxisAlignment.center,
+            //     //       children: [
+            //     //         SizedBox(height: 10.h,),
+            //     //         const CircleAvatar(
+            //     //           backgroundImage: AssetImage(Assets.myMedicineMedicineCircle),
+            //     //         ),
+            //     //         SizedBox(height: 8.r,),
+            //     //         Text("Medication", style: Style.alltext_default_balck,),
+            //     //         SizedBox(height: 10.h,),
+            //     //       ],
+            //     //     ),),
+            //     //   ),
+            //     // ),
+            //     Expanded(
+            //       child: InkWell(
+            //         onTap: (){
+            //           Navigator.push(
+            //               context, MaterialPageRoute(builder: (context) => Upcamming()));
+            //         },
+            //         child: Card(child: Column(
+            //           mainAxisSize: MainAxisSize.min,
+            //           crossAxisAlignment: CrossAxisAlignment.center,
+            //           children: [
+            //             SizedBox(height: 10.h,),
+            //             const CircleAvatar(
+            //               backgroundImage: AssetImage(Assets.myMedicineBuyMedicineCircle),
+            //             ),
+            //             SizedBox(height: 8.r,),
+            //             Text("Buy Medicine ", style: Style.alltext_default_balck,),
+            //             SizedBox(height: 10.h,),
+            //           ],
+            //         ),),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+
+            Card(
+              child: Padding(
+                padding: EdgeInsets.all(4.0.r),
+                child: ListTile(
+                  onTap: () async {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RXView()));
+
+                    // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
+                  },
+                  leading: Image.asset(
+                    Assets.myMedicineMedicineCircle,
+                    height: 38.h,
+                    width: 36.w,
+                  ),
+                  title: Text(
+                    "Medication",
+                    style: Style.alltext_default_balck,
+                  ),
+
+                  subtitle: Text(
+                    "Follow-up Prescriptions from Doctor",
+                    style: Style.alltext_default_balck,
+                  ),
+                  trailing: Image.asset(
+                    "assets/icons/details.png",
+                    color: Colors.green,
+                    height: 38.h,
+                    width: 36.w,
                   ),
                 ),
-                Expanded(
-                  child: InkWell(
-                    onTap: (){
-                      Navigator.push(
-                          context, MaterialPageRoute(builder: (context) => Upcamming()));
-                    },
-                    child: Card(child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 10.h,),
-                        const CircleAvatar(
-                          backgroundImage: AssetImage(Assets.myMedicineBuyMedicineCircle),
-                        ),
-                        SizedBox(height: 8.r,),
-                        Text("Buy Medicine ", style: Style.alltext_default_balck,),
-                        SizedBox(height: 10.h,),
-                      ],
-                    ),),
+              ),
+            ), Card(
+              child: Padding(
+                padding: EdgeInsets.all(4.0.r),
+                child: ListTile(
+                  onTap: () async {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RXView()));
+
+                    // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
+                  },
+                  leading: Image.asset(
+                    Assets.myMedicineBuyMedicineCircle,
+                    height: 38.h,
+                    width: 36.w,
+                  ),
+                  title: Text(
+                    "Buy Medicine",
+                    style: Style.alltext_default_balck,
+                  ),
+
+                  subtitle: Text(
+                    "UpComing",
+                    style: Style.alltext_default_balck,
+                  ),
+                  trailing: Image.asset(
+                    "assets/icons/details.png",
+                    color: Colors.green,
+                    height: 38.h,
+                    width: 36.w,
                   ),
                 ),
-              ],
+              ),
             ),
           ],
         ),

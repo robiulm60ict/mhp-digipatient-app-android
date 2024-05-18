@@ -27,26 +27,16 @@ Future<void> logout() async {
   final prefs = await SharedPreferences.getInstance();
   prefs.remove(cacheUserIDKey);
 }
-
-/// on user login
-void onUserLogin() {
-  callController ??= ZegoUIKitPrebuiltCallController();
-
-  print("fffffffffffffffffffffffffffffffffffff${currentUser.id}");
-  print("fffffffffffffffffffffffffffffffffffff${currentUser.name}");
-
-  /// 4/5. initialized ZegoUIKitPrebuiltCallInvitationService when account is logged in or re-logged in
+void onUserLogin() {/// 4/5. initialized ZegoUIKitPrebuiltCallInvitationService when account is logged in or re-logged in
   ZegoUIKitPrebuiltCallInvitationService().init(
     appID: 1293432009 /*input your AppID*/,
     appSign:
         'ce9d090d86cd6d51344033934af611515fdb0fc5760cfd02df1f99c06b0b94cf' /*input your AppSign*/,
     userID: currentUser.id,
     userName: currentUser.name,
-
     notificationConfig: ZegoCallInvitationNotificationConfig(
       androidNotificationConfig: ZegoCallAndroidNotificationConfig(
         showFullScreen: true,
-
         channelID: "ZegoUIKit",
         channelName: "Call Notifications",
         sound: "notification",
@@ -65,21 +55,21 @@ void onUserLogin() {
           : ZegoCallType.videoCall == data.type
               ? ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
               : ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall();
-
       // config.avatarBuilder = customAvatarBuilder;
-
       /// support minimizing, show minimizing button
       config.topMenuBar.isVisible = true;
-
       config.bottomMenuBar.buttons
           .insert(0, ZegoCallMenuBarButtonName.minimizingButton);
       config.bottomMenuBar.buttons
           .remove(ZegoCallMenuBarButtonName.hangUpButton);
-
-      // config.onError = (ZegoUIKitError error) {
-      //   debugPrint('onError:$error');
-      // };
-
+      config
+        ..turnOnCameraWhenJoining = true
+        ..turnOnMicrophoneWhenJoining = true
+        ..useSpeakerWhenJoining = true;
+      config.layout = ZegoLayout.pictureInPicture(
+        isSmallViewDraggable: true,
+        switchLargeOrSmallViewByClick: true,
+      );
       return config;
     },
   );

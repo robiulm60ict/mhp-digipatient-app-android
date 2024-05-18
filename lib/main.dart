@@ -48,6 +48,7 @@ import 'view_model/user_view_model/user_view_model.dart';
 Future<void> firbaseMessageBackgroundHandeler(RemoteMessage message) async {
   print('Handler a background messahe${message.messageId}');
 }
+
 final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
@@ -58,11 +59,10 @@ void main() async {
   final name = prefs.getString(UserP.name) ?? "";
   if (cacheUserID.isNotEmpty) {
     currentUser.id = cacheUserID;
-    currentUser.name = '$name';
+    currentUser.name = name;
   }
 
   /// 1/5: define a navigator key
-
   /// 2/5: set navigator key to ZegoUIKitPrebuiltCallInvitationService
   ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
   SystemChrome.setPreferredOrientations(
@@ -71,7 +71,6 @@ void main() async {
     // name: "digi_patient",
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   String? token = await messaging.getToken();
   // print("FCM Token: $token");
@@ -79,8 +78,8 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(firbaseMessageBackgroundHandeler);
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-
   await FirebaseApi().initNotifications();
+
   ZegoUIKit().initLog().then((value) {
     ZegoUIKitPrebuiltCallInvitationService().useSystemCallingUI(
       [ZegoUIKitSignalingPlugin()],
@@ -217,17 +216,13 @@ class MyAppState extends State<MyApp> {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp(
-        // routes: routes,
-        // initialRoute:
-        //     currentUser.id.isEmpty ? PageRouteNames.login : PageRouteNames.home,
-
+        /// 3/5: register the navigator key to MaterialApp
+        navigatorKey: widget.navigatorKey,
         initialRoute:
             currentUser.id.isEmpty ? RoutesName.splash : RoutesName.dashbord,
         onGenerateRoute: Routes.generateRoute,
         color: AppColors.primaryColor,
 
-        /// 3/5: register the navigator key to MaterialApp
-        navigatorKey: widget.navigatorKey,
         builder: (BuildContext context, Widget? child) {
           return Stack(
             children: [

@@ -269,7 +269,7 @@ class BranceAppointmentViewModel with ChangeNotifier {
             focusColor: Colors.purple,
             shadowColor: Colors.yellow,
             textTheme: TextTheme(
-                bodyText1:TextStyle(
+                bodyLarge:TextStyle(
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.bold,
                  fontSize: 20,

@@ -1,8 +1,8 @@
-import 'package:digi_patient/view/dashboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
+import '../../dashboard.dart';
 import '../../view/authentications/sign_in_view.dart';
 import '../../view/bottom_navigation_buttons/home_view.dart';
 import '../../view/onbording_view.dart';

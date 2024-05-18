@@ -54,6 +54,82 @@ class _RXViewState extends State<RXView> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
+                            builder: (context) => UploadPrescription()));
+
+                    // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
+                  },
+                  leading: Image.asset(
+                    "assets/icons/rx1.png",
+                    height: 38.h,
+                    width: 36.w,
+                  ),
+
+                  title: Text(
+                    "View Rx",
+                    style: Style.alltext_default_balck_blod,
+                  ),
+                  subtitle: Text(
+                    "Rx Manually uploaded by Doctor",
+                    style: Style.alltext_default_balck,
+                  ),
+                  trailing: Image.asset(
+                    "assets/icons/details.png",
+                    color: Colors.green,
+                    height: 38.h,
+                    width: 36.w,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Card(
+              child: Padding(
+                padding: EdgeInsets.all(4.0.r),
+                child: ListTile(
+                  onTap: () async {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PrescriptionGreatDoc()));
+
+                    // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
+                  },
+                  leading: Image.asset(
+                    "assets/icons/rxpdf.png",
+                    height: 38.h,
+                    width: 36.w,
+                  ),
+                  title: Text(
+                    "View Rx -Pdf",
+                    style: Style.alltext_default_balck,
+                  ),
+
+                  subtitle: Text(
+                    "Uploaded from Great DOC",
+                    style: Style.alltext_default_balck,
+                  ),
+                  trailing: Image.asset(
+                    "assets/icons/details.png",
+                    color: Colors.green,
+                    height: 38.h,
+                    width: 36.w,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Card(
+              child: Padding(
+                padding: EdgeInsets.all(4.0.r),
+                child: ListTile(
+                  onTap: () async {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
                             builder: (context) => RXDetailView(
                                 title: "Current RX", isCurrentRxView: true)));
                     //context.router.push( RXDetailRoute(title: "Current RX", isCurrentRxView: true));
@@ -64,8 +140,19 @@ class _RXViewState extends State<RXView> {
                     width: 36.w,
                   ),
                   title: Text(
-                    "Current Rx from GreatDoc",
+                    "Current Rx ",
                     style: Style.alltext_default_balck,
+                  ),
+
+                  subtitle: Text(
+                    "From GreatDOC",
+                    style: Style.alltext_default_balck,
+                  ),
+                  trailing: Image.asset(
+                    "assets/icons/details.png",
+                    color: Colors.green,
+                    height: 38.h,
+                    width: 36.w,
                   ),
                 ),
               ),
@@ -92,63 +179,18 @@ class _RXViewState extends State<RXView> {
                     width: 36.w,
                   ),
                   title: Text(
-                    "Past Rx from GreatDoc",
+                    "Past Rx",
                     style: Style.alltext_default_balck,
                   ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Card(
-              child: Padding(
-                padding: EdgeInsets.all(4.0.r),
-                child: ListTile(
-                  onTap: () async {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => UploadPrescription()));
-
-                    // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
-                  },
-                  leading: Image.asset(
-                    "assets/icons/rx1.png",
-                    height: 38.h,
-                    width: 36.w,
-                  ),
-                  title: Text(
-                    "View Rx",
+                  subtitle: Text(
+                    "From GreatDOC",
                     style: Style.alltext_default_balck,
                   ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Card(
-              child: Padding(
-                padding: EdgeInsets.all(4.0.r),
-                child: ListTile(
-                  onTap: () async {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PrescriptionGreatDoc()));
-
-                    // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
-                  },
-                  leading: Image.asset(
-                    "assets/icons/rxpdf.png",
+                  trailing: Image.asset(
+                    "assets/icons/details.png",
                     color: Colors.green,
                     height: 38.h,
                     width: 36.w,
-                  ),
-                  title: Text(
-                    "View Rx from GreatDoc",
-                    style: Style.alltext_default_balck,
                   ),
                 ),
               ),

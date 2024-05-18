@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:bijoy_helper/bijoy_helper.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -68,8 +67,7 @@ class PdfInvoiceApi {
 
     final age = calculateAge(
         doc.patient!.patientDob.toString().split(" ").first.toString());
-    print(bijoyToUnicode(
-        ".......... দিন পর GreatDoc অ্যাপ এ ফলোআপ / চেম্বারে ব্যাবস্থাপ্ত্র সহ সরাসরি আসবেন"));
+
 
     pdf.addPage(pw.MultiPage(
       build: (context) => [
