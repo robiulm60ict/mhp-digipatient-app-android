@@ -11,7 +11,6 @@ import 'package:flutter_sslcommerz/model/SSLCurrencyType.dart';
 import 'package:flutter_sslcommerz/sslcommerz.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_bkash/flutter_bkash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../generated/assets.dart';
 import '../../../../model/anatomy/anatomy_symptoms_model.dart';
