@@ -100,11 +100,15 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     double width = (size.width / 2);
     debugPrint(size.width.toString());
 
-    final user = Provider.of<UserViewModel>(context).user;
+    final user = Provider
+        .of<UserViewModel>(context)
+        .user;
     final auth = Provider.of<AuthViewModel>(context, listen: false);
     final appointments = Provider.of<DailyAndUpcommingViewModel>(context);
     final dvm = Provider.of<MyDoctorDelaisViewModel>(context, listen: false);
@@ -128,10 +132,13 @@ class _HomeViewState extends State<HomeView> {
           backgroundColor: Colors.white,
           extendBody: true,
           drawer: Drawer(
-            width: MediaQuery.of(context).size.width * 0.75,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width * 0.75,
             shape: OutlineInputBorder(
               borderRadius:
-                  BorderRadius.only(bottomRight: Radius.circular(40.w)),
+              BorderRadius.only(bottomRight: Radius.circular(40.w)),
               borderSide: BorderSide.none,
             ),
             child: ListView(
@@ -158,79 +165,83 @@ class _HomeViewState extends State<HomeView> {
 
                 Consumer<UserViewModel>(
                     builder: (context, userprovider, child) {
-                  if (userprovider.userData.isEmpty) {
-                    return userprovider.isUserLoading == true
-                        ? Center(
-                            child: ListView.builder(
-                              itemCount: 1,
-                              scrollDirection: Axis.vertical,
-                              physics: const ScrollPhysics(),
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: bannerShimmereffect(
-                                      80.toDouble(), 400.toDouble()),
-                                );
-                              },
-                            ),
-                          )
-                        : noDataFounForList("");
-                  } else {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        userprovider.user?.patientImages.toString() == "null"
-                            ? SizedBox(
-                                //height: 110,
-                                // width: 90.w,
+                      if (userprovider.userData.isEmpty) {
+                        return userprovider.isUserLoading == true
+                            ? Center(
+                          child: ListView.builder(
+                            itemCount: 1,
+                            scrollDirection: Axis.vertical,
+                            physics: const ScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: bannerShimmereffect(
+                                    80.toDouble(), 400.toDouble()),
+                              );
+                            },
+                          ),
+                        )
+                            : noDataFounForList("");
+                      } else {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            userprovider.user?.patientImages.toString() ==
+                                "null"
+                                ? SizedBox(
+                              //height: 110,
+                              // width: 90.w,
                                 child: const CircleAvatar(
-                                radius: 40,
-                                backgroundImage: AssetImage(Assets.dummy_image),
-                              ))
-                            : SizedBox(
-                                // height: 110,
-                                // width: 90.w,
+                                  radius: 40,
+                                  backgroundImage: AssetImage(
+                                      Assets.dummy_image),
+                                ))
+                                : SizedBox(
+                              // height: 110,
+                              // width: 90.w,
                                 child: CircleAvatar(
-                                radius: 40,
-                                backgroundImage: NetworkImage(
-                                  "${AppUrls.image}${userprovider.user?.patientImages}",
-                                ),
-                              )
+                                  radius: 40,
+                                  backgroundImage: NetworkImage(
+                                    "${AppUrls.image}${userprovider.user
+                                        ?.patientImages}",
+                                  ),
+                                )
 
-                                // Image.network(
-                                //
-                                //   height: 110,
-                                //   width: 90.w,
-                                //   fit: BoxFit.fill,
-                                // ),
-                                ),
-                        Style.distan_size10,
-                        Text(
-                          "${user?.patientFirstName} ${user?.patientLastName}"
-                              .toString(),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.sp,
-                              color: const Color(0xFF454545)),
-                        ),
-                        Style.distan_size5,
-                        Text(
-                          (user?.patientEmail??"N/A").toString(),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.sp,
-                              color: const Color(0xFF454545)),
-                        ),
-                      ],
-                    );
-                  }
-                }),
+                              // Image.network(
+                              //
+                              //   height: 110,
+                              //   width: 90.w,
+                              //   fit: BoxFit.fill,
+                              // ),
+                            ),
+                            Style.distan_size10,
+                            Text(
+                              "${user?.patientFirstName} ${user
+                                  ?.patientLastName}"
+                                  .toString(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12.sp,
+                                  color: const Color(0xFF454545)),
+                            ),
+                            Style.distan_size5,
+                            Text(
+                              (user?.patientEmail ?? "N/A").toString(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12.sp,
+                                  color: const Color(0xFF454545)),
+                            ),
+                          ],
+                        );
+                      }
+                    }),
                 Style.distan_size15,
                 DrawerListTile(
                   iconData: Icons.person,
@@ -328,7 +339,7 @@ class _HomeViewState extends State<HomeView> {
                       Navigator.pushNamedAndRemoveUntil(
                         context,
                         RoutesName.login,
-                        (route) => false,
+                            (route) => false,
                       );
                       //  context.router.replace(const SignInRoute());
                     },
@@ -387,7 +398,10 @@ class _HomeViewState extends State<HomeView> {
               badges.Badge(
                   position: BadgePosition.topEnd(top: 4, end: 0),
                   badgeContent: Text(
-                    "${int.parse(appointments.todayAppointmentList.length.toString()) + int.parse(appointments.upcommingAppointmentList.length.toString())}",
+                    "${int.parse(
+                        appointments.todayAppointmentList.length.toString()) +
+                        int.parse(appointments.upcommingAppointmentList.length
+                            .toString())}",
                     style: const TextStyle(color: Colors.white),
                   ),
                   child: IconButton(
@@ -415,106 +429,108 @@ class _HomeViewState extends State<HomeView> {
                 height: 110.h,
                 width: double.infinity,
                 decoration: const BoxDecoration(
-                    // image: DecorationImage(
-                    //     image: AssetImage(Assets.imagesWelcomeBackground))
-                    ),
+                  // image: DecorationImage(
+                  //     image: AssetImage(Assets.imagesWelcomeBackground))
+                ),
                 child: Card(
                   child: Padding(
                     padding: const EdgeInsets.all(6.0),
                     child: Consumer<UserViewModel>(
                         builder: (context, userprovider, child) {
-                      if (userprovider.userData.isEmpty) {
-                        return userprovider.isUserLoading == true
-                            ? Center(
-                                child: ListView.builder(
-                                  itemCount: 1,
-                                  scrollDirection: Axis.vertical,
-                                  physics: const ScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: bannerShimmereffect(
-                                          120.toDouble(), 400.toDouble()),
-                                    );
-                                  },
-                                ),
-                              )
-                            : noDataFounForList("");
-                      } else {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            userprovider.user?.patientImages.toString() ==
-                                    "null"
-                                ? SizedBox(
-                                    //height: 110,
-                                    // width: 90.w,
-                                    child: const CircleAvatar(
-                                    radius: 40,
-                                    backgroundImage:
-                                        AssetImage(Assets.dummy_image),
-                                  ))
-                                : SizedBox(
-                                    // height: 110,
-                                    // width: 90.w,
-                                    child: CircleAvatar(
-                                    radius: 40,
-                                    backgroundImage: NetworkImage(
-                                      "${AppUrls.image}${userprovider.user?.patientImages}",
-                                    ),
-                                  )
-
-                                    // Image.network(
-                                    //
-                                    //   height: 110,
-                                    //   width: 90.w,
-                                    //   fit: BoxFit.fill,
-                                    // ),
-                                    ),
-                            Style.widthdistan_size10,
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          if (userprovider.userData.isEmpty) {
+                            return userprovider.isUserLoading == true
+                                ? Center(
+                              child: ListView.builder(
+                                itemCount: 1,
+                                scrollDirection: Axis.vertical,
+                                physics: const ScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: bannerShimmereffect(
+                                        120.toDouble(), 400.toDouble()),
+                                  );
+                                },
+                              ),
+                            )
+                                : noDataFounForList("");
+                          } else {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(
-                                  "Hello!",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18.sp,
-                                      color: AppColors.primaryColor),
+                                userprovider.user?.patientImages.toString() ==
+                                    "null"
+                                    ? SizedBox(
+                                  //height: 110,
+                                  // width: 90.w,
+                                    child: const CircleAvatar(
+                                      radius: 40,
+                                      backgroundImage:
+                                      AssetImage(Assets.dummy_image),
+                                    ))
+                                    : SizedBox(
+                                  // height: 110,
+                                  // width: 90.w,
+                                    child: CircleAvatar(
+                                      radius: 40,
+                                      backgroundImage: NetworkImage(
+                                        "${AppUrls.image}${userprovider.user
+                                            ?.patientImages}",
+                                      ),
+                                    )
+
+                                  // Image.network(
+                                  //
+                                  //   height: 110,
+                                  //   width: 90.w,
+                                  //   fit: BoxFit.fill,
+                                  // ),
                                 ),
-                                SizedBox(
-                                  height: 4.h,
-                                ),
-                                Text(
-                                  "${user?.patientFirstName} ${user?.patientLastName}"
-                                      .toString(),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12.sp,
-                                      color: const Color(0xFF454545)),
-                                ),
-                                SizedBox(
-                                  height: 4.h,
-                                ),
-                                Text(
-                                  "Welcome to MacroHealthPlus",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: const Color(0xFF7A7A7A),
-                                  ),
+                                Style.widthdistan_size10,
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Hello!",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18.sp,
+                                          color: AppColors.primaryColor),
+                                    ),
+                                    SizedBox(
+                                      height: 4.h,
+                                    ),
+                                    Text(
+                                      "${user?.patientFirstName} ${user
+                                          ?.patientLastName}"
+                                          .toString(),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12.sp,
+                                          color: const Color(0xFF454545)),
+                                    ),
+                                    SizedBox(
+                                      height: 4.h,
+                                    ),
+                                    Text(
+                                      "Welcome to MacroHealthPlus",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontSize: 12.sp,
+                                        color: const Color(0xFF7A7A7A),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
-                            ),
-                          ],
-                        );
-                      }
-                    }),
+                            );
+                          }
+                        }),
                   ),
                 ),
               ),
@@ -547,7 +563,10 @@ class _HomeViewState extends State<HomeView> {
                       options: CarouselOptions(
                         autoPlayAnimationDuration: Duration(seconds: 3),
                         viewportFraction: 1,
-                        height: MediaQuery.of(context).size.height * .18,
+                        height: MediaQuery
+                            .of(context)
+                            .size
+                            .height * .18,
                         autoPlay: true,
                         aspectRatio: 16 / 9,
                       )),
@@ -627,11 +646,13 @@ class _HomeViewState extends State<HomeView> {
                                 SizedBox(
                                   width: 190.w,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment
+                                        .start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        provider.homeItemsList[index].title.toString(),
+                                        provider.homeItemsList[index].title
+                                            .toString(),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.center,
@@ -639,7 +660,8 @@ class _HomeViewState extends State<HomeView> {
                                       ),
                                       Style.distan_size5,
                                       Text(
-                                        provider.homeItemsList[index].des.toString(),
+                                        provider.homeItemsList[index].des
+                                            .toString(),
                                         style: Style.alltext_default_balck,
                                       )
                                     ],

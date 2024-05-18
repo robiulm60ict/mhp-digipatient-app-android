@@ -1,8 +1,18 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_sslcommerz/model/SSLCAdditionalInitializer.dart';
+import 'package:flutter_sslcommerz/model/SSLCSdkType.dart';
+import 'package:flutter_sslcommerz/model/SSLCTransactionInfoModel.dart';
+import 'package:flutter_sslcommerz/model/SSLCommerzInitialization.dart';
+import 'package:flutter_sslcommerz/model/SSLCurrencyType.dart';
+import 'package:flutter_sslcommerz/sslcommerz.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_bkash/flutter_bkash.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../generated/assets.dart';
 import '../../../../model/anatomy/anatomy_symptoms_model.dart';
 import '../../../../model/clinic/mydoctorlistbrance.dart';
@@ -10,27 +20,32 @@ import '../../../../model/clinic/orgamozationlist_model.dart';
 import '../../../../resources/colors.dart';
 import '../../../../resources/styles.dart';
 import '../../../../utils/message.dart';
+import '../../../../utils/user.dart';
 import '../../../../utils/utils.dart';
 import '../../../../view_model/anatomy/anatomy_view_model.dart';
-import '../../../../view_model/appointment_view_model/appointment_view_model.dart';
 import '../../../../view_model/appointment_view_model/brance_appointment_view_model.dart';
+import '../../../../view_model/user_view_model/user_view_model.dart';
 import '../../../../widgets/back_button.dart';
 import '../../../../widgets/shimmer.dart';
 import '../../../anatomy/anatomy_view.dart';
 import '../../../my_record/my_report_upload_view.dart';
 import '../../../my_record/uploaded_myreport.dart';
-import '../../../payment/payment_method_view.dart';
+
+import 'package:flutter_sslcommerz/flutter_sslcommerz.dart';
+
 import 'brancepayment_method_view.dart';
 
-
-
 class BranceBookAppointmentView extends StatefulWidget {
-   BranceBookAppointmentView(
-      {Key? key, required this.doctors, required this.amount,required this.branch,required this.DbName})
+  BranceBookAppointmentView(
+      {Key? key,
+      required this.doctors,
+      required this.amount,
+      required this.branch,
+      required this.DbName})
       : super(key: key);
   final MhpDoctorsMaster doctors;
   Branch? branch;
-   String? DbName;
+  String? DbName;
 
   final String amount;
 
@@ -48,13 +63,15 @@ class _BookAppointmentViewState extends State<BranceBookAppointmentView> {
   }
 
   getAmount() {
-    print("apicccccccccccccccccccccccccccccccccccccccccccccccccccc${widget.DbName}");
+    print(
+        "apicccccccccccccccccccccccccccccccccccccccccccccccccccc${widget.DbName}");
     // context.read<MyDoctorViewModel>().getDoctorFee(widget.doctors.id);
     // context.read<AppointmentViewModel>().setWeekDays();
-    context
-        .read<BranceAppointmentViewModel>()
-        .getDocChamberTime(context, "",widget.DbName,widget.branch!.id, docId: widget.doctors.id);
-    context.read<BranceAppointmentViewModel>().getDocChamberTimeCalender(context, "",widget.DbName,widget.branch!.id,
+    context.read<BranceAppointmentViewModel>().getDocChamberTime(
+        context, "", widget.DbName, widget.branch!.id,
+        docId: widget.doctors.id);
+    context.read<BranceAppointmentViewModel>().getDocChamberTimeCalender(
+        context, "", widget.DbName, widget.branch!.id,
         docId: widget.doctors.id);
     // context.read<AnatomyModelView>().getSelectedSymptomsList();
   }
@@ -66,6 +83,9 @@ class _BookAppointmentViewState extends State<BranceBookAppointmentView> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserViewModel>(context).user;
+    final apVM =
+        Provider.of<BranceAppointmentViewModel>(context, listen: false);
     // final myDocVM = Provider.of<MyDoctorViewModel>(context,listen: false);
     final anatomy = Provider.of<AnatomyModelView>(context);
 
@@ -91,14 +111,13 @@ class _BookAppointmentViewState extends State<BranceBookAppointmentView> {
             color: AppColors.primary_color,
             child: MaterialButton(
               onPressed: () async {
+
                 List<SymptomsAnatomy> diseaseList =
                     anatomy.getSelectedSymptomsList();
                 print(appointmentViewModel.selectedDatee.toString());
                 if (appointmentViewModel.selectedDatee == null) {
                   Messages.snackBar(context, "Please Select Date!");
-               } else
-
-                  if (appointmentViewModel.isChamber.toString() == "") {
+                } else if (appointmentViewModel.isChamber.toString() == "") {
                   Messages.snackBar(context, "Please Select Appointment Type!");
                 } else if (appointmentViewModel.morningeveingButton
                         .toString() ==
@@ -107,45 +126,211 @@ class _BookAppointmentViewState extends State<BranceBookAppointmentView> {
                 } else if (anatomy.favourite.isEmpty) {
                   Messages.snackBar(context, "Please Select Symptoms!");
                 } else {
+
+                  List items = [];
+
+                  data() {
+                    for (var i in anatomy.favourite) {
+                      items.add(i.symptomName);
+                    }
+                    print("dfffffddddddddddddddddddddddddddddddfffff${items}");
+                  }
                   // print(
                   //   "${DateFormat("dd-MM-yyyy H:m").format(DateTime.parse("${appointmentViewModel.selectedDatee.toString()}"))}",
                   // );
                   print(appointmentViewModel.selectedDatee.toString());
 
-                  await appointmentViewModel.getPatientId().then((value) =>
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BrancePaymentMethodView(
-                                  appointmentDate:
-                                      "${appointmentViewModel.selectedDatee!}",
-                                  appointmentType:
-                                      appointmentViewModel.isChamber ==
-                                              "Chamber"
-                                          ? "Chamber"
-                                          : "Telehealth",
-                                  doctorId: "${widget.doctors.id}",
-                                  patientId: "$value",
-                                  amount: widget.amount,
-                                  doctor: widget.doctors!,
-                                  diseaseList: anatomy.favourite,
-                                  shiftType: appointmentViewModel
-                                              .morningeveingButton ==
+                  // DateTime dateTime = DateFormat('yyyy-MM-dd').parseStrict( widget.appointmentDate);
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  String? patientId = prefs.getString(UserP.hnnumber);
+                  if (appointmentViewModel.isChamber == "Chamber") {
+                    Map body = {
+                      "doctor_id": widget.doctors.id.toString(),
+                      // "patient_id": "2",
+                      "patient_hn_number": patientId.toString(),
+                      "date": "${appointmentViewModel.selectedDatee!}",
+                      "appointment_type":
+                          appointmentViewModel.isChamber == "Chamber"
+                              ? "Chamber"
+                              : "Telehealth",
+                      "disease": jsonEncode(items),
+                      "payment_type": "Chamber Payment",
+                      // getPaymentMethod(),
+                      "amount": widget.amount,
+                      "saas_branch_id": widget.doctors.saasBranchId.toString(),
+                      "transaction_no": "",
+                      "referred_name": "",
+                      "transaction_phone_number": "",
+                     "calling_type": "clinic",
+                      "shift":
+                          appointmentViewModel.morningeveingButton == "morning"
+                              ? "Morning"
+                              : "Evening",
+                      "registration_phone_no":
+                          user!.patientMobilePhone.toString(),
+                    };
+                    print(body);
+
+                    await apVM.bookAppointmentbrance(context,
+                        body: body,
+                        doctor: widget.doctors,
+                        DbName: widget.DbName);
+                  } else {
+                    final String ipnUrl = "https://www.ipnurl.com";
+                    final String storeId = "cattl6519ad5ac55ab";
+                    final String storePassword = "cattl6519ad5ac55ab@ssl";
+                    // final String storeId = "macrohealthplussoftwareptyltd0live";
+                    // final String storePassword = "64B3B72032AB585960";
+                    final double amount = 4.0; // Total transaction amount
+                    final String transactionId =
+                        'tran_${DateTime.now().millisecondsSinceEpoch}'; // Unique transaction ID
+                    final appointmentViewModel =
+                        Provider.of<BranceAppointmentViewModel>(context,
+                            listen: false);
+
+                    final apVM = Provider.of<BranceAppointmentViewModel>(
+                        context,
+                        listen: false);
+                    // final myDocVM = Provider.of<MyDoctorViewModel>(context,listen: false);
+                    final anatomy =
+                        Provider.of<AnatomyModelView>(context, listen: false);
+
+                    // // Ensure IPN URL is a valid HTTPS URL
+                    // if (!Uri.tryParse(ipnUrl)!.hasAbsolutePath ?? true) {
+                    //   debugPrint('Invalid IPN URL');
+                    //   return;
+                    // }
+
+                    Sslcommerz sslcommerz = Sslcommerz(
+                      initializer: SSLCommerzInitialization(
+                        //   ipn_url: ipnUrl,
+                        multi_card_name: "visa,master,bkash",
+                        currency: SSLCurrencyType.BDT,
+                        product_category: "doctor",
+                        sdkType: SSLCSdkType.TESTBOX,
+                        // Use LIVE for production
+                        store_id: storeId,
+                        store_passwd: storePassword,
+                        total_amount: double.parse(widget.amount.toString()),
+                        tran_id: transactionId, // Unique transaction ID
+                      ),
+                    );
+
+                    sslcommerz.addAdditionalInitializer(
+                      sslcAdditionalInitializer: SSLCAdditionalInitializer(
+                        user_refer: patientId.toString(),
+                      ),
+                    );
+
+                    try {
+                      SSLCTransactionInfoModel result =
+                          await sslcommerz.payNow();
+
+                      // Debugging output
+                      print('Transaction result: ${result.toJson()}');
+
+                      if (result.status != null) {
+                        switch (result.status!.toLowerCase()) {
+                          case "failed":
+                            print('Transaction Failed');
+                            break;
+                          case "closed":
+                            print('SDK Closed by User');
+                            break;
+                          default:
+                            print(
+                                'Transaction successful: ID=${result.tranId}, Amount=${result.amount}  Amount=${result.tranId}');
+                            Map body = {
+                              "doctor_id": widget.doctors.id.toString(),
+                              // "patient_id": "2",
+                              "patient_hn_number": patientId.toString(),
+                              "date": appointmentViewModel.selectedDatee!
+                                  .toString()
+                                  .split(" ")
+                                  .first,
+                              "appointment_type":
+                                  appointmentViewModel.isChamber == "Chamber"
+                                      ? "Chamber"
+                                      : "Telehealth",
+                             "calling_type": "clinic",
+                              "disease": jsonEncode(items),
+                              "payment_type": result.cardType,
+                              // getPaymentMethod(),
+                              "amount": widget.amount,
+                              "saas_branch_id":
+                                  widget.doctors.saasBranchId.toString(),
+                              "transaction_no": result.tranId,
+                              "referred_name": "",
+                              "transaction_phone_number": "",
+                              "shift":
+                                  appointmentViewModel.morningeveingButton ==
                                           "morning"
                                       ? "Morning"
-                                      : "Evening", branch: widget.branch, DbName: widget.DbName, saas_branch_id: widget.branch!.id.toString(),))));
+                                      : "Evening",
+                              "registration_phone_no":
+                                  user!.patientMobilePhone.toString(),
+                            };
+                            print(body);
+
+                            await apVM.bookAppointmentbrance(context,
+                                body: body,
+                                doctor: widget.doctors,
+                                DbName: widget.DbName);
+                          // Further processing based on successful transaction
+                        }
+                      } else {
+                        print('Transaction status is null');
+                      }
+                    } catch (e, stackTrace) {
+                      debugPrint('Error: $e');
+                      debugPrint('StackTrace: $stackTrace');
+                    }
+                    // patientMobilePhone,patient_hn_number,ChamberType,shift
+                    // sslCommerzCustomCall(
+                    //   context,
+                    //   user!.patientMobilePhone.toString(), patientId.toString(),appointmentViewModel.isChamber == "Chamber"
+                    //     ? "Chamber"
+                    //     : "Telehealth",appointmentViewModel.morningeveingButton == "morning"
+                    //     ? "Morning"
+                    //     : "Evening",appointmentViewModel.selectedDatee!.toString().split(" ").first
+                    // );
+                  }
+
+                  // await appointmentViewModel.getPatientId().then((value) =>
+                  //     Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //             builder: (context) => BrancePaymentMethodView(
+                  //                 appointmentDate:
+                  //                     "${appointmentViewModel.selectedDatee!}",
+                  //                 appointmentType:
+                  //                     appointmentViewModel.isChamber ==
+                  //                             "Chamber"
+                  //                         ? "Chamber"
+                  //                         : "Telehealth",
+                  //                 doctorId: "${widget.doctors.id}",
+                  //                 patientId: "$value",
+                  //                 amount: widget.amount,
+                  //                 doctor: widget.doctors!,
+                  //                 diseaseList: anatomy.favourite,
+                  //                 shiftType: appointmentViewModel
+                  //                             .morningeveingButton ==
+                  //                         "morning"
+                  //                     ? "Morning"
+                  //                     : "Evening", branch: widget.branch, DbName: widget.DbName, saas_branch_id: widget.branch!.id.toString(),))));
 
                   setState(() {
-                    appointmentViewModel.selectedDatee = null;
-                    appointmentViewModel.isChamber = "";
-                    appointmentViewModel.morningeveingButton = "";
-
-                    appointmentViewModel.date = DateTime.now();
-                    anatomy.favourite.clear();
-
-                    anatomy.symptomsList.clear();
-
-                    anatomy.getSymptomsList.clear();
+                    // appointmentViewModel.selectedDatee = null;
+                    // appointmentViewModel.isChamber = "";
+                    // appointmentViewModel.morningeveingButton = "";
+                    //
+                    // appointmentViewModel.date = DateTime.now();
+                    // anatomy.favourite.clear();
+                    //
+                    // anatomy.symptomsList.clear();
+                    //
+                    // anatomy.getSymptomsList.clear();
                   });
                 }
               },
@@ -165,7 +350,10 @@ class _BookAppointmentViewState extends State<BranceBookAppointmentView> {
                 color: AppColors.primary_color,
                 onPressed: () async {
                   await appointmentViewModel.selectDate(
-                      context,widget.doctors.id.toString(),widget.DbName.toString(),widget.branch!.id.toString() );
+                      context,
+                      widget.doctors.id.toString(),
+                      widget.DbName.toString(),
+                      widget.branch!.id.toString());
                   // await appointmentViewModel.selectDate();
                 },
                 child: Row(
@@ -338,9 +526,7 @@ class _BookAppointmentViewState extends State<BranceBookAppointmentView> {
             appointmentViewModel.doctorTimeSlotList.isEmpty
                 ? SizedBox()
                 : SizedBox(
-                    height:
-                        150.h,
-
+                    height: 150.h,
                     child: Consumer<BranceAppointmentViewModel>(
                         builder: (context, data, child) {
                       if (data.doctorTimeSlotList.isEmpty) {
@@ -431,18 +617,23 @@ class _BookAppointmentViewState extends State<BranceBookAppointmentView> {
                                         ""
                                 ? Container()
                                 : Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Style.distan_size20,
-                                    Icon(Icons.calendar_month,color: Colors.green,size: 50,),
-                                    Style.distan_size20,
-                                    Text(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Style.distan_size20,
+                                      Icon(
+                                        Icons.calendar_month,
+                                        color: Colors.green,
+                                        size: 50,
+                                      ),
+                                      Style.distan_size20,
+                                      Text(
                                         "Please Choose your prefer date for an appointment",
                                         style: Style.alltext_default_balck_blod,
                                       ),
-                                  ],
-                                )
+                                    ],
+                                  )
                           ],
                         );
                       }
@@ -452,7 +643,6 @@ class _BookAppointmentViewState extends State<BranceBookAppointmentView> {
             ),
             Row(
               children: [
-
                 Expanded(
                   child: InkWell(
                     onTap: () {
@@ -604,7 +794,7 @@ class _BookAppointmentViewState extends State<BranceBookAppointmentView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                              "${widget.doctors!.title == null ? '':widget.doctors!.title!.titleName} ${widget.doctors!.fullName.toString()}"),
+                              "${widget.doctors!.title == null ? '' : widget.doctors!.title!.titleName} ${widget.doctors!.fullName.toString()}"),
                           Style.distan_size2,
                           widget.doctors!.usualProvider != null
                               ? Text(
@@ -689,6 +879,9 @@ class _BookAppointmentViewState extends State<BranceBookAppointmentView> {
       );
     });
   }
+
+  Future<void> sslCommerzCustomCall(BuildContext contex, patientMobilePhone,
+      patient_hn_number, ChamberType, shift, selectedDatee) async {}
 
   String formatSpecificTime(String inputTime) {
     // Assuming the inputTime is in the "HH:mm" format

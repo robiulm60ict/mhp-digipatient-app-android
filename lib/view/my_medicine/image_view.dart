@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gallery_saver/gallery_saver.dart';
+// import 'package:gallery_saver/gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -88,7 +88,7 @@ class _ImageViewState extends State<ImageView> {
       await imageFile.copy(newImagePath);
 
       // Save the image to the gallery
-      await GallerySaver.saveImage(newImagePath);
+      // await GallerySaver.saveImage(newImagePath);
 
       setState(() {
         _imageBytes = response.bodyBytes;

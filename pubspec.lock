@@ -454,14 +454,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_bkash:
+    dependency: "direct main"
+    description:
+      name: flutter_bkash
+      sha256: e77050fa40578078015c17c662ab0a507585a441c1fe89fc3d241ff230f42f87
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   flutter_cache_manager:
     dependency: transitive
     description:
       name: flutter_cache_manager
-      sha256: "8207f27539deb83732fdda03e259349046a39a4c767269285f449ade355d54ba"
+      sha256: "395d6b7831f21f3b989ebedbb785545932adb9afe2622c1ffacf7f4b53a7e544"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.1"
+    version: "3.3.2"
   flutter_cached_pdfview:
     dependency: "direct main"
     description:
@@ -611,6 +619,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.9.1"
+  flutter_sslcommerz:
+    dependency: "direct main"
+    description:
+      name: flutter_sslcommerz
+      sha256: "9ccc6ff8971766929fe7ca20c6421e14afe4712cb08ecb0251bc7a5af5832bc4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.2-nullsafety.0"
   flutter_styled_toast:
     dependency: "direct main"
     description:
@@ -653,22 +669,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "10.7.0"
-  gallery_saver:
-    dependency: "direct main"
+  fpdart:
+    dependency: transitive
     description:
-      name: gallery_saver
-      sha256: df8b7e207ca12d64c71e0710a7ee3bc48aa7206d51cc720716fedb1543a66712
+      name: fpdart
+      sha256: "4a0d047c3359a4bdd19e4941603bbe394bd133b3772a38049e17f9534d47106e"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "0.6.0"
   google_fonts:
     dependency: "direct main"
     description:
       name: google_fonts
-      sha256: "6b6f10f0ce3c42f6552d1c70d2c28d764cf22bb487f50f66cca31dcd5194f4d6"
+      sha256: b1ac0fe2832c9cc95e5e88b57d627c5e68c223b9657f4b96e1487aa9098c7b82
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.4"
+    version: "6.2.1"
   google_maps:
     dependency: transitive
     description:
@@ -729,10 +745,10 @@ packages:
     dependency: "direct main"
     description:
       name: http
-      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
+      sha256: "761a297c042deedc1ffbb156d6e2af13886bb305c2a343a4d972504cd67dd938"
       url: "https://pub.dev"
     source: hosted
-    version: "0.13.6"
+    version: "1.2.1"
   http_parser:
     dependency: transitive
     description:
@@ -922,10 +938,10 @@ packages:
     dependency: "direct main"
     description:
       name: lottie
-      sha256: "1f0ce68112072d66ea271a9841994fa8d16442e23d8cf8996c9fa74174e58b4e"
+      sha256: "6a24ade5d3d918c306bb1c21a6b9a04aab0489d51a2582522eea820b4093b62b"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "3.1.2"
   matcher:
     dependency: transitive
     description:
@@ -1591,34 +1607,34 @@ packages:
     dependency: "direct main"
     description:
       name: webview_flutter
-      sha256: "392c1d83b70fe2495de3ea2c84531268d5b8de2de3f01086a53334d8b6030a88"
+      sha256: "25e1b6e839e8cbfbd708abc6f85ed09d1727e24e08e08c6b8590d7c65c9a8932"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.4"
+    version: "4.7.0"
   webview_flutter_android:
     dependency: transitive
     description:
       name: webview_flutter_android
-      sha256: "8b3b2450e98876c70bfcead876d9390573b34b9418c19e28168b74f6cb252dbd"
+      sha256: dad3313c9ead95517bb1cae5e1c9d20ba83729d5a59e5e83c0a2d66203f27f91
       url: "https://pub.dev"
     source: hosted
-    version: "2.10.4"
+    version: "3.16.1"
   webview_flutter_platform_interface:
     dependency: transitive
     description:
       name: webview_flutter_platform_interface
-      sha256: "812165e4e34ca677bdfbfa58c01e33b27fd03ab5fa75b70832d4b7d4ca1fa8cf"
+      sha256: d937581d6e558908d7ae3dc1989c4f87b786891ab47bb9df7de548a151779d8d
       url: "https://pub.dev"
     source: hosted
-    version: "1.9.5"
+    version: "2.10.0"
   webview_flutter_wkwebview:
     dependency: transitive
     description:
       name: webview_flutter_wkwebview
-      sha256: a5364369c758892aa487cbf59ea41d9edd10f9d9baf06a94e80f1bd1b4c7bbc0
+      sha256: "7affdf9d680c015b11587181171d3cad8093e449db1f7d9f0f08f4f33d24f9a0"
       url: "https://pub.dev"
     source: hosted
-    version: "2.9.5"
+    version: "3.13.1"
   win32:
     dependency: transitive
     description:
@@ -1717,4 +1733,4 @@ packages:
     version: "2.0.1"
 sdks:
   dart: ">=3.4.0 <4.0.0"
-  flutter: ">=3.19.0"
+  flutter: ">=3.19.2"

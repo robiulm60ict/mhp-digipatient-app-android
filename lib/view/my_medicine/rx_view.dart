@@ -46,9 +46,10 @@ class _RXViewState extends State<RXView> {
         padding: EdgeInsets.all(defaultPadding.r),
         child: Column(
           children: [
-            Card(
+            Card( elevation: 4,
+              shadowColor: AppColors.primary_color,
               child: Padding(
-                padding: EdgeInsets.all(4.0.r),
+                padding: EdgeInsets.all(14.0.r),
                 child: ListTile(
                   onTap: () async {
                     Navigator.push(
@@ -60,8 +61,8 @@ class _RXViewState extends State<RXView> {
                   },
                   leading: Image.asset(
                     "assets/icons/rx1.png",
-                    height: 38.h,
-                    width: 36.w,
+                    height: 60.h,
+                    width: 60.w,
                   ),
 
                   title: Text(
@@ -84,7 +85,8 @@ class _RXViewState extends State<RXView> {
             SizedBox(
               height: 10.h,
             ),
-            Card(
+            Card( elevation: 4,
+              shadowColor: AppColors.primary_color,
               child: Padding(
                 padding: EdgeInsets.all(4.0.r),
                 child: ListTile(
@@ -98,8 +100,8 @@ class _RXViewState extends State<RXView> {
                   },
                   leading: Image.asset(
                     "assets/icons/rxpdf.png",
-                    height: 38.h,
-                    width: 36.w,
+                    height: 60.h,
+                    width: 60.w,
                   ),
                   title: Text(
                     "View Rx -Pdf",
@@ -122,7 +124,8 @@ class _RXViewState extends State<RXView> {
             SizedBox(
               height: 10.h,
             ),
-            Card(
+            Card( elevation: 4,
+              shadowColor: AppColors.primary_color,
               child: Padding(
                 padding: EdgeInsets.all(4.0.r),
                 child: ListTile(
@@ -136,12 +139,12 @@ class _RXViewState extends State<RXView> {
                   },
                   leading: Image.asset(
                     "assets/icons/rx3.png",
-                    height: 38.h,
-                    width: 36.w,
+                    height: 60.h,
+                    width: 60.w,
                   ),
                   title: Text(
                     "Current Rx ",
-                    style: Style.alltext_default_balck,
+                    style: Style.alltext_default_balck_blod,
                   ),
 
                   subtitle: Text(
@@ -160,7 +163,8 @@ class _RXViewState extends State<RXView> {
             SizedBox(
               height: 10.h,
             ),
-            Card(
+            Card( elevation: 4,
+              shadowColor: AppColors.primary_color,
               child: Padding(
                 padding: EdgeInsets.all(4.0.r),
                 child: ListTile(
@@ -175,12 +179,12 @@ class _RXViewState extends State<RXView> {
                   },
                   leading: Image.asset(
                     "assets/icons/rx2.png",
-                    height: 38.h,
-                    width: 36.w,
+                    height: 60.h,
+                    width: 60.w,
                   ),
                   title: Text(
                     "Past Rx",
-                    style: Style.alltext_default_balck,
+                    style: Style.alltext_default_balck_blod,
                   ),
                   subtitle: Text(
                     "From GreatDOC",

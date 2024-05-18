@@ -15,11 +15,14 @@ class MyMedicineView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: const CustomBackButton(),
+      appBar: AppBar(
+        leading: const CustomBackButton(),
         leadingWidth: leadingWidth,
         backgroundColor: AppColors.primary_color,
-
-        title: Text("My Medicine", style: Style.alltext_appbar,),
+        title: Text(
+          "My Medicine",
+          style: Style.alltext_appbar,
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -31,14 +34,14 @@ class MyMedicineView extends StatelessWidget {
               width: double.infinity,
               padding: EdgeInsets.all(8.r),
               decoration: const BoxDecoration(
-                color: Colors.white,
-                image: DecorationImage(
-                  image: AssetImage(Assets.myMedicineMyMedicineFull),
-                  fit: BoxFit.fill
-                )
-              ),
+                  color: Colors.white,
+                  image: DecorationImage(
+                      image: AssetImage(Assets.myMedicineMyMedicineFull),
+                      fit: BoxFit.fill)),
             ),
-            SizedBox(height: defaultPadding.h,),
+            SizedBox(
+              height: defaultPadding.h,
+            ),
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
             //   children: [
@@ -88,24 +91,26 @@ class MyMedicineView extends StatelessWidget {
             // ),
 
             Card(
+              elevation: 4,
+              shadowColor: AppColors.primary_color,
               child: Padding(
-                padding: EdgeInsets.all(4.0.r),
+                padding: EdgeInsets.all(14.0.r),
                 child: ListTile(
                   onTap: () async {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RXView()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => RXView()));
 
                     // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
                   },
                   leading: Image.asset(
                     Assets.myMedicineMedicineCircle,
-                    height: 38.h,
-                    width: 36.w,
+                        height: 60.h,
+                    width: 60.w,fit: BoxFit.fill,
                   ),
                   title: Text(
                     "Medication",
-                    style: Style.alltext_default_balck,
+                    style: Style.alltext_default_balck_blod,
                   ),
-
                   subtitle: Text(
                     "Follow-up Prescriptions from Doctor",
                     style: Style.alltext_default_balck,
@@ -118,25 +123,26 @@ class MyMedicineView extends StatelessWidget {
                   ),
                 ),
               ),
-            ), Card(
+            ),
+            Card(
+              elevation: 4,
+              shadowColor: AppColors.primary_color,
               child: Padding(
-                padding: EdgeInsets.all(4.0.r),
+                padding: EdgeInsets.all(6.0.r),
                 child: ListTile(
                   onTap: () async {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>RXView()));
-
-                    // context.router.push(RXDetailRoute( title: "Past Rx", isCurrentRxView: false));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => RXView()));
                   },
                   leading: Image.asset(
                     Assets.myMedicineBuyMedicineCircle,
-                    height: 38.h,
-                    width: 36.w,
+                    height: 60.h,
+                    width: 60.w,fit: BoxFit.fill,
                   ),
                   title: Text(
                     "Buy Medicine",
-                    style: Style.alltext_default_balck,
+                    style: Style.alltext_default_balck_blod,
                   ),
-
                   subtitle: Text(
                     "UpComing",
                     style: Style.alltext_default_balck,
@@ -150,6 +156,8 @@ class MyMedicineView extends StatelessWidget {
                 ),
               ),
             ),
+
+
           ],
         ),
       ),

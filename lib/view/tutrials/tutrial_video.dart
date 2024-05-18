@@ -16,10 +16,33 @@ class TutrialVideoPlay extends StatefulWidget {
 }
 
 class _MedicalVideoPlayState extends State<TutrialVideoPlay> {
+  late final WebViewController _controller;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            // Update loading bar.
+          },
+          onPageStarted: (String url) {},
+          onPageFinished: (String url) {},
+          onWebResourceError: (WebResourceError error) {
+            print("Error: ${error.description}");
+          },
+          onNavigationRequest: (NavigationRequest request) {
+            if (request.url.startsWith('https://www.youtube.com/')) {
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse("https://www.youtube.com/watch?v=--Il5ZhkJN0&t=15s"));
   }
 
   @override
@@ -48,10 +71,12 @@ class _MedicalVideoPlayState extends State<TutrialVideoPlay> {
                     color: Colors.green,
                     height: 400,
                     width: double.infinity,
-                    child: WebView(
-                      initialUrl:"https://storage.googleapis.com/greatdoc-video-new/GreatDoc%201_1.mp4",
-                      javascriptMode: JavascriptMode.unrestricted,
-                    )),
+                    child:  WebViewWidget(controller: _controller),
+                    // WebView(
+                    //   initialUrl:"https://storage.googleapis.com/greatdoc-video-new/GreatDoc%201_1.mp4",
+                    //   javascriptMode: JavascriptMode.unrestricted,
+                    // )
+                ),
                 Style.distan_size10,
 
               ],

@@ -27,7 +27,7 @@ class BrancePaymentMethodView extends StatefulWidget {
     required this.doctorId,
     required this.patientId,
     required this.amount,
-    required this. saas_branch_id,
+    required this.saas_branch_id,
     required this.appointmentType,
     required this.shiftType,
     required this.doctor,
@@ -39,7 +39,7 @@ class BrancePaymentMethodView extends StatefulWidget {
   final String doctorId;
   final String patientId;
   final String amount;
-  final String  saas_branch_id;
+  final String saas_branch_id;
   final String appointmentType;
   final String shiftType;
   final MhpDoctorsMaster doctor;

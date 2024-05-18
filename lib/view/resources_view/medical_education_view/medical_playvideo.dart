@@ -16,10 +16,33 @@ class MedicalVideoPlay extends StatefulWidget {
 }
 
 class _MedicalVideoPlayState extends State<MedicalVideoPlay> {
+  late final WebViewController _controller;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            // Update loading bar.
+          },
+          onPageStarted: (String url) {},
+          onPageFinished: (String url) {},
+          onWebResourceError: (WebResourceError error) {
+            print("Error: ${error.description}");
+          },
+          onNavigationRequest: (NavigationRequest request) {
+            if (request.url.startsWith('https://www.youtube.com/')) {
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(widget.datainfo));
   }
 
   @override
@@ -48,10 +71,13 @@ class _MedicalVideoPlayState extends State<MedicalVideoPlay> {
                     color: Colors.green,
                     height: 300,
                     width: double.infinity,
-                    child: WebView(
-                      initialUrl: widget.datainfo.videoUrl,
-                      javascriptMode: JavascriptMode.unrestricted,
-                    )),
+                    child:  WebViewWidget(controller: _controller),
+
+                    // WebView(
+                    //   initialUrl: widget.datainfo.videoUrl,
+                    //   javascriptMode: JavascriptMode.unrestricted,
+                    // )
+                ),
                 Style.distan_size10,
                 Padding(
                   padding: EdgeInsets.only(left: 8,right: 8),

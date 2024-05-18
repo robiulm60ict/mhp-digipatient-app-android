@@ -180,7 +180,7 @@ class MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     // Initialize the InAppUpdate object
-    checkForUpdate();
+    //checkForUpdate();
     if (currentUser.id.isNotEmpty) {
       onUserLogin();
     }

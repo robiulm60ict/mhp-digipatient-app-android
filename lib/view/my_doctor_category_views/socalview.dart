@@ -10,15 +10,44 @@ import '../../widgets/back_button.dart';
 import '../../widgets/shimmer.dart';
 
 class SocialWebviewView extends StatefulWidget {
-  SocialWebviewView({super.key,required this.url});
+  final String url;
 
-  var url;
+  SocialWebviewView({super.key, required this.url});
 
   @override
   State<SocialWebviewView> createState() => _SocialWebviewViewState();
 }
 
 class _SocialWebviewViewState extends State<SocialWebviewView> {
+  late final WebViewController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            // Update loading bar.
+          },
+          onPageStarted: (String url) {},
+          onPageFinished: (String url) {},
+          onWebResourceError: (WebResourceError error) {
+            print("Error: ${error.description}");
+          },
+          onNavigationRequest: (NavigationRequest request) {
+            if (request.url.startsWith('https://www.youtube.com/')) {
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(widget.url));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,17 +61,10 @@ class _SocialWebviewViewState extends State<SocialWebviewView> {
           style: Style.alltext_appbar,
         ),
       ),
-
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        child: WebView(
-          initialUrl: widget.url,
-          javascriptMode: JavascriptMode.unrestricted,
-          onWebResourceError: (WebResourceError error) {
-            print("Error: ${error.description}");
-          },
-        ),
+        child: WebViewWidget(controller: _controller),
       ),
     );
   }

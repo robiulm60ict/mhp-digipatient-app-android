@@ -378,12 +378,7 @@ class BranceAppointmentViewModel with ChangeNotifier {
     notifyListeners();
     await bookAppointmentRepo.bookAppointment( body: body,DbName!).then((value) async {
       // appointmentList.add(value);
-      if (value['transaction_no'].toString() ==
-          "[The transaction no has already been taken.]") {
-        // Messages.snackBar(context, value['transaction_no'].toString(), backgroundColor: Colors.red);
-        Messages.snackBar(context, "The transaction no has already been taken.",
-            backgroundColor: Colors.red);
-      } else {
+
         print("ddddd$value");
         isBookAppointmentLoading = false;
         notifyListeners();
@@ -427,7 +422,7 @@ class BranceAppointmentViewModel with ChangeNotifier {
         // anatomy.symptomsList.removeLast();
         anatomy.getSymptomsList.clear();
         // anatomy.getSymptomsList.removeLast();
-      }
+
     }).onError((error, stackTrace) {
       print(error);
       Messages.snackBar(context, error.toString());
