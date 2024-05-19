@@ -454,14 +454,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_bkash:
-    dependency: "direct main"
-    description:
-      name: flutter_bkash
-      sha256: e77050fa40578078015c17c662ab0a507585a441c1fe89fc3d241ff230f42f87
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.0"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -669,14 +661,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "10.7.0"
-  fpdart:
-    dependency: transitive
-    description:
-      name: fpdart
-      sha256: "4a0d047c3359a4bdd19e4941603bbe394bd133b3772a38049e17f9534d47106e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.0"
   google_fonts:
     dependency: "direct main"
     description:

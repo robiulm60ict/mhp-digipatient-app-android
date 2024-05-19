@@ -79,14 +79,80 @@ class _PatientEducationViewState extends State<PatientEducationView> {
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             gridDelegate: FlutterzillaFixedGridView(
-                                crossAxisCount: 3,
+                                crossAxisCount: 1,
                                 mainAxisSpacing: 4,
                                 crossAxisSpacing: 4,
-                                height: 110.h),
+                                height: 85.h),
                             itemCount: provider.patientCatagoryList.length,
                             itemBuilder: (BuildContext context, index) {
                               var resoures = provider.patientCatagoryList[index];
-                              return Column(
+                              return
+
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                PatientEducationSubCatagoryView(
+                                                  catagoryid: resoures.id,
+                                                )));
+
+                                    },
+                                  child: Card(
+                                    elevation: 4,
+                                    shadowColor: AppColors.primary_color,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        // mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            // height: 75.h,
+                                            width: 75.w,
+                                            child:
+
+                                            CircleAvatar(
+                                              radius: 35,
+                                              child: Image.network(
+                                                width: 70.w,
+                                                "${AppUrls.baseUrlResoures}/uploads/${resoures.categoryImage.toString()}",
+                                              ),
+                                              backgroundColor: Colors.white,
+                                              // backgroundImage:AssetImage(
+                                              //   provider.homeItemsList[index].image,
+                                              // ),
+                                            ),
+                                          ),
+                                          // Style.widthdistan_size5,
+                                          SizedBox(
+                                            width: 190.w,
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment
+                                                  .start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  resoures.categoryName.toString(),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.center,
+                                                  style: Style.alltext_Large_black,
+                                                ),
+
+                                              ],
+                                            ),
+                                          ),
+                                          Style.widthdistan_size10,
+                                          Image.asset("assets/icons/home/homebutton.png")
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                                Column(
                                 children: [
                                   Card(
                                     elevation: 8,
@@ -102,13 +168,7 @@ class _PatientEducationViewState extends State<PatientEducationView> {
                                       color: AppColors.page_background_color,
                                       child: InkWell(
                                         onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      PatientEducationSubCatagoryView(
-                                                        catagoryid: resoures.id,
-                                                      )));
+
                                         },
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
