@@ -276,10 +276,13 @@ class MyRecordViewModel with ChangeNotifier {
     });
   }
 
+bool  isPathologyLoading = false;
+
+
   getalldatapathology(BuildContext context) async {
     testList.clear();
 
-    isDoctorLoading = true;
+    isPathologyLoading = true;
 
     notifyListeners();
     await myRecordRepo.getalltestpathology().then((value) {
@@ -288,10 +291,10 @@ class MyRecordViewModel with ChangeNotifier {
 
       print(testList);
       print("code");
-      isDoctorLoading = false;
+      isPathologyLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
-      isDoctorLoading = true;
+      isPathologyLoading = true;
       debugPrint(error.toString());
       print("rr$error");
       print("rr$stackTrace");
@@ -303,10 +306,13 @@ class MyRecordViewModel with ChangeNotifier {
       );
     });
   }
+
+  bool  isRadiologyLoading = false;
+
   getalldataradiology(BuildContext context) async {
     testList.clear();
 
-    isDoctorLoading = true;
+    isRadiologyLoading = true;
 
     notifyListeners();
     await myRecordRepo.getalltestradiology().then((value) {
@@ -315,10 +321,10 @@ class MyRecordViewModel with ChangeNotifier {
 
       print(testList);
       print("code");
-      isDoctorLoading = false;
+      isRadiologyLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
-      isDoctorLoading = true;
+      isRadiologyLoading = true;
       debugPrint(error.toString());
       print("rr$error");
       print("rr$stackTrace");

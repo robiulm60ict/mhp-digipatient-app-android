@@ -176,7 +176,7 @@ class _BookAppointmentViewState extends State<BranceBookAppointmentView> {
                         };
                         print(body);
 
-                        await apVM.bookAppointmentbrance(context,
+                        await apVM.bookAppointmentChamber(context,
                             body: body,
                             doctor: widget.doctors,
                             DbName: widget.DbName);

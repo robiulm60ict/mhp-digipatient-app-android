@@ -24,6 +24,7 @@ import '../../utils/datetime.dart';
 import '../../utils/message.dart';
 import '../../utils/popup_dialogue.dart';
 import '../../utils/user.dart';
+import '../../view/bottom_navigation_buttons/home_view.dart';
 import '../../view/myClinic/myclinic_our_servic/appoinemtntdoctor/brance_single_invoice_view.dart';
 import '../anatomy/anatomy_view_model.dart';
 import '../push_notification/notification_service.dart';
@@ -367,6 +368,73 @@ class BranceAppointmentViewModel with ChangeNotifier {
   bool isBookAppointmentLoading = false;
 
   ClinicRepository bookAppointmentRepo = ClinicRepository();
+
+  bookAppointmentChamber(BuildContext context,
+      {required MhpDoctorsMaster doctor, required Map body ,
+        String? DbName}) async {
+    final anatomy = Provider.of<AnatomyModelView>(context, listen: false);
+    print("aaaa$DbName");
+    isBookAppointmentLoading = true;
+    appointmentList.clear();
+    notifyListeners();
+    await bookAppointmentRepo.bookAppointment( body: body,DbName!).then((value) async {
+      // appointmentList.add(value);
+
+      print("ddddd$value");
+      isBookAppointmentLoading = false;
+      notifyListeners();
+
+      // branceinvoiceSuccessPopUp(
+      //   context,
+      //   appointmentDate: body["date"],
+      //   amount: body["amount"],
+      //   doctorId: body["doctor_id"],
+      //   appointmentType: body["appointment_type"],
+      //   doctor: doctor,
+      //   patientId: body["patient_hn_number"],
+      //   paymentMethod: body["payment_type"],
+      //   trinscationNo: body["transaction_no"],
+      //   invoice: value['inovice_number'].toString(),
+      //   paymentnumber: body["transaction_phone_number"],
+      //   Shift: body["shift"],
+      // );
+      print("${doctor.token!.deviceToke.toString()}");
+      final Map dataa = {
+        'to': "${doctor.token!.deviceToke.toString()}",
+        'notification': {
+          'title': 'Your Appointment Request',
+          'body': "Please Check your Payment Inbox",
+          // "image":
+          //     "${visitorController.piketImagePath.value}",
+          //"image": "https://proshort.ai/static/img/ps_logo.png",
+          'sound': 'default',
+          'badge': '1',
+        },
+        'priority': 'high',
+        // 'data': {
+        //   'type': 'chat',
+        //   'id':
+        //   'Asif Taj ffffffffffffff'
+        // }
+      };
+      print(dataa);
+      notificationService.sendPushNotification(dataa);
+      anatomy.favourite.clear();
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomeView()));
+      // anatomy.symptomsList.removeLast();
+      anatomy.getSymptomsList.clear();
+      // anatomy.getSymptomsList.removeLast();
+
+    }).onError((error, stackTrace) {
+      print(error);
+      Messages.snackBar(context, error.toString());
+      isBookAppointmentLoading = true;
+      notifyListeners();
+    });
+  }
 
   bookAppointmentbrance(BuildContext context,
       {required MhpDoctorsMaster doctor, required Map body ,

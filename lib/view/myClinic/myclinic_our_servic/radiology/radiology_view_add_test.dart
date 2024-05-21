@@ -7,16 +7,19 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../model/testmodel/testmodellist.dart';
 import '../../../../resources/colors.dart';
+import '../../../../utils/message.dart';
+import '../../../../utils/user.dart';
 import '../../../../utils/utils.dart';
 import '../../../../view_model/clinic/my_clinic_view_model/my_clinic_lav_view_model.dart';
 import '../../../../widgets/back_button.dart';
 import '../../payment_clinic/checkout.dart';
 
 class RadoiologyAddTest extends StatefulWidget {
-  RadoiologyAddTest({super.key, required this.branceid,required this.DbName});
+  RadoiologyAddTest({super.key, required this.branceid, required this.DbName});
 
   String branceid;
   String DbName;
@@ -72,7 +75,7 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
             style: Style.alltext_default_balck_blod,
           ),
           trailing: ElevatedButton(
-            onPressed: () {
+            onPressed: () async{
               print(target.latitude);
               List<Map<String, dynamic>> dataList = [];
               print(myRecord.testlistfavert);
@@ -88,23 +91,45 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
                 }
               }
               print(dataList);
-
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CheckoutPayment(
-                            branch_id: widget.branceid.toString(),
-                            amount:
-                                "${calculateTotal(myRecord.testlistfavert)}",
-                            lat: target.latitude.toString(),
-                            long: target.longitude.toString(),
-                            sample_collection: groupValue.toString(),
-                            test_name: dataList.toString(),
-                            test_type: "radiology",DbName: widget.DbName.toString(),
-                          )));
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              int? id = prefs.getInt(UserP.id);
+              if (myRecord.testlistfavert.isEmpty) {
+                Messages.snackBar(context, "Selected Test ");
+              } else {
+                Map body = {
+                  "patient_id": id.toString(),
+                  "branch_id": widget.branceid.toString(),
+                  "test_type": "radiology",
+                  "test_name": dataList.toString(),
+                  "amount":"${calculateTotal(myRecord.testlistfavert)}",
+                  "lat":target.latitude.toString(),
+                  // getPaymentMethod(),
+                  "long": target.longitude.toString(),
+                  "sample_collention": groupValue.toString(),
+                 // "ref_num": myLab.referNameRequest.text,
+                 // "payment_number": myLab.payNumberRequest.text.toString(),
+                  "tran_id": myLab.trnsctionIdRequest.text,
+                };
+                print(body);
+                print(widget.DbName);
+                myLab.bookTest(context, body, widget.DbName.toString());
+              }
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (context) => CheckoutPayment(
+              //               branch_id: widget.branceid.toString(),
+              //               amount:
+              //                   "${calculateTotal(myRecord.testlistfavert)}",
+              //               lat: target.latitude.toString(),
+              //               long: target.longitude.toString(),
+              //               sample_collection: groupValue.toString(),
+              //               test_name: dataList.toString(),
+              //               test_type: "radiology",DbName: widget.DbName.toString(),
+              //             )));
             },
             child: Text(
-              "Proceed to Payment",
+              "Proceed to Booking",
               style: Style.drawer_button_style,
             ),
           ),
@@ -122,259 +147,266 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
       ),
       body: Container(
         padding: EdgeInsets.only(left: 12, right: 12),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Style.distan_size20,
-              Text(
-                "Radiology Tests at Clinic",
-                style: Style.alltext_Large_black,
-              ),
-              Style.distan_size5,
-              Text(
-                "A certified professional will collect you sample from your location",
-                style: Style.alltext_default_balck_blod,
-              ),
-              Style.distan_size20,
-              // Card(
-              //   shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(8.r),
-              //       side: BorderSide(color: AppColors.primaryColor)),
-              //   child: ListTile(
-              //     onTap: (){},
-              //     leading: Icon(
-              //       Icons.search_rounded,
-              //       color: AppColors.primaryColor,
-              //       size: 25.h,
-              //     ),
-              //     title: Text(
-              //       "Search Clinic",
-              //       style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-              //     ),
-              //   ),
-              // ),
-              // Style.distan_size10,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Available Test List",
-                    style: Style.alltext_Large_black,
-                  ),
-                  // FloatingActionButton(
-                  //   mini: true,
-                  //   elevation: 0,
-                  //   onPressed: () {
-                  //     showDialog(
-                  //       context: context,
-                  //       builder: (BuildContext context) {
-                  //         return AlertDialog(
-                  //           title: Text("Select Test"),
-                  //           content: DropdownSearch<TestName>(
-                  //             asyncItems: (String filter) =>
-                  //                 myRecord.getalltest(context),
-                  //             itemAsString: (TestName u) => u.testName ?? "",
-                  //             onChanged: (TestName? data) {
-                  //               // TestItemsModel newItem = TestItemsModel(
-                  //               //     title: data!.testName.toString(),
-                  //               //     price: data!.fee.toString());
-                  //               // myRecord.  testlist.add(newItem);
-                  //               // for (var item in  myRecord.testlist) {
-                  //               //   print(
-                  //               //       "Title: ${item.title}, Price: ${item.price}");
-                  //               // }
-                  //               setState(() {});
-                  //               Navigator.pop(context);
-                  //               // Handle onChanged event if needed
-                  //             },
-                  //             popupProps: PopupPropsMultiSelection.dialog(
-                  //               showSearchBox: true,
-                  //               itemBuilder: (context, item, isSelected) =>
-                  //                   Card(
-                  //                 margin: EdgeInsets.all(5),
-                  //                 child: ListTile(
-                  //                   title: Text(
-                  //                     "${item.testName}",
-                  //                     style: Style.alltext_default_balck,
-                  //                   ),
-                  //                   subtitle: Text(
-                  //                     "${item.fee}",
-                  //                     style: Style.alltext_default_balck,
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //             ),
-                  //             dropdownDecoratorProps: DropDownDecoratorProps(
-                  //               dropdownSearchDecoration: InputDecoration(
-                  //                 hintText: "Search your desire tests",
-                  //                 // helperText: "Search",
-                  //                 // labelText: "Condition",
-                  //                 labelStyle:
-                  //                     TextStyle(color: AppColors.primaryColor),
-                  //                 border: OutlineInputBorder(
-                  //                   borderSide: BorderSide(
-                  //                       color: AppColors.primaryColor),
-                  //                 ),
-                  //               ),
-                  //             ),
-                  //             dropdownButtonProps:
-                  //                 DropdownButtonProps(icon: Icon(Icons.add)),
-                  //             selectedItem: selectedCondition,
-                  //           ),
-                  //         );
-                  //       },
-                  //     );
-                  //   },
-                  //   child: Icon(
-                  //     Icons.add,
-                  //     size: 20,
-                  //   ),
-                  // ),
-                  FloatingActionButton(
-                    mini: true,
-                    elevation: 0,
-                    onPressed: () {
-                      //  myRecord.getalltest(context);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return SearchListDialog();
-                        },
-                      );
-                    },
-                    child: Icon(
-                      Icons.add,
-                      size: 20,
+        child: myRecord.isRadiologyLoading == true
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Style.distan_size20,
+                    Text(
+                      "Radiology Tests at Clinic",
+                      style: Style.alltext_Large_black,
                     ),
-                  ),
-                ],
-              ),
-              Consumer<MyRecordViewModel>(builder: (context, data, child) {
-                return SizedBox(
-                  // height: 100,
-                  child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: myRecord.testlistfavert.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.cloud_done_rounded,
-                                  color: AppColors.primary_color,
-                                ),
-                                Style.widthdistan_size20,
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    SizedBox(
-                                      width: 200,
-                                      child: Text(
-                                        myRecord.testlistfavert[index].testName
-                                            .toString(),
-                                        style: Style.alltext_default_balck,
-                                      ),
-                                    ),
-                                    Style.distan_size2,
-                                    Text(
-                                      "${myRecord.testlistfavert[index].fee.toString()} BDT",
-                                      style: Style.alltext_small_black,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                myRecord.removeTest(index);
+                    Style.distan_size5,
+                    Text(
+                      "A certified professional will collect you sample from your location",
+                      style: Style.alltext_default_balck_blod,
+                    ),
+                    Style.distan_size20,
+                    // Card(
+                    //   shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(8.r),
+                    //       side: BorderSide(color: AppColors.primaryColor)),
+                    //   child: ListTile(
+                    //     onTap: (){},
+                    //     leading: Icon(
+                    //       Icons.search_rounded,
+                    //       color: AppColors.primaryColor,
+                    //       size: 25.h,
+                    //     ),
+                    //     title: Text(
+                    //       "Search Clinic",
+                    //       style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                    //     ),
+                    //   ),
+                    // ),
+                    // Style.distan_size10,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Available Test List",
+                          style: Style.alltext_Large_black,
+                        ),
+                        // FloatingActionButton(
+                        //   mini: true,
+                        //   elevation: 0,
+                        //   onPressed: () {
+                        //     showDialog(
+                        //       context: context,
+                        //       builder: (BuildContext context) {
+                        //         return AlertDialog(
+                        //           title: Text("Select Test"),
+                        //           content: DropdownSearch<TestName>(
+                        //             asyncItems: (String filter) =>
+                        //                 myRecord.getalltest(context),
+                        //             itemAsString: (TestName u) => u.testName ?? "",
+                        //             onChanged: (TestName? data) {
+                        //               // TestItemsModel newItem = TestItemsModel(
+                        //               //     title: data!.testName.toString(),
+                        //               //     price: data!.fee.toString());
+                        //               // myRecord.  testlist.add(newItem);
+                        //               // for (var item in  myRecord.testlist) {
+                        //               //   print(
+                        //               //       "Title: ${item.title}, Price: ${item.price}");
+                        //               // }
+                        //               setState(() {});
+                        //               Navigator.pop(context);
+                        //               // Handle onChanged event if needed
+                        //             },
+                        //             popupProps: PopupPropsMultiSelection.dialog(
+                        //               showSearchBox: true,
+                        //               itemBuilder: (context, item, isSelected) =>
+                        //                   Card(
+                        //                 margin: EdgeInsets.all(5),
+                        //                 child: ListTile(
+                        //                   title: Text(
+                        //                     "${item.testName}",
+                        //                     style: Style.alltext_default_balck,
+                        //                   ),
+                        //                   subtitle: Text(
+                        //                     "${item.fee}",
+                        //                     style: Style.alltext_default_balck,
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //             dropdownDecoratorProps: DropDownDecoratorProps(
+                        //               dropdownSearchDecoration: InputDecoration(
+                        //                 hintText: "Search your desire tests",
+                        //                 // helperText: "Search",
+                        //                 // labelText: "Condition",
+                        //                 labelStyle:
+                        //                     TextStyle(color: AppColors.primaryColor),
+                        //                 border: OutlineInputBorder(
+                        //                   borderSide: BorderSide(
+                        //                       color: AppColors.primaryColor),
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //             dropdownButtonProps:
+                        //                 DropdownButtonProps(icon: Icon(Icons.add)),
+                        //             selectedItem: selectedCondition,
+                        //           ),
+                        //         );
+                        //       },
+                        //     );
+                        //   },
+                        //   child: Icon(
+                        //     Icons.add,
+                        //     size: 20,
+                        //   ),
+                        // ),
+                        FloatingActionButton(
+                          mini: true,
+                          elevation: 0,
+                          onPressed: () {
+                            //  myRecord.getalltest(context);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return SearchListDialog();
                               },
-                              icon: Icon(
-                                Icons.remove_circle,
-                                color: Colors.red,
-                              ),
-                            ),
-                          ],
-                        );
-                      }),
-                );
-              }),
-              Style.distan_size10,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Locate Me",
-                    style: Style.alltext_Large_black,
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        // Toggle the button state when clicked
-                        setState(() {
-                          isLocating = !isLocating;
-                        });
-                        // Call the _goToTheLake function
-                        _goToTheLake();
-                      },
-                      // Set the icon based on the button state
-                      icon: Icon(
-                        isLocating
-                            ? Icons.location_on
-                            : Icons.location_disabled,
-                        size: 25,
-                        color: AppColors.primary_color,
-                      ))
-                ],
-              ),
-              Style.distan_size5,
-              Card(
-                elevation: 0,
-                child: SizedBox(
-                  height: 160,
-                  child: GoogleMap(
-                    mapType: MapType.hybrid,
-                    initialCameraPosition: _kGooglePlex,
-                    onMapCreated: (GoogleMapController controller) {
-                      _controller.complete(controller);
-                    },
-                  ),
+                            );
+                          },
+                          child: Icon(
+                            Icons.add,
+                            size: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Consumer<MyRecordViewModel>(
+                        builder: (context, data, child) {
+                      return SizedBox(
+                        // height: 100,
+                        child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: myRecord.testlistfavert.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.cloud_done_rounded,
+                                        color: AppColors.primary_color,
+                                      ),
+                                      Style.widthdistan_size20,
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          SizedBox(
+                                            width: 200,
+                                            child: Text(
+                                              myRecord.testlistfavert[index]
+                                                  .testName
+                                                  .toString(),
+                                              style:
+                                                  Style.alltext_default_balck,
+                                            ),
+                                          ),
+                                          Style.distan_size2,
+                                          Text(
+                                            "${myRecord.testlistfavert[index].fee.toString()} BDT",
+                                            style: Style.alltext_small_black,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      myRecord.removeTest(index);
+                                    },
+                                    icon: Icon(
+                                      Icons.remove_circle,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }),
+                      );
+                    }),
+                    Style.distan_size10,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Locate Me",
+                          style: Style.alltext_Large_black,
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              // Toggle the button state when clicked
+                              setState(() {
+                                isLocating = !isLocating;
+                              });
+                              // Call the _goToTheLake function
+                              _goToTheLake();
+                            },
+                            // Set the icon based on the button state
+                            icon: Icon(
+                              isLocating
+                                  ? Icons.location_on
+                                  : Icons.location_disabled,
+                              size: 25,
+                              color: AppColors.primary_color,
+                            ))
+                      ],
+                    ),
+                    Style.distan_size5,
+                    Card(
+                      elevation: 0,
+                      child: SizedBox(
+                        height: 160,
+                        child: GoogleMap(
+                          mapType: MapType.hybrid,
+                          initialCameraPosition: _kGooglePlex,
+                          onMapCreated: (GoogleMapController controller) {
+                            _controller.complete(controller);
+                          },
+                        ),
+                      ),
+                    ),
+
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          child: Radio<String>(
+                            value: "Clinic",
+                            groupValue: groupValue,
+                            onChanged: (String? newValue) {
+                              // Update the state to reflect the new value when the radio button is selected
+                              setState(() {
+                                groupValue = newValue;
+                              });
+                            },
+                          ),
+                        ),
+                        Text(
+                          'Clinic',
+                          style: Style.alltext_default_balck,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    child: Radio<String>(
-                      value: "Clinic",
-                      groupValue: groupValue,
-                      onChanged: (String? newValue) {
-                        // Update the state to reflect the new value when the radio button is selected
-                        setState(() {
-                          groupValue = newValue;
-                        });
-                      },
-                    ),
-                  ),
-                  Text(
-                    'Clinic',
-                    style: Style.alltext_default_balck,
-                  ),
-
-                ],
-              ),
-
-            ],
-          ),
-        ),
       ),
     ));
   }

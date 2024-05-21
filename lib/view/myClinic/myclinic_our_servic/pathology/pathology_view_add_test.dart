@@ -6,8 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:digi_patient/view_model/my_record_view_model/my_record_view_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../model/testmodel/testmodellist.dart';
 import '../../../../resources/colors.dart';
+import '../../../../utils/message.dart';
+import '../../../../utils/user.dart';
 import '../../../../utils/utils.dart';
 import '../../../../view_model/clinic/my_clinic_view_model/my_clinic_lav_view_model.dart';
 import '../../../../widgets/back_button.dart';
@@ -70,7 +73,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
             style: Style.alltext_default_balck_blod,
           ),
           trailing: ElevatedButton(
-            onPressed: () {
+            onPressed: () async{
               print(target.latitude);
               List<Map<String, dynamic>> dataList = [];
               print(myRecord.testlistfavert);
@@ -87,19 +90,29 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
               }
               print(dataList);
 
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CheckoutPayment(
-                            branch_id: widget.branceid.toString(),
-                            amount:
-                                "${calculateTotal(myRecord.testlistfavert)}",
-                            lat: target.latitude.toString(),
-                            long: target.longitude.toString(),
-                            sample_collection: groupValue.toString(),
-                            test_name: dataList.toString(),
-                            test_type: "pathology",DbName: widget.DbName.toString(),
-                          )));
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              int? id = prefs.getInt(UserP.id);
+              if (myRecord.testlistfavert.isEmpty) {
+                Messages.snackBar(context, "Selected Test ");
+              } else {
+                Map body = {
+                  "patient_id": id.toString(),
+                  "branch_id": widget.branceid.toString(),
+                  "test_type": "radiology",
+                  "test_name": dataList.toString(),
+                  "amount":"${calculateTotal(myRecord.testlistfavert)}",
+                  "lat":target.latitude.toString(),
+                  // getPaymentMethod(),
+                  "long": target.longitude.toString(),
+                  "sample_collention": groupValue.toString(),
+                  // "ref_num": myLab.referNameRequest.text,
+                  // "payment_number": myLab.payNumberRequest.text.toString(),
+                  "tran_id": myLab.trnsctionIdRequest.text,
+                };
+                print(body);
+                print(widget.DbName);
+                myLab.bookTest(context, body, widget.DbName.toString());
+              }
             },
             child: Text(
               "Proceed to Payment",
@@ -118,7 +131,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
           style: Style.alltext_appbar,
         ),
       ),
-      body: Container(
+      body: myRecord.isPathologyLoading==true?Center(child: CircularProgressIndicator(),):Container(
         padding: EdgeInsets.only(left: 12, right: 12),
         child: SingleChildScrollView(
           child: Column(

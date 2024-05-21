@@ -54,38 +54,8 @@ class _CheckoutPaymentState extends State<CheckoutPayment> {
               style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryColor),
               onPressed: () async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                int? id = prefs.getInt(UserP.id);
-                if (myLab.payNumberRequest.text.isEmpty) {
-                  Messages.snackBar(context, "Enter Payment Number");
-                } else if (myLab.payNumberRequest.text.length != 11) {
-                  Messages.snackBar(
-                      context, "Enter Payment Number must be 11 digit");
-                } else if (myLab.trnsctionIdRequest.text.isEmpty) {
-                  Messages.snackBar(context, "Enter Transaction Id");
-                } else if (myLab.trnsctionIdRequest.text.length != 10) {
-                  Messages.snackBar(context, "Enter Trans ID must be 10 digit");
-                } else if (myLab.referNameRequest.text.isEmpty) {
-                  Messages.snackBar(context, "Enter reference name");
-                } else {
-                  Map body = {
-                    "patient_id": id.toString(),
-                    "branch_id": widget.branch_id,
-                    "test_type": widget.test_type,
-                    "test_name": widget.test_name,
-                    "amount": widget.amount,
-                    "lat": widget.lat.toString(),
-                    // getPaymentMethod(),
-                    "long": widget.long.toString(),
-                    "sample_collention": widget.sample_collection,
-                    "ref_num": myLab.referNameRequest.text,
-                    "payment_number": myLab.payNumberRequest.text.toString(),
-                    "tran_id": myLab.trnsctionIdRequest.text,
-                  };
-                  print(body);
-                  print(widget.DbName);
-                 myLab.bookTest(context, body, widget.DbName.toString());
-                }
+
+
               },
               child: Text(
                 "Pay Now",

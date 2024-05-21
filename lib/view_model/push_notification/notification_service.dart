@@ -142,7 +142,6 @@ class NotificationService {
       showBadge: true,
     );
     BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
-
         message.notification!.body.toString(),
         htmlFormatBigText: true,
         contentTitle: message.notification!.title.toString(),
@@ -194,14 +193,20 @@ class NotificationService {
           context,
           MaterialPageRoute(
               builder: (context) => const DailyAndUpcommingView()));
-    } else if (message.notification!.title.toString() ==
-        "Your Appointment Completed") {
+    }else if (message.notification!.title.toString() ==
+        'Reschedule updated successfully') {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => UploadPrescription(
-
-                  )));
+              builder: (context) => const DailyAndUpcommingView()));
+    } else if (message.notification!.title.toString() ==
+        "Your Appointment Prescription Upload") {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => UploadPrescription()));
+    }else if (message.notification!.title.toString() ==
+        "Your Appointment Completed") {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => UploadPrescription()));
     }
   }
 
