@@ -1,3 +1,4 @@
+import 'package:digi_patient/dashboard.dart';
 import 'package:digi_patient/view/bottom_navigation_buttons/home_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class MyClinicLabViewModel with ChangeNotifier {
       print(value);
       print("postclinicRequest");
 
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeView()));
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>DashboardView()));
       controllerRequest.clear();
 
       // if (value['message'].toString() == "Successfully store data") {
@@ -37,6 +38,7 @@ class MyClinicLabViewModel with ChangeNotifier {
 
       notifyListeners();
     }).onError((error, stackTrace) {
+      print("ddddddddddddd$error");
       debugPrint(error.toString());
       debugPrint(stackTrace.toString());
     });

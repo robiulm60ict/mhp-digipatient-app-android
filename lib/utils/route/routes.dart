@@ -7,6 +7,7 @@ import '../../view/authentications/sign_in_view.dart';
 import '../../view/bottom_navigation_buttons/home_view.dart';
 import '../../view/onbording_view.dart';
 import '../../view/splash_view.dart';
+import '../../view/splash_view_update.dart';
 import 'routes_name.dart';
 
 class Routes {
@@ -15,6 +16,9 @@ class Routes {
       case RoutesName.splash:
         return MaterialPageRoute(
             builder: (BuildContext context) => const SplashView());
+ case RoutesName.splashupdate:
+        return MaterialPageRoute(
+            builder: (BuildContext context) =>  SplashViewUpdate());
 
       case RoutesName.onbording:
         return MaterialPageRoute(

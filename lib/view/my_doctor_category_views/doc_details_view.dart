@@ -487,7 +487,7 @@ class _DocDetailsViewState extends State<DocDetailsView> {
                                                           "FaceBook"
                                                       ? Assets.facebook
                                                       : (info.name.toString() ==
-                                                              "Youtube"
+                                                              "YouTube"
                                                           ? Assets.youtube
                                                           : (info.name.toString() ==
                                                                   "LinkedIn"

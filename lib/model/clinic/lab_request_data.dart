@@ -14,13 +14,16 @@ class MyLabRequestDataList {
   int? branchId;
   String? testType;
   String? testName;
-  String? amount;
+  dynamic amount;
   String? lat;
   String? long;
   String? sampleCollention;
-  String? paymentNumber;
-  String? tranId;
-  String? refNum;
+  dynamic paymentNumber;
+  dynamic tranId;
+  dynamic refNum;
+  dynamic status;
+  dynamic date;
+  dynamic address;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -37,6 +40,9 @@ class MyLabRequestDataList {
     this.paymentNumber,
     this.tranId,
     this.refNum,
+    this.status,
+    this.date,
+    this.address,
     this.createdAt,
     this.updatedAt,
   });
@@ -54,6 +60,9 @@ class MyLabRequestDataList {
     paymentNumber: json["payment_number"],
     tranId: json["tran_id"],
     refNum: json["ref_num"],
+    status: json["status"],
+    date: json["date"],
+    address: json["address"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
   );
@@ -71,6 +80,9 @@ class MyLabRequestDataList {
     "payment_number": paymentNumber,
     "tran_id": tranId,
     "ref_num": refNum,
+    "status": status,
+    "date": date,
+    "address": address,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
   };

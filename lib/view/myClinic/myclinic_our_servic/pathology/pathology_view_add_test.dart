@@ -14,6 +14,7 @@ import '../../../../utils/user.dart';
 import '../../../../utils/utils.dart';
 import '../../../../view_model/clinic/my_clinic_view_model/my_clinic_lav_view_model.dart';
 import '../../../../widgets/back_button.dart';
+import '../../../../widgets/custom_textfield.dart';
 import '../../payment_clinic/checkout.dart';
 
 class PathologyAddTest extends StatefulWidget {
@@ -51,6 +52,8 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
   }
 
   bool isLocating = false;
+  bool addressData = false;
+  TextEditingController addressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -98,20 +101,23 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                 Map body = {
                   "patient_id": id.toString(),
                   "branch_id": widget.branceid.toString(),
-                  "test_type": "radiology",
+                  "test_type": "pathology",
                   "test_name": dataList.toString(),
-                  "amount":"${calculateTotal(myRecord.testlistfavert)}",
+                  "amount":"${calculateTotal(myRecord.testlistfavert)}".toString(),
                   "lat":target.latitude.toString(),
                   // getPaymentMethod(),
                   "long": target.longitude.toString(),
                   "sample_collention": groupValue.toString(),
+                  "address":addressController.text,
                   // "ref_num": myLab.referNameRequest.text,
                   // "payment_number": myLab.payNumberRequest.text.toString(),
-                  "tran_id": myLab.trnsctionIdRequest.text,
+                //  "tran_id": myLab.trnsctionIdRequest.text,
                 };
                 print(body);
                 print(widget.DbName);
                 myLab.bookTest(context, body, widget.DbName.toString());
+                dataList.clear();addressController.clear();
+                myRecord.testlistfavert.clear();
               }
             },
             child: Text(
@@ -362,6 +368,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                               onChanged: (String? newValue) {
                                 // Update the state to reflect the new value when the radio button is selected
                                 setState(() {
+                                  addressData=false;
                                   groupValue = newValue;
                                 });
                               },
@@ -377,6 +384,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                               // Adjust value for Home if needed
                               groupValue: groupValue,
                               onChanged: (String? newValue) {
+                                addressData=true;
                                 // Update the state to reflect the new value when the radio button is selected
                                 setState(() {
                                   groupValue = newValue;
@@ -392,6 +400,19 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                       ),
                     ],
                   ),
+                ),
+              ),
+
+
+              Visibility(
+                visible:addressData,
+                child: CustomTextField(
+                  textEditingController: addressController,
+                  prefix: Icon(
+                    Icons.person,
+                    color: AppColors.primaryColor,
+                  ),
+                  hintText: "Your Address",
                 ),
               ),
             ],

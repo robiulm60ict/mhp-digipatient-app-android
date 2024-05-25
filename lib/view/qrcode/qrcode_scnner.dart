@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../../view_model/qr_code_dr_profile_view_model/profile_view_model.dart';
+import '../bottom_navigation_buttons/home_view.dart';
 
 class QRCodeScanner extends StatefulWidget {
   const QRCodeScanner({super.key});
@@ -42,13 +43,12 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
   }
 
   resultData(result) {
-
     print("resultdataaaaaaaaaaaaaaaaaaaaaaaa$result");
-    if(result.toString().split("IFI").first.toString()=="W"){
+    if (result.toString().split("IFI").first.toString() == "W") {
       // context.read<DrProfileViewModel>().getProfileData(context,result.toString());
 
       print("object");
-    }else{
+    } else {
       print("elseelseelseelseelseelseelseelseelseelseelseelseelse");
     }
     controller!.dispose();
@@ -62,7 +62,6 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
   //       context.read<DrProfileViewModel>().getProfileData(context);
   //     });
   //   });
-
 
   //   // TODO: implement initState
   //   super.initState();
@@ -84,51 +83,64 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
   Widget build(BuildContext context) {
     final appointments = Provider.of<DrProfileViewModel>(context);
 
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          child: Column(
-            children: [
-              // Expanded(child: Text("data",style: TextStyle(fontSize: 44),)),
-              // Expanded(
-              //   child: ListView.builder(
-              //       itemCount: appointments.profileList.length,
-              //       shrinkWrap: true,
-              //       itemBuilder: (context, index) {
-              //         var data = appointments.profileList[index];
-              //         return Text(data.id.toString());
-              //       }),
-              // ),
-              Expanded(
-                flex: 6,
-                child: QRView(
-                  key: qrKey,
-                  onQRViewCreated: onQRViewCreated,
+    return WillPopScope(
+      onWillPop: () async {
+        // Show exit confirmation dialog
+        bool exit = await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MyExitConfirmationDialog();
+          },
+        );
+
+        return exit ?? false;
+      },
+      child: SafeArea(
+        child: Scaffold(
+          body: Container(
+            child: Column(
+              children: [
+                // Expanded(child: Text("data",style: TextStyle(fontSize: 44),)),
+                // Expanded(
+                //   child: ListView.builder(
+                //       itemCount: appointments.profileList.length,
+                //       shrinkWrap: true,
+                //       itemBuilder: (context, index) {
+                //         var data = appointments.profileList[index];
+                //         return Text(data.id.toString());
+                //       }),
+                // ),
+                Expanded(
+                  flex: 6,
+                  child: QRView(
+                    key: qrKey,
+                    onQRViewCreated: onQRViewCreated,
+                  ),
                 ),
-              ),
-              // Expanded(
-              //   flex: 1,
-              //   child: Center(
-              //     child: (result != null)
-              //         ? Text('Data: ${result!}')
-              //         : Text('Scan a code'),
-              //   ),
-              // ),
-              // Expanded(
-              //     flex: 1,
-              //     child: Center(
-              //       child: TextButton(
-              //         onPressed: () {
-              //           if (result.isNotEmpty) {
-              //             Clipboard.setData(ClipboardData(text: result));
-              //             ScaffoldMessenger.of(context).showSnackBar(
-              //                 SnackBar(content: Text("Copied to Clipboard")));
-              //           }
-              //         },
-              //         child: Text("Copy"),
-              //       ),
-              //     ))
-            ],
+                // Expanded(
+                //   flex: 1,
+                //   child: Center(
+                //     child: (result != null)
+                //         ? Text('Data: ${result!}')
+                //         : Text('Scan a code'),
+                //   ),
+                // ),
+                // Expanded(
+                //     flex: 1,
+                //     child: Center(
+                //       child: TextButton(
+                //         onPressed: () {
+                //           if (result.isNotEmpty) {
+                //             Clipboard.setData(ClipboardData(text: result));
+                //             ScaffoldMessenger.of(context).showSnackBar(
+                //                 SnackBar(content: Text("Copied to Clipboard")));
+                //           }
+                //         },
+                //         child: Text("Copy"),
+                //       ),
+                //     ))
+              ],
+            ),
           ),
         ),
       ),

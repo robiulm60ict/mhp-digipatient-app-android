@@ -38,7 +38,6 @@ class _MyPatientViewState extends State<MyLabView> {
   @override
   Widget build(BuildContext context) {
     print("object");
-    final myRecord = Provider.of<MyClinicLabViewModel>(context, listen: false);
 
     return SafeArea(
         child: RefreshIndicator(
@@ -137,8 +136,7 @@ class _MyPatientViewState extends State<MyLabView> {
                                                     SizedBox(
                                                       width: 130.w,
                                                       child: Text(
-                                                          item.amount
-                                                              .toString(),
+                                                          item.amount??"",
                                                           style: Style
                                                               .alltext_default_balck),
                                                     ),
@@ -176,7 +174,7 @@ class _MyPatientViewState extends State<MyLabView> {
                                                     SizedBox(
                                                       width: 70.w,
                                                       child: Text(
-                                                        "TranId",
+                                                        "Date",
                                                         style: Style
                                                             .alltext_default_balck,
                                                       ),
@@ -185,8 +183,7 @@ class _MyPatientViewState extends State<MyLabView> {
                                                     SizedBox(
                                                       width: 130.w,
                                                       child: Text(
-                                                          item.tranId
-                                                              .toString(),
+                                                          item.date??"",
                                                           style: Style
                                                               .alltext_default_balck),
                                                     ),
@@ -200,7 +197,7 @@ class _MyPatientViewState extends State<MyLabView> {
                                                     SizedBox(
                                                       width: 70.w,
                                                       child: Text(
-                                                        "PaymentNumber",
+                                                        "Address",
                                                         style: Style
                                                             .alltext_default_balck,
                                                       ),
@@ -209,37 +206,36 @@ class _MyPatientViewState extends State<MyLabView> {
                                                     SizedBox(
                                                       width: 180.w,
                                                       child: Text(
-                                                          item.paymentNumber
-                                                              .toString(),
+                                                          item.address??"",
                                                           style: Style
                                                               .alltext_default_balck),
                                                     ),
                                                   ],
                                                 ),
                                                 Style.distan_size2,
-                                                Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 70.w,
-                                                      child: Text(
-                                                        "Date",
-                                                        style: Style
-                                                            .alltext_default_balck,
-                                                      ),
-                                                    ),
-                                                    Text(":  "),
-                                                    SizedBox(
-                                                      width: 120.w,
-                                                      child: Text(
-                                                          "${DateFormat("dd-MM-yyyy").format(DateTime.parse("${item.createdAt.toString()}"))}",
-                                                          style: Style
-                                                              .alltext_default_balck),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Style.distan_size2,
+                                                // Row(
+                                                //   crossAxisAlignment:
+                                                //       CrossAxisAlignment.start,
+                                                //   children: [
+                                                //     SizedBox(
+                                                //       width: 70.w,
+                                                //       child: Text(
+                                                //         "Date",
+                                                //         style: Style
+                                                //             .alltext_default_balck,
+                                                //       ),
+                                                //     ),
+                                                //     Text(":  "),
+                                                //     SizedBox(
+                                                //       width: 120.w,
+                                                //       child: Text(
+                                                //           "${DateFormat("dd-MM-yyyy").format(DateTime.parse("${item.createdAt.toString()}"))}",
+                                                //           style: Style
+                                                //               .alltext_default_balck),
+                                                //     ),
+                                                //   ],
+                                                // ),
+                                                // Style.distan_size2,
                                               ],
                                             ),
                                           ),

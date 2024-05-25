@@ -7,46 +7,80 @@ import 'package:pdf/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/appointment_model/todays_appointment_model.dart';
+import '../../model/notification/notification.dart';
 
-class AppointmentRepo{
+class AppointmentRepo {
   BaseApiService apiService = NetworkApiService();
 
-  Future getAppoinmentsqueue(docid,appoinmentid)async{
-
-    try{
-      dynamic response = await apiService.getGetApiResponse("${AppUrls.Appoinmentsqueue}/$docid/$appoinmentid");
-     // print(response);
-    return response;
-    }catch (e){
-      print(e);
-      rethrow;
-    }
-  }  Future<TodaysAppointmentModel> getTodayAppointment(contex)async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    int? id = prefs.getInt(UserP.id);
-    try{
-      dynamic response = await apiService.getGetApiResponsecontext("${AppUrls.todayAppointments}$id/null",contex);
-     // print(response);
-    return TodaysAppointmentModel.fromJson(response);
-    }catch (e){
+  Future getAppoinmentsqueue(docid, appoinmentid) async {
+    try {
+      dynamic response = await apiService.getGetApiResponse(
+          "${AppUrls.Appoinmentsqueue}/$docid/$appoinmentid");
+      // print(response);
+      return response;
+    } catch (e) {
       print(e);
       rethrow;
     }
   }
 
-  Future<UpcommingAppointmentsModel> getUpcommingAppointment(context)async{
+  Future<TodaysAppointmentModel> getTodayAppointment(contex) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     int? id = prefs.getInt(UserP.id);
-    try{
-      dynamic response = await apiService.getGetApiResponsecontext("${AppUrls.upcommingAppointments}$id/null",context);
+    try {
+      dynamic response = await apiService.getGetApiResponsecontext(
+          "${AppUrls.todayAppointments}$id/null", contex);
+      // print(response);
+      return TodaysAppointmentModel.fromJson(response);
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<UpcommingAppointmentsModel> getUpcommingAppointment(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    int? id = prefs.getInt(UserP.id);
+    try {
+      dynamic response = await apiService.getGetApiResponsecontext(
+          "${AppUrls.upcommingAppointments}$id/null", context);
       print("fffffffffffffffffffff${response}");
       return UpcommingAppointmentsModel.fromJson(response);
-    }catch (e){
+    } catch (e) {
       print(e);
       rethrow;
     }
   }
 
+
+
+  Future<NotificationModel> getNofification(contex) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var hnnumber = prefs.getString(UserP.hnnumber);
+    try {
+      dynamic response = await apiService.getGetApiResponsecontext(
+          "${AppUrls.notification}$hnnumber", contex);
+      // print(response);
+      return NotificationModel.fromJson(response);
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }  Future<NotificationModel> putNofification(contex) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var hnnumber = prefs.getString(UserP.hnnumber);
+    try {
+      dynamic response = await apiService.getputApiResponse(
+          "${AppUrls.notification}${hnnumber.toString()}");
+      // print(response);
+      return NotificationModel.fromJson(response);
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
 }

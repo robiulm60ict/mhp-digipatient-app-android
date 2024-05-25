@@ -59,10 +59,8 @@ class _HomeViewState extends State<HomeView> {
     onUserLogin();
     context.read<UserViewModel>().getUserDetails(context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<DailyAndUpcommingViewModel>().getTodayAppointments(context);
-      context
-          .read<DailyAndUpcommingViewModel>()
-          .getUpcommingAppointments(context);
+      context.read<DailyAndUpcommingViewModel>().getNotification(context);
+
     });
     notificationService.requestPermission();
     notificationService.getToken();
@@ -397,19 +395,17 @@ class _HomeViewState extends State<HomeView> {
             actions: [
               badges.Badge(
                   position: BadgePosition.topEnd(top: 4, end: 0),
-                  badgeContent: Text(
-                    "${int.parse(
-                        appointments.todayAppointmentList.length.toString()) +
-                        int.parse(appointments.upcommingAppointmentList.length
-                            .toString())}",
+                  badgeContent:Text(
+                    "${appointments.notificationList.where((notification) => notification.status == "0").length}",
                     style: const TextStyle(color: Colors.white),
                   ),
+
                   child: IconButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => NotificationsView()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => NotificationsView()));
                         //  context.router.push(const NotificationsRoute());
                       },
                       icon: Icon(

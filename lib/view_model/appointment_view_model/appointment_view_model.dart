@@ -1,9 +1,9 @@
+import 'dart:io';
+
 import 'package:digi_patient/model/book_appointment_model/book_appointment_model.dart';
-import 'package:digi_patient/model/doctor_model/doctors_model.dart';
 import 'package:digi_patient/model/invoice_model/invoice_show_model.dart';
 import 'package:digi_patient/repository/book_appointment/book_appointment_repo.dart';
 import 'package:digi_patient/repository/invoice_repo/invoice_repo.dart';
-import 'package:digi_patient/resources/colors.dart';
 import 'package:digi_patient/utils/datetime.dart';
 import 'package:digi_patient/utils/message.dart';
 import 'package:digi_patient/utils/popup_dialogue.dart';
@@ -12,15 +12,15 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../data/app_exception.dart';
 import '../../model/doctor_model/doctor_chember_time_model.dart';
 import '../../model/myDoctorList/mydoctorList.dart';
 import '../../model/online_model/online_model.dart';
 import '../../repository/doctor_repository/doctor_repository.dart';
-import '../../resources/styles.dart';
 import '../../utils/user.dart';
-import '../../view/payment/ivoice/pdf_invoice_api.dart';
 import '../anatomy/anatomy_view_model.dart';
 import '../push_notification/notification_service.dart';
+import 'package:http/http.dart' as http;
 
 class AppointmentViewModel with ChangeNotifier {
   DateTime appointmentDate = DateTime.now();
@@ -370,72 +370,7 @@ class AppointmentViewModel with ChangeNotifier {
           paymentnumber: body["transaction_phone_number"],
           Shift: body["shift"],
         );
-        print("${doctor.doctors!.token!.deviceToke.toString()}");
-        final Map dataa = {
-          'to': "${doctor.doctors!.token!.deviceToke.toString()}",
-          'notification': {
-            'title': 'Your Appointment Request',
-            'body': "Please Check your Payment Inbox",
-            // "image":
-            //     "${visitorController.piketImagePath.value}",
-            //"image": "https://proshort.ai/static/img/ps_logo.png",
-            'sound': 'default',
-            'badge': '1',
-          },
-          'priority': 'high',
-          // 'data': {
-          //   'type': 'chat',
-          //   'id':
-          //   'Asif Taj ffffffffffffff'
-          // }
-        };
-        print(dataa);
-        notificationService.sendPushNotification(dataa);
-        anatomy.favourite.clear();
-        // anatomy.symptomsList.removeLast();
-        anatomy.getSymptomsList.clear();
-        // anatomy.getSymptomsList.removeLast();
-      }
-    }).onError((error, stackTrace) {
-      print(error);
-      Messages.snackBar(context, error.toString());
-      isBookAppointmentLoading = true;
-      notifyListeners();
-    });
-  }
-  bookAppointmentbrance(BuildContext context,
-      {required Datum doctor, required Map body}) async {
-    final anatomy = Provider.of<AnatomyModelView>(context, listen: false);
-    print("aaaa");
-    isBookAppointmentLoading = true;
-    appointmentList.clear();
-    notifyListeners();
-    await bookAppointmentRepo.bookAppointment(body: body).then((value) async {
-      // appointmentList.add(value);
-      if (value['transaction_no'].toString() ==
-          "[The transaction no has already been taken.]") {
-        // Messages.snackBar(context, value['transaction_no'].toString(), backgroundColor: Colors.red);
-        Messages.snackBar(context, "The transaction no has already been taken.",
-            backgroundColor: Colors.red);
-      } else {
-        print("ddddd$value");
-        isBookAppointmentLoading = false;
-        notifyListeners();
 
-        invoiceSuccessPopUp(
-          context,
-          appointmentDate: body["date"],
-          amount: body["amount"],
-          doctorId: body["doctor_id"],
-          appointmentType: body["appointment_type"],
-          doctor: doctor,
-          patientId: body["patient_id"],
-          paymentMethod: body["payment_type"],
-          trinscationNo: body["transaction_no"],
-          invoice: value['inovice_number'].toString(),
-          paymentnumber: body["transaction_phone_number"],
-          Shift: body["shift"],
-        );
         print("${doctor.doctors!.token!.deviceToke.toString()}");
         final Map dataa = {
           'to': "${doctor.doctors!.token!.deviceToke.toString()}",
@@ -456,6 +391,18 @@ class AppointmentViewModel with ChangeNotifier {
           // }
         };
         print(dataa);
+
+            final Map<String, dynamic> nofificaionData = {
+              'title':  'Your Appointment Request',
+              'description':
+              "Please Check your Payment Inbox",
+
+              'doctor_id': doctor.doctors!.id.toString(),
+
+            };
+            print(dataa);
+            print(nofificaionData);
+            postNotification(nofificaionData,"mhpdemocom");
         notificationService.sendPushNotification(dataa);
         anatomy.favourite.clear();
         // anatomy.symptomsList.removeLast();
@@ -584,4 +531,28 @@ class WeekDayModel {
       this.isSelected = false,
       required this.dateTime,
       required this.day});
+}
+Future postNotification( dynamic body,databaseName) async {
+  final prefs = await SharedPreferences.getInstance();
+  final token = prefs.getString(UserP.fcmToken) ?? "";
+  dynamic responseJson;
+  try {
+    final response = await http.post(
+      body: body,
+      Uri.parse("https://newgreatdoc.macrohealthplus.org/api/v1/doctor-notification"),
+      headers: {
+        'databaseName':"$databaseName",
+        // 'token': "$token",
+        'Accept': 'application/json',
+      },
+    ).timeout(
+      const Duration(seconds: 10),
+    );
+    print("response.body${response.body}");
+    print("response.body${response.statusCode}");
+    responseJson = response;
+  } on SocketException {
+    throw FetchDataException("No Internet Connection");
+  }
+  return responseJson;
 }

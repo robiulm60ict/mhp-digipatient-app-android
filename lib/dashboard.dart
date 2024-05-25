@@ -1,5 +1,6 @@
 import 'package:circle_nav_bar/circle_nav_bar.dart';
 import 'package:digi_patient/view/bottom_navigation_buttons/home_view.dart';
+import 'package:digi_patient/view/notifications_view.dart';
 import 'package:digi_patient/view/profile/patient_profile.dart';
 import 'package:digi_patient/view/resources_view/resources_view.dart';
 import 'package:flutter/material.dart';
@@ -102,7 +103,7 @@ class _MyHomePageState extends State<DashboardView>
           ResourcesView(),
           QRCodeScanner(),
           // FavouritesView(),
-          DailyAndUpcommingView(),
+          NotificationsView(),
           MyRecordView()
         ],
       ),

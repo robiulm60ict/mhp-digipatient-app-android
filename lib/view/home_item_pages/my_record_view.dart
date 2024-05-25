@@ -16,6 +16,7 @@ import 'package:search_page/search_page.dart';
 import '../../generated/assets.dart';
 import '../../resources/app_url.dart';
 import '../authentications/user_detail_view.dart';
+import '../bottom_navigation_buttons/home_view.dart';
 import '../my_record/my_medical_history_view.dart';
 import '../my_record/my_report_view.dart';
 import '../my_record/reason_for_visit_view.dart';
@@ -42,218 +43,231 @@ class _MyRecordViewState extends State<MyRecordView> {
     final userr = Provider.of<UserViewModel>(context);
     // final vital = Provider.of<MyRecordViewModel>(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.primary_color,
+    return WillPopScope(
+      onWillPop: () async {
+        // Show exit confirmation dialog
+        bool exit = await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MyExitConfirmationDialog();
+          },
+        );
 
-        centerTitle: true,
+        return exit ?? false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.primary_color,
 
-        title: Text(
-          "My Records",
-          style: Style.alltext_appbar,
+          centerTitle: true,
+
+          title: Text(
+            "My Records",
+            style: Style.alltext_appbar,
+          ),
+          // actions: [
+          //   IconButton(onPressed: (){
+          //        // Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDetailView()));
+          //
+          //   }, icon: Icon(Icons.edit))
+          // ],
         ),
-        // actions: [
-        //   IconButton(onPressed: (){
-        //        // Navigator.push(context, MaterialPageRoute(builder: (context)=>UserDetailView()));
-        //
-        //   }, icon: Icon(Icons.edit))
-        // ],
-      ),
-      body: ListView(
-        padding: EdgeInsets.all(15.r),
-        children: [
-          InkWell(
-            onTap: () {
-              if (user == null) {
-                debugPrint("Reload page ");
-              } else {
-                //context.router.push(UserDetailRoute(user: user!));
-              }
-            },
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
-                child: Row(
-                  children: [
-                    user?.patientImages.toString() != "null"
-                        ? CircleAvatar(
-                            radius: 25.h,
-                            backgroundImage: NetworkImage(
-                                "${AppUrls.image}${user?.patientImages}"),
-                          )
-                        : CircleAvatar(
-                            radius: 25,
-                            backgroundImage: AssetImage(Assets.dummy_image),
-                          ),
-                    SizedBox(
-                      width: 8.w,
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "${user?.patientFirstName} ${user?.patientLastName}"
-                                .toString(),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Style.alltext_default_balck_blod,
-                          ),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          Text(
-                            "${user?.patientHnNumber}",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Style.alltext_default_balck,
-                          ),
-                          SizedBox(
-                            height: 3.h,
-                          ),
-                          Wrap(
-                            children: [
-                              Icon(
-                                Icons.male,
-                                size: 13.h,
-                                color: const Color(0xFF8A8A8A),
-                              ),
-                              Text(
-                                "Gender:",
-                                style: Style.alltext_default_balck,
-                              ),
-                              Text(
-                                "${user?.patientBirthSex?.birthSexName}",
-                                style: Style.alltext_default_balck,
-                              ),
-                              SizedBox(
-                                width: 8.w,
-                              ),
-                              Icon(
-                                Icons.bloodtype,
-                                size: 13.h,
-                                color: const Color(0xFF8A8A8A),
-                              ),
-                              Text(
-                                "Blood:",
-                                style: Style.alltext_default_balck,
-                              ),
-                              Text(
-                                "${user!.bloodGroup!.bloodGroupName}",
-                                style: Style.alltext_default_balck,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 3.h,
-                          ),
-                          Wrap(
-                            children: [
-                              Icon(
-                                Icons.date_range,
-                                size: 13.h,
-                                color: const Color(0xFF8A8A8A),
-                              ),
-                              Text(
-                                "Dob:",
-                                style: Style.alltext_default_balck,
-                              ),
-                              Text(
-                                DateFormat("dd-MM-yyyy").format(DateTime.parse(
-                                    user!.patientDob.toString())),
-                                style: Style.alltext_default_balck,
-                              ),
-                              SizedBox(
-                                width: 8.w,
-                              ),
-                            ],
-                          )
-                        ],
+        body: ListView(
+          padding: EdgeInsets.all(15.r),
+          children: [
+            InkWell(
+              onTap: () {
+                if (user == null) {
+                  debugPrint("Reload page ");
+                } else {
+                  //context.router.push(UserDetailRoute(user: user!));
+                }
+              },
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
+                  child: Row(
+                    children: [
+                      user?.patientImages.toString() != "null"
+                          ? CircleAvatar(
+                              radius: 25.h,
+                              backgroundImage: NetworkImage(
+                                  "${AppUrls.image}${user?.patientImages}"),
+                            )
+                          : CircleAvatar(
+                              radius: 25,
+                              backgroundImage: AssetImage(Assets.dummy_image),
+                            ),
+                      SizedBox(
+                        width: 8.w,
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${user?.patientFirstName} ${user?.patientLastName}"
+                                  .toString(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Style.alltext_default_balck_blod,
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            Text(
+                              "${user?.patientHnNumber}",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Style.alltext_default_balck,
+                            ),
+                            SizedBox(
+                              height: 3.h,
+                            ),
+                            Wrap(
+                              children: [
+                                Icon(
+                                  Icons.male,
+                                  size: 13.h,
+                                  color: const Color(0xFF8A8A8A),
+                                ),
+                                Text(
+                                  "Gender:",
+                                  style: Style.alltext_default_balck,
+                                ),
+                                Text(
+                                  "${user?.patientBirthSex?.birthSexName}",
+                                  style: Style.alltext_default_balck,
+                                ),
+                                SizedBox(
+                                  width: 8.w,
+                                ),
+                                Icon(
+                                  Icons.bloodtype,
+                                  size: 13.h,
+                                  color: const Color(0xFF8A8A8A),
+                                ),
+                                Text(
+                                  "Blood:",
+                                  style: Style.alltext_default_balck,
+                                ),
+                                Text(
+                                  "${user!.bloodGroup!.bloodGroupName}",
+                                  style: Style.alltext_default_balck,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 3.h,
+                            ),
+                            Wrap(
+                              children: [
+                                Icon(
+                                  Icons.date_range,
+                                  size: 13.h,
+                                  color: const Color(0xFF8A8A8A),
+                                ),
+                                Text(
+                                  "Dob:",
+                                  style: Style.alltext_default_balck,
+                                ),
+                                Text(
+                                  DateFormat("dd-MM-yyyy").format(DateTime.parse(
+                                      user!.patientDob.toString())),
+                                  style: Style.alltext_default_balck,
+                                ),
+                                SizedBox(
+                                  width: 8.w,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 30.h,
-          ),
-          MyRecordListTile(
-              title: 'Vitals',
-              iconData: Icons.heart_broken,
-              iconColor: Colors.red,
+            SizedBox(
+              height: 30.h,
+            ),
+            MyRecordListTile(
+                title: 'Vitals',
+                iconData: Icons.heart_broken,
+                iconColor: Colors.red,
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => VitalsView()));
+
+                  //   context.router.push(const VitalsRoute());
+                }),
+            SizedBox(
+              height: 5.h,
+            ),
+            MyRecordListTile(
+              title: 'My Medical History',
+              iconData: Icons.medical_information,
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyMedicalHistoryView()));
+                //context.router.push(const MyMedicalHistoryRoute());
+              },
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            MyRecordListTile(
+              title: 'My medical history from GreatDoc',
+              iconData: Icons.medication_liquid_sharp,
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SelfMedicalHistoryFGDView()));
+                // context.router.push(const SelfMedicalHistoryFGDRoute());
+                // TODO: If searching is needed then uncomment this
+                //  showMedicalHistoryFromGreatDocSearchView(context);
+              },
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            MyRecordListTile(
+              title: 'Reason For Visit',
+              iconData: Icons.read_more,
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ReasonForVisitView()));
+                // context.router.push(const ReasonForVisitRoute());
+              },
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            MyRecordListTile(
+              title: 'My Report',
+              iconData: Icons.report,
+              iconColor: Colors.blue,
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => VitalsView()));
-
-                //   context.router.push(const VitalsRoute());
-              }),
-          SizedBox(
-            height: 5.h,
-          ),
-          MyRecordListTile(
-            title: 'My Medical History',
-            iconData: Icons.medical_information,
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MyMedicalHistoryView()));
-              //context.router.push(const MyMedicalHistoryRoute());
-            },
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          MyRecordListTile(
-            title: 'My medical history from GreatDoc',
-            iconData: Icons.medication_liquid_sharp,
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => SelfMedicalHistoryFGDView()));
-              // context.router.push(const SelfMedicalHistoryFGDRoute());
-              // TODO: If searching is needed then uncomment this
-              //  showMedicalHistoryFromGreatDocSearchView(context);
-            },
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          MyRecordListTile(
-            title: 'Reason For Visit',
-            iconData: Icons.read_more,
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ReasonForVisitView()));
-              // context.router.push(const ReasonForVisitRoute());
-            },
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          MyRecordListTile(
-            title: 'My Report',
-            iconData: Icons.report,
-            iconColor: Colors.blue,
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MyReportView()));
-              // context.router.push(const ReasonForVisitRoute());
-            },
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-        ],
+                    MaterialPageRoute(builder: (context) => MyReportView()));
+                // context.router.push(const ReasonForVisitRoute());
+              },
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+          ],
+        ),
       ),
     );
   }

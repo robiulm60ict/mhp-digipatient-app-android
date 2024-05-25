@@ -67,11 +67,16 @@ class AuthViewModel with ChangeNotifier {
             userid: int.parse(value["user"]['id'].toString()),
             role: value["user"]['user_type'] ?? "",
             token: value['token'].toString(),
-            hnnumber: value["user"]['patient']['patient_hn_number']);
+            hnnumber: value["user"]['patient_hn_number']);
         currentUser.name = value["user"]['name'].toString();
         print("cccccccccccccccccccccc${value["user"]['name'].toString()}");
         login(
-          userID: int.parse(value["user"]['patient']['patient_hn_number'].toString().split("-").last.toString()).toString(),
+          userID: int.parse(value["user"]['patient_hn_number']
+                  .toString()
+                  .split("-")
+                  .last
+                  .toString())
+              .toString(),
           userName: value["user"]['name'].toString(),
         ).then((value) {
           onUserLogin();
