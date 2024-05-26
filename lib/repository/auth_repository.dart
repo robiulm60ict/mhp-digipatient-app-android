@@ -39,8 +39,9 @@ class AuthRepository {
           await apiService.getPostApiResponse(AppUrls.sendVerification, body);
       print(response);
       return response;
-    } catch (e) {
+    } catch (e,k) {
       print(e);
+      print(k);
       rethrow;
     }
   }  Future logoutApi(

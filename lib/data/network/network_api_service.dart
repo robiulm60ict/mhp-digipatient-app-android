@@ -285,7 +285,8 @@ class NetworkApiService extends BaseApiService {
       case 413:
         throw LargeRequestException();
       case 500:
-        throw InternalServerException("Internal Server Error ");
+        dynamic responseJson = jsonDecode(response.body.toString());
+        return responseJson;
       default:
         throw FetchDataException(
             "Error occurred During Communication with status code ${response.statusCode}");
