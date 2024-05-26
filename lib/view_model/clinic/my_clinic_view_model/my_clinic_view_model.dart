@@ -40,21 +40,22 @@ class MyClinicViewModel with ChangeNotifier {
 
     notifyListeners();
   }
-  deactiveDoctors(  BuildContext context, id,states) async {
 
+  deactiveDoctors(BuildContext context, id, states) async {
     notifyListeners();
-    await myRepo.deactiveclinice(id,states).then((value) {
+    await myRepo.deactiveclinice(id, states).then((value) {
       // getmyAllDoctors(context);
       // getmyAllDeactiveDoctors(context);
       getoriganizationdeactive(context);
       getoriganization(context);
       notifyListeners();
     }).onError((error, stackTrace) {
-     // isDoctorLoading = true;
+      // isDoctorLoading = true;
     });
 
     notifyListeners();
   }
+
   copypateitnpostclinicRequest(
       BuildContext context, dbName, saas_branch_id, saas_branch_name) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -131,7 +132,6 @@ class MyClinicViewModel with ChangeNotifier {
 
     notifyListeners();
   }
-
 
   List<OrganizationListModle> organizationlistmodeldeactive = [];
 

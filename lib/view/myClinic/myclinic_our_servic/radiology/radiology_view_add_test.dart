@@ -11,12 +11,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../model/testmodel/testmodellist.dart';
 import '../../../../resources/colors.dart';
+import '../../../../utils/datetime.dart';
 import '../../../../utils/message.dart';
 import '../../../../utils/user.dart';
 import '../../../../utils/utils.dart';
 import '../../../../view_model/clinic/my_clinic_view_model/my_clinic_lav_view_model.dart';
 import '../../../../widgets/back_button.dart';
-import '../../payment_clinic/checkout.dart';
+import '../../../../widgets/custom_textfield.dart';
 
 class RadoiologyAddTest extends StatefulWidget {
   RadoiologyAddTest({super.key, required this.branceid, required this.DbName});
@@ -32,6 +33,7 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
   String? groupValue = "Clinic";
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
+  TextEditingController dateOfBirthController = TextEditingController();
 
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
@@ -75,7 +77,7 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
             style: Style.alltext_default_balck_blod,
           ),
           trailing: ElevatedButton(
-            onPressed: () async{
+            onPressed: () async {
               print(target.latitude);
               List<Map<String, dynamic>> dataList = [];
               print(myRecord.testlistfavert);
@@ -101,14 +103,16 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
                   "branch_id": widget.branceid.toString(),
                   "test_type": "radiology",
                   "test_name": dataList.toString(),
-                  "amount":"${calculateTotal(myRecord.testlistfavert)}",
-                  "lat":target.latitude.toString(),
+                  "amount": "${calculateTotal(myRecord.testlistfavert)}",
+                  "lat": target.latitude.toString(),
                   // getPaymentMethod(),
                   "long": target.longitude.toString(),
                   "sample_collention": groupValue.toString(),
-                 // "ref_num": myLab.referNameRequest.text,
-                 // "payment_number": myLab.payNumberRequest.text.toString(),
-                  "tran_id": myLab.trnsctionIdRequest.text,
+                  "date": dateOfBirthController.text,
+                  // "ref_num": myLab.referNameRequest.text,
+
+                //  "address":"",
+                  //"tran_id": myLab.trnsctionIdRequest.text,
                 };
                 print(body);
                 print(widget.DbName);
@@ -403,6 +407,31 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
                           style: Style.alltext_default_balck,
                         ),
                       ],
+                    ),
+
+                    CustomTextField(
+                      // enable: false,
+                      textEditingController: dateOfBirthController,
+                      prefix: Icon(
+                        Icons.date_range,
+                        color: AppColors.primaryColor,
+                      ),
+                      hintText: "Date",
+                      onTap: () async {
+                        final date = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(3033));
+                        // await PickDateTime()
+                        //      .pickDateregister(context, initialDate: DateTime.now());
+
+                        print("ddddddddddddddd$date");
+                        date == null
+                            ? dateOfBirthController.text
+                            : dateOfBirthController.text =
+                                "${date?.day}-${date?.month}-${date?.year}";
+                      },
                     ),
                   ],
                 ),

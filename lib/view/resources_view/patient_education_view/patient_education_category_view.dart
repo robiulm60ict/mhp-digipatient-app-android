@@ -27,6 +27,14 @@ class _PatientEducationViewState extends State<PatientEducationView> {
     // TODO: implement initState
     super.initState();
   }
+  List resourcespatient = [
+    'Improving the practice of pediatric patient',
+    'Managing your chronic despises symptoms',
+    'Exercise at latest 30 mints a day',
+    'Germs are not for sharing',
+    'Women improve her health',
+  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +94,10 @@ class _PatientEducationViewState extends State<PatientEducationView> {
                             itemCount: provider.patientCatagoryList.length,
                             itemBuilder: (BuildContext context, index) {
                               var resoures = provider.patientCatagoryList[index];
+
+                              String resourceText = index < resourcespatient.length
+                                  ? resourcespatient[index]
+                                  : 'N/A';
                               return
 
                                 InkWell(
@@ -140,6 +152,13 @@ class _PatientEducationViewState extends State<PatientEducationView> {
                                                   overflow: TextOverflow.ellipsis,
                                                   textAlign: TextAlign.center,
                                                   style: Style.alltext_Large_black,
+                                                ),
+                                                Text(
+                                                  resourceText,
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.start,
+                                                  style: Style.alltext_default_balck,
                                                 ),
 
                                               ],

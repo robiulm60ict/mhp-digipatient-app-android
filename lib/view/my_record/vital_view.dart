@@ -1,4 +1,5 @@
 
+import 'package:digi_patient/resources/app_url.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -189,7 +190,7 @@ class _VitalsViewState extends State<VitalsView>
                                 subtitle:
                                     "${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.value : ""} ${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.unitsId : ""}",
                                 image:
-                                    "https://gdbackend.macrohealthplus.org//images/VitalSignIcon/${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.icon : ""}",
+                                    "${AppUrls.baseUrlPatientMain}/images/VitalSignIcon/${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.icon : ""}",
                                 unitId:
                                     "${vitals.patientsVs!.isNotEmpty ? vitals.patientsVs?.first.unitsId : ""}",
                                 color:

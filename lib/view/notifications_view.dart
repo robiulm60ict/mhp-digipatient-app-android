@@ -1,19 +1,14 @@
+import 'package:digi_patient/model/notification/notification.dart';
 import 'package:digi_patient/resources/colors.dart';
-import 'package:digi_patient/utils/utils.dart';
-import 'package:digi_patient/widgets/back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../model/appointment_model/todays_appointment_model.dart';
-import '../model/appointment_model/upcomming_appointments_model.dart';
-import '../resources/app_url.dart';
-import '../resources/constants.dart';
+
 import '../resources/styles.dart';
-import '../utils/popup_dialogue.dart';
 import '../view_model/daily_appointments_view_model/daily_appointments_view_model.dart';
-import '../widgets/notification_list_tile.dart';
+import 'bottom_navigation_buttons/home_view.dart';
 
 class NotificationsView extends StatefulWidget {
   const NotificationsView({Key? key}) : super(key: key);
@@ -27,10 +22,7 @@ class _NotificationsViewState extends State<NotificationsView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<DailyAndUpcommingViewModel>().getTodayAppointments(context);
-      context
-          .read<DailyAndUpcommingViewModel>()
-          .getUpcommingAppointments(context);
+      context.read<DailyAndUpcommingViewModel>().putNofification(context);
     });
   }
 
@@ -56,117 +48,70 @@ class _NotificationsViewState extends State<NotificationsView> {
   Widget build(BuildContext context) {
     final appointments = Provider.of<DailyAndUpcommingViewModel>(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColors.primaryColor,
-        //automaticallyImplyLeading: false,
+    return WillPopScope(
+      onWillPop: () async {
+        // Show exit confirmation dialog
+        bool exit = await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MyExitConfirmationDialog();
+          },
+        );
 
-        centerTitle: true,
-        title: Text(
-          "Notification",
-          style: Style.alltext_default_white,
+        return exit ?? false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: AppColors.primaryColor,
+          //automaticallyImplyLeading: false,
+
+          centerTitle: true,
+          title: Text(
+            "Notification",
+            style: Style.alltext_default_white,
+          ),
         ),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(10.r),
-        child: Column(
-          children: [
-            // Align(
-            //   alignment: Alignment.centerLeft,
-            //   child: Text(
-            //     "Today",
-            //     style: TextStyle(
-            //       fontWeight: FontWeight.w700,
-            //       fontSize: 17.sp,
-            //       color: const Color(0xFF646464),
-            //     ),
-            //   ),
-            // ),
-            SizedBox(
-              height: 5.h,
+        body: Padding(
+          padding: EdgeInsets.all(4.r),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 5.h,
+                ),
+                appointments.isNotificationAppointmentLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : ListView.separated(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          NotoData app = appointments.notificationList[index];
+
+                          return appointments.notificationList.isNotEmpty
+                              ? Card(
+                            elevation: 4,
+                            shadowColor: AppColors.primary_color,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(app.title.toString()),
+                                      Text(app.description.toString())
+                                    ],
+                                  ),
+                                ),
+                              )
+                              : Container();
+                        },
+                        separatorBuilder: (context, index) => SizedBox(
+                              height: 10.h,
+                            ),
+                        itemCount: appointments.notificationList.length),
+              ],
             ),
-            appointments.isTodayAppointmentLoading
-                ? const Center(child: CircularProgressIndicator())
-                : ListView.separated(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      TodaysPatientAppointment app =
-                          appointments.todayAppointmentList[index];
-
-                      return appointments.todayAppointmentList.isNotEmpty
-                          ? NotificationListTile(
-                              doctorName:
-                                  "${app.doctors!.title!.titleName} ${app.doctors!.fullName} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
-                              appointmentTime:
-                                  "${getTime(app.startTime.toString())}- ${getTime(app.endTime.toString())}",
-                              onTap: () {
-                                // notificationPopup(context,
-                                //     doctorName: "${app.drGivenName}",
-                                //     docImage:
-                                //         "${AppUrls.docImage}${app.drImages}", time: '${getTime(app.startTime.toString())}', date: '${getDate(app.createdAt.toString())}', hospital: '${app.patientUsualProviderId}');
-                              },
-                              docImage:
-                                  "${AppUrls.docImage}${app.doctors!.drImages}",
-                              beforeText: 'Today, You have an  ',
-                            )
-                          : Container();
-                    },
-                    separatorBuilder: (context, index) => SizedBox(
-                          height: 10.h,
-                        ),
-                    itemCount: appointments.todayAppointmentList.length),
-
-            //
-            // Align(
-            //   alignment: Alignment.centerLeft,
-            //   child: Text(
-            //     "Up Coming",
-            //     style: TextStyle(
-            //       fontWeight: FontWeight.w700,
-            //       fontSize: 17.sp,
-            //       color: const Color(0xFF646464),
-            //     ),
-            //   ),
-            // ),
-            SizedBox(
-              height: 10.h,
-            ),
-            appointments.isUpcommingAppointmentLoading
-                ? const Center(child: CircularProgressIndicator())
-                : ListView.separated(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      UpcomingAppointment app =
-                          appointments.upcommingAppointmentList[index];
-
-                      return appointments.upcommingAppointmentList.isNotEmpty
-                          ? NotificationListTile(
-                              doctorName:
-                                  "appointment with ${app.doctors!.title!.titleName.toString()} ${app.doctors!.fullName!.toString()} on ${DateFormat("dd-MM-yyyy").format(DateTime.parse(app.startTime.toString()))}.",
-                              appointmentTime:
-                                  "${getTime(app.startTime.toString())}- ${getTime(app.endTime.toString())}",
-                              onTap: () {
-                                // notificationPopup(context,
-                                //     doctorName: "${app.drGivenName}",
-                                //     docImage: "${AppUrls.docImage}${app.drImages}");
-                              },
-                              docImage:
-                                  "${AppUrls.docImage}${app.doctors!.drImages.toString()}",
-                              beforeText: 'You have an ',
-                            )
-                          : Container();
-                    },
-                    separatorBuilder: (context, index) => SizedBox(
-                      height: 10.h,
-                    ),
-                    itemCount: appointments.upcommingAppointmentList.length,
-                  ),
-
-            SizedBox(
-              height: kPadding.h,
-            ),
-          ],
+          ),
         ),
       ),
     );

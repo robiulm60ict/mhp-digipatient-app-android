@@ -218,8 +218,10 @@ class MyAppState extends State<MyApp> {
       child: MaterialApp(
         /// 3/5: register the navigator key to MaterialApp
         navigatorKey: widget.navigatorKey,
-        initialRoute:
-            currentUser.id.isEmpty ? RoutesName.splash : RoutesName.dashbord,
+        initialRoute: _updateInfo?.updateAvailability == UpdateAvailability.updateAvailable ? RoutesName.splashupdate:  RoutesName.splash,
+
+        // initialRoute:
+        //     currentUser.id.isEmpty ? RoutesName.splash : RoutesName.dashbord,
         onGenerateRoute: Routes.generateRoute,
         color: AppColors.primaryColor,
 

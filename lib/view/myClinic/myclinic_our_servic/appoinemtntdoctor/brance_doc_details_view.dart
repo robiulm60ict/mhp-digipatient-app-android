@@ -487,7 +487,7 @@ class _DocDetailsViewState extends State<BranceDocDetailsView> {
                                                           "FaceBook"
                                                       ? Assets.facebook
                                                       : (info.name.toString() ==
-                                                              "Youtube"
+                                                              "YouTube"
                                                           ? Assets.youtube
                                                           : (info.name.toString() ==
                                                                   "LinkedIn"
