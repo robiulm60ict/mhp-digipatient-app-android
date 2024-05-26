@@ -29,7 +29,7 @@ class NetworkApiService extends BaseApiService {
           'databaseName': '${AppUrls.databasename}',
           'Accept': 'application/json',
         },
-      ).timeout(const Duration(seconds: 10));
+      ).timeout(const Duration(seconds: 40));
 
       print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr${response.statusCode}");
 
@@ -54,7 +54,7 @@ class NetworkApiService extends BaseApiService {
           'databaseName': '${AppUrls.databasename}',
           'Accept': 'application/json',
         },
-      ).timeout(const Duration(seconds: 10));
+      ).timeout( Duration(seconds: 20));
 
       if (response.statusCode == 400) {
         showDialog(
@@ -149,7 +149,7 @@ class NetworkApiService extends BaseApiService {
           'databaseName': '${AppUrls.databasename}',
           'Accept': 'application/json',
         },
-      ).timeout(const Duration(seconds: 10));
+      ).timeout(const Duration(seconds: 20));
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException("No Internet Connection");
@@ -169,7 +169,7 @@ class NetworkApiService extends BaseApiService {
           //'databaseName': '${AppUrls.databasename}',
           'Accept': 'application/json',
         },
-      ).timeout(const Duration(seconds: 10));
+      ).timeout(const Duration(seconds: 20));
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException("No Internet Connection");
@@ -189,7 +189,7 @@ class NetworkApiService extends BaseApiService {
           'token': token,
           'Accept': 'application/json',
         },
-      ).timeout(const Duration(seconds: 10));
+      ).timeout(const Duration(seconds: 20));
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException("No Internet Connection");
@@ -212,7 +212,7 @@ class NetworkApiService extends BaseApiService {
           'Accept': 'application/json',
         },
       ).timeout(
-        const Duration(seconds: 10),
+        const Duration(seconds: 20),
       );
       responseJson = returnResponse(response);
     } on SocketException {
@@ -237,7 +237,7 @@ class NetworkApiService extends BaseApiService {
           'Accept': 'application/json',
         },
       ).timeout(
-        const Duration(seconds: 10),
+        const Duration(seconds: 20),
       );
 
       print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr$response");
@@ -265,7 +265,7 @@ class NetworkApiService extends BaseApiService {
           'Accept': 'application/json',
         },
       ).timeout(
-        const Duration(seconds: 10),
+        const Duration(seconds: 20),
       );
       responseJson = returnResponse(response);
     } on SocketException {

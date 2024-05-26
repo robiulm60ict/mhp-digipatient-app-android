@@ -14,6 +14,7 @@ import '../../../resources/styles.dart';
 import '../../../utils/utils.dart';
 import '../../../view_model/clinic/my_clinic_view_model/my_clinic_doctor_view_model.dart';
 import '../../../view_model/clinic_service_view_model/clinic_service_view_model.dart';
+import '../../../view_model/my_record_view_model/my_record_view_model.dart';
 import '../../../widgets/back_button.dart';
 
 class BranchesDetails extends StatefulWidget {
@@ -35,6 +36,14 @@ class _BranchesDetailsState extends State<BranchesDetails> {
     zoom: 14.4746,
   );
 
+  @override
+  void initState() {
+    context.read<MyRecordViewModel>().getalldataradiology(context);
+    context.read<MyRecordViewModel>().getalldatapathology(context);
+
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final clinic = Provider.of<ClinicServiceViewModel>(context);

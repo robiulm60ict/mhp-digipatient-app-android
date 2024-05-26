@@ -212,7 +212,8 @@ class MyRecordViewModel with ChangeNotifier {
   bool isDiagnosisLoading = true;
   String diagnosisStatus = "";
   List<Data> diagnosisList = [];
-  List<TestName> testList = [];
+  List<TestName> testListpatology = [];
+  List<TestName> testListradiology = [];
   List<AllTestNameModel> testListall = [];
   bool isDoctorLoading = true;
 
@@ -280,21 +281,21 @@ bool  isPathologyLoading = false;
 
 
   getalldatapathology(BuildContext context) async {
-    testList.clear();
+    testListpatology.clear();
 
     isPathologyLoading = true;
 
-    notifyListeners();
+    // notifyListeners();
     await myRecordRepo.getalltestpathology().then((value) {
       testListall.add(value);
-      testList.addAll(value.testName as Iterable<TestName>);
+      testListpatology.addAll(value.testName as Iterable<TestName>);
 
-      print(testList);
+      print(testListpatology);
       print("code");
       isPathologyLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
-      isPathologyLoading = true;
+      isPathologyLoading = false;
       debugPrint(error.toString());
       print("rr$error");
       print("rr$stackTrace");
@@ -310,21 +311,22 @@ bool  isPathologyLoading = false;
   bool  isRadiologyLoading = false;
 
   getalldataradiology(BuildContext context) async {
-    testList.clear();
+    testListradiology.clear();
 
     isRadiologyLoading = true;
 
-    notifyListeners();
+    // notifyListeners();
     await myRecordRepo.getalltestradiology().then((value) {
       testListall.add(value);
-      testList.addAll(value.testName as Iterable<TestName>);
+      testListradiology.addAll(value.testName as Iterable<TestName>);
 
-      print(testList);
+      print(testListradiology);
       print("code");
       isRadiologyLoading = false;
       notifyListeners();
     }).onError((error, stackTrace) {
-      isRadiologyLoading = true;
+      isRadiologyLoading = false
+      ;
       debugPrint(error.toString());
       print("rr$error");
       print("rr$stackTrace");

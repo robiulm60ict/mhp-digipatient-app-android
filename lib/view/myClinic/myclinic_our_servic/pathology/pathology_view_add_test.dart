@@ -450,7 +450,7 @@ class _SearchListDialogState extends State<SearchListDialog> {
 
   @override
   void initState() {
-    _filteredData.addAll(context.read<MyRecordViewModel>().testList);
+    _filteredData.addAll(context.read<MyRecordViewModel>().testListpatology);
     // Instead of initializing in initState, use a FutureBuilder
     super.initState();
   }
@@ -498,7 +498,7 @@ class _SearchListDialogState extends State<SearchListDialog> {
             TextField(
               controller: _searchController,
               onChanged: (value) {
-                filterSearchResults(value, myRecord.testList);
+                filterSearchResults(value, myRecord.testListpatology);
               },
               decoration: InputDecoration(
                 labelText: "Search",

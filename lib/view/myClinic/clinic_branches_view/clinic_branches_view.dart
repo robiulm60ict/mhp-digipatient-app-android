@@ -9,6 +9,7 @@ import '../../../resources/colors.dart';
 import '../../../resources/styles.dart';
 import '../../../utils/utils.dart';
 import '../../../view_model/clinic/my_clinic_view_model/my_clinic_view_model.dart';
+import '../../../view_model/my_record_view_model/my_record_view_model.dart';
 import '../../../widgets/back_button.dart';
 
 class ClinicBranches extends StatelessWidget {
@@ -97,6 +98,8 @@ class ClinicBranches extends StatelessWidget {
                           organizationListModle.organization!.branch![index];
                       return InkWell(
                         onTap: () {
+                          context.read<MyRecordViewModel>().getalldataradiology(context);
+                          context.read<MyRecordViewModel>().getalldatapathology(context);
                           provider.copypateitnpostclinicRequest(
                               context,
                               organizationListModle.organization!.dbName
