@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import '../generated/assets.dart';
 import '../utils/route/routes_name.dart';
 import '/resources/colors.dart';
@@ -37,12 +38,14 @@ class _SplashViewState extends State<SplashView> {
     String role = prefs.getString(UserP.role) ?? "";
 
     if (isLoggedIn && role.toLowerCase() == "patient") {
-      Navigator.pushNamed(context, RoutesName.dashbord);
-      // context.router.replace(const DashboardRoute());
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => DashboardView()),
-      // );
+
+      if(ZegoUIKitPrebuiltCallInvitationService().isInCalling) {
+
+      } else {
+        Navigator.pushNamed(context, RoutesName.dashbord);
+      }
+
+
     } else {
       Navigator.pushNamed(context, RoutesName.onbording);
 

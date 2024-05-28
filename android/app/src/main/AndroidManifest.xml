@@ -3,8 +3,8 @@
     package="com.micro.digi_patient">
 
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -26,7 +26,6 @@
         android:icon="@mipmap/ic_launcher"
         android:label="Digi Patient"
         android:requestLegacyExternalStorage="true"
-
         android:usesCleartextTraffic="true"
 
         >

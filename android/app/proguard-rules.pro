@@ -1,2 +1,4 @@
 -keep class **.zego.**  { *; }
 -keep class **.**.zego_zpns.** { *; }
+-keep class com.sslcommerz.** { *; }
+-keep class com.sslcommerz.payment.** { *; }
