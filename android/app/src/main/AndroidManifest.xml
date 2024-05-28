@@ -1,5 +1,6 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.micro.digi_patient">
 
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
@@ -20,13 +21,16 @@
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <!--for bring app to foreground from background in Android 10 -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"
+
+        />
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:label="Digi Patient"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
+        tools:replace="android:label"
 
         >
         <meta-data
