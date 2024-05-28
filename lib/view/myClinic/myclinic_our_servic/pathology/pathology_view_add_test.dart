@@ -121,7 +121,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
               }
             },
             child: Text(
-              "Proceed to Payment",
+              "Proceed to Booking",
               style: Style.drawer_button_style,
             ),
           ),
@@ -375,7 +375,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                             ),
                           ),
                           Text(
-                            'Clinic',
+                            'at Clinic',
                             style: Style.alltext_default_balck,
                           ),
                           SizedBox(
@@ -393,7 +393,7 @@ class _PathologyAddTestState extends State<PathologyAddTest> {
                             ),
                           ),
                           Text(
-                            'Home',
+                            'and from Home',
                             style: Style.alltext_default_balck,
                           ),
                         ],

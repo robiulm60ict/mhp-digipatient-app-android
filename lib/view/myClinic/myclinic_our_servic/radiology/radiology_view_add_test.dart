@@ -403,7 +403,7 @@ class _PathologyAddTestState extends State<RadoiologyAddTest> {
                           ),
                         ),
                         Text(
-                          'Clinic',
+                          'Sample collection at clinic',
                           style: Style.alltext_default_balck,
                         ),
                       ],
